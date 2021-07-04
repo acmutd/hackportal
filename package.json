@@ -17,6 +17,7 @@
   "devDependencies": {
     "@commitlint/cli": "12.1.4",
     "@commitlint/config-conventional": "12.1.4",
+    "@types/react": "^17.0.11",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.1",
