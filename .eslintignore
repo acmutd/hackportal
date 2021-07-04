@@ -1,0 +1,9 @@
+# Don't ever lint node_modules
+node_modules
+# Don't lint build output (make sure it's set to your correct build folder name)
+build
+# Don't lint nyc coverage output
+coverage
+
+# A temporary fix until rewrite is complete
+old
