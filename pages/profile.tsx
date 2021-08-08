@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import React from 'react';
 import { useUser } from '../lib/profile/user-data';
 import { useAuthContext } from '../lib/user/AuthContext';
 
@@ -12,8 +13,14 @@ export default function ProfilePage() {
   const user = useUser();
 
   const router = useRouter();
+
+  React.useEffect(() => {
+    if (!isSignedIn || !user) {
+      router.push('/');
+    }
+  }, [user, isSignedIn, router]);
+
   if (!isSignedIn || !user) {
-    router.push('/');
     return <div className="p-4 flex-grow text-center">Sign in to see your profile!</div>;
   }
 
