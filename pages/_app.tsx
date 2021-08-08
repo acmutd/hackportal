@@ -29,9 +29,8 @@ function PortalApp({ Component, pageProps }: AppProps) {
         <title>HackPortal</title>
         <meta name="description" content="Your all-in-one guide to this hackathon." />
 
-        {!process.env.ENABLE_PWA && process.env.NODE_ENV === 'development' && (
-          <link rel="manifest" href="/manifest.json" />
-        )}
+        {process.env.ENABLE_PWA ||
+          (process.env.NODE_ENV !== 'development' && <link rel="manifest" href="/manifest.json" />)}
 
         <link href="/icons/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
         <link href="/icons/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
