@@ -35,4 +35,5 @@ yarn-error.log*
 
 .eslintcache
 
+# Used to make project initialization quicker
 .env.template
