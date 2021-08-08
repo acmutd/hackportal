@@ -96,7 +96,6 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       .auth()
       .signInWithPopup(provider)
       .then(({ credential, user }) => {
-        console.log('Credential', credential);
         if (user === null) {
           // Something really went wrong
           console.warn("The signed-in user is null? That doesn't seem right.");
