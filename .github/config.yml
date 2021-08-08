@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Project Discussion
+    url: https://github.com/acmutd/hackportal/discussions
+    about: Talk about general project features and ideas here.
+  - name: ACM Development
+    url: https://acmutd.co/teams/dev
+    about: More information about the core HackPortal maintainers.
+  - name: Inquiries for Maintainers
+    url: development@acmutd.co
+    about: If you have a question specific to the maintainers, contact them here.
