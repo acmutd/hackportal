@@ -16,7 +16,10 @@ cd hackportal
 npm install
 ```
 
-To run the development server:
+Follow the instructions in the [set-up docs](./docs/set-up.md) to set up
+Firebase APIs before continuing.
+
+Now run the development server:
 
 ```bash
 npm run dev
