@@ -78,6 +78,10 @@
   margin-top: 3rem;
 }
 
+.element { 
+  font-family: 'wavehaus';
+ }
+
 .card {
   margin: 1rem;
   padding: 1.5rem;
@@ -111,6 +115,12 @@
 .logo {
   height: 1em;
   margin-left: 0.5rem;
+}
+
+@font-face {
+  font-family: 'wavehaus';
+  src: url('/fonts/wavehaus/Wavehaus-66Book.ttf') format("truetype");
+  font-display: auto;
 }
 
 @media (max-width: 600px) {
