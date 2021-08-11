@@ -40,7 +40,8 @@ export default function Register() {
                 placeholder="John Smith"
                 type="text"
               />
-              <br /> <br />
+              <br />
+              <br />
             </label>
 
             <label className="text-1xl my-4 font-bold font-small text-left">
