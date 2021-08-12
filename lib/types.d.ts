@@ -1,4 +1,11 @@
 /**
+ * A type extender that gives an object type an ID.
+ */
+type WithId<T> = T & {
+  id: string;
+};
+
+/**
  * A flag for the set of functionality that is enabled for an account.
  */
 type UserPermission = 'admin' | 'sponsor' | 'organizer' | 'judge' | 'hacker';
