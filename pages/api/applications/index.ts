@@ -113,7 +113,6 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
   // TODO: User query params from request to populate fields
   const application: WithId<Registration> = {
     id: applicationDoc.id,
-    email: '',
     timestamp: new Date().getUTCMilliseconds(),
     user: {
       id: '',
@@ -124,7 +123,22 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
     },
     age: 0,
     gender: '',
+    race: '',
     ethnicity: '',
+    university: '',
+    major: '',
+    studyLevel: '',
+    hackathonExperience: 0,
+    softwareExperience: '',
+    heardFrom: '',
+    size: '',
+    dietary: '',
+    accomodations: '',
+    github: '',
+    linkedin: '',
+    website: '',
+    resume: '',
+    companies: [],
   };
 
   try {

@@ -9,7 +9,15 @@ import React, { useState } from 'react';
 
 export default function Register() {
   const handleSubmit = (event) => {
+    console.log(event.target.value);
     event.preventDefault();
+    //get data out of form
+    //make post request to api
+    fetch('/api/applications', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...event.target.value }),
+    });
     alert('Your application has been submitted.');
   };
   return (
@@ -39,6 +47,7 @@ export default function Register() {
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 placeholder="John Smith"
                 type="text"
+                name="name"
               />
               <br />
               <br />
@@ -51,6 +60,7 @@ export default function Register() {
                 placeholder="email@example.com"
                 type="text"
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
+                name="email"
               />
               <br />
               <br />
@@ -72,7 +82,10 @@ export default function Register() {
             <label className="text-1xl my-4 font-bold font-small text-left">
               Gender:
               <br />
-              <select className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md">
+              <select
+                className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
+                name="gender"
+              >
                 <option value="Other">Other</option>
                 <option value="Female">Female</option>
                 <option value="Male">Male</option>
@@ -85,7 +98,10 @@ export default function Register() {
             <label className="text-1xl font-bold font-small text-left">
               Race:
               <br />
-              <select className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md">
+              <select
+                className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
+                name="race"
+              >
                 <option value="Indian">American Indian or Alaska Native</option>
                 <option value="Asian">Asian</option>
                 <option value="Black">Black or African American</option>
@@ -99,7 +115,10 @@ export default function Register() {
             <label className="text-1xl my-4 font-bold font-small text-left">
               Ethnicity:
               <br />
-              <select className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md">
+              <select
+                className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
+                name="ethnicity"
+              >
                 <option value="hispanic">Hispanic or Latino</option>
                 <option value="notHispanic">Not Hispanic or Latino</option>
               </select>
@@ -118,6 +137,7 @@ export default function Register() {
                 placeholder="University of Knowledge"
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
+                name="university"
               />
               <br />
               <br />
@@ -130,6 +150,7 @@ export default function Register() {
                 placeholder="Computer Science, Accounting, etc."
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
+                name="major"
               />
               <br />
               <br />
@@ -141,12 +162,13 @@ export default function Register() {
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 placeholder="Select One"
+                name="studyLevel"
               >
                 <option value="freshman">Freshman</option>
                 <option value="sophomore">Sophomore</option>
                 <option value="junior">Junior</option>
                 <option value="senior">Senior</option>
-                <option value="senior">Graduate Student</option>
+                <option value="grad">Graduate Student</option>
               </select>
               <br />
               <br />
@@ -172,7 +194,10 @@ export default function Register() {
             <label className="text-1xl my-4 font-bold font-small text-left">
               Relative software-building experience:
               <br />
-              <select className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md">
+              <select
+                className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
+                name="experience"
+              >
                 <option value="Beginner">Beginner</option>
                 <option value="Intermedate">Intermedate</option>
                 <option value="Advanced">Advanced</option>
@@ -186,7 +211,10 @@ export default function Register() {
             <label className="text-1xl my-4 font-bold font-small text-left">
               Where did you hear about [HACKATHON NAME]?
               <br />
-              <select className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md">
+              <select
+                className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
+                name="heard"
+              >
                 <option value="Instagram">Instagram</option>
                 <option value="Twitter">Twitter</option>
                 <option value="Site">Event Site</option>
@@ -203,7 +231,10 @@ export default function Register() {
             <label className="text-1xl my-4 font-bold font-small text-left">
               Shirt Size:
               <br />
-              <select className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md">
+              <select
+                className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
+                name="size"
+              >
                 <option value="s">S</option>
                 <option value="m">M</option>
                 <option value="l">L</option>
@@ -226,7 +257,6 @@ export default function Register() {
               <input className="form-checkbox h-5 w-5" name="Vegitarian" type="checkbox" />
               <text className="pl-2">Vegitarian</text>
             </label>
-
             <label>
               <br />
               <input className="form-checkbox h-5 w-5" name="Nuts" type="checkbox" />
@@ -237,7 +267,6 @@ export default function Register() {
               <input className="form-checkbox h-5 w-5" name="Fish" type="checkbox" />
               <text className="pl-2">Fish</text>
             </label>
-
             <label>
               <br />
               <input className="form-checkbox h-5 w-5" name="Wheat" type="checkbox" />
@@ -262,6 +291,7 @@ export default function Register() {
               <textarea
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 placeholder="List any accessibility concerns here"
+                name="accessibility"
               />
               <br />
               <br />
@@ -277,6 +307,7 @@ export default function Register() {
               <input
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
+                name="github"
               />
               <br />
               <br />
@@ -288,6 +319,7 @@ export default function Register() {
               <input
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
+                name="linkedin"
               />
               <br />
               <br />
@@ -299,6 +331,7 @@ export default function Register() {
               <input
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
+                name="site"
               />
               <br />
               <br />
@@ -323,7 +356,7 @@ export default function Register() {
             <label>
               Upload your resume:
               <br />
-              <input type="file" />
+              <input name="resume" type="file" />
               <br />
             </label>
             <br />

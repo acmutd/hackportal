@@ -9,7 +9,7 @@ type WithId<T> = T & {
  * A flag for the set of functionality that is enabled for an account.
  */
 type UserPermission = 'admin' | 'sponsor' | 'organizer' | 'judge' | 'hacker';
-
+type Companies = 'SF' | 'AA' | 'C1' | 'EB' | 'FB';
 /**
  * Basic information needed for displays on the website.
  *
@@ -56,30 +56,43 @@ type User = Person & {
  * Information about a specific event registration.
  */
 type Registration = {
-  /**
-   * The email used to contact the user.
-   */
-  preferredEmail: string;
-
-  /**
-   * Basic biographical user data
-   */
-  user: User;
+  id: string;
   /**
    * A UNIX timestamp corresponding to when a hacker registered for the event.
    */
   timestamp: number;
+  /**
+   * Basic biographical user data
+   */
+  user: {
+    id: string;
+    permissions: UserPermission[];
+    firstName: string;
+    lastName: string;
+    /**
+     * The email used to contact the user.
+     */
+    preferredEmail: string;
+  };
   // TODO: Allow for qualifiers like "how old will you be at the day of the event?"
-  age: number;
-
-  gender: string;
-
-  ethnicity: string;
-
   // TODO: Allow this to be dynamically defined by the organizers
   // TODO: responses: { [questionId: string]: Question }
-  githubUrl?: string;
-  linkedinUrl?: string;
-  websiteUrl?: string;
-  resumeUrl?: string;
+  age: number;
+  gender: string;
+  race: string;
+  ethnicity: string;
+  university: string;
+  major: string;
+  studyLevel: string;
+  hackathonExperience: number;
+  softwareExperience: string;
+  heardFrom: string;
+  size: string;
+  dietary: string;
+  accomodations: string;
+  github?: string;
+  linkedin?: string;
+  website?: string;
+  resume?: string;
+  companies: Companies[];
 };
