@@ -44,3 +44,35 @@ type User = Person & {
    */
   permissions: UserPermission[];
 };
+
+/**
+ * Information about a specific event registration.
+ */
+type Registration = {
+  /**
+   * The email used to contact the user.
+   */
+  preferredEmail: string;
+
+  /**
+   * Basic biographical user data
+   */
+  user: User;
+  /**
+   * A UNIX timestamp corresponding to when a hacker registered for the event.
+   */
+  timestamp: number;
+  // TODO: Allow for qualifiers like "how old will you be at the day of the event?"
+  age: number;
+
+  gender: string;
+
+  ethnicity: string;
+
+  // TODO: Allow this to be dynamically defined by the organizers
+  // TODO: responses: { [questionId: string]: Question }
+  githubUrl?: string;
+  linkedinUrl?: string;
+  websiteUrl?: string;
+  resumeUrl?: string;
+};
