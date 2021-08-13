@@ -1,14 +1,19 @@
+@import url('/fonts/stylesheet.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 
+  font-family:
     sans-serif;
 }
 
 @font-face {
   font-family: 'wavehaus';
-  src: url('/fonts/wavehaus/Wavehaus-66Book.ttf') format("truetype");
+  src: url('/fonts/Wavehaus-66Book.ttf') format("truetype");
   font-display: auto;
 }
 
@@ -21,6 +26,6 @@ a {
   box-sizing: border-box;
 }
 
-.element { 
+.element {
   font-family: 'wavehaus';
  }
