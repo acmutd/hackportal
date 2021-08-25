@@ -15,7 +15,7 @@
     "@material-ui/icons": "^4.11.2",
     "firebase": "^8.9.0",
     "firebase-admin": "^9.11.0",
-    "next": "11.0.1",
+    "next": "^11.1.0",
     "next-fonts": "^1.5.1",
     "next-pwa": "^5.2.24",
     "react": "17.0.2",

@@ -17,6 +17,15 @@ body {
   font-display: auto;
 }
 
+a.link {
+  /* padding-right: 30px; */
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  display: flex-center;
+  @apply px-4;
+}
+
 a {
   color: inherit;
   text-decoration: none;

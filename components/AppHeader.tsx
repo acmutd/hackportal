@@ -19,16 +19,45 @@ export default function AppHeader() {
 
   return (
     <>
-      <header className="static p-4 flex  bg-white shadow-md">
-        <div className="flex-0 text-xl font-bold" onClick={dismissDialog}>
-          <Link href="/">
-            <a>HackPortal</a>
+      <header className="top-0 sticky flex flex-row justify-between p-2 md:p-4 bg-white shadow-md items-center">
+        <Link href="/">
+          <a
+            className="flex font-display self-center inline-block items-center"
+            onClick={dismissDialog}
+          >
+            <span className="text-2xl font-semibold">HackPortal</span>
+          </a>
+        </Link>
+        <div className="md:flex justify-center text-xl font-header md:text-left">
+          <Link href="/dashboard">
+            <a onClick={dismissDialog}>
+              <span className="inline md:invisible"></span>
+              <a className="link">Dashboard</a>
+            </a>
+          </Link>
+          <Link href="/sponsors">
+            <a onClick={dismissDialog}>
+              <span className="inline md:invisible"></span>
+              <a className="link">Sponsors</a>
+            </a>
+          </Link>
+          <Link href="/schedule">
+            <a onClick={dismissDialog}>
+              <span className="inline md:invisible"></span>
+              <a className="link">Schedule</a>
+            </a>
+          </Link>
+          <Link href="/about">
+            <a onClick={dismissDialog}>
+              <span className="inline md:invisible"></span>
+              <a className="link">About</a>
+            </a>
           </Link>
         </div>
-        <div className="flex flex-grow flex-row-reverse text-xl">
+        <div className="flex flex-row-reverse text-xl">
           <div className="mx-4">
-            <button className="h-8" onClick={toggleDialog}>
-              <AccountCircleIcon />
+            <button className="SigninButton font-header" onClick={toggleDialog}>
+              Sign In
             </button>
           </div>
         </div>

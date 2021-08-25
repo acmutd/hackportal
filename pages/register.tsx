@@ -14,12 +14,18 @@ export default function Register() {
     //get data out of form
     //make post request to api
     fetch('/api/applications', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...event.target.value }),
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
+    }).then((result) => {
+      if (result.status === 201) {
+        alert('Your application has been submitted.');
+      } else {
+        console.warn('Submission failed.', result);
+      }
     });
-    alert('Your application has been submitted.');
   };
+
   return (
     <div className="flex flex-col flex-grow">
       <Head>
@@ -41,18 +47,29 @@ export default function Register() {
         <div className="max-w-4xl py-4 mx-auto">
           <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
             <label className="text-1xl my-4 font-bold font-small text-left">
-              Enter your first and last name:
+              Enter your first name:
               <br />
               <input
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
-                placeholder="John Smith"
+                placeholder="John"
                 type="text"
-                name="name"
+                name="1name"
               />
               <br />
               <br />
             </label>
-
+            <label className="text-1xl my-4 font-bold font-small text-left">
+              Enter your last name:
+              <br />
+              <input
+                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
+                placeholder="Smith"
+                type="text"
+                name="2name"
+              />
+              <br />
+              <br />
+            </label>
             <label className="text-1xl my-4 font-bold font-small text-left">
               Enter your email:
               <br />
@@ -360,11 +377,12 @@ export default function Register() {
               <br />
             </label>
             <br />
-            <input
+            <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded "
               type="submit"
-              value="Submit"
-            />
+            >
+              Test
+            </button>
           </form>
         </div>
       </section>
