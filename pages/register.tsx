@@ -20,6 +20,8 @@ export default function Register() {
     }).then((result) => {
       if (result.status === 201) {
         alert('Your application has been submitted.');
+      } else if (result.status === 500) {
+        alert('Server error!');
       } else {
         console.warn('Submission failed.', result);
       }
