@@ -33,25 +33,25 @@ export default function AppHeader() {
             <Link href="/dashboard">
               <a onClick={dismissDialog}>
                 <span className="inline md:invisible"></span>
-                <a className="">Dashboard</a>
+                <a className="md:mx-4 mr-2">Dashboard</a>
               </a>
             </Link>
             <Link href="/sponsors">
               <a onClick={dismissDialog}>
                 <span className="inline md:invisible"></span>
-                <a className="">Sponsors</a>
+                <a className="md:mx-4 mr-2">Sponsors</a>
               </a>
             </Link>
             <Link href="/schedule">
               <a onClick={dismissDialog}>
                 <span className="inline md:invisible"></span>
-                <a className=" ">Schedule</a>
+                <a className="md:mx-4 mr-2">Schedule</a>
               </a>
             </Link>
             <Link href="/about">
               <a onClick={dismissDialog}>
                 <span className="inline md:invisible"></span>
-                <a className="">About</a>
+                <a className="md:mx-4 mr-2">About</a>
               </a>
             </Link>
           </div>
