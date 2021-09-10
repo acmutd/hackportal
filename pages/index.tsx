@@ -34,12 +34,6 @@ export default function Home() {
             >
               Become a mentor/volunteer
             </a>
-            <a
-              href="hackerpack"
-              className="inline-block flex-1 mx-2 px-4 py-2 text-xl text-center hover:text-blue-400 rounded-md border-4 border-blue-200"
-            >
-              HackerPacks
-            </a>
           </div>
         </div>
       </section>
