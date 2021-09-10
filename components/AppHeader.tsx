@@ -19,16 +19,47 @@ export default function AppHeader() {
 
   return (
     <>
-      <header className="static p-4 flex  bg-white shadow-md">
-        <div className="flex-0 text-xl font-bold" onClick={dismissDialog}>
+      <header className="top-0 sticky justify-between flex flex-row p-2 md:p-4 bg-white shadow-md items-center h-16 z-10">
+        <div className="flex align-middle items-center">
           <Link href="/">
-            <a>HackPortal</a>
+            <a
+              className="flex font-display self-center inline-block items-center"
+              onClick={dismissDialog}
+            >
+              <span className="md:text-2xl text-l font-semibold md:mr-10 mr-5">HackPortal</span>
+            </a>
           </Link>
+          <div className="md:text-xl text-xs md:text-left">
+            <Link href="/dashboard">
+              <a onClick={dismissDialog}>
+                <span className="inline md:invisible"></span>
+                <a className="md:mx-4 mr-2">Dashboard</a>
+              </a>
+            </Link>
+            <Link href="/sponsors">
+              <a onClick={dismissDialog}>
+                <span className="inline md:invisible"></span>
+                <a className="md:mx-4 mr-2">Sponsors</a>
+              </a>
+            </Link>
+            <Link href="/schedule">
+              <a onClick={dismissDialog}>
+                <span className="inline md:invisible"></span>
+                <a className="md:mx-4 mr-2">Schedule</a>
+              </a>
+            </Link>
+            <Link href="/about">
+              <a onClick={dismissDialog}>
+                <span className="inline md:invisible"></span>
+                <a className="md:mx-4 mr-2">About</a>
+              </a>
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-grow flex-row-reverse text-xl">
+        <div className="flex flex-row-reverse md:text-xl text-s">
           <div className="mx-4">
-            <button className="h-8" onClick={toggleDialog}>
-              <AccountCircleIcon />
+            <button className="SigninButton font-header" onClick={toggleDialog}>
+              Sign In
             </button>
           </div>
         </div>
