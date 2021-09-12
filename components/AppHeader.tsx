@@ -2,11 +2,17 @@ import Link from 'next/link';
 import React from 'react';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ProfileDialog from './ProfileDialog';
+import { useUser } from '../lib/profile/user-data';
+import { useAuthContext } from '../lib/user/AuthContext';
+import clsx from 'clsx';
 
 /**
  * A global site header throughout the entire app.
  */
 export default function AppHeader() {
+  const { isSignedIn } = useAuthContext();
+  const user = useUser();
+
   const [showProfileDialog, setShowProfileDialog] = React.useState(false);
 
   const dismissDialog = () => {
@@ -59,7 +65,10 @@ export default function AppHeader() {
         <div className="flex flex-row-reverse md:text-xl text-s">
           <div className="mx-4">
             <button className="SigninButton font-header" onClick={toggleDialog}>
-              Sign In
+              {!user || !isSignedIn ? 'Sign in' : 'Profile'}
+              {/* To Do: must fix profile pic button */}
+              {/* {!user || !isSignedIn ? 'Sign in' : <Image src={user.photoUrl} alt="Profile">} */}
+              {/* {clsx({'Sign in' : (!user || !isSignedIn)})} */}
             </button>
           </div>
         </div>
