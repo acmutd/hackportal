@@ -88,7 +88,7 @@ type Registration = {
   softwareExperience: string;
   heardFrom: string;
   size: string;
-  dietary: string;
+  dietary: Array<string>; // proposed change
   accomodations: string;
   github?: string;
   linkedin?: string;

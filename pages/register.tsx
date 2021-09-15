@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import React, { useState } from 'react';
+import { useUser } from '../lib/profile/user-data';
+import { useAuthContext } from '../lib/user/AuthContext';
 
 /**
  * The registration page.
@@ -8,18 +10,110 @@ import React, { useState } from 'react';
  */
 
 export default function Register() {
-  const handleSubmit = (event) => {
-    console.log(event.target.value);
+  // React controlled components
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
+  const [email, setEmail] = useState('');
+  const [age, setAge] = useState('');
+  const [gender, setGender] = useState('');
+  const [race, setRace] = useState('');
+  const [ethnicity, setEthnicity] = useState('');
+  const [uni, setUni] = useState('');
+  const [major, setMajor] = useState('');
+  const [year, setYear] = useState('');
+  const [hackathonExperience, setHackathonExperience] = useState('');
+  const [heardFrom, setHeardFrom] = useState('');
+  const [shirtSize, setShirtSize] = useState('');
+  const [softwareExperience, setSoftwareExperience] = useState('');
+  const [accommodations, setAccommodations] = useState('');
+  const [github, setGithub] = useState('');
+  const [website, setWebsite] = useState('');
+  const [linkedin, setLinkedin] = useState('');
+
+  const [allergiesList, setAllergiesList] = useState(new Array(allergies.length).fill(false));
+
+  const [companiesList, setCompaniesList] = useState(new Array(companies.length).fill(false));
+
+  const handleOnChange = (position, stateList, setStateList) => {
+    const updatedCheckedState = stateList.map((item, index) => (index === position ? !item : item));
+    setStateList(updatedCheckedState);
+  };
+
+  // Check if user signed in here
+  const { isSignedIn } = useAuthContext();
+  const user = useUser();
+
+  const handleSubmit = async (event) => {
+    // Prevent page refresh
     event.preventDefault();
-    //get data out of form
-    //make post request to api
-    fetch('/api/applications', {
-      body: JSON.stringify({ ...event.target.value }),
+
+    // Check if user signed in
+    if (!isSignedIn || !user) {
+      alert('Please sign in!');
+      return 0;
+    }
+
+    // Convert dietary and companies from bools to names
+    let finalAllergiesList: Array<string> = [];
+    let finalCompaniesList: Array<string> = [];
+    for (let i = 0; i < allergies.length; i++) {
+      if (allergiesList[i] === true) {
+        finalAllergiesList.push(allergies[i]['name']);
+      }
+    }
+    for (let i = 0; i < companies.length; i++) {
+      if (companiesList[i] === true) {
+        finalCompaniesList.push(companies[i]['name']);
+      }
+    }
+
+    const data = {
+      fname: fname,
+      lname: lname,
+      email: email,
+      age: age,
+      gender: gender,
+      race: race,
+      ethnicity: ethnicity,
+      university: uni,
+      major: major,
+      year: year,
+      hackathonExperience: hackathonExperience,
+      heardFrom: heardFrom,
+      shirtSize: shirtSize,
+      softwareExperience: softwareExperience,
+      allergies: finalAllergiesList,
+      accommodations: accommodations,
+      github: github,
+      linkedin: linkedin,
+      website: website,
+      companies: finalCompaniesList,
+    };
+
+    // TODO: Implement loading resume
+
+    await fetch('/api/applications', {
+      body: JSON.stringify(data),
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
     }).then((result) => {
       if (result.status === 201) {
         alert('Your application has been submitted.');
+      } else if (result.status === 500) {
+        alert('Server error!');
+      } else {
+        console.warn('Submission failed.', result);
+      }
+    });
+
+    // Send email
+    await fetch('/api/email', {
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
+    }).then((result) => {
+      if (result.status === 201) {
+        alert('Email confirmation sent');
       } else if (result.status === 500) {
         alert('Server error!');
       } else {
@@ -57,6 +151,8 @@ export default function Register() {
                 type="text"
                 name="1name"
                 autoComplete="given-name"
+                value={fname}
+                onChange={(e) => setFname(e.target.value)}
                 required
               />
               <br />
@@ -71,6 +167,8 @@ export default function Register() {
                 type="text"
                 name="2name"
                 autoComplete="family-name"
+                value={lname}
+                onChange={(e) => setLname(e.target.value)}
                 required
               />
               <br />
@@ -86,6 +184,8 @@ export default function Register() {
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
               <br />
@@ -102,6 +202,8 @@ export default function Register() {
                 type="number"
                 min="0"
                 max="100"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
                 required
               />
               <br />
@@ -114,11 +216,14 @@ export default function Register() {
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="gender"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
                 required
               >
-                <option value="Other">Other</option>
+                <option value="">Select an option</option>
                 <option value="Female">Female</option>
                 <option value="Male">Male</option>
+                <option value="Other">Other</option>
                 <option value="notSay">Prefer not to say</option>
               </select>
               <br />
@@ -131,8 +236,11 @@ export default function Register() {
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="race"
+                value={race}
+                onChange={(e) => setRace(e.target.value)}
                 required
               >
+                <option value="">Select an option</option>
                 <option value="Indian">American Indian or Alaska Native</option>
                 <option value="Asian">Asian</option>
                 <option value="Black">Black or African American</option>
@@ -149,8 +257,11 @@ export default function Register() {
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="ethnicity"
+                value={ethnicity}
+                onChange={(e) => setEthnicity(e.target.value)}
                 required
               >
+                <option value="">Select an option</option>
                 <option value="hispanic">Hispanic or Latino</option>
                 <option value="notHispanic">Not Hispanic or Latino</option>
               </select>
@@ -170,6 +281,8 @@ export default function Register() {
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
                 name="university"
+                value={uni}
+                onChange={(e) => setUni(e.target.value)}
                 required
               />
               <br />
@@ -184,6 +297,8 @@ export default function Register() {
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
                 name="major"
+                value={major}
+                onChange={(e) => setMajor(e.target.value)}
                 required
               />
               <br />
@@ -197,8 +312,11 @@ export default function Register() {
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 placeholder="Select One"
                 name="studyLevel"
+                value={year}
+                onChange={(e) => setYear(e.target.value)}
                 required
               >
+                <option value="">Select an option</option>
                 <option value="freshman">Freshman</option>
                 <option value="sophomore">Sophomore</option>
                 <option value="junior">Junior</option>
@@ -223,6 +341,8 @@ export default function Register() {
                 type="number"
                 min="0"
                 max="100"
+                value={hackathonExperience}
+                onChange={(e) => setHackathonExperience(e.target.value)}
                 required
               />
               <br />
@@ -235,8 +355,11 @@ export default function Register() {
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="experience"
+                value={softwareExperience}
+                onChange={(e) => setSoftwareExperience(e.target.value)}
                 required
               >
+                <option value="">Select an option</option>
                 <option value="Beginner">Beginner</option>
                 <option value="Intermedate">Intermedate</option>
                 <option value="Advanced">Advanced</option>
@@ -253,8 +376,11 @@ export default function Register() {
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="heard"
+                value={heardFrom}
+                onChange={(e) => setHeardFrom(e.target.value)}
                 required
               >
+                <option value="">Select an option</option>
                 <option value="Instagram">Instagram</option>
                 <option value="Twitter">Twitter</option>
                 <option value="Site">Event Site</option>
@@ -274,8 +400,11 @@ export default function Register() {
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="size"
+                value={shirtSize}
+                onChange={(e) => setShirtSize(e.target.value)}
                 required
               >
+                <option value="">Select an option</option>
                 <option value="s">S</option>
                 <option value="m">M</option>
                 <option value="l">L</option>
@@ -288,7 +417,26 @@ export default function Register() {
             <label className="text-1xl my-4 font-bold font-small text-left">
               Allergies / Dietary Restrictions:
             </label>
-            <label>
+
+            {allergies.map(({ name }, index) => {
+              return (
+                <div className="toppings-list-item" key={index}>
+                  <div className="left-section">
+                    <input
+                      type="checkbox"
+                      key={`custom-checkbox-${index}`}
+                      name={name}
+                      // value={name}
+                      checked={allergiesList[index]}
+                      onChange={() => handleOnChange(index, allergiesList, setAllergiesList)}
+                    />
+                    <text className="pl-2"> {name} </text>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* <label>
               <br />
               <input className="form-checkbox h-5 w-5" name="Vegan" type="checkbox" />
               <text className="pl-2">Vegan</text>
@@ -324,7 +472,7 @@ export default function Register() {
               <text className="pl-2">Eggs</text>
               <br />
               <br />
-            </label>
+            </label> */}
 
             <label className="text-1xl my-4 font-bold font-small text-left">
               Anything else we can do to better accomodate you at our hackathon?
@@ -332,6 +480,8 @@ export default function Register() {
               <textarea
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 placeholder="List any accessibility concerns here"
+                value={accommodations}
+                onChange={(e) => setAccommodations(e.target.value)}
                 name="accessibility"
               />
               <br />
@@ -349,6 +499,8 @@ export default function Register() {
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
                 name="github"
+                value={github}
+                onChange={(e) => setGithub(e.target.value)}
               />
               <br />
               <br />
@@ -361,6 +513,8 @@ export default function Register() {
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
                 name="linkedin"
+                value={linkedin}
+                onChange={(e) => setLinkedin(e.target.value)}
               />
               <br />
               <br />
@@ -373,6 +527,8 @@ export default function Register() {
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
                 name="site"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
               />
               <br />
               <br />
@@ -381,7 +537,26 @@ export default function Register() {
             <label className="text-1xl my-4 font-bold font-small text-left">
               Companies to send my resume to:
             </label>
-            <label>
+
+            {companies.map(({ name }, index) => {
+              return (
+                <div className="toppings-list-item" key={index}>
+                  <div className="left-section">
+                    <input
+                      type="checkbox"
+                      id={`custom-checkbox-${index}`}
+                      name={name}
+                      // value={name}
+                      checked={companiesList[index]}
+                      onChange={() => handleOnChange(index, companiesList, setCompaniesList)}
+                    />
+                    <text className="pl-2"> {name} </text>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* <label>
               <br />
               <input className="form-checkbox h-5 w-5" name="Google" type="checkbox" />
               <text className="pl-2">Google</text>
@@ -392,7 +567,7 @@ export default function Register() {
               <text className="pl-2">Ebay</text>
               <br />
               <br />
-            </label>
+            </label> */}
 
             <label>
               Upload your resume:
@@ -413,3 +588,57 @@ export default function Register() {
     </div>
   );
 }
+
+// Not sure where to put this
+export const allergies = [
+  {
+    name: 'Vegan',
+  },
+  {
+    name: 'Vegetarian',
+  },
+  {
+    name: 'Nuts',
+  },
+  {
+    name: 'Wheat',
+  },
+  {
+    name: 'Fish',
+  },
+  {
+    name: 'Dairy',
+  },
+  {
+    name: 'Eggs',
+  },
+];
+
+/* 
+Hard coded as of now; cool if sponsers can add list of sponsers dynamically
+ - maybe store that info on Firestore
+*/
+
+export const companies = [
+  {
+    name: 'Google',
+  },
+  {
+    name: 'Facebook',
+  },
+  {
+    name: 'eBay',
+  },
+  {
+    name: 'Amazon',
+  },
+  {
+    name: 'Texas Instruments',
+  },
+  {
+    name: 'Gamestop',
+  },
+  {
+    name: '',
+  },
+];

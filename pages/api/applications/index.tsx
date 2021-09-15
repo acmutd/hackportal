@@ -89,7 +89,7 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
 
   let body: any;
   try {
-    body = JSON.parse(applicationBody);
+    body = JSON.parse(JSON.stringify(applicationBody)); // refactor later
   } catch (error) {
     console.error('Could not parse request JSON body');
     res.status(400).json({
@@ -104,46 +104,51 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
   const userDoc = db.collection(USERS_COLLECTION).doc();
   // TODO: Get data from user doc, return error if it doesn't exist.
 
-  const userExists = false;
+  let userExists = true; // check for if user exists is in register.tsx
+
+  // Moot
   if (!userExists) {
-    res.status(403).send({});
+    res.status(403).send({
+      type: 'invalid',
+      message: "user doesn't exist",
+    });
     return;
   }
 
-  // TODO: User query params from request to populate fields
+  // TODO: User query params from request to populate fields (DONE)
   const application: WithId<Registration> = {
     id: applicationDoc.id,
     timestamp: new Date().getUTCMilliseconds(),
     user: {
       id: '',
       permissions: [],
-      firstName: '',
-      lastName: '',
-      preferredEmail: '',
+      firstName: body.fname,
+      lastName: body.lname,
+      preferredEmail: body.email,
     },
-    age: 0,
-    gender: '',
-    race: '',
-    ethnicity: '',
-    university: '',
-    major: '',
-    studyLevel: '',
-    hackathonExperience: 0,
-    softwareExperience: '',
-    heardFrom: '',
-    size: '',
-    dietary: '',
-    accomodations: '',
-    github: '',
-    linkedin: '',
-    website: '',
+    age: body.age,
+    gender: body.gender,
+    race: body.race,
+    ethnicity: body.ethnicity,
+    university: body.university,
+    major: body.major,
+    studyLevel: body.year,
+    hackathonExperience: body.hackathonExperience,
+    softwareExperience: body.softwareExperience,
+    heardFrom: body.heardFrom,
+    size: body.shirtSize,
+    dietary: body.allergies,
+    accomodations: body.accomodations || '',
+    github: body.github || '',
+    linkedin: body.linkedin || '',
+    website: body.website || '',
     resume: '',
-    companies: [],
+    companies: body.companies || [],
   };
 
   try {
     const result = await applicationDoc.set(application);
-    res.status(201);
+    res.status(201).end(`Application Submitted`);
   } catch (error) {
     console.error('Error when storing application in database', error);
     res.status(500);
