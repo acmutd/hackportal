@@ -102,7 +102,7 @@ export default function hackerpack() {
       </section>
 
       <section id="mainContent" className="px-6 py-3 w-3/4 md:wd-5/6 2xl:w-7/8">
-        <section id="subheader" className="w-full pb-6 pt- sticky top-16">
+        <section id="subheader" className="w-full pb-6 sticky top-16">
           <DashboardHeader />
         </section>
         <div className="font-bold text-2xl md:text-4xl lg-text-6xl">Big Heading</div>
