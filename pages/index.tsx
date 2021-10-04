@@ -23,7 +23,7 @@ export default function Home() {
           <div className="my-2 flex max-w-xl mx-auto justify-center">
             {/* TODO: Programmatically show these based on configured times/organizer preference */}
             <a
-              href="#"
+              href="register"
               className="inline-block flex-1 mx-2 px-4 py-2 text-xl text-center hover:text-blue-400 rounded-md border-4 border-blue-200"
             >
               Register for event
