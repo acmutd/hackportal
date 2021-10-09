@@ -111,7 +111,7 @@ export default function hackerpack() {
           Linked Documents:
           <div className="flex flex-wrap grid grid-cols-2 lg:grid-cols-3 ">
             <div>
-              <DescriptionIcon style={{ color: Blue[500], fontSize: 'medium' }} />{' '}
+              <DescriptionIcon style={{ color: Blue[500], fontSize: 'large' }} />{' '}
               <a
                 href="https://docs.google.com/document/d/1adXBUwGyVwdzgt43W8JTWb67JMPAaiERei6QWopodVw/edit"
                 rel="noopener noreferrer"

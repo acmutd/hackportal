@@ -4,6 +4,11 @@ import Link from 'next/link';
 import DashboardHeader from '../../components/DashboardHeader';
 import { useUser } from '../../lib/profile/user-data';
 import { useAuthContext } from '../../lib/user/AuthContext';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import AnnouncementCard from './Components/AnnouncementCards';
+import MentorCard1 from './Components/MentorCard1';
+import MentorCard3 from './Components/MentorCard3';
 
 /**
  * The dashboard / hack center.
@@ -60,44 +65,41 @@ export default function Dashboard() {
           <div className="md:w-3/5 w-screen h-96">
             <h1 className="md:text-3xl text-xl font-black">Spotlight</h1>
             <h3 className="md:text-xl text-md font-bold my-3">2 events are happening right now!</h3>
-            <div className="h-72 bg-gray-100 w-5/6"></div>
+            <div className="h-72 bg-gray-100 w-5/6 grid grid-cols-7">
+              <div className="col-span-1 h-full flex justify-end items-center">
+                <ArrowBackIosIcon style={{ fontSize: 'medium' }} />
+              </div>
+              <div className="col-span-5 h-5/6 rounded-lg bg-blue-200 my-auto"></div>
+              <div className="col-span-1 h-full flex justify-left items-center">
+                <ArrowForwardIosIcon style={{ fontSize: 'medium' }} />
+              </div>
+            </div>
           </div>
-
+          {/* Announcements */}
           <div className="md:w-2/5 w-screen h-96">
             <h1 className="md:text-3xl text-xl font-black">Announcements</h1>
             <div id="announcement-items" className="overflow-y-scroll h-9/10">
-              <div
-                id="announcement-content"
-                className="bg-purple-200 md:min-h-1/4 min-h-1/2 rounded-lg p-3"
-              >
-                iluashdgilbngburiglbena
-              </div>
-              <p className="text-right">1:12 PM</p>
-              <div
-                id="announcement-content"
-                className="bg-purple-200 md:min-h-1/4 min-h-1/2 rounded-lg p-3"
-              >
-                iluashdgilbngburiglbena
-              </div>
-              <p className="text-right">1:12 PM</p>
-              <div
-                id="announcement-content"
-                className="bg-purple-200 md:min-h-1/4 min-h-1/2 rounded-lg p-3"
-              >
-                iluashdgilbngburiglbena
-              </div>
-              <p className="text-right">1:12 PM</p>
-              <div
-                id="announcement-content"
-                className="bg-purple-200 md:min-h-1/4 min-h-1/2 rounded-lg p-3"
-              >
-                iluashdgilbngburiglbena
-              </div>
-              <p className="text-right">1:12 PM</p>
+              <AnnouncementCard
+                text="AWAKE Chocolate Bars available in ECSW Lobby for limited time only! Come and grab some now!"
+                time="1:12 PM"
+              />
+              <AnnouncementCard
+                text="Keynote Speaker Antonio Bendaras' speech has been moved from room 1.1501 to 1.514"
+                time="1:02 PM"
+              />
+              <AnnouncementCard
+                text="Hacking has officially started! Get hacking hackers :)"
+                time="11:00 AM"
+              />
+              <AnnouncementCard
+                text="Check-in has opened! Come to the entrance at ECSW to get checked-in."
+                time="8:00 AM"
+              />
+              <AnnouncementCard text="Gooooood Mooooorning!" time="6:00 AM" />
             </div>
           </div>
         </div>
-
+        {/* Mentor Center */}
         <div className="my-16">
           <h1 className="md:text-3xl text-xl font-black">Mentor Center</h1>
           <p className="my-3">
@@ -107,22 +109,43 @@ export default function Dashboard() {
             shirts. We also have the following virtual judging rooms available right now:
           </p>
           <div className=" flex overflow-x-scroll w-full">
-            <div className="h-80 min-w-64 bg-red-200 rounded-2xl mx-4"></div>
-            <div className="h-80 min-w-64 bg-red-200 rounded-2xl mx-4"></div>
-            <div className="h-80 min-w-64 bg-red-200 rounded-2xl mx-4"></div>
-            <div className="h-80 min-w-64 bg-red-200 rounded-2xl mx-4"></div>
-            <div className="h-80 min-w-64 bg-red-200 rounded-2xl mx-4"></div>
-            <div className="h-80 min-w-64 bg-red-200 rounded-2xl mx-4"></div>
+            <MentorCard3
+              room="Frontend Mentoring Room 1"
+              topic1="Flutter"
+              topic2="React"
+              topic3="Vue.js"
+              status="Open"
+            />
+            <MentorCard3
+              room="Frontend Mentoring Room 2"
+              topic1="Python"
+              topic2="AWS"
+              topic3="Models"
+              status="Open"
+            />
+            <MentorCard1
+              room="Statefarm Mentoring Room"
+              topic="Statefarm Challenge"
+              status="Open"
+            />
+            <MentorCard1 room="Capital One Room" topic="Capital One Challenge" status="Open" />
+            <MentorCard3
+              room="Frontend Mentoring Room 3"
+              topic1="Flutter"
+              topic2="React"
+              topic3="Vue.js"
+              status="Open"
+            />
           </div>
         </div>
-
+        {/* Events and Team */}
         <div className="flex flex-wrap h-96 my-16">
-          <div className="md:w-3/5 w-screen bg-green-100">
+          <div className="md:w-3/5 w-screen ">
             <h1 className="md:text-3xl text-xl font-black">Your Saved Events</h1>
           </div>
-          <div className="md:w-2/5 w-screen bg-purple-200">
+          <div className="md:w-2/5 w-screen ">
             <h1 className="md:text-3xl text-xl font-black">Your Team</h1>
-            <div className="h-3/5 p-5 md:text-xl text-lg">Hackergang</div>
+            <div className="h-4/5 p-5 md:text-xl text-lg bg-purple-200 rounded-lg">Hackergang</div>
           </div>
         </div>
       </section>
