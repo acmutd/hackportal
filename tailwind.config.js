@@ -20,6 +20,8 @@ module.exports = {
       },
       minWidth: {
         64: '16rem',
+        56: '14rem',
+        '160px': '160px',
       },
       minHeight: {
         '1/3': '33.33%',
@@ -30,7 +32,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      display: ['group-hover'],
+    },
   },
   plugins: [],
 };
