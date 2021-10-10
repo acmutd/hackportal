@@ -4,7 +4,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ProfileDialog from './ProfileDialog';
 import { useUser } from '../lib/profile/user-data';
 import { useAuthContext } from '../lib/user/AuthContext';
-import clsx from 'clsx';
+import MenuIcon from '@material-ui/icons/Menu';
 
 /**
  * A global site header throughout the entire app.
@@ -63,18 +63,12 @@ export default function AppHeader() {
               </a>
             </Link>
           </div>
-
-          <div className="mx-4 sm:hidden">
+          {/* Menu dropdown for mobile */}
+          <div className="sm:hidden">
             <div className="dropdown inline-block relative">
               <button className="bg-gray-300 text-gray-700 font-semibold py-1 px-2 rounded inline-flex items-center">
                 <span className="mr-1">Menu</span>
-                <svg
-                  className="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />{' '}
-                </svg>
+                <MenuIcon />
               </button>
               <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
                 <li className="">
