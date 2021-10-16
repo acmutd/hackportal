@@ -1,36 +1,38 @@
 import Head from 'next/head';
 import React from 'react';
+import { useUser } from '../../lib/profile/user-data';
+import { useAuthContext } from '../../lib/user/AuthContext';
+import DescriptionIcon from '@material-ui/icons/Description';
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
+import Blue from '@material-ui/core/colors/blue';
+import Red from '@material-ui/core/colors/red';
 import DashboardHeader from '../../components/DashboardHeader';
-
 /**
- * The dashboard / hackerpack.
+ * The hackerpack page.
  *
- * Landing: /hackerpack
+ * HackerPack: /
  */
-export default function hackerpack() {
+
+export default function HackerPack() {
+  const { isSignedIn } = useAuthContext();
+  const user = useUser();
+  const role = user.permissions?.length > 0 ? user.permissions[0] : '';
+
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-grow flex-wrap">
       <Head>
         <title>HackerPacks</title>
-        <meta name="description" content="HackPortal's HackerPacks" />
+        <meta name="description" content="HackerPack Information" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section id="subheader" className="p-4">
-        <DashboardHeader />
-      </section> */}
-
-      {/* ghost section to fill in for fixed sidebar */}
-      <section
-        id="ghost"
-        className="flex justify-center h-screen sticky top-0 w-1/4 md:w-1/6 2xl:w-1/8 text-xs md:text-xs lg:text-sm overflow-auto"
-      ></section>
 
       <section
         id="Sidebar"
-        className="flex justify-center h-screen fixed top-16 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-xs md:text-xs lg:text-sm overflow-auto"
+        className="flex justify-center h-screen sticky top-0 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-xs md:text-xs lg:text-sm overflow-auto"
       >
-        <section id="options" className="relative px-6 py-4">
+        <section id="options" className="relative py-6 px-4">
           <div className="font-bold mb-3">HackerPack</div>
-          <ul className="pl-4 pb-32">
+          <ul className="pl-4 pb-16">
             <li>
               General
               <ul className="pl-4">
@@ -101,17 +103,18 @@ export default function hackerpack() {
         </div>
       </section>
 
-      <section id="mainContent" className="px-6 py-3 w-3/4 md:wd-5/6 2xl:w-7/8">
+      <section id="mainContent" className="px-6 py-6 w-3/4 md:wd-5/6 2xl:w-7/8">
         <section id="subheader" className="w-full pb-6 sticky top-16">
           <DashboardHeader />
         </section>
+
         <div className="font-bold text-2xl md:text-4xl lg-text-6xl">Big Heading</div>
 
         <section id="docLinks" className="bg-gray-200 rounded-lg my-6 p-5 w-5/6">
           Linked Documents:
           <div className="flex flex-wrap grid grid-cols-2 lg:grid-cols-3 ">
             <div>
-              <DescriptionIcon style={{ color: Blue[500], fontSize: 'large' }} />{' '}
+              <DescriptionIcon style={{ color: Blue[500], fontSize: 'medium' }} />{' '}
               <a
                 href="https://docs.google.com/document/d/1adXBUwGyVwdzgt43W8JTWb67JMPAaiERei6QWopodVw/edit"
                 rel="noopener noreferrer"
@@ -271,10 +274,6 @@ export default function hackerpack() {
           </div>
         </div>
       </section>
-      <div className="top-6">
-        <h4>HackerPacks</h4>
-        <h5>HackerPack info here</h5>
-      </div>
     </div>
   );
 }
