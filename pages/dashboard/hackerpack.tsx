@@ -8,11 +8,11 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 import Blue from '@material-ui/core/colors/blue';
 import Red from '@material-ui/core/colors/red';
-
+import DashboardHeader from '../../components/DashboardHeader';
 /**
- * The dashboard / hackerpack.
+ * The hackerpack page.
  *
- * Landing: /hackerpack
+ * HackerPack: /
  */
 export default function HackerPack() {
   const { isSignedIn } = useAuthContext();
@@ -23,7 +23,8 @@ export default function HackerPack() {
     <div className="flex flex-grow flex-wrap">
       <Head>
         <title>HackerPacks</title>
-        <meta name="description" content="HackPortal's HackerPacks" />
+        <meta name="description" content="HackerPack Information" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       {/* <section id="subheader" className="w-full p-4">
@@ -117,6 +118,7 @@ export default function HackerPack() {
         <section id="subheader" className="w-full pb-6 sticky top-16">
           <DashboardHeader />
         </section>
+
         <div className="font-bold text-2xl md:text-4xl lg-text-6xl">Big Heading</div>
 
         <section id="docLinks" className="bg-gray-200 rounded-lg my-6 p-5 w-5/6">
