@@ -1,0 +1,33 @@
+.landing__title_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 560px;
+  height: 250px;
+  position: relative;
+  margin-bottom: 112px;
+}
+
+.landing__title_container::after,
+.landing__title_container::before {
+  display: block;
+  position: absolute;
+  content: '';
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+  border-style: solid;
+  border-color: #000;
+}
+
+.landing__title_container::after {
+  top: 0;
+  right: 0;
+  border-width: 6px 6px 0 0;
+}
+
+.landing__title_container::before {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 6px 6px;
+}

@@ -1,0 +1,10 @@
+.header__logo::after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #c5c5c5;
+}
