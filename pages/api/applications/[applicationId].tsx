@@ -87,10 +87,7 @@ export default function handleApplications(req: NextApiRequest, res: NextApiResp
   // GET: Return this application
   // PATCH: Modify an application
   // DELETE: Delete this applications
-  const {
-    method,
-    query: { applicationId },
-  } = req;
+  const { method } = req;
   if (method === 'GET') {
     handleGetApplication(req, res);
   } else if (method === 'PATCH') {

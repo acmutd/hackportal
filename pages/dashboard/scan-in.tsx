@@ -1,6 +1,8 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import DashboardHeader from '../../components/DashboardHeader';
+import qr from 'qrcode';
+import { useAuthContext } from '../../lib/user/AuthContext';
 
 /**
  * The dashboard / submit.
@@ -16,17 +18,22 @@ export default function Scan() {
     const query = new URL(`http://localhost:3000/api/applications/${user.id}`);
     query.searchParams.append('token', user.token);
     query.searchParams.append('id', user.id);
-    fetch(query.toString(), {
+    fetch(query.toString().replaceAll('http://localhost:3000', ''), {
       mode: 'cors',
       headers: { Authorization: user.token },
       method: 'GET',
-    }).then(async (result) => {
-      if (result.status !== 200) {
-        return setError('QR fetch failed. Please contact an event organizer.');
-      }
-      const data = await result.json();
-      qr.toCanvas(canvas.current, data.id).then(() => setError(''));
-    });
+    })
+      .then(async (result) => {
+        if (result.status !== 200) {
+          return setError('QR fetch failed. Please contact an event organizer.');
+        }
+        const data = await result.json();
+        qr.toCanvas(canvas.current, data.id).then(() => setError(''));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    fetch('');
   };
 
   return (
