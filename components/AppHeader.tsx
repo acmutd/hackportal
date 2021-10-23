@@ -4,7 +4,6 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ProfileDialog from './ProfileDialog';
 
 import { navItems } from '../lib/data';
-import styles from '../styles/header.module.css';
 
 /**
  * A global site header throughout the entire app.
@@ -26,7 +25,7 @@ export default function AppHeader() {
         <div className="flex w-6/12 align-middle items-center">
           <Link href="/">
             <a
-              className={`${styles.header__logo} flex relative font-display self-center items-center`}
+              className="flex relative font-display self-center items-center after:absolute after:block after:right-0 after:w-6 after:h-6 after:rounded-full after:bg-gray-400"
               onClick={dismissDialog}
             >
               <span className="md:text-2xl text-l font-black md:mr-10 mr-5">HackUTD VIII</span>
