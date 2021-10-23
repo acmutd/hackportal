@@ -92,9 +92,7 @@ export default function handleApplications(req: NextApiRequest, res: NextApiResp
     query: { applicationId },
   } = req;
   if (method === 'GET') {
-    res.status(200).json({
-      id: applicationId,
-    });
+    handleGetApplication(req, res);
   } else if (method === 'PATCH') {
   } else if (method === 'DELETE') {
     // Maybe check for additional authorization so only organizers can delete individual applications?
