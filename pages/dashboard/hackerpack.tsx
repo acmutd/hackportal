@@ -4,10 +4,7 @@ import Head from 'next/head';
 import React from 'react';
 import { useUser } from '../../lib/profile/user-data';
 import { useAuthContext } from '../../lib/user/AuthContext';
-import DescriptionIcon from '@material-ui/icons/Description';
-import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
-import Blue from '@material-ui/core/colors/blue';
-import Red from '@material-ui/core/colors/red';
+import DocLink from './Components/DocLinks';
 
 /**
  * The dashboard / hackerpack.
@@ -114,7 +111,7 @@ export default function HackerPack() {
       </section>
 
       <section id="mainContent" className="px-6 py-3 w-3/4 md:wd-5/6 2xl:w-7/8">
-        <section id="subheader" className="w-full p-4">
+        <section id="subheader" className="w-full pb-6 sticky top-16">
           <DashboardHeader />
         </section>
         <div className="font-bold text-2xl md:text-4xl lg-text-6xl">Big Heading</div>
@@ -122,66 +119,36 @@ export default function HackerPack() {
         <section id="docLinks" className="bg-gray-200 rounded-lg my-6 p-5 w-5/6">
           Linked Documents:
           <div className="flex flex-wrap grid grid-cols-2 lg:grid-cols-3 ">
-            <div>
-              <DescriptionIcon style={{ color: Blue[500], fontSize: 'medium' }} />{' '}
-              <a
-                href="https://docs.google.com/document/d/1adXBUwGyVwdzgt43W8JTWb67JMPAaiERei6QWopodVw/edit"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Easy Mac and Cheese Recipe
-              </a>
-            </div>
-            <div>
-              <PictureAsPdfIcon style={{ color: Red[500], fontSize: 'medium' }} />{' '}
-              <a
-                href="https://cdn1.parksmedia.wdprapps.disney.com/media/blog/wp-content/uploads/2020/08/RECIPE_WDW_Epcot_FW_MacandCheeseMarketplace_GourmetMacandCheese.pdf"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Easy Mac and Cheese Recipe
-              </a>
-            </div>
-            <div>
-              <DescriptionIcon style={{ color: Blue[500], fontSize: 'medium' }} />{' '}
-              <a
-                href="https://docs.google.com/document/d/1adXBUwGyVwdzgt43W8JTWb67JMPAaiERei6QWopodVw/edit"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Easy Mac and Cheese Recipe
-              </a>
-            </div>
-            <div>
-              <DescriptionIcon style={{ color: Blue[500], fontSize: 'medium' }} />{' '}
-              <a
-                href="https://docs.google.com/document/d/1PCCYh-EUiYYK-CCYcZZ2PXQTVTpzY7HpAqHS3DT9p6U/edit"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                An Essay for Comm
-              </a>
-            </div>
-            <div>
-              <DescriptionIcon style={{ color: Blue[500], fontSize: 'medium' }} />{' '}
-              <a
-                href="https://docs.google.com/document/d/1PCCYh-EUiYYK-CCYcZZ2PXQTVTpzY7HpAqHS3DT9p6U/edit"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                An Essay for Comm
-              </a>
-            </div>
-            <div>
-              <DescriptionIcon style={{ color: Blue[500], fontSize: 'medium' }} />{' '}
-              <a
-                href="https://docs.google.com/document/d/1PCCYh-EUiYYK-CCYcZZ2PXQTVTpzY7HpAqHS3DT9p6U/edit"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                An Essay for Comm
-              </a>
-            </div>
+            <DocLink
+              type="doc"
+              link="https://docs.google.com/document/d/1adXBUwGyVwdzgt43W8JTWb67JMPAaiERei6QWopodVw/edit"
+              title="Easy Mac and Cheese Recipe"
+            />
+            <DocLink
+              type="pdf"
+              link="https://cdn1.parksmedia.wdprapps.disney.com/media/blog/wp-content/uploads/2020/08/RECIPE_WDW_Epcot_FW_MacandCheeseMarketplace_GourmetMacandCheese.pdf"
+              title="Easy Mac and Cheese Recipe"
+            />
+            <DocLink
+              type="doc"
+              link="https://docs.google.com/document/d/1adXBUwGyVwdzgt43W8JTWb67JMPAaiERei6QWopodVw/edit"
+              title="Easy Mac and Cheese Recipe"
+            />
+            <DocLink
+              type="doc"
+              link="https://docs.google.com/document/d/1PCCYh-EUiYYK-CCYcZZ2PXQTVTpzY7HpAqHS3DT9p6U/edit"
+              title="An Essay for Comm"
+            />
+            <DocLink
+              type="doc"
+              link="https://docs.google.com/document/d/1PCCYh-EUiYYK-CCYcZZ2PXQTVTpzY7HpAqHS3DT9p6U/edit"
+              title="An Essay for Comm"
+            />
+            <DocLink
+              type="doc"
+              link="https://docs.google.com/document/d/1PCCYh-EUiYYK-CCYcZZ2PXQTVTpzY7HpAqHS3DT9p6U/edit"
+              title="An Essay for Comm"
+            />
           </div>
         </section>
 

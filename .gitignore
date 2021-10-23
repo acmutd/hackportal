@@ -35,9 +35,6 @@ yarn-error.log*
 
 .eslintcache
 
-# Used to make project initialization quicker
-.env.template
-
 # Ignores automatically-generated workbox files for next-pwa
 public/sw.*
 public/workbox-*.*

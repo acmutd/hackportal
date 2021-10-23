@@ -38,3 +38,7 @@ a {
 .element {
   font-family: 'wavehaus';
  }
+ 
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
