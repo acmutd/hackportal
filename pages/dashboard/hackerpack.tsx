@@ -1,3 +1,5 @@
+import DashboardHeader from '../../components/DashboardHeader';
+import Header from '../../components/AppHeader';
 import Head from 'next/head';
 import React from 'react';
 import { useUser } from '../../lib/profile/user-data';
@@ -12,7 +14,6 @@ import DashboardHeader from '../../components/DashboardHeader';
  *
  * HackerPack: /
  */
-
 export default function HackerPack() {
   const { isSignedIn } = useAuthContext();
   const user = useUser();
@@ -26,13 +27,23 @@ export default function HackerPack() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      {/* <section id="subheader" className="w-full p-4">
+        <DashboardHeader />
+      </section> */}
+
+      {/* ghost section to fill in for fixed sidebar */}
+      <section
+        id="ghost"
+        className="flex justify-center h-screen sticky top-0 w-1/4 md:w-1/6 2xl:w-1/8 text-xs md:text-xs lg:text-sm overflow-auto"
+      ></section>
+
       <section
         id="Sidebar"
-        className="flex justify-center h-screen sticky top-0 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-xs md:text-xs lg:text-sm overflow-auto"
+        className="flex justify-center h-screen fixed top-16 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-xs md:text-xs lg:text-sm overflow-auto"
       >
-        <section id="options" className="relative py-6 px-4">
+        <section id="options" className="relative px-6 py-4">
           <div className="font-bold mb-3">HackerPack</div>
-          <ul className="pl-4 pb-16">
+          <ul className="pl-4 pb-32">
             <li>
               General
               <ul className="pl-4">
@@ -103,7 +114,7 @@ export default function HackerPack() {
         </div>
       </section>
 
-      <section id="mainContent" className="px-6 py-6 w-3/4 md:wd-5/6 2xl:w-7/8">
+      <section id="mainContent" className="px-6 py-3 w-3/4 md:wd-5/6 2xl:w-7/8">
         <section id="subheader" className="w-full pb-6 sticky top-16">
           <DashboardHeader />
         </section>
@@ -114,7 +125,7 @@ export default function HackerPack() {
           Linked Documents:
           <div className="flex flex-wrap grid grid-cols-2 lg:grid-cols-3 ">
             <div>
-              <DescriptionIcon style={{ color: Blue[500], fontSize: 'medium' }} />{' '}
+              <DescriptionIcon style={{ color: Blue[500], fontSize: 'large' }} />{' '}
               <a
                 href="https://docs.google.com/document/d/1adXBUwGyVwdzgt43W8JTWb67JMPAaiERei6QWopodVw/edit"
                 rel="noopener noreferrer"

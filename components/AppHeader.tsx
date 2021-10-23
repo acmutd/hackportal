@@ -80,7 +80,7 @@ export default function AppHeader() {
                 <li className="">
                   <Link href="/dashboard">
                     <a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap">
-                      Dasboard
+                      Dashboard
                     </a>
                   </Link>
                 </li>
@@ -94,7 +94,7 @@ export default function AppHeader() {
                 <li className="">
                   <Link href="/schedule">
                     <a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap">
-                      Schdeule
+                      Schedule
                     </a>
                   </Link>
                 </li>
@@ -110,7 +110,7 @@ export default function AppHeader() {
           </div>
           {/* End of main menu items */}
         </div>
-        <div className="flex flex-row-reverse text-xl">
+        <div className="flex flex-row-reverse md:text-xl text-s">
           <div className="mx-4">
             <button className="SigninButton font-header" onClick={toggleDialog}>
               {!user || !isSignedIn ? 'Sign in' : 'Profile'}

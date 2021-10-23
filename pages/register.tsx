@@ -49,61 +49,72 @@ export default function Register() {
         <div className="max-w-4xl py-4 mx-auto">
           <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
             <label className="text-1xl my-4 font-bold font-small text-left">
-              Enter your first name:
+              *Enter your first name:
               <br />
               <input
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 placeholder="John"
                 type="text"
                 name="1name"
+                autoComplete="given-name"
+                required
               />
               <br />
               <br />
             </label>
             <label className="text-1xl my-4 font-bold font-small text-left">
-              Enter your last name:
+              *Enter your last name:
               <br />
               <input
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 placeholder="Smith"
                 type="text"
                 name="2name"
+                autoComplete="family-name"
+                required
               />
               <br />
               <br />
             </label>
             <label className="text-1xl my-4 font-bold font-small text-left">
-              Enter your email:
+              *Enter your email:
               <br />
               <input
                 placeholder="email@example.com"
-                type="text"
+                type="type"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 name="email"
+                autoComplete="email"
+                required
               />
               <br />
               <br />
             </label>
 
             <label className="text-1xl my-4 font-bold font-small text-left">
-              Age:
+              *Age:
               <br />
               <input
                 placeholder="18"
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 name="age"
                 type="number"
+                min="0"
+                max="100"
+                required
               />
               <br />
               <br />
             </label>
 
             <label className="text-1xl my-4 font-bold font-small text-left">
-              Gender:
+              *Gender:
               <br />
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="gender"
+                required
               >
                 <option value="Other">Other</option>
                 <option value="Female">Female</option>
@@ -115,11 +126,12 @@ export default function Register() {
             </label>
 
             <label className="text-1xl font-bold font-small text-left">
-              Race:
+              *Race:
               <br />
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="race"
+                required
               >
                 <option value="Indian">American Indian or Alaska Native</option>
                 <option value="Asian">Asian</option>
@@ -132,11 +144,12 @@ export default function Register() {
             </label>
 
             <label className="text-1xl my-4 font-bold font-small text-left">
-              Ethnicity:
+              *Ethnicity:
               <br />
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="ethnicity"
+                required
               >
                 <option value="hispanic">Hispanic or Latino</option>
                 <option value="notHispanic">Not Hispanic or Latino</option>
@@ -150,38 +163,41 @@ export default function Register() {
               </div>
             </section>
             <label className="text-1xl my-4 font-bold font-small text-left">
-              This event is for college students worldwide. Which university do you attend?
+              *This event is for college students worldwide. Which university do you attend?
               <br />
               <input
                 placeholder="University of Knowledge"
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
                 name="university"
+                required
               />
               <br />
               <br />
             </label>
 
             <label className="text-1xl my-4 font-bold font-small text-left">
-              All majors are welcome at this event. What is your major?
+              *All majors are welcome at this event. What is your major?
               <br />
               <input
                 placeholder="Computer Science, Accounting, etc."
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
                 name="major"
+                required
               />
               <br />
               <br />
             </label>
 
             <label className="text-1xl my-4 font-bold font-small text-left">
-              Current level of study?
+              *Current level of study?
               <br />
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 placeholder="Select One"
                 name="studyLevel"
+                required
               >
                 <option value="freshman">Freshman</option>
                 <option value="sophomore">Sophomore</option>
@@ -198,24 +214,28 @@ export default function Register() {
               </div>
             </section>
             <label className="text-1xl my-4 font-bold font-small text-left">
-              How many hackathons have you attended before?
+              *How many hackathons have you attended before?
               <br />
               <input
                 placeholder="0"
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 name="numhackathon"
                 type="number"
+                min="0"
+                max="100"
+                required
               />
               <br />
               <br />
             </label>
 
             <label className="text-1xl my-4 font-bold font-small text-left">
-              Relative software-building experience:
+              *Relative software-building experience:
               <br />
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="experience"
+                required
               >
                 <option value="Beginner">Beginner</option>
                 <option value="Intermedate">Intermedate</option>
@@ -228,11 +248,12 @@ export default function Register() {
 
             {/*ORGANIZER CAN CUSTOMIZE DROPDOWN OPTIONS*/}
             <label className="text-1xl my-4 font-bold font-small text-left">
-              Where did you hear about [HACKATHON NAME]?
+              *Where did you hear about [HACKATHON NAME]?
               <br />
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="heard"
+                required
               >
                 <option value="Instagram">Instagram</option>
                 <option value="Twitter">Twitter</option>
@@ -248,11 +269,12 @@ export default function Register() {
               </div>
             </section>
             <label className="text-1xl my-4 font-bold font-small text-left">
-              Shirt Size:
+              *Shirt Size:
               <br />
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="size"
+                required
               >
                 <option value="s">S</option>
                 <option value="m">M</option>
