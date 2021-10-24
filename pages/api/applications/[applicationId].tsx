@@ -75,6 +75,7 @@ async function handleGetApplication(req: NextApiRequest, res: NextApiResponse) {
       message: 'Something went wrong when processing this request. Try again later.',
     });
   }
+  return;
 }
 
 /**
@@ -89,7 +90,7 @@ export default function handleApplications(req: NextApiRequest, res: NextApiResp
   // DELETE: Delete this applications
   const { method } = req;
   if (method === 'GET') {
-    handleGetApplication(req, res);
+    return handleGetApplication(req, res);
   } else if (method === 'PATCH') {
   } else if (method === 'DELETE') {
     // Maybe check for additional authorization so only organizers can delete individual applications?
