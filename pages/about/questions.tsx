@@ -3,15 +3,16 @@ import React, { useEffect, useState } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import AnsweredQuestion from '../../components/AnsweredQuestion';
 import PendingQuestion from '../../components/PendingQuestion';
-import { ColorScheme } from '../../utilities/colorScheme';
 import { fakeAnsweredQuestions, fakePendingQuestions } from '../../lib/data';
 
 /**
- * The about / questions.
+ * The Question and Answers page.
  *
- * Landing: /questions
+ * This page is where Hackers can submit questions and then organizers can answer them.
+ *
+ * Route: /about/questions
  */
-export default function Questions() {
+export default function QuestionsPage() {
   const [loading, setLoading] = useState(true);
   const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([]);
   const [pendingQuestions, setPendingQuestions] = useState<PendingQuestion[]>([]);
@@ -59,15 +60,15 @@ export default function Questions() {
   return (
     <div className="flex flex-col flex-grow">
       <Head>
-        <title>HackerPacks</title>
+        <title>HackPortal - Questions</title>
         <meta name="description" content="HackPortal's Quesiton and Answer Page " />
       </Head>
-      <section id="subheader" className="p-4">
+      <section className="p-4">
         <AboutHeader active="/about/questions" />
       </section>
       <div className="top-6 p-4 flex flex-col gap-y-3">
         <h4 className="font-bold text-3xl">Ask the organizers a question!</h4>
-        <div id="submit-question">
+        <div>
           <textarea
             className="w-full rounded-xl p-4"
             rows={5}
@@ -85,14 +86,14 @@ export default function Questions() {
           </div>
         </div>
 
-        <div id="pending-question">
+        <div>
           <h4 className="font-bold text-2xl">My Pending Question</h4>
           {pendingQuestions.map(({ question }, idx) => (
             <PendingQuestion key={idx} question={question} />
           ))}
         </div>
 
-        <div id="answered-question" className="my-4">
+        <div className="my-4">
           <h4 className="font-bold text-2xl">My Answered Question</h4>
           {answeredQuestions.map(({ question, answer }, idx) => (
             <AnsweredQuestion

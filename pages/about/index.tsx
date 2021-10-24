@@ -2,15 +2,17 @@ import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import MemberCard from '../../components/MemberCard';
-import { ColorScheme } from '../../utilities/colorScheme';
 import { fakeHackathonData, fakeMembers } from '../../lib/data';
 
 /**
- * The about page.
+ * The About page.
  *
- * Landing: /about
+ * This page contains some introduction about the hackathon in question. It also includes a section used
+ * to introduce the team responsible for organizing the hackathon
+ *
+ * Route: /about
  */
-export default function About() {
+export default function AboutPage() {
   const [loading, setLoading] = useState(true);
   const [hackathonData, setHackathonData] = useState<HackathonBio>();
   const [members, setMembers] = useState<TeamMember[]>([]);
@@ -62,7 +64,7 @@ export default function About() {
         <title>HackPortal - About</title>
         <meta name="description" content="HackPortal's About Page" />
       </Head>
-      <section id="subheader" className="p-4">
+      <section className="p-4">
         <AboutHeader active="/about" />
       </section>
       <div className="top-6 p-6 flex flex-col gap-y-4">

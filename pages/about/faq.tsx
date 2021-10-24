@@ -6,11 +6,13 @@ import FaqDisclosure from '../../components/FaqDisclosure';
 import { fakeFaqs } from '../../lib/data';
 
 /**
- * The about / faq.
+ * The FAQ page.
  *
- * Landing: /about/faq
+ * This page contains frequently asked questions for the hackathon.
+ *
+ * Route: /about/faq
  */
-export default function Faq() {
+export default function FaqPage() {
   const [loading, setLoading] = useState(true);
   const [faqs, setFaqs] = useState<AnsweredQuestion[]>([]);
   const [disclosuresStatus, setDisclosureStatus] = useState<boolean[]>();
@@ -43,10 +45,10 @@ export default function Faq() {
   return (
     <div className="flex flex-col flex-grow">
       <Head>
-        <title>HackerPacks</title>
+        <title>HackPortal - FAQ</title>
         <meta name="description" content="HackPortal's Frequently Asked Questions" />
       </Head>
-      <section id="subheader" className="p-4">
+      <section className="p-4">
         <AboutHeader active="/about/faq" />
       </section>
       <div className="top-6 p-4">
