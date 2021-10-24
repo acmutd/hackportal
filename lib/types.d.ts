@@ -47,6 +47,11 @@ type User = Person & {
   id: string;
 
   /**
+   * User's JWT.
+   */
+  token?: string;
+
+  /**
    * Flags for parts of the app this user can access.
    */
   permissions: UserPermission[];
