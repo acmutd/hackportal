@@ -96,3 +96,41 @@ type Registration = {
   resume?: string;
   companies: Companies[];
 };
+
+/**
+ * Represent an answered question
+ *
+ *  */
+type AnsweredQuestion = {
+  question: string;
+  answer: string;
+};
+
+/**
+ * Represent a waiting-for-response question
+ *
+ *  */
+type PendingQuestion = {
+  question: string;
+};
+
+/**
+ *
+ * Represent a team member if "Meet our Team" section of /about
+ *
+ */
+type TeamMember = {
+  name: string;
+  description: string;
+};
+
+/**
+ *
+ * Represent information used to introduce hackathon in About section
+ *
+ */
+type HackathonBio = {
+  hackathonName: string;
+  // Each element will be equivalent to 1 paragraph
+  hackathonDescription: string[];
+};

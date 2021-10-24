@@ -1,30 +1,38 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import AnsweredQuestion from '../../components/AnsweredQuestion';
 import PendingQuestion from '../../components/PendingQuestion';
 import { ColorScheme } from '../../utilities/colorScheme';
+import { fakeAnsweredQuestions, fakePendingQuestions } from '../../lib/data';
 
 /**
  * The about / questions.
  *
  * Landing: /questions
  */
-export default function questions() {
-  const pendingQuestions = ['When will my questions be answered?'];
-  const answeredQuestion: Array<{
-    question: string;
-    answer: string;
-  }> = [
-    {
-      question: 'Will my question be answered?',
-      answer: 'YES!',
-    },
-    {
-      question: 'Another test question',
-      answer: 'This is another test answer',
-    },
-  ];
+export default function Questions() {
+  const [loading, setLoading] = useState(true);
+  const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([]);
+  const [pendingQuestions, setPendingQuestions] = useState<PendingQuestion[]>([]);
+
+  const getMyAnsweredQuestions = () => {
+    /* TODO: Work out on how these data will be stored in the backend and replace this code
+    with logic to fetch real data from backend */
+    return fakeAnsweredQuestions;
+  };
+
+  const getMyPendingQuestion = () => {
+    /* TODO: Work out on how these data will be stored in the backend and replace this code
+    with logic to fetch real data from backend */
+    return fakePendingQuestions;
+  };
+
+  useEffect(() => {
+    setAnsweredQuestions(getMyAnsweredQuestions());
+    setPendingQuestions(getMyPendingQuestion());
+    setLoading(false);
+  }, []);
 
   const colorSchemes: ColorScheme[] = [
     {
@@ -40,6 +48,13 @@ export default function questions() {
       light: '#FDECFF',
     },
   ];
+
+  if (loading)
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
 
   return (
     <div className="flex flex-col flex-grow">
@@ -72,14 +87,14 @@ export default function questions() {
 
         <div id="pending-question">
           <h4 className="font-bold text-2xl">My Pending Question</h4>
-          {pendingQuestions.map((question, idx) => (
+          {pendingQuestions.map(({ question }, idx) => (
             <PendingQuestion key={idx} question={question} />
           ))}
         </div>
 
         <div id="answered-question" className="my-4">
           <h4 className="font-bold text-2xl">My Answered Question</h4>
-          {answeredQuestion.map(({ question, answer }, idx) => (
+          {answeredQuestions.map(({ question, answer }, idx) => (
             <AnsweredQuestion
               key={idx}
               question={question}

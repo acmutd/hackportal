@@ -1,53 +1,39 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import FaqDisclosure from '../../components/FaqDisclosure';
-
-interface QA {
-  question: string;
-  answer: string;
-}
+import { fakeFaqs } from '../../lib/data';
 
 /**
  * The about / faq.
  *
  * Landing: /about/faq
  */
-export default function faq() {
-  const qas: QA[] = [
-    {
-      question: 'What is a hackathon?',
-      answer: 'IDK',
-    },
-    {
-      question: 'Can I participate if I have never hacked before?',
-      answer: 'Yes?',
-    },
-    {
-      question: "What if I don't have a team?",
-      answer: 'IDK',
-    },
-    {
-      question: 'What do I need to bring?',
-      answer: 'IDK',
-    },
-    {
-      question: 'When is HackUTD VIII?',
-      answer: 'IDK',
-    },
-    {
-      question: 'When does registration open?',
-      answer: 'IDK',
-    },
-    {
-      question: 'How much does it cost?',
-      answer: 'IDK',
-    },
-  ];
+export default function Faq() {
+  const [loading, setLoading] = useState(true);
+  const [faqs, setFaqs] = useState<AnsweredQuestion[]>([]);
+  const getFaqs = () => {
+    /* TODO: Work out on how these data will be stored in the backend and replace this code
+    with logic to fetch real data from backend */
+    return fakeFaqs;
+  };
+
+  useEffect(() => {
+    setFaqs(getFaqs());
+    setLoading(false);
+  }, []);
 
   const expandAll = () => {
     // TODO: implement logic to expand all disclosures
   };
+
+  if (loading) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col flex-grow">
@@ -66,7 +52,7 @@ export default function faq() {
           }}
         />
         <div className="w-full my-3 flex flex-col gap-y-4">
-          {qas.map(({ question, answer }, idx) => (
+          {faqs.map(({ question, answer }, idx) => (
             <FaqDisclosure key={idx} question={question} answer={answer} />
           ))}
         </div>

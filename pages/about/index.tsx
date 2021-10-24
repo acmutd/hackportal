@@ -1,38 +1,35 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import MemberCard from '../../components/MemberCard';
 import { ColorScheme } from '../../utilities/colorScheme';
+import { fakeHackathonData, fakeMembers } from '../../lib/data';
+
 /**
  * The about page.
  *
  * Landing: /about
  */
-
-interface TeamMember {
-  name: string;
-  description: string;
-}
-
 export default function About() {
-  const members: TeamMember[] = [
-    {
-      name: 'Stefflon Don',
-      description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur quidem, molestiae
-      amet laboriosam doloribus adipisci aut necessitatibus itaque aspernatur quisquam quo
-      delectus. Saepe, ducimus voluptatum. Sed quidem deleniti ullam eaque hic. Rerum, quia ad
-      deleniti sed saepe fuga? Necessitatibus aliquam ratione modi dolorem repellendus! Saepe
-      nobis quaerat dicta error. Velit.`,
-    },
-    {
-      name: 'Stefflon Don',
-      description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur quidem, molestiae
-      amet laboriosam doloribus adipisci aut necessitatibus itaque aspernatur quisquam quo
-      delectus. Saepe, ducimus voluptatum. Sed quidem deleniti ullam eaque hic. Rerum, quia ad
-      deleniti sed saepe fuga? Necessitatibus aliquam ratione modi dolorem repellendus! Saepe
-      nobis quaerat dicta error. Velit.`,
-    },
-  ];
+  const [loading, setLoading] = useState(true);
+  const [hackathonData, setHackathonData] = useState<HackathonBio>();
+  const [members, setMembers] = useState<TeamMember[]>([]);
+
+  const getHackathonData = () => {
+    /* TODO: Work out on how these data will be stored in the backend and replace this code with logic to fetch real data from backend */
+    return fakeHackathonData;
+  };
+
+  const getMembersData = () => {
+    /* TODO: Work out on how these data will be stored in the backend and replace this code with logic to fetch real data from backend */
+    return fakeMembers;
+  };
+
+  useEffect(() => {
+    setHackathonData(getHackathonData());
+    setMembers(getMembersData());
+    setLoading(false);
+  }, []);
 
   const colorSchemes: ColorScheme[] = [
     {
@@ -49,6 +46,16 @@ export default function About() {
     },
   ];
 
+  if (loading) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+
+  const { hackathonDescription, hackathonName } = hackathonData;
+
   return (
     <div className="flex flex-col flex-grow">
       <Head>
@@ -59,29 +66,10 @@ export default function About() {
         <AboutHeader active="/about" />
       </section>
       <div className="top-6 p-6 flex flex-col gap-y-4">
-        <h4 className="font-bold text-3xl">About HackUTD VIII</h4>
-        <h5>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo natus eum obcaecati. Quo
-          ratione quibusdam quae provident illo sapiente facere, debitis quod quidem ad voluptatem
-          nisi dicta velit consequatur commodi itaque voluptatum corporis at qui fugit dolore.
-          Labore quis, perspiciatis voluptates officiis similique quia deleniti nesciunt repellat
-          non, aliquam asperiores numquam. Sequi cum dolorum maiores laboriosam suscipit tenetur
-          iste expedita unde praesentium amet. Quos fugiat ullam quam hic, debitis ipsum sapiente
-          cupiditate, officia quasi animi nulla sequi exercitationem, earum et modi illum iusto
-          maiores quia maxime repudiandae. Amet assumenda corrupti esse magni, velit a quod. Tempore
-          nemo asperiores ad saepe!
-        </h5>
-        <h5>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, quibusdam ipsum.
-          Accusamus ipsa consequatur veniam eaque error expedita earum nobis sed dolor ea doloribus
-          a, nesciunt sit dolores ipsum labore! Laudantium, maxime recusandae! Optio quidem minus
-          itaque ipsam excepturi magni totam quia inventore iure voluptas similique nobis, suscipit
-          officia voluptatibus odit dolore et asperiores voluptate reiciendis error quasi aspernatur
-          modi hic? Voluptatum fugit porro nam iure tempore, numquam consectetur temporibus. Qui
-          commodi expedita blanditiis, magnam delectus debitis vel obcaecati ipsum fugit vero id
-          nulla provident iure ad, sequi aut, adipisci officiis minima. Sed, nulla. Cumque deserunt
-          possimus error tenetur? Labore!
-        </h5>
+        <h4 className="font-bold text-3xl">About {hackathonName}</h4>
+        {hackathonDescription.map((description, idx) => (
+          <h5 key={idx}>{description}</h5>
+        ))}
       </div>
 
       <div className="top-6 p-6 flex flex-col gap-y-4">
