@@ -48,9 +48,7 @@ export default function FaqPage() {
         <title>HackPortal - FAQ</title>
         <meta name="description" content="HackPortal's Frequently Asked Questions" />
       </Head>
-      <section className="p-4">
-        <AboutHeader active="/about/faq" />
-      </section>
+      <AboutHeader active="/about/faq" />
       <div className="top-6 p-4">
         <div className="flex flex-row justify-between items-center border-b-2 border-black py-2">
           <h4 className="font-bold text-3xl">FAQ</h4>

@@ -64,10 +64,8 @@ export default function AboutPage() {
         <title>HackPortal - About</title>
         <meta name="description" content="HackPortal's About Page" />
       </Head>
-      <section className="p-4">
-        <AboutHeader active="/about" />
-      </section>
-      <div className="top-6 p-6 flex flex-col gap-y-4">
+      <AboutHeader active="/about" />
+      <div className="top-6 p-4 flex flex-col gap-y-3">
         <h4 className="font-bold text-3xl">About {hackathonName}</h4>
         {hackathonDescription.map((description, idx) => (
           <h5 key={idx}>{description}</h5>

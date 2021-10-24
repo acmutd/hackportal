@@ -63,9 +63,7 @@ export default function QuestionsPage() {
         <title>HackPortal - Questions</title>
         <meta name="description" content="HackPortal's Quesiton and Answer Page " />
       </Head>
-      <section className="p-4">
-        <AboutHeader active="/about/questions" />
-      </section>
+      <AboutHeader active="/about/questions" />
       <div className="top-6 p-4 flex flex-col gap-y-3">
         <h4 className="font-bold text-3xl">Ask the organizers a question!</h4>
         <div>
