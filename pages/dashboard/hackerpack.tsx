@@ -23,10 +23,6 @@ export default function HackerPack() {
         <meta name="description" content="HackPortal's HackerPacks" />
       </Head>
 
-      {/* <section id="subheader" className="w-full p-4">
-        <DashboardHeader />
-      </section> */}
-
       {/* ghost section to fill in for fixed sidebar */}
       <section
         id="ghost"
@@ -111,8 +107,8 @@ export default function HackerPack() {
       </section>
 
       <section id="mainContent" className="px-6 py-3 w-3/4 md:wd-5/6 2xl:w-7/8">
-        <section id="subheader" className="w-full pb-6 sticky top-16">
-          <DashboardHeader />
+        <section id="subheader" className="p-4">
+          <DashboardHeader active="/dashboard/hackerpack" />
         </section>
         <div className="font-bold text-2xl md:text-4xl lg-text-6xl">Big Heading</div>
 

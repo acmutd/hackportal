@@ -44,8 +44,8 @@ export default function Dashboard() {
       <Sidebar />
 
       <section id="mainContent" className="px-6 py-3 w-5/6 lg:wd-7/8 md:w-6/7">
-        <section id="subheader" className="w-full pb-6 sticky top-16">
-          <DashboardHeader />
+        <section id="subheader" className="p-4">
+          <DashboardHeader active="/dashboard/" />
         </section>
 
         <div className="lg:text-xl text-md bg-indigo-100 p-4 rounded-md mb-6">{checkin}</div>
