@@ -19,40 +19,43 @@ export default function AppHeader() {
 
   return (
     <>
-      <header className="top-0 sticky justify-between flex flex-row p-2 md:p-4 bg-white shadow-md items-center h-16 z-10">
+      <header
+        className="top-0 sticky justify-between flex flex-row p-2 md:p-4 shadow-md items-center h-16 z-10"
+        style={{ backgroundColor: '#F2F3FF' }}
+      >
         <div className="flex align-middle items-center">
-          <Link href="/">
-            <a
+          <Link href="/" passHref>
+            <div
               className="flex font-display self-center inline-block items-center"
               onClick={dismissDialog}
             >
               <span className="md:text-2xl text-l font-semibold md:mr-10 mr-5">HackPortal</span>
-            </a>
+            </div>
           </Link>
-          <div className="md:text-xl text-xs md:text-left">
-            <Link href="/dashboard">
-              <a onClick={dismissDialog}>
+          <div className="md:text-xl text-xs md:text-left gap-x-6 flex flex-row">
+            <Link href="/dashboard" passHref>
+              <div onClick={dismissDialog} className="cursor-pointer">
                 <span className="inline md:invisible"></span>
-                <a className="md:mx-4 mr-2">Dashboard</a>
-              </a>
+                <div className="md:mx-4 mr-2 font-medium">Dashboard</div>
+              </div>
             </Link>
-            <Link href="/sponsors">
-              <a onClick={dismissDialog}>
+            <Link href="/sponsors" passHref>
+              <div onClick={dismissDialog} className="cursor-pointer">
                 <span className="inline md:invisible"></span>
-                <a className="md:mx-4 mr-2">Sponsors</a>
-              </a>
+                <a className="md:mx-4 mr-2 font-medium">Sponsors</a>
+              </div>
             </Link>
-            <Link href="/schedule">
-              <a onClick={dismissDialog}>
+            <Link href="/schedule" passHref>
+              <div onClick={dismissDialog} className="cursor-pointer">
                 <span className="inline md:invisible"></span>
-                <a className="md:mx-4 mr-2">Schedule</a>
-              </a>
+                <a className="md:mx-4 mr-2 font-medium">Schedule</a>
+              </div>
             </Link>
-            <Link href="/about">
-              <a onClick={dismissDialog}>
+            <Link href="/about" passHref>
+              <div onClick={dismissDialog} className="cursor-pointer">
                 <span className="inline md:invisible"></span>
-                <a className="md:mx-4 mr-2">About</a>
-              </a>
+                <a className="md:mx-4 mr-2 font-medium">About</a>
+              </div>
             </Link>
           </div>
         </div>
