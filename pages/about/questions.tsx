@@ -14,6 +14,7 @@ import { fakeAnsweredQuestions, fakePendingQuestions } from '../../lib/data';
  */
 export default function QuestionsPage() {
   const [loading, setLoading] = useState(true);
+  const [currentQuestion, setCurrentQuestion] = useState('');
   const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([]);
   const [pendingQuestions, setPendingQuestions] = useState<PendingQuestion[]>([]);
 
@@ -27,6 +28,12 @@ export default function QuestionsPage() {
     /* TODO: Work out on how these data will be stored in the backend and replace this code
     with logic to fetch real data from backend */
     return fakePendingQuestions;
+  };
+
+  const submitQuestion = () => {
+    // TODO: Send question to backend and organizer
+    console.log(`Submitted Question: ${currentQuestion}`);
+    setCurrentQuestion('');
   };
 
   useEffect(() => {
@@ -70,6 +77,8 @@ export default function QuestionsPage() {
           <textarea
             className="w-full rounded-xl p-4"
             rows={5}
+            value={currentQuestion}
+            onChange={(e) => setCurrentQuestion(e.target.value)}
             style={{ backgroundColor: '#F2F3FF' }}
             placeholder="Type your question here"
           ></textarea>
@@ -78,6 +87,9 @@ export default function QuestionsPage() {
               type="button"
               className="p-2 rounded-lg"
               style={{ backgroundColor: '#9CA6FF', color: 'black' }}
+              onClick={() => {
+                submitQuestion();
+              }}
             >
               Submit Question
             </button>
