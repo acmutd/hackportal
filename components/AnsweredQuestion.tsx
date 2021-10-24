@@ -2,6 +2,16 @@ import { Disclosure } from '@headlessui/react';
 import { CheckCircleFilled } from '@ant-design/icons';
 import { ChevronUpIcon } from '@heroicons/react/solid';
 
+/**
+ *
+ * Props used by AnsweredQuestion component used in /about/questions
+ *
+ * @param question question asked by current user
+ * @param answer answer from organizer for corresponding question
+ * @param colorCode color code used for background of component
+ * @param iconColorCode color code used for checkmark icon that goes with the component
+ *
+ */
 interface AnsweredQuestionProps {
   question: string;
   answer: string;
@@ -9,6 +19,11 @@ interface AnsweredQuestionProps {
   iconColorCode: string;
 }
 
+/**
+ *
+ * Component representing an answered question in /about/questions
+ *
+ */
 export default function AnsweredQuestion({
   question,
   answer,

@@ -1,8 +1,15 @@
 import Link from 'next/link';
 import React from 'react';
 
+/**
+ *
+ * Props used by About Header component
+ *
+ * @param active - contains information used to determine current page user is at in About Section
+ *
+ */
 interface AboutHeaderProps {
-  active: string;
+  active: '/about' | '/about/faq' | '/about/questions';
 }
 
 /**

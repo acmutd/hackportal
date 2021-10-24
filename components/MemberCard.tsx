@@ -1,11 +1,25 @@
 import { ColorScheme } from '../utilities/colorScheme';
 
+/**
+ *
+ * Represent props used by MemberCard component
+ *
+ * @param name name of the member
+ * @description a paragraph describing the member
+ * @cardColor object containing color codes used by the component
+ *
+ */
 interface MemberCardProps {
   name: string;
   description: string;
   cardColor: ColorScheme;
 }
 
+/**
+ *
+ * Component representing a member card in /about
+ *
+ */
 export default function MemberCard({
   name,
   description,
