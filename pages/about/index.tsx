@@ -2,8 +2,7 @@ import Head from 'next/head';
 import React from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import MemberCard from '../../components/MemberCard';
-import { colorSchemes } from '../../utilities/colorScheme';
-
+import { ColorScheme } from '../../utilities/colorScheme';
 /**
  * The about page.
  *
@@ -34,6 +33,22 @@ export default function About() {
       nobis quaerat dicta error. Velit.`,
     },
   ];
+
+  const colorSchemes: ColorScheme[] = [
+    {
+      light: '#F2F3FF',
+      dark: '#C1C8FF',
+    },
+    {
+      light: '#D8F8FF',
+      dark: '#B0F1FF',
+    },
+    {
+      dark: '#FCD7FF',
+      light: '#FDECFF',
+    },
+  ];
+
   return (
     <div className="flex flex-col flex-grow">
       <Head>
