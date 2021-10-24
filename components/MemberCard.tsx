@@ -1,12 +1,16 @@
 import { ColorScheme } from '../utilities/colorScheme';
 
-interface Props {
+interface MemberCardProps {
   name: string;
   description: string;
   cardColor: ColorScheme;
 }
 
-const MemberCard: React.FC<Props> = ({ name, description, cardColor: { light, dark } }) => {
+export default function MemberCard({
+  name,
+  description,
+  cardColor: { light, dark },
+}: MemberCardProps) {
   return (
     <div className="flex flex-row my-3">
       <div className="w-1/3" style={{ backgroundColor: light }}>
@@ -18,6 +22,4 @@ const MemberCard: React.FC<Props> = ({ name, description, cardColor: { light, da
       </div>
     </div>
   );
-};
-
-export default MemberCard;
+}

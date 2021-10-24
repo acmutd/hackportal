@@ -1,14 +1,14 @@
 import Link from 'next/link';
 import React from 'react';
 
-interface Props {
+interface AboutHeaderProps {
   active: string;
 }
 
 /**
  * An about header.
  */
-export default function AboutHeader({ active }: Props) {
+export default function AboutHeader({ active }: AboutHeaderProps) {
   return (
     <>
       <header className="top-0 sticky flex flex-row justify-between p-2 md:p-4 items-center">

@@ -1,8 +1,8 @@
-interface Props {
+interface PendingQuestionProps {
   question: string;
 }
 
-const PendingQuestion: React.FC<Props> = ({ question }) => {
+export default function PendingQuestion({ question }: PendingQuestionProps) {
   return (
     <div className="flex flex-row items-center gap-x-2 my-3">
       <svg height="14" width="14">
@@ -13,6 +13,4 @@ const PendingQuestion: React.FC<Props> = ({ question }) => {
       </div>
     </div>
   );
-};
-
-export default PendingQuestion;
+}

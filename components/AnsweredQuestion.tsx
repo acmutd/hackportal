@@ -2,14 +2,19 @@ import { Disclosure } from '@headlessui/react';
 import { CheckCircleFilled } from '@ant-design/icons';
 import { ChevronUpIcon } from '@heroicons/react/solid';
 
-interface Props {
+interface AnsweredQuestionProps {
   question: string;
   answer: string;
   colorCode: string;
   iconColorCode: string;
 }
 
-const AnsweredQuestion: React.FC<Props> = ({ question, answer, colorCode, iconColorCode }) => {
+export default function AnsweredQuestion({
+  question,
+  answer,
+  colorCode,
+  iconColorCode,
+}: AnsweredQuestionProps) {
   return (
     <div className="my-4">
       <Disclosure>
@@ -35,6 +40,4 @@ const AnsweredQuestion: React.FC<Props> = ({ question, answer, colorCode, iconCo
       </Disclosure>
     </div>
   );
-};
-
-export default AnsweredQuestion;
+}

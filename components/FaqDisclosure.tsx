@@ -1,12 +1,12 @@
 import { Disclosure } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/solid';
 
-interface Props {
+interface FaqDisclosureProps {
   question: string;
   answer: string;
 }
 
-const FaqDisclosure: React.FC<Props> = ({ question, answer }) => {
+export default function FaqDisclosure({ question, answer }: FaqDisclosureProps) {
   return (
     <Disclosure>
       {({ open }) => (
@@ -20,6 +20,4 @@ const FaqDisclosure: React.FC<Props> = ({ question, answer }) => {
       )}
     </Disclosure>
   );
-};
-
-export default FaqDisclosure;
+}
