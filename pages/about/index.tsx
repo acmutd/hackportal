@@ -1,13 +1,39 @@
 import Head from 'next/head';
 import React from 'react';
 import AboutHeader from '../../components/AboutHeader';
+import MemberCard from '../../components/MemberCard';
+import { colorSchemes } from '../../utilities/colorScheme';
 
 /**
  * The about page.
  *
  * Landing: /about
  */
+
+interface TeamMember {
+  name: string;
+  description: string;
+}
+
 export default function About() {
+  const members: TeamMember[] = [
+    {
+      name: 'Stefflon Don',
+      description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur quidem, molestiae
+      amet laboriosam doloribus adipisci aut necessitatibus itaque aspernatur quisquam quo
+      delectus. Saepe, ducimus voluptatum. Sed quidem deleniti ullam eaque hic. Rerum, quia ad
+      deleniti sed saepe fuga? Necessitatibus aliquam ratione modi dolorem repellendus! Saepe
+      nobis quaerat dicta error. Velit.`,
+    },
+    {
+      name: 'Stefflon Don',
+      description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur quidem, molestiae
+      amet laboriosam doloribus adipisci aut necessitatibus itaque aspernatur quisquam quo
+      delectus. Saepe, ducimus voluptatum. Sed quidem deleniti ullam eaque hic. Rerum, quia ad
+      deleniti sed saepe fuga? Necessitatibus aliquam ratione modi dolorem repellendus! Saepe
+      nobis quaerat dicta error. Velit.`,
+    },
+  ];
   return (
     <div className="flex flex-col flex-grow">
       <Head>
@@ -45,6 +71,16 @@ export default function About() {
 
       <div className="top-6 p-6 flex flex-col gap-y-4">
         <h4 className="font-bold text-3xl">Meet Our Team :)</h4>
+        <div className="flex flex-col gap-y-4">
+          {members.map(({ name, description }, idx) => (
+            <MemberCard
+              key={idx}
+              name={name}
+              description={description}
+              cardColor={colorSchemes[idx % 3]}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
