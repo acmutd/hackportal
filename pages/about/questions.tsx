@@ -3,6 +3,7 @@ import React from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import AnsweredQuestion from '../../components/AnsweredQuestion';
 import PendingQuestion from '../../components/PendingQuestion';
+import { ColorScheme } from '../../utilities/colorScheme';
 
 /**
  * The about / questions.
@@ -25,6 +26,21 @@ export default function questions() {
     },
   ];
 
+  const colorSchemes: ColorScheme[] = [
+    {
+      light: '#F2F3FF',
+      dark: '#9CA6FF',
+    },
+    {
+      light: '#D8F8FF',
+      dark: '#00E0FF',
+    },
+    {
+      dark: '#F8ACFF',
+      light: '#FDECFF',
+    },
+  ];
+
   return (
     <div className="flex flex-col flex-grow">
       <Head>
@@ -39,7 +55,7 @@ export default function questions() {
         <div id="submit-question">
           <textarea
             className="w-full rounded-xl p-4"
-            rows={10}
+            rows={5}
             style={{ backgroundColor: '#F2F3FF' }}
             placeholder="Type your question here"
           ></textarea>
@@ -68,8 +84,8 @@ export default function questions() {
               key={idx}
               question={question}
               answer={answer}
-              colorCode="#D8F8FF"
-              iconColorCode="#00E0FF"
+              colorCode={colorSchemes[idx % 3].light}
+              iconColorCode={colorSchemes[idx % 3].dark}
             />
           ))}
         </div>
