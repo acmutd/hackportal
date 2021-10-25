@@ -1,5 +1,3 @@
-import { ColorScheme } from '../utilities/colorScheme';
-
 /**
  *
  * Represent props used by MemberCard component
@@ -26,11 +24,11 @@ export default function MemberCard({
   cardColor: { light, dark },
 }: MemberCardProps) {
   return (
-    <div className="flex flex-row my-3">
+    <div className="flex flex-row my-3 w-full">
       <div className="w-1/3" style={{ backgroundColor: light }}>
         &nbsp;
       </div>
-      <div style={{ backgroundColor: dark }} className="p-5 flex flex-col gap-y-3">
+      <div style={{ backgroundColor: dark }} className="w-full p-5 flex flex-col gap-y-3">
         <h4 className="font-bold text-2xl">{name}</h4>
         <p>{description}</p>
       </div>

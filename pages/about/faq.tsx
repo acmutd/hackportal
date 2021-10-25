@@ -4,6 +4,7 @@ import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import FaqDisclosure from '../../components/FaqDisclosure';
+import { baseURL } from '../../lib/constants';
 import { RequestHelper } from '../../lib/request-helper';
 
 /**
@@ -94,8 +95,6 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
  *
  */
 export const getStaticProps: GetStaticProps = async (context) => {
-  // TODO: Add base url as environment variable as NextJS' getStaticProps only allows absolute url
-  const baseURL = 'http://localhost:3000';
   const fetchedFaqs = await RequestHelper.get<AnsweredQuestion[]>(
     `${baseURL}/api/questions/faq`,
     {},
