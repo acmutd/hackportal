@@ -18,16 +18,11 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
   const [faqs, setFaqs] = useState<AnsweredQuestion[]>([]);
   const [disclosuresStatus, setDisclosureStatus] = useState<boolean[]>();
 
-  const getFaqs = () => {
-    return fetchedFaqs;
-  };
-
   useEffect(() => {
-    const fetchedFaqs = getFaqs();
     setFaqs(fetchedFaqs);
     setDisclosureStatus(fetchedFaqs.map(() => false));
     setLoading(false);
-  }, []);
+  }, [fetchedFaqs]);
 
   /**
    *

@@ -24,15 +24,11 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
     return fakeHackathonData;
   };
 
-  const getMembersData = () => {
-    return fetchedMembers;
-  };
-
   useEffect(() => {
     setHackathonData(getHackathonData());
-    setMembers(getMembersData());
+    setMembers(fetchedMembers);
     setLoading(false);
-  }, []);
+  }, [fetchedMembers]);
 
   const colorSchemes: ColorScheme[] = [
     {
