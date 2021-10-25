@@ -69,10 +69,16 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
       </Head>
       <AboutHeader active="/about" />
       <div className="top-6 p-4 flex flex-col gap-y-3">
-        <h4 className="font-bold text-3xl">About {hackathonName}</h4>
-        {hackathonDescription.map((description, idx) => (
-          <h5 key={idx}>{description}</h5>
-        ))}
+        <h4 className="font-bold text-3xl">About this hackathon</h4>
+        <p>
+          Here will be a short paragraph providing a general overview of what then hackathon is.
+          This can be dates, events, contests, and prizes.
+        </p>
+        <p>
+          This paragraph can be about the size and reach of the hackathon. Can include the number of
+          participants every year and the total worth of prizes.
+        </p>
+        <p>Any additional information can be provided in this paragraph.</p>
       </div>
 
       <div className="top-6 p-6 flex flex-col gap-y-4">
