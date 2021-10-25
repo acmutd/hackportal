@@ -1,8 +1,11 @@
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import MemberCard from '../../components/MemberCard';
+import { baseURL } from '../../lib/constants';
 import { fakeHackathonData, fakeMembers } from '../../lib/data';
+import { RequestHelper } from '../../lib/request-helper';
 
 /**
  * The About page.
@@ -12,7 +15,7 @@ import { fakeHackathonData, fakeMembers } from '../../lib/data';
  *
  * Route: /about
  */
-export default function AboutPage() {
+export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMember[] }) {
   const [loading, setLoading] = useState(true);
   const [hackathonData, setHackathonData] = useState<HackathonBio>();
   const [members, setMembers] = useState<TeamMember[]>([]);
@@ -24,7 +27,7 @@ export default function AboutPage() {
 
   const getMembersData = () => {
     /* TODO: Work out on how these data will be stored in the backend and replace this code with logic to fetch real data from backend */
-    return fakeMembers;
+    return fetchedMembers;
   };
 
   useEffect(() => {
@@ -74,7 +77,7 @@ export default function AboutPage() {
 
       <div className="top-6 p-6 flex flex-col gap-y-4">
         <h4 className="font-bold text-3xl">Meet Our Team :)</h4>
-        <div className="flex flex-col gap-y-4">
+        <div className="flex flex-col gap-y-4 w-full">
           {members.map(({ name, description }, idx) => (
             <MemberCard
               key={idx}
@@ -88,3 +91,12 @@ export default function AboutPage() {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const fetchedMembers = await RequestHelper.get<TeamMember[]>(`${baseURL}/api/members`, {});
+  return {
+    props: {
+      fetchedMembers,
+    },
+  };
+};
