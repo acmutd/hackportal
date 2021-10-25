@@ -1,10 +1,9 @@
 import { ChevronUpIcon } from '@heroicons/react/solid';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import FaqDisclosure from '../../components/FaqDisclosure';
-import { baseURL } from '../../lib/constants';
 import { RequestHelper } from '../../lib/request-helper';
 
 /**
@@ -94,9 +93,10 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
  * Fetch FAQ questions stored in the backend, which will be used as props by FaqPage component upon build time
  *
  */
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const protocol = context.req.headers.referer.split('://')[0];
   const fetchedFaqs = await RequestHelper.get<AnsweredQuestion[]>(
-    `${baseURL}/api/questions/faq`,
+    `${protocol}://${context.req.headers.host}/api/questions/faq`,
     {},
   );
   return {

@@ -1,10 +1,9 @@
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import MemberCard from '../../components/MemberCard';
-import { baseURL } from '../../lib/constants';
-import { fakeHackathonData, fakeMembers } from '../../lib/data';
+import { fakeHackathonData } from '../../lib/data';
 import { RequestHelper } from '../../lib/request-helper';
 
 /**
@@ -26,7 +25,6 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
   };
 
   const getMembersData = () => {
-    /* TODO: Work out on how these data will be stored in the backend and replace this code with logic to fetch real data from backend */
     return fetchedMembers;
   };
 
@@ -98,8 +96,12 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
   );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const fetchedMembers = await RequestHelper.get<TeamMember[]>(`${baseURL}/api/members`, {});
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const protocol = context.req.headers.referer.split('://')[0];
+  const fetchedMembers = await RequestHelper.get<TeamMember[]>(
+    `${protocol}://${context.req.headers.host}/api/members`,
+    {},
+  );
   return {
     props: {
       fetchedMembers,
