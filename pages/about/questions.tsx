@@ -2,6 +2,7 @@ import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import AnsweredQuestion from '../../components/AnsweredQuestion';
+import ErrorList from '../../components/ErrorList';
 import PendingQuestion from '../../components/PendingQuestion';
 import { RequestHelper } from '../../lib/request-helper';
 import { useAuthContext } from '../../lib/user/AuthContext';
@@ -14,8 +15,9 @@ import { QAReqBody } from '../api/questions';
  *
  * Route: /about/questions
  */
-export default function QuestionsPage({ test }) {
+export default function QuestionsPage() {
   const [loading, setLoading] = useState(true);
+  const [errors, setErrors] = useState<string[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([]);
   const [pendingQuestions, setPendingQuestions] = useState<PendingQuestion[]>([]);
@@ -57,6 +59,16 @@ export default function QuestionsPage({ test }) {
 
   /**
    *
+   * Add a new error message to the error list
+   * @param errMsg error message
+   *
+   */
+  const addError = (errMsg: string) => {
+    setErrors((prev) => [...prev, errMsg]);
+  };
+
+  /**
+   *
    * Process a question submitted by user
    * If user is not sign in, an alert will pop up telling user to sign in
    * Otherwise, question will be sent to organizers
@@ -64,8 +76,7 @@ export default function QuestionsPage({ test }) {
    */
   const submitQuestion = async () => {
     if (user === null) {
-      // TODO: Find a better way to handle this
-      alert('You must login to be able to ask question');
+      addError('You must login to be able to ask question');
       return;
     }
     try {
@@ -83,8 +94,8 @@ export default function QuestionsPage({ test }) {
       );
       setCurrentQuestion('');
     } catch (error) {
-      // TODO: Find a better way to handle this
-      alert("Something's wrong");
+      addError('Failed to send question. Please try again later.');
+      console.error(error);
     }
   };
 
@@ -139,6 +150,14 @@ export default function QuestionsPage({ test }) {
         <meta name="description" content="HackPortal's Quesiton and Answer Page " />
       </Head>
       <AboutHeader active="/about/questions" />
+      <ErrorList
+        errors={errors}
+        onClose={(idx: number) => {
+          const newErrorList = [...errors];
+          newErrorList.splice(idx, 1);
+          setErrors(newErrorList);
+        }}
+      />
       <div className="top-6 p-4 flex flex-col gap-y-3">
         <h4 className="font-bold text-3xl">Ask the organizers a question!</h4>
         <div>
