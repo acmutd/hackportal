@@ -3,7 +3,6 @@ import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import MemberCard from '../../components/MemberCard';
-import { fakeHackathonData } from '../../lib/data';
 import { RequestHelper } from '../../lib/request-helper';
 
 /**
@@ -16,16 +15,9 @@ import { RequestHelper } from '../../lib/request-helper';
  */
 export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMember[] }) {
   const [loading, setLoading] = useState(true);
-  const [hackathonData, setHackathonData] = useState<HackathonBio>();
   const [members, setMembers] = useState<TeamMember[]>([]);
 
-  const getHackathonData = () => {
-    // TODO: Rewrite fake data
-    return fakeHackathonData;
-  };
-
   useEffect(() => {
-    setHackathonData(getHackathonData());
     setMembers(fetchedMembers);
     setLoading(false);
   }, [fetchedMembers]);
@@ -52,8 +44,6 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
       </div>
     );
   }
-
-  const { hackathonDescription, hackathonName } = hackathonData;
 
   return (
     <div className="flex flex-col flex-grow">

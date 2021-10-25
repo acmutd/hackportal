@@ -139,20 +139,6 @@ type TeamMember = {
 
 /**
  *
- * Represent information used to introduce hackathon in About section
- *
- * @param hackathonName name of the hackathon
- * @param hackathonDescription a list of paragraphs describing the hackathon
- *
- */
-type HackathonBio = {
-  hackathonName: string;
-  // Each element will be equivalent to 1 paragraph
-  hackathonDescription: string[];
-};
-
-/**
- *
  * Represent a color scheme consist of a light and dark version used by a component
  *
  * @param light color code of the light variant
