@@ -26,18 +26,20 @@ export default function Home() {
           className="max-w-4xl h-full py-8 mx-auto flex flex-col justify-center items-center"
         >
           <div
-            className="w-8/12 h-[240px] flex flex-col justify-center relative mb-28 before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-16 before:bg-transparent before:border-b-4 before:border-l-4 before:border-black
+            className="min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-16 before:bg-transparent before:border-b-4 before:border-l-4 before:border-black
           after:block after:absolute after:top-0 after:right-0 after:w-16 after:h-16 after:bg-transparent after:border-t-4 after:border-r-4 after:border-black"
           >
-            <h1 className="text-6xl font-black text-center">Event title here</h1>
-            <p className="text-3xl my-4 font-bold text-center">Subtitle</p>
+            <h1 className="text-3xl font-bold text-center md:text-6xl md:font-black">
+              Event title here
+            </h1>
+            <p className="text-xl text-center my-4 md:font-bold md:text-3xl">Subtitle</p>
           </div>
-          <div className="w-screen flex justify-around">
+          <div className="w-screen flex flex-col items-center px-4 gap-y-8 md:gap-y-0 md:flex-row md:justify-around">
             {buttonDatas.map((button) => (
               <button
                 key={button.text}
                 onClick={() => router.push(button.path)}
-                className="bg-indigo-300 px-16 py-4"
+                className="max-w-[280px] md:max-w-full bg-indigo-300 px-16 py-4"
               >
                 {button.text}
               </button>
@@ -47,13 +49,12 @@ export default function Home() {
         </div>
       </section>
       {/* Video Space */}
-      <section className="bg-white relative h-[560px] w-screen">
-        <div className="w-full h-full flex justify-center items-center">
-          <div className="w-11/12 h-3/6 flex justify-center items-center">
+      <section className="mt-16 bg-white relative w-screen md:mt-0 md:h-[560px]">
+        <div className="w-full h-full flex flex-col justify-center items-center md:flex-row">
+          <div className="w-11/12 h-3/6 flex flex-col justify-center items-center md:flex-row">
             {/* Video */}
             <iframe
-              width="720"
-              height="400"
+              className="w-full h-[320px] md:w-[720px] md:h-[400px]"
               src="https://www.youtube.com/embed/TF3nn7RnA0c"
               title="YouTube video player"
               frameBorder="0"
@@ -65,10 +66,12 @@ export default function Home() {
               {stats.map((stat, index) => (
                 <div
                   key={stat.data}
-                  className={`${index % 2 === 0 ? 'ml-40' : 'mr-8'} text-center my-6`}
+                  className={`${
+                    index % 2 === 0 ? 'lg:ml-40' : 'lg:mr-8'
+                  } text-center my-6 md:ml-16`}
                 >
-                  <p className="font-bold text-4xl text-indigo-600">{stat.data}</p>
-                  <p className="font-medium text-lg">{stat.object}</p>
+                  <p className="font-bold text-4xl text-indigo-600 lg:text-5xl">{stat.data}</p>
+                  <p className="font-medium text-lg lg:text-3xl">{stat.object}</p>
                 </div>
               ))}
             </div>
