@@ -13,11 +13,13 @@ import QRCodeReader from '../../components/QRCodeReader';
 export default function Scan() {
   const { user, isSignedIn } = useAuthContext();
   const [qrData, setQRData] = useState('');
+  const [qrLoading, setQRLoading] = useState(false);
   const [error, setError] = useState('');
   const [userData, setUserData] = useState('');
 
   const fetchQR = () => {
     if (!isSignedIn) return;
+    setQRLoading(true);
     const query = new URL(`http://localhost:3000/api/applications/${user.id}`);
     query.searchParams.append('id', user.id);
     fetch(query.toString().replaceAll('http://localhost:3000', ''), {
@@ -31,6 +33,7 @@ export default function Scan() {
         }
         const data = await result.json();
         setQRData(data.id);
+        setQRLoading(false);
         setError('');
       })
       .catch((err) => {
@@ -60,7 +63,7 @@ export default function Scan() {
             </h4>
             <span className="text-center text-lg">{error}</span>
           </div>
-          <QRCode data={qrData} />
+          <QRCode data={qrData} loading={qrLoading} width={200} height={200} />
           <div>
             <h4 className="text-center text-xl">Scan QR</h4>
             <h4 className="text-center text-md">{userData}</h4>
