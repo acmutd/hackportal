@@ -1,9 +1,10 @@
 import { ChevronUpIcon } from '@heroicons/react/solid';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import FaqDisclosure from '../../components/FaqDisclosure';
-import { fakeFaqs } from '../../lib/data';
+import { RequestHelper } from '../../lib/request-helper';
 
 /**
  * The FAQ page.
@@ -12,15 +13,13 @@ import { fakeFaqs } from '../../lib/data';
  *
  * Route: /about/faq
  */
-export default function FaqPage() {
+export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion[] }) {
   const [loading, setLoading] = useState(true);
   const [faqs, setFaqs] = useState<AnsweredQuestion[]>([]);
   const [disclosuresStatus, setDisclosureStatus] = useState<boolean[]>();
 
   const getFaqs = () => {
-    /* TODO: Work out on how these data will be stored in the backend and replace this code
-    with logic to fetch real data from backend */
-    return fakeFaqs;
+    return fetchedFaqs;
   };
 
   useEffect(() => {
@@ -30,6 +29,11 @@ export default function FaqPage() {
     setLoading(false);
   }, []);
 
+  /**
+   *
+   * Expand all FAQ disclosures
+   *
+   */
   const expandAll = () => {
     setDisclosureStatus(new Array(disclosuresStatus.length).fill(true));
   };
@@ -83,3 +87,22 @@ export default function FaqPage() {
     </div>
   );
 }
+
+/**
+ *
+ * Fetch FAQ questions stored in the backend, which will be used as props by FaqPage component upon build time
+ *
+ */
+export const getStaticProps: GetStaticProps = async (context) => {
+  // TODO: Add base url as environment variable as NextJS' getStaticProps only allows absolute url
+  const baseURL = 'http://localhost:3000';
+  const fetchedFaqs = await RequestHelper.get<AnsweredQuestion[]>(
+    `${baseURL}/api/questions/faq`,
+    {},
+  );
+  return {
+    props: {
+      fetchedFaqs,
+    },
+  };
+};

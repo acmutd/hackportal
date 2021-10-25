@@ -18,7 +18,7 @@ export default function AboutPage() {
   const [members, setMembers] = useState<TeamMember[]>([]);
 
   const getHackathonData = () => {
-    /* TODO: Work out on how these data will be stored in the backend and replace this code with logic to fetch real data from backend */
+    // TODO: Rewrite fake data
     return fakeHackathonData;
   };
 

@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import AnsweredQuestion from '../../components/AnsweredQuestion';
 import PendingQuestion from '../../components/PendingQuestion';
-import { fakeAnsweredQuestions, fakePendingQuestions } from '../../lib/data';
+import { RequestHelper } from '../../lib/request-helper';
+import { useAuthContext } from '../../lib/user/AuthContext';
+import { QAReqBody } from '../api/questions';
 
 /**
  * The Question and Answers page.
@@ -12,35 +14,101 @@ import { fakeAnsweredQuestions, fakePendingQuestions } from '../../lib/data';
  *
  * Route: /about/questions
  */
-export default function QuestionsPage() {
+export default function QuestionsPage({ test }) {
   const [loading, setLoading] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([]);
   const [pendingQuestions, setPendingQuestions] = useState<PendingQuestion[]>([]);
+  const { user } = useAuthContext();
 
-  const getMyAnsweredQuestions = () => {
-    /* TODO: Work out on how these data will be stored in the backend and replace this code
-    with logic to fetch real data from backend */
-    return fakeAnsweredQuestions;
+  /**
+   *
+   * Fetch all answered questions that are asked by current user
+   * @returns a list of questions and answers if user is signed in, otherwise an empty list will be returned
+   *
+   */
+  const getMyAnsweredQuestions = async (): Promise<AnsweredQuestion[]> => {
+    if (!user) {
+      return [];
+    }
+    const data = await RequestHelper.get<AnsweredQuestion[]>(
+      `/api/questions/${user.id}/answered`,
+      {},
+    );
+    return data;
   };
 
-  const getMyPendingQuestion = () => {
-    /* TODO: Work out on how these data will be stored in the backend and replace this code
-    with logic to fetch real data from backend */
-    return fakePendingQuestions;
+  /**
+   *
+   * Fetch all unanswered questions that are asked by current user
+   * @returns a list of questions if user is signed in, otherwise an empty list will be returned
+   *
+   */
+  const getMyPendingQuestions = async () => {
+    if (!user) {
+      return [];
+    }
+    const data = await RequestHelper.get<PendingQuestion[]>(
+      `/api/questions/${user.id}/pending`,
+      {},
+    );
+    return data;
   };
 
-  const submitQuestion = () => {
-    // TODO: Send question to backend and organizer
-    console.log(`Submitted Question: ${currentQuestion}`);
-    setCurrentQuestion('');
+  /**
+   *
+   * Process a question submitted by user
+   * If user is not sign in, an alert will pop up telling user to sign in
+   * Otherwise, question will be sent to organizers
+   *
+   */
+  const submitQuestion = async () => {
+    if (user === null) {
+      // TODO: Find a better way to handle this
+      alert('You must login to be able to ask question');
+      return;
+    }
+    try {
+      await RequestHelper.post<QAReqBody, {}>(
+        '/api/questions/',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+        {
+          userId: user.id,
+          question: currentQuestion,
+        },
+      );
+      setCurrentQuestion('');
+    } catch (error) {
+      // TODO: Find a better way to handle this
+      alert("Something's wrong");
+    }
+  };
+
+  /**
+   * Merge list of answered questions and unanswered questions into 1 object
+   * @returns an object containing all questions asked by user
+   */
+  const getAllQuestions = async () => {
+    const answeredQuestions = await getMyAnsweredQuestions();
+    const pendingQuestions = await getMyPendingQuestions();
+    return {
+      answeredQuestions,
+      pendingQuestions,
+    };
   };
 
   useEffect(() => {
-    setAnsweredQuestions(getMyAnsweredQuestions());
-    setPendingQuestions(getMyPendingQuestion());
-    setLoading(false);
-  }, []);
+    setLoading(true);
+    getAllQuestions().then(({ answeredQuestions, pendingQuestions }) => {
+      setAnsweredQuestions(answeredQuestions);
+      setPendingQuestions(pendingQuestions);
+      setLoading(false);
+    });
+  }, [user]);
 
   const colorSchemes: ColorScheme[] = [
     {
@@ -98,22 +166,30 @@ export default function QuestionsPage() {
 
         <div>
           <h4 className="font-bold text-2xl">My Pending Question</h4>
-          {pendingQuestions.map(({ question }, idx) => (
-            <PendingQuestion key={idx} question={question} />
-          ))}
+          {user ? (
+            pendingQuestions.map(({ question }, idx) => (
+              <PendingQuestion key={idx} question={question} />
+            ))
+          ) : (
+            <h1 className="p-3">Sign in to see your questions</h1>
+          )}
         </div>
 
         <div className="my-4">
           <h4 className="font-bold text-2xl">My Answered Question</h4>
-          {answeredQuestions.map(({ question, answer }, idx) => (
-            <AnsweredQuestion
-              key={idx}
-              question={question}
-              answer={answer}
-              colorCode={colorSchemes[idx % 3].light}
-              iconColorCode={colorSchemes[idx % 3].dark}
-            />
-          ))}
+          {user ? (
+            answeredQuestions.map(({ question, answer }, idx) => (
+              <AnsweredQuestion
+                key={idx}
+                question={question}
+                answer={answer}
+                colorCode={colorSchemes[idx % 3].light}
+                iconColorCode={colorSchemes[idx % 3].dark}
+              />
+            ))
+          ) : (
+            <h1 className="p-3">Sign in to see your questions</h1>
+          )}
         </div>
       </div>
     </div>
