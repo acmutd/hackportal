@@ -39,7 +39,9 @@ function PortalApp({ Component, pageProps }: AppProps) {
       </Head>
       <div className="min-h-screen max-w-screen overflow-hidden flex flex-col bg-gray-50">
         <AppHeader />
-        <Component {...pageProps} />
+        <main className="mt-16">
+          <Component {...pageProps} />
+        </main>
       </div>
     </AuthProvider>
   );

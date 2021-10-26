@@ -26,35 +26,40 @@ export default function AppHeader() {
 
   return (
     <>
-      <header className="top-0 sticky justify-around flex flex-row p-2 min-w-[320px] md:p-4 bg-indigo-100 items-center h-16 z-10 md:justify-between">
+      <header className="top-0 fixed justify-around flex flex-row p-2 min-w-[320px] w-screen bg-indigo-100 items-center h-16 z-10 md:justify-between md:p-4">
         <div className="flex w-6/12 max-w-[156px] justify-between items-center md:max-w-full md:justify-start md:w-9/12">
           <Link href="/">
             <a
-              className="flex relative ml-[-6px] font-display self-center items-center w-[124px] md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400"
+              className="flex order-2 relative ml-[-6px] font-display self-center items-center w-[112px] md:order-1 md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400"
               onClick={dismissDialog}
             >
-              <span className="text-[16px] font-black md:text-2xl md:mr-10">HackUTD VIII</span>
+              <span className="text-[16px] z-[-2] font-black md:z-0 md:text-2xl md:mr-10">
+                HackUTD VIII
+              </span>
             </a>
           </Link>
-          <div onClick={toggleMenu} className={'relative ml-[16px] md:hidden'}>
+          {/* Smartphone nav */}
+          <div onClick={toggleMenu} className={'relative md:hidden'}>
             <MenuIcon />
-            {showMenu && (
-              <ul className="flex flex-col bg-white absolute top-10">
-                {navItems.map((item) => (
-                  <Link key={item.text} href={item.path}>
-                    <a
-                      className="border-2 border-b-0 last:border-b-2 border-black p-2"
-                      onClick={dismissDialog}
-                    >
-                      <p className="text-sm font-bold">{item.text}</p>
-                    </a>
-                  </Link>
-                ))}
-              </ul>
-            )}
+            <ul
+              className={`${
+                showMenu ? 'translate-x-0' : '-translate-x-full'
+              } transform transition-all ease-out duration-300 flex h-screen border-2 border-black flex-col bg-white fixed top-0 left-0 z-[-1] pt-16`}
+            >
+              {navItems.map((item) => (
+                <Link key={item.text} href={item.path}>
+                  <a
+                    className="border-b-2 first:border-t-2 border-black p-4 py-6"
+                    onClick={dismissDialog}
+                  >
+                    <p className="text-sm font-bold">{item.text}</p>
+                  </a>
+                </Link>
+              ))}
+            </ul>
           </div>
           {/* PC nav */}
-          <div className="hidden text-xs md:flex items-center md:text-left lg:ml-12">
+          <div className="hidden text-xs order-2 md:flex items-center md:text-left lg:ml-12">
             {navItems.map((item) => (
               <Link key={item.text} href={item.path}>
                 <a onClick={dismissDialog}>
