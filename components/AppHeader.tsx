@@ -30,10 +30,10 @@ export default function AppHeader() {
         <div className="flex w-6/12 max-w-[156px] justify-between items-center md:max-w-full md:justify-start md:w-9/12">
           <Link href="/">
             <a
-              className="flex order-2 relative ml-[-6px] font-display self-center items-center w-[112px] md:order-1 md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400"
+              className="flex order-2 z-[-2] relative ml-[-6px] font-display self-center items-center w-[112px] md:order-1 md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400"
               onClick={dismissDialog}
             >
-              <span className="text-[16px] z-[-2] font-black md:z-0 md:text-2xl md:mr-10">
+              <span className="text-[16px] font-black md:z-0 md:text-2xl md:mr-10">
                 HackUTD VIII
               </span>
             </a>
@@ -44,7 +44,7 @@ export default function AppHeader() {
             <ul
               className={`${
                 showMenu ? 'translate-x-0' : '-translate-x-full'
-              } transform transition-all ease-out duration-300 flex h-screen border-2 border-black flex-col bg-white fixed top-0 left-0 z-[-1] pt-16`}
+              } transform transition-all ease-out duration-300 flex w-6/12 h-screen border-2 border-black flex-col bg-white fixed top-0 left-0 z-[-1] pt-16`}
             >
               {navItems.map((item) => (
                 <Link key={item.text} href={item.path}>
