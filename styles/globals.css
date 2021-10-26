@@ -26,6 +26,11 @@ a.link {
   @apply px-4;
 }
 
+.element {
+  font-family: 'wavehaus';
+ }
+
+/* Dropdown menu css classes */
 a {
   color: inherit;
   text-decoration: none;
@@ -34,11 +39,49 @@ a {
 * {
   box-sizing: border-box;
 }
-
-.element {
-  font-family: 'wavehaus';
- }
  
 .dropdown:hover .dropdown-menu {
   display: block;
+}
+
+/* Carousel css classes */
+.carousel {
+  position: relative;
+  height: 75%;
+  width: 95%;
+}
+
+/* default unselected carousel item, shown as hidden*/
+.carousel__item {
+  height: 100%;
+  /* background: grey; */
+  /* padding: 1em; */
+  display: none;
+}
+
+/* appears when selected*/
+.carousel__item--selected {
+  display: block;
+}
+
+.carousel__nav {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+
+.carousel__button {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background: rgba(109, 97, 97, 0.2);
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.carousel__button--selected {
+  background: rgba(0, 0, 0, 0.5);
 }

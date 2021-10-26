@@ -4,12 +4,15 @@ import Link from 'next/link';
 import DashboardHeader from '../../components/DashboardHeader';
 import { useUser } from '../../lib/profile/user-data';
 import { useAuthContext } from '../../lib/user/AuthContext';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import CalendarIcon from '@material-ui/icons/CalendarToday';
+import PinDrop from '@material-ui/icons/PinDrop';
+import ClockIcon from '@material-ui/icons/AccessTime';
+import Backpack from '@material-ui/icons/LocalMall';
 import AnnouncementCard from './Components/AnnouncementCards';
 import MentorCard1 from './Components/MentorCard1';
 import MentorCard3 from './Components/MentorCard3';
 import Sidebar from './Components/Sidebar';
+import SpotlightCard from './Components/SpotlightCard';
 
 /**
  * The dashboard / hack center.
@@ -34,6 +37,43 @@ export default function Dashboard() {
       'You are successfully checked in!'
     );
 
+  if (typeof window !== 'undefined') {
+    document.querySelectorAll('.carousel').forEach((carousel) => {
+      const items = carousel.querySelectorAll('.carousel__item');
+      const buttonsHtml = Array.from(items, () => {
+        return `<span class="carousel__button"></span>`;
+      });
+
+      carousel.insertAdjacentHTML(
+        'beforeend',
+        `
+	      	<div class="carousel__nav">
+	      		${buttonsHtml.join('')}
+	      	</div>
+	      `,
+      );
+
+      const buttons = carousel.querySelectorAll('.carousel__button');
+
+      buttons.forEach((button, i) => {
+        button.addEventListener('click', () => {
+          // un-select all the items
+          items.forEach((item) => item.classList.remove('carousel__item--selected'));
+          buttons.forEach((button) => button.classList.remove('carousel__button--selected'));
+
+          console.log(i - buttons.length / 2);
+          const itemCount = i - buttons.length / 2;
+          items[itemCount].classList.add('carousel__item--selected');
+          button.classList.add('carousel__button--selected');
+        });
+      });
+
+      //Set default to first item
+      items[0].classList.add('carousel__item--selected');
+      buttons[0].classList.add('carousel__button--selected');
+    });
+  }
+
   return (
     <div className="flex flex-wrap flex-grow">
       <Head>
@@ -43,7 +83,7 @@ export default function Dashboard() {
 
       <Sidebar />
 
-      <section id="mainContent" className="px-6 py-3 w-5/6 lg:wd-7/8 md:w-6/7">
+      <section id="mainContent" className="px-6 py-3 w-5/6 lg:w-7/8 md:w-6/7">
         <section id="subheader" className="p-4">
           <DashboardHeader active="/dashboard/" />
         </section>
@@ -51,19 +91,39 @@ export default function Dashboard() {
         <div className="lg:text-xl text-md bg-indigo-100 p-4 rounded-md mb-6">{checkin}</div>
 
         <div className="flex flex-wrap my-16">
+          {/* Spotlight Events */}
           <div className="md:w-3/5 w-screen h-96">
             <h1 className="md:text-3xl text-xl font-black">Spotlight</h1>
             <h3 className="md:text-xl text-md font-bold my-3">2 events are happening right now!</h3>
-            <div className="h-72 bg-gray-100 w-5/6 grid grid-cols-7">
-              <div className="col-span-1 h-full flex justify-end items-center">
-                <ArrowBackIosIcon style={{ fontSize: 'medium' }} />
-              </div>
-              <div className="col-span-5 h-5/6 rounded-lg bg-blue-200 my-auto"></div>
-              <div className="col-span-1 h-full flex justify-left items-center">
-                <ArrowForwardIosIcon style={{ fontSize: 'medium' }} />
-              </div>
+            {/* Carousel Section */}
+            <div className="carousel">
+              <SpotlightCard
+                title="Tensorflow w/ Google"
+                speakers={['Abdullah Hasani', 'Nam Truong']}
+                date="Saturday, Nov 13th"
+                location="ECSW 1.154"
+                time="12:30 - 1:30 PM"
+                page="HackerPack"
+              />
+              <SpotlightCard
+                title="Statefarm Workshop"
+                speakers={['Jake from Statefarm']}
+                date="Saturday, Nov 13th"
+                location="ECSW 1.421"
+                time="12:00 - 1:00 PM"
+                page="HackerPack"
+              />
+              <SpotlightCard
+                title="American Airlines Challenge"
+                speakers={['Mario', 'Luigi', 'Wario']}
+                date="Saturday, Nov 13th"
+                location="ECSW 1.341"
+                time="12:00 - 12:45 PM"
+                page="HackerPack"
+              />
             </div>
           </div>
+
           {/* Announcements */}
           <div className="md:w-2/5 w-screen h-96">
             <h1 className="md:text-3xl text-xl font-black">Announcements</h1>

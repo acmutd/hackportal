@@ -13,7 +13,7 @@ module.exports = {
         '5/8': '62.5%',
         '7/8': '87.5%',
         '1/7': '14.29%',
-        '6/7': '85.71',
+        '6/7': '85.71%',
       },
       height: {
         '9/10': '90%',
@@ -28,7 +28,13 @@ module.exports = {
         '9/10': '90%',
         '1/2': '50%',
         '1/4': '25%',
+        '5/8': '62.5%',
       },
+      backgroundColor: (theme) => ({
+        lightBackground: '#F4F4F4',
+        aqua: '#D8F8FF',
+        darkAqua: '#B0F1FF',
+      }),
     },
   },
   variants: {
