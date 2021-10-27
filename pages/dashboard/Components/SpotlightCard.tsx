@@ -11,15 +11,15 @@ import Backpack from '@material-ui/icons/LocalMall';
  */
 
 function SpotlightCard(props) {
-  var speakers;
-  if (props.speakers.length == 1) {
-    speakers = `Hosted by ${props.speakers[0]}`;
-  } else if (props.speakers.length == 2) {
-    speakers = `Hosted by ${props.speakers[0]} & ${props.speakers[1]}`;
-  } else if (props.speakers.length == 3) {
-    speakers = `Hosted by ${props.speakers[0]}, ${props.speakers[1]}, and ${props.speakers[2]}`;
-  } else {
-    speakers = '';
+  var speakerString = '';
+  if (props.speakers !== undefined && props.speakers !== null && props.speakers.length !== 0) {
+    if (props.speakers.length == 1) {
+      speakerString = `Hosted by ${props.speakers[0]}`;
+    } else if (props.speakers.length == 2) {
+      speakerString = `Hosted by ${props.speakers[0]} & ${props.speakers[1]}`;
+    } else if (props.speakers.length == 3) {
+      speakerString = `Hosted by ${props.speakers[0]}, ${props.speakers[1]}, and ${props.speakers[2]}`;
+    }
   }
 
   return (
@@ -28,7 +28,7 @@ function SpotlightCard(props) {
         <div className="w-full h-full bg-lightBackground flex justify-center pt-2">
           <div className="w-3/4 h-9/10 bg-aqua rounded-lg p-3 flex flex-col justify-between">
             <h1 className="lg:text-4xl text-xl font-black">{props.title}</h1>
-            <h3 className="md:text-md text-sm font-black">{speakers}</h3>
+            <h3 className="md:text-md text-sm font-black">{speakerString}</h3>
             {/* info section */}
             <div className="rounded-lg bg-darkAqua w-full min-h-1/2 p-3 flex flex-col justify-around">
               {/* top row info */}

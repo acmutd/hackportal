@@ -4,10 +4,6 @@ import Link from 'next/link';
 import DashboardHeader from '../../components/DashboardHeader';
 import { useUser } from '../../lib/profile/user-data';
 import { useAuthContext } from '../../lib/user/AuthContext';
-import CalendarIcon from '@material-ui/icons/CalendarToday';
-import PinDrop from '@material-ui/icons/PinDrop';
-import ClockIcon from '@material-ui/icons/AccessTime';
-import Backpack from '@material-ui/icons/LocalMall';
 import AnnouncementCard from './Components/AnnouncementCards';
 import MentorCard1 from './Components/MentorCard1';
 import MentorCard3 from './Components/MentorCard3';
@@ -23,6 +19,7 @@ export default function Dashboard() {
   const { isSignedIn } = useAuthContext();
   const user = useUser();
   const role = user.permissions?.length > 0 ? user.permissions[0] : '';
+
   // Change this to check-in condition instead of signed in
   const checkin =
     !user || !isSignedIn ? (
@@ -37,41 +34,54 @@ export default function Dashboard() {
       'You are successfully checked in!'
     );
 
+  var eventCount = 0;
   if (typeof window !== 'undefined') {
     document.querySelectorAll('.carousel').forEach((carousel) => {
       const items = carousel.querySelectorAll('.carousel__item');
-      const buttonsHtml = Array.from(items, () => {
-        return `<span class="carousel__button"></span>`;
-      });
 
-      carousel.insertAdjacentHTML(
-        'beforeend',
-        `
-	      	<div class="carousel__nav">
-	      		${buttonsHtml.join('')}
-	      	</div>
-	      `,
-      );
-
-      const buttons = carousel.querySelectorAll('.carousel__button');
-
-      buttons.forEach((button, i) => {
-        button.addEventListener('click', () => {
-          // un-select all the items
-          items.forEach((item) => item.classList.remove('carousel__item--selected'));
-          buttons.forEach((button) => button.classList.remove('carousel__button--selected'));
-
-          console.log(i - buttons.length / 2);
-          const itemCount = i - buttons.length / 2;
-          items[itemCount].classList.add('carousel__item--selected');
-          button.classList.add('carousel__button--selected');
+      //run if there are carousel items
+      if (items !== undefined && items !== null && items.length !== 0) {
+        const buttonsHtml = Array.from(items, () => {
+          return `<span class="carousel__button"></span>`;
         });
-      });
 
-      //Set default to first item
-      items[0].classList.add('carousel__item--selected');
-      buttons[0].classList.add('carousel__button--selected');
+        carousel.insertAdjacentHTML(
+          'beforeend',
+          `
+	        	<div class="carousel__nav">
+	        		${buttonsHtml.join('')}
+	        	</div>
+	        `,
+        );
+
+        const buttons = carousel.querySelectorAll('.carousel__button');
+        eventCount = items.length;
+        buttons.forEach((button, i) => {
+          button.addEventListener('click', () => {
+            // un-select all the items
+            items.forEach((item) => item.classList.remove('carousel__item--selected'));
+            buttons.forEach((button) => button.classList.remove('carousel__button--selected'));
+
+            console.log(i - buttons.length / 2);
+            const itemNumber = i - buttons.length / 2;
+
+            items[itemNumber].classList.add('carousel__item--selected');
+            button.classList.add('carousel__button--selected');
+          });
+        });
+
+        //Set default to first item
+        items[0].classList.add('carousel__item--selected');
+        buttons[0].classList.add('carousel__button--selected');
+      }
     });
+  }
+
+  var eventCountString;
+  if (eventCount === 1) {
+    eventCountString = '1 event is happening right now!';
+  } else {
+    eventCountString = `${eventCount} events are happening right now!`;
   }
 
   return (
@@ -94,7 +104,7 @@ export default function Dashboard() {
           {/* Spotlight Events */}
           <div className="md:w-3/5 w-screen h-96">
             <h1 className="md:text-3xl text-xl font-black">Spotlight</h1>
-            <h3 className="md:text-xl text-md font-bold my-3">2 events are happening right now!</h3>
+            <h3 className="md:text-xl text-md font-bold my-3">{eventCountString}</h3>
             {/* Carousel Section */}
             <div className="carousel">
               <SpotlightCard
