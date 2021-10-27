@@ -25,6 +25,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+/private_keys
 .env.local
 .env.development.local
 .env.test.local

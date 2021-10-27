@@ -24,8 +24,7 @@ async function userIsAuthorized(token: string) {
 }
 
 function extractHeaderToken(input: string) {
-  const result = input;
-  return result;
+  return input;
 }
 
 /**
@@ -84,23 +83,21 @@ async function handleGetApplications(req: NextApiRequest, res: NextApiResponse) 
  * @param res The HTTP response
  */
 async function handlePostApplications(req: NextApiRequest, res: NextApiResponse) {
-  const {} = req.query;
-  const applicationBody = req.body;
-
   let body: any;
   try {
-    body = JSON.parse(applicationBody);
+    body = req.body;
   } catch (error) {
     console.error('Could not parse request JSON body');
     res.status(400).json({
       type: 'invalid',
-      mesage: '',
+      message: '',
     });
     return;
   }
 
   const applicationDoc = db.collection(APPLICATIONS_COLLECTION).doc();
 
+  /* User sign-in requirements (Has not been tested)
   const userDoc = db.collection(USERS_COLLECTION).doc();
   // TODO: Get data from user doc, return error if it doesn't exist.
 
@@ -109,36 +106,38 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
     res.status(403).send({});
     return;
   }
+  */
 
   // TODO: User query params from request to populate fields
   const application: WithId<Registration> = {
     id: applicationDoc.id,
     timestamp: new Date().getUTCMilliseconds(),
     user: {
-      id: '',
-      permissions: [],
-      firstName: '',
-      lastName: '',
-      preferredEmail: '',
+      id: body.user.id,
+      permissions: body.user.permissions,
+      firstName: body.user.firstName,
+      lastName: body.user.lastName,
+      preferredEmail: body.user.preferredEmail,
     },
-    age: 0,
-    gender: '',
-    race: '',
-    ethnicity: '',
-    university: '',
-    major: '',
-    studyLevel: '',
-    hackathonExperience: 0,
-    softwareExperience: '',
-    heardFrom: '',
-    size: '',
-    dietary: '',
-    accomodations: '',
-    github: '',
-    linkedin: '',
-    website: '',
-    resume: '',
-    companies: [],
+    age: body.age,
+    gender: body.gender,
+    race: body.race,
+    ethnicity: body.ethnicity,
+    university: body.university,
+    major: body.major,
+    studyLevel: body.studyLevel,
+    hackathonExperience: body.hackathonExperience,
+    softwareExperience: body.softwareExperience,
+    heardFrom: body.heardFrom,
+    size: body.size,
+    dietary: body.dietary,
+    accomodations: body.accomodations,
+    github: body.github,
+    linkedin: body.linkedin,
+    website: body.website,
+    resume: body.resume,
+    companies: body.companies,
+    claims: body.claims,
   };
 
   try {
@@ -150,6 +149,8 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
     return;
   }
   console.info('Application successfully submitted');
+  res.status(200);
+  res.end('Success');
 }
 
 type ApplicationsResponse = {};
