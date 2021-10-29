@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React from 'react';
 
 /**
  * The registration page.
@@ -9,12 +9,49 @@ import React, { useState } from 'react';
 
 export default function Register() {
   const handleSubmit = (event) => {
-    console.log(event.target.value);
+    console.log('Starting to read form: ');
+    console.log(event.currentTarget);
     event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const data = JSON.parse(JSON.stringify(Object.fromEntries(formData)));
+
+    const application: WithId<Registration> = {
+      id: 'temporary',
+      timestamp: new Date().getUTCMilliseconds(),
+      user: {
+        id: 'fake id',
+        permissions: [],
+        firstName: data.fname,
+        lastName: data.lname,
+        preferredEmail: data.email,
+      },
+      age: data.age,
+      gender: data.gender,
+      race: data.race,
+      ethnicity: data.ethnicity,
+      university: data.university,
+      major: data.major,
+      studyLevel: data.studyLevel,
+      hackathonExperience: data.hackathonExperience,
+      softwareExperience: data.softwareExperience,
+      heardFrom: data.heardFrom,
+      size: data.size,
+      dietary: '',
+      accommodations: data.accommodations,
+      github: data.github,
+      linkedin: data.linkedin,
+      website: data.website,
+      resume: data.resume,
+      companies: [],
+      claims: [],
+    };
+
+    console.log('Done the preventDefault()');
     //get data out of form
     //make post request to api
     fetch('/api/applications', {
-      body: JSON.stringify({ ...event.target.value }),
+      body: JSON.stringify(application),
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
     }).then((result) => {
@@ -55,7 +92,7 @@ export default function Register() {
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 placeholder="John"
                 type="text"
-                name="1name"
+                name="fname"
                 autoComplete="given-name"
                 required
               />
@@ -69,7 +106,7 @@ export default function Register() {
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 placeholder="Smith"
                 type="text"
-                name="2name"
+                name="lname"
                 autoComplete="family-name"
                 required
               />
@@ -219,7 +256,7 @@ export default function Register() {
               <input
                 placeholder="0"
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
-                name="numhackathon"
+                name="hackathonExperience"
                 type="number"
                 min="0"
                 max="100"
@@ -234,7 +271,7 @@ export default function Register() {
               <br />
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
-                name="experience"
+                name="softwareExperience"
                 required
               >
                 <option value="Beginner">Beginner</option>
@@ -252,7 +289,7 @@ export default function Register() {
               <br />
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
-                name="heard"
+                name="heardFrom"
                 required
               >
                 <option value="Instagram">Instagram</option>
@@ -332,7 +369,7 @@ export default function Register() {
               <textarea
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 placeholder="List any accessibility concerns here"
-                name="accessibility"
+                name="accommodations"
               />
               <br />
               <br />
@@ -372,7 +409,7 @@ export default function Register() {
               <input
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
-                name="site"
+                name="website"
               />
               <br />
               <br />

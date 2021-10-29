@@ -131,7 +131,7 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
     heardFrom: body.heardFrom,
     size: body.size,
     dietary: body.dietary,
-    accomodations: body.accomodations,
+    accommodations: body.accommodations,
     github: body.github,
     linkedin: body.linkedin,
     website: body.website,

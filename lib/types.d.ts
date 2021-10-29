@@ -89,7 +89,7 @@ type Registration = {
   heardFrom: string;
   size: string;
   dietary: string;
-  accomodations: string;
+  accommodations: string;
   github?: string;
   linkedin?: string;
   website?: string;
