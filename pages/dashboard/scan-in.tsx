@@ -64,11 +64,6 @@ export default function Scan() {
             <span className="text-center text-lg">{error}</span>
           </div>
           <QRCode data={qrData} loading={qrLoading} width={200} height={200} />
-          <div>
-            <h4 className="text-center text-xl">Scan QR</h4>
-            <h4 className="text-center text-md">{userData}</h4>
-          </div>
-          <QRCodeReader callback={handleDisplay} width={200} height={200} />
         </div>
       ) : (
         <div className="top-6">
