@@ -9,8 +9,6 @@ import React from 'react';
 
 export default function Register() {
   const handleSubmit = (event) => {
-    console.log('Starting to read form: ');
-    console.log(event.currentTarget);
     event.preventDefault();
 
     const formData = new FormData(event.target);
@@ -47,7 +45,6 @@ export default function Register() {
       claims: [],
     };
 
-    console.log('Done the preventDefault()');
     //get data out of form
     //make post request to api
     fetch('/api/applications', {
