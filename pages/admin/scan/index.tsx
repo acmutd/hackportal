@@ -5,6 +5,7 @@ import ScanType from '../../../components/ScanType';
 import QRCodeReader from '../../../components/QRCodeReader';
 import LoadIcon from '../../../components/LoadIcon';
 import { useAuthContext } from '../../../lib/user/AuthContext';
+import { isAuthorized } from '..';
 
 /**
  * The admin scanning page.
@@ -83,6 +84,8 @@ export default function Admin() {
   useEffect(() => {
     fetchScanTypes();
   });
+  if (!isSignedIn || !isAuthorized(user))
+    return <div className="text-2xl font-black text-center">Unauthorized</div>;
   return (
     <div className="flex flex-col flex-grow">
       <Head>

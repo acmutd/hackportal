@@ -1,6 +1,11 @@
 import Head from 'next/head';
 import React from 'react';
 import AdminHeader from '../../components/AdminHeader';
+import { useAuthContext } from '../../lib/user/AuthContext';
+
+export function isAuthorized(user): boolean {
+  return user.permissions.includes('admin') || user.permissions.includes('organizer');
+}
 
 /**
  * The about page.
@@ -8,6 +13,9 @@ import AdminHeader from '../../components/AdminHeader';
  * Landing: /about
  */
 export default function Admin() {
+  const { user, isSignedIn } = useAuthContext();
+  if (!isSignedIn || !isAuthorized(user))
+    return <div className="text-2xl font-black text-center">Unauthorized</div>;
   return (
     <div className="flex flex-col flex-grow">
       <Head>

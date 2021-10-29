@@ -58,10 +58,14 @@ export default function Scan() {
       {isSignedIn ? (
         <div className="top-6 flex flex-col items-center justify-center">
           <div>
-            <h4 className="text-center text-xl" onClick={fetchQR}>
-              Fetch QR
-            </h4>
+            <h4 className="text-center text-xl">Hacker Tag</h4>
             <span className="text-center text-lg">{error}</span>
+          </div>
+          <div
+            className="rounded-2xl bg-green-300 text-center p-3 m-auto cursor-pointer hover:brightness-125"
+            onClick={fetchQR}
+          >
+            Gen QR
           </div>
           <QRCode data={qrData} loading={qrLoading} width={200} height={200} />
         </div>
