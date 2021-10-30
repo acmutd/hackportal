@@ -11,3 +11,30 @@ export const navItems = [
   { text: 'About', path: '/about' },
   { text: 'Admin', path: '/admin' },
 ];
+
+export const mockUserData = [
+  {
+    name: 'User1',
+    role: ['admin', 'hacker'],
+  },
+  {
+    name: 'User1',
+    role: ['admin', 'hacker'],
+  },
+  {
+    name: 'User1',
+    role: ['admin', 'hacker'],
+  },
+  {
+    name: 'User1',
+    role: ['admin', 'hacker'],
+  },
+  {
+    name: 'User1',
+    role: ['admin', 'hacker'],
+  },
+  {
+    name: 'User1',
+    role: ['admin', 'hacker'],
+  },
+];
