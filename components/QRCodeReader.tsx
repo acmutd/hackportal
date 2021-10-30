@@ -8,6 +8,7 @@ export interface QRCodeReaderProps {
     data: string,
     video: HTMLVideoElement,
     setVideoReady: (state: boolean) => void,
+    setPaused: (state: boolean) => void,
     tick: () => void,
   ) => void;
   /**
@@ -28,6 +29,7 @@ export const drawLine = (begin: Point, end: Point, context: CanvasRenderingConte
 export default function QRCodeReader({ callback, width, height }: QRCodeReaderProps) {
   const canvas = useRef(null);
   const [videoReady, setVideoReady] = useState(false);
+  const [paused, setPaused] = useState(false);
   const video = document.createElement('video');
 
   const tick = () => {
@@ -48,26 +50,27 @@ export default function QRCodeReader({ callback, width, height }: QRCodeReaderPr
         drawLine(qrCode.location.topRightCorner, qrCode.location.bottomRightCorner, context);
         drawLine(qrCode.location.bottomRightCorner, qrCode.location.bottomLeftCorner, context);
         drawLine(qrCode.location.bottomLeftCorner, qrCode.location.topLeftCorner, context);
-        setVideoReady(false);
         video.pause();
-        callback(qrCode.data, video, setVideoReady, tick);
+        setPaused(true);
+        setVideoReady(false);
+        callback(qrCode.data, video, setVideoReady, setPaused, tick);
         return;
       }
     }
     requestAnimationFrame(tick);
   };
 
-  navigator.mediaDevices
-    .getUserMedia({ video: { facingMode: 'environment', frameRate: 30, width, height } })
-    .then((stream) => {
-      video.srcObject = stream;
-      video.play();
-      requestAnimationFrame(tick);
-    });
-
+  !paused &&
+    navigator.mediaDevices
+      .getUserMedia({ video: { facingMode: 'environment', frameRate: 30, width, height } })
+      .then((stream) => {
+        video.srcObject = stream;
+        video.play();
+        requestAnimationFrame(tick);
+      });
   return (
     <div className="flex items-center justify-center">
-      {videoReady ? <canvas ref={canvas} /> : <LoadIcon width={width} height={height} />}
+      {videoReady && !paused ? <canvas ref={canvas} /> : <LoadIcon width={width} height={height} />}
     </div>
   );
 }
