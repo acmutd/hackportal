@@ -58,6 +58,17 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     }
     const { displayName, email, photoURL, uid } = firebaseUser;
     const token = await firebaseUser.getIdToken();
+    const query = new URL(`http://localhost:3000/api/userinfo`);
+    query.searchParams.append('id', uid);
+    const data = await fetch(query.toString().replaceAll('http://localhost:3000', ''), {
+      mode: 'cors',
+      headers: { Authorization: token },
+      method: 'GET',
+    });
+    if (data.status !== 200) {
+      console.error('Unexpected error when fetching AuthContext permission data...');
+    }
+    let permissions = (await data.json()).permissions;
     setUser({
       id: uid,
       token,
@@ -65,7 +76,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       lastName: '',
       preferredEmail: email,
       photoUrl: photoURL,
-      permissions: [], // TODO: Get permissions from database, likely slim down auth-specific features
+      permissions, // probably not the best way to do this, but it works for hackutd and that's what matters
     });
   };
 

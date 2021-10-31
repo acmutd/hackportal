@@ -9,6 +9,7 @@ export const navItems = [
   { text: 'Sponsors', path: '/sponsors' },
   { text: 'Schedule', path: '/schedule' },
   { text: 'About', path: '/about' },
+  { text: 'Admin', path: '/admin' },
 ];
 
 export const stats = [

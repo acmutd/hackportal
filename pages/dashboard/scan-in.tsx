@@ -13,11 +13,13 @@ import QRCodeReader from '../../components/QRCodeReader';
 export default function Scan() {
   const { user, isSignedIn } = useAuthContext();
   const [qrData, setQRData] = useState('');
+  const [qrLoading, setQRLoading] = useState(false);
   const [error, setError] = useState('');
   const [userData, setUserData] = useState('');
 
   const fetchQR = () => {
     if (!isSignedIn) return;
+    setQRLoading(true);
     const query = new URL(`http://localhost:3000/api/applications/${user.id}`);
     query.searchParams.append('id', user.id);
     fetch(query.toString().replaceAll('http://localhost:3000', ''), {
@@ -31,6 +33,7 @@ export default function Scan() {
         }
         const data = await result.json();
         setQRData(data.id);
+        setQRLoading(false);
         setError('');
       })
       .catch((err) => {
@@ -55,17 +58,16 @@ export default function Scan() {
       {isSignedIn ? (
         <div className="top-6 flex flex-col items-center justify-center">
           <div>
-            <h4 className="text-center text-xl" onClick={fetchQR}>
-              Fetch QR
-            </h4>
+            <h4 className="text-center text-xl">Hacker Tag</h4>
             <span className="text-center text-lg">{error}</span>
           </div>
-          <QRCode data={qrData} />
-          <div>
-            <h4 className="text-center text-xl">Scan QR</h4>
-            <h4 className="text-center text-md">{userData}</h4>
+          <div
+            className="rounded-2xl bg-green-300 text-center p-3 m-auto cursor-pointer hover:brightness-125"
+            onClick={fetchQR}
+          >
+            Gen QR
           </div>
-          <QRCodeReader callback={handleDisplay} width={200} height={200} />
+          <QRCode data={qrData} loading={qrLoading} width={200} height={200} />
         </div>
       ) : (
         <div className="top-6">
