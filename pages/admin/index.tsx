@@ -23,9 +23,17 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
 
   const [announcement, setAnnouncement] = useState('');
 
-  const postAnnouncement = () => {
-    console.log(`Posted announcement: ${announcement}`);
-    setAnnouncement('');
+  const postAnnouncement = async () => {
+    try {
+      await RequestHelper.post<{ announcement: string }, void>(
+        '/api/announcements',
+        {},
+        { announcement },
+      );
+      setAnnouncement('');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (!isSignedIn || !isAuthorized(user))
