@@ -1,8 +1,13 @@
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import AdminHeader from '../../components/AdminHeader';
 import EventDetailLink from '../../components/EventDetailLink';
+import PendingQuestion from '../../components/PendingQuestion';
+import { RequestHelper } from '../../lib/request-helper';
 import { useAuthContext } from '../../lib/user/AuthContext';
+import { QADocument } from '../api/questions';
 
 export function isAuthorized(user): boolean {
   return user.permissions.includes('admin') || user.permissions.includes('organizer');
@@ -13,7 +18,7 @@ export function isAuthorized(user): boolean {
  *
  * Landing: /about
  */
-export default function Admin() {
+export default function Admin({ questions }: { questions: QADocument[] }) {
   const { user, isSignedIn } = useAuthContext();
 
   const [announcement, setAnnouncement] = useState('');
@@ -59,6 +64,16 @@ export default function Admin() {
         </div>
       </div>
       <div className="p-6">
+        <h1 className="font-bold text-xl">Pending Questions: </h1>
+        {questions.map((question, idx) => (
+          <Link key={idx} passHref href={`/admin/resolve/${question.id}`}>
+            <a>
+              <PendingQuestion key={idx} question={question.question} />
+            </a>
+          </Link>
+        ))}
+      </div>
+      <div className="p-6">
         <h1 className="font-bold text-xl">Event Details: </h1>
         <div className="p-4">
           <EventDetailLink title="Add Workshop" />
@@ -70,3 +85,17 @@ export default function Admin() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  // console.log(context.req.headers.referer);
+  const protocol = context.req.headers.referer.split('://')[0];
+  const questions = await RequestHelper.get<QADocument[]>(
+    `${protocol}://${context.req.headers.host}/api/questions/pending`,
+    {},
+  );
+  return {
+    props: {
+      questions,
+    },
+  };
+};
