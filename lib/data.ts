@@ -37,4 +37,12 @@ export const mockUserData = [
     name: 'User1',
     role: ['admin', 'hacker'],
   },
+  {
+    name: 'User2',
+    role: ['organizer'],
+  },
+  {
+    name: 'User3',
+    role: ['sponsor'],
+  },
 ];
