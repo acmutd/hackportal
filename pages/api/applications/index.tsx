@@ -148,8 +148,7 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
     res.status(500);
     return;
   }
-  console.info('Application successfully submitted');
-  res.status(200);
+  console.info('Application successfully submitted.');
   res.end('Success');
 }
 

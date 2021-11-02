@@ -13,7 +13,8 @@ export default function Register() {
 
     const formData = new FormData(event.target);
     const data = JSON.parse(JSON.stringify(Object.fromEntries(formData)));
-
+    console.log(data);
+    console.info(formData.get('id'));
     const application: WithId<Registration> = {
       id: 'temporary',
       timestamp: new Date().getUTCMilliseconds(),
@@ -35,13 +36,13 @@ export default function Register() {
       softwareExperience: data.softwareExperience,
       heardFrom: data.heardFrom,
       size: data.size,
-      dietary: '',
+      dietary: formData.getAll('dietary') as [],
       accommodations: data.accommodations,
       github: data.github,
       linkedin: data.linkedin,
       website: data.website,
       resume: data.resume,
-      companies: [],
+      companies: formData.getAll('companies') as [],
       claims: [],
     };
 
@@ -272,7 +273,7 @@ export default function Register() {
                 required
               >
                 <option value="Beginner">Beginner</option>
-                <option value="Intermedate">Intermedate</option>
+                <option value="Intermediate">Intermediate</option>
                 <option value="Advanced">Advanced</option>
                 <option value="Expert">Expert</option>
               </select>
@@ -324,44 +325,79 @@ export default function Register() {
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Vegan" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="dietary"
+                value="vegan"
+                type="checkbox"
+              />
               <text className="pl-2">Vegan</text>
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Vegitarian" type="checkbox" />
-              <text className="pl-2">Vegitarian</text>
+              <input
+                className="form-checkbox h-5 w-5"
+                name="dietary"
+                value="vegetarian"
+                type="checkbox"
+              />
+              <text className="pl-2">Vegetarian</text>
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Nuts" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="dietary"
+                value="nuts"
+                type="checkbox"
+              />
               <text className="pl-2">Nuts</text>
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Fish" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="dietary"
+                value="fish"
+                type="checkbox"
+              />
               <text className="pl-2">Fish</text>
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Wheat" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="dietary"
+                value="wheat"
+                type="checkbox"
+              />
               <text className="pl-2">Wheat</text>
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Dairy" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="dietary"
+                value="dairy"
+                type="checkbox"
+              />
               <text className="pl-2">Dairy</text>
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Eggs" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="dietary"
+                value="eggs"
+                type="checkbox"
+              />
               <text className="pl-2">Eggs</text>
               <br />
               <br />
             </label>
 
             <label className="text-1xl my-4 font-bold font-small text-left">
-              Anything else we can do to better accomodate you at our hackathon?
+              Anything else we can do to better accommodate you at our hackathon?
               <br />
               <textarea
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
@@ -417,12 +453,22 @@ export default function Register() {
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Google" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="companies"
+                value="Google"
+                type="checkbox"
+              />
               <text className="pl-2">Google</text>
               <br />
             </label>
             <label>
-              <input className="form-checkbox h-5 w-5" name="Ebay" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="companies"
+                value="eBay"
+                type="checkbox"
+              />
               <text className="pl-2">Ebay</text>
               <br />
               <br />
