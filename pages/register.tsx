@@ -13,8 +13,7 @@ export default function Register() {
 
     const formData = new FormData(event.target);
     const data = JSON.parse(JSON.stringify(Object.fromEntries(formData)));
-    console.log(data);
-    console.info(formData.get('id'));
+
     const application: WithId<Registration> = {
       id: 'temporary',
       timestamp: new Date().getUTCMilliseconds(),
