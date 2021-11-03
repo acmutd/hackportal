@@ -6,6 +6,7 @@ import AdminHeader from '../../components/AdminHeader';
 import ErrorList from '../../components/ErrorList';
 import EventDetailLink from '../../components/EventDetailLink';
 import PendingQuestion from '../../components/PendingQuestion';
+import SuccessCard from '../../components/SuccessCard';
 import { RequestHelper } from '../../lib/request-helper';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { QADocument } from '../api/questions';
@@ -24,6 +25,7 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
 
   const [announcement, setAnnouncement] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
+  const [showSuccessMsg, setShowSuccessMsg] = useState(false);
 
   const addError = (errMsg: string) => {
     setErrors((prev) => [...prev, errMsg]);
@@ -36,6 +38,10 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
         {},
         { announcement },
       );
+      setShowSuccessMsg(true);
+      setTimeout(() => {
+        setShowSuccessMsg(false);
+      }, 2000);
       setAnnouncement('');
     } catch (error) {
       addError('Failed to post announcement! Please try again later');
@@ -62,6 +68,11 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
             setErrors(newErrorList);
           }}
         />
+        {showSuccessMsg && (
+          <div className="my-2">
+            <SuccessCard msg="Announcement posted successfully" />
+          </div>
+        )}
         <h1 className="font-bold text-xl">Post Announcement: </h1>
         <textarea
           value={announcement}
