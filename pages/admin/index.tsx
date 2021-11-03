@@ -16,9 +16,9 @@ export function isAuthorized(user): boolean {
 }
 
 /**
- * The about page.
+ * The main page of Admin Console.
  *
- * Landing: /about
+ * Route: /admin
  */
 export default function Admin({ questions }: { questions: QADocument[] }) {
   const { user, isSignedIn } = useAuthContext();

@@ -7,6 +7,15 @@ const db = firestore();
 
 const ANNOUNCEMENTS_COLLECTION = '/announcements';
 
+/**
+ *
+ * API endpoint to post announcement to backend
+ *
+ * @param req HTTP request object
+ * @param res HTTP response object
+ *
+ *
+ */
 async function postAnnouncementToDB(req: NextApiRequest, res: NextApiResponse) {
   const doc = await db.collection(ANNOUNCEMENTS_COLLECTION).add({
     announcement: JSON.parse(req.body).announcement,
@@ -14,6 +23,15 @@ async function postAnnouncementToDB(req: NextApiRequest, res: NextApiResponse) {
   res.json(doc);
 }
 
+/**
+ *
+ * API endpoint to get all announcement from backend
+ *
+ * @param req HTTP request object
+ * @param res HTTP response object
+ *
+ *
+ */
 async function getAllAnnouncements(req: NextApiRequest, res: NextApiResponse) {
   const snapshot = await db.collection(ANNOUNCEMENTS_COLLECTION).get();
   let data = [];

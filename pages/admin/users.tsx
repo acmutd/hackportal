@@ -7,6 +7,13 @@ import UserList from '../../components/UserList';
 import { RequestHelper } from '../../lib/request-helper';
 import { UserData } from '../api/users';
 
+/**
+ *
+ * The User Dashboard of Admin Console. Shows all users that are registered in the system.
+ *
+ * Route: /admin/users
+ *
+ */
 export default function UserPage({ userData }: { userData: UserData[] }) {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<UserData[]>([]);

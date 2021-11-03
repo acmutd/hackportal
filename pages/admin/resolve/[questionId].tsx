@@ -6,7 +6,14 @@ import PendingQuestion from '../../../components/PendingQuestion';
 import { RequestHelper } from '../../../lib/request-helper';
 import { QADocument } from '../../api/questions';
 
-export default function ResolveQuestion({
+/**
+ * Resolve question page.
+ *
+ * This page allows admins and organizers to resolve a specific question asked by contestant
+ *
+ * Route: /admin/resolve/[questionId]
+ */
+export default function ResolveQuestionPage({
   question,
   questionId,
 }: {

@@ -7,6 +7,15 @@ const db = firestore();
 
 const QUESTION_COLLECTION = '/questions';
 
+/**
+ *
+ * API endpoint to fetch a pending question with given ID
+ *
+ * @param req HTTP request object
+ * @param res HTTP response object
+ *
+ *
+ */
 async function getPendingQuestionById(req: NextApiRequest, res: NextApiResponse) {
   const snapshot = await db
     .collection(QUESTION_COLLECTION)
@@ -15,6 +24,15 @@ async function getPendingQuestionById(req: NextApiRequest, res: NextApiResponse)
   res.json(snapshot.data());
 }
 
+/**
+ *
+ * API endpoint to post an answer to a pending question
+ *
+ * @param req HTTP request object
+ * @param res HTTP response object
+ *
+ *
+ */
 async function resolvePendingQuestionById(req: NextApiRequest, res: NextApiResponse) {
   const newData = {
     ...JSON.parse(req.body),
