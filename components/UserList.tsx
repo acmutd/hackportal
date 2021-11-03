@@ -1,8 +1,7 @@
+import { UserData } from '../pages/api/users';
+
 interface UserListProps {
-  users: Array<{
-    name: string;
-    role: string[];
-  }>;
+  users: UserData[];
 }
 
 export default function UserList({ users }: UserListProps) {
@@ -13,7 +12,7 @@ export default function UserList({ users }: UserListProps) {
           <svg height="28" width="28">
             <circle cx="14" cy="14" r="10" fill="#C4C4C4" />
           </svg>
-          <h1 className="font-bold">{user.name}</h1>
+          <h1 className="font-bold">{`${user.user.firstName} ${user.user.lastName}`}</h1>
         </div>
       ))}
     </div>

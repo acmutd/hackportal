@@ -1,14 +1,16 @@
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import AdminHeader from '../../components/AdminHeader';
 import FilterComponent from '../../components/FilterComponent';
 import UserList from '../../components/UserList';
-import { mockUserData } from '../../lib/data';
+import { RequestHelper } from '../../lib/request-helper';
+import { UserData } from '../api/users';
 
-export default function UserPage() {
+export default function UserPage({ userData }: { userData: UserData[] }) {
   const [loading, setLoading] = useState(true);
-  const [users, setUsers] = useState<ReturnType<typeof getUserList>>([]);
-  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [users, setUsers] = useState<UserData[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<UserData[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
 
   let timer: NodeJS.Timeout;
@@ -17,30 +19,57 @@ export default function UserPage() {
     hacker: true,
     sponsor: true,
     organizer: true,
+    admin: true,
   });
-
-  const getUserList = () => {
-    return mockUserData;
-  };
 
   useEffect(() => {
     setLoading(true);
-    const userList = getUserList();
-    setUsers(userList);
-    setFilteredUsers(userList);
+    setUsers(userData);
+    setFilteredUsers([...userData]);
     setLoading(false);
   }, []);
 
   useEffect(() => {
     timer = setTimeout(() => {
-      const newFiltered = users.filter((user) => user.name.indexOf(searchQuery) !== -1);
-      setFilteredUsers(newFiltered);
+      if (searchQuery !== '') {
+        const newFiltered = users.filter(
+          ({ user }) => `${user.firstName} ${user.lastName}`.indexOf(searchQuery) !== -1,
+        );
+        setFilteredUsers(newFiltered);
+      }
     }, 750);
 
     return () => {
       clearTimeout(timer);
     };
   }, [searchQuery]);
+
+  const updateFilter = (name: string) => {
+    const filterCriteria = {
+      ...filter,
+      [name]: !filter[name],
+    };
+    const newFilteredUser = users.filter(({ user }) => {
+      for (let category of Object.keys(filterCriteria)) {
+        if (filterCriteria[category] && user.permissions.includes(category)) {
+          return true;
+        }
+      }
+      return false;
+    });
+    setFilteredUsers(newFilteredUser);
+    setFilter(filterCriteria);
+  };
+
+  const sortByName = () => {
+    setFilteredUsers((prev) =>
+      [...prev].sort((a, b) => {
+        const nameA = a.user.firstName + ' ' + a.user.lastName;
+        const nameB = b.user.firstName + ' ' + b.user.lastName;
+        return nameA.localeCompare(nameB);
+      }),
+    );
+  };
 
   if (loading) {
     return (
@@ -49,33 +78,6 @@ export default function UserPage() {
       </div>
     );
   }
-
-  const updateFilter = (name: string) => {
-    const filterCriteria = {
-      ...filter,
-      [name]: !filter[name],
-    };
-
-    const newFilteredUser = users.filter((user) => {
-      for (let category of Object.keys(filterCriteria)) {
-        if (filterCriteria[category] && user.role.includes(category)) {
-          return true;
-        }
-      }
-      return false;
-    });
-
-    setFilteredUsers(newFilteredUser);
-    setFilter(filterCriteria);
-  };
-
-  const sortByName = () => {
-    setFilteredUsers((prev) =>
-      [...prev].sort((a, b) => {
-        return a.name.localeCompare(b.name);
-      }),
-    );
-  };
 
   return (
     <div className="flex flex-col flex-grow">
@@ -123,6 +125,13 @@ export default function UserPage() {
               }}
               title="Organizers"
             />
+            <FilterComponent
+              checked={filter['admin']}
+              onCheck={() => {
+                updateFilter('admin');
+              }}
+              title="Admin"
+            />
           </div>
           <div className="my-4">
             <h1 className="text-md font-bold text-center mb-4">Sort By:</h1>
@@ -144,3 +153,16 @@ export default function UserPage() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const protocol = context.req.headers.referer.split('://')[0];
+  const userData = await RequestHelper.get<UserData[]>(
+    `${protocol}://${context.req.headers.host}/api/users/`,
+    {},
+  );
+  return {
+    props: {
+      userData,
+    },
+  };
+};
