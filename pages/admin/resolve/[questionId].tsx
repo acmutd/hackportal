@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { useState } from 'react';
+import ErrorList from '../../../components/ErrorList';
 import PendingQuestion from '../../../components/PendingQuestion';
 import { RequestHelper } from '../../../lib/request-helper';
 import { QADocument } from '../../api/questions';
@@ -12,6 +13,11 @@ export default function ResolveQuestion({
   questionId: string;
 }) {
   const [answer, setAnswer] = useState('');
+  const [errors, setErrors] = useState<string[]>([]);
+
+  const addError = (errMsg: string) => {
+    setErrors((prev) => [...prev, errMsg]);
+  };
 
   const submitAnswer = async () => {
     try {
@@ -25,11 +31,20 @@ export default function ResolveQuestion({
       );
       setAnswer('');
     } catch (error) {
+      addError('Failed to submit answer. Please try again later');
       console.log(error);
     }
   };
   return (
     <div className="p-6">
+      <ErrorList
+        errors={errors}
+        onClose={(idx: number) => {
+          const newErrorList = [...errors];
+          newErrorList.splice(idx, 1);
+          setErrors(newErrorList);
+        }}
+      />
       <PendingQuestion question={question.question} />
       <textarea
         className="w-full rounded-xl p-4"

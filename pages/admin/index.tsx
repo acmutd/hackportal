@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import AdminHeader from '../../components/AdminHeader';
+import ErrorList from '../../components/ErrorList';
 import EventDetailLink from '../../components/EventDetailLink';
 import PendingQuestion from '../../components/PendingQuestion';
 import { RequestHelper } from '../../lib/request-helper';
@@ -22,6 +23,11 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
   const { user, isSignedIn } = useAuthContext();
 
   const [announcement, setAnnouncement] = useState('');
+  const [errors, setErrors] = useState<string[]>([]);
+
+  const addError = (errMsg: string) => {
+    setErrors((prev) => [...prev, errMsg]);
+  };
 
   const postAnnouncement = async () => {
     try {
@@ -32,6 +38,7 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
       );
       setAnnouncement('');
     } catch (error) {
+      addError('Failed to post announcement! Please try again later');
       console.log(error);
     }
   };
@@ -45,10 +52,16 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
         <title>HackPortal - Admin</title>
         <meta name="description" content="HackPortal's Admin Page" />
       </Head>
-      <section id="subheader" className="p-4">
-        <AdminHeader />
-      </section>
+      <AdminHeader />
       <div className="p-6">
+        <ErrorList
+          errors={errors}
+          onClose={(idx: number) => {
+            const newErrorList = [...errors];
+            newErrorList.splice(idx, 1);
+            setErrors(newErrorList);
+          }}
+        />
         <h1 className="font-bold text-xl">Post Announcement: </h1>
         <textarea
           value={announcement}

@@ -6,7 +6,7 @@ import React from 'react';
  */
 export default function AdminHeader() {
   return (
-    <>
+    <section className="p-4">
       <header className="top-0 sticky flex flex-row justify-between p-2 md:p-4 items-center">
         <div className="mx-auto md:flex justify-center text-xl font-header md:text-left  gap-x-8">
           <Link href="/admin">
@@ -29,6 +29,6 @@ export default function AdminHeader() {
           </Link>
         </div>
       </header>
-    </>
+    </section>
   );
 }
