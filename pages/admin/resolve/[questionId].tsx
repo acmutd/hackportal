@@ -1,8 +1,8 @@
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import ErrorList from '../../../components/ErrorList';
 import PendingQuestion from '../../../components/PendingQuestion';
-import SuccessCard from '../../../components/SuccessCard';
 import { RequestHelper } from '../../../lib/request-helper';
 import { QADocument } from '../../api/questions';
 
@@ -13,9 +13,9 @@ export default function ResolveQuestion({
   question: QADocument;
   questionId: string;
 }) {
+  const router = useRouter();
   const [answer, setAnswer] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
-  const [showSuccessMsg, setShowSuccessMsg] = useState(false);
 
   const addError = (errMsg: string) => {
     setErrors((prev) => [...prev, errMsg]);
@@ -31,11 +31,8 @@ export default function ResolveQuestion({
           answer,
         },
       );
-      setShowSuccessMsg(true);
-      setTimeout(() => {
-        setShowSuccessMsg(false);
-      }, 2000);
       setAnswer('');
+      router.push('/admin');
     } catch (error) {
       addError('Failed to submit answer. Please try again later');
       console.log(error);
@@ -51,11 +48,6 @@ export default function ResolveQuestion({
           setErrors(newErrorList);
         }}
       />
-      {showSuccessMsg && (
-        <div className="my-2">
-          <SuccessCard msg="Announcement posted successfully" />
-        </div>
-      )}
       <PendingQuestion question={question.question} />
       <textarea
         className="w-full rounded-xl p-4"
