@@ -14,10 +14,10 @@ firebase.messaging();
 
 //background notifications will be received here
 firebase.messaging().setBackgroundMessageHandler((payload) => {
-  const { title, body } = JSON.parse(payload.data.notification);
+  const { announcement } = JSON.parse(payload.data.notification);
   var options = {
-    body,
+    body: announcement,
     icon: '/icons/launcher-icon-4x.png',
   };
-  registration.showNotification(title, options);
+  registration.showNotification("HackPortal Announcement", options);
 });

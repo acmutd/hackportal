@@ -17,9 +17,7 @@ const ANNOUNCEMENTS_COLLECTION = '/announcements';
  *
  */
 async function postAnnouncementToDB(req: NextApiRequest, res: NextApiResponse) {
-  const doc = await db.collection(ANNOUNCEMENTS_COLLECTION).add({
-    announcement: JSON.parse(req.body).announcement,
-  });
+  const doc = await db.collection(ANNOUNCEMENTS_COLLECTION).add(JSON.parse(req.body));
   res.json(doc);
 }
 
@@ -33,7 +31,7 @@ async function postAnnouncementToDB(req: NextApiRequest, res: NextApiResponse) {
  *
  */
 async function getAllAnnouncements(req: NextApiRequest, res: NextApiResponse) {
-  const snapshot = await db.collection(ANNOUNCEMENTS_COLLECTION).get();
+  const snapshot = await db.collection(ANNOUNCEMENTS_COLLECTION).orderBy('time', 'desc').get();
   let data = [];
   snapshot.forEach((doc) => {
     data.push(doc.data());

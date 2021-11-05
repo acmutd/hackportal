@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import DashboardHeader from '../../components/DashboardHeader';
 import { useUser } from '../../lib/profile/user-data';
@@ -11,17 +11,20 @@ import Sidebar from './Components/Sidebar';
 import SpotlightCard from './Components/SpotlightCard';
 import firebase from 'firebase';
 import 'firebase/messaging';
-import { firebaseCloudMessaging } from '../../utilities/webPush';
+import { initializeFCM } from '../../utilities/webPush';
+import { GetServerSideProps } from 'next';
+import { RequestHelper } from '../../lib/request-helper';
 
 /**
  * The dashboard / hack center.
  *
  * Landing: /dashboard
  */
-export default function Dashboard() {
+export default function Dashboard(props: { announcements: Announcement[] }) {
   const { isSignedIn } = useAuthContext();
   const user = useUser();
   const role = user.permissions?.length > 0 ? user.permissions[0] : '';
+  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
 
   // Change this to check-in condition instead of signed in
   const checkin =
@@ -88,10 +91,14 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
+    setAnnouncements(props.announcements);
+  }, []);
+
+  useEffect(() => {
     setToken();
     async function setToken() {
       try {
-        const token = await firebaseCloudMessaging.init();
+        const token = await initializeFCM();
         if (token) {
           getMessage();
         }
@@ -101,7 +108,12 @@ export default function Dashboard() {
     }
     function getMessage() {
       const messaging = firebase.messaging();
-      messaging.onMessage((message) => console.log('foreground ', message));
+      messaging.onMessage((message) => {
+        setAnnouncements((prev) => [
+          JSON.parse(message.data.notification) as Announcement,
+          ...prev,
+        ]);
+      });
     }
   }, []);
 
@@ -159,23 +171,13 @@ export default function Dashboard() {
           <div className="md:w-2/5 w-screen h-96">
             <h1 className="md:text-3xl text-xl font-black">Announcements</h1>
             <div id="announcement-items" className="overflow-y-scroll h-9/10">
-              <AnnouncementCard
-                text="AWAKE Chocolate Bars available in ECSW Lobby for limited time only! Come and grab some now!"
-                time="1:12 PM"
-              />
-              <AnnouncementCard
-                text="Keynote Speaker Antonio Bendaras' speech has been moved from room 1.1501 to 1.514"
-                time="1:02 PM"
-              />
-              <AnnouncementCard
-                text="Hacking has officially started! Get hacking hackers :)"
-                time="11:00 AM"
-              />
-              <AnnouncementCard
-                text="Check-in has opened! Come to the entrance at ECSW to get checked-in."
-                time="8:00 AM"
-              />
-              <AnnouncementCard text="Gooooood Mooooorning!" time="6:00 AM" />
+              {announcements.map((announcement, idx) => (
+                <AnnouncementCard
+                  key={idx}
+                  text={announcement.announcement}
+                  time={announcement.time}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -232,3 +234,16 @@ export default function Dashboard() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const protocol = context.req.headers.referer.split('://')[0];
+  const announcements = await RequestHelper.get<Announcement[]>(
+    `${protocol}://${context.req.headers.host}/api/announcements/`,
+    {},
+  );
+  return {
+    props: {
+      announcements,
+    },
+  };
+};

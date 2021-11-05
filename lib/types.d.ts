@@ -148,3 +148,8 @@ type ColorScheme = {
   light: string;
   dark: string;
 };
+
+type Announcement = {
+  announcement: string;
+  time: string;
+};

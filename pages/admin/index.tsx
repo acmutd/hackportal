@@ -1,3 +1,4 @@
+import localforage from 'localforage';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -9,6 +10,7 @@ import PendingQuestion from '../../components/PendingQuestion';
 import SuccessCard from '../../components/SuccessCard';
 import { RequestHelper } from '../../lib/request-helper';
 import { useAuthContext } from '../../lib/user/AuthContext';
+import { FCM_TOKEN_KEY } from '../../utilities/webPush';
 import { QADocument } from '../api/questions';
 
 export function isAuthorized(user): boolean {
@@ -32,12 +34,48 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
   };
 
   const postAnnouncement = async () => {
+    const timestamp = new Date();
+    const hour = timestamp.getHours(),
+      minute = timestamp.getMinutes();
     try {
-      await RequestHelper.post<{ announcement: string }, void>(
+      await RequestHelper.post<Announcement, void>(
         '/api/announcements',
         {},
-        { announcement },
+        {
+          announcement,
+          time: `${hour}:${minute < 10 ? '0' : ''}${minute}`,
+        },
       );
+      const fcm_token = await localforage.getItem<string>(FCM_TOKEN_KEY);
+      if (fcm_token) {
+        await RequestHelper.post<
+          {
+            to: string;
+            data: {
+              notification: Announcement;
+            };
+          },
+          void
+        >(
+          'https://fcm.googleapis.com/fcm/send',
+          {
+            headers: {
+              Authorization: `key=${process.env.NEXT_PUBLIC_CLOUD_MESSAGING_SERVER_TOKEN}`,
+              'Content-Type': 'application/json',
+            },
+          },
+          {
+            to: fcm_token,
+            data: {
+              notification: {
+                announcement,
+                time: `${hour}:${minute < 10 ? '0' : ''}${minute}`,
+              },
+            },
+          },
+        );
+      }
+
       setShowSuccessMsg(true);
       setTimeout(() => {
         setShowSuccessMsg(false);
