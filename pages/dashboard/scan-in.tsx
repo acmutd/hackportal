@@ -64,26 +64,26 @@ export default function Scan() {
           <DashboardHeader active="/dashboard/scan-in" />
         </section>
         <div className="font-bold text-2xl md:text-4xl lg-text-6xl">Big Heading</div>
+        {isSignedIn ? (
+          <div className="top-6 flex flex-col items-center justify-center">
+            <div>
+              <h4 className="text-center text-xl">Hacker Tag</h4>
+              <span className="text-center text-lg">{error}</span>
+            </div>
+            <div
+              className="rounded-2xl bg-green-300 text-center p-3 m-auto cursor-pointer hover:brightness-125"
+              onClick={fetchQR}
+            >
+              Gen QR
+            </div>
+            <QRCode data={qrData} loading={qrLoading} width={200} height={200} />
+          </div>
+        ) : (
+          <div className="top-6">
+            <h4>Invalid Login</h4>
+          </div>
+        )}
       </section>
-      {isSignedIn ? (
-        <div className="top-6 flex flex-col items-center justify-center">
-          <div>
-            <h4 className="text-center text-xl">Hacker Tag</h4>
-            <span className="text-center text-lg">{error}</span>
-          </div>
-          <div
-            className="rounded-2xl bg-green-300 text-center p-3 m-auto cursor-pointer hover:brightness-125"
-            onClick={fetchQR}
-          >
-            Gen QR
-          </div>
-          <QRCode data={qrData} loading={qrLoading} width={200} height={200} />
-        </div>
-      ) : (
-        <div className="top-6">
-          <h4>Invalid Login</h4>
-        </div>
-      )}
     </div>
   );
 }
