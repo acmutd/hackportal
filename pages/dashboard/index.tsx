@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import DashboardHeader from '../../components/DashboardHeader';
 import { useUser } from '../../lib/profile/user-data';
@@ -9,6 +9,9 @@ import MentorCard1 from './Components/MentorCard1';
 import MentorCard3 from './Components/MentorCard3';
 import Sidebar from './Components/Sidebar';
 import SpotlightCard from './Components/SpotlightCard';
+import firebase from 'firebase';
+import 'firebase/messaging';
+import { firebaseCloudMessaging } from '../../utilities/webPush';
 
 /**
  * The dashboard / hack center.
@@ -83,6 +86,24 @@ export default function Dashboard() {
   } else {
     eventCountString = `${eventCount} events are happening right now!`;
   }
+
+  useEffect(() => {
+    setToken();
+    async function setToken() {
+      try {
+        const token = await firebaseCloudMessaging.init();
+        if (token) {
+          getMessage();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    function getMessage() {
+      const messaging = firebase.messaging();
+      messaging.onMessage((message) => console.log('foreground ', message));
+    }
+  }, []);
 
   return (
     <div className="flex flex-wrap flex-grow">

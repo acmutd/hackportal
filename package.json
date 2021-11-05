@@ -20,6 +20,7 @@
     "firebase": "^8.9.0",
     "firebase-admin": "^9.11.0",
     "jsqr": "^1.4.0",
+    "localforage": "^1.10.0",
     "next": "^11.1.0",
     "next-fonts": "^1.5.1",
     "next-pwa": "^5.2.24",
