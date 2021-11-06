@@ -18,7 +18,7 @@ export default function Submit() {
 
       <Sidebar />
 
-      <section id="mainContent" className="px-6 py-3 w-5/6 lg:wd-7/8 md:w-6/7">
+      <section id="mainContent" className="px-6 py-3 w-5/6 lg:wd-7/8 md:w-6/7 w-screen">
         <section id="subheader" className="p-4">
           <DashboardHeader active="/dashboard/submit" />
         </section>

@@ -17,7 +17,6 @@ import SpotlightCardScroll from './Components/SpotlightCardScroll';
  * Landing: /dashboard
  */
 var eventCount = 0;
-
 export const getItemCount = () => {
   if (typeof window !== 'undefined') {
     const items = document.querySelectorAll('.scrollItem');
@@ -118,7 +117,7 @@ export default function Dashboard() {
 
       <Sidebar />
 
-      <section id="mainContent" className="px-6 py-3 w-5/6 lg:w-7/8 md:w-6/7">
+      <section id="mainContent" className="px-6 py-3 w-5/6 lg:w-7/8 md:w-6/7 w-screen">
         <section id="subheader" className="p-4">
           <DashboardHeader active="/dashboard/" />
         </section>

@@ -12,7 +12,7 @@ export default function DashboardHeader({ active }: DashboardHeaderProps) {
   return (
     <>
       <header className="top-0 sticky flex flex-row justify-between py-2 md:p-4 items-center">
-        <div className="mx-auto md:flex justify-center lg:text-xl sm:text-md text-sm font-header md:text-left text-center grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1  gap-y-4">
+        <div className="mx-auto md:flex justify-center lg:text-xl sm:text-md text-xs font-header md:text-left text-center grid sm:grid-cols-4 grid-cols-2 gap-y-4">
           <Link href="/dashboard/">
             <a>
               <span className="inline md:invisible"></span>
