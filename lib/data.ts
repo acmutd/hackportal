@@ -45,6 +45,7 @@ export const mockUserData = [
     name: 'User3',
     role: ['sponsor'],
   },
+];
 
 export const stats = [
   {
