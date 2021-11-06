@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+import { getItemCount } from '../pages/dashboard/index';
 
 interface DashboardHeaderProps {
   active: string;
@@ -19,6 +20,7 @@ export default function DashboardHeader({ active }: DashboardHeaderProps) {
                 className={`link font-bold ${
                   active === '/dashboard/' && 'border-b-2 border-black p-2'
                 }`}
+                onClick={getItemCount}
               >
                 Hack Center
               </a>

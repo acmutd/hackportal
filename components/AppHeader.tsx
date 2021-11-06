@@ -4,7 +4,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ProfileDialog from './ProfileDialog';
 import { useUser } from '../lib/profile/user-data';
 import { useAuthContext } from '../lib/user/AuthContext';
-
+import { getItemCount } from '../pages/dashboard/index';
 import { navItems } from '../lib/data';
 
 /**
@@ -55,7 +55,11 @@ export default function AppHeader() {
                 <Link key={item.text} href={item.path}>
                   <a
                     className="border-b-2 first:border-t-2 border-black p-4 py-6"
-                    onClick={dismissDialog}
+                    // onClick={dismissDialog, getItemCount}
+                    onClick={() => {
+                      dismissDialog();
+                      getItemCount();
+                    }}
                   >
                     <p className="text-sm font-bold">{item.text}</p>
                   </a>
@@ -67,7 +71,12 @@ export default function AppHeader() {
           <div className="hidden text-xs order-2 md:flex items-center md:text-left lg:ml-12">
             {navItems.map((item) => (
               <Link key={item.text} href={item.path}>
-                <a onClick={dismissDialog}>
+                <a
+                  onClick={() => {
+                    dismissDialog();
+                    getItemCount();
+                  }}
+                >
                   <p className="md:mx-4 text-sm font-bold">{item.text}</p>
                 </a>
               </Link>

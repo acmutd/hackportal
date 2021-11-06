@@ -25,7 +25,7 @@ function SpotlightCardScroll(props) {
   return (
     <>
       {/* <div className="min-w-3/4 h-full bg-lightBackground flex justify-center pt-2"> */}
-      <div className="min-w-3/4 h-9/10 bg-aqua rounded-lg p-3 flex flex-col justify-between m-3">
+      <div className="scrollItem min-w-3/4 h-9/10 bg-aqua rounded-lg p-3 flex flex-col justify-between m-3">
         <h1 className="lg:text-4xl text-xl font-black">{props.title}</h1>
         <h3 className="md:text-md text-sm font-black">{speakerString}</h3>
         {/* info section */}

@@ -16,10 +16,28 @@ import SpotlightCardScroll from './Components/SpotlightCardScroll';
  *
  * Landing: /dashboard
  */
+var eventCount = 0;
+
+export const getItemCount = () => {
+  if (typeof window !== 'undefined') {
+    const items = document.querySelectorAll('.scrollItem');
+    if (items !== undefined && items !== null && items.length !== 0) {
+      eventCount = items.length;
+    }
+  }
+};
+
 export default function Dashboard() {
   const { isSignedIn } = useAuthContext();
   const user = useUser();
   const role = user.permissions?.length > 0 ? user.permissions[0] : '';
+
+  var eventCountString;
+  if (eventCount === 1) {
+    eventCountString = '1 event is happening right now!';
+  } else {
+    eventCountString = `${eventCount} events are happening right now!`;
+  }
 
   {
     /*
@@ -74,6 +92,22 @@ export default function Dashboard() {
   }
   */
   }
+  // var eventCount = 0;
+
+  // export const getItemCount = () => {
+  //   if (typeof window !== 'undefined'){
+  //   const items = document.querySelectorAll('.scrollItem');
+  //   if (items !== undefined && items !== null && items.length !== 0) {
+  //     eventCount = items.length;
+  //   }
+  // }
+  // };
+  // var eventCountString;
+  // if (eventCount === 1) {
+  //   eventCountString = '1 event is happening right now!';
+  // } else {
+  //   eventCountString = `${eventCount} events are happening right now!`;
+  // }
 
   return (
     <div className="flex flex-wrap flex-grow">
@@ -95,7 +129,7 @@ export default function Dashboard() {
           {/* Spotlight Events */}
           <div className="md:w-3/5 w-screen h-96">
             <h1 className="md:text-3xl text-xl font-black">Spotlight</h1>
-            <h3 className="md:text-xl text-md font-bold my-3">1 event</h3>
+            <h3 className="md:text-xl text-md font-bold my-3">{eventCountString}</h3>
             {/* Carousel Section */}
             {/*
             <div className="carousel">
@@ -108,7 +142,7 @@ export default function Dashboard() {
                 page="HackerPack"
               />
             */}
-            <div className="w-11/12 bg-lightBackground overflow-x-scroll flex h-3/4">
+            <div className="carouselScroll w-11/12 bg-lightBackground overflow-x-scroll flex h-3/4">
               <SpotlightCardScroll
                 title="Tensorflow w/ Google"
                 speakers={['Abdullah Hasani', 'Nam Truong']}
@@ -127,6 +161,14 @@ export default function Dashboard() {
               />
               <SpotlightCardScroll
                 title="Google Workshop"
+                speakers={['Abdullah Hasani', 'Nam Truong']}
+                date="Saturday, Nov 13th"
+                location="ECSW 1.154"
+                time="12:30 - 1:30 PM"
+                page="HackerPack"
+              />
+              <SpotlightCardScroll
+                title="American Airlines Workshop"
                 speakers={['Abdullah Hasani', 'Nam Truong']}
                 date="Saturday, Nov 13th"
                 location="ECSW 1.154"
