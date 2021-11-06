@@ -14,6 +14,7 @@ import { FCM_TOKEN_KEY } from '../../utilities/webPush';
 import { QADocument } from '../api/questions';
 
 export function isAuthorized(user): boolean {
+  if (!user || !user.permissions) return false;
   return (
     (user.permissions as string[]).includes('admin') ||
     (user.permissions as string[]).includes('organizer')
