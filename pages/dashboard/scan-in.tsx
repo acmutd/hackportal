@@ -1,10 +1,11 @@
 import Head from 'next/head';
 import React, { useRef, useState } from 'react';
 import DashboardHeader from '../../components/DashboardHeader';
-import { useAuthContext } from '../../lib/user/AuthContext';
 import QRCode from '../../components/QRCode';
 import QRCodeReader from '../../components/QRCodeReader';
 import Sidebar from './Components/Sidebar';
+import { useUser } from '../../lib/profile/user-data';
+import { useAuthContext } from '../../lib/user/AuthContext';
 
 /**
  * The dashboard / submit.
@@ -13,6 +14,8 @@ import Sidebar from './Components/Sidebar';
  */
 export default function Scan() {
   const { user, isSignedIn } = useAuthContext();
+  //const user = useUser();
+  const role = user.permissions?.length > 0 ? user.permissions[0] : '';
   const [qrData, setQRData] = useState('');
   const [qrLoading, setQRLoading] = useState(false);
   const [error, setError] = useState('');
@@ -79,7 +82,6 @@ export default function Scan() {
           <h4>Invalid Login</h4>
         </div>
       )}
-      {/* </section> */}
     </div>
   );
 }

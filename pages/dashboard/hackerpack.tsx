@@ -7,9 +7,9 @@ import { useAuthContext } from '../../lib/user/AuthContext';
 import DocLink from './Components/DocLinks';
 
 /**
- * The dashboard / hackerpack.
+ * The hackerpack page.
  *
- * Landing: /hackerpack
+ * HackerPack: /
  */
 export default function HackerPack() {
   const { isSignedIn } = useAuthContext();
@@ -20,7 +20,8 @@ export default function HackerPack() {
     <div className="flex flex-grow flex-wrap">
       <Head>
         <title>HackerPacks</title>
-        <meta name="description" content="HackPortal's HackerPacks" />
+        <meta name="description" content="HackerPack Information" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       {/* ghost section to fill in for fixed sidebar */}
@@ -110,6 +111,7 @@ export default function HackerPack() {
         <section id="subheader" className="p-4">
           <DashboardHeader active="/dashboard/hackerpack" />
         </section>
+
         <div className="font-bold text-2xl md:text-4xl lg-text-6xl">Big Heading</div>
 
         <section id="docLinks" className="bg-gray-200 rounded-lg my-6 p-5 w-5/6">
