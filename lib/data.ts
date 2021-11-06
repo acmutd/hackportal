@@ -11,3 +11,15 @@ export const navItems = [
   { text: 'About', path: '/about' },
   { text: 'Admin', path: '/admin' },
 ];
+
+export const stats = [
+  {
+    data: '750+',
+    object: 'participants',
+  },
+  {
+    data: '24',
+    object: 'hours',
+  },
+  { data: '34', object: 'events' },
+];
