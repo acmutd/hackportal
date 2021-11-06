@@ -1,14 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { auth, firestore } from 'firebase-admin';
-import initializeApi from '../../../lib/admin/init';
+import initializeApi from '../../lib/admin/init';
 
 initializeApi();
 
 const db = firestore();
 
-const APPLICATIONS_COLLECTION = '/registrations';
-
-const USERS_COLLECTION = '/users';
+const REGISTRATION_COLLECTION = '/registrations';
 
 /**
  * Verifies whether the given token belongs to an admin user.
@@ -23,25 +21,23 @@ async function userIsAuthorized(token: string) {
   return true;
 }
 
-function extractHeaderToken(input: string) {
-  const result = input;
-  return result;
-}
-
 /**
- * Handles GET requests to /api/application/<id>.
+ * Handles GET requests to /api/scantypes.
  *
- * This returns the application the authorized user wants to see.
+ * This returns all scantypes the user is authorized to see.
  *
  * @param req The HTTP request
  * @param res The HTTP response
  */
-async function handleGetApplication(req: NextApiRequest, res: NextApiResponse) {
+async function handleScan(req: NextApiRequest, res: NextApiResponse) {
   // TODO: Handle user authorization
   const {
-    query: { token, id },
+    query: { token },
+    body,
     headers,
   } = req;
+
+  const bodyData = JSON.parse(body);
 
   //
   // Check if request header contains token
@@ -55,19 +51,16 @@ async function handleGetApplication(req: NextApiRequest, res: NextApiResponse) {
       message: 'Request is not authorized to perform admin functionality.',
     });
   }
-  const userID = id as string;
 
   try {
-    const application = await db.collection(APPLICATIONS_COLLECTION).doc(userID);
-    const data = await application.get();
-    if (!data.exists) {
-      res.status(404).json({
-        code: 'not-found',
-        message: 'Application ID invalid, or the user is not registered.',
-      });
-    } else {
-      res.status(200).json(data.data());
-    }
+    const snapshot = await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).get();
+    if (!snapshot.exists)
+      return res.status(404).json({ code: 'not found', message: "User doesn't exist..." });
+    let scans = snapshot.data().scans ?? [];
+    if (scans.includes(bodyData.scan)) return res.status(201).json({ code: 'duplicate' });
+    scans.push(bodyData.scan);
+    await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans });
+    res.status(200).json({});
   } catch (error) {
     console.error('Error when fetching applications', error);
     res.status(500).json({
@@ -75,27 +68,25 @@ async function handleGetApplication(req: NextApiRequest, res: NextApiResponse) {
       message: 'Something went wrong when processing this request. Try again later.',
     });
   }
-  return;
 }
 
+type ApplicationsResponse = {};
+
 /**
- * Get application data.
+ * Fetches scantype data.
  *
- * Corresponds to /api/applications/[applicationId] route;
+ * Corresponds to /api/scantypes route.
  */
-export default function handleApplications(req: NextApiRequest, res: NextApiResponse) {
-  // Get /applications collection in Cloud Firestore
-  // GET: Return this application
-  // PATCH: Modify an application
-  // DELETE: Delete this applications
+export default async function handleScanTypes(
+  req: NextApiRequest,
+  res: NextApiResponse<ApplicationsResponse>,
+) {
   const { method } = req;
-  if (method === 'GET') {
-    return handleGetApplication(req, res);
-  } else if (method === 'PATCH') {
-  } else if (method === 'DELETE') {
-    // Maybe check for additional authorization so only organizers can delete individual applications?
+
+  if (method === 'POST') {
+    return handleScan(req, res);
   } else {
-    res.setHeader('Allow', ['GET', 'PATCH', 'DELETE']);
+    res.setHeader('Allow', ['GET', 'POST']);
     res.status(405).end(`Method ${method} Not Allowed`);
   }
 }

@@ -6,6 +6,8 @@ import { useUser } from '../lib/profile/user-data';
 import { useAuthContext } from '../lib/user/AuthContext';
 import clsx from 'clsx';
 
+import { navItems } from '../lib/data';
+
 /**
  * A global site header throughout the entire app.
  */
@@ -25,43 +27,26 @@ export default function AppHeader() {
 
   return (
     <>
-      <header className="top-0 sticky justify-between flex flex-row p-2 md:p-4 bg-white shadow-md items-center h-16 z-10">
-        <div className="flex align-middle items-center">
+      <header className="top-0 sticky justify-between flex flex-row p-2 md:p-4 bg-indigo-100 items-center h-16 z-10">
+        <div className="flex w-6/12 align-middle items-center">
           <Link href="/">
             <a
-              className="flex font-display self-center inline-block items-center"
+              className="flex relative font-display self-center items-center after:absolute after:block after:right-0 after:w-6 after:h-6 after:rounded-full after:bg-gray-400"
               onClick={dismissDialog}
             >
-              <span className="md:text-2xl text-lg font-semibold md:mr-10 mr-5">HackPortal</span>
+
+              <span className="md:text-2xl text-l font-black md:mr-10 mr-5">HackUTD VIII</span>
             </a>
           </Link>
-          {/* Main menu items */}
-          {/* Menu for mg-lg screens */}
-          <div className="sm:inline hidden md:text-xl text-xs md:text-left">
-            <Link href="/dashboard">
-              <a onClick={dismissDialog}>
-                <span className="inline md:invisible"></span>
-                <a className="md:mx-4 mr-2">Dashboard</a>
-              </a>
-            </Link>
-            <Link href="/sponsors">
-              <a onClick={dismissDialog}>
-                <span className="inline md:invisible"></span>
-                <a className="md:mx-4 mr-2">Sponsors</a>
-              </a>
-            </Link>
-            <Link href="/schedule">
-              <a onClick={dismissDialog}>
-                <span className="inline md:invisible"></span>
-                <a className="md:mx-4 mr-2">Schedule</a>
-              </a>
-            </Link>
-            <Link href="/about">
-              <a onClick={dismissDialog}>
-                <span className="inline md:invisible"></span>
-                <a className="md:mx-4 mr-2">About</a>
-              </a>
-            </Link>
+          <div className="text-xs flex items-center ml-12 md:text-left">
+            {navItems.map((item) => (
+              <Link key={item.text} href={item.path}>
+                <a onClick={dismissDialog}>
+                  <span className="md:invisible"></span>
+                  <a className="md:mx-4 text-sm font-bold">{item.text}</a>
+                </a>
+              </Link>
+            ))}
           </div>
 
           <div className="mx-4 sm:hidden">
@@ -110,15 +95,14 @@ export default function AppHeader() {
           </div>
           {/* End of main menu items */}
         </div>
-        <div className="flex flex-row-reverse md:text-xl text-s">
-          <div className="mx-4">
-            <button className="SigninButton font-header" onClick={toggleDialog}>
-              {!user || !isSignedIn ? 'Sign in' : 'Profile'}
-              {/* To Do: must fix profile pic button */}
-              {/* {!user || !isSignedIn ? 'Sign in' : <Image src={user.photoUrl} alt="Profile">} */}
-              {/* {clsx({'Sign in' : (!user || !isSignedIn)})} */}
-            </button>
-          </div>
+
+        <div className="flex mr-8">
+          <button
+            className="SigninButton font-header font-bold bg-white px-8 py-1 rounded-full border-2 border-black text-sm"
+            onClick={toggleDialog}
+          >
+            Sign In
+          </button>
         </div>
         {showProfileDialog && <ProfileDialog onDismiss={dismissDialog} />}
       </header>

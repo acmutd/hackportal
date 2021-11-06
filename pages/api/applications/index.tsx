@@ -45,9 +45,8 @@ async function handleGetApplications(req: NextApiRequest, res: NextApiResponse) 
   //
   // Check if request header contains token
   // TODO: Figure out how to handle the string | string[] mess.
-  const userToken = (token as string) || (headers['Authorization'] as string);
+  const userToken = (token as string) || (headers['authorization'] as string);
   // TODO: Extract from bearer token
-
   // Probably not safe
   if (!userIsAuthorized(userToken)) {
     res.status(401).send({

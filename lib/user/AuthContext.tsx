@@ -49,7 +49,7 @@ function useAuthContext(): AuthContextState {
 function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>): JSX.Element {
   const [user, setUser] = React.useState<User>(null);
 
-  const updateUser = (firebaseUser: firebase.User | null) => {
+  const updateUser = async (firebaseUser: firebase.User | null) => {
     if (firebaseUser === null) {
       // User is signed out
       // TODO(auth): Determine if we want to remove user data from device on sign out
@@ -57,13 +57,26 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       return;
     }
     const { displayName, email, photoURL, uid } = firebaseUser;
+    const token = await firebaseUser.getIdToken();
+    const query = new URL(`http://localhost:3000/api/userinfo`);
+    query.searchParams.append('id', uid);
+    const data = await fetch(query.toString().replaceAll('http://localhost:3000', ''), {
+      mode: 'cors',
+      headers: { Authorization: token },
+      method: 'GET',
+    });
+    if (data.status !== 200) {
+      console.error('Unexpected error when fetching AuthContext permission data...');
+    }
+    let permissions = (await data.json()).permissions;
     setUser({
       id: uid,
+      token,
       firstName: displayName,
       lastName: '',
       preferredEmail: email,
       photoUrl: photoURL,
-      permissions: [], // TODO: Get permissions from database, likely slim down auth-specific features
+      permissions, // probably not the best way to do this, but it works for hackutd and that's what matters
     });
   };
 
@@ -95,13 +108,13 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     return firebase
       .auth()
       .signInWithPopup(provider)
-      .then(({ credential, user }) => {
+      .then(async ({ credential, user }) => {
         if (user === null) {
           // Something really went wrong
           console.warn("The signed-in user is null? That doesn't seem right.");
           return;
         }
-        updateUser(user);
+        await updateUser(user);
       })
       .catch((error) => {
         console.error('Error when signing in', error);
