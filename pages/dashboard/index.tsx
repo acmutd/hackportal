@@ -111,12 +111,11 @@ export default function Dashboard() {
 
   return (
     <>
-      <Script>
-        onLoad=
-        {() => {
+      <Script
+        onLoad={() => {
           getItemCount();
         }}
-      </Script>
+      />
       <div className="flex flex-wrap flex-grow">
         <Head>
           <title>HackPortal - Dashboard</title>
@@ -129,8 +128,6 @@ export default function Dashboard() {
           <section id="subheader" className="p-4">
             <DashboardHeader active="/dashboard/" />
           </section>
-
-          {/* <div className="lg:text-xl text-md bg-indigo-100 p-4 rounded-md mb-6">{checkin}</div> */}
 
           <div className="flex flex-wrap my-16">
             {/* Spotlight Events */}

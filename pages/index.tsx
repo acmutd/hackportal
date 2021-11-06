@@ -1,8 +1,9 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
-
+import Script from 'next/script';
 import { buttonDatas, stats } from '../lib/data';
+import { getItemCount } from '../pages/dashboard/index';
 
 /**
  * The home page.
@@ -14,6 +15,11 @@ export default function Home() {
 
   return (
     <>
+      <Script
+        onLoad={() => {
+          getItemCount();
+        }}
+      />
       <Head>
         <title>HackPortal</title>
         <meta name="description" content="A default HackPortal instance" />
