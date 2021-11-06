@@ -14,7 +14,7 @@ import QRCodeReader from '../../components/QRCodeReader';
 export default function Scan() {
   const user = useUser();
   const role = user.permissions?.length > 0 ? user.permissions[0] : '';
-  const { user, isSignedIn } = useAuthContext();
+  const { isSignedIn } = useAuthContext();
   const [qrData, setQRData] = useState('');
   const [qrLoading, setQRLoading] = useState(false);
   const [error, setError] = useState('');

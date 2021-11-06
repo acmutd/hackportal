@@ -2,7 +2,7 @@ import admin from 'firebase-admin';
 
 let apiInitialized = false;
 //This path is a JSON object for the Firebase service account's private key
-let servAcc = require('../../private_keys/acmutd-hackportal-firebase-adminsdk-ev404-afcb7fdeb3.json');
+// let servAcc = require('../../private_keys/acmutd-hackportal-firebase-adminsdk-ev404-afcb7fdeb3.json');
 
 /**
  * Initializes all services used to power API routes.
@@ -27,7 +27,11 @@ export default function initializeApi() {
 function initializeFirebase() {
   if (admin.apps.length < 1) {
     admin.initializeApp({
-      credential: admin.credential.cert(servAcc),
+      credential: admin.credential.cert({
+        projectId: process.env.SERVICE_ACCOUNT_PROJECT_ID,
+        clientEmail: process.env.SERVICE_ACCOUNT_CLIENT_EMAIL,
+        privateKey: process.env.SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      }),
     });
   }
 }
