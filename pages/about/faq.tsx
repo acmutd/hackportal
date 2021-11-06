@@ -89,7 +89,7 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
  *
  */
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const protocol = context.req.headers.referer.split('://')[0];
+  const protocol = (context.req.headers.referer as string).split('://')[0];
   const fetchedFaqs = await RequestHelper.get<AnsweredQuestion[]>(
     `${protocol}://${context.req.headers.host}/api/questions/faq`,
     {},

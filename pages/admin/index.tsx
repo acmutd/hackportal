@@ -14,7 +14,10 @@ import { FCM_TOKEN_KEY } from '../../utilities/webPush';
 import { QADocument } from '../api/questions';
 
 export function isAuthorized(user): boolean {
-  return user.permissions.includes('admin') || user.permissions.includes('organizer');
+  return (
+    (user.permissions as string[]).includes('admin') ||
+    (user.permissions as string[]).includes('organizer')
+  );
 }
 
 /**
@@ -158,7 +161,7 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // console.log(context.req.headers.referer);
-  const protocol = context.req.headers.referer.split('://')[0];
+  const protocol = (context.req.headers.referer as string).split('://')[0];
   const questions = await RequestHelper.get<QADocument[]>(
     `${protocol}://${context.req.headers.host}/api/questions/pending`,
     {},
