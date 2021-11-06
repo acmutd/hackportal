@@ -1,8 +1,15 @@
 import Link from 'next/link';
 import React from 'react';
 
+/**
+ *
+ * Props used by About Header component
+ *
+ * @param active - contains information used to determine current page user is at in About Section
+ *
+ */
 interface AboutHeaderProps {
-  active: string;
+  active: '/about' | '/about/faq' | '/about/questions';
 }
 
 /**
@@ -10,7 +17,7 @@ interface AboutHeaderProps {
  */
 export default function AboutHeader({ active }: AboutHeaderProps) {
   return (
-    <>
+    <section className="p-4">
       <header className="top-0 sticky flex flex-row justify-between p-2 md:p-4 items-center">
         <div className="mx-auto md:flex justify-center text-xl font-header md:text-left gap-x-8">
           <Link href="/about">
@@ -49,6 +56,6 @@ export default function AboutHeader({ active }: AboutHeaderProps) {
           </Link>
         </div>
       </header>
-    </>
+    </section>
   );
 }

@@ -1,38 +1,26 @@
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import MemberCard from '../../components/MemberCard';
-import { ColorScheme } from '../../utilities/colorScheme';
+import { RequestHelper } from '../../lib/request-helper';
+
 /**
- * The about page.
+ * The About page.
  *
- * Landing: /about
+ * This page contains some introduction about the hackathon in question. It also includes a section used
+ * to introduce the team responsible for organizing the hackathon
+ *
+ * Route: /about
  */
+export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMember[] }) {
+  const [loading, setLoading] = useState(true);
+  const [members, setMembers] = useState<TeamMember[]>([]);
 
-interface TeamMember {
-  name: string;
-  description: string;
-}
-
-export default function About() {
-  const members: TeamMember[] = [
-    {
-      name: 'Stefflon Don',
-      description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur quidem, molestiae
-      amet laboriosam doloribus adipisci aut necessitatibus itaque aspernatur quisquam quo
-      delectus. Saepe, ducimus voluptatum. Sed quidem deleniti ullam eaque hic. Rerum, quia ad
-      deleniti sed saepe fuga? Necessitatibus aliquam ratione modi dolorem repellendus! Saepe
-      nobis quaerat dicta error. Velit.`,
-    },
-    {
-      name: 'Stefflon Don',
-      description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur quidem, molestiae
-      amet laboriosam doloribus adipisci aut necessitatibus itaque aspernatur quisquam quo
-      delectus. Saepe, ducimus voluptatum. Sed quidem deleniti ullam eaque hic. Rerum, quia ad
-      deleniti sed saepe fuga? Necessitatibus aliquam ratione modi dolorem repellendus! Saepe
-      nobis quaerat dicta error. Velit.`,
-    },
-  ];
+  useEffect(() => {
+    setMembers(fetchedMembers);
+    setLoading(false);
+  }, [fetchedMembers]);
 
   const colorSchemes: ColorScheme[] = [
     {
@@ -49,44 +37,37 @@ export default function About() {
     },
   ];
 
+  if (loading) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col flex-grow">
       <Head>
         <title>HackPortal - About</title>
         <meta name="description" content="HackPortal's About Page" />
       </Head>
-      <section id="subheader" className="p-4">
-        <AboutHeader active="/about" />
-      </section>
-      <div className="top-6 p-6 flex flex-col gap-y-4">
-        <h4 className="font-bold text-3xl">About HackUTD VIII</h4>
-        <h5>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo natus eum obcaecati. Quo
-          ratione quibusdam quae provident illo sapiente facere, debitis quod quidem ad voluptatem
-          nisi dicta velit consequatur commodi itaque voluptatum corporis at qui fugit dolore.
-          Labore quis, perspiciatis voluptates officiis similique quia deleniti nesciunt repellat
-          non, aliquam asperiores numquam. Sequi cum dolorum maiores laboriosam suscipit tenetur
-          iste expedita unde praesentium amet. Quos fugiat ullam quam hic, debitis ipsum sapiente
-          cupiditate, officia quasi animi nulla sequi exercitationem, earum et modi illum iusto
-          maiores quia maxime repudiandae. Amet assumenda corrupti esse magni, velit a quod. Tempore
-          nemo asperiores ad saepe!
-        </h5>
-        <h5>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, quibusdam ipsum.
-          Accusamus ipsa consequatur veniam eaque error expedita earum nobis sed dolor ea doloribus
-          a, nesciunt sit dolores ipsum labore! Laudantium, maxime recusandae! Optio quidem minus
-          itaque ipsam excepturi magni totam quia inventore iure voluptas similique nobis, suscipit
-          officia voluptatibus odit dolore et asperiores voluptate reiciendis error quasi aspernatur
-          modi hic? Voluptatum fugit porro nam iure tempore, numquam consectetur temporibus. Qui
-          commodi expedita blanditiis, magnam delectus debitis vel obcaecati ipsum fugit vero id
-          nulla provident iure ad, sequi aut, adipisci officiis minima. Sed, nulla. Cumque deserunt
-          possimus error tenetur? Labore!
-        </h5>
+      <AboutHeader active="/about" />
+      <div className="top-6 p-4 flex flex-col gap-y-3">
+        <h4 className="font-bold text-3xl">About this hackathon</h4>
+        <p>
+          Here will be a short paragraph providing a general overview of what then hackathon is.
+          This can be dates, events, contests, and prizes.
+        </p>
+        <p>
+          This paragraph can be about the size and reach of the hackathon. Can include the number of
+          participants every year and the total worth of prizes.
+        </p>
+        <p>Any additional information can be provided in this paragraph.</p>
       </div>
 
       <div className="top-6 p-6 flex flex-col gap-y-4">
         <h4 className="font-bold text-3xl">Meet Our Team :)</h4>
-        <div className="flex flex-col gap-y-4">
+        <div className="flex flex-col gap-y-4 w-full">
           {members.map(({ name, description }, idx) => (
             <MemberCard
               key={idx}
@@ -100,3 +81,16 @@ export default function About() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const protocol = context.req.headers.referer.split('://')[0];
+  const fetchedMembers = await RequestHelper.get<TeamMember[]>(
+    `${protocol}://${context.req.headers.host}/api/members`,
+    {},
+  );
+  return {
+    props: {
+      fetchedMembers,
+    },
+  };
+};
