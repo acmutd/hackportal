@@ -31,18 +31,20 @@ export default function ProfilePage() {
     <div className="p-8 w-full">
       <h1 className="text-xl font-bold">User Profile</h1>
       <section className="w-full py-5">
-        <div className="flex flex-row gap-x-10">
-          <div className="bg-gray-300 w-2/5 rounded-xl p-4">
+        <div className="flex flex-col md:flex-row gap-x-10">
+          <div className="bg-gray-300 w-full md:w-2/5 rounded-xl p-4 flex flex-col justify-around">
             <h1 className="font-bold text-xl text-center">HackUTD VIII: Blast from the Past</h1>
             <svg className="mx-auto" height="200" width="200">
               <circle cx="100" cy="100" r="80" fill="white" />
             </svg>
-            <h1 className="text-center font-bold text-xl">
-              {user.firstName + ' ' + user.lastName}
-            </h1>
-            <p className="text-center">{role}</p>
+            <div>
+              <h1 className="text-center font-bold text-xl">
+                {user.firstName + ' ' + user.lastName}
+              </h1>
+              <p className="text-center">{role}</p>
+            </div>
           </div>
-          <div className="w-full">
+          <div className="w-full my-5">
             <div className="profile-view">
               <div className="profile-view-name flex flex-col gap-y-2">
                 <h1>Name</h1>
