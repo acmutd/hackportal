@@ -21,6 +21,7 @@ export default function QuestionsPage() {
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([]);
   const [pendingQuestions, setPendingQuestions] = useState<PendingQuestion[]>([]);
+  const [answeredQuestionDisclosureStatus, setAnsweredDisclosureStatus] = useState<boolean[]>([]);
   const { user } = useAuthContext();
 
   /**
@@ -117,6 +118,7 @@ export default function QuestionsPage() {
     getAllQuestions().then(({ answeredQuestions, pendingQuestions }) => {
       setAnsweredQuestions(answeredQuestions);
       setPendingQuestions(pendingQuestions);
+      setAnsweredDisclosureStatus(new Array(answeredQuestions.length).fill(true));
       setLoading(false);
     });
   }, [user]);
@@ -204,6 +206,13 @@ export default function QuestionsPage() {
                 answer={answer}
                 colorCode={colorSchemes[idx % 3].light}
                 iconColorCode={colorSchemes[idx % 3].dark}
+                isOpen={answeredQuestionDisclosureStatus[idx]}
+                toggleDisclosure={() => {
+                  console.log('test');
+                  let currStatus = [...answeredQuestionDisclosureStatus];
+                  currStatus[idx] = !currStatus[idx];
+                  setAnsweredDisclosureStatus(currStatus);
+                }}
               />
             ))
           ) : (

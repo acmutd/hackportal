@@ -45,4 +45,15 @@ export const mockUserData = [
     name: 'User3',
     role: ['sponsor'],
   },
+
+export const stats = [
+  {
+    data: '750+',
+    object: 'participants',
+  },
+  {
+    data: '24',
+    object: 'hours',
+  },
+  { data: '34', object: 'events' },
 ];
