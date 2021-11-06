@@ -9,6 +9,7 @@ import MentorCard1 from './Components/MentorCard1';
 import MentorCard3 from './Components/MentorCard3';
 import Sidebar from './Components/Sidebar';
 import SpotlightCard from './Components/SpotlightCard';
+import SpotlightCardScroll from './Components/SpotlightCardScroll';
 
 /**
  * The dashboard / hack center.
@@ -34,55 +35,55 @@ export default function Dashboard() {
       'You are successfully checked in!'
     );
 
-  var eventCount = 0;
-  if (typeof window !== 'undefined') {
-    document.querySelectorAll('.carousel').forEach((carousel) => {
-      const items = carousel.querySelectorAll('.carousel__item');
+  // var eventCount = 0;
+  // if (typeof window !== 'undefined') {
+  //   document.querySelectorAll('.carousel').forEach((carousel) => {
+  //     const items = carousel.querySelectorAll('.carousel__item');
 
-      //run if there are carousel items
-      if (items !== undefined && items !== null && items.length !== 0) {
-        const buttonsHtml = Array.from(items, () => {
-          return `<span class="carousel__button"></span>`;
-        });
+  //     //run if there are carousel items
+  //     if (items !== undefined && items !== null && items.length !== 0) {
+  //       const buttonsHtml = Array.from(items, () => {
+  //         return `<span class="carousel__button"></span>`;
+  //       });
 
-        carousel.insertAdjacentHTML(
-          'beforeend',
-          `
-	        	<div class="carousel__nav">
-	        		${buttonsHtml.join('')}
-	        	</div>
-	        `,
-        );
+  //       carousel.insertAdjacentHTML(
+  //         'beforeend',
+  //         `
+  //         	<div class="carousel__nav">
+  //         		${buttonsHtml.join('')}
+  //         	</div>
+  //         `,
+  //       );
 
-        const buttons = carousel.querySelectorAll('.carousel__button');
-        eventCount = items.length;
-        buttons.forEach((button, i) => {
-          button.addEventListener('click', () => {
-            // un-select all the items
-            items.forEach((item) => item.classList.remove('carousel__item--selected'));
-            buttons.forEach((button) => button.classList.remove('carousel__button--selected'));
+  //       const buttons = carousel.querySelectorAll('.carousel__button');
+  //       eventCount = items.length;
+  //       buttons.forEach((button, i) => {
+  //         button.addEventListener('click', () => {
+  //           // un-select all the items
+  //           items.forEach((item) => item.classList.remove('carousel__item--selected'));
+  //           buttons.forEach((button) => button.classList.remove('carousel__button--selected'));
 
-            console.log(i - buttons.length / 2);
-            const itemNumber = i - buttons.length / 2;
+  //           console.log(i - buttons.length / 2);
+  //           const itemNumber = i - buttons.length / 2;
 
-            items[itemNumber].classList.add('carousel__item--selected');
-            button.classList.add('carousel__button--selected');
-          });
-        });
+  //           items[itemNumber].classList.add('carousel__item--selected');
+  //           button.classList.add('carousel__button--selected');
+  //         });
+  //       });
 
-        //Set default to first item
-        items[0].classList.add('carousel__item--selected');
-        buttons[0].classList.add('carousel__button--selected');
-      }
-    });
-  }
+  //       //Set default to first item
+  //       items[0].classList.add('carousel__item--selected');
+  //       buttons[0].classList.add('carousel__button--selected');
+  //     }
+  //   });
+  // }
 
-  var eventCountString;
-  if (eventCount === 1) {
-    eventCountString = '1 event is happening right now!';
-  } else {
-    eventCountString = `${eventCount} events are happening right now!`;
-  }
+  // var eventCountString;
+  // if (eventCount === 1) {
+  //   eventCountString = '1 event is happening right now!';
+  // } else {
+  //   eventCountString = `${eventCount} events are happening right now!`;
+  // }
 
   return (
     <div className="flex flex-wrap flex-grow">
@@ -104,8 +105,9 @@ export default function Dashboard() {
           {/* Spotlight Events */}
           <div className="md:w-3/5 w-screen h-96">
             <h1 className="md:text-3xl text-xl font-black">Spotlight</h1>
-            <h3 className="md:text-xl text-md font-bold my-3">{eventCountString}</h3>
+            <h3 className="md:text-xl text-md font-bold my-3">1 event</h3>
             {/* Carousel Section */}
+            {/*}
             <div className="carousel">
               <SpotlightCard
                 title="Tensorflow w/ Google"
@@ -115,20 +117,30 @@ export default function Dashboard() {
                 time="12:30 - 1:30 PM"
                 page="HackerPack"
               />
-              <SpotlightCard
-                title="Statefarm Workshop"
-                speakers={['Jake from Statefarm']}
+            */}
+            <div className="w-11/12 bg-lightBackground overflow-x-scroll flex h-3/4">
+              <SpotlightCardScroll
+                title="Tensorflow w/ Google"
+                speakers={['Abdullah Hasani', 'Nam Truong']}
                 date="Saturday, Nov 13th"
-                location="ECSW 1.421"
-                time="12:00 - 1:00 PM"
+                location="ECSW 1.154"
+                time="12:30 - 1:30 PM"
                 page="HackerPack"
               />
-              <SpotlightCard
-                title="American Airlines Challenge"
-                speakers={['Mario', 'Luigi', 'Wario']}
+              <SpotlightCardScroll
+                title="StateFarm Workshop"
+                speakers={['Abdullah Hasani', 'Nam Truong']}
                 date="Saturday, Nov 13th"
-                location="ECSW 1.341"
-                time="12:00 - 12:45 PM"
+                location="ECSW 1.154"
+                time="12:30 - 1:30 PM"
+                page="HackerPack"
+              />
+              <SpotlightCardScroll
+                title="Google Workshop"
+                speakers={['Abdullah Hasani', 'Nam Truong']}
+                date="Saturday, Nov 13th"
+                location="ECSW 1.154"
+                time="12:30 - 1:30 PM"
                 page="HackerPack"
               />
             </div>
