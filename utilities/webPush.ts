@@ -21,15 +21,12 @@ export async function initializeFCM() {
   }
   try {
     const messaging = firebase.messaging();
-    const tokenInLocalForage = await checkTokenInStorage();
+    let status = Notification.permission;
 
-    //if FCM token is already there just return the token
-    if (tokenInLocalForage !== null) {
-      return tokenInLocalForage;
+    if (!status || status !== 'granted') {
+      console.log(status);
+      status = await Notification.requestPermission();
     }
-
-    //requesting notification permission from browser
-    const status = await Notification.requestPermission();
     if (status && status === 'granted') {
       //getting token from FCM
       const fcm_token = await messaging.getToken();
