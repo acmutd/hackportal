@@ -17,6 +17,8 @@ interface AnsweredQuestionProps {
   answer: string;
   colorCode: string;
   iconColorCode: string;
+  isOpen: boolean;
+  toggleDisclosure: () => void;
 }
 
 /**
@@ -29,6 +31,8 @@ export default function AnsweredQuestion({
   answer,
   colorCode,
   iconColorCode,
+  isOpen,
+  toggleDisclosure,
 }: AnsweredQuestionProps) {
   return (
     <div className="my-4">
@@ -37,19 +41,28 @@ export default function AnsweredQuestion({
           <div className="w-full">
             <div className="flex flex-row items-center gap-x-2">
               <CheckCircleFilled style={{ color: iconColorCode }} />
-              <Disclosure.Button className="w-full">
-                <div>
+              <Disclosure.Button className="w-full" as="div">
+                <button
+                  className="w-full"
+                  onClick={() => {
+                    toggleDisclosure();
+                  }}
+                >
                   <div
                     className="rounded-lg py-2 px-3 flex flex-row justify-between"
                     style={{ backgroundColor: colorCode }}
                   >
                     <h1 className="text-left font-semibold">{question}</h1>
-                    <ChevronUpIcon className={`${open ? 'transform rotate-180' : ''} w-5 h-5`} />
+                    <ChevronUpIcon className={`${isOpen ? 'transform rotate-180' : ''} w-5 h-5`} />
                   </div>
-                </div>
+                </button>
               </Disclosure.Button>
             </div>
-            <Disclosure.Panel className="py-2 px-6">{answer}</Disclosure.Panel>
+            {isOpen && (
+              <Disclosure.Panel className="py-2 px-6" static>
+                {answer}
+              </Disclosure.Panel>
+            )}
           </div>
         )}
       </Disclosure>
