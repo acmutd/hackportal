@@ -2,6 +2,8 @@ import Link from 'next/link';
 import React from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import ProfileDialog from './ProfileDialog';
+import { useUser } from '../lib/profile/user-data';
+import { useAuthContext } from '../lib/user/AuthContext';
 
 import { navItems } from '../lib/data';
 
@@ -10,6 +12,9 @@ import { navItems } from '../lib/data';
  */
 export default function AppHeader() {
   const [showMenu, setShowMenu] = React.useState(false);
+  const { isSignedIn } = useAuthContext();
+  const user = useUser();
+
   const [showProfileDialog, setShowProfileDialog] = React.useState(false);
 
   const toggleMenu = () => {

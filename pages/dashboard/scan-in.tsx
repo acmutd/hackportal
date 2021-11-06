@@ -4,6 +4,7 @@ import DashboardHeader from '../../components/DashboardHeader';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import QRCode from '../../components/QRCode';
 import QRCodeReader from '../../components/QRCodeReader';
+import Sidebar from './Components/Sidebar';
 
 /**
  * The dashboard / submit.
@@ -52,8 +53,12 @@ export default function Scan() {
         <title>HackerPacks</title>
         <meta name="description" content="HackPortal's Scan-In" />
       </Head>
+
+      {/* <Sidebar /> */}
+
+      {/* <section id="mainContent" className="px-6 py-3 w-5/6 lg:wd-7/8 md:w-6/7"> */}
       <section id="subheader" className="p-4">
-        <DashboardHeader />
+        <DashboardHeader active="/dashboard/scan-in" />
       </section>
       {isSignedIn ? (
         <div className="top-6 flex flex-col items-center justify-center">
@@ -74,6 +79,7 @@ export default function Scan() {
           <h4>Invalid Login</h4>
         </div>
       )}
+      {/* </section> */}
     </div>
   );
 }
