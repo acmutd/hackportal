@@ -101,3 +101,50 @@ type Registration = {
   resume?: string;
   companies: Companies[];
 };
+
+/**
+ * Represent an answered question
+ *
+ * @param question a question
+ * @param answer answer to corresponding question
+ *
+ *  */
+type AnsweredQuestion = {
+  question: string;
+  answer: string;
+};
+
+/**
+ * Represent a waiting-for-response question
+ *
+ * @param question a question
+ *
+ *  */
+type PendingQuestion = {
+  question: string;
+};
+
+/**
+ *
+ * Represent a team member in "Meet our Team" section of /about
+ *
+ * @param name name of the team member
+ * @param description description of that team member
+ *
+ */
+type TeamMember = {
+  name: string;
+  description: string;
+};
+
+/**
+ *
+ * Represent a color scheme consist of a light and dark version used by a component
+ *
+ * @param light color code of the light variant
+ * @param dark color code of the dark variant
+ */
+type ColorScheme = {
+  light: string;
+  dark: string;
+};
