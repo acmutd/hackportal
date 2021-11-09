@@ -27,13 +27,22 @@ export default function Register() {
     checkRedirect();
   }, [user]);
 
+  const getExtension = (filename: string) => {
+    for (let i = filename.length - 1; i >= 0; i--) {
+      if (filename.charAt(i) == '.') return filename.substring(i, filename.length);
+    }
+    return '';
+  };
+
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
       formData.append('resume', resumeFile);
       formData.append(
         'fileName',
-        `resume_${registrationData.user.firstName}_${registrationData.user.lastName}.pdf`,
+        `resume_${registrationData.user.firstName}_${registrationData.user.lastName}${getExtension(
+          resumeFile.name,
+        )}`,
       );
       await fetch('/api/resume/upload', {
         method: 'post',
