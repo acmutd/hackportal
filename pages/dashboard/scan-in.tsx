@@ -32,7 +32,7 @@ export default function Scan() {
           return setError('QR fetch failed. Please contact an event organizer.');
         }
         const data = await result.json();
-        setQRData(data.id);
+        setQRData(`hack:${data.id}`);
         setQRLoading(false);
         setError('');
       })
