@@ -16,19 +16,29 @@ export default function Register() {
   const router = useRouter();
 
   const { checkIfProfileExists } = useAuthContext();
+  const [resumeFile, setResumeFile] = useState<File>();
 
   const checkRedirect = async () => {
     const hasProfile = await checkIfProfileExists();
-    console.log(hasProfile);
     if (hasProfile) router.push('/profile');
   };
 
   useEffect(() => {
     checkRedirect();
-  }, []);
+  }, [user]);
 
   const handleSubmit = async () => {
     try {
+      const formData = new FormData();
+      formData.append('resume', resumeFile);
+      formData.append(
+        'fileName',
+        `resume_${registrationData.user.firstName}_${registrationData.user.lastName}.pdf`,
+      );
+      await fetch('/api/resume/upload', {
+        method: 'post',
+        body: formData,
+      });
       await RequestHelper.post<Registration, void>('/api/applications', {}, registrationData);
       alert('Profile created successful');
       router.push('/profile');
@@ -38,14 +48,14 @@ export default function Register() {
   };
 
   const [registrationData, setRegistrationData] = useState<Registration>({
-    id: user.id,
+    id: user?.id || '',
     timestamp: parseInt((new Date().getTime() / 1000).toFixed(0)),
     user: {
-      id: user.id,
-      preferredEmail: user.preferredEmail,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      permissions: user.permissions || ['hacker'],
+      id: user?.id || '',
+      preferredEmail: user?.preferredEmail || '',
+      firstName: user?.firstName || '',
+      lastName: user?.lastName || '',
+      permissions: user?.permissions || ['hacker'],
     },
     age: 18,
     gender: 'Other',
@@ -608,7 +618,12 @@ export default function Register() {
             <label>
               Upload your resume:
               <br />
-              <input name="resume" type="file" />
+              <input
+                onChange={(e) => setResumeFile(e.target.files[0])}
+                name="resume"
+                type="file"
+                formEncType="multipart/form-data"
+              />
               <br />
             </label>
             <br />
