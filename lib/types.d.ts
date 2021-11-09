@@ -55,6 +55,12 @@ type User = Person & {
    * Flags for parts of the app this user can access.
    */
   permissions: UserPermission[];
+
+  /**
+   * University that user currently attends
+   *
+   */
+  university: string;
 };
 
 /**
@@ -93,7 +99,7 @@ type Registration = {
   softwareExperience: string;
   heardFrom: string;
   size: string;
-  dietary: string;
+  dietary: string[];
   accomodations: string;
   github?: string;
   linkedin?: string;

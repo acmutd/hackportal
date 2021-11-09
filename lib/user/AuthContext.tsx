@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import { RequestHelper } from '../request-helper';
 
 /**
  * Utility attributes and functions used to handle user auth state within an AuthContext.
@@ -25,6 +26,11 @@ interface AuthContextState {
    * Signs out of the current user session if active.
    */
   signOut: () => Promise<void>;
+
+  /**
+   * Check if a user already has a profile
+   */
+  checkIfProfileExists: () => Promise<boolean>;
 }
 
 const AuthContext = React.createContext<AuthContextState | undefined>(undefined); // Find a better solution for this
@@ -68,7 +74,8 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     if (data.status !== 200) {
       console.error('Unexpected error when fetching AuthContext permission data...');
     }
-    let permissions = (await data.json()).permissions;
+    const userData = await data.json();
+    let permissions: UserPermission[] = userData.user?.permissions || ['hacker'];
     setUser({
       id: uid,
       token,
@@ -77,6 +84,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       preferredEmail: email,
       photoUrl: photoURL,
       permissions, // probably not the best way to do this, but it works for hackutd and that's what matters
+      university: userData.university,
     });
   };
 
@@ -101,6 +109,26 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       .catch((error) => {
         console.error('Could not sign out.', error);
       });
+  }
+
+  async function checkIfProfileExists(): Promise<boolean> {
+    if (!user) return false;
+    const query = new URL(`http://localhost:3000/api/userinfo`);
+    query.searchParams.append('id', user.id);
+    try {
+      const resData = await RequestHelper.get<unknown>(
+        query.toString().replaceAll('http://localhost:3000', ''),
+        {
+          headers: {
+            Authorization: user.token,
+          },
+        },
+      );
+      if (resData.status >= 400) throw new Error('');
+      return !!resData.data;
+    } catch (error) {
+      return false;
+    }
   }
 
   const signInWithGoogle = async () => {
@@ -129,6 +157,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     isSignedIn,
     signInWithGoogle,
     signOut,
+    checkIfProfileExists,
   };
 
   return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;

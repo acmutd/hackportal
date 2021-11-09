@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import React from 'react';
 import { useUser } from '../lib/profile/user-data';
 import { useAuthContext } from '../lib/user/AuthContext';
@@ -9,16 +10,25 @@ import { useAuthContext } from '../lib/user/AuthContext';
  * Route: /profile
  */
 export default function ProfilePage() {
-  const { isSignedIn } = useAuthContext();
+  const { isSignedIn, checkIfProfileExists } = useAuthContext();
   const user = useUser();
 
   const router = useRouter();
+
+  async function checkRedirect() {
+    const data = await checkIfProfileExists();
+    if (!data) router.push('/register');
+  }
+
+  React.useEffect(() => {
+    checkRedirect();
+  }, []);
 
   React.useEffect(() => {
     if (!isSignedIn || !user) {
       router.push('/');
     }
-  }, [user, isSignedIn, router]);
+  }, [user, isSignedIn]);
 
   if (!isSignedIn || !user) {
     return <div className="p-4 flex-grow text-center">Sign in to see your profile!</div>;
@@ -34,9 +44,15 @@ export default function ProfilePage() {
         <div className="flex flex-col md:flex-row gap-x-10">
           <div className="bg-gray-300 w-full md:w-2/5 rounded-xl p-4 flex flex-col justify-around">
             <h1 className="font-bold text-xl text-center">HackUTD VIII: Blast from the Past</h1>
-            <svg className="mx-auto" height="200" width="200">
-              <circle cx="100" cy="100" r="80" fill="white" />
-            </svg>
+            <div className="mx-auto">
+              <Image
+                className="rounded-full object-cover"
+                src={user.photoUrl}
+                height={180}
+                width={180}
+                alt="Your profile"
+              />
+            </div>
             <div>
               <h1 className="text-center font-bold text-xl">
                 {user.firstName + ' ' + user.lastName}
@@ -56,7 +72,7 @@ export default function ProfilePage() {
               </div>
               <div className="profile-view-univ flex flex-col gap-y-2">
                 <h1>University</h1>
-                <h1 className="font-bold">The University of Texas at Dallas</h1>
+                <h1 className="font-bold">{user.university}</h1>
               </div>
               <div className="profile-view-team flex flex-col gap-y-2">
                 <h1>Team</h1>
