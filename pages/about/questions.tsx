@@ -208,7 +208,6 @@ export default function QuestionsPage() {
                 iconColorCode={colorSchemes[idx % 3].dark}
                 isOpen={answeredQuestionDisclosureStatus[idx]}
                 toggleDisclosure={() => {
-                  console.log('test');
                   let currStatus = [...answeredQuestionDisclosureStatus];
                   currStatus[idx] = !currStatus[idx];
                   setAnsweredDisclosureStatus(currStatus);

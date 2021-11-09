@@ -43,7 +43,6 @@ handler.post(async (req, res) => {
   const rootRef = firebase.storage().ref();
   const fileRef = rootRef.child(req.body.fileName);
   const snapshot = await fileRef.put(req.file.buffer);
-  console.log('upload completed');
   res.end();
 });
 

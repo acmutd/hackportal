@@ -42,7 +42,10 @@ export default function ProfilePage() {
       <h1 className="text-xl font-bold">User Profile</h1>
       <section className="w-full py-5">
         <div className="flex flex-col md:flex-row gap-x-10">
-          <div className="bg-gray-300 w-full md:w-2/5 rounded-xl p-4 flex flex-col justify-around">
+          <div
+            className="bg-gray-300 w-full md:w-2/5 rounded-xl p-4 flex flex-col justify-around"
+            style={{ minHeight: '500px' }}
+          >
             <h1 className="font-bold text-xl text-center">HackUTD VIII: Blast from the Past</h1>
             <div className="mx-auto">
               <Image
@@ -73,22 +76,6 @@ export default function ProfilePage() {
               <div className="profile-view-univ flex flex-col gap-y-2">
                 <h1>University</h1>
                 <h1 className="font-bold">{user.university}</h1>
-              </div>
-              <div className="profile-view-team flex flex-col gap-y-2">
-                <h1>Team</h1>
-                <h1 className="font-bold">HackerGang</h1>
-              </div>
-              <div className="profile-view-members flex flex-col gap-y-2">
-                <h1>Members</h1>
-                <h1 className="font-bold">Chai Dikkala, Abhitej Arora, Alina Tieu</h1>
-              </div>
-              <div className="profile-view-lunch flex flex-col gap-y-2">
-                <h1>Lunch Group</h1>
-                <h1 className="font-bold">Group Blue</h1>
-              </div>
-              <div className="profile-view-interests flex flex-col gap-y-2">
-                <h1>Interests</h1>
-                <h1 className="font-bold">Web dev, AR, Flutter, Database design</h1>
               </div>
             </div>
           </div>

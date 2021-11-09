@@ -42,10 +42,7 @@ a {
   display: grid;
   grid-template-areas:
     'name role'
-    'university university'
-    'team members'
-    'lunchGroup lunchGroup'
-    'interests interests';
+    'university university';
   row-gap: 2rem;
   column-gap: 1rem;
 }
@@ -60,14 +57,6 @@ a {
 
 .profile-view-univ {
   grid-area: university;
-}
-
-.profile-view-team {
-  grid-area: team;
-}
-
-.profile-view-members {
-  grid-area: members;
 }
 
 .profile-view-lunch {
