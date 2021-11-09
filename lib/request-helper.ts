@@ -19,7 +19,7 @@ export class RequestHelper {
     url: string,
     config: RequestInit,
     body?: ReqBody,
-  ): Promise<ResBody> {
+  ): Promise<ResponseData<ResBody>> {
     const temp = await fetch(url, {
       ...config,
       method: 'POST',
@@ -27,7 +27,10 @@ export class RequestHelper {
       body: JSON.stringify(body),
     });
     const data = await temp.json();
-    return data as ResBody;
+    return {
+      status: temp.status,
+      data,
+    };
   }
 
   /**
@@ -39,13 +42,34 @@ export class RequestHelper {
    * @returns response data
    *
    */
-  static async get<ResBody>(url: string, config: RequestInit): Promise<ResBody> {
+  static async get<ResBody>(url: string, config: RequestInit): Promise<ResponseData<ResBody>> {
     const temp = await fetch(url, {
       ...config,
       method: 'GET',
       mode: 'cors',
     });
     const data = await temp.json();
-    return data as ResBody;
+    return {
+      status: temp.status,
+      data,
+    };
   }
+}
+
+/**
+ *
+ * Represent response data object
+ *
+ */
+interface ResponseData<T> {
+  /**
+   * status code of request
+   */
+  status: number;
+
+  /**
+   *
+   * Data returned by response
+   */
+  data: T;
 }

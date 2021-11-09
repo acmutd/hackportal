@@ -90,13 +90,13 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
  */
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const protocol = context.req.headers.referer.split('://')[0];
-  const fetchedFaqs = await RequestHelper.get<AnsweredQuestion[]>(
+  const { data } = await RequestHelper.get<AnsweredQuestion[]>(
     `${protocol}://${context.req.headers.host}/api/questions/faq`,
     {},
   );
   return {
     props: {
-      fetchedFaqs,
+      fetchedFaqs: data,
     },
   };
 };
