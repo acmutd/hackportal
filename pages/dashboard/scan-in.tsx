@@ -41,11 +41,6 @@ export default function Scan() {
       });
   };
 
-  const handleDisplay = (data: string, video: HTMLVideoElement) => {
-    video.pause();
-    setUserData(data);
-  };
-
   return (
     <div className="flex flex-col flex-grow">
       <Head>
