@@ -6,6 +6,9 @@ import { initFirebase } from '../lib/firebase-client';
 import { AuthProvider } from '../lib/user/AuthContext';
 import '../styles/globals.css';
 import '../styles/tailwind.css';
+import { useEffect } from 'react';
+import firebase from 'firebase/app';
+import 'firebase/messaging';
 
 initFirebase();
 
@@ -16,6 +19,26 @@ initFirebase();
  * will load into memory and never re-initialize unless the page refreshes.
  */
 function PortalApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      const messaging = firebase.messaging();
+      window.addEventListener('load', function () {
+        this.navigator.serviceWorker.register('/firebase-messaging-sw.js').then(
+          function (registration) {
+            console.log('Service Worker registration successful');
+            messaging.onMessage((payload) => {
+              registration.showNotification('HackPortal Announcement', {
+                body: JSON.parse(payload.data.notification).announcement,
+              });
+            });
+          },
+          function (error) {
+            console.log('Service Worker registration failed');
+          },
+        );
+      });
+    }
+  }, []);
   return (
     <AuthProvider>
       <Head>

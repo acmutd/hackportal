@@ -1,17 +1,26 @@
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import ErrorList from '../../../components/ErrorList';
 import PendingQuestion from '../../../components/PendingQuestion';
 import { RequestHelper } from '../../../lib/request-helper';
 import { QADocument } from '../../api/questions';
 
-export default function ResolveQuestion({
+/**
+ * Resolve question page.
+ *
+ * This page allows admins and organizers to resolve a specific question asked by contestant
+ *
+ * Route: /admin/resolve/[questionId]
+ */
+export default function ResolveQuestionPage({
   question,
   questionId,
 }: {
   question: QADocument;
   questionId: string;
 }) {
+  const router = useRouter();
   const [answer, setAnswer] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
 
@@ -30,6 +39,7 @@ export default function ResolveQuestion({
         },
       );
       setAnswer('');
+      router.push('/admin');
     } catch (error) {
       addError('Failed to submit answer. Please try again later');
       console.log(error);
@@ -71,7 +81,7 @@ export default function ResolveQuestion({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const protocol = context.req.headers.referer.split('://')[0];
+  const protocol = (context.req.headers.referer as string).split('://')[0];
   const question = await RequestHelper.get<QADocument>(
     `${protocol}://${context.req.headers.host}/api/questions/pending/${context.params.questionId}`,
     {},
