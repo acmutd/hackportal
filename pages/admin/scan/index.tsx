@@ -32,7 +32,7 @@ export default function Admin() {
       headers: { Authorization: user.token },
       method: 'POST',
       body: JSON.stringify({
-        id: user.id,
+        id: data.replaceAll('hack:', ''),
         scan: currentScan.name,
       }),
     })
