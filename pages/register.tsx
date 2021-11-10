@@ -1,5 +1,9 @@
 import Head from 'next/head';
-import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useUser } from '../lib/profile/user-data';
+import { RequestHelper } from '../lib/request-helper';
+import { useAuthContext } from '../lib/user/AuthContext';
 
 /**
  * The registration page.
@@ -8,25 +12,128 @@ import React, { useState } from 'react';
  */
 
 export default function Register() {
-  const handleSubmit = (event) => {
-    console.log(event.target.value);
-    event.preventDefault();
-    //get data out of form
-    //make post request to api
-    fetch('/api/applications', {
-      body: JSON.stringify({ ...event.target.value }),
-      headers: { 'Content-Type': 'application/json' },
-      method: 'POST',
-    }).then((result) => {
-      if (result.status === 201) {
-        alert('Your application has been submitted.');
-      } else if (result.status === 500) {
-        alert('Server error!');
-      } else {
-        console.warn('Submission failed.', result);
-      }
+  const user = useUser();
+  const router = useRouter();
+
+  const { checkIfProfileExists } = useAuthContext();
+  const [resumeFile, setResumeFile] = useState<File>();
+
+  const checkRedirect = async () => {
+    const hasProfile = await checkIfProfileExists();
+    if (hasProfile) router.push('/profile');
+  };
+
+  useEffect(() => {
+    checkRedirect();
+  }, [user]);
+
+  const getExtension = (filename: string) => {
+    for (let i = filename.length - 1; i >= 0; i--) {
+      if (filename.charAt(i) == '.') return filename.substring(i, filename.length);
+    }
+    return '';
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('resume', resumeFile);
+      formData.append(
+        'fileName',
+        `resume_${registrationData.user.firstName}_${registrationData.user.lastName}${getExtension(
+          resumeFile.name,
+        )}`,
+      );
+      await fetch('/api/resume/upload', {
+        method: 'post',
+        body: formData,
+      });
+      await RequestHelper.post<Registration, void>('/api/applications', {}, registrationData);
+      alert('Profile created successful');
+      router.push('/profile');
+    } catch (error) {
+      console.log('Request creation error');
+    }
+  };
+
+  const [registrationData, setRegistrationData] = useState<Registration>({
+    id: user?.id || '',
+    timestamp: parseInt((new Date().getTime() / 1000).toFixed(0)),
+    user: {
+      id: user?.id || '',
+      preferredEmail: user?.preferredEmail || '',
+      firstName: user?.firstName || '',
+      lastName: user?.lastName || '',
+      permissions: user?.permissions || ['hacker'],
+    },
+    age: 18,
+    gender: 'Other',
+    race: 'Indian',
+    ethnicity: 'hispanic',
+    university: '',
+    major: '',
+    studyLevel: 'freshman',
+    hackathonExperience: 0,
+    softwareExperience: 'Beginner',
+    heardFrom: 'Instagram',
+    size: 's',
+    dietary: [],
+    accomodations: '',
+    github: '',
+    linkedin: '',
+    website: '',
+    resume: '',
+    companies: [],
+  });
+
+  const updateUserData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRegistrationData({
+      ...registrationData,
+      user: {
+        ...registrationData.user,
+        [e.target.name]: e.target.value,
+      },
     });
   };
+
+  const updateRegistrationData = (e: any) => {
+    setRegistrationData({
+      ...registrationData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const updateDietary = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (registrationData.dietary.includes(e.target.name)) {
+      setRegistrationData((prev) => ({
+        ...prev,
+        dietary: [...prev.dietary].filter((diet) => diet !== e.target.name),
+      }));
+    } else {
+      setRegistrationData((prev) => ({
+        ...prev,
+        dietary: [...prev.dietary, e.target.name],
+      }));
+    }
+  };
+
+  const updateCompanies = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (registrationData.companies.includes(e.target.name as Companies)) {
+      setRegistrationData((prev) => ({
+        ...prev,
+        companies: [...prev.companies].filter((company) => company !== e.target.name),
+      }));
+    } else {
+      setRegistrationData((prev) => ({
+        ...prev,
+        companies: [...prev.companies, e.target.name as Companies],
+      }));
+    }
+  };
+
+  if (!user) {
+    router.push('/');
+  }
 
   return (
     <div className="flex flex-col flex-grow">
@@ -47,7 +154,7 @@ export default function Register() {
       <section id="registration" className="m-4">
         <div className="max-w-4xl py-4 pt-8 mx-auto text-2xl font-bold text-left">General</div>
         <div className="max-w-4xl py-4 mx-auto">
-          <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
+          <form className="max-w-4xl mx-auto">
             <label className="text-1xl my-4 font-bold font-small text-left">
               *Enter your first name:
               <br />
@@ -55,9 +162,11 @@ export default function Register() {
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 placeholder="John"
                 type="text"
-                name="1name"
+                name="firstName"
                 autoComplete="given-name"
                 required
+                value={registrationData.user.firstName}
+                onChange={(e) => updateUserData(e)}
               />
               <br />
               <br />
@@ -69,9 +178,11 @@ export default function Register() {
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 placeholder="Smith"
                 type="text"
-                name="2name"
+                name="lastName"
                 autoComplete="family-name"
                 required
+                value={registrationData.user.lastName}
+                onChange={(e) => updateUserData(e)}
               />
               <br />
               <br />
@@ -87,6 +198,8 @@ export default function Register() {
                 name="email"
                 autoComplete="email"
                 required
+                value={registrationData.user.preferredEmail}
+                onChange={(e) => updateUserData(e)}
               />
               <br />
               <br />
@@ -102,7 +215,9 @@ export default function Register() {
                 type="number"
                 min="0"
                 max="100"
+                value={registrationData.age}
                 required
+                onChange={(e) => updateRegistrationData(e)}
               />
               <br />
               <br />
@@ -114,6 +229,8 @@ export default function Register() {
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="gender"
+                value={registrationData.gender}
+                onChange={(e) => updateRegistrationData(e)}
                 required
               >
                 <option value="Other">Other</option>
@@ -132,6 +249,8 @@ export default function Register() {
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="race"
                 required
+                value={registrationData.race}
+                onChange={(e) => updateRegistrationData(e)}
               >
                 <option value="Indian">American Indian or Alaska Native</option>
                 <option value="Asian">Asian</option>
@@ -149,6 +268,8 @@ export default function Register() {
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="ethnicity"
+                value={registrationData.ethnicity}
+                onChange={(e) => updateRegistrationData(e)}
                 required
               >
                 <option value="hispanic">Hispanic or Latino</option>
@@ -170,6 +291,8 @@ export default function Register() {
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
                 name="university"
+                value={registrationData.university}
+                onChange={(e) => updateRegistrationData(e)}
                 required
               />
               <br />
@@ -184,6 +307,8 @@ export default function Register() {
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
                 name="major"
+                value={registrationData.major}
+                onChange={(e) => updateRegistrationData(e)}
                 required
               />
               <br />
@@ -197,6 +322,8 @@ export default function Register() {
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 placeholder="Select One"
                 name="studyLevel"
+                value={registrationData.studyLevel}
+                onChange={(e) => updateRegistrationData(e)}
                 required
               >
                 <option value="freshman">Freshman</option>
@@ -219,10 +346,12 @@ export default function Register() {
               <input
                 placeholder="0"
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
-                name="numhackathon"
+                name="hackathonExperience"
                 type="number"
                 min="0"
                 max="100"
+                value={registrationData.hackathonExperience}
+                onChange={(e) => updateRegistrationData(e)}
                 required
               />
               <br />
@@ -234,7 +363,9 @@ export default function Register() {
               <br />
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
-                name="experience"
+                name="softwareExperience"
+                value={registrationData.softwareExperience}
+                onChange={(e) => updateRegistrationData(e)}
                 required
               >
                 <option value="Beginner">Beginner</option>
@@ -252,7 +383,9 @@ export default function Register() {
               <br />
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
-                name="heard"
+                name="heardFrom"
+                value={registrationData.heardFrom}
+                onChange={(e) => updateRegistrationData(e)}
                 required
               >
                 <option value="Instagram">Instagram</option>
@@ -274,6 +407,8 @@ export default function Register() {
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
                 name="size"
+                value={registrationData.size}
+                onChange={(e) => updateRegistrationData(e)}
                 required
               >
                 <option value="s">S</option>
@@ -290,37 +425,79 @@ export default function Register() {
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Vegan" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="Vegan"
+                type="checkbox"
+                checked={registrationData.dietary.includes('Vegan')}
+                onChange={(e) => updateDietary(e)}
+              />
               <text className="pl-2">Vegan</text>
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Vegitarian" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="Vegitarian"
+                type="checkbox"
+                checked={registrationData.dietary.includes('Vegitarian')}
+                onChange={(e) => updateDietary(e)}
+              />
               <text className="pl-2">Vegitarian</text>
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Nuts" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="Nuts"
+                type="checkbox"
+                checked={registrationData.dietary.includes('Nuts')}
+                onChange={(e) => updateDietary(e)}
+              />
               <text className="pl-2">Nuts</text>
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Fish" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="Fish"
+                type="checkbox"
+                checked={registrationData.dietary.includes('Fish')}
+                onChange={(e) => updateDietary(e)}
+              />
               <text className="pl-2">Fish</text>
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Wheat" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="Wheat"
+                type="checkbox"
+                checked={registrationData.dietary.includes('Wheat')}
+                onChange={(e) => updateDietary(e)}
+              />
               <text className="pl-2">Wheat</text>
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Dairy" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="Dairy"
+                type="checkbox"
+                checked={registrationData.dietary.includes('Dairy')}
+                onChange={(e) => updateDietary(e)}
+              />
               <text className="pl-2">Dairy</text>
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Eggs" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="Eggs"
+                type="checkbox"
+                checked={registrationData.dietary.includes('Eggs')}
+                onChange={(e) => updateDietary(e)}
+              />
               <text className="pl-2">Eggs</text>
               <br />
               <br />
@@ -332,7 +509,9 @@ export default function Register() {
               <textarea
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 placeholder="List any accessibility concerns here"
-                name="accessibility"
+                name="accomodations"
+                value={registrationData.accomodations}
+                onChange={(e) => updateRegistrationData(e)}
               />
               <br />
               <br />
@@ -349,6 +528,8 @@ export default function Register() {
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
                 name="github"
+                value={registrationData.github}
+                onChange={(e) => updateRegistrationData(e)}
               />
               <br />
               <br />
@@ -360,6 +541,8 @@ export default function Register() {
               <input
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
+                value={registrationData.linkedin}
+                onChange={(e) => updateRegistrationData(e)}
                 name="linkedin"
               />
               <br />
@@ -372,7 +555,9 @@ export default function Register() {
               <input
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
                 type="text"
-                name="site"
+                value={registrationData.website}
+                onChange={(e) => updateRegistrationData(e)}
+                name="website"
               />
               <br />
               <br />
@@ -383,13 +568,58 @@ export default function Register() {
             </label>
             <label>
               <br />
-              <input className="form-checkbox h-5 w-5" name="Google" type="checkbox" />
-              <text className="pl-2">Google</text>
+              <input
+                className="form-checkbox h-5 w-5"
+                name="SF"
+                type="checkbox"
+                checked={registrationData.companies.includes('SF')}
+                onChange={(e) => updateCompanies(e)}
+              />
+              <text className="pl-2">State Farm</text>
               <br />
             </label>
             <label>
-              <input className="form-checkbox h-5 w-5" name="Ebay" type="checkbox" />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="AA"
+                type="checkbox"
+                checked={registrationData.companies.includes('AA')}
+                onChange={(e) => updateCompanies(e)}
+              />
+              <text className="pl-2">American Airlines</text>
+            </label>
+            <label>
+              <br />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="C1"
+                type="checkbox"
+                checked={registrationData.companies.includes('C1')}
+                onChange={(e) => updateCompanies(e)}
+              />
+              <text className="pl-2">Capital One</text>
+            </label>
+            <label>
+              <br />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="EB"
+                type="checkbox"
+                checked={registrationData.companies.includes('EB')}
+                onChange={(e) => updateCompanies(e)}
+              />
               <text className="pl-2">Ebay</text>
+            </label>
+            <label>
+              <br />
+              <input
+                className="form-checkbox h-5 w-5"
+                name="FB"
+                type="checkbox"
+                checked={registrationData.companies.includes('FB')}
+                onChange={(e) => updateCompanies(e)}
+              />
+              <text className="pl-2">Facebook</text>
               <br />
               <br />
             </label>
@@ -397,15 +627,21 @@ export default function Register() {
             <label>
               Upload your resume:
               <br />
-              <input name="resume" type="file" />
+              <input
+                onChange={(e) => setResumeFile(e.target.files[0])}
+                name="resume"
+                type="file"
+                formEncType="multipart/form-data"
+              />
               <br />
             </label>
             <br />
             <button
+              type="button"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded "
-              type="submit"
+              onClick={() => handleSubmit()}
             >
-              Test
+              Submit
             </button>
           </form>
         </div>
