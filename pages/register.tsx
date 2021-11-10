@@ -369,7 +369,7 @@ export default function Register() {
                 required
               >
                 <option value="Beginner">Beginner</option>
-                <option value="Intermedate">Intermedate</option>
+                <option value="Intermediate">Intermediate</option>
                 <option value="Advanced">Advanced</option>
                 <option value="Expert">Expert</option>
               </select>
@@ -504,7 +504,7 @@ export default function Register() {
             </label>
 
             <label className="text-1xl my-4 font-bold font-small text-left">
-              Anything else we can do to better accomodate you at our hackathon?
+              Anything else we can do to better accommodate you at our hackathon?
               <br />
               <textarea
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"

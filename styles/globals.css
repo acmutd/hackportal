@@ -25,6 +25,11 @@ a.link {
   @apply px-4;
 }
 
+.element {
+  font-family: 'wavehaus';
+ }
+
+/* Dropdown menu css classes */
 a {
   color: inherit;
   text-decoration: none;
@@ -32,6 +37,10 @@ a {
 
 * {
   box-sizing: border-box;
+}
+ 
+.dropdown:hover .dropdown-menu {
+  display: block;
 }
 
 .element {
