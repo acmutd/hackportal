@@ -6,9 +6,7 @@ import { initFirebase } from '../lib/firebase-client';
 import { AuthProvider } from '../lib/user/AuthContext';
 import '../styles/globals.css';
 import '../styles/tailwind.css';
-import { useEffect } from 'react';
-import firebase from 'firebase/app';
-import 'firebase/messaging';
+import { FCMProvider } from '../lib/service-worker/FCMContext';
 
 initFirebase();
 
@@ -19,51 +17,35 @@ initFirebase();
  * will load into memory and never re-initialize unless the page refreshes.
  */
 function PortalApp({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      const messaging = firebase.messaging();
-      window.addEventListener('load', function () {
-        this.navigator.serviceWorker.register('/firebase-messaging-sw.js').then(
-          function (registration) {
-            console.log('Service Worker registration successful');
-            messaging.onMessage((payload) => {
-              registration.showNotification('HackPortal Announcement', {
-                body: JSON.parse(payload.data.notification).announcement,
-              });
-            });
-          },
-          function (error) {
-            console.log('Service Worker registration failed');
-          },
-        );
-      });
-    }
-  }, []);
   return (
     <AuthProvider>
-      <Head>
-        <meta charSet="utf-8" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-          name="viewport"
-          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
-        />
+      <FCMProvider>
+        <Head>
+          <meta charSet="utf-8" />
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+          <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+          />
 
-        <title>HackPortal</title>
-        <meta name="description" content="Your all-in-one guide to this hackathon." />
+          <title>HackPortal</title>
+          <meta name="description" content="Your all-in-one guide to this hackathon." />
 
-        {process.env.ENABLE_PWA ||
-          (process.env.NODE_ENV !== 'development' && <link rel="manifest" href="/manifest.json" />)}
+          {process.env.ENABLE_PWA ||
+            (process.env.NODE_ENV !== 'development' && (
+              <link rel="manifest" href="/manifest.json" />
+            ))}
 
-        <link href="/icons/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
-        <link href="/icons/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
-        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-        <meta name="theme-color" content="#5D5FEF" />
-      </Head>
-      <div className="min-h-screen h-screen flex flex-col bg-gray-50">
-        <AppHeader />
-        <Component {...pageProps} />
-      </div>
+          <link href="/icons/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16" />
+          <link href="/icons/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32" />
+          <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+          <meta name="theme-color" content="#5D5FEF" />
+        </Head>
+        <div className="min-h-screen h-screen flex flex-col bg-gray-50">
+          <AppHeader />
+          <Component {...pageProps} />
+        </div>
+      </FCMProvider>
     </AuthProvider>
   );
 }

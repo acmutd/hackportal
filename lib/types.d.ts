@@ -151,5 +151,5 @@ type ColorScheme = {
 
 type Announcement = {
   announcement: string;
-  time: string;
+  timestamp?: string;
 };

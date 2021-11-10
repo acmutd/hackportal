@@ -11,9 +11,9 @@ import Sidebar from './Components/Sidebar';
 import SpotlightCard from './Components/SpotlightCard';
 import firebase from 'firebase';
 import 'firebase/messaging';
-import { initializeFCM } from '../../utilities/webPush';
 import { GetServerSideProps } from 'next';
 import { RequestHelper } from '../../lib/request-helper';
+import { useFCMContext } from '../../lib/service-worker/FCMContext';
 
 /**
  * The dashboard / hack center.
@@ -92,29 +92,9 @@ export default function Dashboard(props: { announcements: Announcement[] }) {
 
   useEffect(() => {
     setAnnouncements(props.announcements);
-  }, []);
-
-  useEffect(() => {
-    setToken();
-    async function setToken() {
-      try {
-        const token = await initializeFCM();
-        if (token) {
-          getMessage();
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    function getMessage() {
-      const messaging = firebase.messaging();
-      messaging.onMessage((message) => {
-        setAnnouncements((prev) => [
-          JSON.parse(message.data.notification) as Announcement,
-          ...prev,
-        ]);
-      });
-    }
+    firebase.messaging().onMessage((payload) => {
+      setAnnouncements((prev) => [JSON.parse(payload.data.notification) as Announcement, ...prev]);
+    });
   }, []);
 
   return (
@@ -171,13 +151,15 @@ export default function Dashboard(props: { announcements: Announcement[] }) {
           <div className="md:w-2/5 w-screen h-96">
             <h1 className="md:text-3xl text-xl font-black">Announcements</h1>
             <div id="announcement-items" className="overflow-y-scroll h-9/10">
-              {announcements.map((announcement, idx) => (
-                <AnnouncementCard
-                  key={idx}
-                  text={announcement.announcement}
-                  time={announcement.time}
-                />
-              ))}
+              {announcements.map((announcement, idx) => {
+                const dateObj = new Date(announcement.timestamp!);
+                const hour = dateObj.getHours(),
+                  minutes = dateObj.getMinutes();
+
+                const time = `${hour < 10 ? '0' : ''}${hour}:${minutes < 10 ? '0' : ''}${minutes}`;
+
+                return <AnnouncementCard key={idx} text={announcement.announcement} time={time} />;
+              })}
             </div>
           </div>
         </div>
@@ -236,7 +218,7 @@ export default function Dashboard(props: { announcements: Announcement[] }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const protocol = (context.req.headers.referer as string).split('://')[0];
+  const protocol = context.req.headers.referer?.split('://')[0] || 'http';
   const announcements = await RequestHelper.get<Announcement[]>(
     `${protocol}://${context.req.headers.host}/api/announcements/`,
     {},
