@@ -19,8 +19,8 @@ async function sendNotifications(announcement: unknown) {
 
   for (let i = 0; i < tokens.length; i += MAX_PER_BATCH) {
     let currentBatch = [];
-    for (let j = i; j < Math.min(j + MAX_PER_BATCH, tokens.length); j++) {
-      currentBatch.push(tokens[i]);
+    for (let j = i; j < Math.min(i + MAX_PER_BATCH, tokens.length); j++) {
+      currentBatch.push(tokens[j]);
     }
     await fetch('https://fcm.googleapis.com/fcm/send', {
       method: 'post',
