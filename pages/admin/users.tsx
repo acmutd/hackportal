@@ -162,14 +162,14 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const protocol = (context.req.headers.referer as string).split('://')[0];
-  const userData = await RequestHelper.get<UserData[]>(
+  const protocol = context.req.headers.referer?.split('://')[0] || 'http';
+  const { data } = await RequestHelper.get<UserData[]>(
     `${protocol}://${context.req.headers.host}/api/users/`,
     {},
   );
   return {
     props: {
-      userData,
+      userData: data,
     },
   };
 };

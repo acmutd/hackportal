@@ -126,15 +126,14 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // console.log(context.req.headers.referer);
-  const protocol = (context.req.headers.referer as string).split('://')[0];
-  const questions = await RequestHelper.get<QADocument[]>(
+  const protocol = context.req.headers.referer?.split('://')[0] || 'http';
+  const { data } = await RequestHelper.get<QADocument[]>(
     `${protocol}://${context.req.headers.host}/api/questions/pending`,
     {},
   );
   return {
     props: {
-      questions,
+      questions: data,
     },
   };
 };
