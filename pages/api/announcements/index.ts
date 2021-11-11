@@ -6,6 +6,37 @@ initializeApi();
 const db = firestore();
 
 const ANNOUNCEMENTS_COLLECTION = '/announcements';
+const TOKENS_COLLECTION = '/tokens';
+const MAX_PER_BATCH = 1000;
+
+async function sendNotifications(announcement: unknown) {
+  const tokens_snapshot = await db.collection(TOKENS_COLLECTION).get();
+  let tokens = [];
+
+  tokens_snapshot.forEach((doc) => {
+    tokens.push(doc.data().token);
+  });
+
+  for (let i = 0; i < tokens.length; i += MAX_PER_BATCH) {
+    let currentBatch = [];
+    for (let j = i; j < Math.min(i + MAX_PER_BATCH, tokens.length); j++) {
+      currentBatch.push(tokens[j]);
+    }
+    await fetch('https://fcm.googleapis.com/fcm/send', {
+      method: 'post',
+      headers: {
+        Authorization: `key=${process.env.NEXT_PUBLIC_CLOUD_MESSAGING_SERVER_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        registration_ids: currentBatch,
+        data: {
+          notification: announcement,
+        },
+      }),
+    });
+  }
+}
 
 /**
  *
@@ -17,7 +48,12 @@ const ANNOUNCEMENTS_COLLECTION = '/announcements';
  *
  */
 async function postAnnouncementToDB(req: NextApiRequest, res: NextApiResponse) {
-  const doc = await db.collection(ANNOUNCEMENTS_COLLECTION).add(JSON.parse(req.body));
+  const reqBody = {
+    ...JSON.parse(req.body),
+    timestamp: new Date().toUTCString(),
+  };
+  const doc = await db.collection(ANNOUNCEMENTS_COLLECTION).add(reqBody);
+  sendNotifications(reqBody);
   res.json(doc);
 }
 
@@ -31,7 +67,7 @@ async function postAnnouncementToDB(req: NextApiRequest, res: NextApiResponse) {
  *
  */
 async function getAllAnnouncements(req: NextApiRequest, res: NextApiResponse) {
-  const snapshot = await db.collection(ANNOUNCEMENTS_COLLECTION).orderBy('time', 'desc').get();
+  const snapshot = await db.collection(ANNOUNCEMENTS_COLLECTION).orderBy('timestamp', 'desc').get();
   let data = [];
   snapshot.forEach((doc) => {
     data.push(doc.data());
