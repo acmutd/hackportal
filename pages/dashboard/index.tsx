@@ -237,13 +237,13 @@ export default function Dashboard(props: { announcements: Announcement[] }) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const protocol = (context.req.headers.referer as string).split('://')[0];
-  const announcements = await RequestHelper.get<Announcement[]>(
+  const { data } = await RequestHelper.get<Announcement[]>(
     `${protocol}://${context.req.headers.host}/api/announcements/`,
     {},
   );
   return {
     props: {
-      announcements,
+      announcements: data,
     },
   };
 };

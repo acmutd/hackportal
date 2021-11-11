@@ -82,13 +82,13 @@ export default function ResolveQuestionPage({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const protocol = (context.req.headers.referer as string).split('://')[0];
-  const question = await RequestHelper.get<QADocument>(
+  const { data } = await RequestHelper.get<QADocument>(
     `${protocol}://${context.req.headers.host}/api/questions/pending/${context.params.questionId}`,
     {},
   );
   return {
     props: {
-      question,
+      question: data,
       questionId: context.params.questionId,
     },
   };
