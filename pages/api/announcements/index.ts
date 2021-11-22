@@ -1,12 +1,14 @@
-import { firestore } from 'firebase-admin';
+import { auth, firestore } from 'firebase-admin';
 import { NextApiRequest, NextApiResponse } from 'next';
 import initializeApi from '../../../lib/admin/init';
+import { userIsAuthorized } from '../../../lib/authorization/check-authorization';
 
 initializeApi();
 const db = firestore();
 
 const ANNOUNCEMENTS_COLLECTION = '/announcements';
 const TOKENS_COLLECTION = '/tokens';
+
 const MAX_PER_BATCH = 1000;
 
 async function sendNotifications(announcement: unknown) {
@@ -48,6 +50,17 @@ async function sendNotifications(announcement: unknown) {
  *
  */
 async function postAnnouncementToDB(req: NextApiRequest, res: NextApiResponse) {
+  const { headers } = req;
+
+  const userToken = headers['authorization'];
+  const isAuthorized = await userIsAuthorized(userToken);
+
+  if (!isAuthorized) {
+    return res.status(403).json({
+      msg: 'Request is not authorized to perform admin functionality.',
+    });
+  }
+
   const reqBody = {
     ...JSON.parse(req.body),
     timestamp: new Date().toUTCString(),
