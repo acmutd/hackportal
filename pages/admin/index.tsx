@@ -39,7 +39,11 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
     try {
       await RequestHelper.post<Announcement, void>(
         '/api/announcements',
-        {},
+        {
+          headers: {
+            Authorization: user.token,
+          },
+        },
         {
           announcement,
         },
