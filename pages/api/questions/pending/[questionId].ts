@@ -1,6 +1,7 @@
 import { firestore } from 'firebase-admin';
 import { NextApiRequest, NextApiResponse } from 'next';
 import initializeApi from '../../../../lib/admin/init';
+import { userIsAuthorized } from '../../../../lib/authorization/check-authorization';
 
 initializeApi();
 const db = firestore();
@@ -34,6 +35,16 @@ async function getPendingQuestionById(req: NextApiRequest, res: NextApiResponse)
  *
  */
 async function resolvePendingQuestionById(req: NextApiRequest, res: NextApiResponse) {
+  const { headers } = req;
+  const userToken = headers['authorization'];
+
+  const isAuthorized = await userIsAuthorized(userToken);
+  if (!isAuthorized) {
+    return res.status(403).json({
+      msg: 'Request is not authorized to perform admin functionality.',
+    });
+  }
+
   const newData = {
     ...JSON.parse(req.body),
     status: 'answered',
