@@ -1,9 +1,11 @@
 import Head from 'next/head';
 import React, { useRef, useState } from 'react';
 import DashboardHeader from '../../components/DashboardHeader';
-import { useAuthContext } from '../../lib/user/AuthContext';
 import QRCode from '../../components/QRCode';
 import QRCodeReader from '../../components/QRCodeReader';
+import Sidebar from './Components/Sidebar';
+import { useUser } from '../../lib/profile/user-data';
+import { useAuthContext } from '../../lib/user/AuthContext';
 
 /**
  * The dashboard / submit.
@@ -12,6 +14,8 @@ import QRCodeReader from '../../components/QRCodeReader';
  */
 export default function Scan() {
   const { user, isSignedIn } = useAuthContext();
+  //const user = useUser();
+  const role = user.permissions?.length > 0 ? user.permissions[0] : '';
   const [qrData, setQRData] = useState('');
   const [qrLoading, setQRLoading] = useState(false);
   const [error, setError] = useState('');
@@ -47,8 +51,12 @@ export default function Scan() {
         <title>HackerPacks</title>
         <meta name="description" content="HackPortal's Scan-In" />
       </Head>
+
+      {/* <Sidebar /> */}
+
+      {/* <section id="mainContent" className="px-6 py-3 w-5/6 lg:wd-7/8 md:w-6/7"> */}
       <section id="subheader" className="p-4">
-        <DashboardHeader />
+        <DashboardHeader active="/dashboard/scan-in" />
       </section>
       {isSignedIn ? (
         <div className="top-6 flex flex-col items-center justify-center">

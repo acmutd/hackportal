@@ -12,9 +12,10 @@ export interface QAReqBody {
   question: string;
 }
 
-interface QADocument extends QAReqBody {
+export interface QADocument extends QAReqBody {
   status: 'pending' | 'answered';
   answer: string;
+  id: string;
 }
 
 /**
@@ -27,7 +28,7 @@ interface QADocument extends QAReqBody {
  *
  */
 async function postQuestionToDB(req: NextApiRequest, res: NextApiResponse) {
-  const questionDoc: QADocument = {
+  const questionDoc: Partial<QADocument> = {
     userId: req.body.userId,
     question: req.body.question,
     answer: '',
@@ -41,15 +42,28 @@ async function postQuestionToDB(req: NextApiRequest, res: NextApiResponse) {
   });
 }
 
+async function getAllQuestions(req: NextApiRequest, res: NextApiResponse) {
+  const snapshot = await db.collection(QUESTIONS_COLLECTION).get();
+  let questions = [];
+  snapshot.forEach((doc) => {
+    questions.push(doc.data());
+  });
+  res.json(questions);
+}
+
 async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
   return postQuestionToDB(req, res);
+}
+
+function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
+  return getAllQuestions(req, res);
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
   switch (method) {
     case 'GET': {
-      break;
+      return handleGetRequest(req, res);
     }
     case 'POST': {
       return handlePostRequest(req, res);

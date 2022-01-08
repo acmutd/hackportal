@@ -93,13 +93,14 @@ type Registration = {
   softwareExperience: string;
   heardFrom: string;
   size: string;
-  dietary: string;
-  accomodations: string;
+  dietary: [];
+  accommodations: string;
   github?: string;
   linkedin?: string;
   website?: string;
   resume?: string;
   companies: Companies[];
+  claims: []; //Array of Strings will be used to id any claims (lunch, merch, etc.) made by user
 };
 
 /**
