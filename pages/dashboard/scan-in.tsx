@@ -15,7 +15,7 @@ import { useAuthContext } from '../../lib/user/AuthContext';
 export default function Scan() {
   const { user, isSignedIn } = useAuthContext();
   //const user = useUser();
-  const role = user.permissions?.length > 0 ? user.permissions[0] : '';
+  // const role = user.permissions?.length > 0 ? user.permissions[0] : '';
   const [qrData, setQRData] = useState('');
   const [qrLoading, setQRLoading] = useState(false);
   const [error, setError] = useState('');

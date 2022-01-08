@@ -35,7 +35,7 @@ export default function AppHeader() {
         <div className="flex w-6/12 max-w-[156px] justify-between items-center md:max-w-full md:justify-start md:w-9/12">
           <Link href="/">
             <a
-              className="flex order-2 z-[-2] relative ml-[-6px] font-display self-center items-center w-[112px] md:order-1 md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400"
+              className="flex order-2 relative ml-[-6px] font-display self-center items-center w-[112px] md:order-1 md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400"
               onClick={dismissDialog}
             >
               <span className="text-[16px] font-black md:z-0 md:text-2xl md:mr-10">
@@ -133,7 +133,7 @@ export default function AppHeader() {
             className="font-header font-bold bg-white rounded-full border-2 border-black text-sm px-8 py-1"
             onClick={toggleDialog}
           >
-            Sign In
+            {!user || !isSignedIn ? 'Sign in' : 'Profile'}
           </button>
         </div>
         {showProfileDialog && <ProfileDialog onDismiss={dismissDialog} />}
