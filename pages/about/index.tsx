@@ -1,96 +1,123 @@
-import { GetServerSideProps } from 'next';
-import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import MobileHeader from '../../components/MobileHeader';
+import MobileLinks from '../../components/MobileLinks';
+import FAQComponent from '../../components/FAQComponent';
+import FAQDropdownItem from '../../components/FAQDropdownItem';
 import AboutHeader from '../../components/AboutHeader';
-import MemberCard from '../../components/MemberCard';
-import { RequestHelper } from '../../lib/request-helper';
 
-/**
- * The About page.
- *
- * This page contains some introduction about the hackathon in question. It also includes a section used
- * to introduce the team responsible for organizing the hackathon
- *
- * Route: /about
- */
-export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMember[] }) {
-  const [loading, setLoading] = useState(true);
-  const [members, setMembers] = useState<TeamMember[]>([]);
-
-  useEffect(() => {
-    setMembers(fetchedMembers);
-    setLoading(false);
-  }, [fetchedMembers]);
-
-  const colorSchemes: ColorScheme[] = [
-    {
-      light: '#F2F3FF',
-      dark: '#C1C8FF',
-    },
-    {
-      light: '#D8F8FF',
-      dark: '#B0F1FF',
-    },
-    {
-      dark: '#FCD7FF',
-      light: '#FDECFF',
-    },
-  ];
-
-  if (loading) {
-    return (
-      <div>
-        <h1>Loading...</h1>
-      </div>
-    );
-  }
-
+export default function faq() {
   return (
-    <div className="flex flex-col flex-grow">
-      <Head>
-        <title>HackPortal - About</title>
-        <meta name="description" content="HackPortal's About Page" />
-      </Head>
-      <AboutHeader active="/about" />
-      <div className="top-6 p-4 flex flex-col gap-y-3">
-        <h4 className="font-bold text-3xl">About this hackathon</h4>
-        <p>
-          Here will be a short paragraph providing a general overview of what then hackathon is.
-          This can be dates, events, contests, and prizes.
-        </p>
-        <p>
-          This paragraph can be about the size and reach of the hackathon. Can include the number of
-          participants every year and the total worth of prizes.
-        </p>
-        <p>Any additional information can be provided in this paragraph.</p>
-      </div>
+    <div>
+      <div className="mainFAQSContent">
+        <AboutHeader active="/about" />
 
-      <div className="top-6 p-6 flex flex-col gap-y-4">
-        <h4 className="font-bold text-3xl">Meet Our Team :)</h4>
-        <div className="flex flex-col gap-y-4 w-full">
-          {members.map(({ name, description }, idx) => (
-            <MemberCard
-              key={idx}
-              name={name}
-              description={description}
-              cardColor={colorSchemes[idx % 3]}
-            />
-          ))}
+        <h4 className="faqTitle">FREQUENTLY ASKED QUESTIONS</h4>
+        <h4 className="faqTitle-mobile">FAQ</h4>
+        <div className="faqs">
+          <div className="leftFacts">
+            <FAQComponent faqquestion="What is a hackathon?">
+              <FAQDropdownItem>
+                A hackathon is a 24-hour competition where you and up to 3 teammates build a
+                software project from scratch and compete against other groups for prizes. Sponsors
+                will also provide workshops, events, and activities throughout the weekend to help
+                you learn more about the field of technology!
+              </FAQDropdownItem>
+            </FAQComponent>
+            <div>
+              <br />
+            </div>
+            <FAQComponent faqquestion="Can I participate if I have never hacked?">
+              <FAQDropdownItem>
+                Everyone is welcome to come, and no experience is necessary to attend! We will even
+                be hosting workshops to introduce new hackers to industry programs and technologies.
+              </FAQDropdownItem>
+            </FAQComponent>
+            <div>
+              <br />
+            </div>
+            <FAQComponent faqquestion="What if I don’t have a team?">
+              <FAQDropdownItem>
+                We will have a teambuilding session at the start of the hackathon for those who need
+                help finding one! You can also choose to work on projects by yourself!
+              </FAQDropdownItem>
+            </FAQComponent>
+            <div>
+              <br />
+            </div>
+            <FAQComponent faqquestion="What do I need to bring?">
+              <FAQDropdownItem>
+                You just need to bring a laptop, charger, and a hacking spirit to participate! We
+                will be providing internet connectivity, and we also recommend having a compiler,
+                packages, or any packaging tools ready beforehand.
+              </FAQDropdownItem>
+            </FAQComponent>
+            <div>
+              <br />
+            </div>
+            <FAQComponent faqquestion="When is HackUTD VIII?">
+              <FAQDropdownItem>November 13th and 14th!</FAQDropdownItem>
+            </FAQComponent>
+            <div>
+              <br />
+            </div>
+
+            <FAQComponent faqquestion="When is registration?">
+              <FAQDropdownItem>Registration began August 12th!</FAQDropdownItem>
+            </FAQComponent>
+          </div>
+          <div className="rightFacts">
+            <FAQComponent faqquestion="How much does it cost?">
+              <FAQDropdownItem>HackUTD VIII will be completely free to hackers!</FAQDropdownItem>
+            </FAQComponent>
+            <div>
+              <br />
+            </div>
+
+            <FAQComponent faqquestion="Where will it be?">
+              <FAQDropdownItem>HackUTD will be hosted at... You guessed it: UTD!</FAQDropdownItem>
+            </FAQComponent>
+            <div>
+              <br />
+            </div>
+
+            <FAQComponent faqquestion="What are the general rules?">
+              <FAQDropdownItem>
+                Your project must be built entirely over the course of the weekend. No previous
+                projects or code may be used. Have fun!
+              </FAQDropdownItem>
+            </FAQComponent>
+            <div>
+              <br />
+            </div>
+
+            <FAQComponent faqquestion="What should I build?">
+              <FAQDropdownItem>
+                Anything you want! You can try to solve a sponsor challenge or submit a project for
+                the HackUTD awards!
+              </FAQDropdownItem>
+            </FAQComponent>
+            <div>
+              <br />
+            </div>
+
+            <FAQComponent faqquestion="Can I volunteer?">
+              <FAQDropdownItem>
+                Mentor and volunteer applications are open now! Check the home page for the sign-up
+                links!
+              </FAQDropdownItem>
+            </FAQComponent>
+            <div>
+              <br />
+            </div>
+
+            <FAQComponent faqquestion="Free swag? pls?">
+              <FAQDropdownItem>
+                We will have custom HackUTD VIII swag for all participants along with gear provided
+                by our sponsors! And free food!
+              </FAQDropdownItem>
+            </FAQComponent>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const protocol = context.req.headers.referer.split('://')[0];
-  const fetchedMembers = await RequestHelper.get<TeamMember[]>(
-    `${protocol}://${context.req.headers.host}/api/members`,
-    {},
-  );
-  return {
-    props: {
-      fetchedMembers,
-    },
-  };
-};

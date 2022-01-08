@@ -1,5 +1,10 @@
+// NOTE: Replaced Typeform stuff with registration form from HackPortal
 import Head from 'next/head';
-import React, { useState } from 'react';
+import '@typeform/embed/build/css/widget.css';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { RequestHelper } from '../lib/request-helper';
+import firebase from 'firebase';
 
 /**
  * The registration page.
@@ -8,23 +13,83 @@ import React, { useState } from 'react';
  */
 
 export default function Register() {
-  const handleSubmit = (event) => {
-    console.log(event.target.value);
-    event.preventDefault();
-    //get data out of form
-    //make post request to api
-    fetch('/api/applications', {
-      body: JSON.stringify({ ...event.target.value }),
-      headers: { 'Content-Type': 'application/json' },
-      method: 'POST',
-    }).then((result) => {
-      if (result.status === 201) {
-        alert('Your application has been submitted.');
-      } else if (result.status === 500) {
-        alert('Server error!');
+  const router = useRouter();
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(async (user) => {
+      if (user) {
+        const token = await user.getIdToken();
+        const query = new URL(`http://localhost:3000/api/userinfo`);
+        query.searchParams.append('id', user.uid);
+
+        const data = await fetch(query.toString().replaceAll('http://localhost:3000', ''), {
+          method: 'GET',
+          headers: {
+            Authorization: token,
+          },
+        });
+
+        if (data.status !== 404) {
+          router.push('/profile');
+        } else {
+          setRegistrationData((prev) => ({
+            ...prev,
+            id: user.uid,
+            user: {
+              ...prev.user,
+              id: user.uid,
+              firstName: user.displayName,
+              lastName: '',
+              preferredEmail: user.email,
+            },
+          }));
+        }
       } else {
-        console.warn('Submission failed.', result);
+        router.push('/');
       }
+    });
+  }, []);
+
+  const handleSubmit = async () => {
+    try {
+      await RequestHelper.post<Registration, void>('/api/applications', {}, registrationData);
+      alert('Profile created successful');
+      router.push('/profile');
+    } catch (error) {
+      console.log('Request creation error');
+    }
+  };
+
+  const [registrationData, setRegistrationData] = useState<Registration>({
+    id: '',
+    timestamp: parseInt((new Date().getTime() / 1000).toFixed(0)),
+    user: {
+      id: '',
+      preferredEmail: '',
+      firstName: '',
+      lastName: '',
+      permissions: ['hacker'],
+    },
+
+    university: '',
+    major: '',
+    studyLevel: 'freshman',
+  });
+
+  const updateUserData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRegistrationData({
+      ...registrationData,
+      user: {
+        ...registrationData.user,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+  const updateRegistrationData = (e: any) => {
+    setRegistrationData({
+      ...registrationData,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -47,17 +112,19 @@ export default function Register() {
       <section id="registration" className="m-4">
         <div className="max-w-4xl py-4 pt-8 mx-auto text-2xl font-bold text-left">General</div>
         <div className="max-w-4xl py-4 mx-auto">
-          <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
+          <form className="max-w-4xl mx-auto">
             <label className="text-1xl my-4 font-bold font-small text-left">
               *Enter your first name:
               <br />
               <input
-                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
+                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-black rounded-md"
                 placeholder="John"
                 type="text"
-                name="1name"
+                name="firstName"
                 autoComplete="given-name"
                 required
+                value={registrationData.user.firstName}
+                onChange={(e) => updateUserData(e)}
               />
               <br />
               <br />
@@ -66,12 +133,14 @@ export default function Register() {
               *Enter your last name:
               <br />
               <input
-                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
+                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-black rounded-md"
                 placeholder="Smith"
                 type="text"
-                name="2name"
+                name="lastName"
                 autoComplete="family-name"
                 required
+                value={registrationData.user.lastName}
+                onChange={(e) => updateUserData(e)}
               />
               <br />
               <br />
@@ -83,80 +152,17 @@ export default function Register() {
                 placeholder="email@example.com"
                 type="type"
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
-                name="email"
+                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-black rounded-md"
+                name="preferredEmail"
                 autoComplete="email"
                 required
+                value={registrationData.user.preferredEmail}
+                onChange={(e) => updateUserData(e)}
               />
               <br />
               <br />
             </label>
 
-            <label className="text-1xl my-4 font-bold font-small text-left">
-              *Age:
-              <br />
-              <input
-                placeholder="18"
-                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
-                name="age"
-                type="number"
-                min="0"
-                max="100"
-                required
-              />
-              <br />
-              <br />
-            </label>
-
-            <label className="text-1xl my-4 font-bold font-small text-left">
-              *Gender:
-              <br />
-              <select
-                className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
-                name="gender"
-                required
-              >
-                <option value="Other">Other</option>
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-                <option value="notSay">Prefer not to say</option>
-              </select>
-              <br />
-              <br />
-            </label>
-
-            <label className="text-1xl font-bold font-small text-left">
-              *Race:
-              <br />
-              <select
-                className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
-                name="race"
-                required
-              >
-                <option value="Indian">American Indian or Alaska Native</option>
-                <option value="Asian">Asian</option>
-                <option value="Black">Black or African American</option>
-                <option value="Pacific">Native Hawaiian or Other Pacific Islander</option>
-                <option value="White">White</option>
-              </select>
-              <br />
-              <br />
-            </label>
-
-            <label className="text-1xl my-4 font-bold font-small text-left">
-              *Ethnicity:
-              <br />
-              <select
-                className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
-                name="ethnicity"
-                required
-              >
-                <option value="hispanic">Hispanic or Latino</option>
-                <option value="notHispanic">Not Hispanic or Latino</option>
-              </select>
-              <br />
-              <br />
-            </label>
             <section id="registration">
               <div className="max-w-4xl py-4 pt-8 mx-auto text-2xl font-bold text-left">
                 School Info
@@ -167,9 +173,11 @@ export default function Register() {
               <br />
               <input
                 placeholder="University of Knowledge"
-                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
+                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-black rounded-md"
                 type="text"
                 name="university"
+                value={registrationData.university}
+                onChange={(e) => updateRegistrationData(e)}
                 required
               />
               <br />
@@ -181,9 +189,11 @@ export default function Register() {
               <br />
               <input
                 placeholder="Computer Science, Accounting, etc."
-                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
+                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-black rounded-md"
                 type="text"
                 name="major"
+                value={registrationData.major}
+                onChange={(e) => updateRegistrationData(e)}
                 required
               />
               <br />
@@ -194,9 +204,11 @@ export default function Register() {
               *Current level of study?
               <br />
               <select
-                className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
+                className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-black rounded-md"
                 placeholder="Select One"
                 name="studyLevel"
+                value={registrationData.studyLevel}
+                onChange={(e) => updateRegistrationData(e)}
                 required
               >
                 <option value="freshman">Freshman</option>
@@ -208,204 +220,14 @@ export default function Register() {
               <br />
               <br />
             </label>
-            <section id="registration">
-              <div className="max-w-4xl py-4 pt-8 mx-auto text-2xl font-bold text-left">
-                Hackathon Experience
-              </div>
-            </section>
-            <label className="text-1xl my-4 font-bold font-small text-left">
-              *How many hackathons have you attended before?
-              <br />
-              <input
-                placeholder="0"
-                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
-                name="numhackathon"
-                type="number"
-                min="0"
-                max="100"
-                required
-              />
-              <br />
-              <br />
-            </label>
 
-            <label className="text-1xl my-4 font-bold font-small text-left">
-              *Relative software-building experience:
-              <br />
-              <select
-                className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
-                name="experience"
-                required
-              >
-                <option value="Beginner">Beginner</option>
-                <option value="Intermedate">Intermedate</option>
-                <option value="Advanced">Advanced</option>
-                <option value="Expert">Expert</option>
-              </select>
-              <br />
-              <br />
-            </label>
-
-            {/*ORGANIZER CAN CUSTOMIZE DROPDOWN OPTIONS*/}
-            <label className="text-1xl my-4 font-bold font-small text-left">
-              *Where did you hear about [HACKATHON NAME]?
-              <br />
-              <select
-                className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
-                name="heard"
-                required
-              >
-                <option value="Instagram">Instagram</option>
-                <option value="Twitter">Twitter</option>
-                <option value="Site">Event Site</option>
-                <option value="Friend">Friend</option>
-              </select>
-              <br />
-              <br />
-            </label>
-            <section id="registration">
-              <div className="max-w-4xl py-4 pt-8 mx-auto text-2xl font-bold text-left">
-                Event Info
-              </div>
-            </section>
-            <label className="text-1xl my-4 font-bold font-small text-left">
-              *Shirt Size:
-              <br />
-              <select
-                className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
-                name="size"
-                required
-              >
-                <option value="s">S</option>
-                <option value="m">M</option>
-                <option value="l">L</option>
-                <option value="xl">XL</option>
-              </select>
-              <br />
-              <br />
-            </label>
-
-            <label className="text-1xl my-4 font-bold font-small text-left">
-              Allergies / Dietary Restrictions:
-            </label>
-            <label>
-              <br />
-              <input className="form-checkbox h-5 w-5" name="Vegan" type="checkbox" />
-              <text className="pl-2">Vegan</text>
-            </label>
-            <label>
-              <br />
-              <input className="form-checkbox h-5 w-5" name="Vegitarian" type="checkbox" />
-              <text className="pl-2">Vegitarian</text>
-            </label>
-            <label>
-              <br />
-              <input className="form-checkbox h-5 w-5" name="Nuts" type="checkbox" />
-              <text className="pl-2">Nuts</text>
-            </label>
-            <label>
-              <br />
-              <input className="form-checkbox h-5 w-5" name="Fish" type="checkbox" />
-              <text className="pl-2">Fish</text>
-            </label>
-            <label>
-              <br />
-              <input className="form-checkbox h-5 w-5" name="Wheat" type="checkbox" />
-              <text className="pl-2">Wheat</text>
-            </label>
-            <label>
-              <br />
-              <input className="form-checkbox h-5 w-5" name="Dairy" type="checkbox" />
-              <text className="pl-2">Dairy</text>
-            </label>
-            <label>
-              <br />
-              <input className="form-checkbox h-5 w-5" name="Eggs" type="checkbox" />
-              <text className="pl-2">Eggs</text>
-              <br />
-              <br />
-            </label>
-
-            <label className="text-1xl my-4 font-bold font-small text-left">
-              Anything else we can do to better accomodate you at our hackathon?
-              <br />
-              <textarea
-                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
-                placeholder="List any accessibility concerns here"
-                name="accessibility"
-              />
-              <br />
-              <br />
-            </label>
-            <section id="registration">
-              <div className="max-w-4xl py-4 pt-8 mx-auto text-2xl font-bold text-left">
-                Sponsor Info
-              </div>
-            </section>
-            <label className="text-1xl my-4 font-bold font-small text-left">
-              Github:
-              <br />
-              <input
-                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
-                type="text"
-                name="github"
-              />
-              <br />
-              <br />
-            </label>
-
-            <label className="text-1xl my-4 font-bold font-small text-left">
-              LinkedIn:
-              <br />
-              <input
-                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
-                type="text"
-                name="linkedin"
-              />
-              <br />
-              <br />
-            </label>
-
-            <label className="text-1xl my-4 font-bold font-small text-left">
-              Personal Website:
-              <br />
-              <input
-                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
-                type="text"
-                name="site"
-              />
-              <br />
-              <br />
-            </label>
-
-            <label className="text-1xl my-4 font-bold font-small text-left">
-              Companies to send my resume to:
-            </label>
-            <label>
-              <br />
-              <input className="form-checkbox h-5 w-5" name="Google" type="checkbox" />
-              <text className="pl-2">Google</text>
-              <br />
-            </label>
-            <label>
-              <input className="form-checkbox h-5 w-5" name="Ebay" type="checkbox" />
-              <text className="pl-2">Ebay</text>
-              <br />
-              <br />
-            </label>
-
-            <label>
-              Upload your resume:
-              <br />
-              <input name="resume" type="file" />
-              <br />
-            </label>
             <br />
             <button
+              type="button"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded "
-              type="submit"
+              onClick={() => handleSubmit()}
             >
-              Test
+              Submit
             </button>
           </form>
         </div>

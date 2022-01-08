@@ -46,7 +46,7 @@ export default function ProfileDialog({ onDismiss }: ProfileDialogProps) {
   }
 
   return (
-    <div className="absolute top-8 right-8 min-w-xl max-w-2xl shadow-md rounded-md bg-white">
+    <div className="absolute top-8 right-8 min-w-xl max-w-2xl shadow-md rounded-md bg-gray-900">
       {/* TODO: Don't show specific UI unless signed in */}
       <div className="flex px-4 pt-4 pb-2">
         {/* TODO: Handle default undefined photo URL with default */}
@@ -74,7 +74,7 @@ export default function ProfileDialog({ onDismiss }: ProfileDialogProps) {
         <>
           <div onClick={onDismiss}>
             <Link href="/profile">
-              <a className="block p-4 hover:bg-gray-200">
+              <a className="block p-4 hover:bg-black">
                 <NotesIcon />
                 <span className="ml-4">Your profile</span>
               </a>
@@ -82,7 +82,7 @@ export default function ProfileDialog({ onDismiss }: ProfileDialogProps) {
           </div>
           <div className="rounded-b-md" onClick={onDismiss}>
             <Link href="/auth/signOut">
-              <a className="block p-4 hover:bg-gray-200 rounded-b-md">
+              <a className="block p-4 hover:bg-black rounded-b-md">
                 <ExitToAppIcon />
                 <span className="ml-4">Sign out</span>
               </a>
@@ -92,7 +92,7 @@ export default function ProfileDialog({ onDismiss }: ProfileDialogProps) {
       )) || (
         <div className="rounded-b-md" onClick={onDismiss}>
           <Link href="/auth">
-            <a className="block p-4 hover:bg-gray-200 rounded-b-md">
+            <a className="block p-4 hover:bg-black rounded-b-md">
               {/* TODO: Swap with better icon */}
               <ExitToAppIcon />
               <span className="ml-4">Sign in</span>

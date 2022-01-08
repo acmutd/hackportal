@@ -22,7 +22,7 @@ async function userIsAuthorized(token: string) {
 }
 
 /**
- * Handles GET requests to /api/scantypes.
+ * Handles GET requests to /api/scan.
  *
  * This returns all scantypes the user is authorized to see.
  *
@@ -56,8 +56,23 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
     const snapshot = await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).get();
     if (!snapshot.exists)
       return res.status(404).json({ code: 'not found', message: "User doesn't exist..." });
-    let scans = snapshot.data().scans ?? [];
+
+    const data = snapshot.data() as Registration;
+    const scans = data.scans ?? [];
+
+    const checkInScan = (
+      await db.collection('scan-types').where('isCheckIn', '==', true).get()
+    ).docs[0].data().name;
+
+    const isCheckInScan = bodyData.scan === checkInScan;
+    const hasCheckedIn = scans.includes(checkInScan);
+
+    if (!isCheckInScan && !hasCheckedIn)
+      // if the current scan is not the check in scan and the user hasn't checked in
+      return res.status(403).json({ code: 'not checked in', message: "User hasn't checked in" });
+
     if (scans.includes(bodyData.scan)) return res.status(201).json({ code: 'duplicate' });
+
     scans.push(bodyData.scan);
     await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans });
     res.status(200).json({});

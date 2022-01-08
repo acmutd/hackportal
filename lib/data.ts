@@ -7,9 +7,45 @@ export const buttonDatas = [
 export const navItems = [
   { text: 'Dashboard', path: '/dashboard' },
   { text: 'Sponsors', path: '/sponsors' },
+  { text: 'Speakers', path: '/speakers' },
   { text: 'Schedule', path: '/schedule' },
-  { text: 'About', path: '/about' },
+  { text: 'FAQ', path: '/faq' },
   { text: 'Admin', path: '/admin' },
+];
+
+export const mockUserData = [
+  {
+    name: 'User1',
+    role: ['admin', 'hacker'],
+  },
+  {
+    name: 'User1',
+    role: ['admin', 'hacker'],
+  },
+  {
+    name: 'User1',
+    role: ['admin', 'hacker'],
+  },
+  {
+    name: 'User1',
+    role: ['admin', 'hacker'],
+  },
+  {
+    name: 'User1',
+    role: ['admin', 'hacker'],
+  },
+  {
+    name: 'User1',
+    role: ['admin', 'hacker'],
+  },
+  {
+    name: 'User2',
+    role: ['organizer'],
+  },
+  {
+    name: 'User3',
+    role: ['sponsor'],
+  },
 ];
 
 export const stats = [

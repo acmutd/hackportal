@@ -22,7 +22,7 @@ export default function QuestionsPage() {
   const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([]);
   const [pendingQuestions, setPendingQuestions] = useState<PendingQuestion[]>([]);
   const [answeredQuestionDisclosureStatus, setAnsweredDisclosureStatus] = useState<boolean[]>([]);
-  const { user } = useAuthContext();
+  const { user, isSignedIn } = useAuthContext();
 
   /**
    *
@@ -34,7 +34,7 @@ export default function QuestionsPage() {
     if (!user) {
       return [];
     }
-    const data = await RequestHelper.get<AnsweredQuestion[]>(
+    const { data } = await RequestHelper.get<AnsweredQuestion[]>(
       `/api/questions/${user.id}/answered`,
       {},
     );
@@ -51,7 +51,7 @@ export default function QuestionsPage() {
     if (!user) {
       return [];
     }
-    const data = await RequestHelper.get<PendingQuestion[]>(
+    const { data } = await RequestHelper.get<PendingQuestion[]>(
       `/api/questions/${user.id}/pending`,
       {},
     );
@@ -138,86 +138,93 @@ export default function QuestionsPage() {
     },
   ];
 
-  if (loading)
-    return (
-      <div>
-        <h1>Loading...</h1>
-      </div>
-    );
-
   return (
-    <div className="flex flex-col flex-grow">
-      <Head>
-        <title>HackPortal - Questions</title>
-        <meta name="description" content="HackPortal's Quesiton and Answer Page " />
-      </Head>
-      <AboutHeader active="/about/questions" />
-      <ErrorList
-        errors={errors}
-        onClose={(idx: number) => {
-          const newErrorList = [...errors];
-          newErrorList.splice(idx, 1);
-          setErrors(newErrorList);
-        }}
-      />
-      <div className="top-6 p-4 flex flex-col gap-y-3">
-        <h4 className="font-bold text-3xl">Ask the organizers a question!</h4>
+    <div>
+      <div className="max-w-4xl mx-auto">
+        <Head>
+          <title>HackUTD VIII - Questions and Answers</title>
+          <meta
+            name="description"
+            content="Ask a question and get a response from an organizer for HackUTD VIII!"
+          />
+        </Head>
+        <AboutHeader active="/about/questions" />
         <div>
-          <textarea
-            className="w-full rounded-xl p-4"
-            rows={5}
-            value={currentQuestion}
-            onChange={(e) => setCurrentQuestion(e.target.value)}
-            style={{ backgroundColor: '#F2F3FF' }}
-            placeholder="Type your question here"
-          ></textarea>
-          <div className="flex flex-row justify-end my-4">
-            <button
-              type="button"
-              className="p-2 rounded-lg"
-              style={{ backgroundColor: '#9CA6FF', color: 'black' }}
-              onClick={() => {
-                submitQuestion();
-              }}
-            >
-              Submit Question
-            </button>
-          </div>
-        </div>
-
-        <div>
-          <h4 className="font-bold text-2xl">My Pending Question</h4>
-          {user ? (
-            pendingQuestions.map(({ question }, idx) => (
-              <PendingQuestion key={idx} question={question} />
-            ))
-          ) : (
-            <h1 className="p-3">Sign in to see your questions</h1>
-          )}
-        </div>
-
-        <div className="my-4">
-          <h4 className="font-bold text-2xl">My Answered Question</h4>
-          {user ? (
-            answeredQuestions.map(({ question, answer }, idx) => (
-              <AnsweredQuestion
-                key={idx}
-                question={question}
-                answer={answer}
-                colorCode={colorSchemes[idx % 3].light}
-                iconColorCode={colorSchemes[idx % 3].dark}
-                isOpen={answeredQuestionDisclosureStatus[idx]}
-                toggleDisclosure={() => {
-                  console.log('test');
-                  let currStatus = [...answeredQuestionDisclosureStatus];
-                  currStatus[idx] = !currStatus[idx];
-                  setAnsweredDisclosureStatus(currStatus);
-                }}
+          <ErrorList
+            errors={errors}
+            onClose={(idx: number) => {
+              const newErrorList = [...errors];
+              newErrorList.splice(idx, 1);
+              setErrors(newErrorList);
+            }}
+          />
+          <section className="py-4">
+            <div className="font-bold text-3xl py-2">
+              {!isSignedIn ? 'Sign in to ask a question.' : 'Ask a question'}
+            </div>
+            <div>
+              <textarea
+                className="w-full rounded-xl p-4 bg-[#3d423b]"
+                rows={5}
+                value={currentQuestion}
+                onChange={(e) => setCurrentQuestion(e.target.value)}
+                placeholder="Type your question here"
+                disabled={!isSignedIn}
               />
-            ))
-          ) : (
-            <h1 className="p-3">Sign in to see your questions</h1>
+              <div className="flex flex-row justify-end my-4">
+                <button
+                  type="button"
+                  className="p-2 rounded-lg"
+                  style={{ backgroundColor: 'black', color: '#66e900' }}
+                  onClick={() => {
+                    if (!isSignedIn) {
+                      addError('Please sign in to ask a question.');
+                      return;
+                    }
+                    if (currentQuestion === '') {
+                      addError('Question cannot be empty.');
+                      return;
+                    }
+                    submitQuestion();
+                  }}
+                >
+                  Submit Question
+                </button>
+              </div>
+            </div>
+          </section>
+
+          {isSignedIn && (
+            <div>
+              <div className="font-bold text-2xl">Your unanswered questions</div>
+              {pendingQuestions.map(({ question }, idx) => (
+                <PendingQuestion key={idx} question={question} />
+              ))}
+            </div>
           )}
+
+          <div className="my-4">
+            <h4 className="font-bold text-2xl">Answered questions</h4>
+            {user ? (
+              answeredQuestions.map(({ question, answer }, idx) => (
+                <AnsweredQuestion
+                  key={idx}
+                  question={question}
+                  answer={answer}
+                  colorCode={colorSchemes[idx % 3].light}
+                  iconColorCode={colorSchemes[idx % 3].dark}
+                  isOpen={answeredQuestionDisclosureStatus[idx]}
+                  toggleDisclosure={() => {
+                    let currStatus = [...answeredQuestionDisclosureStatus];
+                    currStatus[idx] = !currStatus[idx];
+                    setAnsweredDisclosureStatus(currStatus);
+                  }}
+                />
+              ))
+            ) : (
+              <h1 className="p-3">Sign in to see your questions</h1>
+            )}
+          </div>
         </div>
       </div>
     </div>

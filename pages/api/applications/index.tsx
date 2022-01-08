@@ -24,8 +24,7 @@ async function userIsAuthorized(token: string) {
 }
 
 function extractHeaderToken(input: string) {
-  const result = input;
-  return result;
+  return input;
 }
 
 /**
@@ -84,71 +83,24 @@ async function handleGetApplications(req: NextApiRequest, res: NextApiResponse) 
  */
 async function handlePostApplications(req: NextApiRequest, res: NextApiResponse) {
   const {} = req.query;
-  const applicationBody = req.body;
+  const body = JSON.parse(req.body);
 
-  let body: any;
-  try {
-    body = JSON.parse(applicationBody);
-  } catch (error) {
-    console.error('Could not parse request JSON body');
+  const snapshot = await db
+    .collection(APPLICATIONS_COLLECTION)
+    .where('user.id', '==', body.user.id)
+    .get();
+
+  if (!snapshot.empty) {
     res.status(400).json({
-      type: 'invalid',
-      mesage: '',
+      msg: 'Profile already exists',
     });
-    return;
   }
 
-  const applicationDoc = db.collection(APPLICATIONS_COLLECTION).doc();
+  await db.collection(APPLICATIONS_COLLECTION).doc(body.user.id).set(body);
 
-  const userDoc = db.collection(USERS_COLLECTION).doc();
-  // TODO: Get data from user doc, return error if it doesn't exist.
-
-  const userExists = false;
-  if (!userExists) {
-    res.status(403).send({});
-    return;
-  }
-
-  // TODO: User query params from request to populate fields
-  const application: WithId<Registration> = {
-    id: applicationDoc.id,
-    timestamp: new Date().getUTCMilliseconds(),
-    user: {
-      id: '',
-      permissions: [],
-      firstName: '',
-      lastName: '',
-      preferredEmail: '',
-    },
-    age: 0,
-    gender: '',
-    race: '',
-    ethnicity: '',
-    university: '',
-    major: '',
-    studyLevel: '',
-    hackathonExperience: 0,
-    softwareExperience: '',
-    heardFrom: '',
-    size: '',
-    dietary: '',
-    accomodations: '',
-    github: '',
-    linkedin: '',
-    website: '',
-    resume: '',
-    companies: [],
-  };
-
-  try {
-    const result = await applicationDoc.set(application);
-    res.status(201);
-  } catch (error) {
-    console.error('Error when storing application in database', error);
-    res.status(500);
-    return;
-  }
-  console.info('Application successfully submitted');
+  res.status(200).json({
+    msg: 'Operation completed',
+  });
 }
 
 type ApplicationsResponse = {};

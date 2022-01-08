@@ -1,7 +1,12 @@
 import Link from 'next/link';
 import React from 'react';
-import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ProfileDialog from './ProfileDialog';
+import HackUTDLogo from './HackUTDLogo';
+import MenuIcon from '@material-ui/icons/Menu';
+import { getItemCount } from '../pages/dashboard/index';
+import { useUser } from '../lib/profile/user-data';
+import { useAuthContext } from '../lib/user/AuthContext';
 
 import { navItems } from '../lib/data';
 
@@ -9,73 +14,136 @@ import { navItems } from '../lib/data';
  * A global site header throughout the entire app.
  */
 export default function AppHeader() {
-  const [showMenu, setShowMenu] = React.useState(false);
+  const { isSignedIn } = useAuthContext();
+  const user = useUser();
+
   const [showProfileDialog, setShowProfileDialog] = React.useState(false);
 
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  };
+  const [mobileViewOpen, setMobileViewOpen] = React.useState(false);
 
   const dismissDialog = () => {
     setShowProfileDialog(false);
   };
 
   const toggleDialog = () => {
+    console.log('Dialog toggled');
     setShowProfileDialog(!showProfileDialog);
   };
 
   return (
     <>
-      <header className="top-0 fixed justify-around flex flex-row p-2 min-w-[320px] w-screen bg-indigo-100 items-center h-16 z-10 md:justify-between md:p-4">
-        <div className="flex w-6/12 max-w-[156px] justify-between items-center md:max-w-full md:justify-start md:w-9/12">
-          <Link href="/">
+      <header className="top-0 sticky flex flex-row justify-between p-2 md:p-4 bg-black shadow-md items-center z-50 min-h-[6rem]">
+        <Link href="/">
+          <a
+            className="flex font-display self-center inline-block items-center"
+            onClick={dismissDialog}
+          >
+            <HackUTDLogo />
+            <span className="homeLogo md:text-2xl text-lg">HackUTD</span>
+          </a>
+        </Link>
+        {/* Menu items */}
+        <div className="lg:inline hidden md:flex justify-left md:text-xl text-md font-header md:text-left cursor:pointer">
+          <Link href="/dashboard">
             <a
-              className="flex order-2 z-[-2] relative ml-[-6px] font-display self-center items-center w-[112px] md:order-1 md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400"
-              onClick={dismissDialog}
+              onClick={() => {
+                dismissDialog();
+                getItemCount();
+              }}
             >
-              <span className="text-[16px] font-black md:z-0 md:text-2xl md:mr-10">
-                HackUTD VIII
-              </span>
+              <span className="inline scheduledot md:invisible"></span>
+              <div className="link lg:inline hidden">Dashboard</div>
             </a>
           </Link>
-          {/* Smartphone nav */}
-          <div onClick={toggleMenu} className={'relative md:hidden'}>
-            <MenuIcon />
-            <ul
-              className={`${
-                showMenu ? 'translate-x-0' : '-translate-x-full'
-              } transform transition-all ease-out duration-300 flex w-6/12 h-screen border-2 border-black flex-col bg-white fixed top-0 left-0 z-[-1] pt-16`}
-            >
-              {navItems.map((item) => (
-                <Link key={item.text} href={item.path}>
+          <Link href="/schedule">
+            <a onClick={dismissDialog}>
+              <span className="inline scheduledot md:invisible"></span>
+              <div className="link lg:inline hidden">Schedule</div>
+            </a>
+          </Link>
+          <Link href="/speakers">
+            <a onClick={dismissDialog}>
+              <span className="inline speakerdot md:invisible"></span>
+              <div className="link lg:inline hidden">Speakers</div>
+            </a>
+          </Link>
+          <Link href="/sponsors">
+            <a onClick={dismissDialog}>
+              <span className="inline sponsordot md:invisible"></span>
+              <div className="link lg:inline hidden">Sponsors</div>
+            </a>
+          </Link>
+          <Link href="/about">
+            <a onClick={dismissDialog}>
+              <span className="inline faqdot md:invisible"></span>
+              <div className="link lg:inline hidden">About</div>
+            </a>
+          </Link>
+        </div>
+        {/* Menu dropdown for mobile */}
+        <div className="lg:hidden">
+          <div className="dropdown inline-block relative bg-black text-sm rounded-full hover:rounded-b-none hover:rounded-t-2xl">
+            <button className="dropdownButton text-gray-700 font-semibold py-1 px-4 rounded inline-flex items-center">
+              <div className="mr-2">Menu</div>
+              <MenuIcon />
+            </button>
+            <ul className="dropdown-menu absolute hidden text-gray-700 pt-1 -left-0.5">
+              <li className="">
+                <Link href="/dashboard">
                   <a
-                    className="border-b-2 first:border-t-2 border-black p-4 py-6"
-                    onClick={dismissDialog}
+                    className="bg-black hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap"
+                    onClick={() => {
+                      dismissDialog();
+                      getItemCount();
+                    }}
                   >
-                    <p className="text-sm font-bold">{item.text}</p>
+                    Dashboard
                   </a>
                 </Link>
-              ))}
+              </li>
+              <li className="">
+                <Link href="/schedule">
+                  <a className="bg-black hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap">
+                    Schedule
+                  </a>
+                </Link>
+              </li>
+              <li className="">
+                <Link href="/speakers">
+                  <a className="bg-black hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap">
+                    Speakers
+                  </a>
+                </Link>
+              </li>
+              <li className="">
+                <Link href="/sponsors">
+                  <a className="bg-black hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap">
+                    Sponsors
+                  </a>
+                </Link>
+              </li>
+              <li className="">
+                <Link href="/about">
+                  <a className="bg-black hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap">
+                    About
+                  </a>
+                </Link>
+              </li>
             </ul>
           </div>
-          {/* PC nav */}
-          <div className="hidden text-xs order-2 md:flex items-center md:text-left lg:ml-12">
-            {navItems.map((item) => (
-              <Link key={item.text} href={item.path}>
-                <a onClick={dismissDialog}>
-                  <p className="md:mx-4 text-sm font-bold">{item.text}</p>
-                </a>
-              </Link>
-            ))}
-          </div>
         </div>
-        <div className="flex lg:mr-8">
-          <button
-            className="font-header font-bold bg-white rounded-full border-2 border-black text-sm px-8 py-1"
-            onClick={toggleDialog}
-          >
-            Sign In
-          </button>
+        <div className="flex flex-row-reverse md:text-xl text-s">
+          <div className="mx-4">
+            <button
+              className="SigninButton font-headerSigninButton font-header font-bold px-8 py-1 rounded-full border-2 border-black text-sm"
+              onClick={toggleDialog}
+            >
+              {!user || !isSignedIn ? 'Sign in' : 'Profile'}
+              {/* To Do: must fix profile pic button */}
+              {/* {!user || !isSignedIn ? 'Sign in' : <Image src={user.photoUrl} alt="Profile">} */}
+              {/* {clsx({'Sign in' : (!user || !isSignedIn)})} */}
+            </button>
+          </div>
         </div>
         {showProfileDialog && <ProfileDialog onDismiss={dismissDialog} />}
       </header>

@@ -6,23 +6,29 @@ import React from 'react';
  */
 export default function AdminHeader() {
   return (
-    <>
-      <header className="top-0 sticky flex flex-row justify-between p-2 md:p-4 bg-white shadow-md items-center">
-        <div className="md:flex justify-center text-xl font-header md:text-left">
+    <section className="p-4">
+      <header className="top-0 sticky flex flex-row justify-between p-2 md:p-4 items-center">
+        <div className="mx-auto md:flex justify-center text-xl font-header md:text-left  gap-x-8">
           <Link href="/admin">
             <a>
               <span className="inline md:invisible"></span>
-              <a className="link">Admin</a>
+              <div className="link font-bold">Event Dashboard</div>
             </a>
           </Link>
           <Link href="/admin/scan">
             <a>
               <span className="inline md:invisible"></span>
-              <a className="link">Scanner</a>
+              <div className="link font-bold">Scanner</div>
+            </a>
+          </Link>
+          <Link href="/admin/users">
+            <a>
+              <span className="inline md:invisible"></span>
+              <div className="link font-bold">Users Dashboard</div>
             </a>
           </Link>
         </div>
       </header>
-    </>
+    </section>
   );
 }
