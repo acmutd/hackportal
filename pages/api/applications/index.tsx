@@ -82,7 +82,10 @@ async function handleGetApplications(req: NextApiRequest, res: NextApiResponse) 
  * @param res The HTTP response
  */
 async function handlePostApplications(req: NextApiRequest, res: NextApiResponse) {
-  let body: any;
+  const {} = req.query;
+  const applicationBody = req.body;
+
+  let body: Registration;
   try {
     body = req.body;
   } catch (error) {
@@ -94,61 +97,20 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
     return;
   }
 
-  const applicationDoc = db.collection(APPLICATIONS_COLLECTION).doc();
+  const snapshot = await db
+    .collection(APPLICATIONS_COLLECTION)
+    .where('user.id', '==', body.user.id)
+    .get();
 
-  /* User sign-in requirements (Has not been tested)
-  const userDoc = db.collection(USERS_COLLECTION).doc();
-  // TODO: Get data from user doc, return error if it doesn't exist.
-
-  const userExists = false;
-  if (!userExists) {
-    res.status(403).send({});
-    return;
+  if (!snapshot.empty) {
+    res.status(400).json({
+      msg: 'Profile already exists',
+    });
   }
-  */
 
-  // TODO: User query params from request to populate fields
-  const application: WithId<Registration> = {
-    id: applicationDoc.id,
-    timestamp: new Date().getUTCMilliseconds(),
-    user: {
-      id: body.user.id,
-      permissions: body.user.permissions,
-      firstName: body.user.firstName,
-      lastName: body.user.lastName,
-      preferredEmail: body.user.preferredEmail,
-    },
-    age: body.age,
-    gender: body.gender,
-    race: body.race,
-    ethnicity: body.ethnicity,
-    university: body.university,
-    major: body.major,
-    studyLevel: body.studyLevel,
-    hackathonExperience: body.hackathonExperience,
-    softwareExperience: body.softwareExperience,
-    heardFrom: body.heardFrom,
-    size: body.size,
-    dietary: body.dietary,
-    accommodations: body.accommodations,
-    github: body.github,
-    linkedin: body.linkedin,
-    website: body.website,
-    resume: body.resume,
-    companies: body.companies,
-    claims: body.claims,
-  };
+  await db.collection(APPLICATIONS_COLLECTION).doc(body.user.id).set(body);
 
-  try {
-    const result = await applicationDoc.set(application);
-    res.status(201);
-  } catch (error) {
-    console.error('Error when storing application in database', error);
-    res.status(500);
-    return;
-  }
-  console.info('Application successfully submitted.');
-  res.end('Success');
+  res.status(200).end();
 }
 
 type ApplicationsResponse = {};

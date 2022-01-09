@@ -23,7 +23,6 @@ export default function AppHeader() {
   const dismissDialog = () => {
     setShowProfileDialog(false);
   };
-
   const toggleDialog = () => {
     setShowProfileDialog(!showProfileDialog);
   };

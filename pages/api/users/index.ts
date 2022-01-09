@@ -7,6 +7,11 @@ const db = firestore();
 
 const USERS_COLLECTION = '/registrations';
 
+/**
+ *
+ * Represent how data of a User is stored in the backend
+ *
+ */
 export interface UserData {
   id: string;
   scans?: string[];
@@ -17,6 +22,15 @@ export interface UserData {
   };
 }
 
+/**
+ *
+ * API endpoint to fetch all users from the database
+ *
+ * @param req HTTP request object
+ * @param res HTTP response object
+ *
+ *
+ */
 async function getAllUsers(req: NextApiRequest, res: NextApiResponse) {
   const snapshot = await db.collection(USERS_COLLECTION).get();
   let data = [];

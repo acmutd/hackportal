@@ -7,6 +7,13 @@ import UserList from '../../components/UserList';
 import { RequestHelper } from '../../lib/request-helper';
 import { UserData } from '../api/users';
 
+/**
+ *
+ * The User Dashboard of Admin Console. Shows all users that are registered in the system.
+ *
+ * Route: /admin/users
+ *
+ */
 export default function UserPage({ userData }: { userData: UserData[] }) {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<UserData[]>([]);
@@ -155,14 +162,14 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const protocol = context.req.headers.referer.split('://')[0];
-  const userData = await RequestHelper.get<UserData[]>(
+  const protocol = context.req.headers.referer?.split('://')[0] || 'http';
+  const { data } = await RequestHelper.get<UserData[]>(
     `${protocol}://${context.req.headers.host}/api/users/`,
     {},
   );
   return {
     props: {
-      userData,
+      userData: data,
     },
   };
 };

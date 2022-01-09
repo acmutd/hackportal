@@ -6,24 +6,30 @@ import AdminHeader from '../../components/AdminHeader';
 import ErrorList from '../../components/ErrorList';
 import EventDetailLink from '../../components/EventDetailLink';
 import PendingQuestion from '../../components/PendingQuestion';
+import SuccessCard from '../../components/SuccessCard';
 import { RequestHelper } from '../../lib/request-helper';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { QADocument } from '../api/questions';
 
 export function isAuthorized(user): boolean {
-  return user.permissions.includes('admin') || user.permissions.includes('organizer');
+  if (!user || !user.permissions) return false;
+  return (
+    (user.permissions as string[]).includes('admin') ||
+    (user.permissions as string[]).includes('organizer')
+  );
 }
 
 /**
- * The about page.
+ * The main page of Admin Console.
  *
- * Landing: /about
+ * Route: /admin
  */
 export default function Admin({ questions }: { questions: QADocument[] }) {
   const { user, isSignedIn } = useAuthContext();
 
   const [announcement, setAnnouncement] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
+  const [showSuccessMsg, setShowSuccessMsg] = useState(false);
 
   const addError = (errMsg: string) => {
     setErrors((prev) => [...prev, errMsg]);
@@ -31,11 +37,18 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
 
   const postAnnouncement = async () => {
     try {
-      await RequestHelper.post<{ announcement: string }, void>(
+      await RequestHelper.post<Announcement, void>(
         '/api/announcements',
         {},
-        { announcement },
+        {
+          announcement,
+        },
       );
+
+      setShowSuccessMsg(true);
+      setTimeout(() => {
+        setShowSuccessMsg(false);
+      }, 2000);
       setAnnouncement('');
     } catch (error) {
       addError('Failed to post announcement! Please try again later');
@@ -62,6 +75,11 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
             setErrors(newErrorList);
           }}
         />
+        {showSuccessMsg && (
+          <div className="my-2">
+            <SuccessCard msg="Announcement posted successfully" />
+          </div>
+        )}
         <h1 className="font-bold text-xl">Post Announcement: </h1>
         <textarea
           value={announcement}
@@ -108,15 +126,14 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // console.log(context.req.headers.referer);
-  const protocol = context.req.headers.referer.split('://')[0];
-  const questions = await RequestHelper.get<QADocument[]>(
+  const protocol = context.req.headers.referer?.split('://')[0] || 'http';
+  const { data } = await RequestHelper.get<QADocument[]>(
     `${protocol}://${context.req.headers.host}/api/questions/pending`,
     {},
   );
   return {
     props: {
-      questions,
+      questions: data,
     },
   };
 };

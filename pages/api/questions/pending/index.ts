@@ -7,6 +7,15 @@ const db = firestore();
 
 const QUESTIONS_COLLECTION = '/questions';
 
+/**
+ *
+ * API endpoint to fetch all pending questions
+ *
+ * @param req HTTP request object
+ * @param res HTTP response object
+ *
+ *
+ */
 async function getPendingQuestions(req: NextApiRequest, res: NextApiResponse) {
   const snapshot = await db.collection(QUESTIONS_COLLECTION).where('status', '==', 'pending').get();
   let questions = [];
