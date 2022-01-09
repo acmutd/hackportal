@@ -7,6 +7,15 @@ const db = firestore();
 
 const MEMBERS_COLLECTION = '/members';
 
+/**
+ *
+ * API endpoint to get data of members from backend for the "Meet the team" section
+ *
+ * @param req HTTP request object
+ * @param res HTTP response object
+ *
+ *
+ */
 async function getMembersData(req: NextApiRequest, res: NextApiResponse) {
   const snapshot = await db.collection(MEMBERS_COLLECTION).get();
   let data = [];

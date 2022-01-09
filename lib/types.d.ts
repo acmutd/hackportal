@@ -55,6 +55,12 @@ type User = Person & {
    * Flags for parts of the app this user can access.
    */
   permissions: UserPermission[];
+
+  /**
+   * University that user currently attends
+   *
+   */
+  university: string;
 };
 
 /**
@@ -93,14 +99,14 @@ type Registration = {
   softwareExperience: string;
   heardFrom: string;
   size: string;
-  dietary: [];
-  accommodations: string;
+  dietary: string[];
+  accomodations: string;
   github?: string;
   linkedin?: string;
   website?: string;
   resume?: string;
   companies: Companies[];
-  claims: []; //Array of Strings will be used to id any claims (lunch, merch, etc.) made by user
+  //claims: []; //Array of Strings will be used to id any claims (lunch, merch, etc.) made by user
 };
 
 /**
@@ -148,4 +154,9 @@ type TeamMember = {
 type ColorScheme = {
   light: string;
   dark: string;
+};
+
+type Announcement = {
+  announcement: string;
+  timestamp?: string;
 };

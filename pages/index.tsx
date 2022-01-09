@@ -4,6 +4,7 @@ import React from 'react';
 import Script from 'next/script';
 import { buttonDatas, stats } from '../lib/data';
 import { getItemCount } from '../pages/dashboard/index';
+import KeynoteSpeaker from '../components/KeynoteSpeaker';
 
 /**
  * The home page.
@@ -84,6 +85,56 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {/* Featuring Keynotes speakers */}
+
+      <div className="flex bg-gray-200 min-h-[22rem] overflow-x-scroll">
+        <div className="flex items-center justify-center p-12 max-w-[18rem] text-2xl font-bold">
+          Featuring Keynote Speakers
+        </div>
+        <div className="p-6 flex flex-col justify-center">
+          <div className="flex">
+            {/* Cards */}
+            <KeynoteSpeaker
+              name="Tony Stark"
+              description="Anthony Edward &ldquo;Tony&rdquo; Stark was a billionaire industrialist, a founding member of the Avengers, 
+                  and the former CEO of Stark Industries. A brash but brilliant inventor, Stark was self-described 
+                  as a genius, billionaire, playboy, and philanthropist."
+            />
+            <KeynoteSpeaker
+              name="Tony Stark"
+              description="Anthony Edward &ldquo;Tony&rdquo; Stark was a billionaire industrialist, a founding member of the Avengers, 
+                  and the former CEO of Stark Industries. A brash but brilliant inventor, Stark was self-described 
+                  as a genius, billionaire, playboy, and philanthropist."
+            />
+            <KeynoteSpeaker
+              name="Tony Stark"
+              description="Anthony Edward &ldquo;Tony&rdquo; Stark was a billionaire industrialist, a founding member of the Avengers, 
+                  and the former CEO of Stark Industries. A brash but brilliant inventor, Stark was self-described 
+                  as a genius, billionaire, playboy, and philanthropist."
+            />
+          </div>
+          <div className="ml-[10rem] flex">
+            <KeynoteSpeaker
+              name="Tony Stark"
+              description="Anthony Edward &ldquo;Tony&rdquo; Stark was a billionaire industrialist, a founding member of the Avengers, 
+                  and the former CEO of Stark Industries. A brash but brilliant inventor, Stark was self-described 
+                  as a genius, billionaire, playboy, and philanthropist."
+            />
+            <KeynoteSpeaker
+              name="Tony Stark"
+              description="Anthony Edward &ldquo;Tony&rdquo; Stark was a billionaire industrialist, a founding member of the Avengers, 
+                  and the former CEO of Stark Industries. A brash but brilliant inventor, Stark was self-described 
+                  as a genius, billionaire, playboy, and philanthropist."
+            />
+            <KeynoteSpeaker
+              name="Tony Stark"
+              description="Anthony Edward &ldquo;Tony&rdquo; Stark was a billionaire industrialist, a founding member of the Avengers, 
+                  and the former CEO of Stark Industries. A brash but brilliant inventor, Stark was self-described 
+                  as a genius, billionaire, playboy, and philanthropist."
+            />
+          </div>
+        </div>
+      </div>
     </>
   );
 }
