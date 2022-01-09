@@ -34,7 +34,7 @@ export default function QuestionsPage() {
     if (!user) {
       return [];
     }
-    const data = await RequestHelper.get<AnsweredQuestion[]>(
+    const { data } = await RequestHelper.get<AnsweredQuestion[]>(
       `/api/questions/${user.id}/answered`,
       {},
     );
@@ -51,7 +51,7 @@ export default function QuestionsPage() {
     if (!user) {
       return [];
     }
-    const data = await RequestHelper.get<PendingQuestion[]>(
+    const { data } = await RequestHelper.get<PendingQuestion[]>(
       `/api/questions/${user.id}/pending`,
       {},
     );
@@ -208,7 +208,6 @@ export default function QuestionsPage() {
                 iconColorCode={colorSchemes[idx % 3].dark}
                 isOpen={answeredQuestionDisclosureStatus[idx]}
                 toggleDisclosure={() => {
-                  console.log('test');
                   let currStatus = [...answeredQuestionDisclosureStatus];
                   currStatus[idx] = !currStatus[idx];
                   setAnsweredDisclosureStatus(currStatus);

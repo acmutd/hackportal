@@ -83,14 +83,14 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const protocol = context.req.headers.referer.split('://')[0];
-  const fetchedMembers = await RequestHelper.get<TeamMember[]>(
+  const protocol = context.req.headers.referer?.split('://')[0] || 'http';
+  const { data } = await RequestHelper.get<TeamMember[]>(
     `${protocol}://${context.req.headers.host}/api/members`,
     {},
   );
   return {
     props: {
-      fetchedMembers,
+      fetchedMembers: data,
     },
   };
 };

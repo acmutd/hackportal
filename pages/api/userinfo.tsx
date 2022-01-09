@@ -55,8 +55,7 @@ async function handleUserInfo(req: NextApiRequest, res: NextApiResponse) {
     const snapshot = await db.collection(REGISTRATION_COLLECTION).doc(userID).get();
     if (!snapshot.exists)
       return res.status(404).json({ code: 'not found', message: "User doesn't exist..." });
-    let permissions = snapshot.data().user.permissions ?? [];
-    res.status(200).json({ permissions });
+    res.status(200).json(snapshot.data());
   } catch (error) {
     console.error('Error when fetching applications', error);
     res.status(500).json({

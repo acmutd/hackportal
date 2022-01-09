@@ -7,13 +7,12 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family:
-    sans-serif;
+  font-family: sans-serif;
 }
 
 @font-face {
   font-family: 'wavehaus';
-  src: url('/fonts/Wavehaus-66Book.ttf') format("truetype");
+  src: url('/fonts/Wavehaus-66Book.ttf') format('truetype');
   font-display: auto;
 }
 
@@ -26,6 +25,11 @@ a.link {
   @apply px-4;
 }
 
+.element {
+  font-family: 'wavehaus';
+ }
+
+/* Dropdown menu css classes */
 a {
   color: inherit;
   text-decoration: none;
@@ -34,7 +38,81 @@ a {
 * {
   box-sizing: border-box;
 }
+ 
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
 
 .element {
   font-family: 'wavehaus';
- }
+}
+
+.profile-view {
+  display: grid;
+  grid-template-areas:
+    'name role'
+    'university university';
+  row-gap: 2rem;
+  column-gap: 1rem;
+}
+
+.profile-view-name {
+  grid-area: name;
+}
+
+.profile-view-role {
+  grid-area: role;
+}
+
+.profile-view-univ {
+  grid-area: university;
+}
+
+.profile-view-lunch {
+  grid-area: lunchGroup;
+}
+
+.profile-view-interests {
+  grid-area: interests;
+}
+/* Carousel css classes */
+.carousel {
+  position: relative;
+  height: 75%;
+  width: 95%;
+}
+
+/* default unselected carousel item, shown as hidden*/
+.carousel__item {
+  height: 100%;
+  /* background: grey; */
+  /* padding: 1em; */
+  display: none;
+}
+
+/* appears when selected*/
+.carousel__item--selected {
+  display: block;
+}
+
+.carousel__nav {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+
+.carousel__button {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background: rgba(109, 97, 97, 0.2);
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.carousel__button--selected {
+  background: rgba(0, 0, 0, 0.5);
+}
