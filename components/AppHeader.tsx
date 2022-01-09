@@ -29,7 +29,7 @@ export default function AppHeader() {
         <div className="flex w-6/12 max-w-[156px] justify-between items-center md:max-w-full md:justify-start md:w-9/12">
           <Link href="/">
             <a
-              className="flex order-2 z-[-2] relative ml-[-6px] font-display self-center items-center w-[112px] md:order-1 md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400"
+              className="flex order-2 relative ml-[-6px] font-display self-center items-center w-[112px] md:order-1 md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400"
               onClick={dismissDialog}
             >
               <span className="text-[16px] font-black md:z-0 md:text-2xl md:mr-10">
@@ -49,7 +49,11 @@ export default function AppHeader() {
                 <Link key={item.text} href={item.path}>
                   <a
                     className="border-b-2 first:border-t-2 border-black p-4 py-6"
-                    onClick={dismissDialog}
+                    // onClick={dismissDialog, getItemCount}
+                    onClick={() => {
+                      dismissDialog();
+                      getItemCount();
+                    }}
                   >
                     <p className="text-sm font-bold">{item.text}</p>
                   </a>
@@ -61,7 +65,12 @@ export default function AppHeader() {
           <div className="hidden text-xs order-2 md:flex items-center md:text-left lg:ml-12">
             {navItems.map((item) => (
               <Link key={item.text} href={item.path}>
-                <a onClick={dismissDialog}>
+                <a
+                  onClick={() => {
+                    dismissDialog();
+                    getItemCount();
+                  }}
+                >
                   <p className="md:mx-4 text-sm font-bold">{item.text}</p>
                 </a>
               </Link>
