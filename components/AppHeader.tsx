@@ -49,11 +49,7 @@ export default function AppHeader() {
                 <Link key={item.text} href={item.path}>
                   <a
                     className="border-b-2 first:border-t-2 border-black p-4 py-6"
-                    // onClick={dismissDialog, getItemCount}
-                    onClick={() => {
-                      dismissDialog();
-                      getItemCount();
-                    }}
+                    onClick={dismissDialog}
                   >
                     <p className="text-sm font-bold">{item.text}</p>
                   </a>
@@ -66,10 +62,7 @@ export default function AppHeader() {
             {navItems.map((item) => (
               <Link key={item.text} href={item.path}>
                 <a
-                  onClick={() => {
-                    dismissDialog();
-                    getItemCount();
-                  }}
+                  onClick={dismissDialog}
                 >
                   <p className="md:mx-4 text-sm font-bold">{item.text}</p>
                 </a>
