@@ -1,26 +1,27 @@
 import Head from 'next/head';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import React from 'react';
-import Script from 'next/script';
+import React, { useEffect, useState } from 'react';
 import { buttonDatas, stats } from '../lib/data';
-import { getItemCount } from '../pages/dashboard/index';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
+import { RequestHelper } from '../lib/request-helper';
 
 /**
  * The home page.
  *
  * Landing: /
  */
-export default function Home() {
+export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpeaker[] }) {
   const router = useRouter();
+
+  const [speakers, setSpeakers] = useState<KeynoteSpeaker[]>([]);
+
+  useEffect(() => {
+    setSpeakers(keynoteSpeakers);
+  }, [keynoteSpeakers]);
 
   return (
     <>
-      <Script
-        onLoad={() => {
-          getItemCount();
-        }}
-      />
       <Head>
         <title>HackPortal</title>
         <meta name="description" content="A default HackPortal instance" />
@@ -56,7 +57,7 @@ export default function Home() {
         </div>
       </section>
       {/* Video Space */}
-      <section className="mt-16 bg-white relative w-screen md:mt-0 md:h-[560px]">
+      <section className="mt-16 bg-white relative w-screen md:mt-0 md:h-[560px] py-[3rem]">
         <div className="w-full h-full flex flex-col justify-center items-center md:flex-row">
           <div className="w-11/12 h-3/6 flex flex-col justify-center items-center md:flex-row">
             {/* Video */}
@@ -87,54 +88,44 @@ export default function Home() {
       </section>
       {/* Featuring Keynotes speakers */}
 
-      <div className="flex bg-gray-200 min-h-[22rem] overflow-x-scroll">
-        <div className="flex items-center justify-center p-12 max-w-[18rem] text-2xl font-bold">
+      <section className="flex bg-gray-200 min-h-[24rem] overflow-x-scroll">
+        <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold">
           Featuring Keynote Speakers
         </div>
-        <div className="p-6 flex flex-col justify-center">
+        <div className="py-6 md:px-6 flex flex-col justify-center">
+          {/* Row 1 */}
           <div className="flex">
-            {/* Cards */}
-            <KeynoteSpeaker
-              name="Tony Stark"
-              description="Anthony Edward &ldquo;Tony&rdquo; Stark was a billionaire industrialist, a founding member of the Avengers, 
-                  and the former CEO of Stark Industries. A brash but brilliant inventor, Stark was self-described 
-                  as a genius, billionaire, playboy, and philanthropist."
-            />
-            <KeynoteSpeaker
-              name="Tony Stark"
-              description="Anthony Edward &ldquo;Tony&rdquo; Stark was a billionaire industrialist, a founding member of the Avengers, 
-                  and the former CEO of Stark Industries. A brash but brilliant inventor, Stark was self-described 
-                  as a genius, billionaire, playboy, and philanthropist."
-            />
-            <KeynoteSpeaker
-              name="Tony Stark"
-              description="Anthony Edward &ldquo;Tony&rdquo; Stark was a billionaire industrialist, a founding member of the Avengers, 
-                  and the former CEO of Stark Industries. A brash but brilliant inventor, Stark was self-described 
-                  as a genius, billionaire, playboy, and philanthropist."
-            />
+            {speakers.map(
+              ({ name, description }, idx) =>
+                idx < speakers.length / 2 && (
+                  <KeynoteSpeaker key={idx} name={name} description={description} />
+                ),
+            )}
           </div>
-          <div className="ml-[10rem] flex">
-            <KeynoteSpeaker
-              name="Tony Stark"
-              description="Anthony Edward &ldquo;Tony&rdquo; Stark was a billionaire industrialist, a founding member of the Avengers, 
-                  and the former CEO of Stark Industries. A brash but brilliant inventor, Stark was self-described 
-                  as a genius, billionaire, playboy, and philanthropist."
-            />
-            <KeynoteSpeaker
-              name="Tony Stark"
-              description="Anthony Edward &ldquo;Tony&rdquo; Stark was a billionaire industrialist, a founding member of the Avengers, 
-                  and the former CEO of Stark Industries. A brash but brilliant inventor, Stark was self-described 
-                  as a genius, billionaire, playboy, and philanthropist."
-            />
-            <KeynoteSpeaker
-              name="Tony Stark"
-              description="Anthony Edward &ldquo;Tony&rdquo; Stark was a billionaire industrialist, a founding member of the Avengers, 
-                  and the former CEO of Stark Industries. A brash but brilliant inventor, Stark was self-described 
-                  as a genius, billionaire, playboy, and philanthropist."
-            />
+          {/* row 2 */}
+          <div className="md:ml-[7rem] ml-[5rem] flex">
+            {speakers.map(
+              ({ name, description }, idx) =>
+                idx >= speakers.length / 2 && (
+                  <KeynoteSpeaker key={idx} name={name} description={description} />
+                ),
+            )}
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const protocol = context.req.headers.referer?.split('://')[0] || 'http';
+  const { data } = await RequestHelper.get<KeynoteSpeaker[]>(
+    `${protocol}://${context.req.headers.host}/api/keynotespeakers`,
+    {},
+  );
+  return {
+    props: {
+      keynoteSpeakers: data,
+    },
+  };
+};

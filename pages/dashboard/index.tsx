@@ -43,8 +43,9 @@ export default function Dashboard(props: { announcements: Announcement[] }) {
 
         <Sidebar />
 
-        <section id="mainContent" className="px-6 py-3 w-5/6 lg:w-7/8 md:w-6/7 w-screen">
-          <section id="subheader" className="p-4">
+        <section id="mainContent" className="px-6 py-3 w-5/6 lg:w-7/8 md:w-6/7 w-screen bg-white">
+          {/* <div className='min-h-[4rem]'></div> */}
+          <section id="subheader" className="p-4 flex justify-center">
             <DashboardHeader active="/dashboard/" />
           </section>
 
@@ -89,28 +90,32 @@ export default function Dashboard(props: { announcements: Announcement[] }) {
                 />
               </div>
             </div>
-          </div>
+            {/* Announcements */}
+            <div className="md:w-2/5 w-screen h-96">
+              <h1 className="md:text-3xl text-xl font-black">Announcements</h1>
+              <div id="announcement-items" className="overflow-y-scroll h-9/10">
+                {announcements.map((announcement, idx) => {
+                  const dateObj = new Date(announcement.timestamp!);
+                  const hour = dateObj.getHours(),
+                    minutes = dateObj.getMinutes();
 
-          {/* Announcements */}
-          <div className="md:w-2/5 w-screen h-96">
-            <h1 className="md:text-3xl text-xl font-black">Announcements</h1>
-            <div id="announcement-items" className="overflow-y-scroll h-9/10">
-              {announcements.map((announcement, idx) => {
-                const dateObj = new Date(announcement.timestamp!);
-                const hour = dateObj.getHours(),
-                  minutes = dateObj.getMinutes();
+                  const time = `${hour < 10 ? '0' : ''}${hour}:${
+                    minutes < 10 ? '0' : ''
+                  }${minutes}`;
 
-                const time = `${hour < 10 ? '0' : ''}${hour}:${minutes < 10 ? '0' : ''}${minutes}`;
-
-                return <AnnouncementCard key={idx} text={announcement.announcement} time={time} />;
-              })}
+                  return (
+                    <AnnouncementCard key={idx} text={announcement.announcement} time={time} />
+                  );
+                })}
+              </div>
             </div>
           </div>
+
           {/* Events and Team */}
           <div className="flex flex-wrap h-96 my-16">
-            <div className="md:w-3/5 w-screen ">
+            {/* <div className="md:w-3/5 w-screen ">
               <h1 className="md:text-3xl text-xl font-black">Your Saved Events</h1>
-            </div>
+            </div> */}
             <div className="md:w-2/5 w-screen ">
               <h1 className="md:text-3xl text-xl font-black">Your Team</h1>
               <div className="h-4/5 p-5 md:text-xl text-lg bg-purple-200 rounded-lg">

@@ -29,6 +29,7 @@ export default function AppHeader() {
 
   return (
     <>
+      <div className="min-h-[4rem]"></div>
       <header className="top-0 fixed justify-around flex flex-row p-2 min-w-[320px] w-screen bg-indigo-100 items-center h-16 z-10 md:justify-between md:p-4">
         <div className="flex w-6/12 max-w-[156px] justify-between items-center md:max-w-full md:justify-start md:w-9/12">
           <Link href="/">

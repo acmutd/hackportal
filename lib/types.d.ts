@@ -146,6 +146,19 @@ type TeamMember = {
 
 /**
  *
+ * Represent a keynote speaker in home page
+ *
+ * @param name name of the keynote speaker
+ * @param description description of that keynote speaker
+ *
+ */
+type KeynoteSpeaker = {
+  name: string;
+  description: string;
+};
+
+/**
+ *
  * Represent a color scheme consist of a light and dark version used by a component
  *
  * @param light color code of the light variant

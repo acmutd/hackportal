@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import React from 'react';
-import { getItemCount } from '../pages/dashboard/index';
 import NavLink from './NavLink';
 
 interface DashboardHeaderProps {
@@ -12,7 +11,7 @@ interface DashboardHeaderProps {
 export default function DashboardHeader({ active }: DashboardHeaderProps) {
   return (
     <>
-      <header className="top-0 sticky flex flex-row justify-between py-2 md:p-4 items-center">
+      <header className="flex flex-row justify-between py-2 md:p-4 items-center">
         <div className="mx-auto md:flex justify-center lg:text-xl sm:text-md text-xs font-header md:text-left text-center grid sm:grid-cols-4 grid-cols-2 gap-y-4">
           <NavLink href="/dashboard" exact={true} className="p-2 mx-4">
             HackCenter
