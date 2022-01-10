@@ -1,6 +1,6 @@
 {
   "name": "hackportal",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -21,6 +21,7 @@
     "firebase": "^8.9.0",
     "firebase-admin": "^9.11.0",
     "jsqr": "^1.4.0",
+    "localforage": "^1.10.0",
     "multer": "^1.4.3",
     "next": "^11.1.0",
     "next-connect": "^0.11.0",
@@ -29,12 +30,14 @@
     "qrcode": "^1.4.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-material-ui-carousel": "^2.3.5",
     "react-select": "^4.3.1",
     "webpack": "^5.51.1"
   },
   "devDependencies": {
     "@commitlint/cli": "12.1.4",
     "@commitlint/config-conventional": "12.1.4",
+    "@types/jquery": "^3.5.8",
     "@types/qrcode": "^1.4.1",
     "@types/react": "^17.0.11",
     "autoprefixer": "^10.3.1",

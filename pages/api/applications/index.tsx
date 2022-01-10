@@ -24,8 +24,7 @@ async function userIsAuthorized(token: string) {
 }
 
 function extractHeaderToken(input: string) {
-  const result = input;
-  return result;
+  return input;
 }
 
 /**
@@ -88,12 +87,12 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
 
   let body: Registration;
   try {
-    body = JSON.parse(applicationBody);
+    body = req.body;
   } catch (error) {
     console.error('Could not parse request JSON body');
     res.status(400).json({
       type: 'invalid',
-      mesage: '',
+      message: '',
     });
     return;
   }

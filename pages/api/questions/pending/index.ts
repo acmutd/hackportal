@@ -1,32 +1,35 @@
 import { firestore } from 'firebase-admin';
 import { NextApiRequest, NextApiResponse } from 'next';
-import initializeApi from '../../../lib/admin/init';
+import initializeApi from '../../../../lib/admin/init';
 
 initializeApi();
 const db = firestore();
 
-const MEMBERS_COLLECTION = '/members';
+const QUESTIONS_COLLECTION = '/questions';
 
 /**
  *
- * API endpoint to get data of members from backend for the "Meet the team" section
+ * API endpoint to fetch all pending questions
  *
  * @param req HTTP request object
  * @param res HTTP response object
  *
  *
  */
-async function getMembersData(req: NextApiRequest, res: NextApiResponse) {
-  const snapshot = await db.collection(MEMBERS_COLLECTION).get();
-  let data = [];
+async function getPendingQuestions(req: NextApiRequest, res: NextApiResponse) {
+  const snapshot = await db.collection(QUESTIONS_COLLECTION).where('status', '==', 'pending').get();
+  let questions = [];
   snapshot.forEach((doc) => {
-    data.push(doc.data());
+    questions.push({
+      ...doc.data(),
+      id: doc.id,
+    });
   });
-  res.json(data);
+  res.json(questions);
 }
 
 function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
-  return getMembersData(req, res);
+  return getPendingQuestions(req, res);
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -34,11 +37,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case 'GET': {
       return handleGetRequest(req, res);
-    }
-    default: {
-      return res.status(404).json({
-        msg: 'Route not found',
-      });
     }
   }
 }
