@@ -10,7 +10,7 @@ import Backpack from '@material-ui/icons/LocalMall';
  * Cards for the Spotlight Carousel under HackCenter page
  */
 
-function SpotlightCardScroll(props) {
+function SpotlightCardScroll(props: any) {
   var speakerString = '';
   if (props.speakers !== undefined && props.speakers !== null && props.speakers.length !== 0) {
     if (props.speakers.length == 1) {
@@ -25,7 +25,7 @@ function SpotlightCardScroll(props) {
   return (
     <>
       {/* <div className="min-w-3/4 h-full bg-lightBackground flex justify-center pt-2"> */}
-      <div className="scrollItem min-w-3/4 h-9/10 bg-aqua rounded-lg p-3 flex flex-col justify-between m-3">
+      <div className="scrollItem min-w-3/4 h-[90%] bg-aqua rounded-lg p-3 flex flex-col justify-between my-4 mx-12">
         <h1 className="lg:text-4xl text-xl font-black">{props.title}</h1>
         <h3 className="md:text-md text-sm font-black">{speakerString}</h3>
         {/* info section */}

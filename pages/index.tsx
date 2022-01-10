@@ -16,6 +16,21 @@ export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpea
 
   const [speakers, setSpeakers] = useState<KeynoteSpeaker[]>([]);
 
+  const colorSchemes: ColorScheme[] = [
+    {
+      light: '#F2F3FF',
+      dark: '#C1C8FF',
+    },
+    {
+      light: '#D8F8FF',
+      dark: '#B0F1FF',
+    },
+    {
+      dark: '#FCD7FF',
+      light: '#FDECFF',
+    },
+  ];
+
   useEffect(() => {
     setSpeakers(keynoteSpeakers);
   }, [keynoteSpeakers]);
@@ -98,7 +113,12 @@ export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpea
             {speakers.map(
               ({ name, description }, idx) =>
                 idx < speakers.length / 2 && (
-                  <KeynoteSpeaker key={idx} name={name} description={description} />
+                  <KeynoteSpeaker
+                    key={idx}
+                    name={name}
+                    description={description}
+                    cardColor={colorSchemes[idx % 3]}
+                  />
                 ),
             )}
           </div>
@@ -107,7 +127,12 @@ export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpea
             {speakers.map(
               ({ name, description }, idx) =>
                 idx >= speakers.length / 2 && (
-                  <KeynoteSpeaker key={idx} name={name} description={description} />
+                  <KeynoteSpeaker
+                    key={idx}
+                    name={name}
+                    description={description}
+                    cardColor={colorSchemes[idx % 3]}
+                  />
                 ),
             )}
           </div>

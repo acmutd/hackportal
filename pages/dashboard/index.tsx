@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 import DashboardHeader from '../../components/DashboardHeader';
 import { useUser } from '../../lib/profile/user-data';
 import { useAuthContext } from '../../lib/user/AuthContext';
@@ -8,13 +7,21 @@ import AnnouncementCard from './Components/AnnouncementCards';
 import MentorCard1 from './Components/MentorCard1';
 import MentorCard3 from './Components/MentorCard3';
 import Sidebar from './Components/Sidebar';
-import SpotlightCard from './Components/SpotlightCard';
 import firebase from 'firebase';
 import 'firebase/messaging';
 import { GetServerSideProps } from 'next';
 import { RequestHelper } from '../../lib/request-helper';
 import { useFCMContext } from '../../lib/service-worker/FCMContext';
 import SpotlightCardScroll from './Components/SpotlightCardScroll';
+
+import { Navigation, Pagination, A11y } from 'swiper';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
 /**
  * The dashboard / hack center.
  *
@@ -25,12 +32,16 @@ export default function Dashboard(props: { announcements: Announcement[] }) {
   const user = useUser();
   const role = user.permissions?.length > 0 ? user.permissions[0] : '';
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+  const [dateTime, setdateTime] = useState(new Date());
+  const [eventCount, setEventCount] = useState(0);
 
   useEffect(() => {
     setAnnouncements(props.announcements);
     firebase.messaging().onMessage((payload) => {
       setAnnouncements((prev) => [JSON.parse(payload.data.notification) as Announcement, ...prev]);
     });
+    setdateTime(new Date());
+    setEventCount(document.getElementsByClassName('scrollItem').length);
   }, []);
 
   return (
@@ -43,52 +54,75 @@ export default function Dashboard(props: { announcements: Announcement[] }) {
 
         <Sidebar />
 
-        <section id="mainContent" className="px-6 py-3 w-5/6 lg:w-7/8 md:w-6/7 w-screen bg-white">
-          {/* <div className='min-h-[4rem]'></div> */}
+        <section id="mainContent" className="px-6 py-3 lg:w-7/8 md:w-6/7 w-full bg-white">
           <section id="subheader" className="p-4 flex justify-center">
             <DashboardHeader active="/dashboard/" />
           </section>
 
           <div className="flex flex-wrap my-16">
             {/* Spotlight Events */}
-            <div className="md:w-3/5 w-screen h-96">
+            <div className="md:w-3/5 w-full h-96">
               <h1 className="md:text-3xl text-xl font-black">Spotlight</h1>
-              {/* <h3 className="md:text-xl text-md font-bold my-3">{eventCountString}</h3> */}
-              {/* Carousel Section */}
-              <div className="carouselScroll w-11/12 bg-lightBackground overflow-x-scroll flex h-3/4">
-                <SpotlightCardScroll
-                  title="Tensorflow w/ Google"
-                  speakers={['Abdullah Hasani', 'Nam Truong']}
-                  date="Saturday, Nov 13th"
-                  location="ECSW 1.154"
-                  time="12:30 - 1:30 PM"
-                  page="HackerPack"
-                />
-                <SpotlightCardScroll
-                  title="StateFarm Workshop"
-                  speakers={['Abdullah Hasani', 'Nam Truong']}
-                  date="Saturday, Nov 13th"
-                  location="ECSW 1.154"
-                  time="12:30 - 1:30 PM"
-                  page="HackerPack"
-                />
-                <SpotlightCardScroll
-                  title="Google Workshop"
-                  speakers={['Abdullah Hasani', 'Nam Truong']}
-                  date="Saturday, Nov 13th"
-                  location="ECSW 1.154"
-                  time="12:30 - 1:30 PM"
-                  page="HackerPack"
-                />
-                <SpotlightCardScroll
-                  title="American Airlines Workshop"
-                  speakers={['Abdullah Hasani', 'Nam Truong']}
-                  date="Saturday, Nov 13th"
-                  location="ECSW 1.154"
-                  time="12:30 - 1:30 PM"
-                  page="HackerPack"
-                />
-              </div>
+              <div>Event Count</div>
+              <Swiper
+                modules={[Navigation, Pagination, A11y]}
+                spaceBetween={50}
+                slidesPerView={1}
+                navigation
+                pagination={{ clickable: true }}
+                onSwiper={(swiper) => console.log(swiper)}
+                onSlideChange={() => console.log('slide change')}
+              >
+                <SwiperSlide>
+                  <div className="h-[19rem] w-full">
+                    <SpotlightCardScroll
+                      title="Tensorflow w/ Google"
+                      speakers={['Abdullah Hasani', 'Nam Truong']}
+                      date="Saturday, Nov 13th"
+                      location="ECSW 1.154"
+                      time="12:30 - 1:30 PM"
+                      page="HackerPack"
+                    />
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="h-[19rem] w-full">
+                    <SpotlightCardScroll
+                      title="StateFarm Workshop"
+                      speakers={['Abdullah Hasani', 'Nam Truong']}
+                      date="Saturday, Nov 13th"
+                      location="ECSW 1.154"
+                      time="12:30 - 1:30 PM"
+                      page="HackerPack"
+                    />
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="h-[19rem] w-full">
+                    <SpotlightCardScroll
+                      title="Google Workshop"
+                      speakers={['Abdullah Hasani', 'Nam Truong']}
+                      date="Saturday, Nov 13th"
+                      location="ECSW 1.154"
+                      time="12:30 - 1:30 PM"
+                      page="HackerPack"
+                    />
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className="h-[19rem] w-full">
+                    <SpotlightCardScroll
+                      title="American Airlines Workshop"
+                      speakers={['Abdullah Hasani', 'Nam Truong']}
+                      date="Saturday, Nov 13th"
+                      location="ECSW 1.154"
+                      time="12:30 - 1:30 PM"
+                      page="HackerPack"
+                    />
+                  </div>
+                </SwiperSlide>
+              </Swiper>
+              <div />
             </div>
             {/* Announcements */}
             <div className="md:w-2/5 w-screen h-96">
