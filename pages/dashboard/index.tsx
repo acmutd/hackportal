@@ -12,7 +12,7 @@ import 'firebase/messaging';
 import { GetServerSideProps } from 'next';
 import { RequestHelper } from '../../lib/request-helper';
 import { useFCMContext } from '../../lib/service-worker/FCMContext';
-import SpotlightCardScroll from './Components/SpotlightCardScroll';
+import SpotlightCard from './Components/SpotlightCard';
 
 import { Navigation, Pagination, A11y } from 'swiper';
 
@@ -145,7 +145,7 @@ export default function Dashboard(props: {
                     validTimeDate(date, startTime, endTime) && (
                       <SwiperSlide key="idx">
                         <div className="h-[19rem] w-full">
-                          <SpotlightCardScroll
+                          <SpotlightCard
                             title={title}
                             speakers={speakers}
                             date={date}
@@ -153,6 +153,7 @@ export default function Dashboard(props: {
                             startTime={startTime}
                             endTime={endTime}
                             page={page}
+                            dateTime={dateTime}
                           />
                         </div>
                       </SwiperSlide>
