@@ -54,8 +54,10 @@ function useAuthContext(): AuthContextState {
  */
 function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>): JSX.Element {
   const [user, setUser] = React.useState<User>(null);
+  const [loading, setLoading] = React.useState(true);
 
   const updateUser = async (firebaseUser: firebase.User | null) => {
+    setLoading(true);
     if (firebaseUser === null) {
       // User is signed out
       // TODO(auth): Determine if we want to remove user data from device on sign out
@@ -86,6 +88,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       permissions, // probably not the best way to do this, but it works for hackutd and that's what matters
       university: userData.university,
     });
+    setLoading(false);
   };
 
   React.useEffect(() => {
@@ -160,7 +163,9 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     checkIfProfileExists,
   };
 
-  return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={authContextValue}>{!loading && children}</AuthContext.Provider>
+  );
 }
 
 export { AuthContext, AuthProvider, useAuthContext };
