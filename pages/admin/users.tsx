@@ -72,7 +72,7 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
     return () => {
       clearTimeout(timer);
     };
-  }, [searchQuery, loading]);
+  }, [searchQuery, loading, users]);
 
   const updateFilter = (name: string) => {
     const filterCriteria = {
@@ -193,6 +193,9 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
           currentUser={users.find((user) => user.id === currentUser)}
           goBack={() => {
             setCurrentUser('');
+          }}
+          updateCurrentUser={(value) => {
+            setUsers((prev) => prev.map((obj) => (obj.id === value.id ? { ...value } : obj)));
           }}
         />
       )}

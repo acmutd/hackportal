@@ -1,20 +1,73 @@
 import { useState } from 'react';
+import { RequestHelper } from '../lib/request-helper';
+import { useAuthContext } from '../lib/user/AuthContext';
 import { UserData } from '../pages/api/users';
+import ErrorList from './ErrorList';
 
 interface UserAdminViewProps {
   goBack: () => void;
   currentUser: UserData;
+  updateCurrentUser: (value: UserData) => void;
 }
 
-export default function UserAdminView({ goBack, currentUser }: UserAdminViewProps) {
+export default function UserAdminView({
+  goBack,
+  currentUser,
+  updateCurrentUser,
+}: UserAdminViewProps) {
   const [newRole, setNewRole] = useState('');
+  const { user } = useAuthContext();
+  const [errors, setErrors] = useState<string[]>([]);
 
   const updateRole = async () => {
+    try {
+      const { status, data } = await RequestHelper.post<
+        {
+          userId: string;
+          newRole: string;
+        },
+        any
+      >(
+        '/api/users/roles',
+        {
+          headers: {
+            Authorization: user.token,
+          },
+        },
+        {
+          userId: currentUser.id,
+          newRole,
+        },
+      );
+      if (!status || data.statusCode >= 400) {
+        setErrors([...errors, data.msg]);
+      } else {
+        alert(data.msg);
+        updateCurrentUser({
+          ...currentUser,
+          user: {
+            ...currentUser.user,
+            permissions: [newRole],
+          },
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      setErrors((prev) => [...prev, 'Unexpected error. Please try again later']);
+    }
     // TODO: Make request to backend to update user roles
   };
 
   return (
     <div className="p-4">
+      <ErrorList
+        errors={errors}
+        onClose={(idx: number) => {
+          const newErrorList = [...errors];
+          newErrorList.splice(idx, 1);
+          setErrors(newErrorList);
+        }}
+      />
       <button
         className="border-2 rounded-lg p-3 bg-gray-200"
         onClick={() => {
