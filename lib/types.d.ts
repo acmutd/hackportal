@@ -159,6 +159,29 @@ type KeynoteSpeaker = {
 
 /**
  *
+ * Represent a keynote speaker in home page
+ *
+ * @param title title of event
+ * @param speakers speakers of event
+ * @param date date of event in format {(3 letter english month name) dd, yyyy}, e.g. Jan 10, 2022
+ * @param location location/room of event
+ * @param startTime start time of event in format hh:mm (am/pm)
+ * @param endTime start time of event in format hh:mm (am/pm)
+ * @param page page where more information can be found about event
+ *
+ */
+type SpotlightEvent = {
+  title: string;
+  speakers: [];
+  date: string;
+  location: string;
+  startTime: string;
+  endTime: string;
+  page: string;
+};
+
+/**
+ *
  * Represent a color scheme consist of a light and dark version used by a component
  *
  * @param light color code of the light variant

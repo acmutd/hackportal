@@ -22,6 +22,15 @@ function SpotlightCardScroll(props: any) {
     }
   }
 
+  const getDayFunct = () => {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var date = new Date();
+    return days[date.getDay()];
+  };
+
+  var dayString =
+    getDayFunct().substring(0, 3) + ', ' + props.date.substring(0, props.date.length - 6);
+
   return (
     <>
       {/* <div className="min-w-3/4 h-full bg-lightBackground flex justify-center pt-2"> */}
@@ -34,7 +43,7 @@ function SpotlightCardScroll(props: any) {
           <div className="flex justify-around">
             <div className="lg:text-lg sm:text-md text-xs flex items-center">
               {<CalendarIcon style={{ fontSize: 'medium', margin: '2px' }} />}
-              <p>{props.date}</p>
+              <p>{dayString}</p>
             </div>
             <div className="lg:text-lg sm:text-md text-xs flex items-center">
               {<PinDrop style={{ fontSize: 'medium', margin: '2px' }} />}
@@ -45,7 +54,9 @@ function SpotlightCardScroll(props: any) {
           <div className="flex justify-around">
             <div className="lg:text-lg sm:text-md text-xs flex items-center">
               {<ClockIcon style={{ fontSize: 'large', margin: '2px' }} />}
-              <p>{props.time}</p>
+              <p>
+                {props.startTime} - {props.endTime}
+              </p>
             </div>
             <div className="lg:text-lg sm:text-md text-xs flex items-center">
               {<Backpack style={{ fontSize: 'medium', margin: '2px' }} />}

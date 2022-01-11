@@ -5,19 +5,19 @@ import initializeApi from '../../../lib/admin/init';
 initializeApi();
 const db = firestore();
 
-const KEYNOTE_SPEAKERS = '/keynotespeakers';
+const Spotlight_Events = '/spotlightevents';
 
 /**
  *
- * API endpoint to get data of keynote speakers from backend for the keynote speakers section in home page
+ * API endpoint to get data of events from backend for the spotlight events section
  *
  * @param req HTTP request object
  * @param res HTTP response object
  *
  *
  */
-async function getKeynoteSpeakers(req: NextApiRequest, res: NextApiResponse) {
-  const snapshot = await db.collection(KEYNOTE_SPEAKERS).get();
+async function getSpotlightEvents(req: NextApiRequest, res: NextApiResponse) {
+  const snapshot = await db.collection(Spotlight_Events).get();
   let data = [];
   snapshot.forEach((doc) => {
     data.push(doc.data());
@@ -26,7 +26,7 @@ async function getKeynoteSpeakers(req: NextApiRequest, res: NextApiResponse) {
 }
 
 function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
-  return getKeynoteSpeakers(req, res);
+  return getSpotlightEvents(req, res);
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
