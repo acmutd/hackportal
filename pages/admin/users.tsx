@@ -7,6 +7,7 @@ import UserList from '../../components/UserList';
 import { RequestHelper } from '../../lib/request-helper';
 import { UserData } from '../api/users';
 import { useAuthContext } from '../../lib/user/AuthContext';
+import UserAdminView from '../../components/UserAdminView';
 
 /**
  *
@@ -20,6 +21,7 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
   const [users, setUsers] = useState<UserData[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<UserData[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
 
   const { user } = useAuthContext();
 
@@ -116,68 +118,84 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
       <section id="subheader" className="p-4">
         <AdminHeader />
       </section>
-      <div className="top-6 p-4 flex flex-row items-center gap-x-2">
-        <h1 className="font-bold text-lg">Search Users</h1>
-        <input
-          type="text"
-          className="rounded-lg px-2 py-1 w-2/5"
-          style={{ backgroundColor: '#F2F3FF' }}
-          value={searchQuery}
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
+      {currentUser === '' ? (
+        <>
+          <div className="top-6 p-4 flex flex-row items-center gap-x-2">
+            <h1 className="font-bold text-lg">Search Users</h1>
+            <input
+              type="text"
+              className="rounded-lg px-2 py-1 w-2/5"
+              style={{ backgroundColor: '#F2F3FF' }}
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+              }}
+            />
+          </div>
+          <div className="p-4 flex flex-row w-full">
+            <div className="w-full md:w-1/6 lg:w-1/12 flex flex-col gap-y-4">
+              <div>
+                <h1 className="text-md font-bold text-center">Filters</h1>
+                <FilterComponent
+                  checked={filter['hacker']}
+                  onCheck={() => {
+                    updateFilter('hacker');
+                  }}
+                  title="Hackers"
+                />
+                <FilterComponent
+                  checked={filter['sponsor']}
+                  onCheck={() => {
+                    updateFilter('sponsor');
+                  }}
+                  title="Sponsors"
+                />
+                <FilterComponent
+                  checked={filter['organizer']}
+                  onCheck={() => {
+                    updateFilter('organizer');
+                  }}
+                  title="Organizers"
+                />
+                <FilterComponent
+                  checked={filter['admin']}
+                  onCheck={() => {
+                    updateFilter('admin');
+                  }}
+                  title="Admin"
+                />
+              </div>
+              <div className="my-4">
+                <h1 className="text-md font-bold text-center mb-4">Sort By:</h1>
+                <h4
+                  className="text-md text-center underline cursor-pointer"
+                  onClick={() => {
+                    sortByName();
+                  }}
+                >
+                  Alphabetically
+                </h4>
+                <h4 className="text-md text-center underline cursor-pointer">User Level</h4>
+              </div>
+            </div>
+            <div className="w-full px-8">
+              <UserList
+                users={filteredUsers}
+                onItemClick={(id) => {
+                  setCurrentUser(id);
+                }}
+              />
+            </div>
+          </div>
+        </>
+      ) : (
+        <UserAdminView
+          currentUser={users.find((user) => user.id === currentUser)}
+          goBack={() => {
+            setCurrentUser('');
           }}
         />
-      </div>
-      <div className="p-4 flex flex-row w-full">
-        <div className="w-full md:w-1/6 lg:w-1/12 flex flex-col gap-y-4">
-          <div>
-            <h1 className="text-md font-bold text-center">Filters</h1>
-            <FilterComponent
-              checked={filter['hacker']}
-              onCheck={() => {
-                updateFilter('hacker');
-              }}
-              title="Hackers"
-            />
-            <FilterComponent
-              checked={filter['sponsor']}
-              onCheck={() => {
-                updateFilter('sponsor');
-              }}
-              title="Sponsors"
-            />
-            <FilterComponent
-              checked={filter['organizer']}
-              onCheck={() => {
-                updateFilter('organizer');
-              }}
-              title="Organizers"
-            />
-            <FilterComponent
-              checked={filter['admin']}
-              onCheck={() => {
-                updateFilter('admin');
-              }}
-              title="Admin"
-            />
-          </div>
-          <div className="my-4">
-            <h1 className="text-md font-bold text-center mb-4">Sort By:</h1>
-            <h4
-              className="text-md text-center underline cursor-pointer"
-              onClick={() => {
-                sortByName();
-              }}
-            >
-              Alphabetically
-            </h4>
-            <h4 className="text-md text-center underline cursor-pointer">User Level</h4>
-          </div>
-        </div>
-        <div className="w-full px-8">
-          <UserList users={filteredUsers} />
-        </div>
-      </div>
+      )}
     </div>
   );
 }
