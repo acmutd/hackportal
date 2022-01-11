@@ -1,25 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { auth, firestore } from 'firebase-admin';
 import initializeApi from '../../lib/admin/init';
+import { userIsAuthorized } from '../../lib/authorization/check-authorization';
 
 initializeApi();
 
 const db = firestore();
 
 const REGISTRATION_COLLECTION = '/registrations';
-
-/**
- * Verifies whether the given token belongs to an admin user.
- *
- * @param token A token to verify
- * @returns True if the user is authorized to perform admin data management.
- */
-async function userIsAuthorized(token: string) {
-  // TODO: Check if token is from actual user using Admin API
-  // TODO: Check if token was revoked, and send an appropriate error to client
-  const payload = await auth().verifyIdToken(token);
-  return true;
-}
 
 /**
  * Handles GET requests to /api/scantypes.
@@ -40,9 +28,11 @@ async function handleUserInfo(req: NextApiRequest, res: NextApiResponse) {
   // Check if request header contains token
   // TODO: Figure out how to handle the string | string[] mess.
   const userToken = (token as string) || (headers['authorization'] as string);
+
   // TODO: Extract from bearer token
   // Probably not safe
-  if (!userIsAuthorized(userToken)) {
+  const isAuthorized = await userIsAuthorized(userToken);
+  if (!isAuthorized) {
     res.status(401).send({
       type: 'request-unauthorized',
       message: 'Request is not authorized to perform admin functionality.',

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import ErrorList from '../../../components/ErrorList';
 import PendingQuestion from '../../../components/PendingQuestion';
 import { RequestHelper } from '../../../lib/request-helper';
+import { useAuthContext } from '../../../lib/user/AuthContext';
 import { QADocument } from '../../api/questions';
 
 /**
@@ -23,6 +24,7 @@ export default function ResolveQuestionPage({
   const router = useRouter();
   const [answer, setAnswer] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
+  const { user } = useAuthContext();
 
   const addError = (errMsg: string) => {
     setErrors((prev) => [...prev, errMsg]);
@@ -32,7 +34,11 @@ export default function ResolveQuestionPage({
     try {
       await RequestHelper.post<QADocument, void>(
         `/api/questions/pending/${questionId}`,
-        {},
+        {
+          headers: {
+            Authorization: user.token,
+          },
+        },
         {
           ...question,
           answer,
