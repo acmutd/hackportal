@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
+import CloseIcon from '@material-ui/icons/Close';
 import ProfileDialog from './ProfileDialog';
 import { useUser } from '../lib/profile/user-data';
 import { useAuthContext } from '../lib/user/AuthContext';
@@ -10,14 +11,16 @@ import { navItems } from '../lib/data';
  * A global site header throughout the entire app.
  */
 export default function AppHeader() {
-  const [showMenu, setShowMenu] = React.useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const { isSignedIn } = useAuthContext();
-  const user = useUser();
+  const [mobileIcon, setMobileIcon] = useState(true);
+  const [showProfileDialog, setShowProfileDialog] = useState(false);
 
-  const [showProfileDialog, setShowProfileDialog] = React.useState(false);
+  const user = useUser();
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
+    setMobileIcon(!mobileIcon);
   };
 
   const dismissDialog = () => {
@@ -44,7 +47,7 @@ export default function AppHeader() {
           </Link>
           {/* Smartphone nav */}
           <div onClick={toggleMenu} className={'relative md:hidden'}>
-            <MenuIcon />
+            {mobileIcon ? <MenuIcon /> : <CloseIcon />}
             <ul
               className={`${
                 showMenu ? 'translate-x-0' : '-translate-x-full'
@@ -53,7 +56,7 @@ export default function AppHeader() {
               {navItems.map((item) => (
                 <Link key={item.text} href={item.path}>
                   <a
-                    className="border-b-2 first:border-t-2 border-black p-4 py-6"
+                    className="border-b-2 first:border-t-2 border-black p-4 py-6 hover:bg-[#D8F8FF]"
                     // onClick={dismissDialog, getItemCount}
                     onClick={dismissDialog}
                   >
