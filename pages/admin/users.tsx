@@ -6,6 +6,7 @@ import FilterComponent from '../../components/FilterComponent';
 import UserList from '../../components/UserList';
 import { RequestHelper } from '../../lib/request-helper';
 import { UserData } from '../api/users';
+import { useAuthContext } from '../../lib/user/AuthContext';
 
 /**
  *
@@ -20,6 +21,8 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
   const [filteredUsers, setFilteredUsers] = useState<UserData[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
 
+  const { user } = useAuthContext();
+
   let timer: NodeJS.Timeout;
 
   const [filter, setFilter] = useState({
@@ -29,27 +32,45 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
     admin: true,
   });
 
-  useEffect(() => {
+  async function fetchAllUsers() {
     setLoading(true);
-    setUsers(userData);
-    setFilteredUsers([...userData]);
+    if (!user) return;
+
+    const { data } = await RequestHelper.get<UserData[]>('/api/users', {
+      headers: {
+        Authorization: user.token,
+      },
+    });
+
+    setUsers(data);
+    setFilteredUsers([...data]);
     setLoading(false);
+  }
+
+  useEffect(() => {
+    fetchAllUsers();
   }, []);
 
   useEffect(() => {
+    if (loading) return;
     timer = setTimeout(() => {
       if (searchQuery !== '') {
         const newFiltered = users.filter(
-          ({ user }) => `${user.firstName} ${user.lastName}`.indexOf(searchQuery) !== -1,
+          ({ user }) =>
+            `${user.firstName} ${user.lastName}`
+              .toLowerCase()
+              .indexOf(searchQuery.toLowerCase()) !== -1,
         );
         setFilteredUsers(newFiltered);
+      } else {
+        setFilteredUsers([...users]);
       }
     }, 750);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [searchQuery]);
+  }, [searchQuery, loading]);
 
   const updateFilter = (name: string) => {
     const filterCriteria = {
