@@ -62,6 +62,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       // User is signed out
       // TODO(auth): Determine if we want to remove user data from device on sign out
       setUser(null);
+      setLoading(false);
       return;
     }
     const { displayName, email, photoURL, uid } = firebaseUser;
@@ -75,6 +76,9 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     });
     if (data.status !== 200) {
       console.error('Unexpected error when fetching AuthContext permission data...');
+      setUser(null);
+      setLoading(false);
+      return;
     }
     const userData = await data.json();
     let permissions: UserPermission[] = userData.user?.permissions || ['hacker'];
