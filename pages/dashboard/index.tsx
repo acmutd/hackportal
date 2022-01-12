@@ -84,12 +84,13 @@ export default function Dashboard(props: {
     var hour,
       startTimeMilitary = startTime,
       endTimeMilitary = endTime;
+
     if (startTime.substring(startTime.length - 2) == 'pm') {
       hour = parseInt(startTime.split(':')[0]);
       hour = hour === 12 ? 12 : hour + 12;
       startTimeMilitary = hour.toString() + ':' + startTime.split(':')[1];
     }
-    if (startTime.substring(startTime.length - 2) == 'am' && startTime.substring(0, 2)) {
+    if (startTime.substring(startTime.length - 2) == 'am' && startTime.substring(0, 2) == '12') {
       startTimeMilitary = '00:' + startTime.split(':')[1];
     }
     if (endTime.substring(endTime.length - 2) == 'pm') {
@@ -97,7 +98,7 @@ export default function Dashboard(props: {
       hour = hour === 12 ? 12 : hour + 12;
       endTimeMilitary = hour.toString() + ':' + endTime.split(':')[1];
     }
-    if (endTime.substring(endTime.length - 2) == 'am' && endTime.substring(0, 2)) {
+    if (endTime.substring(endTime.length - 2) == 'am' && endTime.substring(0, 2) == '12') {
       endTimeMilitary = '00:' + endTime.split(':')[1];
     }
 
@@ -107,6 +108,11 @@ export default function Dashboard(props: {
     var startMinute = parseInt(startTimeMilitary.split(':')[1].substring(0, 2));
     var endHour = parseInt(endTimeMilitary.split(':')[0]);
     var endMinute = parseInt(endTimeMilitary.split(':')[1].substring(0, 2));
+
+    console.log('Time');
+    console.log(currentHour + ':' + currentMinute);
+    console.log(startHour + ':' + startMinute);
+    console.log(endHour + ':' + endMinute);
 
     if (currentHour >= startHour && currentHour <= endHour) {
       if (currentHour == startHour) {
