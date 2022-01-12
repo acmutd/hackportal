@@ -56,7 +56,7 @@ export default function Scan() {
           <DashboardHeader active="/dashboard/scan-in" />
         </section>
         {isSignedIn ? (
-          <div className="top-6 flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center top-6 ">
             <div>
               <h4 className="text-center text-xl">Hacker Tag</h4>
               <span className="text-center text-lg">{error}</span>

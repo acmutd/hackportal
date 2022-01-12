@@ -151,7 +151,7 @@ export default function HackerPack() {
         </section>
 
         <div id="Subsection1" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg-text-3xl mb-4">SubHeading 1</div>
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 1</div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
             incididunt ut labore et dolore magna aliqua. Morbi tempus iaculis urna id volutpat lacus
@@ -167,7 +167,7 @@ export default function HackerPack() {
         </div>
 
         <div id="Subsection2" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg-text-3xl mb-4">SubHeading 2</div>
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 2</div>
           <div className="flex grid grid-cols-2 gap-x-4 ">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et eu et vitae, in quis metus
@@ -189,7 +189,7 @@ export default function HackerPack() {
         </div>
 
         <div id="Subsection3" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg-text-3xl mb-4">SubHeading 3</div>
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 3</div>
           <p>
             Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Mauris nunc congue nisi
             vitae suscipit. Vestibulum morbi blandit cursus risus at ultrices mi tempus imperdiet.
@@ -201,7 +201,7 @@ export default function HackerPack() {
         </div>
 
         <div id="Subsection4" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg-text-3xl mb-4">SubHeading 4</div>
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 4</div>
           <p>
             Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Mauris nunc congue nisi
             vitae suscipit. Vestibulum morbi blandit cursus risus at ultrices mi tempus imperdiet.
@@ -213,7 +213,7 @@ export default function HackerPack() {
         </div>
 
         <div id="Subsection5" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg-text-3xl mb-4">SubHeading 5</div>
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 5</div>
           <div>
             <p>
               Turpis egestas pretium aenean pharetra magna. Turpis in eu mi bibendum neque egestas
@@ -232,7 +232,7 @@ export default function HackerPack() {
         </div>
 
         <div id="Subsection6" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg-text-3xl mb-4">SubHeading 6</div>
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 6</div>
           <div className="flex grid grid-cols-2 gap-x-4 ">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et eu et vitae, in quis metus

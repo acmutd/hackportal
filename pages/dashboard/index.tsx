@@ -147,8 +147,8 @@ export default function Dashboard(props: {
 
         <Sidebar />
 
-        <section id="mainContent" className="px-6 py-3 lg:w-7/8 md:w-6/7 w-full bg-white">
-          <section id="subheader" className="p-4 flex justify-center">
+        <section id="mainContent" className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 bg-white">
+          <section id="subheader" className="flex justify-center p-4">
             <DashboardHeader active="/dashboard/" />
           </section>
 
@@ -223,7 +223,7 @@ export default function Dashboard(props: {
           </div> */}
 
           {/* Challenges */}
-          <div className="my-8 flex flex-col items-center">
+          <div className="flex flex-col items-center my-8">
             <h1 className="md:text-3xl text-xl font-black">Challenges</h1>
             {/* Card section */}
             <div className="flex flex-wrap justify-center my-8">
