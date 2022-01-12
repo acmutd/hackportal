@@ -61,9 +61,7 @@ export default function AppHeader() {
           <div className="hidden text-xs order-2 md:flex items-center md:text-left lg:ml-12">
             {navItems.map((item) => (
               <Link key={item.text} href={item.path}>
-                <a
-                  onClick={dismissDialog}
-                >
+                <a onClick={dismissDialog}>
                   <p className="md:mx-4 text-sm font-bold">{item.text}</p>
                 </a>
               </Link>
@@ -80,6 +78,6 @@ export default function AppHeader() {
         </div>
         {showProfileDialog && <ProfileDialog onDismiss={dismissDialog} />}
       </header>
-      </>
-    );
+    </>
+  );
 }
