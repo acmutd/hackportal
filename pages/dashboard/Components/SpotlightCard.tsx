@@ -26,6 +26,12 @@ function SpotlightCard(props: any) {
       speakerString = `Hosted by ${props.speakers[0]} & ${props.speakers[1]}`;
     } else if (props.speakers.length == 3) {
       speakerString = `Hosted by ${props.speakers[0]}, ${props.speakers[1]}, and ${props.speakers[2]}`;
+    } else {
+      speakerString = `Hosted by: `;
+      for (const speaker of props.speakers) {
+        speakerString += speaker + ', ';
+      }
+      speakerString = speakerString.substring(0, speakerString.length - 2);
     }
   }
 

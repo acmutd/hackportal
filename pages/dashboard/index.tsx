@@ -113,6 +113,13 @@ export default function Dashboard(props: {
     return false;
   };
 
+  var eventCountString;
+  if (eventCount === 1) {
+    eventCountString = 'There is 1 event is happening right now!';
+  } else {
+    eventCountString = `There are ${eventCount} events are happening right now!`;
+  }
+
   return (
     <>
       <div className="flex flex-wrap flex-grow">
@@ -132,7 +139,7 @@ export default function Dashboard(props: {
             {/* Spotlight Events */}
             <div className="md:w-3/5 w-full h-96">
               <h1 className="md:text-3xl text-xl font-black">Spotlight</h1>
-              <div>Event Count: {eventCount}</div>
+              <div>{eventCountString}</div>
               <Swiper
                 modules={[Navigation, Pagination, A11y]}
                 spaceBetween={50}
