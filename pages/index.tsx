@@ -35,6 +35,24 @@ export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpea
     setSpeakers(keynoteSpeakers);
   }, [keynoteSpeakers]);
 
+  useEffect(() => {
+    setTimeout(fadeOutEffect, 3500);
+  });
+
+  function fadeOutEffect() {
+    var fadeTarget = document.getElementById('popup');
+    var fadeEffect = setInterval(() => {
+      if (!fadeTarget.style.opacity) {
+        fadeTarget.style.opacity = '1';
+      }
+      if (parseFloat(fadeTarget.style.opacity) > 0) {
+        fadeTarget.style.opacity = (parseFloat(fadeTarget.style.opacity) - 0.1).toString();
+      } else {
+        clearInterval(fadeEffect);
+      }
+    }, 100);
+  }
+
   return (
     <>
       <Head>
@@ -42,6 +60,13 @@ export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpea
         <meta name="description" content="A default HackPortal instance" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {/* Notification info pop up */}
+      <div
+        id="popup"
+        className="fixed z-50 top-16 md:right-6 right-1/2 md:translate-x-0 translate-x-1/2 bg-red-200 w-[22rem] px-4 py-2 rounded-md"
+      >
+        Turn on push notifications to get stay up to date with events and announcements!
+      </div>
       {/* Hero section */}
       <section className="bg-indigo-100 min-h-[640px] h-full w-screen p-4">
         <div
@@ -72,7 +97,7 @@ export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpea
         </div>
       </section>
       {/* Video Space */}
-      <section className="mt-16 bg-white relative w-screen md:mt-0 md:h-[560px] py-[3rem]">
+      <section className="mt-16 bg-white z-0 relative w-screen md:mt-0 md:h-[560px] py-[3rem]">
         <div className="w-full h-full flex flex-col justify-center items-center md:flex-row">
           <div className="w-11/12 h-3/6 flex flex-col justify-center items-center md:flex-row">
             {/* Video */}
