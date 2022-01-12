@@ -1,16 +1,39 @@
 import Head from 'next/head';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import React from 'react';
-import Script from 'next/script';
+import React, { useEffect, useState } from 'react';
 import { buttonDatas, stats } from '../lib/data';
+import KeynoteSpeaker from '../components/KeynoteSpeaker';
+import { RequestHelper } from '../lib/request-helper';
 
 /**
  * The home page.
  *
  * Landing: /
  */
-export default function Home() {
+export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpeaker[] }) {
   const router = useRouter();
+
+  const [speakers, setSpeakers] = useState<KeynoteSpeaker[]>([]);
+
+  const colorSchemes: ColorScheme[] = [
+    {
+      light: '#F2F3FF',
+      dark: '#C1C8FF',
+    },
+    {
+      light: '#D8F8FF',
+      dark: '#B0F1FF',
+    },
+    {
+      dark: '#FCD7FF',
+      light: '#FDECFF',
+    },
+  ];
+
+  useEffect(() => {
+    setSpeakers(keynoteSpeakers);
+  }, [keynoteSpeakers]);
 
   return (
     <>
@@ -49,7 +72,7 @@ export default function Home() {
         </div>
       </section>
       {/* Video Space */}
-      <section className="mt-16 bg-white relative w-screen md:mt-0 md:h-[560px]">
+      <section className="mt-16 bg-white relative w-screen md:mt-0 md:h-[560px] py-[3rem]">
         <div className="w-full h-full flex flex-col justify-center items-center md:flex-row">
           <div className="w-11/12 h-3/6 flex flex-col justify-center items-center md:flex-row">
             {/* Video */}
@@ -78,6 +101,56 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {/* Featuring Keynotes speakers */}
+
+      <section className="flex bg-gray-200 min-h-[24rem] overflow-x-scroll">
+        <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold">
+          Featuring Keynote Speakers
+        </div>
+        <div className="py-6 md:px-6 flex flex-col justify-center">
+          {/* Row 1 */}
+          <div className="flex">
+            {speakers.map(
+              ({ name, description }, idx) =>
+                idx < speakers.length / 2 && (
+                  <KeynoteSpeaker
+                    key={idx}
+                    name={name}
+                    description={description}
+                    cardColor={colorSchemes[idx % 3]}
+                  />
+                ),
+            )}
+          </div>
+          {/* row 2 */}
+          <div className="md:ml-[7rem] ml-[5rem] flex">
+            {speakers.map(
+              ({ name, description }, idx) =>
+                idx >= speakers.length / 2 && (
+                  <KeynoteSpeaker
+                    key={idx}
+                    name={name}
+                    description={description}
+                    cardColor={colorSchemes[idx % 3]}
+                  />
+                ),
+            )}
+          </div>
+        </div>
+      </section>
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const protocol = context.req.headers.referer?.split('://')[0] || 'http';
+  const { data } = await RequestHelper.get<KeynoteSpeaker[]>(
+    `${protocol}://${context.req.headers.host}/api/keynotespeakers`,
+    {},
+  );
+  return {
+    props: {
+      keynoteSpeakers: data,
+    },
+  };
+};

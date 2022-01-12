@@ -1,19 +1,26 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
+import CloseIcon from '@material-ui/icons/Close';
 import ProfileDialog from './ProfileDialog';
-
+import { useUser } from '../lib/profile/user-data';
+import { useAuthContext } from '../lib/user/AuthContext';
 import { navItems } from '../lib/data';
 
 /**
  * A global site header throughout the entire app.
  */
 export default function AppHeader() {
-  const [showMenu, setShowMenu] = React.useState(false);
-  const [showProfileDialog, setShowProfileDialog] = React.useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const { isSignedIn } = useAuthContext();
+  const [mobileIcon, setMobileIcon] = useState(true);
+  const [showProfileDialog, setShowProfileDialog] = useState(false);
+
+  const user = useUser();
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
+    setMobileIcon(!mobileIcon);
   };
 
   const dismissDialog = () => {
@@ -25,6 +32,7 @@ export default function AppHeader() {
 
   return (
     <>
+      <div className="min-h-[4rem]"></div>
       <header className="top-0 fixed justify-around flex flex-row p-2 min-w-[320px] w-screen bg-indigo-100 items-center h-16 z-10 md:justify-between md:p-4">
         <div className="flex w-6/12 max-w-[156px] justify-between items-center md:max-w-full md:justify-start md:w-9/12">
           <Link href="/">
@@ -39,7 +47,7 @@ export default function AppHeader() {
           </Link>
           {/* Smartphone nav */}
           <div onClick={toggleMenu} className={'relative md:hidden'}>
-            <MenuIcon />
+            {mobileIcon ? <MenuIcon /> : <CloseIcon />}
             <ul
               className={`${
                 showMenu ? 'translate-x-0' : '-translate-x-full'
@@ -48,7 +56,8 @@ export default function AppHeader() {
               {navItems.map((item) => (
                 <Link key={item.text} href={item.path}>
                   <a
-                    className="border-b-2 first:border-t-2 border-black p-4 py-6"
+                    className="border-b-2 first:border-t-2 border-black p-4 py-6 hover:bg-[#D8F8FF]"
+                    // onClick={dismissDialog, getItemCount}
                     onClick={dismissDialog}
                   >
                     <p className="text-sm font-bold">{item.text}</p>
@@ -73,7 +82,7 @@ export default function AppHeader() {
             className="font-header font-bold bg-white rounded-full border-2 border-black text-sm px-8 py-1"
             onClick={toggleDialog}
           >
-            Sign In
+            {!user || !isSignedIn ? 'Sign in' : 'Profile'}
           </button>
         </div>
         {showProfileDialog && <ProfileDialog onDismiss={dismissDialog} />}
