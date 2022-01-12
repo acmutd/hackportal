@@ -8,6 +8,7 @@ import { RequestHelper } from '../../lib/request-helper';
 import { UserData } from '../api/users';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import UserAdminView from '../../components/UserAdminView';
+import { isAuthorized } from '.';
 
 /**
  *
@@ -32,6 +33,7 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
     sponsor: true,
     organizer: true,
     admin: true,
+    super_admin: true,
   });
 
   async function fetchAllUsers() {
@@ -101,6 +103,9 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
     );
   };
 
+  if (!user || !isAuthorized(user))
+    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+
   if (loading) {
     return (
       <div>
@@ -163,6 +168,13 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
                     updateFilter('admin');
                   }}
                   title="Admin"
+                />
+                <FilterComponent
+                  checked={filter['super_admin']}
+                  onCheck={() => {
+                    updateFilter('super_admin');
+                  }}
+                  title="Super Admin"
                 />
               </div>
               <div className="my-4">
