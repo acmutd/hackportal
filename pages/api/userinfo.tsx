@@ -1,13 +1,23 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { auth, firestore } from 'firebase-admin';
 import initializeApi from '../../lib/admin/init';
-import { userIsAuthorized } from '../../lib/authorization/check-authorization';
 
 initializeApi();
 
 const db = firestore();
 
 const REGISTRATION_COLLECTION = '/registrations';
+
+async function userIsAuthorized(token: string, queryId: string) {
+  if (!token) return false;
+  try {
+    const payload = await auth().verifyIdToken(token);
+    return payload.uid === queryId;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
 
 /**
  * Handles GET requests to /api/scantypes.
@@ -31,7 +41,7 @@ async function handleUserInfo(req: NextApiRequest, res: NextApiResponse) {
 
   // TODO: Extract from bearer token
   // Probably not safe
-  const isAuthorized = await userIsAuthorized(userToken);
+  const isAuthorized = await userIsAuthorized(userToken, id as string);
   if (!isAuthorized) {
     return res.status(401).send({
       type: 'request-unauthorized',
