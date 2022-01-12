@@ -13,7 +13,7 @@ export async function userIsAuthorized(token: string, roles?: string[]) {
     .where('id', '==', payload.uid)
     .get();
   if (snapshot.empty) return false;
-  for (let userRole in snapshot.docs[0].data().user.permissions as string[]) {
+  for (let userRole of snapshot.docs[0].data().user.permissions as string[]) {
     if (roleList.includes(userRole)) return true;
   }
   return false;

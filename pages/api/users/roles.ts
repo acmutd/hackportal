@@ -40,6 +40,7 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
 
   if (!isAuthorized) {
     return res.status(403).json({
+      statusCode: 403,
       msg: 'Request is not authorized to perform admin functionality',
     });
   }
@@ -56,6 +57,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     return handlePostRequest(req, res);
   } else {
     return res.status(404).json({
+      statusCode: 404,
       msg: 'Route not found',
     });
   }

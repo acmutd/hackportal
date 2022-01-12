@@ -180,6 +180,7 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
             </div>
             <div className="w-full px-8">
               <UserList
+                hasSuperAdminPrivilege={user.permissions.includes('super_admin')}
                 users={filteredUsers}
                 onItemClick={(id) => {
                   setCurrentUser(id);
