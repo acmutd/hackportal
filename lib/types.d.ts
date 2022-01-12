@@ -159,6 +159,19 @@ type KeynoteSpeaker = {
 
 /**
  *
+ * Represent a challenge in hackcenter
+ *
+ * @param title title of challenge
+ * @param description description of that challenge
+ *
+ */
+type Challenge = {
+  title: string;
+  description: string;
+};
+
+/**
+ *
  * Represent a keynote speaker in home page
  *
  * @param title title of event

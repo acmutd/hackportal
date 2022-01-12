@@ -4,8 +4,6 @@ import DashboardHeader from '../../components/DashboardHeader';
 import { useUser } from '../../lib/profile/user-data';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import AnnouncementCard from './Components/AnnouncementCards';
-import MentorCard1 from './Components/MentorCard1';
-import MentorCard3 from './Components/MentorCard3';
 import Sidebar from './Components/Sidebar';
 import firebase from 'firebase';
 import 'firebase/messaging';
@@ -13,9 +11,9 @@ import { GetServerSideProps } from 'next';
 import { RequestHelper } from '../../lib/request-helper';
 import { useFCMContext } from '../../lib/service-worker/FCMContext';
 import SpotlightCard from './Components/SpotlightCard';
+import ChallengeCard from './Components/ChallengeCard';
 
 import { Navigation, Pagination, A11y } from 'swiper';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -34,6 +32,7 @@ import 'swiper/css/scrollbar';
 export default function Dashboard(props: {
   announcements: Announcement[];
   spotlightevents: SpotlightEvent[];
+  challenges: Challenge[];
 }) {
   const { isSignedIn } = useAuthContext();
   const user = useUser();
@@ -205,15 +204,26 @@ export default function Dashboard(props: {
           </div>
 
           {/* Events and Team */}
-          <div className="flex flex-wrap h-96 my-16">
-            {/* <div className="md:w-3/5 w-screen ">
+          {/* <div className="flex flex-wrap h-96 my-16">
+            <div className="md:w-3/5 w-screen ">
               <h1 className="md:text-3xl text-xl font-black">Your Saved Events</h1>
-            </div> */}
+            </div>
             <div className="md:w-2/5 w-screen ">
               <h1 className="md:text-3xl text-xl font-black">Your Team</h1>
               <div className="h-4/5 p-5 md:text-xl text-lg bg-purple-200 rounded-lg">
                 Hackergang
               </div>
+            </div>
+          </div> */}
+
+          {/* Challenges */}
+          <div className="my-8 flex flex-col items-center">
+            <h1 className="md:text-3xl text-xl font-black">Challenges</h1>
+            {/* Card section */}
+            <div className="flex flex-wrap justify-center my-8">
+              {props.challenges.map(({ title, description }, idx) => (
+                <ChallengeCard key={idx} title={title} description={description} />
+              ))}
             </div>
           </div>
         </section>
@@ -232,11 +242,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/spotlightevents/`,
     {},
   );
+  const { data: challengeData } = await RequestHelper.get<Challenge[]>(
+    `${protocol}://${context.req.headers.host}/api/challenges/`,
+    {},
+  );
 
   return {
     props: {
       announcements: announcementData,
       spotlightevents: spotlightData,
+      challenges: challengeData,
     },
   };
 };
