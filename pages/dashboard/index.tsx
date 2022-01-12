@@ -41,13 +41,18 @@ export default function Dashboard(props: {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [dateTime, setdateTime] = useState(new Date());
   const [eventCount, setEventCount] = useState(0);
-  var num;
 
   useEffect(() => {
     setAnnouncements(props.announcements);
-    firebase.messaging().onMessage((payload) => {
-      setAnnouncements((prev) => [JSON.parse(payload.data.notification) as Announcement, ...prev]);
-    });
+    if (firebase.messaging.isSupported()) {
+      firebase.messaging().onMessage((payload) => {
+        setAnnouncements((prev) => [
+          JSON.parse(payload.data.notification) as Announcement,
+          ...prev,
+        ]);
+      });
+    }
+
     setdateTime(new Date());
     setEventCount(
       props.spotlightevents.reduce(
