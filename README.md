@@ -16,7 +16,10 @@ cd hackportal
 npm install
 ```
 
-To run the development server:
+Follow the instructions in the [set-up docs](./docs/set-up.md) to set up
+Firebase APIs before continuing.
+
+Now run the development server:
 
 ```bash
 npm run dev
@@ -34,7 +37,9 @@ This project uses a few tools to enforce code quality:
   formatted commits.
 
 The repository already has these set up. Contributors only need to run
-`git commit`, and Commitizen will take care of the rest with a setup flow.
+`git commit`, and Commitizen will take care of the rest with a commit flow. If
+you would prefer to use your own IDE when making commits, make sure to follow
+the commit spec (Conventional Commits) below.
 
 ## Making Changes
 

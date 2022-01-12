@@ -18,6 +18,7 @@
 # misc
 .DS_Store
 *.pem
+/.idea
 
 # debug
 npm-debug.log*
@@ -25,7 +26,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+/private_keys
 .env.local
+.env*
 .env.development.local
 .env.test.local
 .env.production.local
@@ -34,3 +37,7 @@ yarn-error.log*
 .vercel
 
 .eslintcache
+
+# Ignores automatically-generated workbox files for next-pwa
+public/sw.*
+public/workbox-*.*

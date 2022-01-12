@@ -1,0 +1,62 @@
+name: Bug Report
+description: File a bug report
+title: '[Bug] '
+labels: ['Type: Bug Report', 'Status: Awaiting Triage']
+assignees:
+  - abdullah50053
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! By giving as much detail as possible, you'll help us identify what went wrong and fixing the behavior.
+  - type: textarea
+    id: what-was-expected
+    attributes:
+      label: What did you expect to happen?
+      description: Describe the expected functionality of the feature/component.
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: |
+        Describe the behavior you encountered. Please be as detailed as possible.
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      description: What part of the project is this for?
+      options:
+        - Core
+        - Auth
+        - Admin/API
+        - Profile
+        - Registration
+        - Events
+        - Check-in
+        - HackerPack
+        - Judging
+        - Project Submissions
+    validations:
+      required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: |
+        Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
