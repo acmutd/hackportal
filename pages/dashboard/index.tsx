@@ -41,6 +41,7 @@ export default function Dashboard(props: {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [dateTime, setdateTime] = useState(new Date());
   const [eventCount, setEventCount] = useState(0);
+  var num;
 
   useEffect(() => {
     setAnnouncements(props.announcements);
@@ -48,7 +49,13 @@ export default function Dashboard(props: {
       setAnnouncements((prev) => [JSON.parse(payload.data.notification) as Announcement, ...prev]);
     });
     setdateTime(new Date());
-    setEventCount(document.getElementsByClassName('scrollItem').length);
+    setEventCount(
+      props.spotlightevents.reduce(
+        (total, event, idx) =>
+          validTimeDate(event.date, event.startTime, event.endTime) ? total + 1 : total,
+        0,
+      ),
+    );
   }, []);
 
   const validTimeDate = (date, startTime, endTime) => {
@@ -137,38 +144,40 @@ export default function Dashboard(props: {
 
           <div className="flex flex-wrap my-16">
             {/* Spotlight Events */}
-            <div className="md:w-3/5 w-full h-96">
-              <h1 className="md:text-3xl text-xl font-black">Spotlight</h1>
-              <div>{eventCountString}</div>
-              <Swiper
-                modules={[Navigation, Pagination, A11y]}
-                spaceBetween={50}
-                slidesPerView={1}
-                navigation
-                pagination={{ clickable: true }}
-              >
-                {props.spotlightevents.map(
-                  ({ title, speakers, date, location, startTime, endTime, page }, idx) =>
-                    validTimeDate(date, startTime, endTime) && (
-                      <SwiperSlide key="idx">
-                        <div className="h-[19rem] w-full">
-                          <SpotlightCard
-                            title={title}
-                            speakers={speakers}
-                            date={date}
-                            location={location}
-                            startTime={startTime}
-                            endTime={endTime}
-                            page={page}
-                            dateTime={dateTime}
-                          />
-                        </div>
-                      </SwiperSlide>
-                    ),
-                )}
-              </Swiper>
-              <div />
-            </div>
+            {eventCount > 0 && (
+              <div className="md:w-3/5 w-full h-96">
+                <h1 className="md:text-3xl text-xl font-black">Spotlight</h1>
+                <div>{eventCountString}</div>
+                <Swiper
+                  modules={[Navigation, Pagination, A11y]}
+                  spaceBetween={50}
+                  slidesPerView={1}
+                  navigation
+                  pagination={{ clickable: true }}
+                >
+                  {props.spotlightevents.map(
+                    ({ title, speakers, date, location, startTime, endTime, page }, idx) =>
+                      validTimeDate(date, startTime, endTime) && (
+                        <SwiperSlide key={idx}>
+                          <div className="h-[19rem] w-full">
+                            <SpotlightCard
+                              title={title}
+                              speakers={speakers}
+                              date={date}
+                              location={location}
+                              startTime={startTime}
+                              endTime={endTime}
+                              page={page}
+                              dateTime={dateTime}
+                            />
+                          </div>
+                        </SwiperSlide>
+                      ),
+                  )}
+                </Swiper>
+                <div />
+              </div>
+            )}
             {/* Announcements */}
             <div className="md:w-2/5 w-screen h-96">
               <h1 className="md:text-3xl text-xl font-black">Announcements</h1>
