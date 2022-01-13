@@ -7,6 +7,7 @@ import LoadIcon from '../../../components/LoadIcon';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import { isAuthorized } from '..';
 import { RequestHelper } from '../../../lib/request-helper';
+import { Dialog } from '@headlessui/react';
 
 /**
  * The admin scanning page.
@@ -41,7 +42,7 @@ export default function Admin() {
   const [editScan, setEditScan] = useState(false);
   const [currentEditScan, setCurrentEditScan] = useState(undefined);
 
-  const [deleteScan, setDeleteScan] = useState(false);
+  const [showDeleteScanDialog, setShowDeleteScanDialog] = useState(false);
 
   const handleScanClick = (data, idx) => {
     setCurrentScan(data);
@@ -138,7 +139,40 @@ export default function Admin() {
       );
       if (status >= 400) {
         console.log(data);
-      } else setScanTypes((prev) => [...prev, newScan]);
+      } else {
+        alert('Scan added');
+        setScanTypes((prev) => [...prev, newScan]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteScan = async () => {
+    try {
+      const { status, data } = await RequestHelper.post<any, any>(
+        '/api/scan/delete',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: user.token,
+          },
+        },
+        {
+          scanData: currentScan,
+        },
+      );
+      setShowDeleteScanDialog(false);
+      if (status >= 400) {
+        alert(data.msg);
+      } else {
+        alert(data.msg);
+        const newScanTypes = [...scanTypes];
+        newScanTypes.splice(currentScanIdx, 1);
+        setScanTypes(newScanTypes);
+        setCurrentScan(undefined);
+        setCurrentScanIdx(-1);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -179,14 +213,56 @@ export default function Admin() {
     return <div className="text-2xl font-black text-center">Unauthorized</div>;
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="relative flex flex-col flex-grow">
       <Head>
         <title>HackPortal - Admin</title>
         <meta name="description" content="HackPortal's Admin Page" />
       </Head>
+
       <section id="subheader" className="p-4">
         <AdminHeader />
       </section>
+      {currentScan && (
+        <Dialog
+          open={showDeleteScanDialog}
+          onClose={() => setShowDeleteScanDialog(false)}
+          className="fixed z-10 inset-0 overflow-y-auto"
+        >
+          <div className="flex items-center justify-center min-h-screen">
+            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+
+            <div className="rounded-2xl relative bg-white flex flex-col ljustify-between p-4 rounded max-w-sm mx-auto">
+              <Dialog.Title>
+                Delete <span className="font-bold">{currentScan.name}</span>
+              </Dialog.Title>
+
+              <div className="my-7 flex flex-col gap-y-4">
+                <Dialog.Description>
+                  This is permanently delete <span className="font-bold">{currentScan.name}</span>
+                </Dialog.Description>
+                <p>Are you sure you want to delete this scan? This action cannot be undone.</p>
+              </div>
+
+              <div className="flex flex-row justify-end gap-x-2">
+                <button
+                  className="bg-red-400 rounded-lg p-3 hover:bg-red-300"
+                  onClick={async () => {
+                    await deleteScan();
+                  }}
+                >
+                  Delete
+                </button>
+                <button
+                  className="bg-gray-300 rounded-lg p-3 hover:bg-gray-200"
+                  onClick={() => setShowDeleteScanDialog(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </Dialog>
+      )}
       {showNewScanForm ? (
         <div className="px-6 py-4">
           <button
@@ -352,7 +428,6 @@ export default function Admin() {
                               className="font-bold p-3 rounded-lg bg-gray-300 hover:bg-gray-200"
                               onClick={() => {
                                 setEditScan(false);
-                                setCurrentScan(undefined);
                               }}
                             >
                               Cancel
@@ -383,7 +458,7 @@ export default function Admin() {
                       <button
                         className="font-bold bg-red-300 hover:bg-red-200 rounded-lg p-3"
                         onClick={() => {
-                          setDeleteScan(true);
+                          setShowDeleteScanDialog(true);
                         }}
                       >
                         Delete this ScanType
@@ -392,6 +467,7 @@ export default function Admin() {
                         className="font-bold bg-red-300 hover:bg-red-200 rounded-lg p-3"
                         onClick={() => {
                           setCurrentScan(undefined);
+                          setCurrentScanIdx(-1);
                         }}
                       >
                         Cancel
@@ -402,7 +478,7 @@ export default function Admin() {
               </div>
             )}
 
-            {!currentScan && !editScan && !deleteScan && !startScan && (
+            {!currentScan && !editScan && !showDeleteScanDialog && !startScan && (
               <div className="mx-auto my-5">
                 <button
                   className="bg-green-300 p-3 rounded-lg font-bold hover:bg-green-200"
