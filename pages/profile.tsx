@@ -46,7 +46,7 @@ export default function ProfilePage() {
             className="flex flex-col justify-around w-full md:w-2/5 rounded-xl p-4 bg-gray-300 "
             style={{ minHeight: '500px' }}
           >
-            <h1 className="font-bold text-xl text-center">HackUTD VIII: Blast from the Past</h1>
+            <h1 className="font-bold text-xl text-center">HackPortal 1.0</h1>
             <div className="mx-auto">
               <Image
                 className="rounded-full object-cover"

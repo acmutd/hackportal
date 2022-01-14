@@ -40,9 +40,7 @@ export default function AppHeader() {
               className="flex order-2 relative ml-[-6px] font-display self-center items-center w-[112px] md:order-1 md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400"
               onClick={dismissDialog}
             >
-              <span className="text-[16px] font-black md:z-0 md:text-2xl md:mr-10">
-                HackUTD VIII
-              </span>
+              <span className="text-[16px] font-black md:z-0 md:text-2xl md:mr-10">HackPortal</span>
             </a>
           </Link>
           {/* Smartphone nav */}
