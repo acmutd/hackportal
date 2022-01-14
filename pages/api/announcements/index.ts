@@ -1,4 +1,4 @@
-import { auth, firestore } from 'firebase-admin';
+import { firestore } from 'firebase-admin';
 import { NextApiRequest, NextApiResponse } from 'next';
 import initializeApi from '../../../lib/admin/init';
 import { userIsAuthorized } from '../../../lib/authorization/check-authorization';
@@ -8,7 +8,6 @@ const db = firestore();
 
 const ANNOUNCEMENTS_COLLECTION = '/announcements';
 const TOKENS_COLLECTION = '/tokens';
-
 const MAX_PER_BATCH = 1000;
 
 async function sendNotifications(announcement: unknown) {
@@ -84,6 +83,11 @@ async function getAllAnnouncements(req: NextApiRequest, res: NextApiResponse) {
   let data = [];
   snapshot.forEach((doc) => {
     data.push(doc.data());
+  });
+  data.sort((a, b) => {
+    const timeA = new Date(a.timestamp),
+      timeB = new Date(b.timestamp);
+    return timeB.getTime() - timeA.getTime();
   });
   res.json(data);
 }
