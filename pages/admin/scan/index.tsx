@@ -49,13 +49,7 @@ export default function Admin() {
     setCurrentScanIdx(idx);
   };
 
-  const handleScan = async (
-    data: string,
-    video: HTMLVideoElement,
-    setVideoReady,
-    setPaused,
-    tick,
-  ) => {
+  const handleScan = async (data: string) => {
     if (!data.startsWith('hack:')) {
       setScanData(data);
       setSuccess('Invalid hacker tag format...');
@@ -192,12 +186,6 @@ export default function Admin() {
           return console.error('Fetch failed for scan-types...');
         }
         const data = await result.json();
-        // const newScanTypes = [];
-        // for (const d of data) {
-        //   newScanTypes.push(
-        //     <ScanType key={d.name} data={d} name={d.name} onClick={() => handleScanClick(d)} />,
-        //   );
-        // }
         setScanTypes(data);
         setScansFetched(true);
       })
