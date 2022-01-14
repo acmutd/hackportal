@@ -36,22 +36,25 @@ export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpea
   }, [keynoteSpeakers]);
 
   useEffect(() => {
-    setTimeout(fadeOutEffect, 3500);
+    setTimeout(fadeOutEffect, 3000);
   });
 
-  function fadeOutEffect() {
+  const fadeOutEffect = () => {
     var fadeTarget = document.getElementById('popup');
-    var fadeEffect = setInterval(() => {
-      if (!fadeTarget.style.opacity) {
-        fadeTarget.style.opacity = '1';
-      }
-      if (parseFloat(fadeTarget.style.opacity) > 0) {
-        fadeTarget.style.opacity = (parseFloat(fadeTarget.style.opacity) - 0.1).toString();
-      } else {
-        clearInterval(fadeEffect);
-      }
-    }, 100);
-  }
+
+    if (fadeTarget !== undefined && fadeTarget !== null) {
+      var fadeEffect = setInterval(() => {
+        if (!fadeTarget.style.opacity) {
+          fadeTarget.style.opacity = '1';
+        }
+        if (parseFloat(fadeTarget.style.opacity) > 0) {
+          fadeTarget.style.opacity = (parseFloat(fadeTarget.style.opacity) - 0.1).toString();
+        } else {
+          clearInterval(fadeEffect);
+        }
+      }, 100);
+    }
+  };
 
   return (
     <>
@@ -65,7 +68,7 @@ export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpea
         id="popup"
         className="fixed z-50 md:translate-x-0 translate-x-1/2 w-[22rem] rounded-md px-4 py-2 top-16 md:right-6 right-1/2 bg-red-200 md:text-base text-sm"
       >
-        Turn on push notifications to get stay up to date with events and announcements!
+        Turn on push notifications to stay up to date with events and announcements!
       </div>
       {/* Hero section */}
       <section className="min-h-[640px] h-full w-screen p-4 bg-indigo-100">

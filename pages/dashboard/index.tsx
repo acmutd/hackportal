@@ -148,9 +148,7 @@ export default function Dashboard(props: {
         <Sidebar />
 
         <section id="mainContent" className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 bg-white">
-          <section id="subheader" className="flex justify-center p-4">
-            <DashboardHeader active="/dashboard/" />
-          </section>
+          <DashboardHeader />
 
           <div className="flex flex-wrap my-16">
             {/* Spotlight Events */}
@@ -163,6 +161,7 @@ export default function Dashboard(props: {
                   spaceBetween={50}
                   slidesPerView={1}
                   navigation
+                  loop={true}
                   pagination={{ clickable: true }}
                 >
                   {props.spotlightevents.map(
