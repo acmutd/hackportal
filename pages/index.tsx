@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react';
 import { buttonDatas, stats } from '../lib/data';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import { RequestHelper } from '../lib/request-helper';
+import firebase from 'firebase';
+import 'firebase/messaging';
 
 /**
  * The home page.
@@ -56,6 +58,11 @@ export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpea
     }
   };
 
+  const checkNotif = () => {
+    //pop up visible if user did not enable push notif and browser supports push notif
+    return Notification.permission !== 'granted' && firebase.messaging.isSupported();
+  };
+
   return (
     <>
       <Head>
@@ -64,12 +71,14 @@ export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpea
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Notification info pop up */}
-      <div
-        id="popup"
-        className="fixed z-50 md:translate-x-0 translate-x-1/2 w-[22rem] rounded-md px-4 py-2 top-16 md:right-6 right-1/2 bg-red-200 md:text-base text-sm"
-      >
-        Turn on push notifications to stay up to date with events and announcements!
-      </div>
+      {checkNotif() && (
+        <div
+          id="popup"
+          className="fixed z-50 md:translate-x-0 translate-x-1/2 w-[22rem] rounded-md px-4 py-2 top-16 md:right-6 right-1/2 bg-red-200 md:text-base text-sm"
+        >
+          Turn on push notifications to stay up to date with events and announcements!
+        </div>
+      )}
       {/* Hero section */}
       <section className="min-h-[640px] h-full w-screen p-4 bg-indigo-100">
         <div
