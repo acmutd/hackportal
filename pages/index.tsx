@@ -60,7 +60,11 @@ export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpea
 
   const checkNotif = () => {
     //pop up visible if user did not enable push notif and browser supports push notif
-    return Notification.permission !== 'granted' && firebase.messaging.isSupported();
+    if (Notification.permission !== 'granted' && firebase.messaging.isSupported()) {
+      Notification.requestPermission().then(function () {});
+      return true;
+    }
+    return false;
   };
 
   return (

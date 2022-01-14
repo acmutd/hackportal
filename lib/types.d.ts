@@ -163,11 +163,13 @@ type KeynoteSpeaker = {
  *
  * @param title title of challenge
  * @param description description of that challenge
+ * @param prizes array of prizes starting from first and ending to last place prize
  *
  */
 type Challenge = {
   title: string;
   description: string;
+  prizes: [];
 };
 
 /**

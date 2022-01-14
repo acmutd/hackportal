@@ -109,11 +109,6 @@ export default function Dashboard(props: {
     var endHour = parseInt(endTimeMilitary.split(':')[0]);
     var endMinute = parseInt(endTimeMilitary.split(':')[1].substring(0, 2));
 
-    console.log('Time');
-    console.log(currentHour + ':' + currentMinute);
-    console.log(startHour + ':' + startMinute);
-    console.log(endHour + ':' + endMinute);
-
     if (currentHour >= startHour && currentHour <= endHour) {
       if (currentHour == startHour) {
         if (startHour != endHour) {
@@ -226,8 +221,8 @@ export default function Dashboard(props: {
             <h1 className="md:text-3xl text-xl font-black">Challenges</h1>
             {/* Card section */}
             <div className="flex flex-wrap justify-center my-8">
-              {props.challenges.map(({ title, description }, idx) => (
-                <ChallengeCard key={idx} title={title} description={description} />
+              {props.challenges.map(({ title, description, prizes }, idx) => (
+                <ChallengeCard key={idx} title={title} description={description} prizes={prizes} />
               ))}
             </div>
           </div>
