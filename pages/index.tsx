@@ -7,16 +7,23 @@ import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import { RequestHelper } from '../lib/request-helper';
 import firebase from 'firebase';
 import 'firebase/messaging';
+import HomeChallengeCard from '../components/HomeChallengeCard';
 
 /**
  * The home page.
  *
  * Landing: /
+ *
  */
-export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpeaker[] }) {
+export default function Home(props: {
+  keynoteSpeakers: KeynoteSpeaker[];
+  challenges: Challenge[];
+}) {
   const router = useRouter();
 
   const [speakers, setSpeakers] = useState<KeynoteSpeaker[]>([]);
+  const [challenges, setChallenges] = useState<Challenge[]>([]);
+  const [challengeIdx, setChallengeIdx] = useState(0);
 
   const colorSchemes: ColorScheme[] = [
     {
@@ -34,11 +41,13 @@ export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpea
   ];
 
   useEffect(() => {
-    setSpeakers(keynoteSpeakers);
-  }, [keynoteSpeakers]);
-
-  useEffect(() => {
     setTimeout(fadeOutEffect, 3000);
+    setSpeakers(props.keynoteSpeakers);
+    setChallenges(props.challenges);
+    if (document.getElementById(`org${challengeIdx}`) !== null) {
+      document.getElementById(`org${challengeIdx}`).style.textDecoration = 'underline';
+      document.getElementById(`card${challengeIdx}`).style.display = 'block';
+    }
   });
 
   const fadeOutEffect = () => {
@@ -61,11 +70,21 @@ export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpea
   const checkNotif = () => {
     //pop up visible if user did not enable push notif and browser supports push notif
     if (Notification.permission !== 'granted' && firebase.messaging.isSupported()) {
-      Notification.requestPermission().then(function () {});
+      Notification.requestPermission();
       return true;
     }
     return false;
   };
+
+  const changeOrg = (newIdx) => {
+    document.getElementById(`org${challengeIdx}`).style.textDecoration = 'none';
+    document.getElementById(`card${challengeIdx}`).style.display = 'none';
+    document.getElementById(`org${newIdx}`).style.textDecoration = 'underline';
+    document.getElementById(`card${newIdx}`).style.display = 'block';
+    setChallengeIdx(newIdx);
+  };
+
+  const testVar = 'This line shoud break\ninto two line';
 
   return (
     <>
@@ -178,19 +197,57 @@ export default function Home({ keynoteSpeakers }: { keynoteSpeakers: KeynoteSpea
           </div>
         </div>
       </section>
+      {/* Challenges */}
+      <section className="p-6">
+        <div className="font-bold text-2xl">Challenges</div>
+        <div className="flex">
+          {/* Challenge Orgs */}
+          <div className="md:w-1/4 w-1/5">
+            {challenges.map(({ organization }, idx) => (
+              <div
+                id={`org${idx}`}
+                className={`${idx} flex justify-center cursor-pointer text-center md:text-lg text-sm py-6 bg-red-200 my-4 rounded-md`}
+                key={idx}
+                onClick={() => changeOrg(idx)}
+              >
+                {organization}
+              </div>
+            ))}
+          </div>
+          {/* Challenges Description */}
+          <div className="md:w-3/4 w-4/5 my-4 px-6 min-h-full">
+            {/* Card */}
+            {challenges.map(({ title, organization, description, prizes }, idx) => (
+              <HomeChallengeCard
+                key={idx}
+                title={title}
+                organization={organization}
+                description={description}
+                prizes={prizes}
+                idx={idx}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const protocol = context.req.headers.referer?.split('://')[0] || 'http';
-  const { data } = await RequestHelper.get<KeynoteSpeaker[]>(
+  const { data: keynoteData } = await RequestHelper.get<KeynoteSpeaker[]>(
     `${protocol}://${context.req.headers.host}/api/keynotespeakers`,
+    {},
+  );
+  const { data: challengeData } = await RequestHelper.get<Challenge[]>(
+    `${protocol}://${context.req.headers.host}/api/challenges/`,
     {},
   );
   return {
     props: {
-      keynoteSpeakers: data,
+      keynoteSpeakers: keynoteData,
+      challenges: challengeData,
     },
   };
 };

@@ -2,19 +2,21 @@
  * Challenge Cards Component
  *
  * Cards for challenge section in hack center
+ * To add a linebreak for the description, simply add \n into the string value where needed in firebase
  */
 
 function ChallengeCard(props) {
-  // if(props.prizes !== null && props.prizes !== undefined){
-  //   console.log(props.prizes);
-  // }
+  var description;
+  if (props.description !== undefined && props.description !== null) {
+    description = props.description.replaceAll('\\n', '\n');
+  }
   return (
     <div className="max-w-[22rem] min-w-[22rem] min-h-[22rem] m-4 text-center sm:p-6 p-2 border-2 rounded-lg">
       <div className="lg:min-h-[5rem] min-h-[3rem] md:text-xl text-lg font-bold mb-4">
         {props.title}
       </div>
       <div className="">
-        <div className=" md:text-sm text-xs">{props.description}</div>
+        <div className="whitespace-pre-line md:text-sm text-xs">{description}</div>
       </div>
       {props.prizes !== null && props.prizes !== undefined && (
         <div className="md:text-base text-sm">

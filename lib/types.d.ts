@@ -162,14 +162,16 @@ type KeynoteSpeaker = {
  * Represent a challenge in hackcenter
  *
  * @param title title of challenge
- * @param description description of that challenge
+ * @param description description of that challenge. To add a linebreak, simply add \n into the string value where needed in firebase
  * @param prizes array of prizes starting from first and ending to last place prize
+ * @param organization name of organization that is sponsoring the challenge
  *
  */
 type Challenge = {
   title: string;
   description: string;
   prizes: [];
+  organization: string;
 };
 
 /**
