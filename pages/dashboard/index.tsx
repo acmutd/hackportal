@@ -40,9 +40,11 @@ export default function Dashboard(props: {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [dateTime, setdateTime] = useState(new Date());
   const [eventCount, setEventCount] = useState(0);
+  const [challenges, setChallenges] = useState<Challenge[]>([]);
 
   useEffect(() => {
     setAnnouncements(props.announcements);
+    setChallenges(props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
     if (firebase.messaging.isSupported()) {
       firebase.messaging().onMessage((payload) => {
         setAnnouncements((prev) => [
@@ -221,7 +223,7 @@ export default function Dashboard(props: {
             <h1 className="md:text-3xl text-xl font-black">Challenges</h1>
             {/* Card section */}
             <div className="flex flex-wrap justify-center my-8">
-              {props.challenges.map(({ title, description, prizes }, idx) => (
+              {challenges.map(({ title, description, prizes }, idx) => (
                 <ChallengeCard key={idx} title={title} description={description} prizes={prizes} />
               ))}
             </div>

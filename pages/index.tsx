@@ -43,7 +43,7 @@ export default function Home(props: {
   useEffect(() => {
     setTimeout(fadeOutEffect, 3000);
     setSpeakers(props.keynoteSpeakers);
-    setChallenges(props.challenges);
+    setChallenges(props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
     if (document.getElementById(`org${challengeIdx}`) !== null) {
       document.getElementById(`org${challengeIdx}`).style.textDecoration = 'underline';
       document.getElementById(`card${challengeIdx}`).style.display = 'block';
@@ -83,8 +83,6 @@ export default function Home(props: {
     document.getElementById(`card${newIdx}`).style.display = 'block';
     setChallengeIdx(newIdx);
   };
-
-  const testVar = 'This line shoud break\ninto two line';
 
   return (
     <>
@@ -205,8 +203,9 @@ export default function Home(props: {
           <div className="md:w-1/4 w-1/5">
             {challenges.map(({ organization }, idx) => (
               <div
+                style={{ backgroundColor: colorSchemes[idx % 3].dark }}
                 id={`org${idx}`}
-                className={`${idx} flex justify-center cursor-pointer text-center md:text-lg text-sm py-6 bg-red-200 my-4 rounded-md`}
+                className={`${idx} flex justify-center cursor-pointer text-center md:text-lg text-sm py-6 my-4 rounded-md`}
                 key={idx}
                 onClick={() => changeOrg(idx)}
               >

@@ -163,15 +163,16 @@ type KeynoteSpeaker = {
  *
  * @param title title of challenge
  * @param description description of that challenge. To add a linebreak, simply add \n into the string value where needed in firebase
- * @param prizes array of prizes starting from first and ending to last place prize
+ * @param prizes array of prizes starting from first and ending to last place prize, not required
  * @param organization name of organization that is sponsoring the challenge
- *
+ * @param rank number determining which challenge gets displayed in higher order, lower rank means higher order(index of array)
  */
 type Challenge = {
   title: string;
   description: string;
   prizes: [];
   organization: string;
+  rank: int;
 };
 
 /**
