@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { useState, useEffect } from 'react';
 import firebase from 'firebase/app';
-import 'firebase/auth';
+import Link from 'next/link';
 
 /**
  * A page that allows the user to sign in.
@@ -62,9 +62,9 @@ export default function AuthPage() {
     // </div>
     <>
       {/* md-lg screens */}
-      <section className="min-h-screen flex">
+      <section className="min-h-screen h-screen flex">
         {/* Login */}
-        <div className="h-full w-2/3 flex flex-col justify-center items-center text-center bg-white">
+        <div className="h-full w-2/3 flex flex-col justify-center items-center text-center bg-white p-4">
           <h1 className="text-3xl font-black">Login to your account</h1>
           <button
             className="px-4 py-2 rounded-md shadow-md bg-white my-4 text-lg font-bold hover:shadow-lg hover:bg-gray-100"
@@ -102,17 +102,16 @@ export default function AuthPage() {
           )}
         </div>
         {/* Create new accont */}
-        <div className="h-full w-1/3 bg-green-200 flex flex-col justify-center items-center text-center">
-          <h1 className="text-3xl font-black">New Here?</h1>
+        <div className="h-full w-1/3 bg-green-200 flex flex-col justify-center items-center text-center p-4">
+          <h1 className="text-3xl font-black">Don&#39;t have an account?</h1>
           <p className="my-6">
-            Create an acount to apply to the hackathon and to access user specific perks!
+            Create an account to apply to the hackathon and access user specific perks!
           </p>
-          <button
-            className="px-4 py-2 rounded-xl shadow-md bg-white hover:shadow-lg hover:bg-gray-100"
-            onClick={() => console.log('signin button clicked')}
-          >
-            Sign up
-          </button>
+          <Link href="/auth/signup">
+            <a className="px-4 py-2 rounded-xl shadow-md bg-white hover:shadow-lg hover:bg-gray-100">
+              Signup
+            </a>
+          </Link>
         </div>
       </section>
     </>
