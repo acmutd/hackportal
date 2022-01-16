@@ -7,9 +7,9 @@ import QRCodeReader from '../../components/QRCodeReader';
 import Sidebar from './Components/Sidebar';
 
 /**
- * The dashboard / submit.
+ * The dashboard / scan-in.
  *
- * Landing: /submit
+ * Landing: /scan-in
  */
 export default function Scan() {
   const { user, isSignedIn } = useAuthContext();
@@ -52,17 +52,18 @@ export default function Scan() {
       <Sidebar />
 
       <section id="mainContent" className="px-6 py-3 w-5/6 lg:wd-7/8 md:w-6/7">
-        <section id="subheader" className="p-4">
-          <DashboardHeader active="/dashboard/scan-in" />
-        </section>
+        <DashboardHeader />
         {isSignedIn ? (
-          <div className="top-6 flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center top-6 ">
             <div>
               <h4 className="text-center text-xl">Hacker Tag</h4>
+              <p>
+                Tap the button to generate your QR code to be scanned by an organizer for events
+              </p>
               <span className="text-center text-lg">{error}</span>
             </div>
             <div
-              className="rounded-2xl bg-green-300 text-center p-3 m-auto cursor-pointer hover:brightness-125"
+              className="rounded-2xl bg-green-300 text-center p-3 m-auto cursor-pointer hover:brightness-125 my-3"
               onClick={fetchQR}
             >
               Gen QR
@@ -70,8 +71,8 @@ export default function Scan() {
             <QRCode data={qrData} loading={qrLoading} width={200} height={200} />
           </div>
         ) : (
-          <div className="top-6">
-            <h4>Invalid Login</h4>
+          <div className="top-6 flex justify-center md:text-lg text-base">
+            <h4>Please sign in to get your QR code</h4>
           </div>
         )}
       </section>

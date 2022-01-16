@@ -9,7 +9,7 @@ import React from 'react';
  *
  */
 interface AboutHeaderProps {
-  active: '/about' | '/about/faq' | '/about/questions';
+  active: '/about' | '/about/faq';
 }
 
 /**
@@ -42,7 +42,7 @@ export default function AboutHeader({ active }: AboutHeaderProps) {
               </a>
             </a>
           </Link>
-          <Link href="/about/questions">
+          {/* <Link href="/about/questions">
             <a>
               <span className="inline md:invisible"></span>
               <a
@@ -53,7 +53,7 @@ export default function AboutHeader({ active }: AboutHeaderProps) {
                 Ask a Question
               </a>
             </a>
-          </Link>
+          </Link> */}
         </div>
       </header>
     </section>
