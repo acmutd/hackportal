@@ -73,7 +73,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
 
     const { displayName, email, photoURL, uid } = firebaseUser;
     const token = await firebaseUser.getIdToken();
-    console.log(firebaseUser.emailVerified);
+    let provider = (await firebaseUser.getIdTokenResult()).signInProvider;
     const query = new URL(`http://localhost:3000/api/userinfo`);
     query.searchParams.append('id', uid);
     const data = await fetch(query.toString().replaceAll('http://localhost:3000', ''), {

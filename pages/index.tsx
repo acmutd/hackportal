@@ -203,9 +203,8 @@ export default function Home(props: {
           <div className="md:w-1/4 w-1/5">
             {challenges.map(({ organization }, idx) => (
               <div
-                style={{ backgroundColor: colorSchemes[idx % 3].dark }}
                 id={`org${idx}`}
-                className={`${idx} flex justify-center cursor-pointer text-center md:text-lg text-sm py-6 my-4 rounded-md`}
+                className={`${idx} flex justify-center cursor-pointer text-center md:text-lg text-sm py-6 my-4 bg-red-200 rounded-md`}
                 key={idx}
                 onClick={() => changeOrg(idx)}
               >

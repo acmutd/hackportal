@@ -13,7 +13,6 @@ export default function AuthPage() {
   const { isSignedIn, signInWithGoogle, updateUser } = useAuthContext();
   const [currentEmail, setCurrentEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
-  const [passwordBasedSignin, setPasswordBasedSignin] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   const router = useRouter();
@@ -21,10 +20,12 @@ export default function AuthPage() {
     firebase
       .auth()
       .signInWithEmailAndPassword(currentEmail, currentPassword)
-      .then(async (userCredential) => {
+      .then(async ({ user }) => {
         // Signed in
-        const user = userCredential.user;
-        console.log('sign in success');
+
+        if (!firebase.auth().currentUser.emailVerified) {
+          throw new Error('Email is not verified. Verify your email before logging in.');
+        }
 
         await updateUser(user);
       })
@@ -95,11 +96,7 @@ export default function AuthPage() {
           >
             Sign in
           </button>
-          {passwordBasedSignin ? (
-            <div>Sign in successful! This is a test to see if sign is was successfull</div>
-          ) : (
-            <div>{errorMsg}</div>
-          )}
+          <div>{errorMsg}</div>
         </div>
         {/* Create new accont */}
         <div className="h-full w-1/3 bg-green-200 flex flex-col justify-center items-center text-center p-4">
