@@ -43,10 +43,10 @@ export default function ProfilePage() {
       <section className="w-full py-5">
         <div className="flex flex-col md:flex-row gap-x-10">
           <div
-            className="bg-gray-300 w-full md:w-2/5 rounded-xl p-4 flex flex-col justify-around"
+            className="flex flex-col justify-around w-full md:w-2/5 rounded-xl p-4 bg-gray-300 "
             style={{ minHeight: '500px' }}
           >
-            <h1 className="font-bold text-xl text-center">HackUTD VIII: Blast from the Past</h1>
+            <h1 className="font-bold text-xl text-center">HackPortal 1.0</h1>
             <div className="mx-auto">
               <Image
                 className="rounded-full object-cover"
@@ -65,15 +65,15 @@ export default function ProfilePage() {
           </div>
           <div className="w-full my-5">
             <div className="profile-view">
-              <div className="profile-view-name flex flex-col gap-y-2">
+              <div className="flex flex-col profile-view-name gap-y-2">
                 <h1>Name</h1>
                 <h1 className="font-bold">{user.firstName + ' ' + user.lastName}</h1>
               </div>
-              <div className="profile-view-role flex flex-col gap-y-2">
+              <div className="flex flex-col profile-view-role gap-y-2">
                 <h1>Role</h1>
                 <h1 className="font-bold">{role}</h1>
               </div>
-              <div className="profile-view-univ flex flex-col gap-y-2">
+              <div className="flex flex-col profile-view-univ gap-y-2">
                 <h1>University</h1>
                 <h1 className="font-bold">{user.university}</h1>
               </div>

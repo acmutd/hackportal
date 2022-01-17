@@ -7,13 +7,13 @@ import PendingQuestion from '../../components/PendingQuestion';
 import { RequestHelper } from '../../lib/request-helper';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { QAReqBody } from '../api/questions';
-
+import DashboardHeader from '../../components/DashboardHeader';
 /**
  * The Question and Answers page.
  *
  * This page is where Hackers can submit questions and then organizers can answer them.
  *
- * Route: /about/questions
+ * Route: /dashboard/questions
  */
 export default function QuestionsPage() {
   const [loading, setLoading] = useState(true);
@@ -151,7 +151,7 @@ export default function QuestionsPage() {
         <title>HackPortal - Questions</title>
         <meta name="description" content="HackPortal's Quesiton and Answer Page " />
       </Head>
-      <AboutHeader active="/about/questions" />
+      <DashboardHeader />
       <ErrorList
         errors={errors}
         onClose={(idx: number) => {

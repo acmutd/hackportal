@@ -5,7 +5,7 @@ import React from 'react';
  */
 export default function KeynoteSpeaker(props) {
   return (
-    <div className="flex w-[27rem] h-[9rem] md:mx-20 mx-16 my-4">
+    <div className="flex w-[27rem] h-[9rem] md:mr-20 mr-16 my-4">
       <div
         style={{ backgroundColor: props.cardColor.light }}
         className="w-[25%] rounded-l-md"
