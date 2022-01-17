@@ -16,7 +16,13 @@ export default function SignupPage() {
       .then((userCredential) => {
         // Signed in
         var user = userCredential.user;
-        setPasswordBasedSignin(true);
+        //send email verification
+        firebase
+          .auth()
+          .currentUser.sendEmailVerification()
+          .then(() => {
+            alert('Email sent');
+          });
       })
       .catch((error) => {
         var errorCode = error.code;
@@ -24,6 +30,8 @@ export default function SignupPage() {
         setError(errorMessage);
       });
   };
+
+  const verifyEmail = () => {};
 
   return (
     <div className="h-screen flex justify-center items-center">

@@ -10,28 +10,28 @@ import Link from 'next/link';
  * Route: /auth
  */
 export default function AuthPage() {
-  const { isSignedIn, signInWithGoogle } = useAuthContext();
+  const { isSignedIn, signInWithGoogle, updateUser } = useAuthContext();
   const [currentEmail, setCurrentEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [passwordBasedSignin, setPasswordBasedSignin] = useState(false);
-  const [error, setError] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const router = useRouter();
-  const signIn = () => {
+  const signIn = async () => {
     firebase
       .auth()
       .signInWithEmailAndPassword(currentEmail, currentPassword)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log('success');
-        setPasswordBasedSignin(true);
-        // ...
+        console.log('sign in success');
+
+        await updateUser(user);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        setError(errorMessage);
+        setErrorMsg(errorMessage);
       });
   };
 
@@ -98,7 +98,7 @@ export default function AuthPage() {
           {passwordBasedSignin ? (
             <div>Sign in successful! This is a test to see if sign is was successfull</div>
           ) : (
-            <div>{error}</div>
+            <div>{errorMsg}</div>
           )}
         </div>
         {/* Create new accont */}
@@ -109,7 +109,7 @@ export default function AuthPage() {
           </p>
           <Link href="/auth/signup">
             <a className="px-4 py-2 rounded-xl shadow-md bg-white hover:shadow-lg hover:bg-gray-100">
-              Signup
+              Sign up
             </a>
           </Link>
         </div>

@@ -31,6 +31,11 @@ interface AuthContextState {
    * Check if a user already has a profile
    */
   checkIfProfileExists: () => Promise<boolean>;
+
+  /**
+   * Updates user after logging in using password
+   */
+  updateUser: (user) => Promise<void>;
 }
 
 const AuthContext = React.createContext<AuthContextState | undefined>(undefined); // Find a better solution for this
@@ -65,8 +70,10 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       setLoading(false);
       return;
     }
+
     const { displayName, email, photoURL, uid } = firebaseUser;
     const token = await firebaseUser.getIdToken();
+    console.log(firebaseUser.emailVerified);
     const query = new URL(`http://localhost:3000/api/userinfo`);
     query.searchParams.append('id', uid);
     const data = await fetch(query.toString().replaceAll('http://localhost:3000', ''), {
@@ -165,6 +172,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     signInWithGoogle,
     signOut,
     checkIfProfileExists,
+    updateUser,
   };
 
   return (
