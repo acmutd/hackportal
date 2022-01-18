@@ -40,7 +40,7 @@ async function handleGetApplication(req: NextApiRequest, res: NextApiResponse) {
   // TODO: Extract from bearer token
   // Probably not safe
   if (!isAuthorized) {
-    res.status(401).send({
+    return res.status(401).send({
       type: 'request-unauthorized',
       message: 'Request is not authorized to perform admin functionality.',
     });

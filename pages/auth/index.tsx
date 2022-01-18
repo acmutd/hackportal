@@ -27,7 +27,7 @@ export default function AuthPage() {
           throw new Error('Email is not verified. Verify your email before logging in.');
         }
 
-        await updateUser(user);
+        updateUser(user);
       })
       .catch((error) => {
         const errorCode = error.code;

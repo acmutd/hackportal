@@ -73,7 +73,6 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
 
     const { displayName, email, photoURL, uid } = firebaseUser;
     const token = await firebaseUser.getIdToken();
-    let provider = (await firebaseUser.getIdTokenResult()).signInProvider;
     const query = new URL(`http://localhost:3000/api/userinfo`);
     query.searchParams.append('id', uid);
     const data = await fetch(query.toString().replaceAll('http://localhost:3000', ''), {
@@ -83,16 +82,16 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     });
     if (data.status !== 200) {
       console.error('Unexpected error when fetching AuthContext permission data...');
-      setUser(null);
+      // setUser(null);
       setLoading(false);
-      return;
+      // return;
     }
     const userData = await data.json();
     let permissions: UserPermission[] = userData.user?.permissions || ['hacker'];
     setUser({
       id: uid,
       token,
-      firstName: displayName,
+      firstName: displayName !== null ? displayName : '',
       lastName: '',
       preferredEmail: email,
       photoUrl: photoURL,

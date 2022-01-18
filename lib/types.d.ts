@@ -8,7 +8,7 @@ type WithId<T> = T & {
 /**
  * A flag for the set of functionality that is enabled for an account.
  */
-type UserPermission = 'admin' | 'sponsor' | 'organizer' | 'judge' | 'hacker';
+type UserPermission = 'admin' | 'sponsor' | 'organizer' | 'judge' | 'hacker' | 'super_admin';
 type Companies = 'SF' | 'AA' | 'C1' | 'EB' | 'FB';
 /**
  * Basic information needed for displays on the website.

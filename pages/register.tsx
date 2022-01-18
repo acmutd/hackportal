@@ -35,6 +35,8 @@ export default function Register() {
   };
 
   const handleSubmit = async () => {
+    user.firstName = registrationData.user.firstName;
+    user.lastName = registrationData.user.lastName;
     try {
       const formData = new FormData();
       formData.append('resume', resumeFile);
@@ -136,7 +138,7 @@ export default function Register() {
   }
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow bg-white">
       <Head>
         <title>Hacker Registration</title>
         <meta name="description" content="Register for [HACKATHON NAME]" />
@@ -432,7 +434,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Vegan')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Vegan</text>
+              <p className="inline-block pl-2">Vegan</p>
             </label>
             <label>
               <br />
@@ -443,7 +445,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Vegitarian')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Vegitarian</text>
+              <p className="inline-block pl-2">Vegitarian</p>
             </label>
             <label>
               <br />
@@ -454,7 +456,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Nuts')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Nuts</text>
+              <p className="inline-block pl-2">Nuts</p>
             </label>
             <label>
               <br />
@@ -465,7 +467,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Fish')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Fish</text>
+              <p className="inline-block pl-2">Fish</p>
             </label>
             <label>
               <br />
@@ -476,7 +478,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Wheat')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Wheat</text>
+              <p className="inline-block pl-2">Wheat</p>
             </label>
             <label>
               <br />
@@ -487,7 +489,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Dairy')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Dairy</text>
+              <p className="inline-block pl-2">Dairy</p>
             </label>
             <label>
               <br />
@@ -498,7 +500,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Eggs')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Eggs</text>
+              <p className="inline-block pl-2">Eggs</p>
               <br />
               <br />
             </label>
