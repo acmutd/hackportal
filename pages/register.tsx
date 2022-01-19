@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useUser } from '../lib/profile/user-data';
 import { RequestHelper } from '../lib/request-helper';
 import { useAuthContext } from '../lib/user/AuthContext';
+import firebase from 'firebase/app';
 
 /**
  * The registration page.
@@ -15,7 +16,7 @@ export default function Register() {
   const user = useUser();
   const router = useRouter();
 
-  const { checkIfProfileExists } = useAuthContext();
+  const { checkIfProfileExists, updateUser } = useAuthContext();
   const [resumeFile, setResumeFile] = useState<File>();
 
   const checkRedirect = async () => {
@@ -35,8 +36,6 @@ export default function Register() {
   };
 
   const handleSubmit = async () => {
-    user.firstName = registrationData.user.firstName;
-    user.lastName = registrationData.user.lastName;
     try {
       const formData = new FormData();
       formData.append('resume', resumeFile);
@@ -51,6 +50,7 @@ export default function Register() {
         body: formData,
       });
       await RequestHelper.post<Registration, void>('/api/applications', {}, registrationData);
+      updateUser(firebase.auth().currentUser);
       alert('Profile created successful');
       router.push('/profile');
     } catch (error) {

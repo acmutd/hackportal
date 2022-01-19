@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import firebase from 'firebase/app';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Link from 'next/link';
 /**
  * A page that allows a user to create a password based acount
  */
@@ -36,8 +38,16 @@ export default function SignupPage() {
 
   return (
     <div className="h-screen flex justify-center items-center">
-      <div className="flex flex-col items-center md:w-96 w-80 h-[28rem] bg-blue-200 p-8">
-        <h1 className="text-center text-black text-3xl mb-8">Create an Account</h1>
+      <div className="relative flex flex-col items-center w-96 h-[28rem] bg-blue-200 p-8">
+        <Link href="/auth">
+          <a className="absolute top-3 left-3 text-3xl">
+            <ArrowBackIcon />
+          </a>
+        </Link>
+        {/* <div className="absolute top-3 left-3 text-3xl">
+          {<ArrowBackIcon />}
+        </div> */}
+        <h1 className="text-center text-black text-3xl my-8">Create an Account</h1>
         <input
           className="w-full rounded-lg p-2 border-2 border-gray-500"
           value={currentEmail}

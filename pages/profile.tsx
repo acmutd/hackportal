@@ -53,15 +53,16 @@ export default function ProfilePage() {
           >
             <h1 className="font-bold text-xl text-center">HackPortal 1.0</h1>
             <div className="mx-auto">
-              {user.photoUrl !== null && (
+              {
+                //can switch default pfp to hackathon logo
                 <Image
                   className="rounded-full object-cover"
-                  src={user.photoUrl}
+                  src={user.photoUrl !== null ? user.photoUrl : '/../public/assets/dfaultPFP.jpg'}
                   height={180}
                   width={180}
                   alt="Your profile"
                 />
-              )}
+              }
             </div>
             <div>
               <h1 className="text-center font-bold text-xl">
