@@ -87,7 +87,6 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       // return;
     }
     const userData = await data.json();
-    console.log(userData);
     let permissions: UserPermission[] = userData.user?.permissions || ['hacker'];
     setUser({
       id: uid,

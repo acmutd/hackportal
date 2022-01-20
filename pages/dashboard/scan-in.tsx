@@ -29,7 +29,9 @@ export default function Scan() {
       method: 'GET',
     })
       .then(async (result) => {
+        console.log(result);
         if (result.status !== 200) {
+          setQRLoading(false);
           return setError('QR fetch failed. Please contact an event organizer.');
         }
         const data = await result.json();
