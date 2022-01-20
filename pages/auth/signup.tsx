@@ -44,9 +44,6 @@ export default function SignupPage() {
             <ArrowBackIcon />
           </a>
         </Link>
-        {/* <div className="absolute top-3 left-3 text-3xl">
-          {<ArrowBackIcon />}
-        </div> */}
         <h1 className="text-center text-black text-3xl my-8">Create an Account</h1>
         <input
           className="w-full rounded-lg p-2 border-2 border-gray-500"
