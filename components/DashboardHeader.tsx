@@ -8,7 +8,7 @@ interface DashboardHeaderProps {
 /**
  * A dashboard header.
  */
-export default function DashboardHeader({ active }: DashboardHeaderProps) {
+export default function DashboardHeader() {
   return (
     <>
       <header className="flex flex-row justify-between py-2 md:p-4 items-center">
@@ -24,6 +24,9 @@ export default function DashboardHeader({ active }: DashboardHeaderProps) {
           </NavLink>
           <NavLink href="/dashboard/submit" exact={true} className="p-2 mx-4">
             Submit
+          </NavLink>
+          <NavLink href="/dashboard/questions" exact={true} className="p-2 mx-4">
+            Ask a Question
           </NavLink>
         </div>
       </header>

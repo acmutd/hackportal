@@ -1,6 +1,5 @@
-import Link from 'next/link';
-import React from 'react';
 import { useAuthContext } from '../lib/user/AuthContext';
+import NavLink from './NavLink';
 
 function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;
@@ -16,31 +15,19 @@ export default function AdminHeader() {
     <section className="p-4">
       <header className="top-0 sticky flex flex-row justify-between p-2 md:p-4 items-center">
         <div className="mx-auto md:flex justify-center text-xl font-header md:text-left  gap-x-8">
-          <Link href="/admin">
-            <a>
-              <span className="inline md:invisible"></span>
-              <a className="link font-bold">Event Dashboard</a>
-            </a>
-          </Link>
-          <Link href="/admin/scan">
-            <a>
-              <span className="inline md:invisible"></span>
-              <a className="link font-bold">Scanner</a>
-            </a>
-          </Link>
-          <Link href="/admin/users">
-            <a>
-              <span className="inline md:invisible"></span>
-              <a className="link font-bold">Users Dashboard</a>
-            </a>
-          </Link>
+          <NavLink href="/admin" exact={true}>
+            Event Dashboard
+          </NavLink>
+          <NavLink href="/admin/scan" exact={true}>
+            Scanner
+          </NavLink>
+          <NavLink href="/admin/users" exact={true}>
+            Users Dashboard
+          </NavLink>
           {isAuthorized(user) && (
-            <Link href="/admin/stats">
-              <a>
-                <span className="inline md:invisible"></span>
-                <a className="link font-bold">Stats at a Glance</a>
-              </a>
-            </Link>
+            <NavLink href="/admin/stats" exact={true}>
+              Stats at a Glance
+            </NavLink>
           )}
         </div>
       </header>

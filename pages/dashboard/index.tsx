@@ -4,8 +4,6 @@ import DashboardHeader from '../../components/DashboardHeader';
 import { useUser } from '../../lib/profile/user-data';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import AnnouncementCard from './Components/AnnouncementCards';
-import MentorCard1 from './Components/MentorCard1';
-import MentorCard3 from './Components/MentorCard3';
 import Sidebar from './Components/Sidebar';
 import firebase from 'firebase';
 import 'firebase/messaging';
@@ -13,9 +11,9 @@ import { GetServerSideProps } from 'next';
 import { RequestHelper } from '../../lib/request-helper';
 import { useFCMContext } from '../../lib/service-worker/FCMContext';
 import SpotlightCard from './Components/SpotlightCard';
+import ChallengeCard from './Components/ChallengeCard';
 
 import { Navigation, Pagination, A11y } from 'swiper';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -34,6 +32,7 @@ import 'swiper/css/scrollbar';
 export default function Dashboard(props: {
   announcements: Announcement[];
   spotlightevents: SpotlightEvent[];
+  challenges: Challenge[];
 }) {
   const { isSignedIn } = useAuthContext();
   const user = useUser();
@@ -41,13 +40,18 @@ export default function Dashboard(props: {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [dateTime, setdateTime] = useState(new Date());
   const [eventCount, setEventCount] = useState(0);
-  var num;
 
   useEffect(() => {
     setAnnouncements(props.announcements);
-    firebase.messaging().onMessage((payload) => {
-      setAnnouncements((prev) => [JSON.parse(payload.data.notification) as Announcement, ...prev]);
-    });
+    if (firebase.messaging.isSupported()) {
+      firebase.messaging().onMessage((payload) => {
+        setAnnouncements((prev) => [
+          JSON.parse(payload.data.notification) as Announcement,
+          ...prev,
+        ]);
+      });
+    }
+
     setdateTime(new Date());
     setEventCount(
       props.spotlightevents.reduce(
@@ -80,12 +84,13 @@ export default function Dashboard(props: {
     var hour,
       startTimeMilitary = startTime,
       endTimeMilitary = endTime;
+
     if (startTime.substring(startTime.length - 2) == 'pm') {
       hour = parseInt(startTime.split(':')[0]);
       hour = hour === 12 ? 12 : hour + 12;
       startTimeMilitary = hour.toString() + ':' + startTime.split(':')[1];
     }
-    if (startTime.substring(startTime.length - 2) == 'am' && startTime.substring(0, 2)) {
+    if (startTime.substring(startTime.length - 2) == 'am' && startTime.substring(0, 2) == '12') {
       startTimeMilitary = '00:' + startTime.split(':')[1];
     }
     if (endTime.substring(endTime.length - 2) == 'pm') {
@@ -93,7 +98,7 @@ export default function Dashboard(props: {
       hour = hour === 12 ? 12 : hour + 12;
       endTimeMilitary = hour.toString() + ':' + endTime.split(':')[1];
     }
-    if (endTime.substring(endTime.length - 2) == 'am' && endTime.substring(0, 2)) {
+    if (endTime.substring(endTime.length - 2) == 'am' && endTime.substring(0, 2) == '12') {
       endTimeMilitary = '00:' + endTime.split(':')[1];
     }
 
@@ -137,10 +142,8 @@ export default function Dashboard(props: {
 
         <Sidebar />
 
-        <section id="mainContent" className="px-6 py-3 lg:w-7/8 md:w-6/7 w-full bg-white">
-          <section id="subheader" className="p-4 flex justify-center">
-            <DashboardHeader active="/dashboard/" />
-          </section>
+        <section id="mainContent" className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 bg-white">
+          <DashboardHeader />
 
           <div className="flex flex-wrap my-16">
             {/* Spotlight Events */}
@@ -153,6 +156,7 @@ export default function Dashboard(props: {
                   spaceBetween={50}
                   slidesPerView={1}
                   navigation
+                  loop={true}
                   pagination={{ clickable: true }}
                 >
                   {props.spotlightevents.map(
@@ -200,15 +204,26 @@ export default function Dashboard(props: {
           </div>
 
           {/* Events and Team */}
-          <div className="flex flex-wrap h-96 my-16">
-            {/* <div className="md:w-3/5 w-screen ">
+          {/* <div className="flex flex-wrap h-96 my-16">
+            <div className="md:w-3/5 w-screen ">
               <h1 className="md:text-3xl text-xl font-black">Your Saved Events</h1>
-            </div> */}
+            </div>
             <div className="md:w-2/5 w-screen ">
               <h1 className="md:text-3xl text-xl font-black">Your Team</h1>
               <div className="h-4/5 p-5 md:text-xl text-lg bg-purple-200 rounded-lg">
                 Hackergang
               </div>
+            </div>
+          </div> */}
+
+          {/* Challenges */}
+          <div className="flex flex-col items-center my-8">
+            <h1 className="md:text-3xl text-xl font-black">Challenges</h1>
+            {/* Card section */}
+            <div className="flex flex-wrap justify-center my-8">
+              {props.challenges.map(({ title, description, prizes }, idx) => (
+                <ChallengeCard key={idx} title={title} description={description} prizes={prizes} />
+              ))}
             </div>
           </div>
         </section>
@@ -227,11 +242,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/spotlightevents/`,
     {},
   );
+  const { data: challengeData } = await RequestHelper.get<Challenge[]>(
+    `${protocol}://${context.req.headers.host}/api/challenges/`,
+    {},
+  );
 
   return {
     props: {
       announcements: announcementData,
       spotlightevents: spotlightData,
+      challenges: challengeData,
     },
   };
 };
