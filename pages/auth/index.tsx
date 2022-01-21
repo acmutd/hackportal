@@ -24,11 +24,9 @@ export default function AuthPage() {
       .signInWithEmailAndPassword(currentEmail, currentPassword)
       .then(({ user }) => {
         // Signed in
-
-        if (!firebase.auth().currentUser.emailVerified) {
+        if (!user.emailVerified) {
           throw new Error('Email is not verified. Verify your email before logging in.');
         }
-
         updateUser(user);
       })
       .catch((error) => {
@@ -51,7 +49,6 @@ export default function AuthPage() {
         setErrorMsg(errorMessage);
       });
   };
-
   if (isSignedIn) {
     router.push('/profile');
   }
@@ -88,12 +85,6 @@ export default function AuthPage() {
                   placeholder="Password"
                 ></input>
               </div>
-              <button
-                className="px-4 py-2 rounded-md shadow-md bg-white hover:shadow-lg hover:bg-gray-100"
-                onClick={() => signIn()}
-              >
-                Sign in
-              </button>
               <div
                 className="hover:underline cursor-pointer w-[24rem] text-left"
                 onClick={() => {
@@ -103,31 +94,37 @@ export default function AuthPage() {
               >
                 Forgot password?
               </div>
-              <div className="w-[24rem] text-left">{errorMsg}</div>
+              <button
+                className="px-4 py-2 w-[24rem] rounded-md shadow-md bg-green-200 hover:shadow-lg hover:bg-green-300"
+                onClick={() => signIn()}
+              >
+                Sign in
+              </button>
+              <div className="my-4 w-[24rem]">{errorMsg}</div>
             </div>
           ) : (
             // Password reset section
             <div>
-              <div
-                className="cursor-pointer w-[24rem] text-left"
-                onClick={() => {
-                  setPasswordResetDialog(false);
-                  setErrorMsg('');
-                }}
-              >
-                <ArrowBackIcon />
+              <div className="w-[24rem] text-left">
+                <ArrowBackIcon
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setPasswordResetDialog(false);
+                    setErrorMsg('');
+                  }}
+                />
               </div>
               <h1 className="text-3xl font-black">Reset Password</h1>
               <div className="w-[24rem]">
                 <input
-                  className="w-full rounded-lg p-2 border-2 border-gray-500 my-8"
+                  className="w-full rounded-lg p-2 border-2 border-gray-500 mt-8 mb-4"
                   value={currentEmail}
                   onChange={(e) => setCurrentEmail(e.target.value)}
                   style={{ backgroundColor: '#FFF' }}
                   placeholder="Email"
                 ></input>
                 <button
-                  className="px-4 py-2 rounded-md shadow-md bg-white hover:shadow-lg hover:bg-gray-100"
+                  className="w-[24rem] px-4 py-2 rounded-md shadow-md bg-green-200 hover:shadow-lg hover:bg-green-300"
                   onClick={() => {
                     sendResetEmail();
                     setErrorMsg('');
@@ -153,6 +150,7 @@ export default function AuthPage() {
           </Link>
         </div>
       </section>
+
       {/* Small Screen */}
       <section className="flex md:hidden min-h-screen h-screen justify-center bg-white">
         <div className="flex flex-col items-center justify-center w-5/6 h-4/5 bg-blue-200 my-8 p-6">
@@ -192,12 +190,9 @@ export default function AuthPage() {
                 Sign in
               </button>
               <div>{errorMsg}</div>
-              <div className="flex justify-between sm:text-sm text-xs w-full my-4">
-                <Link href="/auth/signup">
-                  <a className="w-full hover:underline">Create an account</a>
-                </Link>
+              <div className="text-sm w-5/6 my-4">
                 <div
-                  className="cursor-pointer hover:underline whitespace-nowrap"
+                  className="cursor-pointer hover:underline"
                   onClick={() => {
                     setPasswordResetDialog(true);
                     setErrorMsg('');
@@ -205,19 +200,22 @@ export default function AuthPage() {
                 >
                   Forgot Password?
                 </div>
+                <Link href="/auth/signup">
+                  <a className="w-full hover:underline">Create an account</a>
+                </Link>
               </div>
             </>
           ) : (
             //Password reset section
             <div>
-              <div
-                className="cursor-pointer w-full text-left my-4"
-                onClick={() => {
-                  setPasswordResetDialog(false);
-                  setErrorMsg('');
-                }}
-              >
-                <ArrowBackIcon />
+              <div className="w-full text-left my-4">
+                <ArrowBackIcon
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setPasswordResetDialog(false);
+                    setErrorMsg('');
+                  }}
+                />
               </div>
               <h1 className="text-3xl font-black">Reset Password</h1>
               <div className="w-full">

@@ -1,11 +1,12 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import ProfileDialog from './ProfileDialog';
 import { useUser } from '../lib/profile/user-data';
 import { useAuthContext } from '../lib/user/AuthContext';
 import { navItems } from '../lib/data';
+import firebase from 'firebase/app';
 
 /**
  * A global site header throughout the entire app.
@@ -17,6 +18,20 @@ export default function AppHeader() {
   const [showProfileDialog, setShowProfileDialog] = useState(false);
 
   const user = useUser();
+
+  useEffect(() => {
+    if (firebase.auth().currentUser !== null && !firebase.auth().currentUser.emailVerified) {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          //signed out succesfully
+        })
+        .catch((error) => {
+          console.warn('Could not sign out');
+        });
+    }
+  });
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);

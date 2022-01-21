@@ -103,6 +103,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
 
   React.useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
+      if (user != null && !user.emailVerified) return;
       updateUser(user);
     });
   }, []);

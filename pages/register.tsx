@@ -16,12 +16,13 @@ export default function Register() {
   const user = useUser();
   const router = useRouter();
 
-  const { checkIfProfileExists, updateUser } = useAuthContext();
+  const { checkIfProfileExists, updateUser, isSignedIn } = useAuthContext();
   const [resumeFile, setResumeFile] = useState<File>();
 
   const checkRedirect = async () => {
     const hasProfile = await checkIfProfileExists();
     if (hasProfile) router.push('/profile');
+    if (!isSignedIn) router.push('/auth');
   };
 
   useEffect(() => {
