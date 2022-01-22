@@ -16,6 +16,7 @@ export default function AuthPage() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [passwordResetDialog, setPasswordResetDialog] = useState(false);
+  const [sendVerification, setSendVerification] = useState(false);
 
   const router = useRouter();
   const signIn = () => {
@@ -25,6 +26,7 @@ export default function AuthPage() {
       .then(({ user }) => {
         // Signed in
         if (!user.emailVerified) {
+          setSendVerification(true);
           throw new Error('Email is not verified. Verify your email before logging in.');
         }
         updateUser(user);
@@ -49,6 +51,24 @@ export default function AuthPage() {
         setErrorMsg(errorMessage);
       });
   };
+
+  const sendVerificationEmail = () => {
+    //send email verification
+    try {
+      firebase
+        .auth()
+        .currentUser.sendEmailVerification()
+        .then(() => {
+          router.push('/auth');
+          alert('Verification email sent, check your email to verify your account to log in');
+        });
+    } catch (error) {
+      alert(
+        'There has been a problem sending a verfication email.\nWait a few minutes before sending another request.',
+      );
+    }
+  };
+
   if (isSignedIn) {
     router.push('/profile');
   }
@@ -71,14 +91,14 @@ export default function AuthPage() {
               <div className="text-sm">or</div>
               <div className="w-[24rem]">
                 <input
-                  className="w-full rounded-lg p-2 border-2 border-gray-500"
+                  className="w-full rounded-lg p-2 border-[1px] border-gray-500"
                   value={currentEmail}
                   onChange={(e) => setCurrentEmail(e.target.value)}
                   style={{ backgroundColor: '#FFF' }}
                   placeholder="Email"
                 ></input>
                 <input
-                  className="w-full rounded-lg p-2 my-2 border-2 border-gray-500"
+                  className="w-full rounded-lg p-2 my-2 border-[1px] border-gray-500"
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
                   style={{ backgroundColor: '#FFF' }}
@@ -100,7 +120,12 @@ export default function AuthPage() {
               >
                 Sign in
               </button>
-              <div className="my-4 w-[24rem]">{errorMsg}</div>
+              <div className="mt-4 w-[24rem]">{errorMsg}</div>
+              {sendVerification && (
+                <button className="underline" onClick={() => sendVerificationEmail()}>
+                  Resend verification
+                </button>
+              )}
             </div>
           ) : (
             // Password reset section
@@ -117,7 +142,7 @@ export default function AuthPage() {
               <h1 className="text-3xl font-black">Reset Password</h1>
               <div className="w-[24rem]">
                 <input
-                  className="w-full rounded-lg p-2 border-2 border-gray-500 mt-8 mb-4"
+                  className="w-full rounded-lg p-2 border-[1px] border-gray-500 mt-8 mb-4"
                   value={currentEmail}
                   onChange={(e) => setCurrentEmail(e.target.value)}
                   style={{ backgroundColor: '#FFF' }}
@@ -169,14 +194,14 @@ export default function AuthPage() {
               <div className="text-sm">or</div>
               <div className="w-5/6">
                 <input
-                  className="w-full rounded-lg p-2 border-2 border-gray-500"
+                  className="w-full rounded-lg p-2 border-[1px] border-gray-500"
                   value={currentEmail}
                   onChange={(e) => setCurrentEmail(e.target.value)}
                   style={{ backgroundColor: '#FFF' }}
                   placeholder="Email"
                 ></input>
                 <input
-                  className="w-full rounded-lg p-2 my-2 border-2 border-gray-500"
+                  className="w-full rounded-lg p-2 my-2 border-[1px] border-gray-500"
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
                   style={{ backgroundColor: '#FFF' }}
@@ -184,12 +209,17 @@ export default function AuthPage() {
                 ></input>
               </div>
               <button
-                className="px-4 py-2 rounded-md shadow-md bg-white hover:shadow-lg hover:bg-gray-100"
+                className="px-4 py-2 rounded-md shadow-md bg-white w-5/6 hover:shadow-lg hover:bg-gray-100"
                 onClick={() => signIn()}
               >
                 Sign in
               </button>
-              <div>{errorMsg}</div>
+              <div className="text-sm">{errorMsg}</div>
+              {sendVerification && (
+                <button className="underline text-sm" onClick={() => sendVerificationEmail()}>
+                  Resend verification
+                </button>
+              )}
               <div className="text-sm w-5/6 my-4">
                 <div
                   className="cursor-pointer hover:underline"
@@ -220,7 +250,7 @@ export default function AuthPage() {
               <h1 className="text-3xl font-black">Reset Password</h1>
               <div className="w-full">
                 <input
-                  className="w-full rounded-lg p-2 border-2 border-gray-500 my-4"
+                  className="w-full rounded-lg p-2 border-[1px] border-gray-500 my-4"
                   value={currentEmail}
                   onChange={(e) => setCurrentEmail(e.target.value)}
                   style={{ backgroundColor: '#FFF' }}

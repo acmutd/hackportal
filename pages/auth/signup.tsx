@@ -46,21 +46,21 @@ export default function SignupPage() {
         </Link>
         <h1 className="text-center text-black text-3xl my-8">Create an Account</h1>
         <input
-          className="w-full rounded-lg p-2 border-2 border-gray-500"
+          className="w-full rounded-lg p-2 border-[1px] border-gray-500"
           value={currentEmail}
           onChange={(e) => setCurrentEmail(e.target.value)}
           style={{ backgroundColor: '#FFF' }}
           placeholder="Email"
         ></input>
         <input
-          className="w-full rounded-lg p-2 my-2 border-2 border-gray-500"
+          className="w-full rounded-lg p-2 my-2 border-[1px] border-gray-500"
           value={currentPassword}
           onChange={(e) => setCurrentPassword(e.target.value)}
           style={{ backgroundColor: '#FFF' }}
           placeholder="Password"
         ></input>
         <button
-          className="px-4 py-2 rounded-md shadow-md bg-white hover:shadow-lg hover:bg-gray-100"
+          className="px-4 py-2 rounded-md shadow-md bg-white w-full hover:shadow-lg hover:bg-gray-100"
           onClick={() => signUp()}
         >
           Sign up
