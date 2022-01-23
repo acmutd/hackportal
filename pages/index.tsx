@@ -43,9 +43,14 @@ export default function Home(props: {
   useEffect(() => {
     setTimeout(fadeOutEffect, 3000);
     setSpeakers(props.keynoteSpeakers);
+    //organize challenges in order by rank given in firebase
     setChallenges(props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
     if (document.getElementById(`org${challengeIdx}`) !== null) {
+      //show first org selector
       document.getElementById(`org${challengeIdx}`).style.textDecoration = 'underline';
+      (
+        document.getElementById(`org${challengeIdx}`).firstElementChild as HTMLElement
+      ).style.display = 'block';
       document.getElementById(`card${challengeIdx}`).style.display = 'block';
     }
   });
@@ -77,10 +82,17 @@ export default function Home(props: {
   };
 
   const changeOrg = (newIdx) => {
+    //make old org selected hidden
     document.getElementById(`org${challengeIdx}`).style.textDecoration = 'none';
+    (document.getElementById(`org${challengeIdx}`).firstElementChild as HTMLElement).style.display =
+      'none';
     document.getElementById(`card${challengeIdx}`).style.display = 'none';
+    //make new org selected show
     document.getElementById(`org${newIdx}`).style.textDecoration = 'underline';
+    (document.getElementById(`org${newIdx}`).firstElementChild as HTMLElement).style.display =
+      'block';
     document.getElementById(`card${newIdx}`).style.display = 'block';
+
     setChallengeIdx(newIdx);
   };
 
@@ -131,31 +143,31 @@ export default function Home(props: {
       </section>
       {/* Video Space */}
       <section className="z-0 relative w-screen md:mt-0 mt-16 md:h-[560px] py-[3rem] bg-white">
-        <div className="flex flex-col justify-center items-center md:flex-row w-full h-full">
-          <div className="flex flex-col justify-center items-center md:flex-row w-11/12 h-3/6">
-            {/* Video */}
-            <iframe
-              className="w-full h-[320px] md:w-[720px] md:h-[400px]"
-              src="https://www.youtube.com/embed/TF3nn7RnA0c"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-            {/* Stats */}
-            <div className="flex flex-col justify-center w-4/12 h-3/6">
-              {stats.map((stat, index) => (
-                <div
-                  key={stat.data}
-                  className={`${
-                    index % 2 === 0 ? 'lg:ml-40' : 'lg:mr-8'
-                  } text-center my-6 md:ml-16`}
-                >
-                  <p className="font-bold text-4xl text-indigo-600 lg:text-5xl">{stat.data}</p>
-                  <p className="font-medium text-lg lg:text-3xl">{stat.object}</p>
-                </div>
-              ))}
-            </div>
+        <div className="flex flex-col justify-center items-center md:flex-row">
+          {/* Video */}
+          <iframe
+            className="video"
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/TF3nn7RnA0c"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+          {/* Stats */}
+          <div className="flex flex-col justify-center">
+            {stats.map((stat, index) => (
+              <div
+                key={stat.data}
+                className={`${
+                  index % 2 === 0 ? 'lg:ml-40 md:ml-28' : 'md:mr-8'
+                } text-center md:my-6 my-3`}
+              >
+                <p className="font-bold text-2xl text-indigo-600 lg:text-5xl">{stat.data}</p>
+                <p className="font-medium text-lg lg:text-3xl">{stat.object}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -199,20 +211,22 @@ export default function Home(props: {
       <section className="p-6">
         <div className="font-bold text-2xl">Challenges</div>
         <div className="flex">
-          {/* Challenge Orgs */}
+          {/* Challenge Orgs Selectors*/}
           <div className="md:w-1/4 w-1/5">
             {challenges.map(({ organization }, idx) => (
               <div
                 id={`org${idx}`}
-                className={`${idx} flex justify-center cursor-pointer text-center md:text-lg text-sm py-6 my-4 bg-red-200 rounded-md`}
+                className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs py-6 my-4 bg-red-200 rounded-sm`}
                 key={idx}
                 onClick={() => changeOrg(idx)}
               >
+                {/* change arrow color in global css to match parent selector */}
+                <div className="arrow-right absolute top-1/2 right-0 -translate-y-1/2 translate-x-full hidden"></div>
                 {organization}
               </div>
             ))}
           </div>
-          {/* Challenges Description */}
+          {/* Challenges Description Cards */}
           <div className="md:w-3/4 w-4/5 my-4 px-6 min-h-full">
             {/* Card */}
             {challenges.map(({ title, organization, description, prizes }, idx) => (

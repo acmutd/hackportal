@@ -150,7 +150,7 @@ export default function Dashboard(props: {
           <div className="flex flex-wrap my-16">
             {/* Spotlight Events */}
             {eventCount > 0 && (
-              <div className="md:w-3/5 w-full h-96">
+              <div className="lg:w-3/5 w-full h-96">
                 <h1 className="md:text-3xl text-xl font-black">Spotlight</h1>
                 <div>{eventCountString}</div>
                 <Swiper
@@ -185,7 +185,7 @@ export default function Dashboard(props: {
               </div>
             )}
             {/* Announcements */}
-            <div className="md:w-2/5 w-screen h-96">
+            <div className="lg:w-2/5 w-full h-96">
               <h1 className="md:text-3xl text-xl font-black">Announcements</h1>
               <div id="announcement-items" className="overflow-y-scroll h-9/10">
                 {announcements.map((announcement, idx) => {

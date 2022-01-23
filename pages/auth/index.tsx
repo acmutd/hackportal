@@ -20,6 +20,7 @@ export default function AuthPage() {
 
   const router = useRouter();
   const signIn = () => {
+    setSendVerification(false);
     firebase
       .auth()
       .signInWithEmailAndPassword(currentEmail, currentPassword)
@@ -110,6 +111,7 @@ export default function AuthPage() {
                 onClick={() => {
                   setPasswordResetDialog(true);
                   setErrorMsg('');
+                  setSendVerification(false);
                 }}
               >
                 Forgot password?
@@ -226,6 +228,7 @@ export default function AuthPage() {
                   onClick={() => {
                     setPasswordResetDialog(true);
                     setErrorMsg('');
+                    setSendVerification(false);
                   }}
                 >
                   Forgot Password?
