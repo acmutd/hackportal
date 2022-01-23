@@ -205,24 +205,11 @@ export default function Dashboard(props: {
             </div>
           </div>
 
-          {/* Events and Team */}
-          {/* <div className="flex flex-wrap h-96 my-16">
-            <div className="md:w-3/5 w-screen ">
-              <h1 className="md:text-3xl text-xl font-black">Your Saved Events</h1>
-            </div>
-            <div className="md:w-2/5 w-screen ">
-              <h1 className="md:text-3xl text-xl font-black">Your Team</h1>
-              <div className="h-4/5 p-5 md:text-xl text-lg bg-purple-200 rounded-lg">
-                Hackergang
-              </div>
-            </div>
-          </div> */}
-
           {/* Challenges */}
           <div className="flex flex-col items-center my-8">
             <h1 className="md:text-3xl text-xl font-black">Challenges</h1>
             {/* Card section */}
-            <div className="flex flex-wrap justify-center my-8">
+            <div className="challengeGrid my-8">
               {challenges.map(({ title, description, prizes }, idx) => (
                 <ChallengeCard key={idx} title={title} description={description} prizes={prizes} />
               ))}

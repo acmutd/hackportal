@@ -27,24 +27,6 @@ a.link {
 
 .element {
   font-family: 'wavehaus';
- }
-
-/* Dropdown menu css classes */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
- 
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
-.element {
-  font-family: 'wavehaus';
 }
 
 .profile-view {
@@ -74,4 +56,14 @@ a {
 
 .profile-view-interests {
   grid-area: interests;
+}
+
+.challengeGrid {
+  column-count: 2;
+}
+
+@media (max-width: 768px){
+  .challengeGrid {
+    column-count: 1;
+  }
 }
