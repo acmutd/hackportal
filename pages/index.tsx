@@ -142,13 +142,13 @@ export default function Home(props: {
         </div>
       </section>
       {/* Video Space */}
-      <section className="z-0 relative w-screen md:mt-0 mt-16 md:h-[560px] py-[3rem] bg-white">
+      <section className="z-0 relative w-screen md:h-[560px] py-[3rem] bg-white">
         <div className="flex flex-col justify-center items-center md:flex-row">
           {/* Video */}
           <iframe
             className="video"
-            width="560"
-            height="315"
+            width="700"
+            height="400"
             src="https://www.youtube.com/embed/TF3nn7RnA0c"
             title="YouTube video player"
             frameBorder="0"
@@ -216,7 +216,7 @@ export default function Home(props: {
             {challenges.map(({ organization }, idx) => (
               <div
                 id={`org${idx}`}
-                className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs py-6 my-4 bg-red-200 rounded-sm`}
+                className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
                 key={idx}
                 onClick={() => changeOrg(idx)}
               >
