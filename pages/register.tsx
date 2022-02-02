@@ -36,18 +36,18 @@ export default function Register() {
 
   const handleSubmit = async () => {
     try {
-      const formData = new FormData();
-      formData.append('resume', resumeFile);
-      formData.append(
-        'fileName',
-        `resume_${registrationData.user.firstName}_${registrationData.user.lastName}${getExtension(
-          resumeFile.name,
-        )}`,
-      );
-      await fetch('/api/resume/upload', {
-        method: 'post',
-        body: formData,
-      });
+      // const formData = new FormData();
+      // formData.append('resume', resumeFile);
+      // formData.append(
+      //   'fileName',
+      //   `resume_${registrationData.user.firstName}_${registrationData.user.lastName}${getExtension(
+      //     resumeFile.name,
+      //   )}`,
+      // );
+      // await fetch('/api/resume/upload', {
+      //   method: 'post',
+      //   body: formData,
+      // });
       await RequestHelper.post<Registration, void>('/api/applications', {}, registrationData);
       alert('Profile created successful');
       router.push('/profile');
@@ -82,7 +82,7 @@ export default function Register() {
     github: '',
     linkedin: '',
     website: '',
-    resume: '',
+    //resume: '',
     companies: [],
   });
 
@@ -192,10 +192,9 @@ export default function Register() {
               <br />
               <input
                 placeholder="email@example.com"
-                type="type"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                type="text"
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
-                name="email"
+                name="preferredEmail"
                 autoComplete="email"
                 required
                 value={registrationData.user.preferredEmail}
@@ -624,7 +623,7 @@ export default function Register() {
               <br />
             </label>
 
-            <label>
+            {/* <label>
               Upload your resume:
               <br />
               <input
@@ -634,7 +633,7 @@ export default function Register() {
                 formEncType="multipart/form-data"
               />
               <br />
-            </label>
+            </label> */}
             <br />
             <button
               type="button"

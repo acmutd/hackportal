@@ -72,7 +72,7 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
 
   let body: Registration;
   try {
-    body = req.body;
+    body = JSON.parse(req.body);
   } catch (error) {
     console.error('Could not parse request JSON body');
     return res.status(400).json({
@@ -80,6 +80,8 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
       message: '',
     });
   }
+
+  console.log(body);
 
   const snapshot = await db
     .collection(APPLICATIONS_COLLECTION)

@@ -55,6 +55,7 @@ function useAuthContext(): AuthContextState {
 function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>): JSX.Element {
   const [user, setUser] = React.useState<User>(null);
   const [loading, setLoading] = React.useState(true);
+  const [signIn, setSignIn] = React.useState(false);
 
   const updateUser = async (firebaseUser: firebase.User | null) => {
     setLoading(true);
@@ -65,8 +66,20 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       setLoading(false);
       return;
     }
+    setSignIn(true);
     const { displayName, email, photoURL, uid } = firebaseUser;
     const token = await firebaseUser.getIdToken();
+    setUser({
+      id: uid,
+      token,
+      firstName: displayName,
+      lastName: '',
+      preferredEmail: email,
+      photoUrl: photoURL,
+      permissions: ['hacker'], // probably not the best way to do this, but it works for hackutd and that's what matters
+      university: '',
+    });
+
     const query = new URL(`http://localhost:3000/api/userinfo`);
     query.searchParams.append('id', uid);
     const data = await fetch(query.toString().replaceAll('http://localhost:3000', ''), {
@@ -76,7 +89,6 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     });
     if (data.status !== 200) {
       console.error('Unexpected error when fetching AuthContext permission data...');
-      setUser(null);
       setLoading(false);
       return;
     }
@@ -112,6 +124,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       .signOut()
       .then(() => {
         setUser(null);
+        setSignIn(false);
       })
       .catch((error) => {
         console.error('Could not sign out.', error);
@@ -157,11 +170,9 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       });
   };
 
-  const isSignedIn = user !== null;
-
   const authContextValue: AuthContextState = {
     user,
-    isSignedIn,
+    isSignedIn: signIn,
     signInWithGoogle,
     signOut,
     checkIfProfileExists,
