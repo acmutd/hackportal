@@ -446,6 +446,10 @@ export default function Admin() {
                       <button
                         className="font-bold bg-red-300 hover:bg-red-200 rounded-lg p-3"
                         onClick={() => {
+                          if (currentScan.isCheckIn) {
+                            alert('Check-in scan cannot be deleted');
+                            return;
+                          }
                           setShowDeleteScanDialog(true);
                         }}
                       >

@@ -31,6 +31,11 @@ async function updateUserDoc(targetScanName: string) {
 async function deleteScanType(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { scanData } = req.body;
+    if (scanData.isCheckIn) {
+      return res.status(400).json({
+        msg: 'Check-in scan cannot be deleted',
+      });
+    }
     const snapshot = await db
       .collection(SCANTYPES_COLLECTION)
       .where('precedence', '==', scanData.precedence)
