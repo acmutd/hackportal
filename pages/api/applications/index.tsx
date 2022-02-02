@@ -34,7 +34,7 @@ async function handleGetApplications(req: NextApiRequest, res: NextApiResponse) 
   const isAuthorized = await userIsAuthorized(userToken);
 
   if (!isAuthorized) {
-    res.status(401).send({
+    return res.status(401).send({
       type: 'request-unauthorized',
       message: 'Request is not authorized to perform admin functionality.',
     });
@@ -75,11 +75,10 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
     body = req.body;
   } catch (error) {
     console.error('Could not parse request JSON body');
-    res.status(400).json({
+    return res.status(400).json({
       type: 'invalid',
       message: '',
     });
-    return;
   }
 
   const snapshot = await db
@@ -88,7 +87,7 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
     .get();
 
   if (!snapshot.empty) {
-    res.status(400).json({
+    return res.status(400).json({
       msg: 'Profile already exists',
     });
   }
