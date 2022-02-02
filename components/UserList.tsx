@@ -1,14 +1,24 @@
 import { UserData } from '../pages/api/users';
 
 interface UserListProps {
+  hasSuperAdminPrivilege: boolean;
   users: UserData[];
+  onItemClick: (id: string) => void;
 }
 
-export default function UserList({ users }: UserListProps) {
+export default function UserList({ users, onItemClick, hasSuperAdminPrivilege }: UserListProps) {
   return (
     <div className="w-full flex flex-row flex-wrap">
       {users.map((user, idx) => (
-        <div key={idx} className="w-1/4 text-center flex flex-row items-center gap-x-4 my-2">
+        <div
+          key={idx}
+          className={`w-1/4 text-center flex flex-row items-center gap-x-4 my-2 p-2 rounded-lg ${
+            hasSuperAdminPrivilege ? 'cursor-pointer hover:bg-gray-200' : ''
+          }`}
+          onClick={() => {
+            if (hasSuperAdminPrivilege) onItemClick(user.id);
+          }}
+        >
           <svg height="28" width="28">
             <circle cx="14" cy="14" r="10" fill="#C4C4C4" />
           </svg>

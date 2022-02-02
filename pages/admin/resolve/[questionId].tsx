@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { isAuthorized } from '..';
 import ErrorList from '../../../components/ErrorList';
 import PendingQuestion from '../../../components/PendingQuestion';
 import { RequestHelper } from '../../../lib/request-helper';
@@ -51,6 +52,10 @@ export default function ResolveQuestionPage({
       console.log(error);
     }
   };
+
+  if (!user || !isAuthorized(user))
+    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+
   return (
     <div className="p-6">
       <ErrorList
