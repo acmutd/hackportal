@@ -46,7 +46,12 @@ async function getStatsData() {
       });
     }
 
-    switch (userData.user.permissions && userData.user.permissions[0]) {
+    let userPermission = '';
+    if (userData.user && userData.user.permissions) {
+      userPermission = userData.user.permissions[0];
+    }
+
+    switch (userPermission) {
       case 'super_admin': {
         superAdminCount++;
       }
