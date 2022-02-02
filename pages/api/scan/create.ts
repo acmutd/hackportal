@@ -20,6 +20,7 @@ async function checkIfCheckInAlreadyExists() {
 async function createScan(req: NextApiRequest, res: NextApiResponse) {
   try {
     const scanData = JSON.parse(req.body);
+    scanData.name = scanData.name.trim();
     if (await checkIfNameAlreadyExists(scanData.name)) {
       return res.status(400).json({
         msg: 'Scantype already exists',

@@ -42,6 +42,7 @@ async function updateUserDoc(oldScanName: string, newScanName: string) {
 
 async function updateScanType(req: NextApiRequest, res: NextApiResponse) {
   const { scanData } = req.body;
+  scanData.name = scanData.name.trim();
   try {
     const snapshot = await db
       .collection(SCANTYPES_COLLECTION)
