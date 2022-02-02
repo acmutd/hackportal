@@ -420,16 +420,10 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(
 );
 
 export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
-  const [schedule, setSchedule] = useState<ScheduleEvent[]>([]);
-
-  useEffect(() => {
-    setSchedule(props.scheduleCard);
-    //organize challenges in order by rank given in firebase
-  });
-
+  console.log(props.scheduleCard);
   return (
     <Paper>
-      <Scheduler data={appointments}>
+      <Scheduler data={props.scheduleCard}>
         <ViewState defaultCurrentDate={defaultCurrentDate} />
 
         <DayView startDayHour={8} endDayHour={24} intervalCount={2} />

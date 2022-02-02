@@ -23,8 +23,8 @@ export default function SponsorCard(props: SponsorCardProps) {
       .child(props.reference)
       .getDownloadURL()
       .then((url) => {
-        setLoading(false);
         setImgSrc(url);
+        setLoading(false);
       });
   }, []);
 
@@ -33,8 +33,9 @@ export default function SponsorCard(props: SponsorCardProps) {
   return (
     <div className="flex w-[27rem] h-[9rem] md:mr-20 mr-16 my-4">
       <a href={props.link}>
-        <Image src={imgSrc} />
+        <Image src={imgSrc} width="100%" />
       </a>
+      <br></br>
     </div>
   );
 }

@@ -20,7 +20,12 @@ async function getScheduleEvents(req: NextApiRequest, res: NextApiResponse) {
   const snapshot = await db.collection(SCHEDULE_EVENTS).get();
   let data = [];
   snapshot.forEach((doc) => {
-    data.push(doc.data());
+    const currentEvent = doc.data();
+    data.push({
+      ...currentEvent,
+      startDate: currentEvent.startDate.toDate(),
+      endDate: currentEvent.endDate.toDate(),
+    });
   });
   res.json(data);
 }
