@@ -8,6 +8,16 @@ const db = firestore();
 const SCANTYPES_COLLECTION = '/scan-types';
 const REGISTRATION_COLLECTION = '/registrations';
 
+async function checkIfNameAlreadyExists(name: string) {
+  const snapshot = await db.collection(SCANTYPES_COLLECTION).where('name', '==', name).get();
+  return !snapshot.empty;
+}
+
+async function checkIfCheckInAlreadyExists() {
+  const snapshot = await db.collection(SCANTYPES_COLLECTION).where('isCheckIn', '==', true).get();
+  return !snapshot.empty;
+}
+
 async function updateUserDoc(oldScanName: string, newScanName: string) {
   try {
     const snapshot = await db.collection(REGISTRATION_COLLECTION).get();
@@ -31,19 +41,37 @@ async function updateUserDoc(oldScanName: string, newScanName: string) {
 }
 
 async function updateScanType(req: NextApiRequest, res: NextApiResponse) {
+  const { scanData } = req.body;
+  scanData.name = scanData.name.trim();
   try {
     const snapshot = await db
       .collection(SCANTYPES_COLLECTION)
-      .where('precedence', '==', req.body.scanData.precedence)
+      .where('precedence', '==', scanData.precedence)
       .get();
     if (snapshot.empty) {
       return res.status(404).json({
         msg: 'ScanTypes not found',
       });
     }
+
+    if (await checkIfNameAlreadyExists(scanData.name)) {
+      return res.status(400).json({
+        msg: 'Scantype already exists',
+      });
+    }
+
+    if (scanData.isCheckIn) {
+      const hasCheckIn = await checkIfCheckInAlreadyExists();
+      if (hasCheckIn) {
+        return res.status(400).json({
+          msg: 'Check-in scantype already exists',
+        });
+      }
+    }
+
     snapshot.forEach(async (doc) => {
-      await updateUserDoc(doc.data().name, req.body.scanData.name);
-      await db.collection(SCANTYPES_COLLECTION).doc(doc.id).update(req.body.scanData);
+      await updateUserDoc(doc.data().name, scanData.name);
+      await db.collection(SCANTYPES_COLLECTION).doc(doc.id).update(scanData);
     });
     return res.status(200).json({
       msg: 'update completed',

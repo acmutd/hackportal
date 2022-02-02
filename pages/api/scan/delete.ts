@@ -31,9 +31,14 @@ async function updateUserDoc(targetScanName: string) {
 async function deleteScanType(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { scanData } = req.body;
+    if (scanData.isCheckIn) {
+      return res.status(400).json({
+        msg: 'Check-in scan cannot be deleted',
+      });
+    }
     const snapshot = await db
       .collection(SCANTYPES_COLLECTION)
-      .where('precedence', '==', scanData.precedence)
+      .where('name', '==', scanData.name)
       .get();
     if (snapshot.empty) {
       return res.status(404).json({
@@ -41,7 +46,6 @@ async function deleteScanType(req: NextApiRequest, res: NextApiResponse) {
       });
     }
     snapshot.forEach(async (doc) => {
-      await updateUserDoc(doc.data().name);
       await db.collection(SCANTYPES_COLLECTION).doc(doc.id).delete();
     });
     return res.status(200).json({
