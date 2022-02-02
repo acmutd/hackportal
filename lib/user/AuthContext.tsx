@@ -82,7 +82,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     });
     if (data.status !== 200) {
       console.error('Unexpected error when fetching AuthContext permission data...');
-      // setUser(null);
+
       setLoading(false);
       // return;
     }
