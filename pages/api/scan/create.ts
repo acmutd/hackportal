@@ -7,9 +7,35 @@ initializeApi();
 const db = firestore();
 const SCANTYPES_COLLECTION = '/scan-types';
 
+async function checkIfNameAlreadyExists(name: string) {
+  const snapshot = await db.collection(SCANTYPES_COLLECTION).where('name', '==', name).get();
+  return !snapshot.empty;
+}
+
+async function checkIfCheckInAlreadyExists() {
+  const snapshot = await db.collection(SCANTYPES_COLLECTION).where('isCheckIn', '==', true).get();
+  return !snapshot.empty;
+}
+
 async function createScan(req: NextApiRequest, res: NextApiResponse) {
   try {
-    await db.collection(SCANTYPES_COLLECTION).add(JSON.parse(req.body));
+    const scanData = JSON.parse(req.body);
+    if (await checkIfNameAlreadyExists(scanData.name)) {
+      return res.status(400).json({
+        msg: 'Scantype already exists',
+      });
+    }
+
+    if (scanData.isCheckIn) {
+      const hasCheckIn = await checkIfCheckInAlreadyExists();
+      if (hasCheckIn) {
+        return res.status(400).json({
+          msg: 'Check-in scantype already exists',
+        });
+      }
+    }
+
+    await db.collection(SCANTYPES_COLLECTION).add(scanData);
     return res.status(201).json({
       msg: 'ScanType created',
     });
