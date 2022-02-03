@@ -70,6 +70,7 @@ export default function AuthPage() {
     }
   };
 
+  //toggle mask/unmask password in input field
   const showPassword = (id) => {
     var passwordInput = document.getElementById(id) as HTMLInputElement;
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
@@ -95,6 +96,7 @@ export default function AuthPage() {
                 Sign in with Google
               </button>
               <div className="text-sm">or</div>
+              {/* Account credential input fields */}
               <div className="w-[24rem]">
                 <form>
                   <input
@@ -148,6 +150,7 @@ export default function AuthPage() {
               >
                 Sign in
               </button>
+              {/* Error and verification messages */}
               <div className="mt-4 w-[24rem]">{errorMsg}</div>
               {sendVerification && (
                 <button className="underline" onClick={() => sendVerificationEmail()}>
@@ -190,7 +193,7 @@ export default function AuthPage() {
             </div>
           )}
         </div>
-        {/* Create new accont */}
+        {/* Create new account sidebar*/}
         <div className="flex flex-col justify-center items-center h-full w-1/3 bg-green-200 text-center p-4">
           <h1 className="text-3xl font-black">Don&#39;t have an account?</h1>
           <p className="my-6">
@@ -209,6 +212,7 @@ export default function AuthPage() {
         <div className="flex flex-col items-center justify-center w-5/6 h-4/5 bg-blue-200 my-8 p-6">
           {!passwordResetDialog ? (
             <>
+              {/* Main Login Screen */}
               <h1 className="text-2xl font-black text-center">HackPortal 1.0</h1>
               <p className="text-sm text-center">
                 Log in to continue or create an account to register
@@ -220,6 +224,7 @@ export default function AuthPage() {
                 Sign in with Google
               </button>
               <div className="text-sm">or</div>
+              {/* Account credential input fields */}
               <div className="w-5/6">
                 <form>
                   <input
@@ -259,12 +264,14 @@ export default function AuthPage() {
               >
                 Sign in
               </button>
+              {/* Error and verification messages */}
               <div className="text-sm">{errorMsg}</div>
               {sendVerification && (
                 <button className="underline text-sm" onClick={() => sendVerificationEmail()}>
                   Resend verification
                 </button>
               )}
+              {/* Account options */}
               <div className="text-sm w-5/6 my-4">
                 <div
                   className="cursor-pointer hover:underline"

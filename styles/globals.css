@@ -89,9 +89,15 @@ a.link {
   }
 }
 
+/* For challenge selection in home page */
 .arrow-right {
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
   
   border-left: 10px solid rgb(233 213 255);
+}
+
+.newPasswordInput::-webkit-credentials-auto-fill-button {
+  position: absolute;
+  right: 4rem;
 }

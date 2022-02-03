@@ -41,12 +41,13 @@ export default function Home(props: {
   ];
 
   useEffect(() => {
+    // Set amount of time notification prompt gets displayed before fading out
     setTimeout(fadeOutEffect, 3000);
     setSpeakers(props.keynoteSpeakers);
-    //organize challenges in order by rank given in firebase
+    //Organize challenges in order by rank given in firebase
     setChallenges(props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
+    // Initialize styles to first organization in list
     if (document.getElementById(`org${challengeIdx}`) !== null) {
-      //show first org selector
       document.getElementById(`org${challengeIdx}`).style.textDecoration = 'underline';
       (
         document.getElementById(`org${challengeIdx}`).firstElementChild as HTMLElement
@@ -55,6 +56,7 @@ export default function Home(props: {
     }
   });
 
+  // Fade out notification prompt
   const fadeOutEffect = () => {
     var fadeTarget = document.getElementById('popup');
 

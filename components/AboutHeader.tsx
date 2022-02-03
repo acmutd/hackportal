@@ -42,18 +42,6 @@ export default function AboutHeader({ active }: AboutHeaderProps) {
               </a>
             </a>
           </Link>
-          {/* <Link href="/about/questions">
-            <a>
-              <span className="inline md:invisible"></span>
-              <a
-                className={`link font-bold ${
-                  active === '/about/questions' && 'border-b-2 border-black p-2'
-                }`}
-              >
-                Ask a Question
-              </a>
-            </a>
-          </Link> */}
         </div>
       </header>
     </section>
