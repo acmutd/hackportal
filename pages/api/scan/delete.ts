@@ -6,6 +6,27 @@ import { userIsAuthorized } from '../../../lib/authorization/check-authorization
 initializeApi();
 const db = firestore();
 const SCANTYPES_COLLECTION = '/scan-types';
+const REGISTRATION_COLLECTION = '/registrations';
+
+async function updateUserDoc(targetScanName: string) {
+  try {
+    const snapshot = await db.collection(REGISTRATION_COLLECTION).get();
+    snapshot.forEach(async (doc) => {
+      if (doc.data().scans) {
+        const newScans = doc.data().scans.filter((scan) => scan !== targetScanName);
+        await db
+          .collection(REGISTRATION_COLLECTION)
+          .doc(doc.id)
+          .update({
+            ...doc.data(),
+            scans: newScans,
+          });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 async function deleteScanType(req: NextApiRequest, res: NextApiResponse) {
   try {

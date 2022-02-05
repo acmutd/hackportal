@@ -47,7 +47,7 @@ export default function ProfileDialog({ onDismiss }: ProfileDialogProps) {
   }
 
   return (
-    <div className="absolute top-8 right-8 min-w-xl max-w-2xl shadow-md rounded-md bg-white">
+    <div className="profileDialog absolute top-8 right-8 min-w-xl max-w-2xl shadow-md rounded-md bg-white">
       {/* TODO: Don't show specific UI unless signed in */}
       <div className="flex px-4 pt-4 pb-2">
         {/* TODO: Handle default undefined photo URL with default */}

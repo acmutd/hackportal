@@ -9,6 +9,22 @@ import { isAuthorized } from '..';
 import { RequestHelper } from '../../../lib/request-helper';
 import { Dialog } from '@headlessui/react';
 
+const successStrings = {
+  claimed: 'Scan claimed...',
+  invalidUser: 'Invalid user...',
+  alreadyClaimed: 'User has already claimed...',
+  unexpectedError: 'Unexpected error...',
+  notCheckedIn: "User hasn't checked in!",
+  invalidFormat: 'Invalid hacker tag format...',
+};
+
+function getSuccessColor(success: string) {
+  if (success === successStrings.claimed) {
+    return '#5fde05';
+  }
+  return '#ff0000';
+}
+
 /**
  * The admin scanning page.
  *
@@ -52,7 +68,7 @@ export default function Admin() {
   const handleScan = async (data: string) => {
     if (!data.startsWith('hack:')) {
       setScanData(data);
-      setSuccess('Invalid hacker tag format...');
+      setSuccess(successStrings.invalidFormat);
       return;
     }
     const query = new URL(`http://localhost:3000/api/scan`);
@@ -69,13 +85,15 @@ export default function Admin() {
       .then(async (result) => {
         setScanData(data);
         if (result.status === 404) {
-          return setSuccess('Invalid user...');
+          return setSuccess(successStrings.invalidUser);
         } else if (result.status === 201) {
-          return setSuccess('User has already claimed...');
+          return setSuccess(successStrings.alreadyClaimed);
+        } else if (result.status === 403) {
+          return setSuccess(successStrings.notCheckedIn);
         } else if (result.status !== 200) {
-          return setSuccess('Unexpected error...');
+          return setSuccess(successStrings.unexpectedError);
         }
-        setSuccess('Scan claimed...');
+        setSuccess(successStrings.claimed);
       })
       .catch((err) => {
         console.log(err);
@@ -337,7 +355,10 @@ export default function Admin() {
                       )}
 
                       {scanData ? (
-                        <div className="text-center text-3xl font-black">
+                        <div
+                          className="text-center text-3xl font-black"
+                          style={{ color: getSuccessColor(success) }}
+                        >
                           {success ?? 'Unexpected error!'}
                         </div>
                       ) : (

@@ -33,13 +33,15 @@ export default function ProfilePage() {
             >
               <h1 className="font-bold text-xl text-center">HackUTD VIII: Blast from the Past</h1>
               <div className="mx-auto">
-                <Image
-                  className="rounded-full object-cover"
-                  src={user.photoUrl}
-                  height={180}
-                  width={180}
-                  alt="Your profile"
-                />
+                {user.photoUrl && (
+                  <Image
+                    className="rounded-full object-cover"
+                    src={user.photoUrl}
+                    height={180}
+                    width={180}
+                    alt="Your profile"
+                  />
+                )}
               </div>
               <div>
                 <h1 className="text-center font-bold text-xl">{`${profile.user.firstName} ${profile.user.lastName}`}</h1>

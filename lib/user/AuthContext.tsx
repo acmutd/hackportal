@@ -34,6 +34,11 @@ interface AuthContextState {
   profile: Registration;
 
   updateProfile: (newProfile: Registration) => void;
+
+  /**
+   * Updates user after logging in using password
+   */
+  updateUser: (user) => Promise<void>;
 }
 
 const AuthContext = React.createContext<AuthContextState | undefined>(undefined); // Find a better solution for this
@@ -73,6 +78,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       setLoading(false);
       return;
     }
+
     const { displayName, email, photoURL, uid } = firebaseUser;
 
     const token = await firebaseUser.getIdToken();
@@ -114,6 +120,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
 
   React.useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
+      if (user !== null && !user.emailVerified) return;
       updateUser(user);
     });
   }, []);
@@ -165,6 +172,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     hasProfile,
     profile,
     updateProfile,
+    updateUser,
   };
 
   return (
