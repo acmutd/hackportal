@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import LoadIcon from '../components/LoadIcon';
 import { useUser } from '../lib/profile/user-data';
 import { RequestHelper } from '../lib/request-helper';
 import { useAuthContext } from '../lib/user/AuthContext';
@@ -12,15 +13,15 @@ import { useAuthContext } from '../lib/user/AuthContext';
  */
 
 export default function Register() {
-  const user = useUser();
   const router = useRouter();
 
-  const { checkIfProfileExists } = useAuthContext();
-  const [resumeFile, setResumeFile] = useState<File>();
+  const { user, hasProfile, updateProfile } = useAuthContext();
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const checkRedirect = async () => {
-    const hasProfile = await checkIfProfileExists();
     if (hasProfile) router.push('/profile');
+    else setLoading(true);
   };
 
   useEffect(() => {
@@ -36,22 +37,26 @@ export default function Register() {
 
   const handleSubmit = async () => {
     try {
-      // const formData = new FormData();
-      // formData.append('resume', resumeFile);
-      // formData.append(
-      //   'fileName',
-      //   `resume_${registrationData.user.firstName}_${registrationData.user.lastName}${getExtension(
-      //     resumeFile.name,
-      //   )}`,
-      // );
-      // await fetch('/api/resume/upload', {
-      //   method: 'post',
-      //   body: formData,
-      // });
-      await RequestHelper.post<Registration, void>('/api/applications', {}, registrationData);
+      if (resumeFile) {
+        const formData = new FormData();
+        formData.append('resume', resumeFile);
+        formData.append(
+          'fileName',
+          `resume_${registrationData.user.firstName}_${
+            registrationData.user.lastName
+          }${getExtension(resumeFile.name)}`,
+        );
+        await fetch('/api/resume/upload', {
+          method: 'post',
+          body: formData,
+        });
+      }
+      await RequestHelper.post<Registration, any>('/api/applications', {}, registrationData);
       alert('Profile created successful');
+      updateProfile(registrationData);
       router.push('/profile');
     } catch (error) {
+      console.error(error);
       console.log('Request creation error');
     }
   };
@@ -133,6 +138,10 @@ export default function Register() {
 
   if (!user) {
     router.push('/');
+  }
+
+  if (loading) {
+    return <LoadIcon width={200} height={200} />;
   }
 
   return (
@@ -623,7 +632,7 @@ export default function Register() {
               <br />
             </label>
 
-            {/* <label>
+            <label>
               Upload your resume:
               <br />
               <input
@@ -633,7 +642,7 @@ export default function Register() {
                 formEncType="multipart/form-data"
               />
               <br />
-            </label> */}
+            </label>
             <br />
             <button
               type="button"
