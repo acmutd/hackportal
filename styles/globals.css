@@ -97,6 +97,7 @@ a.link {
   border-left: 10px solid rgb(233 213 255);
 }
 
+/* Safari key icon for sign up password field */
 .newPasswordInput::-webkit-credentials-auto-fill-button {
   position: absolute;
   right: 4rem;

@@ -1,12 +1,13 @@
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { buttonDatas, stats } from '../lib/data';
-import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import { RequestHelper } from '../lib/request-helper';
 import firebase from 'firebase';
 import 'firebase/messaging';
+import 'firebase/storage';
+import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import HomeChallengeCard from '../components/HomeChallengeCard';
 
 /**
@@ -24,6 +25,7 @@ export default function Home(props: {
   const [speakers, setSpeakers] = useState<KeynoteSpeaker[]>([]);
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [challengeIdx, setChallengeIdx] = useState(0);
+  const [images, setImages] = useState([]);
 
   const colorSchemes: ColorScheme[] = [
     {
@@ -40,12 +42,20 @@ export default function Home(props: {
     },
   ];
 
+  var storage = firebase.storage();
+
   useEffect(() => {
     // Set amount of time notification prompt gets displayed before fading out
     setTimeout(fadeOutEffect, 3000);
     setSpeakers(props.keynoteSpeakers);
+
     //Organize challenges in order by rank given in firebase
     setChallenges(props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
+
+    loadImages();
+  }, []);
+
+  useEffect(() => {
     // Initialize styles to first organization in list
     if (document.getElementById(`org${challengeIdx}`) !== null) {
       document.getElementById(`org${challengeIdx}`).style.textDecoration = 'underline';
@@ -55,6 +65,34 @@ export default function Home(props: {
       document.getElementById(`card${challengeIdx}`).style.display = 'block';
     }
   });
+
+  // Change bucketName to match firebase storage bucket for speakers
+  var bucketName = 'hackportal-speaker-images';
+  // Get images from firebase storage
+  const fetchImages = async () => {
+    let result = await storage.refFromURL(`gs://${bucketName}`).listAll();
+    let urlPromises = result.items.map((imageRef) => imageRef.getDownloadURL());
+    return Promise.all(urlPromises);
+  };
+  const loadImages = async () => {
+    const urls = await fetchImages();
+    setImages(urls);
+  };
+
+  //Find matching image link with corresponding keynote speaker
+  const getImage = (name) => {
+    if (name === undefined) {
+      return name;
+    }
+    for (const imageLink of images) {
+      let imageStr = imageLink
+        .replace(`https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/`, '')
+        .split('.')[0];
+      if (imageStr === name) {
+        return imageLink;
+      }
+    }
+  };
 
   // Fade out notification prompt
   const fadeOutEffect = () => {
@@ -182,13 +220,14 @@ export default function Home(props: {
           {/* Row 1 */}
           <div className="flex">
             {speakers.map(
-              ({ name, description }, idx) =>
+              ({ name, description, fileName }, idx) =>
                 idx < speakers.length / 2 && (
                   <KeynoteSpeaker
                     key={idx}
                     name={name}
                     description={description}
                     cardColor={colorSchemes[idx % 3]}
+                    imageLink={getImage(fileName)}
                   />
                 ),
             )}
@@ -196,13 +235,14 @@ export default function Home(props: {
           {/* row 2 */}
           <div className="flex md:ml-[7rem] ml-[5rem]">
             {speakers.map(
-              ({ name, description }, idx) =>
+              ({ name, description, fileName }, idx) =>
                 idx >= speakers.length / 2 && (
                   <KeynoteSpeaker
                     key={idx}
                     name={name}
                     description={description}
                     cardColor={colorSchemes[idx % 3]}
+                    imageLink={getImage(fileName)}
                   />
                 ),
             )}
