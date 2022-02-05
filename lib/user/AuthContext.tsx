@@ -31,6 +31,11 @@ interface AuthContextState {
    * Check if a user already has a profile
    */
   checkIfProfileExists: () => Promise<boolean>;
+
+  /**
+   * Updates user after logging in using password
+   */
+  updateUser: (user) => Promise<void>;
 }
 
 const AuthContext = React.createContext<AuthContextState | undefined>(undefined); // Find a better solution for this
@@ -65,6 +70,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       setLoading(false);
       return;
     }
+
     const { displayName, email, photoURL, uid } = firebaseUser;
     const token = await firebaseUser.getIdToken();
     const query = new URL(`http://localhost:3000/api/userinfo`);
@@ -76,17 +82,17 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     });
     if (data.status !== 200) {
       console.error('Unexpected error when fetching AuthContext permission data...');
-      setUser(null);
+      // setUser(null);
       setLoading(false);
-      return;
+      // return;
     }
     const userData = await data.json();
     let permissions: UserPermission[] = userData.user?.permissions || ['hacker'];
     setUser({
       id: uid,
       token,
-      firstName: displayName,
-      lastName: '',
+      firstName: userData.user?.firstName || (displayName !== null ? displayName : ''),
+      lastName: userData.user?.lastName || '',
       preferredEmail: email,
       photoUrl: photoURL,
       permissions, // probably not the best way to do this, but it works for hackutd and that's what matters
@@ -97,6 +103,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
 
   React.useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
+      if (user != null && !user.emailVerified) return;
       updateUser(user);
     });
   }, []);
@@ -165,6 +172,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     signInWithGoogle,
     signOut,
     checkIfProfileExists,
+    updateUser,
   };
 
   return (

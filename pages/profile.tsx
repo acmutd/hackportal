@@ -22,7 +22,7 @@ export default function ProfilePage() {
 
   React.useEffect(() => {
     checkRedirect();
-  }, []);
+  });
 
   React.useEffect(() => {
     if (!isSignedIn || !user) {
@@ -35,7 +35,12 @@ export default function ProfilePage() {
   }
 
   // TODO: Make this more robust to null states
-  const role = user.permissions?.length > 0 ? user.permissions[0] : 'None';
+  const role =
+    user.permissions !== null
+      ? user.permissions?.length > 0
+        ? user.permissions[0]
+        : 'None'
+      : 'None';
 
   return (
     <div className="p-8 w-full">
@@ -48,13 +53,16 @@ export default function ProfilePage() {
           >
             <h1 className="font-bold text-xl text-center">HackPortal 1.0</h1>
             <div className="mx-auto">
-              <Image
-                className="rounded-full object-cover"
-                src={user.photoUrl}
-                height={180}
-                width={180}
-                alt="Your profile"
-              />
+              {
+                //can switch default pfp to hackathon logo
+                <Image
+                  className="rounded-full object-cover"
+                  src={user.photoUrl !== null ? user.photoUrl : '/../public/assets/dfaultPFP.jpg'}
+                  height={180}
+                  width={180}
+                  alt="Your profile"
+                />
+              }
             </div>
             <div>
               <h1 className="text-center font-bold text-xl">

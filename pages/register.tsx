@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useUser } from '../lib/profile/user-data';
 import { RequestHelper } from '../lib/request-helper';
 import { useAuthContext } from '../lib/user/AuthContext';
+import firebase from 'firebase/app';
 
 /**
  * The registration page.
@@ -15,12 +16,13 @@ export default function Register() {
   const user = useUser();
   const router = useRouter();
 
-  const { checkIfProfileExists } = useAuthContext();
+  const { checkIfProfileExists, updateUser, isSignedIn } = useAuthContext();
   const [resumeFile, setResumeFile] = useState<File>();
 
   const checkRedirect = async () => {
     const hasProfile = await checkIfProfileExists();
     if (hasProfile) router.push('/profile');
+    if (!isSignedIn) router.push('/auth');
   };
 
   useEffect(() => {
@@ -49,6 +51,7 @@ export default function Register() {
         body: formData,
       });
       await RequestHelper.post<Registration, void>('/api/applications', {}, registrationData);
+      updateUser(firebase.auth().currentUser);
       alert('Profile created successful');
       router.push('/profile');
     } catch (error) {
@@ -136,7 +139,7 @@ export default function Register() {
   }
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow bg-white">
       <Head>
         <title>Hacker Registration</title>
         <meta name="description" content="Register for [HACKATHON NAME]" />
@@ -432,7 +435,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Vegan')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Vegan</text>
+              <p className="inline-block pl-2">Vegan</p>
             </label>
             <label>
               <br />
@@ -443,7 +446,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Vegitarian')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Vegitarian</text>
+              <p className="inline-block pl-2">Vegitarian</p>
             </label>
             <label>
               <br />
@@ -454,7 +457,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Nuts')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Nuts</text>
+              <p className="inline-block pl-2">Nuts</p>
             </label>
             <label>
               <br />
@@ -465,7 +468,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Fish')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Fish</text>
+              <p className="inline-block pl-2">Fish</p>
             </label>
             <label>
               <br />
@@ -476,7 +479,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Wheat')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Wheat</text>
+              <p className="inline-block pl-2">Wheat</p>
             </label>
             <label>
               <br />
@@ -487,7 +490,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Dairy')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Dairy</text>
+              <p className="inline-block pl-2">Dairy</p>
             </label>
             <label>
               <br />
@@ -498,7 +501,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Eggs')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Eggs</text>
+              <p className="inline-block pl-2">Eggs</p>
               <br />
               <br />
             </label>

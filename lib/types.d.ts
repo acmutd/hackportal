@@ -163,15 +163,16 @@ type KeynoteSpeaker = {
  *
  * @param title title of challenge
  * @param description description of that challenge. To add a linebreak, simply add \n into the string value where needed in firebase
- * @param prizes array of prizes starting from first and ending to last place prize
+ * @param prizes array of prizes starting from first and ending to last place prize, not required
  * @param organization name of organization that is sponsoring the challenge
- *
+ * @param rank number determining which challenge gets displayed in higher order, lower rank means higher order(index of array)
  */
 type Challenge = {
   title: string;
   description: string;
   prizes: [];
   organization: string;
+  rank: int;
 };
 
 /**
@@ -182,8 +183,8 @@ type Challenge = {
  * @param speakers speakers of event
  * @param date date of event in format {(3 letter english month name) dd, yyyy}, e.g. Jan 10, 2022
  * @param location location/room of event
- * @param startTime start time of event in format hh:mm (am/pm), e.g. 06:36 am
- * @param endTime start time of event in format hh:mm (am/pm)
+ * @param startTime start time of event in format h:mm (am/pm), e.g. 6:36 am, 10:13 pm
+ * @param endTime start time of event in format h:mm (am/pm)
  * @param page page where more information can be found about event
  *
  */
