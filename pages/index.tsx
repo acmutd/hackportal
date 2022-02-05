@@ -42,8 +42,6 @@ export default function Home(props: {
     },
   ];
 
-  var storage = firebase.storage();
-
   useEffect(() => {
     // Set amount of time notification prompt gets displayed before fading out
     setTimeout(fadeOutEffect, 3000);
@@ -66,6 +64,7 @@ export default function Home(props: {
     }
   });
 
+  var storage = firebase.storage();
   // Change bucketName to match firebase storage bucket for speakers
   var bucketName = 'hackportal-speaker-images';
   // Get images from firebase storage
@@ -153,10 +152,10 @@ export default function Home(props: {
         </div>
       )}
       {/* Hero section */}
-      <section className="min-h-[640px] h-full w-screen p-4 bg-indigo-100">
+      <section className="min-h-[640px] h-full p-4 bg-indigo-100">
         <div
           style={{ minHeight: 480 }}
-          className="max-w-4xl h-full mx-auto flex flex-col justify-center items-center py-8"
+          className="max-w-4xl mx-auto flex flex-col justify-center items-center"
         >
           <div
             className="min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-16 before:bg-transparent before:border-b-4 before:border-l-4 before:border-black
@@ -167,22 +166,22 @@ export default function Home(props: {
             </h1>
             <p className="text-center my-4 md:font-bold md:text-3xl text-xl">Subtitle</p>
           </div>
-          <div className="w-screen flex flex-col items-center gap-y-8 md:gap-y-0 md:flex-row md:justify-around px-4">
-            {buttonDatas.map((button) => (
-              <button
-                key={button.text}
-                onClick={() => router.push(button.path)}
-                className="max-w-[280px] md:max-w-full bg-indigo-300 px-16 py-4"
-              >
-                {button.text}
-              </button>
-            ))}
-          </div>
           {/* TODO: Programmatically show these based on configured times/organizer preference */}
+        </div>
+        <div className="w-full flex flex-col items-center gap-y-8 md:gap-y-0 md:flex-row md:justify-around px-4">
+          {buttonDatas.map((button) => (
+            <button
+              key={button.text}
+              onClick={() => router.push(button.path)}
+              className="max-w-[280px] md:max-w-full bg-indigo-300 px-16 py-4"
+            >
+              {button.text}
+            </button>
+          ))}
         </div>
       </section>
       {/* Video Space */}
-      <section className="z-0 relative w-screen md:h-[560px] py-[3rem] bg-white">
+      <section className="z-0 relative md:h-[560px] py-[3rem] bg-white">
         <div className="flex flex-col justify-center items-center md:flex-row">
           {/* Video */}
           <iframe
@@ -250,7 +249,7 @@ export default function Home(props: {
         </div>
       </section>
       {/* Challenges */}
-      <section className="p-6">
+      <section className="p-6 border-2">
         <div className="font-bold text-2xl">Challenges</div>
         <div className="flex">
           {/* Challenge Orgs Selectors*/}
