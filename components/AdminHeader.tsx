@@ -14,18 +14,18 @@ export default function AdminHeader() {
   return (
     <section className="p-4">
       <header className="top-0 sticky flex flex-row justify-between p-2 md:p-4 items-center">
-        <div className="mx-auto md:flex justify-center text-xl font-header md:text-left  gap-x-8">
-          <NavLink href="/admin" exact={true}>
+        <div className="mx-auto md:flex justify-center text-xl font-header md:text-left">
+          <NavLink href="/admin" exact={true} className="mx-4">
             Event Dashboard
           </NavLink>
-          <NavLink href="/admin/scan" exact={true}>
+          <NavLink href="/admin/scan" exact={true} className="mx-4">
             Scanner
           </NavLink>
-          <NavLink href="/admin/users" exact={true}>
+          <NavLink href="/admin/users" exact={true} className="mx-4">
             Users Dashboard
           </NavLink>
           {isAuthorized(user) && (
-            <NavLink href="/admin/stats" exact={true}>
+            <NavLink href="/admin/stats" exact={true} className="mx-4">
               Stats at a Glance
             </NavLink>
           )}

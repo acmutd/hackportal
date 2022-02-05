@@ -27,24 +27,6 @@ a.link {
 
 .element {
   font-family: 'wavehaus';
- }
-
-/* Dropdown menu css classes */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
- 
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
-.element {
-  font-family: 'wavehaus';
 }
 
 .profile-view {
@@ -74,4 +56,48 @@ a {
 
 .profile-view-interests {
   grid-area: interests;
+}
+
+.challengeGrid {
+  column-count: 2;
+}
+
+@media (max-width: 1024px) {
+  /* Home page video scaling */
+  .video {
+    zoom: 0.85;
+    -moz-transform: scale(0.85);
+    -moz-transform-origin: top center;
+    -o-transform: scale(0.85);
+    -o-transform-origin: top center;
+    -webkit-transform: scale(0.85);
+    -webkit-transform-origin: top center;
+  }
+}
+
+@media (max-width: 768px) {
+  .challengeGrid {
+    column-count: 1;
+  }
+
+  /* Home page video scaling */
+  .video {
+    zoom: 0.7 !important;
+    -moz-transform: scale(0.7) !important;
+    -o-transform: scale(0.7) !important;
+    -webkit-transform: scale(0.7) !important;
+  }
+}
+
+/* For challenge selection in home page */
+.arrow-right {
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+
+  border-left: 10px solid rgb(233 213 255);
+}
+
+.newPasswordInput::-webkit-credentials-auto-fill-button {
+  position: absolute;
+  right: 4rem;
 }

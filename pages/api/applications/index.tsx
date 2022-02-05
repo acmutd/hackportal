@@ -80,7 +80,6 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
       message: '',
     });
   }
-
   const snapshot = await db
     .collection(APPLICATIONS_COLLECTION)
     .where('user.id', '==', body.user.id)
@@ -95,7 +94,7 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
   await db.collection(APPLICATIONS_COLLECTION).doc(body.user.id).set(body);
 
   res.status(200).json({
-    msg: 'Profile creation successful',
+    msg: 'Operation completed',
   });
 }
 

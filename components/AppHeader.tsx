@@ -1,11 +1,12 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import ProfileDialog from './ProfileDialog';
 import { useUser } from '../lib/profile/user-data';
 import { useAuthContext } from '../lib/user/AuthContext';
 import { navItems } from '../lib/data';
+import firebase from 'firebase/app';
 
 /**
  * A global site header throughout the entire app.
@@ -17,6 +18,20 @@ export default function AppHeader() {
   const [showProfileDialog, setShowProfileDialog] = useState(false);
 
   const user = useUser();
+
+  useEffect(() => {
+    if (firebase.auth().currentUser !== null && !firebase.auth().currentUser.emailVerified) {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          //signed out succesfully
+        })
+        .catch((error) => {
+          console.warn('Could not sign out');
+        });
+    }
+  });
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -30,16 +45,23 @@ export default function AppHeader() {
     setShowProfileDialog(!showProfileDialog);
   };
 
+  document.addEventListener('mousedown', (event) => {
+    const targetComponent = document.querySelector('.profileDialog');
+    if (
+      targetComponent !== null &&
+      !document.querySelector('.profileDialog').contains(event.target as Node)
+    ) {
+      dismissDialog();
+    }
+  });
+
   return (
     <>
       <div className="min-h-[4rem]"></div>
-      <header className="top-0 fixed justify-around flex flex-row p-2 min-w-[320px] w-screen bg-indigo-100 items-center h-16 z-10 md:justify-between md:p-4">
+      <header className="top-0 fixed justify-between flex flex-row w-screen bg-indigo-100 items-center h-16 z-10 p-4">
         <div className="flex w-6/12 max-w-[156px] justify-between items-center md:max-w-full md:justify-start md:w-9/12">
           <Link href="/">
-            <a
-              className="flex order-2 relative ml-[-6px] font-display self-center items-center w-[112px] md:order-1 md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400"
-              onClick={dismissDialog}
-            >
+            <a className="flex order-2 relative ml-[-6px] font-display self-center items-center w-[112px] md:order-1 md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400">
               <span className="text-[16px] font-black md:z-0 md:text-2xl md:mr-10">HackPortal</span>
             </a>
           </Link>
@@ -53,11 +75,7 @@ export default function AppHeader() {
             >
               {navItems.map((item) => (
                 <Link key={item.text} href={item.path}>
-                  <a
-                    className="border-b-2 first:border-t-2 border-black p-4 py-6 hover:bg-[#D8F8FF]"
-                    // onClick={dismissDialog, getItemCount}
-                    onClick={dismissDialog}
-                  >
+                  <a className="border-b-2 first:border-t-2 border-black p-4 py-6 hover:bg-[#D8F8FF]">
                     <p className="text-sm font-bold">{item.text}</p>
                   </a>
                 </Link>
@@ -68,7 +86,7 @@ export default function AppHeader() {
           <div className="hidden text-xs order-2 md:flex items-center md:text-left lg:ml-12">
             {navItems.map((item) => (
               <Link key={item.text} href={item.path}>
-                <a onClick={dismissDialog}>
+                <a>
                   <p className="md:mx-4 text-sm font-bold">{item.text}</p>
                 </a>
               </Link>

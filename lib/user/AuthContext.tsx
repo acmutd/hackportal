@@ -73,6 +73,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       setLoading(false);
       return;
     }
+
     const { displayName, email, photoURL, uid } = firebaseUser;
 
     const token = await firebaseUser.getIdToken();
@@ -96,7 +97,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     if (data.status !== 200) {
       console.error('Unexpected error when fetching AuthContext permission data...');
       setLoading(false);
-      return;
+      // return;
     }
     const userData = await data.json();
     let permissions: UserPermission[] = userData.user?.permissions || ['hacker'];
@@ -114,6 +115,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
 
   React.useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
+      if (user != null && !user.emailVerified) return;
       updateUser(user);
     });
   }, []);
