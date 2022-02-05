@@ -119,7 +119,7 @@ export default function Admin() {
         ...newScanForm,
         precedence: scanTypes.length,
       };
-      const { status, data } = await RequestHelper.post(
+      const { status, data } = await RequestHelper.post<any, any>(
         '/api/scan/create',
         {
           headers: {
@@ -132,7 +132,7 @@ export default function Admin() {
         },
       );
       if (status >= 400) {
-        console.log(data);
+        alert(data.msg);
       } else {
         alert('Scan added');
         setScanTypes((prev) => [...prev, newScan]);
@@ -446,6 +446,10 @@ export default function Admin() {
                       <button
                         className="font-bold bg-red-300 hover:bg-red-200 rounded-lg p-3"
                         onClick={() => {
+                          if (currentScan.isCheckIn) {
+                            alert('Check-in scan cannot be deleted');
+                            return;
+                          }
                           setShowDeleteScanDialog(true);
                         }}
                       >

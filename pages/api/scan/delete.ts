@@ -6,34 +6,18 @@ import { userIsAuthorized } from '../../../lib/authorization/check-authorization
 initializeApi();
 const db = firestore();
 const SCANTYPES_COLLECTION = '/scan-types';
-const REGISTRATION_COLLECTION = '/registrations';
-
-async function updateUserDoc(targetScanName: string) {
-  try {
-    const snapshot = await db.collection(REGISTRATION_COLLECTION).get();
-    snapshot.forEach(async (doc) => {
-      if (doc.data().scans) {
-        const newScans = doc.data().scans.filter((scan) => scan !== targetScanName);
-        await db
-          .collection(REGISTRATION_COLLECTION)
-          .doc(doc.id)
-          .update({
-            ...doc.data(),
-            scans: newScans,
-          });
-      }
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 async function deleteScanType(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { scanData } = req.body;
+    if (scanData.isCheckIn) {
+      return res.status(400).json({
+        msg: 'Check-in scan cannot be deleted',
+      });
+    }
     const snapshot = await db
       .collection(SCANTYPES_COLLECTION)
-      .where('precedence', '==', scanData.precedence)
+      .where('name', '==', scanData.name)
       .get();
     if (snapshot.empty) {
       return res.status(404).json({
@@ -41,7 +25,6 @@ async function deleteScanType(req: NextApiRequest, res: NextApiResponse) {
       });
     }
     snapshot.forEach(async (doc) => {
-      await updateUserDoc(doc.data().name);
       await db.collection(SCANTYPES_COLLECTION).doc(doc.id).delete();
     });
     return res.status(200).json({

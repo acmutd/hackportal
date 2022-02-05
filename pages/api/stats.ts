@@ -9,24 +9,13 @@ const db = firestore();
 const USERS_COLLECTION = '/registrations';
 const SCANTYPES_COLLECTION = '/scan-types';
 
-async function initializeScanCount() {
+async function getCheckInEventName() {
+  const snapshot = await db.collection(SCANTYPES_COLLECTION).where('isCheckIn', '==', true).get();
   let checkInEventName = '';
-  const swagData: Record<string, number> = {};
-
-  const snapshot = await db.collection(SCANTYPES_COLLECTION).get();
   snapshot.forEach((doc) => {
-    const scanData = doc.data();
-    if (scanData.isCheckIn) {
-      checkInEventName = scanData.name;
-    } else {
-      swagData[scanData.name] = 0;
-    }
+    checkInEventName = doc.data().name;
   });
-
-  return {
-    swagData,
-    checkInEventName,
-  };
+  return checkInEventName;
 }
 
 async function getStatsData() {
@@ -34,7 +23,8 @@ async function getStatsData() {
     adminCount = 0,
     superAdminCount = 0,
     checkedInCount = 0;
-  const { checkInEventName, swagData } = await initializeScanCount();
+  const checkInEventName = await getCheckInEventName();
+  const swagData: Record<string, number> = {};
 
   const snapshot = await db.collection(USERS_COLLECTION).get();
   snapshot.forEach((doc) => {
@@ -42,11 +32,19 @@ async function getStatsData() {
     if (userData.scans) {
       userData.scans.forEach((scan: string) => {
         if (scan === checkInEventName) checkedInCount++;
-        else swagData[scan]++;
+        else {
+          if (!swagData.hasOwnProperty(scan)) swagData[scan] = 0;
+          swagData[scan]++;
+        }
       });
     }
 
-    switch (userData.user.permissions && userData.user.permissions[0]) {
+    let userPermission = '';
+    if (userData.user && userData.user.permissions) {
+      userPermission = userData.user.permissions[0];
+    }
+
+    switch (userPermission) {
       case 'super_admin': {
         superAdminCount++;
       }
