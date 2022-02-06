@@ -29,9 +29,7 @@ export default function SignupPage() {
           .currentUser.sendEmailVerification()
           .then(() => {
             router.push('/auth');
-            alert(
-              'Account created, check your email to verify your account, if you did not use an educational email, to log in',
-            );
+            alert('Account created, check your email to verify your account to log in');
           });
       })
       .catch((error) => {

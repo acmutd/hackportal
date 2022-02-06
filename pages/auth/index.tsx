@@ -152,11 +152,11 @@ export default function AuthPage() {
               </button>
               {/* Error and verification messages */}
               <div className="mt-4 w-[24rem]">{errorMsg}</div>
-              {sendVerification && (
+              {/* {sendVerification && (
                 <button className="underline" onClick={() => sendVerificationEmail()}>
                   Resend verification
                 </button>
-              )}
+              )} */}
             </div>
           ) : (
             // Password reset section
@@ -266,11 +266,11 @@ export default function AuthPage() {
               </button>
               {/* Error and verification messages */}
               <div className="text-sm">{errorMsg}</div>
-              {sendVerification && (
+              {/* {sendVerification && (
                 <button className="underline text-sm" onClick={() => sendVerificationEmail()}>
                   Resend verification
                 </button>
-              )}
+              )} */}
               {/* Account options */}
               <div className="text-sm w-5/6 my-4">
                 <div
