@@ -1,7 +1,6 @@
 import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { RequestHelper } from '../request-helper';
 
 /**
  * Utility attributes and functions used to handle user auth state within an AuthContext.
@@ -30,7 +29,11 @@ interface AuthContextState {
   /**
    * Check if a user already has a profile
    */
-  checkIfProfileExists: () => Promise<boolean>;
+  hasProfile: boolean;
+
+  profile: Registration;
+
+  updateProfile: (newProfile: Registration) => void;
 
   /**
    * Updates user after logging in using password
@@ -60,6 +63,11 @@ function useAuthContext(): AuthContextState {
 function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>): JSX.Element {
   const [user, setUser] = React.useState<User>(null);
   const [loading, setLoading] = React.useState(true);
+  const [profile, setProfile] = React.useState(null);
+
+  const updateProfile = (profile: Registration) => {
+    setProfile(profile);
+  };
 
   const updateUser = async (firebaseUser: firebase.User | null) => {
     setLoading(true);
@@ -72,7 +80,18 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     }
 
     const { displayName, email, photoURL, uid } = firebaseUser;
+
     const token = await firebaseUser.getIdToken();
+    setUser({
+      id: uid,
+      token,
+      firstName: displayName,
+      lastName: '',
+      preferredEmail: email,
+      photoUrl: photoURL,
+      permissions: ['hacker'],
+      university: '',
+    });
     const query = new URL(`http://localhost:3000/api/userinfo`);
     query.searchParams.append('id', uid);
     const data = await fetch(query.toString().replaceAll('http://localhost:3000', ''), {
@@ -82,28 +101,26 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     });
     if (data.status !== 200) {
       console.error('Unexpected error when fetching AuthContext permission data...');
-      // setUser(null);
       setLoading(false);
-      // return;
+      return;
     }
     const userData = await data.json();
     let permissions: UserPermission[] = userData.user?.permissions || ['hacker'];
-    setUser({
-      id: uid,
-      token,
-      firstName: userData.user?.firstName || (displayName !== null ? displayName : ''),
-      lastName: userData.user?.lastName || '',
-      preferredEmail: email,
-      photoUrl: photoURL,
-      permissions, // probably not the best way to do this, but it works for hackutd and that's what matters
+    setUser((prev) => ({
+      ...prev,
+      firstName: userData.user.firstName,
+      lastName: userData.user.lastName,
+      preferredEmail: userData.user.preferredEmail,
+      permissions,
       university: userData.university,
-    });
+    }));
+    setProfile(userData);
     setLoading(false);
   };
 
   React.useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user != null && !user.emailVerified) return;
+      if (user !== null && !user.emailVerified) return;
       updateUser(user);
     });
   }, []);
@@ -123,26 +140,6 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       .catch((error) => {
         console.error('Could not sign out.', error);
       });
-  }
-
-  async function checkIfProfileExists(): Promise<boolean> {
-    if (!user) return false;
-    const query = new URL(`http://localhost:3000/api/userinfo`);
-    query.searchParams.append('id', user.id);
-    try {
-      const resData = await RequestHelper.get<unknown>(
-        query.toString().replaceAll('http://localhost:3000', ''),
-        {
-          headers: {
-            Authorization: user.token,
-          },
-        },
-      );
-      if (resData.status >= 400) throw new Error('');
-      return !!resData.data;
-    } catch (error) {
-      return false;
-    }
   }
 
   const signInWithGoogle = async () => {
@@ -165,13 +162,16 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
   };
 
   const isSignedIn = user !== null;
+  const hasProfile = profile !== null;
 
   const authContextValue: AuthContextState = {
     user,
     isSignedIn,
     signInWithGoogle,
     signOut,
-    checkIfProfileExists,
+    hasProfile,
+    profile,
+    updateProfile,
     updateUser,
   };
 

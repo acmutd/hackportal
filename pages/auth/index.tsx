@@ -24,13 +24,13 @@ export default function AuthPage() {
     firebase
       .auth()
       .signInWithEmailAndPassword(currentEmail, currentPassword)
-      .then(({ user }) => {
+      .then(async ({ user }) => {
         // Signed in
         if (!user.emailVerified) {
           setSendVerification(true);
           throw new Error('Email is not verified. Verify your email before logging in.');
         }
-        updateUser(user);
+        await updateUser(user);
       })
       .catch((error) => {
         const errorCode = error.code;
