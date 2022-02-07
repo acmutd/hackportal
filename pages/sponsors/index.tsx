@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import { RequestHelper } from '../../lib/request-helper';
 import SponsorCard from '../../components/SponsorCard';
+import SponsorHeader from '../../components/SponsorHeader';
 
 /**
  * The sponsors page.
@@ -18,13 +19,19 @@ export default function Sponsors(props: { sponsorCard: Sponsor[] }) {
   });
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow bg-indigo-200">
       <Head>
         <title>HackPortal - Sponsors</title>
         <meta name="description" content="HackPortal's Sponsors Page" />
       </Head>
-      <section id="subheader" className="p-4">
-        <div className="flex flex-col">
+      <SponsorHeader
+        title="Sponsors"
+        email="randomEmail@gmail.com"
+        name="HackUTD"
+        className="bg-indigo-200 mb-0"
+      ></SponsorHeader>
+      <section id="subheader" className="flex justify-center p-4 bg-indigo-200">
+        <div className="flex flex-col bg-white rounded-2xl p-4">
           {sponsor.map(({ link, reference }, idx) => (
             <SponsorCard key={idx} link={link} reference={reference} />
           ))}

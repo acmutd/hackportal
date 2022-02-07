@@ -31,9 +31,9 @@ export default function SponsorCard(props: SponsorCardProps) {
   if (loading) return <LoadIcon width={100} height={100} />;
 
   return (
-    <div className="flex w-[27rem] h-[9rem] md:mr-20 mr-16 my-4">
+    <div className="flex w-[27rem] h-[9rem]  justify-center">
       <a href={props.link}>
-        <Image src={imgSrc} width="100%" />
+        <Image src={imgSrc} width="246vh" height="140vh" />
       </a>
       <br></br>
     </div>
