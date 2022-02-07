@@ -62,7 +62,7 @@ a.link {
   column-count: 2;
 }
 
-@media (max-width: 1024px){
+@media (max-width: 1024px) {
   /* Home page video scaling */
   .video {
     zoom: 0.85;
@@ -75,7 +75,7 @@ a.link {
   }
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
   .challengeGrid {
     column-count: 1;
   }
@@ -93,7 +93,7 @@ a.link {
 .arrow-right {
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  
+
   border-left: 10px solid rgb(233 213 255);
 }
 

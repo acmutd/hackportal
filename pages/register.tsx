@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import LoadIcon from '../components/LoadIcon';
 import { useUser } from '../lib/profile/user-data';
 import { RequestHelper } from '../lib/request-helper';
 import { useAuthContext } from '../lib/user/AuthContext';
@@ -13,16 +14,15 @@ import firebase from 'firebase/app';
  */
 
 export default function Register() {
-  const user = useUser();
   const router = useRouter();
 
-  const { checkIfProfileExists, updateUser, isSignedIn } = useAuthContext();
-  const [resumeFile, setResumeFile] = useState<File>();
+  const { user, hasProfile, updateProfile } = useAuthContext();
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const checkRedirect = async () => {
-    const hasProfile = await checkIfProfileExists();
     if (hasProfile) router.push('/profile');
-    if (!isSignedIn) router.push('/auth');
+    else setLoading(false);
   };
 
   useEffect(() => {
@@ -38,23 +38,26 @@ export default function Register() {
 
   const handleSubmit = async () => {
     try {
-      const formData = new FormData();
-      formData.append('resume', resumeFile);
-      formData.append(
-        'fileName',
-        `resume_${registrationData.user.firstName}_${registrationData.user.lastName}${getExtension(
-          resumeFile.name,
-        )}`,
-      );
-      await fetch('/api/resume/upload', {
-        method: 'post',
-        body: formData,
-      });
-      await RequestHelper.post<Registration, void>('/api/applications', {}, registrationData);
-      updateUser(firebase.auth().currentUser);
+      if (resumeFile) {
+        const formData = new FormData();
+        formData.append('resume', resumeFile);
+        formData.append(
+          'fileName',
+          `resume_${registrationData.user.firstName}_${
+            registrationData.user.lastName
+          }${getExtension(resumeFile.name)}`,
+        );
+        await fetch('/api/resume/upload', {
+          method: 'post',
+          body: formData,
+        });
+      }
+      await RequestHelper.post<Registration, any>('/api/applications', {}, registrationData);
       alert('Profile created successful');
+      updateProfile(registrationData);
       router.push('/profile');
     } catch (error) {
+      console.error(error);
       console.log('Request creation error');
     }
   };
@@ -85,7 +88,7 @@ export default function Register() {
     github: '',
     linkedin: '',
     website: '',
-    resume: '',
+    //resume: '',
     companies: [],
   });
 
@@ -136,6 +139,10 @@ export default function Register() {
 
   if (!user) {
     router.push('/');
+  }
+
+  if (loading) {
+    return <LoadIcon width={200} height={200} />;
   }
 
   return (
@@ -195,10 +202,9 @@ export default function Register() {
               <br />
               <input
                 placeholder="email@example.com"
-                type="type"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                type="text"
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
-                name="email"
+                name="preferredEmail"
                 autoComplete="email"
                 required
                 value={registrationData.user.preferredEmail}
