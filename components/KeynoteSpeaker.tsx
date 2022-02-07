@@ -1,18 +1,37 @@
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import 'firebase/storage';
+import firebase from 'firebase';
 
 /**
  * Keynote Speaker card for landing page.
  */
 export default function KeynoteSpeaker(props) {
+  const [imageLink, setImageLink] = useState();
+
+  useEffect(() => {
+    const storageRef = firebase.storage().refFromURL(process.env.NEXT_PUBLIC_SPEAKER_IMAGES_BUCKET);
+
+    storageRef
+      .child(props.imageLink)
+      .getDownloadURL()
+      .then((url) => {
+        setImageLink(url);
+      })
+      .catch((error) => {
+        console.error('Could not find matching image file');
+      });
+  }, []);
+
   return (
     <div className="flex w-[28rem] h-[9rem] md:mr-20 mr-16 my-4">
       <div
         style={{ backgroundColor: props.cardColor.light, overflow: 'hidden' }}
         className="w-1/4 rounded-l-md"
       >
-        {props.imageLink !== undefined && (
+        {props.imageLink !== undefined && imageLink !== undefined && (
           <Image
-            src={props.imageLink}
+            src={imageLink}
             // make sure width and height matches width and height of parent div
             width={112}
             height={144}

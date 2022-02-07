@@ -25,7 +25,6 @@ export default function Home(props: {
   const [speakers, setSpeakers] = useState<KeynoteSpeaker[]>([]);
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [challengeIdx, setChallengeIdx] = useState(0);
-  const [images, setImages] = useState([]);
 
   const colorSchemes: ColorScheme[] = [
     {
@@ -49,8 +48,6 @@ export default function Home(props: {
 
     //Organize challenges in order by rank given in firebase
     setChallenges(props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
-
-    loadImages();
   }, []);
 
   useEffect(() => {
@@ -63,35 +60,6 @@ export default function Home(props: {
       document.getElementById(`card${challengeIdx}`).style.display = 'block';
     }
   });
-
-  var storage = firebase.storage();
-  // Change bucketName to match firebase storage bucket for speakers
-  var bucketName = 'hackportal-speaker-images';
-  // Get images from firebase storage
-  const fetchImages = async () => {
-    let result = await storage.refFromURL(`gs://${bucketName}`).listAll();
-    let urlPromises = result.items.map((imageRef) => imageRef.getDownloadURL());
-    return Promise.all(urlPromises);
-  };
-  const loadImages = async () => {
-    const urls = await fetchImages();
-    setImages(urls);
-  };
-
-  //Find matching image link with corresponding keynote speaker
-  const getImage = (name) => {
-    if (name === undefined) {
-      return name;
-    }
-    for (const imageLink of images) {
-      let imageStr = imageLink
-        .replace(`https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/`, '')
-        .split('.')[0];
-      if (imageStr === name) {
-        return imageLink;
-      }
-    }
-  };
 
   // Fade out notification prompt
   const fadeOutEffect = () => {
@@ -226,7 +194,7 @@ export default function Home(props: {
                     name={name}
                     description={description}
                     cardColor={colorSchemes[idx % 3]}
-                    imageLink={getImage(fileName)}
+                    imageLink={fileName}
                   />
                 ),
             )}
@@ -241,7 +209,7 @@ export default function Home(props: {
                     name={name}
                     description={description}
                     cardColor={colorSchemes[idx % 3]}
-                    imageLink={getImage(fileName)}
+                    imageLink={fileName}
                   />
                 ),
             )}

@@ -150,8 +150,7 @@ type TeamMember = {
  *
  * @param name name of the keynote speaker
  * @param description description of that keynote speaker'
- * @param fileName string that matches the file name(without extension) of the corresponding speaker image in firebase storage
- * imageName should not have any period characters in it.
+ * @param fileName string that matches the file name(with extension) of the corresponding speaker image in firebase storage
  *
  */
 type KeynoteSpeaker = {
