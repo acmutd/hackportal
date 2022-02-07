@@ -10,7 +10,9 @@ export default function KeynoteSpeaker(props) {
   const [imageLink, setImageLink] = useState();
 
   useEffect(() => {
-    const storageRef = firebase.storage().refFromURL(process.env.NEXT_PUBLIC_SPEAKER_IMAGES_BUCKET);
+    const storageRef = firebase
+      .storage()
+      .refFromURL(process.env.NEXT_PUBLIC_FIREBASE_STORAGE_SPEAKER_IMAGES_BUCKET);
 
     storageRef
       .child(props.imageLink)
