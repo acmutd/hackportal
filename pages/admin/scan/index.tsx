@@ -65,13 +65,7 @@ export default function Admin() {
     setCurrentScanIdx(idx);
   };
 
-  const handleScan = async (
-    data: string,
-    video: HTMLVideoElement,
-    setVideoReady,
-    setPaused,
-    tick,
-  ) => {
+  const handleScan = async (data: string) => {
     if (!data.startsWith('hack:')) {
       setScanData(data);
       setSuccess(successStrings.invalidFormat);
@@ -143,7 +137,7 @@ export default function Admin() {
         ...newScanForm,
         precedence: scanTypes.length,
       };
-      const { status, data } = await RequestHelper.post(
+      const { status, data } = await RequestHelper.post<any, any>(
         '/api/scan/create',
         {
           headers: {
@@ -156,7 +150,7 @@ export default function Admin() {
         },
       );
       if (status >= 400) {
-        console.log(data);
+        alert(data.msg);
       } else {
         alert('Scan added');
         setScanTypes((prev) => [...prev, newScan]);
@@ -210,12 +204,6 @@ export default function Admin() {
           return console.error('Fetch failed for scan-types...');
         }
         const data = await result.json();
-        // const newScanTypes = [];
-        // for (const d of data) {
-        //   newScanTypes.push(
-        //     <ScanType key={d.name} data={d} name={d.name} onClick={() => handleScanClick(d)} />,
-        //   );
-        // }
         setScanTypes(data);
         setScansFetched(true);
       })
@@ -479,6 +467,10 @@ export default function Admin() {
                       <button
                         className="font-bold bg-red-300 hover:bg-red-200 rounded-lg p-3"
                         onClick={() => {
+                          if (currentScan.isCheckIn) {
+                            alert('Check-in scan cannot be deleted');
+                            return;
+                          }
                           setShowDeleteScanDialog(true);
                         }}
                       >
