@@ -117,15 +117,6 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
           </Link>
         ))}
       </div>
-      <div className="p-6">
-        <h1 className="font-bold text-xl">Event Details: </h1>
-        <div className="p-4">
-          <EventDetailLink title="Add Workshop" />
-          <EventDetailLink title="Add Meal Option" />
-          <EventDetailLink title="Add Sponsor" />
-          <EventDetailLink title="Edit Event Detail" />
-        </div>
-      </div>
     </div>
   );
 }

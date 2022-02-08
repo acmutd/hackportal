@@ -149,12 +149,14 @@ type TeamMember = {
  * Represent a keynote speaker in home page
  *
  * @param name name of the keynote speaker
- * @param description description of that keynote speaker
+ * @param description description of that keynote speaker'
+ * @param fileName string that matches the file name(with extension) of the corresponding speaker image in firebase storage
  *
  */
 type KeynoteSpeaker = {
   name: string;
   description: string;
+  fileName: string;
 };
 
 /**
