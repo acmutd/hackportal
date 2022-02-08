@@ -185,7 +185,7 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(
 );
 
 export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
-  console.log(props.scheduleCard);
+  // console.log(props.scheduleCard);
   return (
     <Paper>
       <Scheduler data={props.scheduleCard}>
