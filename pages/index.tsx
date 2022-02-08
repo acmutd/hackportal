@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { buttonDatas, stats } from '../lib/data';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import { RequestHelper } from '../lib/request-helper';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import 'firebase/messaging';
 import HomeChallengeCard from '../components/HomeChallengeCard';
 
