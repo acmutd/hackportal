@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { buttonDatas, stats } from '../lib/data';
 import { RequestHelper } from '../lib/request-helper';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import 'firebase/messaging';
 import 'firebase/storage';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';

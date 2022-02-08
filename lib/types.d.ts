@@ -216,3 +216,16 @@ type Announcement = {
   announcement: string;
   timestamp?: string;
 };
+
+type ScheduleEvent = {
+  title: string;
+  endDate: Date;
+  location: string;
+  startDate: Date;
+  event: number;
+};
+
+type Sponsor = {
+  link: string;
+  reference: string;
+};
