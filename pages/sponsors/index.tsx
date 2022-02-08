@@ -26,8 +26,8 @@ export default function Sponsors(props: { sponsorCard: Sponsor[] }) {
       </Head>
       <SponsorHeader
         title="Sponsors"
-        email="randomEmail@gmail.com"
-        name="HackUTD"
+        email="email@organization.com"
+        name="HackPortal"
         className="bg-indigo-200 mb-0"
       ></SponsorHeader>
       <section id="subheader" className="flex justify-center p-4 bg-indigo-200">

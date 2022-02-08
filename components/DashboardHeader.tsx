@@ -22,9 +22,9 @@ export default function DashboardHeader() {
           <NavLink href="/dashboard/hackerpack" exact={true} className="mx-4">
             HackerPack
           </NavLink>
-          <NavLink href="/dashboard/submit" exact={true} className="mx-4">
+          {/*<NavLink href="/dashboard/submit" exact={true} className="mx-4">
             Submit
-          </NavLink>
+          </NavLink>*/}
           <NavLink href="/dashboard/questions" exact={true} className="mx-4">
             Ask a Question
           </NavLink>

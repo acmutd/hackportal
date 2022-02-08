@@ -10,8 +10,8 @@ export default function SwagStatsTable({ swags }: SwagStatsTableProps) {
     <table className="table-fixed">
       <thead>
         <tr>
-          <th className="text-xl p-3 border-2">Swag Name</th>
-          <th className="text-xl p-3 border-2">Claimed</th>
+          <th className="text-xl p-3 border-2">Scan Name</th>
+          <th className="text-xl p-3 border-2">Scan Count</th>
         </tr>
       </thead>
       <tbody>

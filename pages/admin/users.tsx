@@ -148,20 +148,20 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
                   }}
                   title="Hackers"
                 />
-                <FilterComponent
+                {/* <FilterComponent
                   checked={filter['sponsor']}
                   onCheck={() => {
                     updateFilter('sponsor');
                   }}
                   title="Sponsors"
-                />
-                <FilterComponent
+                /> */}
+                {/* <FilterComponent
                   checked={filter['organizer']}
                   onCheck={() => {
                     updateFilter('organizer');
                   }}
                   title="Organizers"
-                />
+                /> */}
                 <FilterComponent
                   checked={filter['admin']}
                   onCheck={() => {

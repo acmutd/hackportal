@@ -73,16 +73,16 @@ export default function Register() {
       permissions: user?.permissions || ['hacker'],
     },
     age: 18,
-    gender: 'Other',
-    race: 'Indian',
-    ethnicity: 'hispanic',
+    gender: '',
+    race: '',
+    ethnicity: '',
     university: '',
     major: '',
-    studyLevel: 'freshman',
+    studyLevel: '',
     hackathonExperience: 0,
-    softwareExperience: 'Beginner',
-    heardFrom: 'Instagram',
-    size: 's',
+    softwareExperience: '',
+    heardFrom: '',
+    size: '',
     dietary: [],
     accomodations: '',
     github: '',
@@ -388,7 +388,7 @@ export default function Register() {
 
             {/*ORGANIZER CAN CUSTOMIZE DROPDOWN OPTIONS*/}
             <label className="text-1xl my-4 font-bold font-small text-left">
-              *Where did you hear about [HACKATHON NAME]?
+              *Where did you hear about HackPortal?
               <br />
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
