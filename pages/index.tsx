@@ -129,10 +129,10 @@ export default function Home(props: {
             className="min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-16 before:bg-transparent before:border-b-4 before:border-l-4 before:border-black
           after:block after:absolute after:top-0 after:right-0 after:w-16 after:h-16 after:bg-transparent after:border-t-4 after:border-r-4 after:border-black"
           >
-            <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">
-              Event title here
-            </h1>
-            <p className="text-center my-4 md:font-bold md:text-3xl text-xl">Subtitle</p>
+            <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackPortal</h1>
+            <p className="text-center my-4 md:font-bold md:text-3xl text-xl">
+              A Project by ACM Engineering and HackUTD
+            </p>
           </div>
           {/* TODO: Programmatically show these based on configured times/organizer preference */}
         </div>
@@ -156,7 +156,7 @@ export default function Home(props: {
             className="video"
             width="700"
             height="400"
-            src="https://www.youtube.com/embed/TF3nn7RnA0c"
+            src="https://www.youtube.com/embed/niFBblrblqo"
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
