@@ -81,7 +81,12 @@ export default function Home(props: {
 
   const checkNotif = () => {
     //pop up visible if user did not enable push notif and browser supports push notif
-    if (Notification.permission !== 'granted' && firebase.messaging.isSupported()) {
+    const isSupported =
+      'Notification' in window &&
+      'serviceWorker' in navigator &&
+      'PushManager' in window &&
+      firebase.messaging.isSupported();
+    if (isSupported && Notification.permission !== 'granted') {
       Notification.requestPermission();
       return true;
     }
