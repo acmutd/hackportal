@@ -10,16 +10,18 @@ export default function KeynoteSpeaker(props) {
   const [imageLink, setImageLink] = useState();
 
   useEffect(() => {
-    const storageRef = firebase.storage().ref();
-    storageRef
-      .child(`speaker_images/${props.imageLink}`)
-      .getDownloadURL()
-      .then((url) => {
-        setImageLink(url);
-      })
-      .catch((error) => {
-        console.error('Could not find matching image file');
-      });
+    if (props.imageLink !== undefined) {
+      const storageRef = firebase.storage().ref();
+      storageRef
+        .child(`speaker_images/${props.imageLink}`)
+        .getDownloadURL()
+        .then((url) => {
+          setImageLink(url);
+        })
+        .catch((error) => {
+          console.error('Could not find matching image file');
+        });
+    }
   }, []);
 
   return (
