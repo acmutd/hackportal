@@ -19,7 +19,7 @@ export default function Sponsors(props: { sponsorCard: Sponsor[] }) {
   });
 
   return (
-    <div className="flex flex-col flex-grow bg-indigo-200">
+    <div className="flex flex-col flex-grow bg-white">
       <Head>
         <title>HackPortal - Sponsors</title>
         <meta name="description" content="HackPortal's Sponsors Page" />
@@ -28,10 +28,10 @@ export default function Sponsors(props: { sponsorCard: Sponsor[] }) {
         title="Sponsors"
         email="email@organization.com"
         name="HackPortal"
-        className="bg-indigo-200 mb-0"
+        className=" mb-0"
       ></SponsorHeader>
-      <section id="subheader" className="flex justify-center p-4 bg-indigo-200">
-        <div className="flex flex-col bg-white rounded-2xl p-4">
+      <section id="subheader" className="flex justify-center p-4">
+        <div className="flex flex-wrap justify-center">
           {sponsor.map(({ link, reference }, idx) => (
             <SponsorCard key={idx} link={link} reference={reference} />
           ))}

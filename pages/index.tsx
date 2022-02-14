@@ -168,13 +168,16 @@ export default function Home(props: {
             allowFullScreen
           ></iframe>
           {/* Stats */}
-          <div className="flex flex-col justify-center">
+          <div className="">
             {stats.map((stat, index) => (
               <div
                 key={stat.data}
+                // className={`${
+                //   index % 2 === 0 ? 'lg:ml-40 md:ml-28 ml-14 md:bg-transparent bg-blue-100' : 'md:mr-8 mr-24 md:bg-transparent bg-white'
+                // } text-center md:my-6 md:p-0 p-4 md:shadow-none shadow-2xl rounded-lg ${index==0 ? "-translate-y-0" : (index==1 ? "-translate-y-2" : "-translate-y-4")}`}
                 className={`${
-                  index % 2 === 0 ? 'lg:ml-40 md:ml-28' : 'md:mr-8'
-                } text-center md:my-6 my-3`}
+                  index % 2 === 0 ? 'lg:ml-40 md:ml-20 ml-14' : 'md:mr-8 mr-24'
+                } text-center md:my-6 my-4`}
               >
                 <p className="font-bold text-2xl text-indigo-600 lg:text-5xl">{stat.data}</p>
                 <p className="font-medium text-lg lg:text-3xl">{stat.object}</p>

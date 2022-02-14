@@ -66,20 +66,6 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
         <p>Any additional information can be provided in this paragraph.</p>
       </div>
 
-      {/* <div className="top-6 p-6 flex flex-col gap-y-4">
-        <h4 className="font-bold text-3xl">Meet Our Team :)</h4>
-        <div className="flex flex-col gap-y-4 w-full">
-          {members.map(({ name, description }, idx) => (
-            <MemberCard
-              key={idx}
-              name={name}
-              description={description}
-              cardColor={colorSchemes[idx % 3]}
-            />
-          ))}
-        </div>
-      </div> */}
-
       <div className="my-2">
         <h4 className="font-bold text-3xl p-6">Meet Our Team :)</h4>
         <div className="flex flex-wrap justify-center md:px-2">

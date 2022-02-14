@@ -30,9 +30,9 @@ export default function MemberCards(props) {
   }, []);
 
   return (
-    <div className="md:w-52 w-44 relative mt-24 md:mx-3 mx-1 drop-shadow-2xl">
+    <div className="md:w-52 w-44 relative mt-24 md:mx-3 mx-1 shadow-2xl">
       {/* Profile Image */}
-      <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full  drop-shadow-2xl">
+      <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full drop-shadow-2xl">
         <Image
           className="rounded-full object-cover"
           src={props.fileName !== undefined && imageLink !== undefined ? imageLink : defaultPFP}

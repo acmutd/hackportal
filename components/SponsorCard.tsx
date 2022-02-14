@@ -38,9 +38,9 @@ export default function SponsorCard(props: SponsorCardProps) {
   return (
     <>
       {imgSrc !== undefined && (
-        <div className="flex w-[27rem] h-[9rem]  justify-center">
-          <a href={props.link}>
-            <Image src={imgSrc} width="140vh" height="140vh" />
+        <div className="flex justify-center">
+          <a href={props.link} className="">
+            <Image src={imgSrc} width={300} height={200} layout="fixed" objectFit="contain" />
           </a>
           <br></br>
         </div>
