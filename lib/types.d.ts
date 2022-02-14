@@ -139,6 +139,7 @@ type PendingQuestion = {
  * @param description description of that team member
  * @param linkedin linkedin link corresponding to team member
  * @param github github link corresponding to team member
+ * @param personalSite personal site link corresponding to team member
  * @param rank number determining which member gets displayed in higher order, lower rank means higher order(index of array)
  * @param fileName string that matches the file name(with extension) of the corresponding speaker image in firebase storage
  *
@@ -148,6 +149,7 @@ type TeamMember = {
   description: string;
   linkedin: string;
   github: string;
+  personalSite: string;
   rank: int;
   fileName: string;
 };

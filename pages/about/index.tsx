@@ -80,17 +80,18 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
         </div>
       </div> */}
 
-      <div className="p-6">
-        <h4 className="font-bold text-3xl">Meet Our Team :)</h4>
+      <div className="my-2">
+        <h4 className="font-bold text-3xl p-6">Meet Our Team :)</h4>
         <div className="flex flex-wrap justify-center md:px-2">
-          {members.map(({ name, description, linkedin, github, fileName }, idx) => (
+          {members.map(({ name, description, linkedin, github, personalSite, fileName }, idx) => (
             <MemberCards
               key={idx}
               name={name}
               description={description}
+              fileName={fileName}
               linkedin={linkedin}
               github={github}
-              fileName={fileName}
+              personalSite={personalSite}
             />
           ))}
         </div>
