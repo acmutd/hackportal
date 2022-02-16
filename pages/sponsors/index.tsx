@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import { RequestHelper } from '../../lib/request-helper';
 import SponsorCard from '../../components/SponsorCard';
-import SponsorHeader from '../../components/SponsorHeader';
 
 /**
  * The sponsors page.
@@ -15,28 +14,32 @@ export default function Sponsors(props: { sponsorCard: Sponsor[] }) {
 
   useEffect(() => {
     setSponsor(props.sponsorCard);
-    //organize challenges in order by rank given in firebase
-  });
+  }, []);
 
   return (
-    <div className="flex flex-col flex-grow bg-indigo-200">
+    <div className="flex flex-col flex-grow bg-white">
       <Head>
         <title>HackPortal - Sponsors</title>
         <meta name="description" content="HackPortal's Sponsors Page" />
       </Head>
-      <SponsorHeader
-        title="Sponsors"
-        email="email@organization.com"
-        name="HackPortal"
-        className="bg-indigo-200 mb-0"
-      ></SponsorHeader>
-      <section id="subheader" className="flex justify-center p-4 bg-indigo-200">
-        <div className="flex flex-col bg-white rounded-2xl p-4">
-          {sponsor.map(({ link, reference }, idx) => (
-            <SponsorCard key={idx} link={link} reference={reference} />
-          ))}
-        </div>
+
+      <h1 className="md:text-8xl text-7xl text-center my-6">Sponsors</h1>
+      <section className="flex flex-wrap justify-center p-4">
+        {sponsor.map(({ link, reference }, idx) => (
+          <SponsorCard key={idx} link={link} reference={reference} />
+        ))}
       </section>
+      <h2 className="my-2 text-center">
+        If you would like to sponsor HackPortal, please reach out to us at&nbsp;
+        <a
+          href="mailto:email@organization.com"
+          rel="noopener noreferrer"
+          target="_blank"
+          className="underline"
+        >
+          email@organization.com
+        </a>
+      </h2>
     </div>
   );
 }

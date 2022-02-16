@@ -17,19 +17,20 @@ export default function SponsorCard(props: SponsorCardProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storageRef = firebase.storage().ref();
-
-    storageRef
-      .child(`sponsor_images/${props.reference}`)
-      .getDownloadURL()
-      .then((url) => {
-        setImgSrc(url);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.error('Could not find matching image file');
-      });
+    if (props.reference !== undefined) {
+      const storageRef = firebase.storage().ref();
+      storageRef
+        .child(`sponsor_images/${props.reference}`)
+        .getDownloadURL()
+        .then((url) => {
+          setImgSrc(url);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.error('Could not find matching image file');
+        });
+    }
   }, []);
 
   if (loading) return <LoadIcon width={100} height={100} />;
@@ -37,9 +38,9 @@ export default function SponsorCard(props: SponsorCardProps) {
   return (
     <>
       {imgSrc !== undefined && (
-        <div className="flex w-[27rem] h-[9rem]  justify-center">
-          <a href={props.link}>
-            <Image src={imgSrc} width="140vh" height="140vh" />
+        <div className="flex justify-center">
+          <a href={props.link} className="">
+            <Image src={imgSrc} width={300} height={200} layout="fixed" objectFit="contain" />
           </a>
           <br></br>
         </div>

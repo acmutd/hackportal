@@ -125,13 +125,13 @@ export default function Home(props: {
         </div>
       )}
       {/* Hero section */}
-      <section className="min-h-[640px] h-full p-4 bg-indigo-100">
+      <section className="min-h-screen p-4 bg-indigo-100">
         <div
           style={{ minHeight: 480 }}
           className="max-w-4xl mx-auto flex flex-col justify-center items-center"
         >
           <div
-            className="min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-16 before:bg-transparent before:border-b-4 before:border-l-4 before:border-black
+            className="min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative md:mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-16 before:bg-transparent before:border-b-4 before:border-l-4 before:border-black
           after:block after:absolute after:top-0 after:right-0 after:w-16 after:h-16 after:bg-transparent after:border-t-4 after:border-r-4 after:border-black"
           >
             <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackPortal</h1>
@@ -141,12 +141,12 @@ export default function Home(props: {
           </div>
           {/* TODO: Programmatically show these based on configured times/organizer preference */}
         </div>
-        <div className="w-full flex flex-col items-center gap-y-8 md:gap-y-0 md:flex-row md:justify-around px-4">
+        <div className="flex flex-col items-center md:flex-row md:justify-around px-4 md:space-y-0 space-y-3 > * + *">
           {buttonDatas.map((button) => (
             <button
               key={button.text}
               onClick={() => router.push(button.path)}
-              className="max-w-[280px] md:max-w-full bg-indigo-300 px-16 py-4"
+              className="max-w-[12rem] w-[12rem] md:max-w-full bg-indigo-300 py-4"
             >
               {button.text}
             </button>
@@ -168,13 +168,13 @@ export default function Home(props: {
             allowFullScreen
           ></iframe>
           {/* Stats */}
-          <div className="flex flex-col justify-center">
+          <div className="">
             {stats.map((stat, index) => (
               <div
                 key={stat.data}
                 className={`${
-                  index % 2 === 0 ? 'lg:ml-40 md:ml-28' : 'md:mr-8'
-                } text-center md:my-6 my-3`}
+                  index % 2 === 0 ? 'lg:ml-40 md:ml-20 ml-14' : 'md:mr-8 mr-24'
+                } text-center md:my-6 my-4`}
               >
                 <p className="font-bold text-2xl text-indigo-600 lg:text-5xl">{stat.data}</p>
                 <p className="font-medium text-lg lg:text-3xl">{stat.object}</p>
