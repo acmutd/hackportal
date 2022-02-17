@@ -1,9 +1,11 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import LoadIcon from '../components/LoadIcon';
 import { useUser } from '../lib/profile/user-data';
 import { RequestHelper } from '../lib/request-helper';
 import { useAuthContext } from '../lib/user/AuthContext';
+import firebase from 'firebase/app';
 
 /**
  * The registration page.
@@ -12,15 +14,15 @@ import { useAuthContext } from '../lib/user/AuthContext';
  */
 
 export default function Register() {
-  const user = useUser();
   const router = useRouter();
 
-  const { checkIfProfileExists } = useAuthContext();
-  const [resumeFile, setResumeFile] = useState<File>();
+  const { user, hasProfile, updateProfile } = useAuthContext();
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const checkRedirect = async () => {
-    const hasProfile = await checkIfProfileExists();
     if (hasProfile) router.push('/profile');
+    else setLoading(false);
   };
 
   useEffect(() => {
@@ -36,22 +38,26 @@ export default function Register() {
 
   const handleSubmit = async () => {
     try {
-      const formData = new FormData();
-      formData.append('resume', resumeFile);
-      formData.append(
-        'fileName',
-        `resume_${registrationData.user.firstName}_${registrationData.user.lastName}${getExtension(
-          resumeFile.name,
-        )}`,
-      );
-      await fetch('/api/resume/upload', {
-        method: 'post',
-        body: formData,
-      });
-      await RequestHelper.post<Registration, void>('/api/applications', {}, registrationData);
+      if (resumeFile) {
+        const formData = new FormData();
+        formData.append('resume', resumeFile);
+        formData.append(
+          'fileName',
+          `resume_${registrationData.user.firstName}_${
+            registrationData.user.lastName
+          }${getExtension(resumeFile.name)}`,
+        );
+        await fetch('/api/resume/upload', {
+          method: 'post',
+          body: formData,
+        });
+      }
+      await RequestHelper.post<Registration, any>('/api/applications', {}, registrationData);
       alert('Profile created successful');
+      updateProfile(registrationData);
       router.push('/profile');
     } catch (error) {
+      console.error(error);
       console.log('Request creation error');
     }
   };
@@ -67,22 +73,22 @@ export default function Register() {
       permissions: user?.permissions || ['hacker'],
     },
     age: 18,
-    gender: 'Other',
-    race: 'Indian',
-    ethnicity: 'hispanic',
+    gender: '',
+    race: '',
+    ethnicity: '',
     university: '',
     major: '',
-    studyLevel: 'freshman',
+    studyLevel: '',
     hackathonExperience: 0,
-    softwareExperience: 'Beginner',
-    heardFrom: 'Instagram',
-    size: 's',
+    softwareExperience: '',
+    heardFrom: '',
+    size: '',
     dietary: [],
     accomodations: '',
     github: '',
     linkedin: '',
     website: '',
-    resume: '',
+    //resume: '',
     companies: [],
   });
 
@@ -135,8 +141,12 @@ export default function Register() {
     router.push('/');
   }
 
+  if (loading) {
+    return <LoadIcon width={200} height={200} />;
+  }
+
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow bg-white">
       <Head>
         <title>Hacker Registration</title>
         <meta name="description" content="Register for [HACKATHON NAME]" />
@@ -192,10 +202,9 @@ export default function Register() {
               <br />
               <input
                 placeholder="email@example.com"
-                type="type"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                type="text"
                 className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
-                name="email"
+                name="preferredEmail"
                 autoComplete="email"
                 required
                 value={registrationData.user.preferredEmail}
@@ -379,7 +388,7 @@ export default function Register() {
 
             {/*ORGANIZER CAN CUSTOMIZE DROPDOWN OPTIONS*/}
             <label className="text-1xl my-4 font-bold font-small text-left">
-              *Where did you hear about [HACKATHON NAME]?
+              *Where did you hear about HackPortal?
               <br />
               <select
                 className="border min-w-50 px-2 text-grey-darkest absolute h-8 bg-indigo-100 rounded-md"
@@ -432,7 +441,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Vegan')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Vegan</text>
+              <p className="inline-block pl-2">Vegan</p>
             </label>
             <label>
               <br />
@@ -443,7 +452,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Vegitarian')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Vegitarian</text>
+              <p className="inline-block pl-2">Vegitarian</p>
             </label>
             <label>
               <br />
@@ -454,7 +463,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Nuts')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Nuts</text>
+              <p className="inline-block pl-2">Nuts</p>
             </label>
             <label>
               <br />
@@ -465,7 +474,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Fish')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Fish</text>
+              <p className="inline-block pl-2">Fish</p>
             </label>
             <label>
               <br />
@@ -476,7 +485,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Wheat')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Wheat</text>
+              <p className="inline-block pl-2">Wheat</p>
             </label>
             <label>
               <br />
@@ -487,7 +496,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Dairy')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Dairy</text>
+              <p className="inline-block pl-2">Dairy</p>
             </label>
             <label>
               <br />
@@ -498,7 +507,7 @@ export default function Register() {
                 checked={registrationData.dietary.includes('Eggs')}
                 onChange={(e) => updateDietary(e)}
               />
-              <text className="pl-2">Eggs</text>
+              <p className="inline-block pl-2">Eggs</p>
               <br />
               <br />
             </label>

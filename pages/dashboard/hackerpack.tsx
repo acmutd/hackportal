@@ -30,12 +30,15 @@ export default function HackerPack() {
         className="flex justify-center h-screen sticky top-0 w-1/4 md:w-1/6 2xl:w-1/8 text-xs md:text-xs lg:text-sm overflow-auto"
       ></section>
 
+      {/* Sidebar */}
       <section
         id="Sidebar"
         className="flex justify-center h-screen fixed top-16 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-xs md:text-xs lg:text-sm overflow-auto"
       >
         <section id="options" className="relative px-6 py-4">
           <div className="font-bold mb-3">HackerPack</div>
+          {/* Sidebar selection options */}
+          {/* Change hrefs(id) to jump to specific sections in main content */}
           <ul className="pl-4 pb-32">
             <li>
               General
@@ -101,19 +104,23 @@ export default function HackerPack() {
             </li>
           </ul>
         </section>
+        {/* User greeting for bottom of sidebar */}
         <div className="fixed bottom-0 border-t-2 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-center py-3 bg-white">
-          <div>Welcome, {!user || !isSignedIn ? 'hacker' : user.firstName}</div>
+          <div>
+            Welcome,{' '}
+            {!user || !isSignedIn ? 'hacker' : user.firstName !== '' ? user.firstName : 'hacker'}
+          </div>
           <div className="text-indigo-500">{role}</div>
         </div>
       </section>
 
+      {/* Main content section */}
       <section id="mainContent" className="px-6 py-3 w-3/4 md:wd-5/6 2xl:w-7/8">
-        <section id="subheader" className="p-4">
-          <DashboardHeader active="/dashboard/hackerpack" />
-        </section>
+        <DashboardHeader />
 
         <div className="font-bold text-2xl md:text-4xl lg-text-6xl">Big Heading</div>
 
+        {/* Document links */}
         <section id="docLinks" className="bg-gray-200 rounded-lg my-6 p-5 w-5/6">
           Linked Documents:
           <div className="flex flex-wrap grid grid-cols-2 lg:grid-cols-3 ">
@@ -150,8 +157,9 @@ export default function HackerPack() {
           </div>
         </section>
 
+        {/* Section 1 */}
         <div id="Subsection1" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg-text-3xl mb-4">SubHeading 1</div>
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 1</div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
             incididunt ut labore et dolore magna aliqua. Morbi tempus iaculis urna id volutpat lacus
@@ -165,9 +173,9 @@ export default function HackerPack() {
             venenatis. Dolor magna eget est lorem ipsum dolor sit.
           </p>
         </div>
-
+        {/* Section 2 */}
         <div id="Subsection2" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg-text-3xl mb-4">SubHeading 2</div>
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 2</div>
           <div className="flex grid grid-cols-2 gap-x-4 ">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et eu et vitae, in quis metus
@@ -187,9 +195,9 @@ export default function HackerPack() {
             </p>
           </div>
         </div>
-
+        {/* Section 3 */}
         <div id="Subsection3" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg-text-3xl mb-4">SubHeading 3</div>
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 3</div>
           <p>
             Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Mauris nunc congue nisi
             vitae suscipit. Vestibulum morbi blandit cursus risus at ultrices mi tempus imperdiet.
@@ -199,9 +207,9 @@ export default function HackerPack() {
             arcu. Enim nulla aliquet porttitor lacus luctus accumsan tortor.
           </p>
         </div>
-
+        {/* Section 4 */}
         <div id="Subsection4" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg-text-3xl mb-4">SubHeading 4</div>
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 4</div>
           <p>
             Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Mauris nunc congue nisi
             vitae suscipit. Vestibulum morbi blandit cursus risus at ultrices mi tempus imperdiet.
@@ -211,9 +219,9 @@ export default function HackerPack() {
             arcu. Enim nulla aliquet porttitor lacus luctus accumsan tortor.
           </p>
         </div>
-
+        {/* Section 5 */}
         <div id="Subsection5" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg-text-3xl mb-4">SubHeading 5</div>
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 5</div>
           <div>
             <p>
               Turpis egestas pretium aenean pharetra magna. Turpis in eu mi bibendum neque egestas
@@ -230,9 +238,9 @@ export default function HackerPack() {
             </p>
           </div>
         </div>
-
+        {/* Section 6 */}
         <div id="Subsection6" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg-text-3xl mb-4">SubHeading 6</div>
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 6</div>
           <div className="flex grid grid-cols-2 gap-x-4 ">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et eu et vitae, in quis metus

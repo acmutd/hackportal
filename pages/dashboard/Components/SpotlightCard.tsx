@@ -42,39 +42,37 @@ function SpotlightCard(props: any) {
 
   return (
     <>
-      {/* <div className="min-w-3/4 h-full bg-lightBackground flex justify-center pt-2"> */}
-      <div className="scrollItem min-w-3/4 h-[90%] bg-aqua rounded-lg p-3 flex flex-col justify-between my-4 mx-12">
+      <div className="scrollItem flex flex-col justify-between min-w-3/4 h-[90%] bg-aqua rounded-lg p-3 my-4 mx-12">
         <h1 className="lg:text-4xl text-xl font-black">{props.title}</h1>
         <h3 className="md:text-md text-sm font-black">{speakerString}</h3>
         {/* info section */}
-        <div className="rounded-lg bg-darkAqua w-full min-h-1/2 p-3 flex flex-col justify-around">
+        <div className="flex flex-col justify-around w-full min-h-1/2 rounded-lg bg-darkAqua p-3">
           {/* top row info */}
           <div className="flex justify-around">
-            <div className="lg:text-lg sm:text-md text-xs flex items-center">
+            <div className="flex items-center lg:text-lg sm:text-md text-xs">
               {<CalendarIcon style={{ fontSize: 'medium', margin: '2px' }} />}
               <p>{dayString}</p>
             </div>
-            <div className="lg:text-lg sm:text-md text-xs flex items-center">
+            <div className="flex items-center lg:text-lg sm:text-md text-xs">
               {<PinDrop style={{ fontSize: 'medium', margin: '2px' }} />}
               <p>{props.location}</p>
             </div>
           </div>
           {/* botton row info */}
           <div className="flex justify-around">
-            <div className="lg:text-lg sm:text-md text-xs flex items-center">
+            <div className="flex items-center lg:text-lg sm:text-md text-xs">
               {<ClockIcon style={{ fontSize: 'large', margin: '2px' }} />}
               <p>
                 {props.startTime} - {props.endTime}
               </p>
             </div>
-            <div className="lg:text-lg sm:text-md text-xs flex items-center">
+            <div className="flex items-center lg:text-lg sm:text-md text-xs">
               {<Backpack style={{ fontSize: 'medium', margin: '2px' }} />}
               <p>{props.page}</p>
             </div>
           </div>
         </div>
       </div>
-      {/* </div> */}
     </>
   );
 }

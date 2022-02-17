@@ -3,6 +3,7 @@ import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import AboutHeader from '../../components/AboutHeader';
 import MemberCard from '../../components/MemberCard';
+import MemberCards from '../../components/MemberCards';
 import { RequestHelper } from '../../lib/request-helper';
 
 /**
@@ -18,7 +19,7 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
   const [members, setMembers] = useState<TeamMember[]>([]);
 
   useEffect(() => {
-    setMembers(fetchedMembers);
+    setMembers(fetchedMembers.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
     setLoading(false);
   }, [fetchedMembers]);
 
@@ -46,7 +47,7 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
   }
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow bg-white">
       <Head>
         <title>HackPortal - About</title>
         <meta name="description" content="HackPortal's About Page" />
@@ -65,15 +66,18 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
         <p>Any additional information can be provided in this paragraph.</p>
       </div>
 
-      <div className="top-6 p-6 flex flex-col gap-y-4">
-        <h4 className="font-bold text-3xl">Meet Our Team :)</h4>
-        <div className="flex flex-col gap-y-4 w-full">
-          {members.map(({ name, description }, idx) => (
-            <MemberCard
+      <div className="my-2">
+        <h4 className="font-bold text-3xl p-6">Meet Our Team :)</h4>
+        <div className="flex flex-wrap justify-center md:px-2">
+          {members.map(({ name, description, linkedin, github, personalSite, fileName }, idx) => (
+            <MemberCards
               key={idx}
               name={name}
               description={description}
-              cardColor={colorSchemes[idx % 3]}
+              fileName={fileName}
+              linkedin={linkedin}
+              github={github}
+              personalSite={personalSite}
             />
           ))}
         </div>

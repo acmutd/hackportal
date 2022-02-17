@@ -4,8 +4,6 @@ import DashboardHeader from '../../components/DashboardHeader';
 import { useUser } from '../../lib/profile/user-data';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import AnnouncementCard from './Components/AnnouncementCards';
-import MentorCard1 from './Components/MentorCard1';
-import MentorCard3 from './Components/MentorCard3';
 import Sidebar from './Components/Sidebar';
 import firebase from 'firebase';
 import 'firebase/messaging';
@@ -13,9 +11,9 @@ import { GetServerSideProps } from 'next';
 import { RequestHelper } from '../../lib/request-helper';
 import { useFCMContext } from '../../lib/service-worker/FCMContext';
 import SpotlightCard from './Components/SpotlightCard';
+import ChallengeCard from './Components/ChallengeCard';
 
 import { Navigation, Pagination, A11y } from 'swiper';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -34,6 +32,7 @@ import 'swiper/css/scrollbar';
 export default function Dashboard(props: {
   announcements: Announcement[];
   spotlightevents: SpotlightEvent[];
+  challenges: Challenge[];
 }) {
   const { isSignedIn } = useAuthContext();
   const user = useUser();
@@ -41,13 +40,21 @@ export default function Dashboard(props: {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [dateTime, setdateTime] = useState(new Date());
   const [eventCount, setEventCount] = useState(0);
-  var num;
+  const [challenges, setChallenges] = useState<Challenge[]>([]);
 
   useEffect(() => {
     setAnnouncements(props.announcements);
-    firebase.messaging().onMessage((payload) => {
-      setAnnouncements((prev) => [JSON.parse(payload.data.notification) as Announcement, ...prev]);
-    });
+    // ordering challenges as speficied in firebase
+    setChallenges(props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
+    if (firebase.messaging.isSupported()) {
+      firebase.messaging().onMessage((payload) => {
+        setAnnouncements((prev) => [
+          JSON.parse(payload.data.notification) as Announcement,
+          ...prev,
+        ]);
+      });
+    }
+
     setdateTime(new Date());
     setEventCount(
       props.spotlightevents.reduce(
@@ -58,6 +65,7 @@ export default function Dashboard(props: {
     );
   }, []);
 
+  // Check if spotlight time/date interval encompasses current time/date
   const validTimeDate = (date, startTime, endTime) => {
     if (!checkDate(date)) {
       return false;
@@ -66,8 +74,8 @@ export default function Dashboard(props: {
     return checkTime(startTime, endTime);
   };
 
+  //Check if spotlight date is same as current date
   const checkDate = (date) => {
-    //check if date is the same
     var currDate = dateTime.toString().substring(4, 15);
     var eventDate = date.replace(',', '');
     if (currDate !== eventDate) {
@@ -76,16 +84,18 @@ export default function Dashboard(props: {
     return true;
   };
 
+  // Check if spotlight time interval encompasses current time
   const checkTime = (startTime, endTime) => {
     var hour,
       startTimeMilitary = startTime,
       endTimeMilitary = endTime;
+    // converting to military time
     if (startTime.substring(startTime.length - 2) == 'pm') {
       hour = parseInt(startTime.split(':')[0]);
       hour = hour === 12 ? 12 : hour + 12;
       startTimeMilitary = hour.toString() + ':' + startTime.split(':')[1];
     }
-    if (startTime.substring(startTime.length - 2) == 'am' && startTime.substring(0, 2)) {
+    if (startTime.substring(startTime.length - 2) == 'am' && startTime.substring(0, 2) == '12') {
       startTimeMilitary = '00:' + startTime.split(':')[1];
     }
     if (endTime.substring(endTime.length - 2) == 'pm') {
@@ -93,10 +103,11 @@ export default function Dashboard(props: {
       hour = hour === 12 ? 12 : hour + 12;
       endTimeMilitary = hour.toString() + ':' + endTime.split(':')[1];
     }
-    if (endTime.substring(endTime.length - 2) == 'am' && endTime.substring(0, 2)) {
+    if (endTime.substring(endTime.length - 2) == 'am' && endTime.substring(0, 2) == '12') {
       endTimeMilitary = '00:' + endTime.split(':')[1];
     }
 
+    // parsing time info
     var currentHour = parseInt(dateTime.getHours().toString());
     var currentMinute = parseInt(dateTime.getMinutes().toString());
     var startHour = parseInt(startTimeMilitary.split(':')[0]);
@@ -104,6 +115,7 @@ export default function Dashboard(props: {
     var endHour = parseInt(endTimeMilitary.split(':')[0]);
     var endMinute = parseInt(endTimeMilitary.split(':')[1].substring(0, 2));
 
+    // checking matching time interval
     if (currentHour >= startHour && currentHour <= endHour) {
       if (currentHour == startHour) {
         if (startHour != endHour) {
@@ -137,15 +149,14 @@ export default function Dashboard(props: {
 
         <Sidebar />
 
-        <section id="mainContent" className="px-6 py-3 lg:w-7/8 md:w-6/7 w-full bg-white">
-          <section id="subheader" className="p-4 flex justify-center">
-            <DashboardHeader active="/dashboard/" />
-          </section>
-
+        <section id="mainContent" className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 bg-white">
+          <DashboardHeader />
+          {/* Spotlight & Announcements */}
           <div className="flex flex-wrap my-16">
             {/* Spotlight Events */}
+            {/* Hides spotlight if no events are going on */}
             {eventCount > 0 && (
-              <div className="md:w-3/5 w-full h-96">
+              <div className="lg:w-3/5 w-full h-96">
                 <h1 className="md:text-3xl text-xl font-black">Spotlight</h1>
                 <div>{eventCountString}</div>
                 <Swiper
@@ -153,6 +164,7 @@ export default function Dashboard(props: {
                   spaceBetween={50}
                   slidesPerView={1}
                   navigation
+                  loop={true}
                   pagination={{ clickable: true }}
                 >
                   {props.spotlightevents.map(
@@ -160,6 +172,7 @@ export default function Dashboard(props: {
                       validTimeDate(date, startTime, endTime) && (
                         <SwiperSlide key={idx}>
                           <div className="h-[19rem] w-full">
+                            {/* Customize Spotlight card design for carousel in  SpotlightCard component file*/}
                             <SpotlightCard
                               title={title}
                               speakers={speakers}
@@ -179,7 +192,7 @@ export default function Dashboard(props: {
               </div>
             )}
             {/* Announcements */}
-            <div className="md:w-2/5 w-screen h-96">
+            <div className="lg:w-2/5 w-full h-96">
               <h1 className="md:text-3xl text-xl font-black">Announcements</h1>
               <div id="announcement-items" className="overflow-y-scroll h-9/10">
                 {announcements.map((announcement, idx) => {
@@ -199,16 +212,14 @@ export default function Dashboard(props: {
             </div>
           </div>
 
-          {/* Events and Team */}
-          <div className="flex flex-wrap h-96 my-16">
-            {/* <div className="md:w-3/5 w-screen ">
-              <h1 className="md:text-3xl text-xl font-black">Your Saved Events</h1>
-            </div> */}
-            <div className="md:w-2/5 w-screen ">
-              <h1 className="md:text-3xl text-xl font-black">Your Team</h1>
-              <div className="h-4/5 p-5 md:text-xl text-lg bg-purple-200 rounded-lg">
-                Hackergang
-              </div>
+          {/* Challenges */}
+          <div className="flex flex-col items-center my-8">
+            <h1 className="md:text-3xl text-xl font-black">Challenges</h1>
+            {/* Cards */}
+            <div className="challengeGrid my-8">
+              {challenges.map(({ title, description, prizes }, idx) => (
+                <ChallengeCard key={idx} title={title} description={description} prizes={prizes} />
+              ))}
             </div>
           </div>
         </section>
@@ -227,11 +238,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/spotlightevents/`,
     {},
   );
+  const { data: challengeData } = await RequestHelper.get<Challenge[]>(
+    `${protocol}://${context.req.headers.host}/api/challenges/`,
+    {},
+  );
 
   return {
     props: {
       announcements: announcementData,
       spotlightevents: spotlightData,
+      challenges: challengeData,
     },
   };
 };

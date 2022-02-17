@@ -12,49 +12,17 @@ export const navItems = [
   { text: 'Admin', path: '/admin' },
 ];
 
-export const mockUserData = [
-  {
-    name: 'User1',
-    role: ['admin', 'hacker'],
-  },
-  {
-    name: 'User1',
-    role: ['admin', 'hacker'],
-  },
-  {
-    name: 'User1',
-    role: ['admin', 'hacker'],
-  },
-  {
-    name: 'User1',
-    role: ['admin', 'hacker'],
-  },
-  {
-    name: 'User1',
-    role: ['admin', 'hacker'],
-  },
-  {
-    name: 'User1',
-    role: ['admin', 'hacker'],
-  },
-  {
-    name: 'User2',
-    role: ['organizer'],
-  },
-  {
-    name: 'User3',
-    role: ['sponsor'],
-  },
-];
-
 export const stats = [
   {
-    data: '750+',
-    object: 'participants',
+    data: 'Big',
+    object: 'statistic 1',
   },
   {
-    data: '24',
-    object: 'hours',
+    data: 'Shocking',
+    object: 'statistic 2',
   },
-  { data: '34', object: 'events' },
+  {
+    data: 'Incredible',
+    object: 'statistic 3',
+  },
 ];

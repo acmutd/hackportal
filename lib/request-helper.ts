@@ -1,3 +1,5 @@
+import { ConsoleSqlOutlined } from '@ant-design/icons';
+
 /**
  *
  * A utility class created to make the process of making request to backend easier and also to enforce type-checking

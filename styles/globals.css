@@ -27,24 +27,6 @@ a.link {
 
 .element {
   font-family: 'wavehaus';
- }
-
-/* Dropdown menu css classes */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
- 
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
-.element {
-  font-family: 'wavehaus';
 }
 
 .profile-view {
@@ -75,44 +57,48 @@ a {
 .profile-view-interests {
   grid-area: interests;
 }
-/* Carousel css classes */
-.carousel {
-  position: relative;
-  height: 75%;
-  width: 95%;
+
+.challengeGrid {
+  column-count: 2;
 }
 
-/* default unselected carousel item, shown as hidden*/
-.carousel__item {
-  height: 100%;
-  /* background: grey; */
-  /* padding: 1em; */
-  display: none;
+@media (max-width: 1024px) {
+  /* Home page video scaling */
+  .video {
+    zoom: 0.85;
+    -moz-transform: scale(0.85);
+    -moz-transform-origin: top center;
+    -o-transform: scale(0.85);
+    -o-transform-origin: top center;
+    -webkit-transform: scale(0.85);
+    -webkit-transform-origin: top center;
+  }
 }
 
-/* appears when selected*/
-.carousel__item--selected {
-  display: block;
+@media (max-width: 768px) {
+  .challengeGrid {
+    column-count: 1;
+  }
+
+  /* Home page video scaling */
+  .video {
+    zoom: 0.7 !important;
+    -moz-transform: scale(0.7) !important;
+    -o-transform: scale(0.7) !important;
+    -webkit-transform: scale(0.7) !important;
+  }
 }
 
-.carousel__nav {
-  width: 100%;
+/* For challenge selection in home page */
+.arrow-right {
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+
+  border-left: 10px solid rgb(233 213 255);
+}
+
+/* Safari key icon for sign up password field */
+.newPasswordInput::-webkit-credentials-auto-fill-button {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  text-align: center;
-}
-
-.carousel__button {
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-  background: rgba(109, 97, 97, 0.2);
-  border-radius: 50%;
-  margin: 0 5px;
-  cursor: pointer;
-}
-
-.carousel__button--selected {
-  background: rgba(0, 0, 0, 0.5);
+  right: 4rem;
 }

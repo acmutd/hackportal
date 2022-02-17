@@ -15,7 +15,8 @@ export function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;
   return (
     (user.permissions as string[]).includes('admin') ||
-    (user.permissions as string[]).includes('organizer')
+    (user.permissions as string[]).includes('organizer') ||
+    (user.permissions as string[]).includes('super_admin')
   );
 }
 
@@ -115,15 +116,6 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
             </a>
           </Link>
         ))}
-      </div>
-      <div className="p-6">
-        <h1 className="font-bold text-xl">Event Details: </h1>
-        <div className="p-4">
-          <EventDetailLink title="Add Workshop" />
-          <EventDetailLink title="Add Meal Option" />
-          <EventDetailLink title="Add Sponsor" />
-          <EventDetailLink title="Edit Event Detail" />
-        </div>
       </div>
     </div>
   );

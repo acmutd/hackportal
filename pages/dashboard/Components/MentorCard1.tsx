@@ -14,7 +14,7 @@ function MentorCard1(props) {
         <div className="h-2/5 p-4 md:text-2xl text-lg font-black">{props.room}</div>
         <div className="h-2/5 bg-pink-300 p-4 flex flex-wrap content-start">
           <p className="text-md w-full">Find help with:</p>
-          <div className="bg-pink-100 w-full h-1/4 rounded-full text-center md:text-lg text-md flex items-center justify-center m-1">
+          <div className="flex items-center justify-center w-full h-1/4 rounded-full text-center md:text-lg text-md m-1 bg-pink-100">
             {props.topic}
           </div>
         </div>

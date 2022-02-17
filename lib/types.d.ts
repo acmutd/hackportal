@@ -8,7 +8,7 @@ type WithId<T> = T & {
 /**
  * A flag for the set of functionality that is enabled for an account.
  */
-type UserPermission = 'admin' | 'sponsor' | 'organizer' | 'judge' | 'hacker';
+type UserPermission = 'admin' | 'sponsor' | 'organizer' | 'judge' | 'hacker' | 'super_admin';
 type Companies = 'SF' | 'AA' | 'C1' | 'EB' | 'FB';
 /**
  * Basic information needed for displays on the website.
@@ -137,11 +137,21 @@ type PendingQuestion = {
  *
  * @param name name of the team member
  * @param description description of that team member
+ * @param linkedin linkedin link corresponding to team member
+ * @param github github link corresponding to team member
+ * @param personalSite personal site link corresponding to team member
+ * @param rank number determining which member gets displayed in higher order, lower rank means higher order(index of array)
+ * @param fileName string that matches the file name(with extension) of the corresponding speaker image in firebase storage
  *
  */
 type TeamMember = {
   name: string;
   description: string;
+  linkedin: string;
+  github: string;
+  personalSite: string;
+  rank: int;
+  fileName: string;
 };
 
 /**
@@ -149,12 +159,32 @@ type TeamMember = {
  * Represent a keynote speaker in home page
  *
  * @param name name of the keynote speaker
- * @param description description of that keynote speaker
+ * @param description description of that keynote speaker'
+ * @param fileName string that matches the file name(with extension) of the corresponding speaker image in firebase storage
  *
  */
 type KeynoteSpeaker = {
   name: string;
   description: string;
+  fileName: string;
+};
+
+/**
+ *
+ * Represent a challenge in hackcenter
+ *
+ * @param title title of challenge
+ * @param description description of that challenge. To add a linebreak, simply add \n into the string value where needed in firebase
+ * @param prizes array of prizes starting from first and ending to last place prize, not required
+ * @param organization name of organization that is sponsoring the challenge
+ * @param rank number determining which challenge gets displayed in higher order, lower rank means higher order(index of array)
+ */
+type Challenge = {
+  title: string;
+  description: string;
+  prizes: [];
+  organization: string;
+  rank: int;
 };
 
 /**
@@ -165,8 +195,8 @@ type KeynoteSpeaker = {
  * @param speakers speakers of event
  * @param date date of event in format {(3 letter english month name) dd, yyyy}, e.g. Jan 10, 2022
  * @param location location/room of event
- * @param startTime start time of event in format hh:mm (am/pm), e.g. 06:36 am
- * @param endTime start time of event in format hh:mm (am/pm)
+ * @param startTime start time of event in format h:mm (am/pm), e.g. 6:36 am, 10:13 pm
+ * @param endTime start time of event in format h:mm (am/pm)
  * @param page page where more information can be found about event
  *
  */
@@ -195,4 +225,17 @@ type ColorScheme = {
 type Announcement = {
   announcement: string;
   timestamp?: string;
+};
+
+type ScheduleEvent = {
+  title: string;
+  endDate: Date;
+  location: string;
+  startDate: Date;
+  event: number;
+};
+
+type Sponsor = {
+  link: string;
+  reference: string;
 };
