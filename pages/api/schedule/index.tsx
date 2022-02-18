@@ -23,6 +23,8 @@ async function getScheduleEvents(req: NextApiRequest, res: NextApiResponse) {
     const currentEvent = doc.data();
     data.push({
       ...currentEvent,
+      startTimestamp: currentEvent.startDate,
+      endTimestamp: currentEvent.endDate,
       startDate: currentEvent.startDate.toDate(),
       endDate: currentEvent.endDate.toDate(),
     });
