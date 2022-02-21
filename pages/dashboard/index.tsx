@@ -26,7 +26,6 @@ import 'swiper/css/scrollbar';
  *
  * Landing: /dashboard
  *
- * Date of event is in format {(3 letter english month name) dd, yyyy}, e.g. Jan 07, 2022
  */
 
 export default function Dashboard(props: {
@@ -111,19 +110,7 @@ export default function Dashboard(props: {
                   pagination={{ clickable: true }}
                 >
                   {props.scheduleEvents.map(
-                    (
-                      {
-                        title,
-                        speakers,
-                        startTimestamp,
-                        startDate,
-                        endTimestamp,
-                        endDate,
-                        location,
-                        page,
-                      },
-                      idx,
-                    ) =>
+                    ({ title, speakers, startTimestamp, endTimestamp, location, page }, idx) =>
                       validTimeDate(startTimestamp, endTimestamp) && (
                         <SwiperSlide key={idx}>
                           <div className="h-[19rem] w-full">
@@ -135,7 +122,6 @@ export default function Dashboard(props: {
                               location={location}
                               endDate={endTimestamp}
                               page={page}
-                              dateTime={dateTime}
                             />
                           </div>
                         </SwiperSlide>
