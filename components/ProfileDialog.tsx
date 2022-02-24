@@ -32,13 +32,13 @@ const ROLE_MAPPINGS: Record<UserPermission, string> = {
  * - Sign in/Sign out
  */
 export default function ProfileDialog({ onDismiss }: ProfileDialogProps) {
-  const { user, isSignedIn } = useAuthContext();
+  const { user, isSignedIn, hasProfile } = useAuthContext();
   let name: string;
   let role: string;
   if (user != null) {
     const { firstName, lastName, permissions } = user;
 
-    name = `${firstName} ${lastName}`;
+    name = firstName !== null ? `${firstName} ${lastName}` : '';
     // TODO: Come up with more robust way of implementing this
     role = permissions && permissions.length > 0 ? ROLE_MAPPINGS[permissions[0]] : 'Hacker';
   } else {
@@ -77,7 +77,7 @@ export default function ProfileDialog({ onDismiss }: ProfileDialogProps) {
             <Link href="/profile">
               <a className="block p-4 hover:bg-gray-200">
                 <NotesIcon />
-                <span className="ml-4">Your profile</span>
+                <span className="ml-4">{hasProfile ? 'Your profile' : 'register'}</span>
               </a>
             </Link>
           </div>
