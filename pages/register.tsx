@@ -1,12 +1,14 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import LoadIcon from '../components/LoadIcon';
 import { useUser } from '../lib/profile/user-data';
 import { RequestHelper } from '../lib/request-helper';
 import { useAuthContext } from '../lib/user/AuthContext';
 import firebase from 'firebase/app';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import schools from '../public/schools.json';
+import majors from '../public/majors.json';
 
 /**
  * The registration page.
@@ -26,6 +28,31 @@ export default function Register() {
     if (hasProfile) router.push('/profile');
     else setLoading(false);
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      //load json data into dropdown list for universities and majors
+      if (document.getElementById('schools') !== null) {
+        for (let school of schools) {
+          let option = document.createElement('option');
+          option.text = school['university'];
+          option.value = school['university'];
+          let select = document.getElementById('schools');
+          select.appendChild(option);
+        }
+      }
+
+      if (document.getElementById('majors') !== null) {
+        for (let major of majors) {
+          let option = document.createElement('option');
+          option.text = major['major'];
+          option.value = major['major'];
+          let select = document.getElementById('majors');
+          select.appendChild(option);
+        }
+      }
+    }, 0);
+  }, []);
 
   useEffect(() => {
     checkRedirect();
@@ -110,17 +137,17 @@ export default function Register() {
               lastName: user?.lastName || '',
               permissions: user?.permissions || ['hacker'],
             },
-            age: 18,
+            age: null,
             gender: '',
             race: '',
             ethnicity: '',
             university: '',
             major: '',
             studyLevel: '',
-            hackathonExperience: 0,
-            softwareExperience: 'Beginner',
-            heardFrom: 'Instagram',
-            size: 'S',
+            hackathonExperience: null,
+            softwareExperience: '',
+            heardFrom: '',
+            size: '',
             dietary: [],
             accomodations: '',
             github: '',
@@ -150,15 +177,14 @@ export default function Register() {
             } else if (
               !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.user.preferredEmail)
             ) {
+              //regex matches characters before @, characters after @, and 2 or more characters after . (domain)
               empErrors.preferredEmail = 'Invalid email address';
               errors.user = empErrors;
             }
             //age validation
             if (!values.age) {
               errors.age = 'Required';
-              console.log('required');
             } else if (values.age < 1 || values.age > 100) {
-              console.log(values.age);
               errors.age = 'Not a valid age';
             }
             //gender validation
@@ -191,6 +217,18 @@ export default function Register() {
             } else if (values.hackathonExperience < 0 || values.hackathonExperience > 100) {
               errors.hackathonExperience = 'Not a valid number';
             }
+            //softwareExperience validation
+            if (!values.softwareExperience) {
+              errors.softwareExperience = 'Required';
+            }
+            //heardFrom validation
+            if (!values.heardFrom) {
+              errors.heardFrom = 'Required';
+            }
+            //size validation
+            if (!values.size) {
+              errors.size = 'Required';
+            }
 
             return errors;
           }}
@@ -198,6 +236,7 @@ export default function Register() {
             await new Promise((r) => setTimeout(r, 500));
             handleSubmit(values);
             setSubmitting(false);
+            // alert(JSON.stringify(values, null, 2)); //Displays form results on submit for testing purposes
           }}
         >
           {({ values, handleChange, isValid, dirty }) => (
@@ -252,11 +291,13 @@ export default function Register() {
                 *Age
               </label>
               <input
+                id="age"
                 className="border-2 border-gray-400 rounded-md p-1"
                 name="age"
                 type="number"
                 min="1"
                 max="100"
+                pattern="[0-9]+"
                 onChange={handleChange}
                 value={values.age}
               />
@@ -328,10 +369,16 @@ export default function Register() {
                 *This event is for college students worldwide. Which university do you attend?
               </label>
               <Field
+                type="text"
                 id="university"
                 name="university"
+                list="schools"
                 className="border-2 border-gray-400 rounded-md p-1"
-              />
+                autoComplete="off"
+              ></Field>
+              <datalist id="schools">
+                <option value="" disabled selected></option>
+              </datalist>
               <ErrorMessage
                 name="university"
                 render={(msg) => <div className="text-red-600">{msg}</div>}
@@ -340,7 +387,17 @@ export default function Register() {
               <label htmlFor="major" className="mt-4">
                 *All majors are welcome at this event. What is your major?
               </label>
-              <Field id="major" name="major" className="border-2 border-gray-400 rounded-md p-1" />
+              <Field
+                type="text"
+                id="major"
+                name="major"
+                list="majors"
+                className="border-2 border-gray-400 rounded-md p-1"
+                autoComplete="off"
+              ></Field>
+              <datalist id="majors">
+                <option value="" disabled selected></option>
+              </datalist>
               <ErrorMessage
                 name="major"
                 render={(msg) => <div className="text-red-600">{msg}</div>}
@@ -394,11 +451,16 @@ export default function Register() {
                 name="softwareExperience"
                 className="border-2 border-gray-400 rounded-md p-1 mr-auto"
               >
+                <option value="" disabled selected></option>
                 <option value="Beginner">Beginner</option>
                 <option value="Intermediate">Intermediate</option>
                 <option value="Advanced">Advanced</option>
                 <option value="Expert">Expert</option>
               </Field>
+              <ErrorMessage
+                name="softwareExperience"
+                render={(msg) => <div className="text-red-600">{msg}</div>}
+              />
 
               {/*ORGANIZER CAN CUSTOMIZE DROPDOWN OPTIONS*/}
               <label htmlFor="heardFrom" className="mt-4">
@@ -409,11 +471,16 @@ export default function Register() {
                 name="heardFrom"
                 className="border-2 border-gray-400 rounded-md p-1 mr-auto"
               >
+                <option value="" disabled selected></option>
                 <option value="Instagram">Instagram</option>
                 <option value="Twitter">Twitter</option>
                 <option value="Site">Event Site</option>
                 <option value="Friend">Friend</option>
               </Field>
+              <ErrorMessage
+                name="heardFrom"
+                render={(msg) => <div className="text-red-600">{msg}</div>}
+              />
 
               <div className="text-2xl py-1 border-b-2 border-black mr-auto my-6">Event Info</div>
               <label htmlFor="size" className="mt-4">
@@ -424,11 +491,16 @@ export default function Register() {
                 name="size"
                 className="border-2 border-gray-400 rounded-md p-1 mr-auto"
               >
+                <option value="" disabled selected></option>
                 <option value="s">S</option>
                 <option value="m">M</option>
                 <option value="l">L</option>
                 <option value="xl">XL</option>
               </Field>
+              <ErrorMessage
+                name="size"
+                render={(msg) => <div className="text-red-600">{msg}</div>}
+              />
 
               <label htmlFor="dietary" className="mt-4">
                 Allergies / Dietary Restrictions:
@@ -536,6 +608,7 @@ export default function Register() {
                   name="resume"
                   type="file"
                   formEncType="multipart/form-data"
+                  accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
                 />
                 <br />
               </label>

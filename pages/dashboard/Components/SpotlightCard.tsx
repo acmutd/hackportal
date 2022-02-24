@@ -35,6 +35,8 @@ function SpotlightCard(props: any) {
   }
 
   var dayString =
+    //first match extracts day abbreviation
+    //second match extracts month abbreviation and the number day of the month
     startDate.toString().match(/^[\w]{3}/)[0] +
     ', ' +
     startDate.toString().match(/^\w+ (\w{3} \d{1,2})/)[1];

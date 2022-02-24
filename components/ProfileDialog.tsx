@@ -77,7 +77,7 @@ export default function ProfileDialog({ onDismiss }: ProfileDialogProps) {
             <Link href="/profile">
               <a className="block p-4 hover:bg-gray-200">
                 <NotesIcon />
-                <span className="ml-4">{hasProfile ? 'Your profile' : 'register'}</span>
+                <span className="ml-4">{hasProfile ? 'Your profile' : 'Register'}</span>
               </a>
             </Link>
           </div>
