@@ -112,6 +112,31 @@ a.link {
     border-bottom: 2px solid black; /* This creates the border. Replace black with whatever color you want. */
 }
 
-.registrationForm Field {
-  border: 2px;
+/* Dashboard mobile menu */
+.accordion {
+  color: #444;
+  cursor: pointer;
+  transition: 0.4s;
+  position: relative;
 }
+
+/* .menuactive, .accordion:hover {
+  background-color: #C1C8FF;
+} */
+
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.accordion:after {
+  content: '\02795'; 
+  font-size: 12px;
+  float: right;
+}
+
+.menuactive:after {
+  content: "\2796"; 
+}
+

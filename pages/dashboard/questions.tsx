@@ -151,7 +151,6 @@ export default function QuestionsPage() {
         <title>HackPortal - Questions</title>
         <meta name="description" content="HackPortal's Quesiton and Answer Page " />
       </Head>
-      <DashboardHeader />
       <ErrorList
         errors={errors}
         onClose={(idx: number) => {
@@ -160,6 +159,9 @@ export default function QuestionsPage() {
           setErrors(newErrorList);
         }}
       />
+      <div className="px-4">
+        <DashboardHeader />
+      </div>
       <div className="top-6 p-4 flex flex-col gap-y-3">
         <h4 className="font-bold text-3xl">Ask the organizers a question!</h4>
         <div>
