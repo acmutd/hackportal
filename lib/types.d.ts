@@ -206,7 +206,7 @@ type Announcement = {
 
 /**
  *
- * Represent a keynote speaker in home page
+ * Represent an event
  *
  * @param title title of event
  * @param speakers speakers of event

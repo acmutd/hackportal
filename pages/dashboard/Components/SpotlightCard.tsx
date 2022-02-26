@@ -14,7 +14,6 @@ import firebase from 'firebase';
 function SpotlightCard(props: any) {
   const startDate = new firebase.firestore.Timestamp(props.startDate._seconds, 0).toDate();
   const endDate = new firebase.firestore.Timestamp(props.endDate._seconds, 0).toDate();
-  console.log(endDate.getMinutes());
 
   var speakerString = '';
   if (props.speakers !== undefined && props.speakers !== null && props.speakers.length !== 0) {
@@ -34,9 +33,9 @@ function SpotlightCard(props: any) {
     }
   }
 
+  //first match extracts day abbreviation
+  //second match extracts month abbreviation and the number day of the month
   var dayString =
-    //first match extracts day abbreviation
-    //second match extracts month abbreviation and the number day of the month
     startDate.toString().match(/^[\w]{3}/)[0] +
     ', ' +
     startDate.toString().match(/^\w+ (\w{3} \d{1,2})/)[1];
