@@ -3,17 +3,23 @@ importScripts('https://www.gstatic.com/firebasejs/8.9.0/firebase-messaging.js');
 
 // TODO: Abstract this into environment variable
 
+self.addEventListener('fetch', () => {
+  const urlParams = new URLSearchParams(location.search);
+  const { iconUrl, ...firebaseConfig } = Object.fromEntries(urlParams);
+  self.iconUrl = iconUrl;
+  self.firebaseConfig = firebaseConfig;
+})
+
+const defaultConfig = {
+  apiKey: true,
+  projectId: true,
+  messagingSenderId: true,
+  appId: true,
+};
+
 
 function setup() {
-    firebase.initializeApp({
-      apiKey: "AIzaSyCEhWNvn1d6-OfqvmGiDW9X1BlwNo8qBsM",
-      authDomain: "acmutd-hackportal-dev.firebaseapp.com",
-      projectId: "acmutd-hackportal-dev",
-      storageBucket: "acmutd-hackportal-dev.appspot.com",
-      messagingSenderId: "774212472252",
-      appId: "1:774212472252:web:273c09e0cb085059b6afb9",
-      measurementId: "G-HHBS9T3R9E"
-    });
+  firebase.initializeApp(self.firebaseConfig || defaultConfig);
     
   const messaging = firebase.messaging();
 
@@ -26,7 +32,7 @@ function setup() {
     const { announcement, baseUrl: url } = JSON.parse(payload.data.notification);
     var options = {
       body: announcement,
-      icon: 'https://raw.githubusercontent.com/acmutd/hackportal/develop/public/icons/icon-128x128.png',
+      icon: self.iconUrl,
       data: { url }
     };
     self.registration.showNotification("HackPortal Announcement", options);

@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/messaging';
 import { RequestHelper } from '../request-helper';
+import { firebaseConfig } from '../firebase-client';
 
 interface FCMContextState {
   fcmSw: ServiceWorkerRegistration;
@@ -25,18 +26,15 @@ function FCMProvider({ children }: React.PropsWithChildren<Record<string, any>>)
 
   useEffect(() => {
     if ('serviceWorker' in window.navigator) {
-      window.navigator.serviceWorker.register('/firebase-messaging-sw.js').then(
+      const swParamString = new URLSearchParams({
+        ...firebaseConfig,
+        iconUrl: process.env.NEXT_PUBLIC_ICON_URL,
+      }).toString();
+
+      window.navigator.serviceWorker.register(`/firebase-messaging-sw.js?${swParamString}`).then(
         async (registration) => {
           setSwRegistration(registration);
-          if (firebase.apps.length <= 0)
-            firebase.initializeApp({
-              apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-              authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-              projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-              storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-              messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-              appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-            });
+          if (firebase.apps.length <= 0) firebase.initializeApp(firebaseConfig);
 
           const messaging = firebase.messaging();
           if (Notification.permission === 'default') await Notification.requestPermission();
