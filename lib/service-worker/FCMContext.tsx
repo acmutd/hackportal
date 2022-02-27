@@ -7,8 +7,6 @@ import { firebaseConfig } from '../firebase-client';
 interface FCMContextState {
   fcmSw: ServiceWorkerRegistration;
   messageToken: string;
-  resetToken: () => Promise<void>;
-  messagingObj: firebase.messaging.Messaging;
 }
 
 const FCMContext = createContext<FCMContextState | undefined>(undefined);
@@ -22,7 +20,6 @@ function useFCMContext(): FCMContextState {
 function FCMProvider({ children }: React.PropsWithChildren<Record<string, any>>): JSX.Element {
   const [swRegistration, setSwRegistration] = useState<ServiceWorkerRegistration>();
   const [messageToken, setMessageToken] = useState<string>();
-  const [messagingObj, setMessagingObj] = useState<firebase.messaging.Messaging>();
 
   useEffect(() => {
     if ('serviceWorker' in window.navigator) {
@@ -103,17 +100,9 @@ function FCMProvider({ children }: React.PropsWithChildren<Record<string, any>>)
     }
   }, []);
 
-  const resetToken = async () => {
-    await messagingObj.deleteToken();
-    const newToken = await messagingObj.getToken({ vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY });
-    setMessageToken(newToken);
-  };
-
   const swContextValue: FCMContextState = {
     fcmSw: swRegistration,
     messageToken,
-    resetToken,
-    messagingObj,
   };
 
   return <FCMContext.Provider value={swContextValue}>{children}</FCMContext.Provider>;
