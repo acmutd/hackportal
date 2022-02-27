@@ -86,10 +86,12 @@ function FCMProvider({ children }: React.PropsWithChildren<Record<string, any>>)
             );
             setMessageToken(token);
             messaging.onMessage((payload) => {
-              const { announcement } = JSON.parse(payload.data.notification);
+              const { announcement, baseUrl: url } = JSON.parse(payload.data.notification);
               const options = {
                 body: announcement,
+                icon: 'icons/icon-128x128.png',
                 tag: new Date().toUTCString(),
+                data: { url },
               };
               registration.showNotification('HackPortal Announcement', options);
             });
