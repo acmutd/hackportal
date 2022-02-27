@@ -114,15 +114,19 @@ a.link {
 
 /* Dashboard mobile menu */
 .accordion {
-  color: #444;
   cursor: pointer;
   transition: 0.4s;
   position: relative;
+  width: 12rem;
+  -webkit-transition: width 0.15s ease-in-out;
+    -moz-transition: width 0.15s ease-in-out;
+    -o-transition: width 0.15s ease-in-out;
+    transition: width 0.15s ease-in-out;
 }
 
-/* .menuactive, .accordion:hover {
-  background-color: #C1C8FF;
-} */
+.menuactive {
+  width: 100%;
+}
 
 .panel {
   max-height: 0;
@@ -139,4 +143,3 @@ a.link {
 .menuactive:after {
   content: "\2796"; 
 }
-

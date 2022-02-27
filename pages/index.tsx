@@ -9,6 +9,7 @@ import 'firebase/messaging';
 import 'firebase/storage';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import HomeChallengeCard from '../components/HomeChallengeCard';
+import Link from 'next/link';
 
 /**
  * The home page.
@@ -222,7 +223,7 @@ export default function Home(props: {
         </div>
       </section>
       {/* Challenges */}
-      <section className="p-6 border-2">
+      <section className="p-6 ">
         <div className="font-bold text-2xl">Challenges</div>
         <div className="flex">
           {/* Challenge Orgs Selectors*/}
@@ -241,7 +242,7 @@ export default function Home(props: {
             ))}
           </div>
           {/* Challenges Description Cards */}
-          <div className="md:w-3/4 w-4/5 my-4 px-6 min-h-full">
+          <div className="md:w-3/4 w-4/5 my-4 pl-6 min-h-full">
             {/* Card */}
             {challenges.map(({ title, organization, description, prizes }, idx) => (
               <HomeChallengeCard
@@ -254,6 +255,78 @@ export default function Home(props: {
               />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <section className="bg-gray-200 mt-16">
+        {/* Main content */}
+        <div className="flex flex-wrap justify-evenly p-6">
+          {/* About us section */}
+          <div className="md:w-2/5 w-full md:mb-0 mb-6">
+            <h1 className="font-semibold mb-2 md:text-left text-center">About Us</h1>
+            <p className="sm:text-sm text-xs">
+              Here will be a short paragraph providing a general overview of what then hackathon is.
+              This can be dates, events, contests, and prizes. This paragraph can be about the size
+              and reach of the hackathon. Can include the number of participants every year and the
+              total worth of prize Any additional information can be provided in this paragraph.
+            </p>
+          </div>
+          {/* Company Section */}
+          <div className="flex flex-col sm:text-sm text-xs">
+            <h1 className="font-semibold text-base mb-2">Company</h1>
+            <a
+              href="mailto:email@organization.com"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="hover:underline"
+            >
+              Contact Us
+            </a>
+            <Link href="/register">
+              <p className="hover:underline cursor-pointer">Register</p>
+            </Link>
+          </div>
+          {/* Socials Section */}
+          <div className="flex flex-col sm:text-sm text-xs">
+            <h1 className="font-semibold text-base mb-2">Follow Us</h1>
+            <a
+              href="https://acmutd.con"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline"
+            >
+              Website
+            </a>
+            <a
+              href="https://www.instagram.com/hackutd/?hl=en"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline"
+            >
+              Instagram
+            </a>
+            <a
+              href="https://twitter.com/hackutd"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline"
+            >
+              Twitter
+            </a>
+            <a
+              href="https://www.linkedin.com/company/hackutd"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+        {/* Copyright Section *DO NOT CHANGE */}
+        <div className="md:w-2/5 w-3/5 mx-auto text-center border-t-2 border-gray-500 text-sm mt-8">
+          © HackUTD Tech
         </div>
       </section>
     </>

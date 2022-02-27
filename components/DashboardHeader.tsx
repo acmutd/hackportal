@@ -43,22 +43,20 @@ export default function DashboardHeader() {
           </NavLink>
         </div>
       </header>
-      <div className="w-full my-4 md:hidden mx-auto text-center">
-        <button className="accordion w-full text-left p-2 text-sm bg-[#C1C8FF]">
-          Dashboard Menu
-        </button>
+      <div className="my-4 md:hidden ">
+        <button className="accordion text-left p-2 text-sm bg-[#C1C8FF]">Dashboard Menu</button>
         <div className="panel w-full bg-[#F2F3FF] text-sm">
           <ul className="">
-            <li className="py-2 hover:bg-[#DCDEFF]">
+            <li className="p-2 hover:bg-[#DCDEFF]">
               <Link href="/dashboard">HackCenter</Link>
             </li>
-            <li className="py-2 hover:bg-[#DCDEFF]">
+            <li className="p-2 hover:bg-[#DCDEFF]">
               <Link href="/dashboard/scan-in">Scan-In</Link>
             </li>
-            <li className="py-2 hover:bg-[#DCDEFF]">
+            <li className="p-2 hover:bg-[#DCDEFF]">
               <Link href="/dashboard/hackerpack">HackerPack</Link>
             </li>
-            <li className="py-2 hover:bg-[#DCDEFF]">
+            <li className="p-2 hover:bg-[#DCDEFF]">
               <Link href="/dashboard/questions">Ask a Question</Link>
             </li>
           </ul>
