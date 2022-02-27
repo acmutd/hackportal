@@ -10,6 +10,9 @@ const db = firestore();
 const REGISTRATION_COLLECTION = '/registrations';
 const SCANTYPES_COLLECTION = '/scan-types';
 
+// Used to dictate that user attempted to claim swag without checking in
+const ILLEGAL_SCAN_NAME = 'Illegal Scan';
+
 /**
  *
  * Check if a user has checked in into the event
@@ -89,6 +92,8 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
     const scanIsCheckInEvent = await checkIfScanIsCheckIn(bodyData.scan);
 
     if (!userCheckedIn && !scanIsCheckInEvent) {
+      scans.push(ILLEGAL_SCAN_NAME);
+      await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans });
       return res.status(403).json({
         code: 'not-checked-in',
         message: "User haven't checked in",
