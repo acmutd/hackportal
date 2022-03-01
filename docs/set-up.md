@@ -60,8 +60,30 @@ SERVICE_ACCOUNT_PROJECT_ID=
 
 ```
 
-Fill in the environment variables using the appropriate images from the Firebase
-Console. After doing that, you should be able to start the app with no errors!
+Fill in the corresponding environment variables using the appropriate images from the Firebase Console.  
+Next, find the cloud messaging server token under the “Cloud Mesaging” tab. It can be found under the project credentials and is named “Server key”.
+
+![Cloud Messaging](./images/set-up-3.png)
+![Server key](./images/set-up-4.png)
+
+Next, you will need to set up the service account to take care of resume uploads.  
+Navigate to the authentication tab.
+
+![Auth tab](./images/set-up-5.png)
+
+Under the “Users” tab, click the button that says “Add user”. Enable sign in with email/password if necessary. 
+
+Create a user with an email and password. Copy the email into the environment variable 
+```
+NEXT_PUBLIC_RESUME_UPLOAD_SERVICE_ACCOUNT=
+```
+and the password into
+```
+NEXT_PUBLIC_RESUME_UPLOAD_PASSWORD=
+```
+
+![Add user](./images/set-up-6.png)
+
 
 # Starting the Server
 Now run the development server:

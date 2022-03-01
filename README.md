@@ -15,14 +15,14 @@
 - Report submission/ Ask a question  
 - Built-in and easy to set up schedule  
 - Hacker, Admin, and Super Admin roles  
-- Admin console to send announcement, update user roles, show number of check-ins, swag claims, and more.
+- Admin console to send announcement, update user roles, show number of check-ins, swag claims
+- And more!
 
 ## Set up
 Follow the instructions in the [set-up docs](./docs/set-up.md) to set up HackPortal for your hackathon.
 
-
 ## Making Changes
-Follow the instructions in the [contributor docs](./docs/contributors.md) to see contributing guidelines.
+Want to contribute? Follow the instructions in the [contributor docs](./docs/contributors.md) to see contributing guidelines.
 
 
 ## HackPortal Contributors
