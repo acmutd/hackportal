@@ -48,8 +48,8 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
         <meta name="description" content="HackPortal's Frequently Asked Questions" />
       </Head>
       {/* <AboutHeader active="/about/faq" /> */}
-      <div className="top-6 p-4">
-        <div className="flex flex-row justify-between items-center border-b-2 border-black py-2">
+      <div className="top-6 p-4 px-8">
+        <div className="flex flex-row justify-between items-center py-2">
           <h4 className="font-bold text-3xl">FAQ</h4>
           <div className="flex flex-row items-center gap-x-2">
             <button
@@ -63,20 +63,43 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
             <ChevronUpIcon className="w-5 h-5" />
           </div>
         </div>
-        <div className="w-full my-3 flex flex-col gap-y-4">
-          {faqs.map(({ question, answer }, idx) => (
-            <FaqDisclosure
-              key={idx}
-              question={question}
-              answer={answer}
-              isOpen={disclosuresStatus[idx]}
-              toggleDisclosure={() => {
-                const currDisclosure = [...disclosuresStatus];
-                currDisclosure[idx] = !currDisclosure[idx];
-                setDisclosureStatus(currDisclosure);
-              }}
-            />
-          ))}
+        <div className="flex justify-between">
+          <div className="w-[49%] my-3 space-y-4 > * + *">
+            {faqs.map(
+              ({ question, answer }, idx) =>
+                idx % 2 == 0 && (
+                  <FaqDisclosure
+                    key={idx}
+                    question={question}
+                    answer={answer}
+                    isOpen={disclosuresStatus[idx]}
+                    toggleDisclosure={() => {
+                      const currDisclosure = [...disclosuresStatus];
+                      currDisclosure[idx] = !currDisclosure[idx];
+                      setDisclosureStatus(currDisclosure);
+                    }}
+                  />
+                ),
+            )}
+          </div>
+          <div className="w-[49%] my-3 space-y-4 > * + *">
+            {faqs.map(
+              ({ question, answer }, idx) =>
+                idx % 2 != 0 && (
+                  <FaqDisclosure
+                    key={idx}
+                    question={question}
+                    answer={answer}
+                    isOpen={disclosuresStatus[idx]}
+                    toggleDisclosure={() => {
+                      const currDisclosure = [...disclosuresStatus];
+                      currDisclosure[idx] = !currDisclosure[idx];
+                      setDisclosureStatus(currDisclosure);
+                    }}
+                  />
+                ),
+            )}
+          </div>
         </div>
       </div>
     </div>
