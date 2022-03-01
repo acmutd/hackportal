@@ -1,3 +1,17 @@
+# Set up
+
+First, make sure you have a working installation of Node.js and NPM.
+
+Now clone the repository and install dependencies:
+
+```
+git clone https://github.com/acmutd/hackportal
+cd hackportal
+npm install
+```
+Next, set up the environment variables.
+
+
 # Setting up Firebase
 
 HackPortal has a modular design that allows swapping out back-end services wtih
@@ -35,15 +49,39 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID=
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
 NEXT_PUBLIC_FIREBASE_APP_ID=
+MEASUREMENT_ID=
+NEXT_PUBLIC_CLOUD_MESSAGING_SERVER_TOKEN=
+NEXT_PUBLIC_RESUME_UPLOAD_PASSWORD=
+NEXT_PUBLIC_RESUME_UPLOAD_SERVICE_ACCOUNT=
+NEXT_PUBLIC_VAPID_KEY=
+SERVICE_ACCOUNT_CLIENT_EMAIL=
+SERVICE_ACCOUNT_PRIVATE_KEY=
+SERVICE_ACCOUNT_PROJECT_ID=
+
 ```
 
 Fill in the environment variables using the appropriate images from the Firebase
 Console. After doing that, you should be able to start the app with no errors!
 
-## Notes for HackUTD Maintainers
+# Starting the Server
+Now run the development server:
 
-Make sure you are using the `acmutd-hackportal-dev` project. If you do not have
-permissions to access this project, let a maintainer know.
+```bash
+npm run dev
+```
 
-When deploying, the head maintainer will use other environment variables for the
-production version of the project.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see
+the result.
+
+This project uses a few tools to enforce code quality:
+
+- [Prettier](https://prettier.io), an opinionated code formatter
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), a
+  format for consistent commit messages
+- [Commitizen](https://github.com/commitizen/cz-cli), a tool for easily making
+  formatted commits.
+
+The repository already has these set up. Contributors only need to run
+`git commit`, and Commitizen will take care of the rest with a commit flow. If
+you would prefer to use your own IDE when making commits, make sure to follow
+the commit spec (Conventional Commits) below.
