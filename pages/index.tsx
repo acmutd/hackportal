@@ -10,6 +10,10 @@ import 'firebase/storage';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import HomeChallengeCard from '../components/HomeChallengeCard';
 import Link from 'next/link';
+import FAQ from './about/faq';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 /**
  * The home page.
@@ -20,6 +24,7 @@ import Link from 'next/link';
 export default function Home(props: {
   keynoteSpeakers: KeynoteSpeaker[];
   challenges: Challenge[];
+  answeredQuestion: AnsweredQuestion[];
 }) {
   const router = useRouter();
 
@@ -184,6 +189,25 @@ export default function Home(props: {
           </div>
         </div>
       </section>
+      {/* About section */}
+      <section className="md:p-12 p-6">
+        <h1 className="md:text-4xl text-2xl font-bold my-4">About HackUTD</h1>
+        <div className="md:text-base text-sm">
+          Here will be a short paragraph providing a general overview of what hackutd is including
+          dates, events, contests, and prizes. Lorem ipsum dolor sit amet, consectetur adipiscing
+          elit. Vestibulum eget magna ut risus fermentum dapibus. Sed vulputate vulputate lacus eu
+          ullamcorper. <br />
+          <br />
+          A second paragraph will serve to inform the reader of the size and reach of hackutd. we
+          will inform them of how many people come each year and how much in we have in prizes.
+          Nulla felis tellus, varius suscipit nisl sit amet, pretium mollis erat. Morbi ipsum risus,
+          malesuada eget leo ut, ultrices convallis ex. Etiam blandit magna id dictum finibus.{' '}
+          <br />
+          <br />A final paragraph can be included to briefly discuss our partnership as a branch of
+          utd acm. Mauris aliquam sed sapien ut pretium. Etiam a porta magna. Orci varius natoque
+          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+        </div>
+      </section>
       {/* Featuring Keynotes speakers */}
       <section className="flex overflow-x-scroll bg-gray-200 min-h-[24rem]">
         <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold">
@@ -257,76 +281,66 @@ export default function Home(props: {
           </div>
         </div>
       </section>
+      {/* FAQ */}
+      <section>
+        <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
+      </section>
 
       {/* Footer */}
-      <section className="bg-gray-200 mt-16">
-        {/* Main content */}
-        <div className="flex flex-wrap justify-evenly p-6">
-          {/* About us section */}
-          <div className="md:w-2/5 w-full md:mb-0 mb-6">
-            <h1 className="font-semibold mb-2 md:text-left text-center">About Us</h1>
-            <p className="sm:text-sm text-xs">
-              Here will be a short paragraph providing a general overview of what then hackathon is.
-              This can be dates, events, contests, and prizes. This paragraph can be about the size
-              and reach of the hackathon. Can include the number of participants every year and the
-              total worth of prize Any additional information can be provided in this paragraph.
-            </p>
+      <section className="bg-gray-100 mt-16 px-6 py-8">
+        {/* Upper Content */}
+        <div className="flex justify-between my-2 relative">
+          <div className="space-x-4 > * + *">
+            <a href="https://twitter.com/hackutd" rel="noopener noreferrer" target="_blank">
+              <TwitterIcon style={{ fontSize: '40px' }} />
+            </a>
+            <a
+              href="https://www.instagram.com/hackutd/?hl=en"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <InstagramIcon style={{ fontSize: '40px' }} />
+            </a>
+            <a href="https://www.facebook.com/hackutd/" rel="noopener noreferrer" target="_blank">
+              <FacebookIcon style={{ fontSize: '40px' }} />
+            </a>
           </div>
-          {/* Company Section */}
-          <div className="flex flex-col sm:text-sm text-xs">
-            <h1 className="font-semibold text-base mb-2">Company</h1>
+          <div className="absolute bottom-0 right-0">
+            Checkout HackUTD&apos;s{' '}
+            <a
+              href="https://acmutd.co/"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="font-black hover:underline"
+            >
+              organizer site
+            </a>
+          </div>
+        </div>
+        {/* Lower Content */}
+        <div className="flex justify-between border-t-[1px] py-2 border-black">
+          <p>
+            HackPortal developed with &lt;3 by <p className="font-black inline">HackUTD</p> and{' '}
+            <p className="font-black inline">ACM Engineering</p>
+          </p>
+          <div>
             <a
               href="mailto:email@organization.com"
               rel="noopener noreferrer"
               target="_blank"
-              className="hover:underline"
+              className="hover:underline mr-8 font-thin"
             >
               Contact Us
             </a>
-            <Link href="/register">
-              <p className="hover:underline cursor-pointer">Register</p>
-            </Link>
-          </div>
-          {/* Socials Section */}
-          <div className="flex flex-col sm:text-sm text-xs">
-            <h1 className="font-semibold text-base mb-2">Follow Us</h1>
             <a
-              href="https://acmutd.con"
+              href="https://github.com/acmutd/hackportal"
               target="_blank"
               rel="noreferrer"
-              className="hover:underline"
+              className="hover:underline font-thin"
             >
-              Website
-            </a>
-            <a
-              href="https://www.instagram.com/hackutd/?hl=en"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:underline"
-            >
-              Instagram
-            </a>
-            <a
-              href="https://twitter.com/hackutd"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:underline"
-            >
-              Twitter
-            </a>
-            <a
-              href="https://www.linkedin.com/company/hackutd"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:underline"
-            >
-              LinkedIn
+              Source Code
             </a>
           </div>
-        </div>
-        {/* Copyright Section *DO NOT CHANGE */}
-        <div className="md:w-2/5 w-3/5 mx-auto text-center border-t-2 border-gray-500 text-sm mt-8">
-          © HackUTD Tech
         </div>
       </section>
     </>
@@ -343,10 +357,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/challenges/`,
     {},
   );
+  const { data: answeredQuestion } = await RequestHelper.get<AnsweredQuestion[]>(
+    `${protocol}://${context.req.headers.host}/api/questions/faq`,
+    {},
+  );
   return {
     props: {
       keynoteSpeakers: keynoteData,
       challenges: challengeData,
+      answeredQuestion: answeredQuestion,
     },
   };
 };

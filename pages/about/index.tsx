@@ -52,7 +52,7 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
         <title>HackPortal - About</title>
         <meta name="description" content="HackPortal's About Page" />
       </Head>
-      <AboutHeader active="/about" />
+      {/* <AboutHeader active="/about" /> */}
 
       <div className="my-2">
         <h4 className="font-bold text-3xl p-6">Meet Our Team :)</h4>
