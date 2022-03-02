@@ -63,7 +63,9 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
             <ChevronUpIcon className="w-5 h-5" />
           </div>
         </div>
-        <div className="flex justify-between">
+        {/* FAQ for lg-md */}
+        {/* Uses different section for mobile because using 2 columns is buggy when expanding FAQs */}
+        <div className="md:flex hidden justify-between">
           <div className="w-[49%] my-3 space-y-4 > * + *">
             {faqs.map(
               ({ question, answer }, idx) =>
@@ -99,6 +101,24 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
                   />
                 ),
             )}
+          </div>
+        </div>
+        {/* FAQ for mobile */}
+        <div className="md:hidden">
+          <div className="w-full my-3 space-y-4 > * + *">
+            {faqs.map(({ question, answer }, idx) => (
+              <FaqDisclosure
+                key={idx}
+                question={question}
+                answer={answer}
+                isOpen={disclosuresStatus[idx]}
+                toggleDisclosure={() => {
+                  const currDisclosure = [...disclosuresStatus];
+                  currDisclosure[idx] = !currDisclosure[idx];
+                  setDisclosureStatus(currDisclosure);
+                }}
+              />
+            ))}
           </div>
         </div>
       </div>

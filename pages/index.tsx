@@ -197,9 +197,8 @@ export default function Home(props: {
           dates, events, contests, and prizes. Lorem ipsum dolor sit amet, consectetur adipiscing
           elit. Vestibulum eget magna ut risus fermentum dapibus. Sed vulputate vulputate lacus eu
           ullamcorper. <br />
-          <br />
-          A second paragraph will serve to inform the reader of the size and reach of hackutd. we
-          will inform them of how many people come each year and how much in we have in prizes.
+          <br />A second paragraph will serve to inform the reader of the size and reach of hackutd.
+          we will inform them of how many people come each year and how much in we have in prizes.
           Nulla felis tellus, varius suscipit nisl sit amet, pretium mollis erat. Morbi ipsum risus,
           malesuada eget leo ut, ultrices convallis ex. Etiam blandit magna id dictum finibus.{' '}
           <br />
@@ -287,24 +286,26 @@ export default function Home(props: {
       </section>
 
       {/* Footer */}
-      <section className="bg-gray-100 mt-16 px-6 py-8">
+      <section className="bg-gray-100 mt-16 px-6 py-8 md:text-base text-xs">
         {/* Upper Content */}
-        <div className="flex justify-between my-2 relative">
+        <div className="my-2 relative">
+          {/* Social icons */}
           <div className="space-x-4 > * + *">
             <a href="https://twitter.com/hackutd" rel="noopener noreferrer" target="_blank">
-              <TwitterIcon style={{ fontSize: '40px' }} />
+              <TwitterIcon className="footerIcon" />
             </a>
             <a
               href="https://www.instagram.com/hackutd/?hl=en"
               rel="noopener noreferrer"
               target="_blank"
             >
-              <InstagramIcon style={{ fontSize: '40px' }} />
+              <InstagramIcon className="footerIcon" />
             </a>
             <a href="https://www.facebook.com/hackutd/" rel="noopener noreferrer" target="_blank">
-              <FacebookIcon style={{ fontSize: '40px' }} />
+              <FacebookIcon className="footerIcon" />
             </a>
           </div>
+          {/* Text */}
           <div className="absolute bottom-0 right-0">
             Checkout HackUTD&apos;s{' '}
             <a
@@ -323,12 +324,12 @@ export default function Home(props: {
             HackPortal developed with &lt;3 by <p className="font-black inline">HackUTD</p> and{' '}
             <p className="font-black inline">ACM Engineering</p>
           </p>
-          <div>
+          <div className="flex md:flex-row flex-col md:ml-0 ml-6">
             <a
               href="mailto:email@organization.com"
               rel="noopener noreferrer"
               target="_blank"
-              className="hover:underline mr-8 font-thin"
+              className="hover:underline md:mr-8 font-thin"
             >
               Contact Us
             </a>
@@ -336,7 +337,7 @@ export default function Home(props: {
               href="https://github.com/acmutd/hackportal"
               target="_blank"
               rel="noreferrer"
-              className="hover:underline font-thin"
+              className="hover:underline font-thin whitespace-nowrap"
             >
               Source Code
             </a>

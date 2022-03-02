@@ -62,19 +62,6 @@ a.link {
   column-count: 2;
 }
 
-@media (max-width: 1024px) {
-  /* Home page video scaling */
-  .video {
-    zoom: 0.85;
-    -moz-transform: scale(0.85);
-    -moz-transform-origin: top center;
-    -o-transform: scale(0.85);
-    -o-transform-origin: top center;
-    -webkit-transform: scale(0.85);
-    -webkit-transform-origin: top center;
-  }
-}
-
 @media (max-width: 768px) {
   .challengeGrid {
     column-count: 1;
@@ -87,6 +74,24 @@ a.link {
     -o-transform: scale(0.7) !important;
     -webkit-transform: scale(0.7) !important;
   }
+
+  .footerIcon {
+    transform: scale(1) !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  /* Home page video scaling */
+  .video {
+    zoom: 0.85;
+    -moz-transform: scale(0.85);
+    -moz-transform-origin: top center;
+    -o-transform: scale(0.85);
+    -o-transform-origin: top center;
+    -webkit-transform: scale(0.85);
+    -webkit-transform-origin: top center;
+  }
+
 }
 
 /* For challenge selection in home page */
@@ -142,4 +147,8 @@ a.link {
 
 .menuactive:after {
   content: "\2796"; 
+}
+
+.footerIcon {
+  transform: scale(1.5);
 }
