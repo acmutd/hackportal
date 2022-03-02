@@ -1,6 +1,6 @@
 # Set up
 
-First, make sure you have a working installation of Node.js and NPM.
+First, make sure you have a working installation of [Node.js](https://nodejs.org/en/download/) and [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/).
 
 Now clone the repository and install dependencies:
 
@@ -12,8 +12,16 @@ npm install
 Next, set up the environment variables.
 
 
-# Setting up Firebase
+# Important to Remember
+- Make sure you start your Cloud Storage and Firestore Database in **test mode**, not **production mode** if you are setting up for development.  
+- Make sure you have copied all required environment variables _completely and correctly_.  
+- Make sure all environment variables are in double quotes, ex: 
+  ```
+  MEASUREMENT_ID="1234567890"
+  ```
 
+
+# Setting up Environment Variables
 By default, this project uses Firebase APIs. If you use any of
 the following, you must set up Firebase APIs before running this app:
 
@@ -59,7 +67,7 @@ SERVICE_ACCOUNT_PROJECT_ID=
 ```
 
 Fill in the corresponding environment variables using the appropriate images from the Firebase Console.  
-Next, find the cloud messaging server token under the “Cloud Mesaging” tab. It can be found under the project credentials and is named “Server key”.
+Next, find the cloud messaging server token under the “Cloud Mesaging” tab. It can be found under the project credentials and is named “Server key”. Update the corresponding environment variable.
 
 ![Cloud Messaging](./images/set-up-3.png)
 ![Server key](./images/set-up-4.png)
@@ -98,7 +106,7 @@ NEXT_PUBLIC_RESUME_UPLOAD_PASSWORD=
 # Starting the Server
 Now run the development server:
 
-```bash
+```
 npm run dev
 ```
 
