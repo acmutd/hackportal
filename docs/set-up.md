@@ -103,7 +103,7 @@ NEXT_PUBLIC_RESUME_UPLOAD_PASSWORD=
 ![Add user](./images/set-up-6.png)
 
 ## Firebase Setup
- Follow the instructions in the [Firebase Setup doc](./docs/firebase-setup.md) to see how to set Firebase up for your hackathon.
+ Follow the instructions in the [Firebase Setup doc](./firebase-setup.md) to see how to set Firebase up for your hackathon.
 
 # Starting the Server
 Now run the development server:
