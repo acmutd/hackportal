@@ -1,6 +1,6 @@
 # Firebase Setup
 
-Make sure your local server is up and running before configuring Firebase. If it is not, please follow the instructions given in the [Set Up Guide](docs/set-up.md).
+Make sure your local server is up and running before configuring Firebase. If it is not, please follow the instructions given in the [Set Up Guide](./set-up.md).
 
 ## Database Schema  
 
