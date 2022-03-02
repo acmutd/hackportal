@@ -44,7 +44,7 @@ Now create a Firebase project or use an existing Firebase project.
 ![App configuration](./images/set-up-2.png)
 
 Now go back to the HackPortal project files. Rename the `.env.template` file to
-`.env.local`. This is where you will set up the app's environment variables.
+`.env.local`. This is where the app's environment variables will be set up.
 
 The file should look like this:
 
@@ -84,7 +84,7 @@ In the same JSON file, copy the private key (it should be lengthy) and paste it 
 ![Service account details](./images/set-up-9.png)
 
 
-Next, you will need to set up the account to take care of resume uploads.  
+Next, set up the account to take care of resume uploads.  
 Navigate to the authentication tab.
 
 ![Auth tab](./images/set-up-5.png)
@@ -102,6 +102,8 @@ NEXT_PUBLIC_RESUME_UPLOAD_PASSWORD=
 
 ![Add user](./images/set-up-6.png)
 
+## Firebase Setup
+ Follow the instructions in the [Firebase Setup doc](./docs/firebase-setup.md) to see how to set Firebase up for your hackathon.
 
 # Starting the Server
 Now run the development server:
@@ -122,6 +124,4 @@ This project uses a few tools to enforce code quality:
   formatted commits.
 
 The repository already has these set up. Contributors only need to run
-`git commit`, and Commitizen will take care of the rest with a commit flow. If
-you would prefer to use your own IDE when making commits, make sure to follow
-the commit spec (Conventional Commits) below.
+`git commit`, and Commitizen will take care of the rest with a commit flow. If you find Commitizen to be annoying, feel free to uninstall it.
