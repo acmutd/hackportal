@@ -14,8 +14,7 @@ Next, set up the environment variables.
 
 # Setting up Firebase
 
-HackPortal has a modular design that allows swapping out back-end services wtih
-minimal friction. By default, this project uses Firebase APIs. If you use any of
+By default, this project uses Firebase APIs. If you use any of
 the following, you must set up Firebase APIs before running this app:
 
 - Firebase Authentication
@@ -25,8 +24,7 @@ the following, you must set up Firebase APIs before running this app:
 To set up Firebase APIs, first go to the [Firebase Console](https://console.firebase.google.com).
 Make sure to switch to your intended account before continuing.
 
-Now create a Firebase project or use an existing Firebase project. (Project
-maintainers should use an existing project and see the section below.).
+Now create a Firebase project or use an existing Firebase project.
 
 - If creating a new project, create a new web application and take note of the
   configuration code provided. Copy that somewhere.
@@ -66,18 +64,30 @@ Next, find the cloud messaging server token under the “Cloud Mesaging” tab. 
 ![Cloud Messaging](./images/set-up-3.png)
 ![Server key](./images/set-up-4.png)
 
-Next, you will need to set up the service account to take care of resume uploads.  
+To generate the vapid key, scroll down to the "Web Configuration" and generate a key pair. Copy the key pair generated and fill in the corresponding environment variable.
+![Vapid key](./images/set-up-7.png)
+
+Next, set up the service account environment variables.  
+Navigate to "Service Accounts" under the Project Settings and copy the Firebase service account name. This is the Service Account Client Email.  
+Next, generate a new private key and download the file. Open the file and copy the Project ID. Update the corresponding environment variable.  
+In the same JSON file, copy the private key (it should be lengthy) and paste it into the  corresponding environment variable.  
+
+![Service account](./images/set-up-8.png)
+![Service account details](./images/set-up-9.png)
+
+
+Next, you will need to set up the account to take care of resume uploads.  
 Navigate to the authentication tab.
 
 ![Auth tab](./images/set-up-5.png)
 
 Under the “Users” tab, click the button that says “Add user”. Enable sign in with email/password if necessary. 
 
-Create a user with an email and password. Copy the email into the environment variable 
+Create a user with an email and password. Copy the email into: 
 ```
 NEXT_PUBLIC_RESUME_UPLOAD_SERVICE_ACCOUNT=
 ```
-and the password into
+and the password into:
 ```
 NEXT_PUBLIC_RESUME_UPLOAD_PASSWORD=
 ```
