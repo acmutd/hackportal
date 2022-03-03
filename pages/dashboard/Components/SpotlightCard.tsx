@@ -3,6 +3,7 @@ import CalendarIcon from '@material-ui/icons/CalendarToday';
 import PinDrop from '@material-ui/icons/PinDrop';
 import ClockIcon from '@material-ui/icons/AccessTime';
 import Backpack from '@material-ui/icons/LocalMall';
+import firebase from 'firebase';
 
 /**
  * HackCenter Spotlight Card Component
@@ -11,34 +12,33 @@ import Backpack from '@material-ui/icons/LocalMall';
  */
 
 function SpotlightCard(props: any) {
-  const [day, getDayString] = useState('');
-  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-  useEffect(() => {
-    getDayString(days[props.dateTime.getDay()]);
-  });
+  const startDate = new firebase.firestore.Timestamp(props.startDate._seconds, 0).toDate();
+  const endDate = new firebase.firestore.Timestamp(props.endDate._seconds, 0).toDate();
 
   var speakerString = '';
   if (props.speakers !== undefined && props.speakers !== null && props.speakers.length !== 0) {
-    if (props.speakers.length == 1) {
-      speakerString = `Hosted by ${props.speakers[0]}`;
-    } else if (props.speakers.length == 2) {
+    if (props.speakers.length == 2) {
       speakerString = `Hosted by ${props.speakers[0]} & ${props.speakers[1]}`;
-    } else if (props.speakers.length == 3) {
-      speakerString = `Hosted by ${props.speakers[0]}, ${props.speakers[1]}, and ${props.speakers[2]}`;
+    } else if (props.speakers.length == 1) {
+      speakerString = `Hosted by ${props.speakers[0]}`;
     } else {
-      speakerString = `Hosted by: `;
-      for (const speaker of props.speakers) {
-        speakerString += speaker + ', ';
+      speakerString = 'Hosted by ';
+      for (var i = 0; i < props.speakers.length; i++) {
+        if (i === props.speakers.length - 1) {
+          speakerString += 'and ' + props.speakers[i];
+        } else {
+          speakerString += props.speakers[i] + ', ';
+        }
       }
-      speakerString = speakerString.substring(0, speakerString.length - 2);
     }
   }
 
-  var dayString = '';
-  if (day !== undefined && props.date !== undefined) {
-    dayString = day.substring(0, 3) + ', ' + props.date.substring(0, props.date.length - 6);
-  }
+  //first match extracts day abbreviation
+  //second match extracts month abbreviation and the number day of the month
+  var dayString =
+    startDate.toString().match(/^[\w]{3}/)[0] +
+    ', ' +
+    startDate.toString().match(/^\w+ (\w{3} \d{1,2})/)[1];
 
   return (
     <>
@@ -63,7 +63,10 @@ function SpotlightCard(props: any) {
             <div className="flex items-center lg:text-lg sm:text-md text-xs">
               {<ClockIcon style={{ fontSize: 'large', margin: '2px' }} />}
               <p>
-                {props.startTime} - {props.endTime}
+                {(startDate.getHours() + 24) % 12 || 12}:{startDate.getMinutes() < 10 ? '0' : ''}
+                {startDate.getMinutes()} {startDate.getHours() < 12 ? 'AM' : 'PM'} -{' '}
+                {(endDate.getHours() + 24) % 12 || 12}:{endDate.getMinutes() < 10 ? '0' : ''}
+                {endDate.getMinutes()} {endDate.getHours() < 12 ? 'AM' : 'PM'}
               </p>
             </div>
             <div className="flex items-center lg:text-lg sm:text-md text-xs">

@@ -189,29 +189,6 @@ type Challenge = {
 
 /**
  *
- * Represent a keynote speaker in home page
- *
- * @param title title of event
- * @param speakers speakers of event
- * @param date date of event in format {(3 letter english month name) dd, yyyy}, e.g. Jan 10, 2022
- * @param location location/room of event
- * @param startTime start time of event in format h:mm (am/pm), e.g. 6:36 am, 10:13 pm
- * @param endTime start time of event in format h:mm (am/pm)
- * @param page page where more information can be found about event
- *
- */
-type SpotlightEvent = {
-  title: string;
-  speakers: [];
-  date: string;
-  location: string;
-  startTime: string;
-  endTime: string;
-  page: string;
-};
-
-/**
- *
  * Represent a color scheme consist of a light and dark version used by a component
  *
  * @param light color code of the light variant
@@ -227,12 +204,28 @@ type Announcement = {
   timestamp?: string;
 };
 
+/**
+ *
+ * Represent an event
+ *
+ * @param title title of event
+ * @param speakers speakers of event
+ * @param startDate start timestamp of event
+ * @param endDate end timestamp of event
+ * @param location location/room of event
+ * @param page page where more information can be found about event
+ *
+ */
 type ScheduleEvent = {
   title: string;
   endDate: Date;
+  endTimestamp;
   location: string;
   startDate: Date;
+  startTimestamp;
   event: number;
+  speakers: [];
+  page: string;
 };
 
 type Sponsor = {

@@ -39,6 +39,11 @@ export default function SignupPage() {
       });
   };
 
+  function handleSubmit(event) {
+    signUp();
+    event.preventDefault();
+  }
+
   //toggle mask/unmask password in input field
   const showPassword = () => {
     var passwordInput = document.getElementById('newPasswordInput') as HTMLInputElement;
@@ -56,7 +61,7 @@ export default function SignupPage() {
         </Link>
         <h1 className="text-center text-black text-3xl my-8">Create an Account</h1>
         {/* Account credentials input fields */}
-        <form autoComplete="new-password">
+        <form autoComplete="new-password" onSubmit={handleSubmit}>
           <input
             autoComplete="new-password"
             className="w-full rounded-lg p-2 border-[1px] border-gray-500"
