@@ -206,7 +206,7 @@ type Announcement = {
 
 /**
  *
- * Represent a Schedule event
+ * Represent an event
  *
  * @param title title of event
  * @param speakers speakers of event

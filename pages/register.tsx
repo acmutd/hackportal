@@ -156,6 +156,7 @@ export default function Register() {
             companies: [],
           }}
           //validation
+          //Get condition in which values.[value] is invalid and set error message in errors.[value]. Value is a value from the form(look at initialValues)
           validate={(values) => {
             const errors: any = {};
             // empErrors for nested user object
@@ -247,7 +248,7 @@ export default function Register() {
               noValidate
               className="registrationForm flex flex-col max-w-4xl px-6 w-[56rem] text-lg"
             >
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto my-6">General</div>
+              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">General</div>
               <label htmlFor="firstName" className="mt-4">
                 *First Name
               </label>
@@ -364,7 +365,7 @@ export default function Register() {
                 render={(msg) => <div className="text-red-600">{msg}</div>}
               />
 
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto my-6">School Info</div>
+              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">School Info</div>
               <label htmlFor="university" className="mt-4">
                 *This event is for college students worldwide. Which university do you attend?
               </label>
@@ -423,7 +424,7 @@ export default function Register() {
                 render={(msg) => <div className="text-red-600">{msg}</div>}
               />
 
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto my-6">
+              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">
                 Hackathon Experience
               </div>
               <label htmlFor="hackathonExperience" className="mt-4">
@@ -482,7 +483,7 @@ export default function Register() {
                 render={(msg) => <div className="text-red-600">{msg}</div>}
               />
 
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto my-6">Event Info</div>
+              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">Event Info</div>
               <label htmlFor="size" className="mt-4">
                 *Shirt Size
               </label>
@@ -546,7 +547,7 @@ export default function Register() {
                 className="border-2 border-gray-400 rounded-md p-1"
               ></Field>
 
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto my-6">Sponsor Info</div>
+              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">Sponsor Info</div>
               <label htmlFor="github" className="mt-4">
                 Github:
               </label>
@@ -613,6 +614,7 @@ export default function Register() {
                 <br />
               </label>
 
+              {/* Submit */}
               <div className="my-8">
                 <button
                   type="submit"

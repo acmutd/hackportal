@@ -10,7 +10,7 @@ const ANNOUNCEMENTS_COLLECTION = '/announcements';
 const TOKENS_COLLECTION = '/tokens';
 const MAX_PER_BATCH = 1000;
 
-async function sendNotifications(announcement: unknown) {
+async function sendNotifications(announcement: any) {
   const tokens_snapshot = await db.collection(TOKENS_COLLECTION).get();
   let tokens = [];
 
@@ -32,8 +32,12 @@ async function sendNotifications(announcement: unknown) {
       body: JSON.stringify({
         registration_ids: currentBatch,
         data: {
-          notification: announcement,
+          notification: {
+            ...announcement,
+            baseUrl: process.env.BASE_URL,
+          },
         },
+        content_available: true,
       }),
     });
   }

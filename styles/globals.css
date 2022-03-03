@@ -109,12 +109,12 @@ a.link {
 }
 
 .registrationTitle:after {
-    content: ""; /* This is necessary for the pseudo element to work. */ 
-    display: block; /* This will put the pseudo element on its own line. */
-    margin: 0 auto; /* This will center the border. */
-    width: 75%; /* Change this to whatever width you want. */
-    padding-top: 15px;
-    border-bottom: 2px solid black; /* This creates the border. Replace black with whatever color you want. */
+  content: ""; 
+  display: block; 
+  margin: 0 auto;
+  width: 75%; 
+  padding-top: 15px;
+  border-bottom: 2px solid black;
 }
 
 /* Dashboard mobile menu */
