@@ -80,6 +80,11 @@ export default function AuthPage() {
     router.push('/profile');
   }
 
+  function handleSubmit(event) {
+    signIn();
+    event.preventDefault();
+  }
+
   return (
     <>
       {/* md-lg screens */}
@@ -98,7 +103,7 @@ export default function AuthPage() {
               <div className="text-sm">or</div>
               {/* Account credential input fields */}
               <div className="w-[24rem]">
-                <form>
+                <form onSubmit={handleSubmit}>
                   <input
                     className="w-full rounded-lg p-2 border-[1px] border-gray-500"
                     value={currentEmail}
@@ -120,38 +125,41 @@ export default function AuthPage() {
                     autoComplete="current-password"
                     placeholder="Password"
                   ></input>
+                  <div className="flex justify-between">
+                    <div
+                      className="hover:underline cursor-pointer text-left"
+                      onClick={() => {
+                        setPasswordResetDialog(true);
+                        setErrorMsg('');
+                        setSendVerification(false);
+                      }}
+                    >
+                      Forgot password?
+                    </div>
+                    <div>
+                      <input
+                        className="mx-1"
+                        type="checkbox"
+                        onClick={() => showPassword('passwordInputLg')}
+                      />
+                      Show Password
+                    </div>
+                    <input className="hidden" type="submit" value="Submit" />
+                  </div>
+                  <button
+                    type="button"
+                    className="px-4 py-2 w-[24rem] rounded-md shadow-md bg-green-200 hover:shadow-lg hover:bg-green-300"
+                    onClick={() => {
+                      signIn();
+                    }}
+                  >
+                    Sign in
+                  </button>
                 </form>
               </div>
-              <div className="flex justify-between w-[24rem]">
-                <div
-                  className="hover:underline cursor-pointer text-left"
-                  onClick={() => {
-                    setPasswordResetDialog(true);
-                    setErrorMsg('');
-                    setSendVerification(false);
-                  }}
-                >
-                  Forgot password?
-                </div>
-                <div>
-                  <input
-                    className="mx-1"
-                    type="checkbox"
-                    onClick={() => showPassword('passwordInputLg')}
-                  />
-                  Show Password
-                </div>
-              </div>
-              <button
-                className="px-4 py-2 w-[24rem] rounded-md shadow-md bg-green-200 hover:shadow-lg hover:bg-green-300"
-                onClick={() => {
-                  signIn();
-                }}
-              >
-                Sign in
-              </button>
               {/* Error and verification messages */}
               <div className="mt-4 w-[24rem]">{errorMsg}</div>
+              {/* Uncomment to allow resend verification email option (users could spam) */}
               {/* {sendVerification && (
                 <button className="underline" onClick={() => sendVerificationEmail()}>
                   Resend verification
@@ -226,7 +234,7 @@ export default function AuthPage() {
               <div className="text-sm">or</div>
               {/* Account credential input fields */}
               <div className="w-5/6">
-                <form>
+                <form onSubmit={handleSubmit}>
                   <input
                     className="w-full rounded-lg p-2 border-[1px] border-gray-500"
                     value={currentEmail}
@@ -248,6 +256,7 @@ export default function AuthPage() {
                     autoComplete="current-password"
                     placeholder="Password"
                   ></input>
+                  <input className="hidden" type="submit" value="Submit" />
                 </form>
               </div>
               <div>
