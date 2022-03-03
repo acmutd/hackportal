@@ -17,12 +17,17 @@ function setup() {
     
   const messaging = firebase.messaging();
 
+  self.addEventListener('notificationclick', function(event) {
+    event.notification.close();
+    clients.openWindow(event.notification.data.url);
+  })
+
   messaging.onBackgroundMessage(function (payload) {
-    console.log("From background: ", payload);
-    const { announcement } = JSON.parse(payload.data.notification);
+    const { announcement, baseUrl: url } = JSON.parse(payload.data.notification);
     var options = {
       body: announcement,
-      icon: '/icons/launcher-icon-4x.png',
+      icon: 'https://raw.githubusercontent.com/acmutd/hackportal/develop/public/icons/icon-128x128.png',
+      data: { url }
     };
     self.registration.showNotification("HackPortal Announcement", options);
   });
