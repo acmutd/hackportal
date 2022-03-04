@@ -10,7 +10,7 @@ import 'firebase/storage';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import HomeChallengeCard from '../components/HomeChallengeCard';
 import Link from 'next/link';
-import FAQ from './about/faq';
+import FAQ from '../components/faq';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
