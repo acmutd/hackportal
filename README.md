@@ -19,6 +19,8 @@
 - And more!
 
 ## Set up
+_If you are using HackPortal for your event, please add yourself to this [list](https://github.com/acmutd/hackportal/wiki/HackPortal-Users). It only takes a moment and shows us our software is helping real organizations._ 
+
 Follow the instructions in the [set-up docs](./docs/set-up.md) to set up HackPortal for your hackathon.
 
 ## Making Changes
