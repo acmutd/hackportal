@@ -214,6 +214,7 @@ type Announcement = {
  * @param endDate end timestamp of event
  * @param location location/room of event
  * @param page page where more information can be found about event
+ * @param description description about event
  *
  */
 type ScheduleEvent = {
@@ -226,6 +227,7 @@ type ScheduleEvent = {
   event: number;
   speakers: [];
   page: string;
+  description: string;
 };
 
 type Sponsor = {

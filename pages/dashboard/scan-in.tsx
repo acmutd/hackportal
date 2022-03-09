@@ -53,7 +53,7 @@ export default function Scan() {
 
       <Sidebar />
 
-      <section id="mainContent" className="px-6 py-3 w-5/6 lg:wd-7/8 md:w-6/7">
+      <section id="mainContent" className="px-6 py-3 lg:wd-7/8 md:w-6/7 w-full">
         <DashboardHeader />
         {isSignedIn ? (
           <div className="flex flex-col items-center justify-center top-6 ">
