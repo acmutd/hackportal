@@ -9,6 +9,11 @@ import 'firebase/messaging';
 import 'firebase/storage';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import HomeChallengeCard from '../components/HomeChallengeCard';
+import Link from 'next/link';
+import FAQ from '../components/faq';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 /**
  * The home page.
@@ -19,6 +24,7 @@ import HomeChallengeCard from '../components/HomeChallengeCard';
 export default function Home(props: {
   keynoteSpeakers: KeynoteSpeaker[];
   challenges: Challenge[];
+  answeredQuestion: AnsweredQuestion[];
 }) {
   const router = useRouter();
 
@@ -183,6 +189,24 @@ export default function Home(props: {
           </div>
         </div>
       </section>
+      {/* About section */}
+      <section className="md:p-12 p-6">
+        <h1 className="md:text-4xl text-2xl font-bold my-4">About HackUTD</h1>
+        <div className="md:text-base text-sm">
+          Here will be a short paragraph providing a general overview of what hackutd is including
+          dates, events, contests, and prizes. Lorem ipsum dolor sit amet, consectetur adipiscing
+          elit. Vestibulum eget magna ut risus fermentum dapibus. Sed vulputate vulputate lacus eu
+          ullamcorper. <br />
+          <br />A second paragraph will serve to inform the reader of the size and reach of hackutd.
+          we will inform them of how many people come each year and how much in we have in prizes.
+          Nulla felis tellus, varius suscipit nisl sit amet, pretium mollis erat. Morbi ipsum risus,
+          malesuada eget leo ut, ultrices convallis ex. Etiam blandit magna id dictum finibus.{' '}
+          <br />
+          <br />A final paragraph can be included to briefly discuss our partnership as a branch of
+          utd acm. Mauris aliquam sed sapien ut pretium. Etiam a porta magna. Orci varius natoque
+          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+        </div>
+      </section>
       {/* Featuring Keynotes speakers */}
       <section className="flex overflow-x-scroll bg-gray-200 min-h-[24rem]">
         <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold">
@@ -222,7 +246,7 @@ export default function Home(props: {
         </div>
       </section>
       {/* Challenges */}
-      <section className="p-6 border-2">
+      <section className="p-6 ">
         <div className="font-bold text-2xl">Challenges</div>
         <div className="flex">
           {/* Challenge Orgs Selectors*/}
@@ -241,7 +265,7 @@ export default function Home(props: {
             ))}
           </div>
           {/* Challenges Description Cards */}
-          <div className="md:w-3/4 w-4/5 my-4 px-6 min-h-full">
+          <div className="md:w-3/4 w-4/5 my-4 pl-6 min-h-full">
             {/* Card */}
             {challenges.map(({ title, organization, description, prizes }, idx) => (
               <HomeChallengeCard
@@ -253,6 +277,70 @@ export default function Home(props: {
                 idx={idx}
               />
             ))}
+          </div>
+        </div>
+      </section>
+      {/* FAQ */}
+      <section>
+        <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
+      </section>
+
+      {/* Footer */}
+      <section className="bg-gray-100 mt-16 px-6 py-8 md:text-base text-xs">
+        {/* Upper Content */}
+        <div className="my-2 relative">
+          {/* Social icons */}
+          <div className="space-x-4 > * + *">
+            <a href="https://twitter.com/hackutd" rel="noopener noreferrer" target="_blank">
+              <TwitterIcon className="footerIcon" />
+            </a>
+            <a
+              href="https://www.instagram.com/hackutd/?hl=en"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <InstagramIcon className="footerIcon" />
+            </a>
+            <a href="https://www.facebook.com/hackutd/" rel="noopener noreferrer" target="_blank">
+              <FacebookIcon className="footerIcon" />
+            </a>
+          </div>
+          {/* Text */}
+          <div className="absolute bottom-0 right-0">
+            Checkout HackUTD&apos;s{' '}
+            <a
+              href="https://acmutd.co/"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="font-black hover:underline"
+            >
+              organizer site
+            </a>
+          </div>
+        </div>
+        {/* Lower Content */}
+        <div className="flex justify-between border-t-[1px] py-2 border-black">
+          <p>
+            HackPortal developed with &lt;3 by <p className="font-black inline">HackUTD</p> and{' '}
+            <p className="font-black inline">ACM Engineering</p>
+          </p>
+          <div className="flex md:flex-row flex-col md:ml-0 ml-6">
+            <a
+              href="mailto:email@organization.com"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="hover:underline md:mr-8 font-thin"
+            >
+              Contact Us
+            </a>
+            <a
+              href="https://github.com/acmutd/hackportal"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline font-thin whitespace-nowrap"
+            >
+              Source Code
+            </a>
           </div>
         </div>
       </section>
@@ -270,10 +358,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/challenges/`,
     {},
   );
+  const { data: answeredQuestion } = await RequestHelper.get<AnsweredQuestion[]>(
+    `${protocol}://${context.req.headers.host}/api/questions/faq`,
+    {},
+  );
   return {
     props: {
       keynoteSpeakers: keynoteData,
       challenges: challengeData,
+      answeredQuestion: answeredQuestion,
     },
   };
 };

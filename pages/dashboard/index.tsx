@@ -132,7 +132,7 @@ export default function Dashboard(props: {
               </div>
             )}
             {/* Announcements */}
-            <div className="lg:w-2/5 w-full h-96">
+            <div className={`${eventCount > 0 ? 'lg:w-2/5' : 'lg:w-full'} w-full h-96`}>
               <h1 className="md:text-3xl text-xl font-black">Announcements</h1>
               <div id="announcement-items" className="overflow-y-scroll h-9/10">
                 {announcements.map((announcement, idx) => {

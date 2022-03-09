@@ -13,7 +13,7 @@ import firebase from 'firebase/app';
  */
 export default function AppHeader() {
   const [showMenu, setShowMenu] = useState(false);
-  const { isSignedIn } = useAuthContext();
+  const { isSignedIn, hasProfile } = useAuthContext();
   const [mobileIcon, setMobileIcon] = useState(true);
   const [showProfileDialog, setShowProfileDialog] = useState(false);
 
@@ -98,7 +98,7 @@ export default function AppHeader() {
             className="font-header font-bold bg-white rounded-full border-2 border-black text-sm px-8 py-1"
             onClick={toggleDialog}
           >
-            {!user || !isSignedIn ? 'Sign in' : 'Profile'}
+            {!user || !isSignedIn ? 'Sign in' : hasProfile ? 'Profile' : 'Register'}
           </button>
         </div>
         {showProfileDialog && <ProfileDialog onDismiss={dismissDialog} />}
