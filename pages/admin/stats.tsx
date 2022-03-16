@@ -2,32 +2,25 @@ import { useAuthContext } from '../../lib/user/AuthContext';
 import Head from 'next/head';
 import AdminHeader from '../../components/AdminHeader';
 import AdminStatsCard from '../../components/AdminStatsCard';
-import SwagStatsTable from '../../components/SwagStatsTable';
+import StatsTable from '../../components/StatsTable';
 import { RequestHelper } from '../../lib/request-helper';
 import { useEffect, useState } from 'react';
 import LoadIcon from '../../components/LoadIcon';
+import { fieldToName } from '../../lib/stats/field';
 
 function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;
   return (user.permissions as string[]).includes('super_admin');
 }
 
-interface StatsData {
-  adminCount: number;
-  checkedInCount: number;
-  hackerCount: number;
-  superAdminCount: number;
-  swags: Record<string, number>;
-}
-
 export default function AdminStatsPage() {
   const [loading, setLoading] = useState(true);
   const { user, isSignedIn } = useAuthContext();
-  const [statsData, setStatsData] = useState<StatsData>();
+  const [statsData, setStatsData] = useState<GeneralStats>();
 
   useEffect(() => {
     async function getData() {
-      const { data } = await RequestHelper.get<StatsData>('/api/stats', {
+      const { data } = await RequestHelper.get<GeneralStats>('/api/stats', {
         headers: {
           Authorization: user.token,
         },
@@ -60,11 +53,19 @@ export default function AdminStatsPage() {
           <AdminStatsCard title="admins" value={statsData.adminCount} />
           <AdminStatsCard title="super admin" value={statsData.superAdminCount} />
         </div>
-        <div className="flex justify-around">
-          <SwagStatsTable
-            swags={Object.entries(statsData.swags).map(([k, v]) => ({ swag: k, claimedCount: v }))}
-          />
-        </div>
+        {Object.entries(statsData)
+          .filter(([_, value]) => typeof value === 'object')
+          .map(([key, value]) => (
+            <div key={key} className="flex justify-around">
+              <StatsTable
+                name={fieldToName[key]}
+                items={Object.entries(value as Record<any, any>).map(([k, v]) => ({
+                  itemName: k,
+                  itemCount: v,
+                }))}
+              />
+            </div>
+          ))}
       </div>
     </div>
   );

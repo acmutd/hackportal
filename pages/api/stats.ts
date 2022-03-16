@@ -2,6 +2,7 @@ import { firestore } from 'firebase-admin';
 import { NextApiRequest, NextApiResponse } from 'next';
 import initializeApi from '../../lib/admin/init';
 import { userIsAuthorized } from '../../lib/authorization/check-authorization';
+import { arrayFields, singleFields } from '../../lib/stats/field';
 
 initializeApi();
 const db = firestore();
@@ -19,24 +20,49 @@ async function getCheckInEventName() {
 }
 
 async function getStatsData() {
-  let hackerCount = 0,
-    adminCount = 0,
-    superAdminCount = 0,
-    checkedInCount = 0;
   const checkInEventName = await getCheckInEventName();
-  const swagData: Record<string, number> = {};
+  // const swagData: Record<string, number> = {};
+  const generalStats: GeneralStats = {
+    superAdminCount: 0,
+    checkedInCount: 0,
+    hackerCount: 0,
+    adminCount: 0,
+    scans: {},
+    age: {},
+    companies: {},
+    dietary: {},
+    ethnicity: {},
+    gender: {},
+    hackathonExperience: {},
+    heardFrom: {},
+    race: {},
+    size: {},
+    softwareExperience: {},
+    studyLevel: {},
+    university: {},
+  };
 
   const snapshot = await db.collection(USERS_COLLECTION).get();
   snapshot.forEach((doc) => {
     const userData = doc.data();
-    if (userData.scans) {
-      userData.scans.forEach((scan: string) => {
-        if (scan === checkInEventName) checkedInCount++;
+
+    for (let arrayField of arrayFields) {
+      if (!userData[arrayField]) continue;
+      userData[arrayField].forEach((data: string) => {
+        if (arrayField === 'scans' && data === checkInEventName) generalStats.checkedInCount++;
         else {
-          if (!swagData.hasOwnProperty(scan)) swagData[scan] = 0;
-          swagData[scan]++;
+          if (!generalStats[arrayField].hasOwnProperty(data)) generalStats[arrayField][data] = 0;
+          generalStats[arrayField][data]++;
         }
       });
+    }
+
+    for (let singleField of singleFields) {
+      if (!userData[singleField] || userData[singleField] === '') continue;
+      if (!generalStats[singleField].hasOwnProperty(userData[singleField])) {
+        generalStats[singleField][userData[singleField]] = 0;
+      }
+      generalStats[singleField][userData[singleField]]++;
     }
 
     let userPermission = '';
@@ -46,24 +72,18 @@ async function getStatsData() {
 
     switch (userPermission) {
       case 'super_admin': {
-        superAdminCount++;
+        generalStats.superAdminCount++;
       }
       case 'admin': {
-        adminCount++;
+        generalStats.adminCount++;
       }
       case 'hacker': {
-        hackerCount++;
+        generalStats.hackerCount++;
       }
     }
   });
 
-  return {
-    superAdminCount,
-    checkedInCount,
-    hackerCount,
-    adminCount,
-    swags: swagData,
-  };
+  return generalStats;
 }
 
 async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
