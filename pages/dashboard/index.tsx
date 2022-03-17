@@ -26,12 +26,11 @@ import 'swiper/css/scrollbar';
  *
  * Landing: /dashboard
  *
- * Date of event is in format {(3 letter english month name) dd, yyyy}, e.g. Jan 07, 2022
  */
 
 export default function Dashboard(props: {
   announcements: Announcement[];
-  spotlightevents: SpotlightEvent[];
+  scheduleEvents: ScheduleEvent[];
   challenges: Challenge[];
 }) {
   const { isSignedIn } = useAuthContext();
@@ -57,79 +56,22 @@ export default function Dashboard(props: {
 
     setdateTime(new Date());
     setEventCount(
-      props.spotlightevents.reduce(
+      props.scheduleEvents.reduce(
         (total, event, idx) =>
-          validTimeDate(event.date, event.startTime, event.endTime) ? total + 1 : total,
+          validTimeDate(event.startTimestamp, event.endTimestamp) ? total + 1 : total,
         0,
       ),
     );
   }, []);
 
   // Check if spotlight time/date interval encompasses current time/date
-  const validTimeDate = (date, startTime, endTime) => {
-    if (!checkDate(date)) {
-      return false;
-    }
-
-    return checkTime(startTime, endTime);
-  };
-
-  //Check if spotlight date is same as current date
-  const checkDate = (date) => {
-    var currDate = dateTime.toString().substring(4, 15);
-    var eventDate = date.replace(',', '');
-    if (currDate !== eventDate) {
-      return false;
-    }
-    return true;
-  };
-
-  // Check if spotlight time interval encompasses current time
-  const checkTime = (startTime, endTime) => {
-    var hour,
-      startTimeMilitary = startTime,
-      endTimeMilitary = endTime;
-    // converting to military time
-    if (startTime.substring(startTime.length - 2) == 'pm') {
-      hour = parseInt(startTime.split(':')[0]);
-      hour = hour === 12 ? 12 : hour + 12;
-      startTimeMilitary = hour.toString() + ':' + startTime.split(':')[1];
-    }
-    if (startTime.substring(startTime.length - 2) == 'am' && startTime.substring(0, 2) == '12') {
-      startTimeMilitary = '00:' + startTime.split(':')[1];
-    }
-    if (endTime.substring(endTime.length - 2) == 'pm') {
-      hour = parseInt(endTime.split(':')[0]);
-      hour = hour === 12 ? 12 : hour + 12;
-      endTimeMilitary = hour.toString() + ':' + endTime.split(':')[1];
-    }
-    if (endTime.substring(endTime.length - 2) == 'am' && endTime.substring(0, 2) == '12') {
-      endTimeMilitary = '00:' + endTime.split(':')[1];
-    }
-
-    // parsing time info
-    var currentHour = parseInt(dateTime.getHours().toString());
-    var currentMinute = parseInt(dateTime.getMinutes().toString());
-    var startHour = parseInt(startTimeMilitary.split(':')[0]);
-    var startMinute = parseInt(startTimeMilitary.split(':')[1].substring(0, 2));
-    var endHour = parseInt(endTimeMilitary.split(':')[0]);
-    var endMinute = parseInt(endTimeMilitary.split(':')[1].substring(0, 2));
-
-    // checking matching time interval
-    if (currentHour >= startHour && currentHour <= endHour) {
-      if (currentHour == startHour) {
-        if (startHour != endHour) {
-          return currentMinute >= startMinute;
-        } else if (startHour == endHour) {
-          return currentMinute >= startMinute && currentMinute <= endMinute;
-        }
-      } else if (currentHour == endHour) {
-        return currentMinute <= endMinute;
-      }
+  const validTimeDate = (startDate, endDate) => {
+    const currDate = firebase.firestore.Timestamp.now();
+    if (currDate.seconds > startDate._seconds && currDate.seconds < endDate._seconds) {
       return true;
+    } else {
+      return false;
     }
-
-    return false;
   };
 
   var eventCountString;
@@ -141,7 +83,14 @@ export default function Dashboard(props: {
 
   return (
     <>
-      <div className="flex flex-wrap flex-grow" style={{backgroundImage: "url('assets/background.png')", minHeight: 500,  backgroundSize: 'cover' }}>
+      <div
+        className="flex flex-wrap flex-grow"
+        style={{
+          backgroundImage: "url('assets/background.png')",
+          minHeight: 500,
+          backgroundSize: 'cover',
+        }}
+      >
         <Head>
           <title>HackPortal - Dashboard</title>
           <meta name="description" content="HackPortal's Dashboard" />
@@ -149,7 +98,7 @@ export default function Dashboard(props: {
 
         <Sidebar />
 
-        <section id="mainContent" className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 " >
+        <section id="mainContent" className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 ">
           <DashboardHeader />
           {/* Spotlight & Announcements */}
           <div className="flex flex-wrap my-16">
@@ -164,24 +113,22 @@ export default function Dashboard(props: {
                   spaceBetween={50}
                   slidesPerView={1}
                   navigation
-                  loop={true}
+                  loop={false}
                   pagination={{ clickable: true }}
                 >
-                  {props.spotlightevents.map(
-                    ({ title, speakers, date, location, startTime, endTime, page }, idx) =>
-                      validTimeDate(date, startTime, endTime) && (
+                  {props.scheduleEvents.map(
+                    ({ title, speakers, startTimestamp, endTimestamp, location, page }, idx) =>
+                      validTimeDate(startTimestamp, endTimestamp) && (
                         <SwiperSlide key={idx}>
                           <div className="h-[19rem] w-full">
                             {/* Customize Spotlight card design for carousel in  SpotlightCard component file*/}
                             <SpotlightCard
                               title={title}
                               speakers={speakers}
-                              date={date}
+                              startDate={startTimestamp}
                               location={location}
-                              startTime={startTime}
-                              endTime={endTime}
+                              endDate={endTimestamp}
                               page={page}
-                              dateTime={dateTime}
                             />
                           </div>
                         </SwiperSlide>
@@ -234,8 +181,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/announcements/`,
     {},
   );
-  const { data: spotlightData } = await RequestHelper.get<SpotlightEvent[]>(
-    `${protocol}://${context.req.headers.host}/api/spotlightevents/`,
+  const { data: eventData } = await RequestHelper.get<ScheduleEvent[]>(
+    `${protocol}://${context.req.headers.host}/api/schedule/`,
     {},
   );
   const { data: challengeData } = await RequestHelper.get<Challenge[]>(
@@ -246,7 +193,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       announcements: announcementData,
-      spotlightevents: spotlightData,
+      scheduleEvents: eventData,
       challenges: challengeData,
     },
   };

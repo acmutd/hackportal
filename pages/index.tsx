@@ -125,9 +125,16 @@ export default function Home(props: {
         </div>
       )}
       {/* Hero section */}
-      <section className="p-4" style={{backgroundImage: "url('assets/background.png')", minHeight: 500,  backgroundSize: 'cover' }}>
+      <section
+        className="p-4"
+        style={{
+          backgroundImage: "url('assets/background.png')",
+          minHeight: 500,
+          backgroundSize: 'cover',
+        }}
+      >
         <div
-          style={{ minHeight: 400}}
+          style={{ minHeight: 400 }}
           className="max-w-4xl mx-auto my-20 flex flex-col justify-center items-center"
         >
           <div
@@ -136,48 +143,53 @@ export default function Home(props: {
           >
             <img className="center" src="assets/hackaibrain2.png" height={100} width={100}></img>
             {/* <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackAI</h1> */}
-            <h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-bold'>
-              <span className='bg-gradient-to-r text-transparent from-blue-400 via-capri to-blue-500 bg-clip-text'>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-bold">
+              <span className="bg-gradient-to-r text-transparent from-blue-400 via-capri to-blue-500 bg-clip-text">
                 Hack
               </span>
-              <span className='bg-wisteria text-transparent bg-clip-text'>AI</span>
+              <span className="bg-wisteria text-transparent bg-clip-text">AI</span>
             </h1>
-            <h3 className='py-1 text-lg sm:text-xl md:text-xl lg:text-xl xl:text-2xl font-medium'>
+            <h3 className="py-1 text-lg sm:text-xl md:text-xl lg:text-xl xl:text-2xl font-medium">
               April 9-10, 2022
             </h3>
             <p className="text-center my-4 md:font-bold md:text-3xl text-xl">
               The Largest AI Hackathon at UT Dallas is Back!
             </p>
-            <p className='py-1 text-lg sm:text-xl md:text-xl lg:text-xl xl:text-2xl font-medium' > Applications close on April 1, 2022 at 11:59 PM CDT. </p>
+            <p className="py-1 text-lg sm:text-xl md:text-xl lg:text-xl xl:text-2xl font-medium">
+              {' '}
+              Applications close on April 1, 2022 at 11:59 PM CDT.{' '}
+            </p>
             <div className="p-5 flex flex-col items-center md:flex-row md:justify-around px-4 md:space-y-0 space-y-3 > * + *">
               {buttonDatas.map((button) => (
-            <button
-              key={button.text}
-              onClick={() => window.open(button.path)}
-              className="font-header font-bold bg-capri rounded-full border-black text-sm px-8 py-3 hover:bg-blue-400 hover:text-black"
-            >
-              {button.text}
-            </button>
-          ))}
-        </div>
+                <button
+                  key={button.text}
+                  onClick={() => window.open(button.path)}
+                  className="font-header font-bold bg-capri rounded-full border-black text-sm px-8 py-3 hover:bg-blue-400 hover:text-black"
+                >
+                  {button.text}
+                </button>
+              ))}
+            </div>
           </div>
           {/* TODO: Programmatically show these based on configured times/organizer preference */}
         </div>
-        
       </section>
       {/* Video Space */}
-      <section className="z-0 relative md:h-[560px] py-[3rem]" style={{backgroundImage: "url('assets/background.png')" }}>
+      <section
+        className="z-0 relative md:h-[560px] py-[3rem]"
+        style={{ backgroundImage: "url('assets/background.png')" }}
+      >
         <div className="flex flex-col justify-center items-center md:flex-row">
           {/* Video */}
-          <iframe 
-          width="560" 
-          height="315" 
-          src="https://www.youtube.com/embed/Da4xucNa1zs" 
-          title="YouTube video player" 
-          frameBorder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowFullScreen>
-          </iframe>
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/Da4xucNa1zs"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
           {/* Stats */}
           <div className="">
             {stats.map((stat, index) => (
@@ -200,8 +212,8 @@ export default function Home(props: {
           Featuring Keynote Speakers
         </div>
         <div className="flex flex-col justify-center py-6 md:px-6"> */}
-          {/* Row 1 */}
-          {/* <div className="flex">
+      {/* Row 1 */}
+      {/* <div className="flex">
             {speakers.map(
               ({ name, description, fileName }, idx) =>
                 idx < speakers.length / 2 && (
@@ -215,8 +227,8 @@ export default function Home(props: {
                 ),
             )}
           </div> */}
-          {/* row 2 */}
-          {/* <div className="flex md:ml-[7rem] ml-[5rem]">
+      {/* row 2 */}
+      {/* <div className="flex md:ml-[7rem] ml-[5rem]">
             {speakers.map(
               ({ name, description, fileName }, idx) =>
                 idx >= speakers.length / 2 && (
@@ -233,18 +245,18 @@ export default function Home(props: {
         </div>
       </section> */}
       {/* About*/}
-      <section className="z-0 relative md:h-[560px] py-[3rem]" >
-        <h2 className='text-left pl-20 font-medium text-5xl bold mb-4 text-red'>What is HackAI?</h2>
-        <p className='text-lg text-justify px-20'>
-            HackAI is a student-run annual hackathon organized by the Artificial Intelligence
-            Society at The University of Texas of Dallas, aiming to connect today&apos;s students
-            with the knowledge and resources needed to build Artificial Intelligence (AI) related
-            projects in the span of 24 hours. Topics such as Natural Language Processing, Machine
-            Learning, Data Analytics, and more will be represented amongst these projects, and we
-            are confident that both the creativity and quality of the submissions will be incredibly
-            high. The hackathon encompasses various levels of competition tasks, designed to
-            challenge students while providing value to sponsors.
-          </p>
+      <section className="z-0 relative md:h-[560px] py-[3rem]">
+        <h2 className="text-left pl-20 font-medium text-5xl bold mb-4 text-red">What is HackAI?</h2>
+        <p className="text-lg text-justify px-20">
+          HackAI is a student-run annual hackathon organized by the Artificial Intelligence Society
+          at The University of Texas of Dallas, aiming to connect today&apos;s students with the
+          knowledge and resources needed to build Artificial Intelligence (AI) related projects in
+          the span of 24 hours. Topics such as Natural Language Processing, Machine Learning, Data
+          Analytics, and more will be represented amongst these projects, and we are confident that
+          both the creativity and quality of the submissions will be incredibly high. The hackathon
+          encompasses various levels of competition tasks, designed to challenge students while
+          providing value to sponsors.
+        </p>
       </section>
       {/* Challenges */}
       <section className="p-6 ">

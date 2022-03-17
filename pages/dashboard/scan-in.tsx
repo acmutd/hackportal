@@ -45,7 +45,14 @@ export default function Scan() {
   };
 
   return (
-    <div className="flex flex-wrap flex-grow" style={{backgroundImage: "url('../assets/background.png')", minHeight: 500,  backgroundSize: 'cover' }} >
+    <div
+      className="flex flex-wrap flex-grow"
+      style={{
+        backgroundImage: "url('../assets/background.png')",
+        minHeight: 500,
+        backgroundSize: 'cover',
+      }}
+    >
       <Head>
         <title>HackerPacks</title>
         <meta name="description" content="HackPortal's Scan-In" />

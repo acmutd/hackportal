@@ -42,7 +42,14 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
   }
 
   return (
-    <div className="flex flex-col flex-grow" style={{backgroundImage: "url('../assets/background.png')", minHeight: 500,  backgroundSize: 'cover' }}>
+    <div
+      className="flex flex-col flex-grow"
+      style={{
+        backgroundImage: "url('../assets/background.png')",
+        minHeight: 500,
+        backgroundSize: 'cover',
+      }}
+    >
       <Head>
         <title>HackPortal - FAQ</title>
         <meta name="description" content="HackAI's Frequently Asked Questions" />

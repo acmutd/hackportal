@@ -17,7 +17,10 @@ export default function Sponsors(props: { sponsorCard: Sponsor[] }) {
   }, []);
 
   return (
-    <div className="flex flex-col flex-grow" style={{backgroundImage: "url('assets/background.png')" }}>
+    <div
+      className="flex flex-col flex-grow"
+      style={{ backgroundImage: "url('assets/background.png')" }}
+    >
       <Head>
         <title>HackPortal - Sponsors</title>
         <meta name="description" content="HackPortal's Sponsors Page" />
@@ -50,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/sponsor`,
     {},
   );
-  console.log(`${protocol}://${context.req.headers.host}/api/sponsor`)
+  console.log(`${protocol}://${context.req.headers.host}/api/sponsor`);
   return {
     props: {
       sponsorCard: sponsorData,

@@ -18,7 +18,7 @@ const SPONSORS = '/sponsors';
  */
 async function getSponsors(req: NextApiRequest, res: NextApiResponse) {
   const snapshot = await db.collection(SPONSORS).get();
-  console.log(snapshot)
+  console.log(snapshot);
   let data = [];
   snapshot.forEach((doc) => {
     data.push(doc.data());

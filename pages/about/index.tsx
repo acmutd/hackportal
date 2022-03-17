@@ -47,7 +47,10 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
   }
 
   return (
-    <div className="flex flex-col flex-grow " style={{backgroundImage: "url('assets/background.png')" }}>
+    <div
+      className="flex flex-col flex-grow "
+      style={{ backgroundImage: "url('assets/background.png')" }}
+    >
       <Head>
         <title>HackPortal - About</title>
         <meta name="description" content="HackPortal's About Page" />

@@ -17,7 +17,14 @@ export default function HackerPack() {
   const role = user.permissions?.length > 0 ? user.permissions[0] : '';
 
   return (
-    <div className="flex flex-grow flex-wrap" style={{backgroundImage: "url('../assets/background.png')", minHeight: 500,  backgroundSize: 'cover' }}>
+    <div
+      className="flex flex-grow flex-wrap"
+      style={{
+        backgroundImage: "url('../assets/background.png')",
+        minHeight: 500,
+        backgroundSize: 'cover',
+      }}
+    >
       <Head>
         <title>HackerPacks</title>
         <meta name="description" content="HackerPack Information" />
@@ -105,7 +112,7 @@ export default function HackerPack() {
           </ul>
         </section>
         {/* User greeting for bottom of sidebar */}
-        <div className="fixed bottom-0 border-t-2 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-center py-3 " >
+        <div className="fixed bottom-0 border-t-2 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-center py-3 ">
           <div>
             Welcome,{' '}
             {!user || !isSignedIn ? 'hacker' : user.firstName !== '' ? user.firstName : 'hacker'}

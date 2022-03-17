@@ -87,7 +87,9 @@ export default function AppHeader() {
             {navItems.map((item) => (
               <Link key={item.text} href={item.path}>
                 <a>
-                  <p className="md:mx-4 text-sm font-bold hover:bg-wisteria p-1 hover:text-black">{item.text}</p>
+                  <p className="md:mx-4 text-sm font-bold hover:bg-wisteria p-1 hover:text-black">
+                    {item.text}
+                  </p>
                 </a>
               </Link>
             ))}
