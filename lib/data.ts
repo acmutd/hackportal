@@ -1,7 +1,7 @@
 export const buttonDatas = [
-  { text: 'Hacker App', path: '/' },
-  { text: 'Mentor App', path: '/' },
-  { text: 'Sponsor App', path: '/' },
+  { text: 'Apply Now', path: 'https://coda.io/@preesha-shankar/hack-ai-2022-application' },
+  // { text: 'Mentor App', path: '/' },
+  // { text: 'Sponsor App', path: '/' },
 ];
 
 export const navItems = [
@@ -14,15 +14,15 @@ export const navItems = [
 
 export const stats = [
   {
-    data: 'Big',
-    object: 'statistic 1',
+    data: '200',
+    object: 'Participants',
   },
   {
-    data: 'Shocking',
-    object: 'statistic 2',
+    data: '24',
+    object: 'Hours',
   },
   {
-    data: 'Incredible',
-    object: 'statistic 3',
+    data: '10+',
+    object: 'Events',
   },
 ];

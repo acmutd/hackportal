@@ -37,6 +37,10 @@ module.exports = {
         lightBackground: '#F4F4F4',
         aqua: '#D8F8FF',
         darkAqua: '#B0F1FF',
+        gunmetal: '#252b33',
+        oldlav: '#675d7b',
+        wisteria: '#c59ad5',
+        capri: '#11bbfd',
       }),
     },
   },
@@ -47,3 +51,5 @@ module.exports = {
   },
   plugins: [],
 };
+
+

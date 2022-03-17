@@ -146,7 +146,7 @@ export default function QuestionsPage() {
     );
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow" style={{backgroundImage: "url('../assets/background.png')", minHeight: 500,  backgroundSize: 'cover' }}>
       <Head>
         <title>HackPortal - Questions</title>
         <meta name="description" content="HackPortal's Quesiton and Answer Page " />
@@ -160,7 +160,7 @@ export default function QuestionsPage() {
           setErrors(newErrorList);
         }}
       />
-      <div className="top-6 p-4 flex flex-col gap-y-3">
+      <div className="top-6 p-4 flex flex-col gap-y-3" >
         <h4 className="font-bold text-3xl">Ask the organizers a question!</h4>
         <div>
           <textarea

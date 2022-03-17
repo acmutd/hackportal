@@ -111,7 +111,7 @@ export default function Home(props: {
   return (
     <>
       <Head>
-        <title>HackPortal</title>
+        <title>HackAI</title>
         <meta name="description" content="A default HackPortal instance" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -125,48 +125,59 @@ export default function Home(props: {
         </div>
       )}
       {/* Hero section */}
-      <section className="min-h-screen p-4 bg-indigo-100">
+      <section className="p-4" style={{backgroundImage: "url('assets/background.png')", minHeight: 500,  backgroundSize: 'cover' }}>
         <div
-          style={{ minHeight: 480 }}
-          className="max-w-4xl mx-auto flex flex-col justify-center items-center"
+          style={{ minHeight: 400}}
+          className="max-w-4xl mx-auto my-20 flex flex-col justify-center items-center"
         >
           <div
-            className="min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative md:mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-16 before:bg-transparent before:border-b-4 before:border-l-4 before:border-black
-          after:block after:absolute after:top-0 after:right-0 after:w-16 after:h-16 after:bg-transparent after:border-t-4 after:border-r-4 after:border-black"
+            className="h-0 max-w-4xl mx-auto flex flex-col justify-center items-center min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative md:mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-10 
+          after:block after:absolute after:top-0 after:right-0 after:w-16 after:h-10 "
           >
-            <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackPortal</h1>
+            <img className="center" src="assets/hackaibrain2.png" height={100} width={100}></img>
+            {/* <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackAI</h1> */}
+            <h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-bold'>
+              <span className='bg-gradient-to-r text-transparent from-blue-400 via-capri to-blue-500 bg-clip-text'>
+                Hack
+              </span>
+              <span className='bg-wisteria text-transparent bg-clip-text'>AI</span>
+            </h1>
+            <h3 className='py-1 text-lg sm:text-xl md:text-xl lg:text-xl xl:text-2xl font-medium'>
+              April 9-10, 2022
+            </h3>
             <p className="text-center my-4 md:font-bold md:text-3xl text-xl">
-              A Project by ACM Engineering and HackUTD
+              The Largest AI Hackathon at UT Dallas is Back!
             </p>
-          </div>
-          {/* TODO: Programmatically show these based on configured times/organizer preference */}
-        </div>
-        <div className="flex flex-col items-center md:flex-row md:justify-around px-4 md:space-y-0 space-y-3 > * + *">
-          {buttonDatas.map((button) => (
+            <p className='py-1 text-lg sm:text-xl md:text-xl lg:text-xl xl:text-2xl font-medium' > Applications close on April 1, 2022 at 11:59 PM CDT. </p>
+            <div className="p-5 flex flex-col items-center md:flex-row md:justify-around px-4 md:space-y-0 space-y-3 > * + *">
+              {buttonDatas.map((button) => (
             <button
               key={button.text}
-              onClick={() => router.push(button.path)}
-              className="max-w-[12rem] w-[12rem] md:max-w-full bg-indigo-300 py-4"
+              onClick={() => window.open(button.path)}
+              className="font-header font-bold bg-capri rounded-full border-black text-sm px-8 py-3 hover:bg-blue-400 hover:text-black"
             >
               {button.text}
             </button>
           ))}
         </div>
+          </div>
+          {/* TODO: Programmatically show these based on configured times/organizer preference */}
+        </div>
+        
       </section>
       {/* Video Space */}
-      <section className="z-0 relative md:h-[560px] py-[3rem] bg-white">
+      <section className="z-0 relative md:h-[560px] py-[3rem]" style={{backgroundImage: "url('assets/background.png')" }}>
         <div className="flex flex-col justify-center items-center md:flex-row">
           {/* Video */}
-          <iframe
-            className="video"
-            width="700"
-            height="400"
-            src="https://www.youtube.com/embed/niFBblrblqo"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+          <iframe 
+          width="560" 
+          height="315" 
+          src="https://www.youtube.com/embed/Da4xucNa1zs" 
+          title="YouTube video player" 
+          frameBorder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowFullScreen>
+          </iframe>
           {/* Stats */}
           <div className="">
             {stats.map((stat, index) => (
@@ -184,13 +195,13 @@ export default function Home(props: {
         </div>
       </section>
       {/* Featuring Keynotes speakers */}
-      <section className="flex overflow-x-scroll bg-gray-200 min-h-[24rem]">
+      {/* <section className="flex overflow-x-scroll min-h-[24rem]">
         <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold">
           Featuring Keynote Speakers
         </div>
-        <div className="flex flex-col justify-center py-6 md:px-6">
+        <div className="flex flex-col justify-center py-6 md:px-6"> */}
           {/* Row 1 */}
-          <div className="flex">
+          {/* <div className="flex">
             {speakers.map(
               ({ name, description, fileName }, idx) =>
                 idx < speakers.length / 2 && (
@@ -203,9 +214,9 @@ export default function Home(props: {
                   />
                 ),
             )}
-          </div>
+          </div> */}
           {/* row 2 */}
-          <div className="flex md:ml-[7rem] ml-[5rem]">
+          {/* <div className="flex md:ml-[7rem] ml-[5rem]">
             {speakers.map(
               ({ name, description, fileName }, idx) =>
                 idx >= speakers.length / 2 && (
@@ -220,9 +231,23 @@ export default function Home(props: {
             )}
           </div>
         </div>
+      </section> */}
+      {/* About*/}
+      <section className="z-0 relative md:h-[560px] py-[3rem]" >
+        <h2 className='text-left pl-20 font-medium text-5xl bold mb-4 text-red'>What is HackAI?</h2>
+        <p className='text-lg text-justify px-20'>
+            HackAI is a student-run annual hackathon organized by the Artificial Intelligence
+            Society at The University of Texas of Dallas, aiming to connect today&apos;s students
+            with the knowledge and resources needed to build Artificial Intelligence (AI) related
+            projects in the span of 24 hours. Topics such as Natural Language Processing, Machine
+            Learning, Data Analytics, and more will be represented amongst these projects, and we
+            are confident that both the creativity and quality of the submissions will be incredibly
+            high. The hackathon encompasses various levels of competition tasks, designed to
+            challenge students while providing value to sponsors.
+          </p>
       </section>
       {/* Challenges */}
-      <section className="p-6 border-2">
+      <section className="p-6 ">
         <div className="font-bold text-2xl">Challenges</div>
         <div className="flex">
           {/* Challenge Orgs Selectors*/}
