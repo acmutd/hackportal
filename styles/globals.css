@@ -17,12 +17,6 @@ body {
   color: white;
 }
 
-@font-face {
-  font-family: 'wavehaus';
-  src: url('/fonts/Wavehaus-66Book.ttf') format('truetype');
-  font-display: auto;
-}
-
 a.link {
   /* padding-right: 30px; */
   cursor: pointer;
@@ -33,7 +27,7 @@ a.link {
 }
 
 .element {
-  font-family: 'wavehaus';
+  font-family: 'IBM Plex Sans';
 }
 
 .profile-view {

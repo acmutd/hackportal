@@ -79,7 +79,7 @@
 }
 
 .element {
-  font-family: 'wavehaus';
+  font-family: 'IBM Plex Sans';
  }
 
 .card {
@@ -115,12 +115,6 @@
 .logo {
   height: 1em;
   margin-left: 0.5rem;
-}
-
-@font-face {
-  font-family: 'wavehaus';
-  src: url('/fonts/Wavehaus-66Book.ttf') format("truetype");
-  font-display: auto;
 }
 
 @media (max-width: 600px) {
