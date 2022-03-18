@@ -96,7 +96,7 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
       await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans });
       return res.status(403).json({
         code: 'not-checked-in',
-        message: "User haven't checked in",
+        message: 'User has not checked in',
       });
     }
 
