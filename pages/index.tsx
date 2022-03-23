@@ -142,7 +142,7 @@ export default function Home(props: {
           >
             <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackPortal</h1>
             <p className="text-center my-4 md:font-bold md:text-3xl text-xl">
-              A Project by ACM Engineering and HackUTD
+              A Project by ACM Development and HackUTD
             </p>
           </div>
           {/* TODO: Programmatically show these based on configured times/organizer preference */}
@@ -322,7 +322,7 @@ export default function Home(props: {
         <div className="flex justify-between border-t-[1px] py-2 border-black">
           <p>
             HackPortal developed with &lt;3 by <p className="font-black inline">HackUTD</p> and{' '}
-            <p className="font-black inline">ACM Engineering</p>
+            <p className="font-black inline">ACM Development</p>
           </p>
           <div className="flex md:flex-row flex-col md:ml-0 ml-6">
             <a
