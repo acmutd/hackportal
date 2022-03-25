@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: `'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif`,
+        sans: `IBM Plex Sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif`,
       },
       width: {
         '1/8': '12.5%',
@@ -32,6 +32,36 @@ module.exports = {
         '1/4': '25%',
         '5/8': '62.5%',
         16: '4rem',
+      },
+      // HackAI '22 Colors
+      colors: {
+        blue: {
+          550: '#00B9FF',
+          650: '#3980B3',
+          750: '#203150',
+        },
+        purple: {
+          750: '#957CA6',
+          850: '#422E50',
+        },
+        pink: {
+          150: '#F3E2FF',
+        },
+        stone: {
+          550: 'B4B4B4',
+          650: '#808080',
+          750: '#424242',
+          850: '#232136',
+        },
+        slate: {
+          250: '#E8E8E7',
+        },
+        violet: {
+          350: '#B5A6FE',
+          450: '#939AD8',
+          750: '#7965DE',
+          850: '#732EE2',
+        },
       },
       backgroundColor: (theme) => ({
         lightBackground: '#F4F4F4',

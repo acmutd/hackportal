@@ -9,6 +9,7 @@ import 'firebase/messaging';
 import 'firebase/storage';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import HomeChallengeCard from '../components/HomeChallengeCard';
+import Image from 'next/image';
 
 /**
  * The home page.
@@ -141,21 +142,21 @@ export default function Home(props: {
             className="h-0 max-w-4xl mx-auto flex flex-col justify-center items-center min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative md:mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-10 
           after:block after:absolute after:top-0 after:right-0 after:w-16 after:h-10 "
           >
-            <img className="center" src="assets/hackaibrain2.png" height={100} width={100}></img>
+            {/* <img className="center" src="assets/hackaibrain2.png" height={100} width={100}></img> */}
+            {/* HackAI brain image not displaying */}
+            <Image src="/assets/hackaibrain2.png" alt="hackaibrain" height="100" width="100" />
             {/* <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackAI</h1> */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-bold">
-              <span className="bg-gradient-to-r text-transparent from-blue-400 via-capri to-blue-500 bg-clip-text">
-                Hack
-              </span>
-              <span className="bg-wisteria text-transparent bg-clip-text">AI</span>
+              <span className="text-slate-250 bg-clip-text">Hack</span>
+              <span className="text-violet-750 bg-clip-text">AI</span>
             </h1>
-            <h3 className="py-1 text-lg sm:text-xl md:text-xl lg:text-xl xl:text-2xl font-medium">
+            <h3 className="text-violet-450 py-1 text-lg sm:text-xl md:text-xl lg:text-xl xl:text-2xl font-medium">
               April 9-10, 2022
             </h3>
-            <p className="text-center my-4 md:font-bold md:text-3xl text-xl">
+            <p className="text-violet-750 text-center my-4 md:font-bold md:text-3xl text-xl">
               The Largest AI Hackathon at UT Dallas is Back!
             </p>
-            <p className="py-1 text-lg sm:text-xl md:text-xl lg:text-xl xl:text-2xl font-medium">
+            <p className="py-1 text-lg sm:text-xl md:text-xl lg:text-xl xl:text-2xl font-medium text-violet-350">
               {' '}
               Applications close on April 1, 2022 at 11:59 PM CDT.{' '}
             </p>
@@ -164,7 +165,7 @@ export default function Home(props: {
                 <button
                   key={button.text}
                   onClick={() => window.open(button.path)}
-                  className="font-header font-bold bg-capri rounded-full border-black text-sm px-8 py-3 hover:bg-blue-400 hover:text-black"
+                  className="font-header font-bold bg-violet-750 rounded-full border-black text-sm px-8 py-3 hover:bg-violet-850 hover:text-black"
                 >
                   {button.text}
                 </button>
@@ -199,7 +200,7 @@ export default function Home(props: {
                   index % 2 === 0 ? 'lg:ml-40 md:ml-20 ml-14' : 'md:mr-8 mr-24'
                 } text-center md:my-6 my-4`}
               >
-                <p className="font-bold text-2xl text-indigo-600 lg:text-5xl">{stat.data}</p>
+                <p className="font-bold text-2xl text-violet-750 lg:text-5xl">{stat.data}</p>
                 <p className="font-medium text-lg lg:text-3xl">{stat.object}</p>
               </div>
             ))}
@@ -246,7 +247,9 @@ export default function Home(props: {
       </section> */}
       {/* About*/}
       <section className="z-0 relative md:h-[560px] py-[3rem]">
-        <h2 className="text-left pl-20 font-medium text-5xl bold mb-4 text-red">What is HackAI?</h2>
+        <h2 className="text-left pl-20 font-medium text-5xl bold mb-4 text-violet-750">
+          What is HackAI?
+        </h2>
         <p className="text-lg text-justify px-20">
           HackAI is a student-run annual hackathon organized by the Artificial Intelligence Society
           at The University of Texas of Dallas, aiming to connect today&apos;s students with the
@@ -260,7 +263,7 @@ export default function Home(props: {
       </section>
       {/* Challenges */}
       <section className="p-6 ">
-        <div className="font-bold text-2xl">Challenges</div>
+        <div className="font-bold text-2xl text-violet-750">Challenges</div>
         <div className="flex">
           {/* Challenge Orgs Selectors*/}
           <div className="md:w-1/4 w-1/5">

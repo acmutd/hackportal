@@ -57,13 +57,13 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
       <AboutHeader active="/about/faq" />
       <div className="top-6 p-4">
         <div className="flex flex-row justify-between items-center border-b-2 border-black py-2">
-          <h4 className="font-bold text-3xl">FAQ</h4>
+          <h4 className="font-bold text-3xl text-violet-750">FAQ</h4>
           <div className="flex flex-row items-center gap-x-2">
             <button
               onClick={() => {
                 expandAll();
               }}
-              className="font-bold"
+              className="font-bold text-violet-750"
             >
               Expand All
             </button>

@@ -57,7 +57,7 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
       </Head>
       <AboutHeader active="/about" />
       <div className="top-6 p-4 flex flex-col gap-y-3 pl-20">
-        <h4 className="font-bold text-3xl">About this hackathon</h4>
+        <h4 className="font-bold text-3xl text-violet-750">About this hackathon</h4>
         <p>
           Here will be a short paragraph providing a general overview of what then hackathon is.
           This can be dates, events, contests, and prizes.
@@ -70,7 +70,7 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
       </div>
 
       <div className="my-2">
-        <h4 className="font-bold text-3xl pl-20 pt-10"> Meet Our Team :)</h4>
+        <h4 className="font-bold text-3xl pl-20 pt-10 text-violet-750"> Meet Our Team :)</h4>
         <div className="flex flex-wrap justify-center md:px-2">
           {members.map(({ name, description, linkedin, github, personalSite, fileName }, idx) => (
             <MemberCards
