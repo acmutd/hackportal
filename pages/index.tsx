@@ -215,7 +215,7 @@ export default function Home(props: {
         </div>
       </section>
       {/* Featuring Keynotes speakers */}
-      <section className="flex overflow-x-scroll bg-gray-200 min-h-[24rem]">
+      <section className="flex overflow-x-auto bg-gray-200 min-h-[24rem]">
         <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold">
           Featuring Keynote Speakers
         </div>
