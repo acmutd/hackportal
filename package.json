@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@devexpress/dx-react-chart": "^3.0.2",
+    "@devexpress/dx-react-chart-material-ui": "^3.0.2",
     "@devexpress/dx-react-core": "^3.0.0",
     "@devexpress/dx-react-scheduler": "^3.0.0",
     "@devexpress/dx-react-scheduler-material-ui": "^3.0.0",
