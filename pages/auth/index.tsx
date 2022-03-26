@@ -61,7 +61,7 @@ export default function AuthPage() {
         .currentUser.sendEmailVerification()
         .then(() => {
           router.push('/auth');
-          alert('Verification email sent, check your email to verify your account to log in');
+          alert('Verification email sent, check your email to verify your account and log in');
         });
     } catch (error) {
       alert(
@@ -159,6 +159,7 @@ export default function AuthPage() {
               </div>
               {/* Error and verification messages */}
               <div className="mt-4 w-[24rem]">{errorMsg}</div>
+              {/* !change if needed */}
               {/* Uncomment to allow resend verification email option (users could spam) */}
               {/* {sendVerification && (
                 <button className="underline" onClick={() => sendVerificationEmail()}>
@@ -221,7 +222,7 @@ export default function AuthPage() {
           {!passwordResetDialog ? (
             <>
               {/* Main Login Screen */}
-              <h1 className="text-2xl font-black text-center">HackPortal 1.0</h1>
+              <h1 className="text-2xl font-black text-center">HackPortal 1.0</h1> {/* !change */}
               <p className="text-sm text-center">
                 Log in to continue or create an account to register
               </p>

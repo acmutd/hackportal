@@ -4,7 +4,7 @@ contact_links:
     url: https://github.com/acmutd/hackportal/discussions
     about: Talk about general project features and ideas here.
   - name: ACM Development
-    url: https://acmutd.co/teams/dev
+    url: https://acmutd.co/team.html
     about: More information about the core HackPortal maintainers.
   - name: Inquiries for Maintainers
     url: development@acmutd.co

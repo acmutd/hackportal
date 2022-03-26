@@ -19,8 +19,8 @@ export default function Sponsors(props: { sponsorCard: Sponsor[] }) {
   return (
     <div className="flex flex-col flex-grow bg-white">
       <Head>
-        <title>HackPortal - Sponsors</title>
-        <meta name="description" content="HackPortal's Sponsors Page" />
+        <title>HackPortal - Sponsors</title> {/* !change */}
+        <meta name="description" content="HackPortal's Sponsors Page" /> {/* !change */}
       </Head>
 
       <h1 className="md:text-8xl text-7xl text-center my-6">Sponsors</h1>
@@ -30,6 +30,8 @@ export default function Sponsors(props: { sponsorCard: Sponsor[] }) {
         ))}
       </section>
       <h2 className="my-2 text-center">
+        {' '}
+        {/* !change */}
         If you would like to sponsor HackPortal, please reach out to us at&nbsp;
         <a
           href="mailto:email@organization.com"
