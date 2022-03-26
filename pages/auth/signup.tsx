@@ -29,7 +29,7 @@ export default function SignupPage() {
           .currentUser.sendEmailVerification()
           .then(() => {
             router.push('/auth');
-            alert('Account created, check your email to verify your account to log in');
+            alert('Account created, check your email to verify your account and log in');
           });
       })
       .catch((error) => {

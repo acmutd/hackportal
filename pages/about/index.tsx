@@ -49,13 +49,13 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
   return (
     <div className="flex flex-col flex-grow bg-white">
       <Head>
-        <title>HackPortal - About</title>
+        <title>HackPortal - About</title> {/* !change */}
         <meta name="description" content="HackPortal's About Page" />
       </Head>
       {/* <AboutHeader active="/about" /> */}
 
       <div className="my-2">
-        <h4 className="font-bold text-3xl p-6">Meet Our Team :)</h4>
+        <h4 className="font-bold text-3xl p-6">Meet Our Team :)</h4> {/* !change */}
         <div className="flex flex-wrap justify-center md:px-2">
           {members.map(({ name, description, linkedin, github, personalSite, fileName }, idx) => (
             <MemberCards
