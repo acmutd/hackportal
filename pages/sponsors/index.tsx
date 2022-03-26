@@ -24,7 +24,7 @@ export default function Sponsors(props: { sponsorCard: Sponsor[] }) {
       </Head>
 
       <h1 className="md:text-8xl text-7xl text-center my-6 text-white">Sponsors</h1>
-      <section className="flex flex-wrap justify-center p-5">
+      <section className="flex flex-wrap justify-center p-4">
         {sponsor.map(({ link, reference }, idx) => (
           <SponsorCard key={idx} link={link} reference={reference} />
         ))}
