@@ -125,7 +125,7 @@ export default function Home(props: {
         </div>
       )}
       {/* Hero section */}
-      <section className="min-h-screen p-4 bg-indigo-100">
+      <section className="min-h-screen p-4 bg-indigo-100 bg-blue-850">
         <div
           style={{ minHeight: 480 }}
           className="max-w-4xl mx-auto flex flex-col justify-center items-center"
@@ -134,9 +134,11 @@ export default function Home(props: {
             className="min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative md:mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-16 before:bg-transparent before:border-b-4 before:border-l-4 before:border-black
           after:block after:absolute after:top-0 after:right-0 after:w-16 after:h-16 after:bg-transparent after:border-t-4 after:border-r-4 after:border-black"
           >
-            <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackPortal</h1>
-            <p className="text-center my-4 md:font-bold md:text-3xl text-xl">
-              A Project by ACM Engineering and HackUTD
+            <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold text-white">
+              WEHack Portal
+            </h1>
+            <p className="text-center my-4 md:font-bold md:text-3xl text-xl text-white">
+              The Largest Inclusive Hackathon in Texas
             </p>
           </div>
           {/* TODO: Programmatically show these based on configured times/organizer preference */}
@@ -153,10 +155,10 @@ export default function Home(props: {
           ))}
         </div>
       </section>
-      {/* Video Space */}
+      {/* Video Space 
       <section className="z-0 relative md:h-[560px] py-[3rem] bg-white">
         <div className="flex flex-col justify-center items-center md:flex-row">
-          {/* Video */}
+          {/* Video 
           <iframe
             className="video"
             width="700"
@@ -167,7 +169,7 @@ export default function Home(props: {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
-          {/* Stats */}
+           Stats 
           <div className="">
             {stats.map((stat, index) => (
               <div
@@ -183,14 +185,15 @@ export default function Home(props: {
           </div>
         </div>
       </section>
+    */}
       {/* Featuring Keynotes speakers */}
-      <section className="flex overflow-x-scroll bg-gray-200 min-h-[24rem]">
-        <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold">
+      <section className="flex overflow-x-scroll bg-gray-200 min-h-[24rem] bg-blue-850">
+        <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold bg-blue-850 text-white">
           Featuring Keynote Speakers
         </div>
-        <div className="flex flex-col justify-center py-6 md:px-6">
+        <div className="flex flex-col justify-center py-6 md:px-6 bg-blue-850">
           {/* Row 1 */}
-          <div className="flex">
+          <div className="flex bg-blue-850">
             {speakers.map(
               ({ name, description, fileName }, idx) =>
                 idx < speakers.length / 2 && (
@@ -205,7 +208,7 @@ export default function Home(props: {
             )}
           </div>
           {/* row 2 */}
-          <div className="flex md:ml-[7rem] ml-[5rem]">
+          <div className="flex md:ml-[7rem] ml-[5rem] bg-blue-850">
             {speakers.map(
               ({ name, description, fileName }, idx) =>
                 idx >= speakers.length / 2 && (
@@ -222,8 +225,8 @@ export default function Home(props: {
         </div>
       </section>
       {/* Challenges */}
-      <section className="p-6 border-2">
-        <div className="font-bold text-2xl">Challenges</div>
+      <section className="p-6 bg-blue-850">
+        <div className="font-bold text-2xl text-white">Challenges</div>
         <div className="flex">
           {/* Challenge Orgs Selectors*/}
           <div className="md:w-1/4 w-1/5">

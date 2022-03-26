@@ -1,7 +1,7 @@
 export const buttonDatas = [
-  { text: 'Hacker App', path: '/' },
-  { text: 'Mentor App', path: '/' },
-  { text: 'Sponsor App', path: '/' },
+  { text: 'Hacker App', path: 'https://coda.io/form/WEHack-2022-Application-Form_doJANlkkKW5' },
+  { text: 'Mentor App', path: 'https://coda.io/form/WEHack-2022-Mentor-Application_d18shEvpl87' },
+  { text: 'Volunteer App', path: 'https://coda.io/form/Volunteer-Sign-Ups_dFu8FXxDeex' },
 ];
 
 export const navItems = [
