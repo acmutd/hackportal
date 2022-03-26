@@ -367,6 +367,8 @@ export default function Register() {
 
               <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">School Info</div>
               <label htmlFor="university" className="mt-4">
+                {' '}
+                {/* !change */}
                 *This event is for college students worldwide. Which university do you attend?
               </label>
               <Field
@@ -464,6 +466,7 @@ export default function Register() {
               />
 
               {/*ORGANIZER CAN CUSTOMIZE DROPDOWN OPTIONS*/}
+              {/* !change */}
               <label htmlFor="heardFrom" className="mt-4">
                 *Where did you hear about HackPortal?
               </label>
@@ -578,6 +581,7 @@ export default function Register() {
               <label htmlFor="companies" className="mt-4">
                 Companies to send my resume to:
               </label>
+              {/* !change */}
               <div role="group" aria-labelledby="checkbox-group" className="flex flex-col">
                 <label>
                   <Field type="checkbox" name="companies" value="State Farm" />

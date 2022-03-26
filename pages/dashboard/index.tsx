@@ -85,7 +85,7 @@ export default function Dashboard(props: {
     <>
       <div className="flex flex-wrap flex-grow">
         <Head>
-          <title>HackPortal - Dashboard</title>
+          <title>HackPortal - Dashboard</title> {/* !change */}
           <meta name="description" content="HackPortal's Dashboard" />
         </Head>
 

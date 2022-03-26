@@ -117,8 +117,8 @@ export default function Home(props: {
   return (
     <>
       <Head>
-        <title>HackPortal</title>
-        <meta name="description" content="A default HackPortal instance" />
+        <title>HackPortal</title> {/* !change */}
+        <meta name="description" content="A default HackPortal instance" /> {/* !change */}
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Notification info pop up */}
@@ -127,7 +127,7 @@ export default function Home(props: {
           id="popup"
           className="fixed z-50 md:translate-x-0 translate-x-1/2 w-[22rem] rounded-md px-4 py-2 top-16 md:right-6 right-1/2 bg-red-200 md:text-base text-sm"
         >
-          Turn on push notifications to stay up to date with events and announcements!
+          Turn on push notifications to recieve announcements!
         </div>
       )}
       {/* Hero section */}
@@ -140,9 +140,11 @@ export default function Home(props: {
             className="min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative md:mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-16 before:bg-transparent before:border-b-4 before:border-l-4 before:border-black
           after:block after:absolute after:top-0 after:right-0 after:w-16 after:h-16 after:bg-transparent after:border-t-4 after:border-r-4 after:border-black"
           >
-            <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackPortal</h1>
+            <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackPortal</h1>{' '}
+            {/* !change */}
             <p className="text-center my-4 md:font-bold md:text-3xl text-xl">
-              A Project by ACM Development and HackUTD
+              {' '}
+              {/* !change */}A Project by ACM Development and HackUTD
             </p>
           </div>
           {/* TODO: Programmatically show these based on configured times/organizer preference */}
@@ -163,6 +165,7 @@ export default function Home(props: {
       <section className="z-0 relative md:h-[560px] py-[3rem] bg-white">
         <div className="flex flex-col justify-center items-center md:flex-row">
           {/* Video */}
+          {/* !change */}
           <iframe
             className="video"
             width="700"
@@ -191,24 +194,28 @@ export default function Home(props: {
       </section>
       {/* About section */}
       <section className="md:p-12 p-6">
-        <h1 className="md:text-4xl text-2xl font-bold my-4">About HackUTD</h1>
+        <h1 className="md:text-4xl text-2xl font-bold my-4">About HackPortal</h1> {/* !change */}
         <div className="md:text-base text-sm">
-          Here will be a short paragraph providing a general overview of what hackutd is including
-          dates, events, contests, and prizes. Lorem ipsum dolor sit amet, consectetur adipiscing
-          elit. Vestibulum eget magna ut risus fermentum dapibus. Sed vulputate vulputate lacus eu
-          ullamcorper. <br />
-          <br />A second paragraph will serve to inform the reader of the size and reach of hackutd.
-          we will inform them of how many people come each year and how much in we have in prizes.
-          Nulla felis tellus, varius suscipit nisl sit amet, pretium mollis erat. Morbi ipsum risus,
-          malesuada eget leo ut, ultrices convallis ex. Etiam blandit magna id dictum finibus.{' '}
+          HackPortal is a platform for user-friendly hackathon event management. <br />
+          <br />A few of its features include: A fully customizable front end, sign in with email/
+          Google, hacker registration, images, challenges, sponsors, FAQ and more fetched from
+          backend, push notifications, a spotlight carousel highlighting ongoing events, QR code
+          check in and swag claims, report submission/ Ask a question, a built-in and easy to set up
+          schedule, Hacker, Admin, and Super Admin roles, an Admin console to send announcements,
+          update user roles, show number of check-ins, swag claims, and more!. <br />
           <br />
-          <br />A final paragraph can be included to briefly discuss our partnership as a branch of
-          utd acm. Mauris aliquam sed sapien ut pretium. Etiam a porta magna. Orci varius natoque
-          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+          To set up HackPortal for your hackathon, check out the{' '}
+          <a
+            href="https://github.com/acmutd/hackportal/blob/develop/docs/set-up.md"
+            className="underline"
+          >
+            HackPortal Github
+          </a>
+          !
         </div>
       </section>
       {/* Featuring Keynotes speakers */}
-      <section className="flex overflow-x-scroll bg-gray-200 min-h-[24rem]">
+      <section className="flex overflow-x-auto bg-gray-200 min-h-[24rem]">
         <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold">
           Featuring Keynote Speakers
         </div>
@@ -289,7 +296,7 @@ export default function Home(props: {
       <section className="bg-gray-100 mt-16 px-6 py-8 md:text-base text-xs">
         {/* Upper Content */}
         <div className="my-2 relative">
-          {/* Social icons */}
+          {/* Social icons */} {/* !change */}
           <div className="space-x-4 > * + *">
             <a href="https://twitter.com/hackutd" rel="noopener noreferrer" target="_blank">
               <TwitterIcon className="footerIcon" />
@@ -307,6 +314,8 @@ export default function Home(props: {
           </div>
           {/* Text */}
           <div className="absolute bottom-0 right-0">
+            {' '}
+            {/* !change */}
             Checkout HackUTD&apos;s{' '}
             <a
               href="https://acmutd.co/"
@@ -321,10 +330,15 @@ export default function Home(props: {
         {/* Lower Content */}
         <div className="flex justify-between border-t-[1px] py-2 border-black">
           <p>
+            Designed by <p className="font-black inline">HackUTD</p> <br /> {/* !change */}
+            {/* PLEASE DO NOT CHANGE <3 */}
             HackPortal developed with &lt;3 by <p className="font-black inline">HackUTD</p> and{' '}
             <p className="font-black inline">ACM Development</p>
+            {/* PLEASE DO NOT CHANGE <3 */}
           </p>
+
           <div className="flex md:flex-row flex-col md:ml-0 ml-6">
+            {/* !change */}
             <a
               href="mailto:email@organization.com"
               rel="noopener noreferrer"
@@ -333,6 +347,7 @@ export default function Home(props: {
             >
               Contact Us
             </a>
+            {/* !change */}
             <a
               href="https://github.com/acmutd/hackportal"
               target="_blank"

@@ -31,7 +31,7 @@ export default function ProfilePage() {
               className="bg-gray-300 w-full md:w-2/3 rounded-xl p-4 flex flex-col justify-around"
               style={{ minHeight: '500px' }}
             >
-              <h1 className="font-bold text-xl text-center">HackPortal</h1>
+              <h1 className="font-bold text-xl text-center">HackPortal</h1> {/* !change */}
               <div className="mx-auto">
                 {user.photoUrl && (
                   <Image
