@@ -146,7 +146,7 @@ export default function QuestionsPage() {
     );
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow bg-blue-850 text-white">
       <Head>
         <title>HackPortal - Questions</title>
         <meta name="description" content="HackPortal's Quesiton and Answer Page " />
@@ -164,7 +164,7 @@ export default function QuestionsPage() {
         <h4 className="font-bold text-3xl">Ask the organizers a question!</h4>
         <div>
           <textarea
-            className="w-full rounded-xl p-4"
+            className="w-full rounded-xl p-4 text-black"
             rows={5}
             value={currentQuestion}
             onChange={(e) => setCurrentQuestion(e.target.value)}

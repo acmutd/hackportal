@@ -37,11 +37,11 @@ const resources = [
     fieldName: 'Event',
     title: 'Type',
     instances: [
-      { id: 1, text: 'Event', color: red },
-      { id: 2, text: 'Sponsor', color: blue },
-      { id: 3, text: 'Tech Talk', color: indigo },
-      { id: 4, text: 'Workshop', color: purple },
-      { id: 5, text: 'Social', color: orange },
+      { id: 1, text: 'Event', color: '#BEE9E8' },
+      { id: 2, text: 'Sponsor', color: '#62B6CB' },
+      // { id: 3, text: 'Tech Talk', color: indigo },
+      { id: 4, text: 'Workshop', color: '#CAE9FF' },
+      { id: 5, text: 'Social', color: '#BCBCDC' },
     ],
   },
 ];

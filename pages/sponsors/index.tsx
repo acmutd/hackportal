@@ -17,28 +17,25 @@ export default function Sponsors(props: { sponsorCard: Sponsor[] }) {
   }, []);
 
   return (
-    <div className="flex flex-col flex-grow bg-white">
+    <div className="flex flex-col flex-grow bg-blue-850">
       <Head>
         <title>HackPortal - Sponsors</title>
         <meta name="description" content="HackPortal's Sponsors Page" />
       </Head>
 
-      <h1 className="md:text-8xl text-7xl text-center my-6">Sponsors</h1>
-      <section className="flex flex-wrap justify-center p-4">
+      <h1 className="md:text-8xl text-7xl text-center my-6 text-white">Sponsors</h1>
+      <section className="flex flex-wrap justify-center p-5">
         {sponsor.map(({ link, reference }, idx) => (
           <SponsorCard key={idx} link={link} reference={reference} />
         ))}
       </section>
       <h2 className="my-2 text-center">
-        If you would like to sponsor HackPortal, please reach out to us at&nbsp;
         <a
           href="mailto:email@organization.com"
           rel="noopener noreferrer"
           target="_blank"
           className="underline"
-        >
-          email@organization.com
-        </a>
+        ></a>
       </h2>
     </div>
   );

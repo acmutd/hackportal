@@ -47,27 +47,32 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
   }
 
   return (
-    <div className="flex flex-col flex-grow bg-white">
+    <div className="flex flex-col flex-grow bg-blue-850 text-white">
       <Head>
         <title>HackPortal - About</title>
         <meta name="description" content="HackPortal's About Page" />
       </Head>
       <AboutHeader active="/about" />
-      <div className="top-6 p-4 flex flex-col gap-y-3">
-        <h4 className="font-bold text-3xl">About this hackathon</h4>
+      <div className="top-6 p-4 flex flex-col gap-y-3 text-white">
+        <h4 className="font-bold text-3xl text-white">The largest inclusive hackathon in Dallas</h4>
         <p>
-          Here will be a short paragraph providing a general overview of what then hackathon is.
-          This can be dates, events, contests, and prizes.
+          Women-driven tech organizations at UTD are excited to join forces and present our first
+          all women, non-binary, 24-hour hackathon. Our goal is to create an inclusive environment
+          that highlights and empowers women and non-binary students through technology. We aim to
+          encourage more underrepresented people to harness their skills to create projects of their
+          own.
         </p>
+        <h4 className="font-bold text-3xl text-white">Get ready for WEHack 2022!</h4>
         <p>
-          This paragraph can be about the size and reach of the hackathon. Can include the number of
-          participants every year and the total worth of prizes.
+          Happening from April 2nd-3rd (2022), we are planning on hosting the second iteration of
+          WEHack in-person for the first time! Come join us for a great hacking experience, as well
+          as free food and swag! There is also a workshop planned before the hackathon, more
+          information TBA.
         </p>
-        <p>Any additional information can be provided in this paragraph.</p>
       </div>
 
       <div className="my-2">
-        <h4 className="font-bold text-3xl p-6">Meet Our Team :)</h4>
+        <h4 className="font-bold text-3xl p-6 text-white">Meet Our Team :)</h4>
         <div className="flex flex-wrap justify-center md:px-2">
           {members.map(({ name, description, linkedin, github, personalSite, fileName }, idx) => (
             <MemberCards

@@ -91,7 +91,10 @@ export default function Dashboard(props: {
 
         <Sidebar />
 
-        <section id="mainContent" className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 bg-white">
+        <section
+          id="mainContent"
+          className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 bg-blue-850 text-white"
+        >
           <DashboardHeader />
           {/* Spotlight & Announcements */}
           <div className="flex flex-wrap my-16">
@@ -133,7 +136,7 @@ export default function Dashboard(props: {
             )}
             {/* Announcements */}
             <div className="lg:w-2/5 w-full h-96">
-              <h1 className="md:text-3xl text-xl font-black">Announcements</h1>
+              <h1 className="md:text-3xl text-xl font-black text-white">Announcements</h1>
               <div id="announcement-items" className="overflow-y-scroll h-9/10">
                 {announcements.map((announcement, idx) => {
                   const dateObj = new Date(announcement.timestamp!);
@@ -152,9 +155,15 @@ export default function Dashboard(props: {
             </div>
           </div>
 
+          {/* Theme */}
+          <div className="flex flex-col items-center my-8">
+            <h1 className="md:text-3xl text-xl font-black text-white">Theme</h1>
+            <p>The Future is NOW</p>
+          </div>
+
           {/* Challenges */}
           <div className="flex flex-col items-center my-8">
-            <h1 className="md:text-3xl text-xl font-black">Challenges</h1>
+            <h1 className="md:text-3xl text-xl font-black text-white">Challenges</h1>
             {/* Cards */}
             <div className="challengeGrid my-8">
               {challenges.map(({ title, description, prizes }, idx) => (
