@@ -14,7 +14,7 @@ export default function StatsPieChart({ name, items }: StatsPieChartProps) {
   return (
     <div className="w-full flex-grow border-2 my-2 rounded-2xl p-6">
       <Chart data={items}>
-        <Palette scheme={['#6366F1', '#DEB471', '#5B5DDE', '#D7DE45', '#509DDE']} />
+        <Palette scheme={['#BF40BF', '#FFA500', '#FFFF00', '#00FF00', '#0000FF', '#FF0000']} />
 
         <PieSeries valueField="itemCount" argumentField="itemName" />
         <Title text={name} />
