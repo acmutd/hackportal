@@ -10,6 +10,7 @@ import LoadIcon from '../../components/LoadIcon';
 import CheckIcon from '@mui/icons-material/Check';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import EngineeringIcon from '@mui/icons-material/Engineering';
 import StatsPieChart from '../../components/StatsPieChart';
 
 function isAuthorized(user): boolean {
@@ -64,7 +65,7 @@ export default function AdminStatsPage() {
             value={statsData.adminCount}
           />
           <AdminStatsCard
-            icon={<SupervisorAccountIcon />}
+            icon={<EngineeringIcon />}
             title="Super Admin"
             value={statsData.superAdminCount}
           />
