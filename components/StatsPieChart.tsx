@@ -1,5 +1,5 @@
-import { Animation, Palette } from '@devexpress/dx-react-chart';
-import { Chart, Legend, PieSeries, Title } from '@devexpress/dx-react-chart-material-ui';
+import { Animation, EventTracker, Palette } from '@devexpress/dx-react-chart';
+import { Chart, Legend, PieSeries, Title, Tooltip } from '@devexpress/dx-react-chart-material-ui';
 import React from 'react';
 
 interface StatsPieChartProps {
@@ -21,6 +21,8 @@ export default function StatsPieChart({ name, items }: StatsPieChartProps) {
         <PieSeries valueField="itemCount" argumentField="itemName" />
         <Title text={name} />
         <Legend />
+        <EventTracker />
+        <Tooltip />
         <Animation />
       </Chart>
     </div>

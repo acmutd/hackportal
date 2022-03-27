@@ -1,9 +1,10 @@
-import { Animation, Palette } from '@devexpress/dx-react-chart';
+import { Animation, EventTracker, Palette } from '@devexpress/dx-react-chart';
 import {
   ArgumentAxis,
   BarSeries,
   Chart,
   Title,
+  Tooltip,
   ValueAxis,
 } from '@devexpress/dx-react-chart-material-ui';
 
@@ -59,6 +60,9 @@ export default function StatsBarChart({ name, items }: StatsBarChartProps) {
         />
 
         <BarSeries valueField="itemCount" argumentField="itemName" />
+
+        <EventTracker />
+        <Tooltip />
         <Title text={name} />
         <Animation />
       </Chart>
