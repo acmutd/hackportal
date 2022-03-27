@@ -234,3 +234,24 @@ type Sponsor = {
   link: string;
   reference: string;
 };
+
+type GeneralStats = {
+  superAdminCount: number;
+  checkedInCount: number;
+  hackerCount: number;
+  adminCount: number;
+  scans: Record<string, number>;
+  companies: Record<string, number>;
+  dietary: Record<string, number>;
+
+  age: Record<number, number>;
+  ethnicity: Record<string, number>;
+  race: Record<string, number>;
+  size: Record<string, number>;
+  softwareExperience: Record<string, number>;
+  studyLevel: Record<string, number>;
+  university: Record<string, number>;
+  gender: Record<string, number>;
+  hackathonExperience: Record<number, number>;
+  heardFrom: Record<string, number>;
+};
