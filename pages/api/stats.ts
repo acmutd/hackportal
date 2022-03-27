@@ -65,20 +65,20 @@ async function getStatsData() {
       generalStats[singleField][userData[singleField]]++;
     }
 
-    let userPermission = '';
-    if (userData.user && userData.user.permissions) {
-      userPermission = userData.user.permissions[0];
-    }
+    const userPermission = userData.user.permissions[0];
 
     switch (userPermission) {
       case 'super_admin': {
         generalStats.superAdminCount++;
+        break;
       }
       case 'admin': {
         generalStats.adminCount++;
+        break;
       }
       case 'hacker': {
         generalStats.hackerCount++;
+        break;
       }
     }
   });
