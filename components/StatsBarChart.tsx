@@ -48,7 +48,7 @@ export default function StatsBarChart({ name, items }: StatsBarChartProps) {
 
   return (
     <div className="border-2 my-2 rounded-2xl md:p-6">
-      <Chart data={items} rotated={screen.width <= 768}>
+      <Chart data={items} rotated={window.innerWidth <= 1000}>
         <Palette scheme={['#BF40BF', '#FFA500', '#FFFF00', '#00FF00', '#0000FF', '#FF0000']} />
         <ArgumentAxis />
         <ValueAxis
