@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useState, useLayoutEffect, Fragment } from 'react';
 import LoadIcon from '../components/LoadIcon';
 import { useUser } from '../lib/profile/user-data';
 import { RequestHelper } from '../lib/request-helper';
@@ -9,6 +9,7 @@ import firebase from 'firebase/app';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import schools from '../public/schools.json';
 import majors from '../public/majors.json';
+import { hackPortalConfig } from '../hackportal.config';
 
 /**
  * The registration page.
@@ -18,6 +19,15 @@ import majors from '../public/majors.json';
 
 export default function Register() {
   const router = useRouter();
+
+  const {
+    registrationFields: {
+      checkboxQuestions,
+      numberInputQuestions,
+      textInputQuestions,
+      dropdownQuestions,
+    },
+  } = hackPortalConfig;
 
   const { user, hasProfile, updateProfile } = useAuthContext();
   const [resumeFile, setResumeFile] = useState<File | null>(null);
@@ -249,82 +259,74 @@ export default function Register() {
               className="registrationForm flex flex-col max-w-4xl px-6 w-[56rem] text-lg"
             >
               <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">General</div>
-              <label htmlFor="firstName" className="mt-4">
-                *First Name
-              </label>
-              <Field
-                id="firstName"
-                name="user.firstName"
-                className="border-2 border-gray-400 rounded-md p-1"
-              />
-              <ErrorMessage
-                name="user.firstName"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
 
-              <label htmlFor="lastName" className="mt-4">
-                *Last Name
-              </label>
-              <Field
-                id="lastName"
-                name="user.lastName"
-                className="border-2 border-gray-400 rounded-md p-1"
-              />
-              <ErrorMessage
-                name="user.lastName"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
+              {textInputQuestions.map((obj) => (
+                <Fragment key={obj.id}>
+                  <label htmlFor={obj.id} className="mt-4">
+                    {obj.required ? '*' : ''}
+                    {obj.question}
+                  </label>
+                  <Field
+                    id={obj.id}
+                    name={obj.name}
+                    className="border-2 border-gray-400 rounded-md p-1"
+                  />
+                  <ErrorMessage
+                    name={obj.name}
+                    render={(msg) => <div className="text-red-600">{msg}</div>}
+                  />
+                </Fragment>
+              ))}
 
-              <label htmlFor="email" className="mt-4">
-                *Email
-              </label>
-              <Field
-                id="email"
-                name="user.preferredEmail"
-                className="border-2 border-gray-400 rounded-md p-1"
-              />
-              <ErrorMessage
-                name="user.preferredEmail"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
+              {numberInputQuestions.map((obj) => (
+                <Fragment key={obj.id}>
+                  <label htmlFor={obj.id} className="mt-4">
+                    {obj.required ? '*' : ''}
+                    {obj.question}
+                  </label>
+                  <input
+                    id={obj.id}
+                    className="border-2 border-gray-400 rounded-md p-1"
+                    name={obj.name}
+                    type="number"
+                    min={obj.min}
+                    max={obj.max}
+                    pattern={obj.pattern}
+                    onChange={handleChange}
+                    value={values[obj.name]}
+                  />
+                  <ErrorMessage
+                    name={obj.name}
+                    render={(msg) => <div className="text-red-600">{msg}</div>}
+                  />
+                </Fragment>
+              ))}
 
-              <label htmlFor="email" className="mt-4">
-                *Age
-              </label>
-              <input
-                id="age"
-                className="border-2 border-gray-400 rounded-md p-1"
-                name="age"
-                type="number"
-                min="1"
-                max="100"
-                pattern="[0-9]+"
-                onChange={handleChange}
-                value={values.age}
-              />
-              <ErrorMessage
-                name="age"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
-
-              <label htmlFor="gender" className="mt-4">
-                *Gender
-              </label>
-              <Field
-                as="select"
-                name="gender"
-                className="border-2 border-gray-400 rounded-md p-1 mr-auto"
-              >
-                <option value="" disabled selected></option>
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-                <option value="Other">Other</option>
-                <option value="notSay">Prefer not to say</option>
-              </Field>
-              <ErrorMessage
-                name="gender"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
+              {dropdownQuestions.map((obj) => (
+                <Fragment key={obj.id}>
+                  <label htmlFor={obj.id} className="mt-4">
+                    {obj.required ? '*' : ''}
+                    {obj.question}
+                  </label>
+                  <Field
+                    as="select"
+                    name={obj.name}
+                    id={obj.id}
+                    className="border-2 border-gray-400 rounded-md p-1 mr-auto"
+                  >
+                    <option value="" disabled selected></option>
+                    {obj.options.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.title}
+                      </option>
+                    ))}
+                  </Field>
+                  <ErrorMessage
+                    name="gender"
+                    render={(msg) => <div className="text-red-600">{msg}</div>}
+                  />
+                </Fragment>
+              ))}
 
               <label htmlFor="race" className="mt-4">
                 *Race
@@ -506,39 +508,22 @@ export default function Register() {
                 render={(msg) => <div className="text-red-600">{msg}</div>}
               />
 
-              <label htmlFor="dietary" className="mt-4">
-                Allergies / Dietary Restrictions:
-              </label>
-              <div role="group" aria-labelledby="checkbox-group" className="flex flex-col">
-                <label>
-                  <Field type="checkbox" name="dietary" value="Vegan" />
-                  &nbsp;Vegan
-                </label>
-                <label>
-                  <Field type="checkbox" name="dietary" value="Vegitarian" />
-                  &nbsp;Vegitarian
-                </label>
-                <label>
-                  <Field type="checkbox" name="dietary" value="Nuts" />
-                  &nbsp;Nuts
-                </label>
-                <label>
-                  <Field type="checkbox" name="dietary" value="Fish" />
-                  &nbsp;Fish
-                </label>
-                <label>
-                  <Field type="checkbox" name="dietary" value="Wheat" />
-                  &nbsp;Wheat
-                </label>
-                <label>
-                  <Field type="checkbox" name="dietary" value="Dairy" />
-                  &nbsp;Dairy
-                </label>
-                <label>
-                  <Field type="checkbox" name="dietary" value="Eggs" />
-                  &nbsp;Eggs
-                </label>
-              </div>
+              {checkboxQuestions.map((obj) => (
+                <Fragment key={obj.id}>
+                  <label htmlFor={obj.name} className="mt-4">
+                    {obj.required ? '*' : ''}
+                    {obj.question}
+                  </label>
+                  <div role="group" aria-labelledby="checkbox-group" className="flex flex-col">
+                    {obj.options.map((option) => (
+                      <label key={option.value}>
+                        <Field type="checkbox" name={obj.name} value={option.value} />
+                        &nbsp;{option.title}
+                      </label>
+                    ))}
+                  </div>
+                </Fragment>
+              ))}
 
               <label htmlFor="accomodations" className="mt-4">
                 Anything else we can do to better accommodate you at our hackathon?
