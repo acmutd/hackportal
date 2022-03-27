@@ -12,6 +12,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import StatsPieChart from '../../components/StatsPieChart';
+import { fieldToName } from '../../lib/stats/field';
 
 function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;
@@ -70,78 +71,31 @@ export default function AdminStatsPage() {
             value={statsData.superAdminCount}
           />
         </div>
-        <StatsBarChart
-          name={'Swag'}
-          items={Object.entries(statsData.scans).map(([k, v]) => ({
-            itemName: k,
-            itemCount: v,
-          }))}
-        />
-        <StatsBarChart
-          name={'Dietary'}
-          items={Object.entries(statsData.dietary).map(([k, v]) => ({
-            itemName: k,
-            itemCount: v,
-          }))}
-        />
-        <StatsBarChart
-          name={'Shirt Size'}
-          items={Object.entries(statsData.size).map(([k, v]) => ({
-            itemName: k,
-            itemCount: v,
-          }))}
-        />
-        <div className="flex flex-col md:flex-row md:gap-x-6 justify-between items-center">
-          <StatsPieChart
-            name="Age"
-            items={Object.entries(statsData.age).map(([k, v]) => ({
-              itemName: k,
-              itemCount: v,
-            }))}
-          />
-          <StatsPieChart
-            name="Gender"
-            items={Object.entries(statsData.gender).map(([k, v]) => ({
-              itemName: k,
-              itemCount: v,
-            }))}
-          />
-        </div>
-        <div className="flex flex-col md:flex-row md:gap-x-6 justify-between items-center">
-          <StatsPieChart
-            name="Race"
-            items={Object.entries(statsData.race).map(([k, v]) => ({
-              itemName: k,
-              itemCount: v,
-            }))}
-          />
-          <StatsPieChart
-            name="Ethnicity"
-            items={Object.entries(statsData.ethnicity).map(([k, v]) => ({
-              itemName: k,
-              itemCount: v,
-            }))}
-          />
-        </div>
-        <StatsBarChart
-          name={'Companies'}
-          items={Object.entries(statsData.companies).map(([k, v]) => ({
-            itemName: k,
-            itemCount: v,
-          }))}
-        />
-        <StatsBarChart
-          name={'University'}
-          items={Object.entries(statsData.university).map(([k, v]) => ({
-            itemName: k,
-            itemCount: v,
-          }))}
-        />
-        {/* {Object.entries(statsData)
-          .filter(([_, value]) => typeof value === 'object')
-          .map(([key, value]) => (
-            <div key={key} className="w-full"></div>
-          ))} */}
+        {Object.entries(statsData)
+          .filter(([k, v]) => typeof v === 'object')
+          .map(([key, value]) => {
+            if (Object.keys(value).length <= 6)
+              return (
+                <StatsPieChart
+                  key={key}
+                  name={fieldToName[key]}
+                  items={Object.entries(statsData[key] as Record<any, any>).map(([k, v]) => ({
+                    itemName: k,
+                    itemCount: v,
+                  }))}
+                />
+              );
+            return (
+              <StatsBarChart
+                key={key}
+                name={fieldToName[key]}
+                items={Object.entries(statsData[key] as Record<any, any>).map(([k, v]) => ({
+                  itemName: k,
+                  itemCount: v,
+                }))}
+              />
+            );
+          })}
       </div>
     </div>
   );
