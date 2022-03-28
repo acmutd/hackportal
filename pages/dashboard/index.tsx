@@ -81,6 +81,11 @@ export default function Dashboard(props: {
     eventCountString = `There are ${eventCount} events are happening right now!`;
   }
 
+  if (!isSignedIn)
+    return (
+      <div className="text-2xl font-black text-center">Please sign-in to view your dashboard</div>
+    );
+
   return (
     <>
       <div className="flex flex-wrap flex-grow">

@@ -15,7 +15,6 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 
-
 /**
  * The home page.
  *
@@ -179,8 +178,9 @@ export default function Home(props: {
             {stats.map((stat, index) => (
               <div
                 key={stat.data}
-                className={`${index % 2 === 0 ? 'lg:ml-40 md:ml-20 ml-14' : 'md:mr-8 mr-24'
-                  } text-center md:my-6 my-4`}
+                className={`${
+                  index % 2 === 0 ? 'lg:ml-40 md:ml-20 ml-14' : 'md:mr-8 mr-24'
+                } text-center md:my-6 my-4`}
               >
                 <p className="font-bold text-2xl text-indigo-600 lg:text-5xl">{stat.data}</p>
                 <p className="font-medium text-lg lg:text-3xl">{stat.object}</p>
