@@ -147,7 +147,7 @@ export default function QuestionsPage() {
       </div>
     );
 
-  if (!(hasProfile && isSignedIn)) {
+  if (!isSignedIn) {
     router.push('/');
     return <div></div>;
   }

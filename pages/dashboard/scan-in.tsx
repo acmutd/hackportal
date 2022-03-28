@@ -46,7 +46,7 @@ export default function Scan() {
       });
   };
 
-  if (!(hasProfile && isSignedIn)) {
+  if (!isSignedIn) {
     router.push('/');
     return <div></div>;
   }
@@ -62,7 +62,7 @@ export default function Scan() {
 
       <section id="mainContent" className="px-6 py-3 lg:wd-7/8 md:w-6/7 w-full">
         <DashboardHeader />
-        {isSignedIn ? (
+        {hasProfile ? (
           <div className="flex flex-col items-center justify-center top-6 ">
             <div>
               <h4 className="text-center text-xl">Hacker Tag</h4>
@@ -81,7 +81,7 @@ export default function Scan() {
           </div>
         ) : (
           <div className="top-6 flex justify-center md:text-lg text-base">
-            <h4>Please sign in to get your QR code</h4>
+            <h4>Please register to get your QR code</h4>
           </div>
         )}
       </section>

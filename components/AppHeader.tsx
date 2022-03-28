@@ -33,7 +33,7 @@ export default function AppHeader() {
     }
 
     //creating dynamic nav items
-    if (isSignedIn && hasProfile) {
+    if (isSignedIn) {
       setDynamicNavItems((dynamicNavItems) => [
         { text: 'Dashboard', path: '/dashboard' },
         ...dynamicNavItems,
