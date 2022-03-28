@@ -33,7 +33,7 @@ export default function Dashboard(props: {
   scheduleEvents: ScheduleEvent[];
   challenges: Challenge[];
 }) {
-  const { isSignedIn } = useAuthContext();
+  const { isSignedIn, hasProfile } = useAuthContext();
   const user = useUser();
   const role = user.permissions?.length > 0 ? user.permissions[0] : '';
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);

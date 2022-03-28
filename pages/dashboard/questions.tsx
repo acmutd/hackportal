@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import AboutHeader from '../../components/AboutHeader';
 import AnsweredQuestion from '../../components/AnsweredQuestion';
 import ErrorList from '../../components/ErrorList';
@@ -16,13 +17,14 @@ import DashboardHeader from '../../components/DashboardHeader';
  * Route: /dashboard/questions
  */
 export default function QuestionsPage() {
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState<string[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([]);
   const [pendingQuestions, setPendingQuestions] = useState<PendingQuestion[]>([]);
   const [answeredQuestionDisclosureStatus, setAnsweredDisclosureStatus] = useState<boolean[]>([]);
-  const { user } = useAuthContext();
+  const { user, isSignedIn, hasProfile } = useAuthContext();
 
   /**
    *
@@ -144,6 +146,11 @@ export default function QuestionsPage() {
         <h1>Loading...</h1>
       </div>
     );
+
+  if (!(hasProfile && isSignedIn)) {
+    router.push('/');
+    return <div></div>;
+  }
 
   return (
     <div className="flex flex-col flex-grow">

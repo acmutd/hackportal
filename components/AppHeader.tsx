@@ -38,29 +38,19 @@ export default function AppHeader() {
         { text: 'Dashboard', path: '/dashboard' },
         ...dynamicNavItems,
       ]);
+      if (
+        profile &&
+        (profile.user.permissions[0] === 'admin' || profile.user.permissions[0] === 'super_admin')
+      ) {
+        setDynamicNavItems((dynamicNavItems) => [
+          ...dynamicNavItems,
+          { text: 'Admin', path: '/admin' },
+        ]);
+      }
     } else {
       setDynamicNavItems(navItems);
     }
-    //add admin
-    // if(profile && (profile.user.permissions[0] === "admin" || profile.user.permissions[0] === "super_admin")){
-    //   setDynamicNavItems((dynamicNavItems) => [...dynamicNavItems, { text: 'Admin', path: '/admin' }]);
-    // }
   }, []);
-
-  // useEffect(() => {
-  //   if(Object.keys(user).length === 0 || (profile &&  !(profile.user.permissions[0] == "admin" || profile.user.permissions[0] == "super_admin"))){
-  //     //remove admin
-  //     const isFound = dynamicNavItems.some(element => {
-  //       if (element.text === 'Admin') {
-  //         return true;
-  //       }
-  //     });
-  //     if (isFound) {
-  //       dynamicNavItems.pop();
-  //       setDynamicNavItems(dynamicNavItems);
-  //     }
-  //   }
-  // },[user]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);

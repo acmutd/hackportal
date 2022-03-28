@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import DashboardHeader from '../../components/DashboardHeader';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import QRCode from '../../components/QRCode';
@@ -12,7 +13,8 @@ import Sidebar from './Components/Sidebar';
  * Landing: /scan-in
  */
 export default function Scan() {
-  const { user, isSignedIn } = useAuthContext();
+  const router = useRouter();
+  const { user, isSignedIn, hasProfile } = useAuthContext();
   const [qrData, setQRData] = useState('');
   const [qrLoading, setQRLoading] = useState(false);
   const [error, setError] = useState('');
@@ -43,6 +45,11 @@ export default function Scan() {
         console.log(err);
       });
   };
+
+  if (!(hasProfile && isSignedIn)) {
+    router.push('/');
+    return <div></div>;
+  }
 
   return (
     <div className="flex flex-wrap flex-grow">
