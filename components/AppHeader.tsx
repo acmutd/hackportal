@@ -16,7 +16,7 @@ export default function AppHeader() {
   const { isSignedIn, hasProfile } = useAuthContext();
   const [mobileIcon, setMobileIcon] = useState(true);
   const [showProfileDialog, setShowProfileDialog] = useState(false);
-
+  const [dynamicNavItems, setDynamicNavItems] = useState([]);
   const user = useUser();
 
   useEffect(() => {
@@ -31,7 +31,29 @@ export default function AppHeader() {
           console.warn('Could not sign out');
         });
     }
-  });
+
+    //cereating dynamic nav items
+    if (isSignedIn && hasProfile) {
+      //remove hackerpack from header
+      if (navItems.length > 1) {
+        navItems.shift();
+      }
+      //add dashboard to header
+      if (!navItems.includes({ text: 'Dashboard', path: '/dashboard' })) {
+        navItems.unshift({ text: 'Dashboard', path: '/dashboard' });
+      }
+    } else {
+      //remove dashboard from header
+      if (navItems.length > 1) {
+        navItems.shift();
+      }
+      //add hackerpack to header
+      if (!navItems.includes({ text: 'HackerPack', path: '/dashboard/hackerpack' })) {
+        navItems.unshift({ text: 'HackerPack', path: '/dashboard/hackerpack' });
+      }
+    }
+    setDynamicNavItems(navItems);
+  }, []);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -73,7 +95,7 @@ export default function AppHeader() {
                 showMenu ? 'translate-x-0' : '-translate-x-full'
               } transform transition-all ease-out duration-300 flex w-6/12 h-screen border-2 border-black flex-col bg-white fixed top-0 left-0 z-[-1] pt-16`}
             >
-              {navItems.map((item) => (
+              {dynamicNavItems.map((item) => (
                 <Link key={item.text} href={item.path}>
                   <a className="border-b-2 first:border-t-2 border-black p-4 py-6 hover:bg-[#D8F8FF]">
                     <p className="text-sm font-bold">{item.text}</p>
@@ -84,7 +106,7 @@ export default function AppHeader() {
           </div>
           {/* PC nav */}
           <div className="hidden text-xs order-2 md:flex items-center md:text-left lg:ml-12">
-            {navItems.map((item) => (
+            {dynamicNavItems.map((item) => (
               <Link key={item.text} href={item.path}>
                 <a>
                   <p className="md:mx-4 text-sm font-bold">{item.text}</p>
