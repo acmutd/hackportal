@@ -77,7 +77,7 @@ export default function QuestionsPage() {
    */
   const submitQuestion = async () => {
     if (user === null) {
-      addError('You must login to be able to ask question');
+      addError('You must log in to be able to ask question');
       return;
     }
     try {
@@ -148,8 +148,8 @@ export default function QuestionsPage() {
   return (
     <div className="flex flex-col flex-grow">
       <Head>
-        <title>HackPortal - Questions</title>
-        <meta name="description" content="HackPortal's Quesiton and Answer Page " />
+        <title>HackPortal - Questions</title> {/* !change */}
+        <meta name="description" content="HackPortal's Quesiton and Answer Page " /> {/* !change */}
       </Head>
       <ErrorList
         errors={errors}
@@ -188,7 +188,7 @@ export default function QuestionsPage() {
         </div>
 
         <div>
-          <h4 className="font-bold text-2xl">My Pending Question</h4>
+          <h4 className="font-bold text-2xl">My Pending Questions</h4>
           {user ? (
             pendingQuestions.map(({ question }, idx) => (
               <PendingQuestion key={idx} question={question} />
@@ -199,7 +199,7 @@ export default function QuestionsPage() {
         </div>
 
         <div className="my-4">
-          <h4 className="font-bold text-2xl">My Answered Question</h4>
+          <h4 className="font-bold text-2xl">My Answered Questions</h4>
           {user ? (
             answeredQuestions.map(({ question, answer }, idx) => (
               <AnsweredQuestion

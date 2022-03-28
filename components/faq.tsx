@@ -44,13 +44,13 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
   return (
     <div className="flex flex-col flex-grow">
       <Head>
-        <title>HackPortal - FAQ</title>
+        <title>HackPortal</title>
         <meta name="description" content="HackPortal's Frequently Asked Questions" />
       </Head>
       {/* <AboutHeader active="/about/faq" /> */}
       <div className="top-6 p-4 px-8">
         <div className="flex flex-row justify-between items-center py-2">
-          <h4 className="font-bold text-3xl">FAQ</h4>
+          <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">FAQ</h4>
           <div className="flex flex-row items-center gap-x-2">
             <button
               onClick={() => {

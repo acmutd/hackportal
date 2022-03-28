@@ -16,6 +16,19 @@ body {
   font-display: auto;
 }
 
+.MuiTypography-root {
+  font-family: 'wavehaus' !important;
+  src: url('/fonts/Wavehaus-66Book.ttf') format('truetype') !important;
+  font-display: auto !important;
+  font-weight: 600 !important;
+}
+
+.Target-root {
+  font-family: 'wavehaus' !important;
+  src: url('/fonts/Wavehaus-66Book.ttf') format('truetype') !important;
+  font-display: auto !important;
+}
+
 a.link {
   /* padding-right: 30px; */
   cursor: pointer;
@@ -91,7 +104,6 @@ a.link {
     -webkit-transform: scale(0.85);
     -webkit-transform-origin: top center;
   }
-
 }
 
 /* For challenge selection in home page */
@@ -109,10 +121,10 @@ a.link {
 }
 
 .registrationTitle:after {
-  content: ""; 
-  display: block; 
+  content: '';
+  display: block;
   margin: 0 auto;
-  width: 75%; 
+  width: 75%;
   padding-top: 15px;
   border-bottom: 2px solid black;
 }
@@ -140,13 +152,13 @@ a.link {
 }
 
 .accordion:after {
-  content: '\02795'; 
+  content: '\02795';
   font-size: 12px;
   float: right;
 }
 
 .menuactive:after {
-  content: "\2796"; 
+  content: '\2796';
 }
 
 .footerIcon {
