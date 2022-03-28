@@ -44,7 +44,7 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
   return (
     <div className="flex flex-col flex-grow">
       <Head>
-        <title>HackPortal - FAQ</title>
+        <title>HackPortal</title>
         <meta name="description" content="HackPortal's Frequently Asked Questions" />
       </Head>
       {/* <AboutHeader active="/about/faq" /> */}
