@@ -236,8 +236,9 @@ export default function Home(props: {
         </div>
       </section>
       {/* Featuring Keynotes speakers */}
+
       <section className="flex overflow-x-auto bg-gray-200 min-h-[24rem]">
-        <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold">
+        <div className="flex items-center justify-center font-bold p-6 md:text-4xl text-2xl my-4">
           Featuring Keynote Speakers
         </div>
         <div className="flex flex-col justify-center py-6 md:px-6">
@@ -275,7 +276,7 @@ export default function Home(props: {
       </section>
       {/* Challenges */}
       <section className="p-6 ">
-        <div className="font-bold text-2xl">Challenges</div>
+        <div className="font-bold p-6 md:text-4xl text-2xl my-4">Challenges</div>
         <div className="flex">
           {/* Challenge Orgs Selectors*/}
           <div className="md:w-1/4 w-1/5">
@@ -316,7 +317,8 @@ export default function Home(props: {
         {/* Team Members */}
         <div className="flex flex-col flex-grow bg-white">
           <div className="my-2">
-            <h4 className="font-bold text-3xl p-6">Meet Our Team :)</h4> {/* !change */}
+            <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Meet Our Team :)</h4>{' '}
+            {/* !change */}
             <div className="flex flex-wrap justify-center md:px-2">
               {/* Member Cards */}
               {members.map(
@@ -339,7 +341,7 @@ export default function Home(props: {
       {/* Sponsors */}
       <section>
         <div className="flex flex-col flex-grow bg-white">
-          <h1 className="md:text-8xl text-7xl text-center my-6">Sponsors</h1>
+          <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
           {/* Sponsor Card */}
           <section className="flex flex-wrap justify-center p-4">
             {sponsor.map(({ link, reference }, idx) => (
