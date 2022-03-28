@@ -35,9 +35,6 @@ export default function DashboardHeader() {
           <NavLink href="/dashboard/scan-in" exact={true} className="mx-4">
             Scan-In
           </NavLink>
-          <NavLink href="/dashboard/hackerpack" exact={true} className="mx-4">
-            HackerPack
-          </NavLink>
           <NavLink href="/dashboard/questions" exact={true} className="mx-4">
             Ask a Question
           </NavLink>
@@ -52,9 +49,6 @@ export default function DashboardHeader() {
             </li>
             <li className="p-2 hover:bg-[#DCDEFF]">
               <Link href="/dashboard/scan-in">Scan-In</Link>
-            </li>
-            <li className="p-2 hover:bg-[#DCDEFF]">
-              <Link href="/dashboard/hackerpack">HackerPack</Link>
             </li>
             <li className="p-2 hover:bg-[#DCDEFF]">
               <Link href="/dashboard/questions">Ask a Question</Link>

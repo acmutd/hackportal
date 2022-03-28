@@ -9,7 +9,8 @@ import 'firebase/messaging';
 import 'firebase/storage';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import HomeChallengeCard from '../components/HomeChallengeCard';
-import Link from 'next/link';
+import MemberCards from '../components/MemberCards';
+import SponsorCard from '../components/SponsorCard';
 import FAQ from '../components/faq';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -25,12 +26,17 @@ export default function Home(props: {
   keynoteSpeakers: KeynoteSpeaker[];
   challenges: Challenge[];
   answeredQuestion: AnsweredQuestion[];
+  fetchedMembers: TeamMember[];
+  sponsorCard: Sponsor[];
 }) {
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const [speakers, setSpeakers] = useState<KeynoteSpeaker[]>([]);
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [challengeIdx, setChallengeIdx] = useState(0);
+  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [sponsor, setSponsor] = useState<Sponsor[]>([]);
 
   const colorSchemes: ColorScheme[] = [
     {
@@ -54,6 +60,7 @@ export default function Home(props: {
 
     //Organize challenges in order by rank given in firebase
     setChallenges(props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
+    setSponsor(props.sponsorCard);
   }, []);
 
   useEffect(() => {
@@ -66,6 +73,12 @@ export default function Home(props: {
       document.getElementById(`card${challengeIdx}`).style.display = 'block';
     }
   });
+
+  useEffect(() => {
+    //Organize members in order by rank given in firebase
+    setMembers(props.fetchedMembers.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
+    setLoading(false);
+  }, []);
 
   // Fade out notification prompt
   const fadeOutEffect = () => {
@@ -113,6 +126,14 @@ export default function Home(props: {
 
     setChallengeIdx(newIdx);
   };
+
+  if (loading) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -215,8 +236,9 @@ export default function Home(props: {
         </div>
       </section>
       {/* Featuring Keynotes speakers */}
+
       <section className="flex overflow-x-auto bg-gray-200 min-h-[24rem]">
-        <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold">
+        <div className="flex items-center justify-center font-bold p-6 md:text-4xl text-2xl my-4">
           Featuring Keynote Speakers
         </div>
         <div className="flex flex-col justify-center py-6 md:px-6">
@@ -254,7 +276,7 @@ export default function Home(props: {
       </section>
       {/* Challenges */}
       <section className="p-6 ">
-        <div className="font-bold text-2xl">Challenges</div>
+        <div className="font-bold p-6 md:text-4xl text-2xl my-4">Challenges</div>
         <div className="flex">
           {/* Challenge Orgs Selectors*/}
           <div className="md:w-1/4 w-1/5">
@@ -290,6 +312,56 @@ export default function Home(props: {
       {/* FAQ */}
       <section>
         <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
+      </section>
+      <section>
+        {/* Team Members */}
+        <div className="flex flex-col flex-grow bg-white">
+          <div className="my-2">
+            <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Meet Our Team :)</h4>{' '}
+            {/* !change */}
+            <div className="flex flex-wrap justify-center md:px-2">
+              {/* Member Cards */}
+              {members.map(
+                ({ name, description, linkedin, github, personalSite, fileName }, idx) => (
+                  <MemberCards
+                    key={idx}
+                    name={name}
+                    description={description}
+                    fileName={fileName}
+                    linkedin={linkedin}
+                    github={github}
+                    personalSite={personalSite}
+                  />
+                ),
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Sponsors */}
+      <section>
+        <div className="flex flex-col flex-grow bg-white">
+          <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
+          {/* Sponsor Card */}
+          <section className="flex flex-wrap justify-center p-4">
+            {sponsor.map(({ link, reference }, idx) => (
+              <SponsorCard key={idx} link={link} reference={reference} />
+            ))}
+          </section>
+          <h2 className="my-2 text-center">
+            {' '}
+            {/* !change */}
+            If you would like to sponsor HackPortal, please reach out to us at&nbsp;
+            <a
+              href="mailto:email@organization.com"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="underline"
+            >
+              email@organization.com
+            </a>
+          </h2>
+        </div>
       </section>
 
       {/* Footer */}
@@ -377,11 +449,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/questions/faq`,
     {},
   );
+  const { data: memberData } = await RequestHelper.get<TeamMember[]>(
+    `${protocol}://${context.req.headers.host}/api/members`,
+    {},
+  );
+  const { data: sponsorData } = await RequestHelper.get<Sponsor[]>(
+    `${protocol}://${context.req.headers.host}/api/sponsor`,
+    {},
+  );
   return {
     props: {
       keynoteSpeakers: keynoteData,
       challenges: challengeData,
       answeredQuestion: answeredQuestion,
+      fetchedMembers: memberData,
+      sponsorCard: sponsorData,
     },
   };
 };
