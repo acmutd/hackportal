@@ -13,10 +13,10 @@ import firebase from 'firebase/app';
  */
 export default function AppHeader() {
   const [showMenu, setShowMenu] = useState(false);
-  const { isSignedIn, hasProfile } = useAuthContext();
+  const { isSignedIn, hasProfile, profile } = useAuthContext();
   const [mobileIcon, setMobileIcon] = useState(true);
   const [showProfileDialog, setShowProfileDialog] = useState(false);
-  const [dynamicNavItems, setDynamicNavItems] = useState([]);
+  const [dynamicNavItems, setDynamicNavItems] = useState(navItems);
   const user = useUser();
 
   useEffect(() => {
@@ -32,28 +32,35 @@ export default function AppHeader() {
         });
     }
 
-    //cereating dynamic nav items
+    //creating dynamic nav items
     if (isSignedIn && hasProfile) {
-      //remove hackerpack from header
-      if (navItems.length > 1) {
-        navItems.shift();
-      }
-      //add dashboard to header
-      if (!navItems.includes({ text: 'Dashboard', path: '/dashboard' })) {
-        navItems.unshift({ text: 'Dashboard', path: '/dashboard' });
-      }
+      setDynamicNavItems((dynamicNavItems) => [
+        { text: 'Dashboard', path: '/dashboard' },
+        ...dynamicNavItems,
+      ]);
     } else {
-      //remove dashboard from header
-      if (navItems.length > 1) {
-        navItems.shift();
-      }
-      //add hackerpack to header
-      if (!navItems.includes({ text: 'HackerPack', path: '/dashboard/hackerpack' })) {
-        navItems.unshift({ text: 'HackerPack', path: '/dashboard/hackerpack' });
-      }
+      setDynamicNavItems(navItems);
     }
-    setDynamicNavItems(navItems);
+    //add admin
+    // if(profile && (profile.user.permissions[0] === "admin" || profile.user.permissions[0] === "super_admin")){
+    //   setDynamicNavItems((dynamicNavItems) => [...dynamicNavItems, { text: 'Admin', path: '/admin' }]);
+    // }
   }, []);
+
+  // useEffect(() => {
+  //   if(Object.keys(user).length === 0 || (profile &&  !(profile.user.permissions[0] == "admin" || profile.user.permissions[0] == "super_admin"))){
+  //     //remove admin
+  //     const isFound = dynamicNavItems.some(element => {
+  //       if (element.text === 'Admin') {
+  //         return true;
+  //       }
+  //     });
+  //     if (isFound) {
+  //       dynamicNavItems.pop();
+  //       setDynamicNavItems(dynamicNavItems);
+  //     }
+  //   }
+  // },[user]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);

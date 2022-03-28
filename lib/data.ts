@@ -4,7 +4,10 @@ export const buttonDatas = [
   { text: 'Sponsor App', path: '/' },
 ];
 
-export const navItems = [{ text: 'Schedule', path: '/schedule' }];
+export const navItems = [
+  { text: 'HackerPacks', path: '/hackerpacks' },
+  { text: 'Schedule', path: '/schedule' },
+];
 
 export const stats = [
   {
