@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import DashboardHeader from '../../components/DashboardHeader';
 import { useUser } from '../../lib/profile/user-data';
 import { useAuthContext } from '../../lib/user/AuthContext';
@@ -33,6 +34,7 @@ export default function Dashboard(props: {
   scheduleEvents: ScheduleEvent[];
   challenges: Challenge[];
 }) {
+  const router = useRouter();
   const { isSignedIn, hasProfile } = useAuthContext();
   const user = useUser();
   const role = user.permissions?.length > 0 ? user.permissions[0] : '';
@@ -79,6 +81,11 @@ export default function Dashboard(props: {
     eventCountString = 'There is 1 event is happening right now!';
   } else {
     eventCountString = `There are ${eventCount} events are happening right now!`;
+  }
+
+  if (!isSignedIn) {
+    router.push('/');
+    return <div></div>;
   }
 
   return (
