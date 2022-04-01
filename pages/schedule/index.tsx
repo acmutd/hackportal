@@ -58,37 +58,6 @@ const styles = ({ palette }: Theme) =>
       borderRadius: 0,
       borderBottom: 0,
     },
-
-    EventTypeAppointment: {
-      border: `2px solid ${red[500]}`,
-      backgroundColor: `${grey[900]}`,
-      borderRadius: 8,
-      boxShadow: ` 0 0 16px 1px ${red[400]} `,
-    },
-    SponsorTypeAppointment: {
-      border: `2px solid ${orange[500]}`,
-      backgroundColor: `${grey[900]}`,
-      borderRadius: 8,
-      boxShadow: ` 0 0 16px 4px ${orange[500]} `,
-    },
-    TechTalkTypeAppointment: {
-      border: `2px solid ${indigo[500]}`,
-      backgroundColor: `${grey[900]}`,
-      borderRadius: 8,
-      boxShadow: ` 0 0 16px 4px ${indigo[500]} `,
-    },
-    WorkshopTypeAppointment: {
-      border: `2px solid ${purple[500]}`,
-      backgroundColor: `${grey[900]}`,
-      borderRadius: 8,
-      boxShadow: ` 0 0 16px 4px ${purple[500]} `,
-    },
-    SocialTypeAppointment: {
-      border: `2px solid ${blue[500]}`,
-      backgroundColor: `${grey[900]}`,
-      borderRadius: 8,
-      boxShadow: ` 0 0 16px 4px ${blue[500]} `,
-    },
     weekEndCell: {
       backgroundColor: alpha(palette.action.disabledBackground, 0.04),
       '&:hover': {
@@ -190,19 +159,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
 
   const Appointment = withStyles(styles)(
     ({ onClick, classes, data, ...restProps }: AppointmentProps) => (
-      <Appointments.Appointment
-        {...restProps}
-        className={classNames({
-          [classes.EventTypeAppointment]: data.Event === 1,
-          [classes.SponsorTypeAppointment]: data.Event === 2,
-          [classes.TechTalkTypeAppointment]: data.Event === 3,
-          [classes.WorkshopTypeAppointment]: data.Event === 4,
-          [classes.SocialTypeAppointment]: data.Event === 5,
-          [classes.appointment]: true,
-        })}
-        data={data}
-        onClick={() => changeEventData(data)}
-      />
+      <Appointments.Appointment {...restProps} data={data} onClick={() => changeEventData(data)} />
     ),
   );
 
@@ -263,7 +220,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
             <Scheduler data={props.scheduleCard}>
               <ViewState defaultCurrentDate={defaultCurrentDate} />
 
-              <DayView startDayHour={7} endDayHour={24} intervalCount={1} />
+              <DayView startDayHour={9} endDayHour={24} intervalCount={1} />
 
               <Appointments
                 appointmentComponent={Appointment}
