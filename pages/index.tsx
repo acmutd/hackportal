@@ -316,29 +316,13 @@ export default function Home(props: {
       </section>
       {/* Sponsors */}
       <section>
-        <div className="flex flex-col flex-grow bg-white">
-          <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
-          {/* Sponsor Card */}
-          <section className="flex flex-wrap justify-center p-4">
-            {sponsor.map(({ link, reference }, idx) => (
-              <SponsorCard key={idx} link={link} reference={reference} />
-            ))}
-          </section>
-          <h2 className="my-2 text-center">
-            {' '}
-            {/* 
-            If you would like to sponsor WEHack, please reach out to us at&nbsp;
-            <a
-              href="mailto:email@organization.com"
-              rel="noopener noreferrer"
-              target="_blank"
-              className="underline"
-            >
-              email@organization.com
-            </a>
-            */}
-          </h2>
-        </div>
+        <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
+        {/* Sponsor Card */}
+        <section className="flex flex-wrap justify-center p-4">
+          {sponsor.map(({ link, reference }, idx) => (
+            <SponsorCard key={idx} link={link} reference={reference} />
+          ))}
+        </section>
       </section>
 
       {/* Footer */}

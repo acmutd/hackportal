@@ -33,7 +33,7 @@ export default function FaqDisclosure({
     <Disclosure>
       <div className="">
         <Disclosure.Button
-          className="py-2 text-black text-left border-b-2 border-white w-full"
+          className="py-2 text-black text-left border-b-2 border-black w-full"
           as="div"
         >
           <button
