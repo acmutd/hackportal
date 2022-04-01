@@ -7,6 +7,12 @@ import { useAuthContext } from '../../lib/user/AuthContext';
 import DocLink from './Components/DocLinks';
 
 /**
+ * NOTE: The current HackerPack contains dummy data (obviously) and needs to be updated.
+ * A Notion page embed works just as well as typing everything in manually.
+ * Use your best judgement in figuring out which option is better for your hackathon.
+ */
+
+/**
  * The hackerpack page.
  *
  * HackerPack: /

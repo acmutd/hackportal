@@ -47,13 +47,13 @@ export default function Scan() {
   return (
     <div className="flex flex-wrap flex-grow text-white bg-blue-850">
       <Head>
-        <title>HackerPacks</title>
+        <title>Scan-In</title>
         <meta name="description" content="HackPortal's Scan-In" />
       </Head>
 
       <Sidebar />
 
-      <section id="mainContent" className="px-6 py-3 w-5/6 lg:wd-7/8 md:w-6/7">
+      <section id="mainContent" className="px-6 py-3 lg:wd-7/8 md:w-6/7 w-full">
         <DashboardHeader />
         {isSignedIn ? (
           <div className="flex flex-col items-center justify-center top-6 ">
@@ -68,7 +68,7 @@ export default function Scan() {
               className="rounded-2xl bg-green-300 text-center p-3 m-auto cursor-pointer hover:brightness-125 my-3"
               onClick={fetchQR}
             >
-              Gen QR
+              Fetch QR
             </div>
             <QRCode data={qrData} loading={qrLoading} width={200} height={200} />
           </div>

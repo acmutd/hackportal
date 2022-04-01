@@ -31,6 +31,7 @@ export default function QRCodeReader({ callback, width, height }: QRCodeReaderPr
   const [videoReady, setVideoReady] = useState(false);
   const [paused, setPaused] = useState(false);
   const video = document.createElement('video');
+  video.playsInline = true;
 
   const tick = () => {
     if (video.readyState === video.HAVE_ENOUGH_DATA) {

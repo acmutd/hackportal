@@ -31,9 +31,9 @@ export default function FaqDisclosure({
 }: FaqDisclosureProps) {
   return (
     <Disclosure>
-      <div>
+      <div className="">
         <Disclosure.Button
-          className="py-2 text-black text-left border-b-2 border-white w-full text-white"
+          className="py-2 text-black text-left border-b-2 border-white w-full"
           as="div"
         >
           <button
@@ -47,7 +47,7 @@ export default function FaqDisclosure({
           </button>
         </Disclosure.Button>
         {isOpen && (
-          <Disclosure.Panel className="text-white py-2" static>
+          <Disclosure.Panel className="text-black py-2" static>
             {answer}
           </Disclosure.Panel>
         )}

@@ -9,6 +9,12 @@ import 'firebase/messaging';
 import 'firebase/storage';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import HomeChallengeCard from '../components/HomeChallengeCard';
+import MemberCards from '../components/MemberCards';
+import SponsorCard from '../components/SponsorCard';
+import FAQ from '../components/faq';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 /**
  * The home page.
@@ -19,12 +25,18 @@ import HomeChallengeCard from '../components/HomeChallengeCard';
 export default function Home(props: {
   keynoteSpeakers: KeynoteSpeaker[];
   challenges: Challenge[];
+  answeredQuestion: AnsweredQuestion[];
+  fetchedMembers: TeamMember[];
+  sponsorCard: Sponsor[];
 }) {
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const [speakers, setSpeakers] = useState<KeynoteSpeaker[]>([]);
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [challengeIdx, setChallengeIdx] = useState(0);
+  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [sponsor, setSponsor] = useState<Sponsor[]>([]);
 
   const colorSchemes: ColorScheme[] = [
     {
@@ -48,6 +60,7 @@ export default function Home(props: {
 
     //Organize challenges in order by rank given in firebase
     setChallenges(props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
+    setSponsor(props.sponsorCard);
   }, []);
 
   useEffect(() => {
@@ -60,6 +73,12 @@ export default function Home(props: {
       document.getElementById(`card${challengeIdx}`).style.display = 'block';
     }
   });
+
+  useEffect(() => {
+    //Organize members in order by rank given in firebase
+    setMembers(props.fetchedMembers.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
+    setLoading(false);
+  }, []);
 
   // Fade out notification prompt
   const fadeOutEffect = () => {
@@ -108,11 +127,19 @@ export default function Home(props: {
     setChallengeIdx(newIdx);
   };
 
+  if (loading) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+
   return (
     <>
       <Head>
-        <title>HackPortal</title>
-        <meta name="description" content="A default HackPortal instance" />
+        <title>WEHack HackPortal</title>
+        <meta name="description" content="A WEHack HackPortal instance" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Notification info pop up */}
@@ -121,7 +148,7 @@ export default function Home(props: {
           id="popup"
           className="fixed z-50 md:translate-x-0 translate-x-1/2 w-[22rem] rounded-md px-4 py-2 top-16 md:right-6 right-1/2 bg-red-200 md:text-base text-sm"
         >
-          Turn on push notifications to stay up to date with events and announcements!
+          Turn on push notifications to recieve announcements!
         </div>
       )}
       {/* Hero section */}
@@ -187,7 +214,7 @@ export default function Home(props: {
       </section>
     */}
       {/* Featuring Keynotes speakers */}
-      <section className="flex overflow-x-scroll bg-gray-200 min-h-[24rem] bg-blue-850">
+      <section className="flex overflow-x-scroll min-h-[24rem] bg-blue-850">
         <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold bg-blue-850 text-white">
           Featuring Keynote Speakers
         </div>
@@ -244,7 +271,7 @@ export default function Home(props: {
             ))}
           </div>
           {/* Challenges Description Cards */}
-          <div className="md:w-3/4 w-4/5 my-4 px-6 min-h-full">
+          <div className="md:w-3/4 w-4/5 my-4 pl-6 min-h-full">
             {/* Card */}
             {challenges.map(({ title, organization, description, prizes }, idx) => (
               <HomeChallengeCard
@@ -257,6 +284,126 @@ export default function Home(props: {
               />
             ))}
           </div>
+        </div>
+      </section>
+      {/* FAQ */}
+      <section>
+        <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
+      </section>
+      <section>
+        {/* Team Members */}
+        <div className="flex flex-col flex-grow bg-white">
+          <div className="my-2">
+            <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Meet Our Team :)</h4>{' '}
+            <div className="flex flex-wrap justify-center md:px-2">
+              {/* Member Cards */}
+              {members.map(
+                ({ name, description, linkedin, github, personalSite, fileName }, idx) => (
+                  <MemberCards
+                    key={idx}
+                    name={name}
+                    description={description}
+                    fileName={fileName}
+                    linkedin={linkedin}
+                    github={github}
+                    personalSite={personalSite}
+                  />
+                ),
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Sponsors */}
+      <section>
+        <div className="flex flex-col flex-grow bg-white">
+          <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
+          {/* Sponsor Card */}
+          <section className="flex flex-wrap justify-center p-4">
+            {sponsor.map(({ link, reference }, idx) => (
+              <SponsorCard key={idx} link={link} reference={reference} />
+            ))}
+          </section>
+          <h2 className="my-2 text-center">
+            {' '}
+            {/* 
+            If you would like to sponsor WEHack, please reach out to us at&nbsp;
+            <a
+              href="mailto:email@organization.com"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="underline"
+            >
+              email@organization.com
+            </a>
+            */}
+          </h2>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <section className="bg-gray-100 mt-16 px-6 py-8 md:text-base text-xs">
+        {/* Upper Content */}
+        <div className="my-2 relative">
+          {/* Social icons */}
+          <div className="space-x-4 > * + *">
+            {/*<a href="https://twitter.com/hackutd" rel="noopener noreferrer" target="_blank">
+              <TwitterIcon className="footerIcon" />
+            </a>*/}
+            <a
+              href="https://www.instagram.com/wehackutd/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <InstagramIcon className="footerIcon" />
+            </a>
+            <a href="https://www.facebook.com/wehackutd/" rel="noopener noreferrer" target="_blank">
+              <FacebookIcon className="footerIcon" />
+            </a>
+          </div>
+          {/* Text */}
+          <div className="absolute bottom-0 right-0">
+            {' '}
+            Checkout WEHack&apos;s{' '}
+            <a
+              href="https://wehackutd.com/"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="font-black hover:underline"
+            >
+              organizer site
+            </a>
+          </div>
+        </div>
+        {/* Lower Content */}
+        <div className="flex justify-between border-t-[1px] py-2 border-black">
+          <p>
+            Designed by <p className="font-black inline">WEHack and HackUTD</p> <br />
+            {/* PLEASE DO NOT CHANGE <3 */}
+            HackPortal developed with &lt;3 by <p className="font-black inline">HackUTD</p> and{' '}
+            <p className="font-black inline">ACM Development</p>
+            {/* PLEASE DO NOT CHANGE <3 */}
+          </p>
+
+          {/*<div className="flex md:flex-row flex-col md:ml-0 ml-6">
+            <a
+              href="mailto:email@organization.com"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="hover:underline md:mr-8 font-thin"
+            >
+              Contact Us
+            </a>
+            <a
+              href="https://github.com/acmutd/hackportal"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline font-thin whitespace-nowrap"
+            >
+              Source Code
+            </a>
+          </div>
+          */}
         </div>
       </section>
     </>
@@ -273,10 +420,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/challenges/`,
     {},
   );
+  const { data: answeredQuestion } = await RequestHelper.get<AnsweredQuestion[]>(
+    `${protocol}://${context.req.headers.host}/api/questions/faq`,
+    {},
+  );
+  const { data: memberData } = await RequestHelper.get<TeamMember[]>(
+    `${protocol}://${context.req.headers.host}/api/members`,
+    {},
+  );
+  const { data: sponsorData } = await RequestHelper.get<Sponsor[]>(
+    `${protocol}://${context.req.headers.host}/api/sponsor`,
+    {},
+  );
   return {
     props: {
       keynoteSpeakers: keynoteData,
       challenges: challengeData,
+      answeredQuestion: answeredQuestion,
+      fetchedMembers: memberData,
+      sponsorCard: sponsorData,
     },
   };
 };
