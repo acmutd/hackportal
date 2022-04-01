@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import DashboardHeader from '../../components/DashboardHeader';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import QRCode from '../../components/QRCode';
@@ -12,7 +13,8 @@ import Sidebar from './Components/Sidebar';
  * Landing: /scan-in
  */
 export default function Scan() {
-  const { user, isSignedIn } = useAuthContext();
+  const router = useRouter();
+  const { user, isSignedIn, hasProfile } = useAuthContext();
   const [qrData, setQRData] = useState('');
   const [qrLoading, setQRLoading] = useState(false);
   const [error, setError] = useState('');
@@ -44,6 +46,13 @@ export default function Scan() {
       });
   };
 
+  if (!isSignedIn)
+    return (
+      <div className="text-2xl font-black text-center">
+        Please sign-in and register to access your QR code
+      </div>
+    );
+
   return (
     <div className="flex flex-wrap flex-grow text-white bg-blue-850">
       <Head>
@@ -55,7 +64,7 @@ export default function Scan() {
 
       <section id="mainContent" className="px-6 py-3 lg:wd-7/8 md:w-6/7 w-full">
         <DashboardHeader />
-        {isSignedIn ? (
+        {hasProfile ? (
           <div className="flex flex-col items-center justify-center top-6 ">
             <div>
               <h4 className="text-center text-xl">Hacker Tag</h4>
@@ -74,7 +83,7 @@ export default function Scan() {
           </div>
         ) : (
           <div className="top-6 flex justify-center md:text-lg text-base">
-            <h4>Please sign in to get your QR code</h4>
+            <h4>Please register to get your QR code</h4>
           </div>
         )}
       </section>
