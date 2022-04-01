@@ -33,20 +33,15 @@ export default function AppHeader() {
     }
 
     //creating dynamic nav items
-    if (isSignedIn) {
+    if (
+      isSignedIn &&
+      profile &&
+      (profile.user.permissions[0] === 'admin' || profile.user.permissions[0] === 'super_admin')
+    ) {
       setDynamicNavItems((dynamicNavItems) => [
-        { text: 'Dashboard', path: '/dashboard' },
         ...dynamicNavItems,
+        { text: 'Admin', path: '/admin' },
       ]);
-      if (
-        profile &&
-        (profile.user.permissions[0] === 'admin' || profile.user.permissions[0] === 'super_admin')
-      ) {
-        setDynamicNavItems((dynamicNavItems) => [
-          ...dynamicNavItems,
-          { text: 'Admin', path: '/admin' },
-        ]);
-      }
     } else {
       setDynamicNavItems(navItems);
     }

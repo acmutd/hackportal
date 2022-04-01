@@ -46,10 +46,12 @@ export default function Scan() {
       });
   };
 
-  if (!isSignedIn) {
-    router.push('/');
-    return <div></div>;
-  }
+  if (!isSignedIn)
+    return (
+      <div className="text-2xl font-black text-center">
+        Please sign-in and register to access your QR code
+      </div>
+    );
 
   return (
     <div className="flex flex-wrap flex-grow">

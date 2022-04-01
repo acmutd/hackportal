@@ -5,6 +5,7 @@ export const buttonDatas = [
 ];
 
 export const navItems = [
+  { text: 'Dashboard', path: '/dashboard' },
   { text: 'HackerPacks', path: '/hackerpacks' },
   { text: 'Schedule', path: '/schedule' },
 ];
