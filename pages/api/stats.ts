@@ -54,13 +54,11 @@ async function getStatsData() {
 
     for (let singleField of singleFields) {
       if (!userData[singleField] || userData[singleField] === '') continue;
-      if (!generalStats[singleField].hasOwnProperty(userData[singleField])) {
-        generalStats[singleField][userData[singleField]] = 0;
-      }
+
       generalStats[singleField][userData[singleField]]++;
     }
 
-    const userPermission = userData.user.permissions[0];
+    const userPermission = userData.user ? userData.user.permissions[0] : '';
 
     switch (userPermission) {
       case 'super_admin': {
