@@ -147,10 +147,12 @@ export default function QuestionsPage() {
       </div>
     );
 
-  if (!isSignedIn) {
-    router.push('/');
-    return <div></div>;
-  }
+  if (!isSignedIn)
+    return (
+      <div className="text-2xl font-black text-center">
+        Please sign-in to ask organizers questions
+      </div>
+    );
 
   return (
     <div className="flex flex-col flex-grow">
