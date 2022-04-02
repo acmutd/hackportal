@@ -170,16 +170,10 @@ export default function Home(props: {
           </div>
           {/* TODO: Programmatically show these based on configured times/organizer preference */}
         </div>
-        <div className="flex flex-col items-center md:flex-row md:justify-around px-4 md:space-y-0 space-y-3 > * + *">
-          {buttonDatas.map((button) => (
-            <button
-              key={button.text}
-              onClick={() => router.push(button.path)}
-              className="max-w-[12rem] w-[12rem] md:max-w-full bg-indigo-300 py-4"
-            >
-              {button.text}
-            </button>
-          ))}
+        <div className="px-4">
+          <h2 className="text-center lg:text-5xl md:text-3xl text-xl text-white">
+            Walk-in registrations begin at 10:15am
+          </h2>
         </div>
       </section>
       {/* Video Space 

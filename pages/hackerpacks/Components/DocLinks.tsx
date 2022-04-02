@@ -25,8 +25,8 @@ function DocLink(props) {
     <>
       <div>
         {icon}{' '}
-        <a href={props.link} rel="noopener noreferrer" target="_blank">
-          {props.title}
+        <a href={props.link} rel="noopener noreferrer" target="_blank" className="hover:underline">
+          🔗{' ' + props.title}
         </a>
       </div>
     </>
