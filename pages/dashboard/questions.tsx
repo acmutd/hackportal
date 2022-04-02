@@ -22,7 +22,7 @@ export default function QuestionsPage() {
   const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([]);
   const [pendingQuestions, setPendingQuestions] = useState<PendingQuestion[]>([]);
   const [answeredQuestionDisclosureStatus, setAnsweredDisclosureStatus] = useState<boolean[]>([]);
-  const { user } = useAuthContext();
+  const { user, isSignedIn, hasProfile } = useAuthContext();
 
   /**
    *
@@ -142,6 +142,13 @@ export default function QuestionsPage() {
     return (
       <div>
         <h1>Loading...</h1>
+      </div>
+    );
+
+  if (!isSignedIn)
+    return (
+      <div className="text-2xl font-black text-center">
+        Please sign-in to ask organizers questions
       </div>
     );
 

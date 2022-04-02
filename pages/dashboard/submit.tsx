@@ -16,7 +16,7 @@ export default function Submit() {
   return (
     <div className="flex flex-wrap flex-grow">
       <Head>
-        <title>HackerPacks</title>
+        <title>Project Submissions</title>
         <meta name="description" content="HackPortal's Project Submissions" /> {/* !change */}
       </Head>
 

@@ -259,9 +259,9 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
   return (
     <>
       <div className="text-6xl font-black p-6">Schedule</div>
-      <div className="flex flex-wrap lg:justify-between px-6">
+      <div className="flex flex-wrap lg:justify-between px-6 h-[75vh]">
         {/* Calender */}
-        <div className="overflow-y-auto overflow-x-hidden lg:w-[62%] w-full h-[32rem] border-2 border-black rounded-md">
+        <div className="overflow-y-auto overflow-x-hidden lg:w-[62%] w-full h-full border-2 border-black rounded-md">
           <Paper>
             <Scheduler data={props.scheduleCard}>
               <ViewState defaultCurrentDate={defaultCurrentDate} />
@@ -283,58 +283,60 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
         </div>
 
         {/* Event info card */}
-        <div className="relative lg:w-[36%] w-full h-[32rem] lg:my-0 my-2 border-2 border-black rounded-md bg-white p-4">
-          {eventData.title === '' ? (
-            <div className="text-2xl">Click on an event for more info</div>
-          ) : (
-            <div />
-          )}
-          <h1 className="md:text-4xl text-2xl font-bold">{eventData.title}</h1>
-          <div className="md:text-lg text-sm mb-4">{eventData.speakers}</div>
+        <div className="overflow-y-auto flex flex-col justify-between lg:w-[36%] w-full h-full lg:my-0 my-2 border-2 border-black rounded-md bg-white p-4">
+          <section>
+            {eventData.title === '' ? (
+              <div className="text-2xl">Click on an event for more info</div>
+            ) : (
+              <div />
+            )}
+            <h1 className="md:text-4xl text-2xl font-bold">{eventData.title}</h1>
+            <div className="md:text-lg text-sm mb-4">{eventData.speakers}</div>
 
-          {/* Shows card info if user has clicked on an event */}
-          <div className={eventData.title === '' ? 'hidden' : 'inline'}>
-            <div className="grid grid-cols-2 gap-y-2 md:my-8 my-6 md:text-lg text-sm">
-              <div className="">
-                <p className="flex items-center font-semibold">
-                  {<CalendarIcon style={{ fontSize: 'medium', margin: '2px' }} />}
-                  Date
-                </p>
-                <p>{eventData.date}</p>
+            {/* Shows card info if user has clicked on an event */}
+            <div className={eventData.title === '' ? 'hidden' : 'inline'}>
+              <div className="grid grid-cols-2 gap-y-2 md:my-8 my-6 md:text-lg text-sm">
+                <div className="">
+                  <p className="flex items-center font-semibold">
+                    {<CalendarIcon style={{ fontSize: 'medium', margin: '2px' }} />}
+                    Date
+                  </p>
+                  <p>{eventData.date}</p>
+                </div>
+                <div className="">
+                  <p className="flex items-center font-semibold">
+                    {<PinDrop style={{ fontSize: 'medium', margin: '2px' }} />}
+                    Location
+                  </p>
+                  <p>{eventData.location}</p>
+                </div>
+                <div className="">
+                  <p className="flex items-center font-semibold">
+                    {<ClockIcon style={{ fontSize: 'large', margin: '2px' }} />}
+                    Time
+                  </p>
+                  <p>{eventData.time}</p>
+                </div>
+                <div className="">
+                  <p className="flex items-center font-semibold">
+                    {<Backpack style={{ fontSize: 'medium', margin: '2px' }} />}
+                    Page
+                  </p>
+                  <p>{eventData.page}</p>
+                </div>
               </div>
-              <div className="">
+
+              <div className="lg:text-base text-sm">
                 <p className="flex items-center font-semibold">
-                  {<PinDrop style={{ fontSize: 'medium', margin: '2px' }} />}
-                  Location
+                  {<Description style={{ fontSize: 'medium', margin: '2px' }} />}
+                  Description
                 </p>
-                <p>{eventData.location}</p>
-              </div>
-              <div className="">
-                <p className="flex items-center font-semibold">
-                  {<ClockIcon style={{ fontSize: 'large', margin: '2px' }} />}
-                  Time
-                </p>
-                <p>{eventData.time}</p>
-              </div>
-              <div className="">
-                <p className="flex items-center font-semibold">
-                  {<Backpack style={{ fontSize: 'medium', margin: '2px' }} />}
-                  Page
-                </p>
-                <p>{eventData.page}</p>
+                <p>{eventData.description}</p>
               </div>
             </div>
+          </section>
 
-            <div className="lg:text-base text-sm">
-              <p className="flex items-center font-semibold">
-                {<Description style={{ fontSize: 'medium', margin: '2px' }} />}
-                Description
-              </p>
-              <p>{eventData.description}</p>
-            </div>
-          </div>
-
-          <div className="absolute bottom-2 right-2">*All events are given in CST</div>
+          <div className="text-right">*All events are given in CST</div>
         </div>
       </div>
     </>

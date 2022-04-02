@@ -39,8 +39,6 @@ body:
         - Events
         - Check-in
         - HackerPack
-        - Judging
-        - Project Submissions
     validations:
       required: true
   - type: dropdown
