@@ -16,7 +16,7 @@ function NavLink({ href, exact, children, ...props }) {
   const isActive = exact ? pathname === href : pathname.startsWith(href);
 
   if (isActive) {
-    props.className += ' active border-b-2 border-black';
+    props.className += ' active border-b-2 border-white';
   }
 
   return (

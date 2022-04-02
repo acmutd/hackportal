@@ -162,6 +162,21 @@ export default function HackerPack() {
         </section>
         */}
 
+        <div id="Subsection1" className="my-7">
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">
+            {' '}
+            <DocLink
+              title="WEHack Hacker Guide"
+              link="https://ultra-spell-68d.notion.site/WEHack-Hacker-Guide-dbce65f4cdb5462db75e56b661a1afc2"
+            />
+          </div>
+
+          <p></p>
+          <p>
+            <br></br>
+          </p>
+        </div>
+
         {/* Section 1 */}
         <div id="Subsection1" className="my-7">
           <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">
