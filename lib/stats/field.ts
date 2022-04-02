@@ -9,7 +9,7 @@ export const singleFields = [
   'hackathonExperience',
 ];
 
-export const arrayFields = ['scans', 'companies', 'dietary'];
+export const arrayFields = ['scans'];
 
 export const fieldToName = {
   age: 'Age',

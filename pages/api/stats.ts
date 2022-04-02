@@ -35,6 +35,7 @@ async function getStatsData() {
     softwareExperience: {},
     studyLevel: {},
     university: {},
+    hackathonExperience: {},
   };
 
   const snapshot = await db.collection(USERS_COLLECTION).get();
@@ -54,7 +55,8 @@ async function getStatsData() {
 
     for (let singleField of singleFields) {
       if (!userData[singleField] || userData[singleField] === '') continue;
-
+      if (!generalStats[singleField][userData[singleField]])
+        generalStats[singleField][userData[singleField]] = 0;
       generalStats[singleField][userData[singleField]]++;
     }
 

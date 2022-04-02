@@ -49,7 +49,7 @@ export default function StatsBarChart({ name, items }: StatsBarChartProps) {
 
   return (
     <div className="border-2 my-2 rounded-2xl md:p-6">
-      <Chart data={items} rotated={window.innerWidth <= 1000}>
+      <Chart data={items} rotated={true}>
         <Palette
           scheme={['#3FB98E', '#00CDFF', '#A6E5FF', '#CDC4FF', '#FFD9FA', '#DAFFD1', '#F9FFD1']}
         />

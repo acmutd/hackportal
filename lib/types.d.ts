@@ -231,7 +231,7 @@ type GeneralStats = {
   hackerCount: number;
   adminCount: number;
   scans: Record<string, number>;
-
+  hackathonExperience: Record<number, number>;
   age: Record<number, number>;
   ethnicity: Record<string, number>;
   race: Record<string, number>;
