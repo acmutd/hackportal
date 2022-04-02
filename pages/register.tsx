@@ -146,14 +146,6 @@ export default function Register() {
             studyLevel: '',
             hackathonExperience: null,
             softwareExperience: '',
-            heardFrom: '',
-            size: '',
-            dietary: [],
-            accomodations: '',
-            github: '',
-            linkedin: '',
-            website: '',
-            companies: [],
           }}
           //validation
           //Get condition in which values.[value] is invalid and set error message in errors.[value]. Value is a value from the form(look at initialValues)
@@ -221,14 +213,6 @@ export default function Register() {
             //softwareExperience validation
             if (!values.softwareExperience) {
               errors.softwareExperience = 'Required';
-            }
-            //heardFrom validation
-            if (!values.heardFrom) {
-              errors.heardFrom = 'Required';
-            }
-            //size validation
-            if (!values.size) {
-              errors.size = 'Required';
             }
 
             return errors;
@@ -464,160 +448,6 @@ export default function Register() {
                 name="softwareExperience"
                 render={(msg) => <div className="text-red-600">{msg}</div>}
               />
-
-              {/*ORGANIZER CAN CUSTOMIZE DROPDOWN OPTIONS*/}
-              {/* !change */}
-              <label htmlFor="heardFrom" className="mt-4">
-                *Where did you hear about WEHack?
-              </label>
-              <Field
-                as="select"
-                name="heardFrom"
-                className="border-2 border-gray-400 rounded-md p-1 mr-auto"
-              >
-                <option value="" disabled selected></option>
-                <option value="Instagram">Instagram</option>
-                <option value="Twitter">Twitter</option>
-                <option value="Site">Event Site</option>
-                <option value="Friend">Friend</option>
-              </Field>
-              <ErrorMessage
-                name="heardFrom"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
-
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">Event Info</div>
-              <label htmlFor="size" className="mt-4">
-                *Shirt Size
-              </label>
-              <Field
-                as="select"
-                name="size"
-                className="border-2 border-gray-400 rounded-md p-1 mr-auto"
-              >
-                <option value="" disabled selected></option>
-                <option value="s">S</option>
-                <option value="m">M</option>
-                <option value="l">L</option>
-                <option value="xl">XL</option>
-              </Field>
-              <ErrorMessage
-                name="size"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
-
-              <label htmlFor="dietary" className="mt-4">
-                Allergies / Dietary Restrictions:
-              </label>
-              <div role="group" aria-labelledby="checkbox-group" className="flex flex-col">
-                <label>
-                  <Field type="checkbox" name="dietary" value="Vegan" />
-                  &nbsp;Vegan
-                </label>
-                <label>
-                  <Field type="checkbox" name="dietary" value="Vegitarian" />
-                  &nbsp;Vegitarian
-                </label>
-                <label>
-                  <Field type="checkbox" name="dietary" value="Nuts" />
-                  &nbsp;Nuts
-                </label>
-                <label>
-                  <Field type="checkbox" name="dietary" value="Fish" />
-                  &nbsp;Fish
-                </label>
-                <label>
-                  <Field type="checkbox" name="dietary" value="Wheat" />
-                  &nbsp;Wheat
-                </label>
-                <label>
-                  <Field type="checkbox" name="dietary" value="Dairy" />
-                  &nbsp;Dairy
-                </label>
-                <label>
-                  <Field type="checkbox" name="dietary" value="Eggs" />
-                  &nbsp;Eggs
-                </label>
-              </div>
-
-              <label htmlFor="accomodations" className="mt-4">
-                Anything else we can do to better accommodate you at our hackathon?
-              </label>
-              <Field
-                as="textarea"
-                name="accomodations"
-                placeholder="List any accessibility concerns here"
-                className="border-2 border-gray-400 rounded-md p-1"
-              ></Field>
-
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">Sponsor Info</div>
-              <label htmlFor="github" className="mt-4">
-                Github:
-              </label>
-              <Field
-                id="github"
-                name="github"
-                className="border-2 border-gray-400 rounded-md p-1"
-              />
-
-              <label htmlFor="linkedin" className="mt-4">
-                LinkedIn:
-              </label>
-              <Field
-                id="github"
-                name="linkedin"
-                className="border-2 border-gray-400 rounded-md p-1"
-              />
-
-              <label htmlFor="website" className="mt-4">
-                Personal Website:
-              </label>
-              <Field
-                id="github"
-                name="website"
-                className="border-2 border-gray-400 rounded-md p-1"
-              />
-
-              <label htmlFor="companies" className="mt-4">
-                Companies to send my resume to:
-              </label>
-              {/* !change */}
-              <div role="group" aria-labelledby="checkbox-group" className="flex flex-col">
-                <label>
-                  <Field type="checkbox" name="companies" value="State Farm" />
-                  &nbsp;State Farm
-                </label>
-                <label>
-                  <Field type="checkbox" name="companies" value="American Airlines" />
-                  &nbsp;American Airlines
-                </label>
-                <label>
-                  <Field type="checkbox" name="companies" value="Capital One" />
-                  &nbsp;Capital One
-                </label>
-                <label>
-                  <Field type="checkbox" name="companies" value="Ebay" />
-                  &nbsp;Ebay
-                </label>
-                <label>
-                  <Field type="checkbox" name="companies" value="Facebook" />
-                  &nbsp;Facebook
-                </label>
-              </div>
-
-              <label className="mt-4">
-                Upload your resume:
-                <br />
-                <input
-                  onChange={(e) => setResumeFile(e.target.files[0])}
-                  name="resume"
-                  type="file"
-                  formEncType="multipart/form-data"
-                  accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
-                />
-                <br />
-              </label>
-
               {/* Submit */}
               <div className="my-8">
                 <button

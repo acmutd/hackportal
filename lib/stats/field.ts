@@ -2,13 +2,11 @@ export const singleFields = [
   'age',
   'ethnicity',
   'race',
-  'size',
   'softwareExperience',
   'studyLevel',
   'university',
   'gender',
   'hackathonExperience',
-  'heardFrom',
 ];
 
 export const arrayFields = ['scans', 'companies', 'dietary'];

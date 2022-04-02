@@ -9,7 +9,6 @@ type WithId<T> = T & {
  * A flag for the set of functionality that is enabled for an account.
  */
 type UserPermission = 'admin' | 'sponsor' | 'organizer' | 'judge' | 'hacker' | 'super_admin';
-type Companies = 'SF' | 'AA' | 'C1' | 'EB' | 'FB';
 /**
  * Basic information needed for displays on the website.
  *
@@ -97,15 +96,6 @@ type Registration = {
   studyLevel: string;
   hackathonExperience: number;
   softwareExperience: string;
-  heardFrom: string;
-  size: string;
-  dietary: string[];
-  accomodations: string;
-  github?: string;
-  linkedin?: string;
-  website?: string;
-  resume?: string;
-  companies: Companies[];
   //claims: []; //Array of Strings will be used to id any claims (lunch, merch, etc.) made by user
 };
 
