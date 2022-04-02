@@ -18,7 +18,7 @@ import DocLink from './Components/DocLinks';
  * HackerPack: /
  */
 export default function HackerPack() {
-  const { isSignedIn } = useAuthContext();
+  const { isSignedIn, hasProfile } = useAuthContext();
   const user = useUser();
   const role = user.permissions?.length > 0 ? user.permissions[0] : '';
 
