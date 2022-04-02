@@ -1,4 +1,3 @@
-import DashboardHeader from '../../components/DashboardHeader';
 import Header from '../../components/AppHeader';
 import Head from 'next/head';
 import React from 'react';
@@ -31,10 +30,6 @@ export default function HackerPack() {
       </Head>
 
       {/* ghost section to fill in for fixed sidebar */}
-      <section
-        id="ghost"
-        className="flex justify-center h-screen sticky top-0 w-1/4 md:w-1/6 2xl:w-1/8 text-xs md:text-xs lg:text-sm overflow-auto"
-      ></section>
       {/*
       Sidebar 
       <section
@@ -126,8 +121,6 @@ export default function HackerPack() {
 
       {/* Main content section */}
       <section id="mainContent" className="px-6 py-3 w-3/4 md:wd-5/6 2xl:w-7/8 text-white">
-        <DashboardHeader />
-
         <div className="font-bold text-2xl md:text-4xl lg-text-6xl">Resources</div>
 
         {/*
