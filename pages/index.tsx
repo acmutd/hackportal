@@ -170,11 +170,6 @@ export default function Home(props: {
           </div>
           {/* TODO: Programmatically show these based on configured times/organizer preference */}
         </div>
-        <div className="px-4">
-          <h2 className="text-center lg:text-5xl md:text-3xl text-xl text-white">
-            Walk-in registrations begin at 10:15am
-          </h2>
-        </div>
       </section>
       {/* Video Space 
       <section className="z-0 relative md:h-[560px] py-[3rem] bg-white">
