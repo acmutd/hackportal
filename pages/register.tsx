@@ -10,6 +10,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import schools from '../public/schools.json';
 import majors from '../public/majors.json';
 import { hackPortalConfig } from '../hackportal.config';
+import Question from '../components/RegistrationQuestion';
+import DisplayQuestion from '../components/DisplayQuestion';
 
 /**
  * The registration page.
@@ -22,10 +24,11 @@ export default function Register() {
 
   const {
     registrationFields: {
-      checkboxQuestions,
-      numberInputQuestions,
-      textInputQuestions,
-      dropdownQuestions,
+      generalQuestions,
+      schoolQuestions,
+      hackathonExperienceQuestions,
+      eventInfoQuestions,
+      sponsorInfoQuestions,
     },
   } = hackPortalConfig;
 
@@ -259,337 +262,34 @@ export default function Register() {
               className="registrationForm flex flex-col max-w-4xl px-6 w-[56rem] text-lg"
             >
               <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">General</div>
-
-              {textInputQuestions.map((obj) => (
-                <Fragment key={obj.id}>
-                  <label htmlFor={obj.id} className="mt-4">
-                    {obj.required ? '*' : ''}
-                    {obj.question}
-                  </label>
-                  <Field
-                    id={obj.id}
-                    name={obj.name}
-                    className="border-2 border-gray-400 rounded-md p-1"
-                  />
-                  <ErrorMessage
-                    name={obj.name}
-                    render={(msg) => <div className="text-red-600">{msg}</div>}
-                  />
-                </Fragment>
+              {generalQuestions.map((obj, idx) => (
+                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
               ))}
-
-              {numberInputQuestions.map((obj) => (
-                <Fragment key={obj.id}>
-                  <label htmlFor={obj.id} className="mt-4">
-                    {obj.required ? '*' : ''}
-                    {obj.question}
-                  </label>
-                  <input
-                    id={obj.id}
-                    className="border-2 border-gray-400 rounded-md p-1"
-                    name={obj.name}
-                    type="number"
-                    min={obj.min}
-                    max={obj.max}
-                    pattern={obj.pattern}
-                    onChange={handleChange}
-                    value={values[obj.name]}
-                  />
-                  <ErrorMessage
-                    name={obj.name}
-                    render={(msg) => <div className="text-red-600">{msg}</div>}
-                  />
-                </Fragment>
-              ))}
-
-              {dropdownQuestions.map((obj) => (
-                <Fragment key={obj.id}>
-                  <label htmlFor={obj.id} className="mt-4">
-                    {obj.required ? '*' : ''}
-                    {obj.question}
-                  </label>
-                  <Field
-                    as="select"
-                    name={obj.name}
-                    id={obj.id}
-                    className="border-2 border-gray-400 rounded-md p-1 mr-auto"
-                  >
-                    <option value="" disabled selected></option>
-                    {obj.options.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.title}
-                      </option>
-                    ))}
-                  </Field>
-                  <ErrorMessage
-                    name="gender"
-                    render={(msg) => <div className="text-red-600">{msg}</div>}
-                  />
-                </Fragment>
-              ))}
-
-              <label htmlFor="race" className="mt-4">
-                *Race
-              </label>
-              <Field
-                as="select"
-                name="race"
-                className="border-2 border-gray-400 rounded-md p-1 mr-auto"
-              >
-                <option value="" disabled selected></option>
-                <option value="Native American">Native American</option>
-                <option value="Asian">Asian/Pacific Islander</option>
-                <option value="Black">Black or African American</option>
-                <option value="Hispanic">Hispanic</option>
-                <option value="White">White / Caucasian</option>
-                <option value="Other">Multiple / Other</option>
-                <option value="notSay">Prefer not to answer</option>
-              </Field>
-              <ErrorMessage
-                name="race"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
-
-              <label htmlFor="ethnicity" className="mt-4">
-                *Enthicity
-              </label>
-              <Field
-                as="select"
-                name="ethnicity"
-                className="border-2 border-gray-400 rounded-md p-1 mr-auto"
-              >
-                <option value="" disabled selected></option>
-                <option value="hispanic">Hispanic or Latino</option>
-                <option value="notHispanic">Not Hispanic or Latino</option>
-              </Field>
-              <ErrorMessage
-                name="ethnicity"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
 
               <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">School Info</div>
-              <label htmlFor="university" className="mt-4">
-                {' '}
-                {/* !change */}
-                *This event is for college students worldwide. Which university do you attend?
-              </label>
-              <Field
-                type="text"
-                id="university"
-                name="university"
-                list="schools"
-                className="border-2 border-gray-400 rounded-md p-1"
-                autoComplete="off"
-              ></Field>
-              <datalist id="schools">
-                <option value="" disabled selected></option>
-              </datalist>
-              <ErrorMessage
-                name="university"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
-
-              <label htmlFor="major" className="mt-4">
-                *All majors are welcome at this event. What is your major?
-              </label>
-              <Field
-                type="text"
-                id="major"
-                name="major"
-                list="majors"
-                className="border-2 border-gray-400 rounded-md p-1"
-                autoComplete="off"
-              ></Field>
-              <datalist id="majors">
-                <option value="" disabled selected></option>
-              </datalist>
-              <ErrorMessage
-                name="major"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
-
-              <label htmlFor="studyLevel" className="mt-4">
-                *Current level of study
-              </label>
-              <Field
-                as="select"
-                name="studyLevel"
-                className="border-2 border-gray-400 rounded-md p-1 mr-auto"
-              >
-                <option value="" disabled selected></option>
-                <option value="freshman">Freshman</option>
-                <option value="sophomore">Sophomore</option>
-                <option value="junior">Junior</option>
-                <option value="senior">Senior</option>
-                <option value="grad">Graduate Student</option>
-              </Field>
-              <ErrorMessage
-                name="studyLevel"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
+              {schoolQuestions.map((obj, idx) => (
+                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+              ))}
 
               <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">
                 Hackathon Experience
               </div>
-              <label htmlFor="hackathonExperience" className="mt-4">
-                *How many hackathons have you attended before?
-              </label>
-              <input
-                className="border-2 border-gray-400 rounded-md p-1"
-                name="hackathonExperience"
-                type="number"
-                min="0"
-                max="100"
-                onChange={handleChange}
-                value={values.hackathonExperience}
-              />
-              <ErrorMessage
-                name="hackathonExperience"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
-
-              <label htmlFor="softwareExperience" className="mt-4">
-                *Relative software-building experience:
-              </label>
-              <Field
-                as="select"
-                name="softwareExperience"
-                className="border-2 border-gray-400 rounded-md p-1 mr-auto"
-              >
-                <option value="" disabled selected></option>
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
-                <option value="Expert">Expert</option>
-              </Field>
-              <ErrorMessage
-                name="softwareExperience"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
-
-              {/*ORGANIZER CAN CUSTOMIZE DROPDOWN OPTIONS*/}
-              {/* !change */}
-              <label htmlFor="heardFrom" className="mt-4">
-                *Where did you hear about HackPortal?
-              </label>
-              <Field
-                as="select"
-                name="heardFrom"
-                className="border-2 border-gray-400 rounded-md p-1 mr-auto"
-              >
-                <option value="" disabled selected></option>
-                <option value="Instagram">Instagram</option>
-                <option value="Twitter">Twitter</option>
-                <option value="Site">Event Site</option>
-                <option value="Friend">Friend</option>
-              </Field>
-              <ErrorMessage
-                name="heardFrom"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
-
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">Event Info</div>
-              <label htmlFor="size" className="mt-4">
-                *Shirt Size
-              </label>
-              <Field
-                as="select"
-                name="size"
-                className="border-2 border-gray-400 rounded-md p-1 mr-auto"
-              >
-                <option value="" disabled selected></option>
-                <option value="s">S</option>
-                <option value="m">M</option>
-                <option value="l">L</option>
-                <option value="xl">XL</option>
-              </Field>
-              <ErrorMessage
-                name="size"
-                render={(msg) => <div className="text-red-600">{msg}</div>}
-              />
-
-              {checkboxQuestions.map((obj) => (
-                <Fragment key={obj.id}>
-                  <label htmlFor={obj.name} className="mt-4">
-                    {obj.required ? '*' : ''}
-                    {obj.question}
-                  </label>
-                  <div role="group" aria-labelledby="checkbox-group" className="flex flex-col">
-                    {obj.options.map((option) => (
-                      <label key={option.value}>
-                        <Field type="checkbox" name={obj.name} value={option.value} />
-                        &nbsp;{option.title}
-                      </label>
-                    ))}
-                  </div>
-                </Fragment>
+              {hackathonExperienceQuestions.map((obj, idx) => (
+                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
               ))}
 
-              <label htmlFor="accomodations" className="mt-4">
-                Anything else we can do to better accommodate you at our hackathon?
-              </label>
-              <Field
-                as="textarea"
-                name="accomodations"
-                placeholder="List any accessibility concerns here"
-                className="border-2 border-gray-400 rounded-md p-1"
-              ></Field>
+              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">Event Info</div>
+              {eventInfoQuestions.map((obj, idx) => (
+                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+              ))}
 
               <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">Sponsor Info</div>
-              <label htmlFor="github" className="mt-4">
-                Github:
-              </label>
-              <Field
-                id="github"
-                name="github"
-                className="border-2 border-gray-400 rounded-md p-1"
-              />
+              {sponsorInfoQuestions.map((obj, idx) => (
+                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+              ))}
 
-              <label htmlFor="linkedin" className="mt-4">
-                LinkedIn:
-              </label>
-              <Field
-                id="github"
-                name="linkedin"
-                className="border-2 border-gray-400 rounded-md p-1"
-              />
-
-              <label htmlFor="website" className="mt-4">
-                Personal Website:
-              </label>
-              <Field
-                id="github"
-                name="website"
-                className="border-2 border-gray-400 rounded-md p-1"
-              />
-
-              <label htmlFor="companies" className="mt-4">
-                Companies to send my resume to:
-              </label>
-              {/* !change */}
-              <div role="group" aria-labelledby="checkbox-group" className="flex flex-col">
-                <label>
-                  <Field type="checkbox" name="companies" value="State Farm" />
-                  &nbsp;State Farm
-                </label>
-                <label>
-                  <Field type="checkbox" name="companies" value="American Airlines" />
-                  &nbsp;American Airlines
-                </label>
-                <label>
-                  <Field type="checkbox" name="companies" value="Capital One" />
-                  &nbsp;Capital One
-                </label>
-                <label>
-                  <Field type="checkbox" name="companies" value="Ebay" />
-                  &nbsp;Ebay
-                </label>
-                <label>
-                  <Field type="checkbox" name="companies" value="Facebook" />
-                  &nbsp;Facebook
-                </label>
-              </div>
-
+              {/* Resume Upload */}
+              {/* Delete if needed */}
               <label className="mt-4">
                 Upload your resume:
                 <br />
