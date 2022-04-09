@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import AboutHeader from '../../components/AboutHeader';
 import AnsweredQuestion from '../../components/AnsweredQuestion';
 import ErrorList from '../../components/ErrorList';
@@ -16,6 +17,7 @@ import DashboardHeader from '../../components/DashboardHeader';
  * Route: /dashboard/questions
  */
 export default function QuestionsPage() {
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState<string[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState('');
