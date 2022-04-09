@@ -1,26 +1,36 @@
 export const hackPortalConfig: HackPortalConfig = {
+  //registration fields are separated by question topics (general, school, hackathon experience, etc. )
+  //each question topic is separated by question types which hold all the questions of that type
+  //questions are displayed on page in order
+  //add extra questions types(even ones already used) to question topics and add more questions under each question type
   registrationFields: {
     //Question Topic
     generalQuestions: [
       {
         textInputQuestions: [
           {
+            //don't remove; for user account info
             question: 'First Name',
             id: 'firstName',
-            name: 'user.firstName',
+            name: 'firstName',
             required: true,
+            initialValue: '',
           },
           {
+            //don't remove; for user account info
             question: 'Last Name',
             id: 'lastName',
-            name: 'user.lastName',
+            name: 'lastName',
             required: true,
+            initialValue: '',
           },
           {
+            //don't remove; for user account info
             question: 'Email',
             id: 'email',
-            name: 'user.preferredEmail',
+            name: 'preferredEmail',
             required: true,
+            initialValue: '',
           },
         ],
       },
@@ -34,6 +44,7 @@ export const hackPortalConfig: HackPortalConfig = {
             min: '1',
             max: '100',
             pattern: '[0-9]+',
+            initialValue: null,
           },
         ],
       },
@@ -44,6 +55,7 @@ export const hackPortalConfig: HackPortalConfig = {
             required: true,
             id: 'gender',
             name: 'gender',
+            initialValue: '',
             options: [
               {
                 title: 'Female',
@@ -68,6 +80,7 @@ export const hackPortalConfig: HackPortalConfig = {
             required: true,
             id: 'race',
             name: 'race',
+            initialValue: '',
             options: [
               {
                 title: 'Native American',
@@ -104,6 +117,7 @@ export const hackPortalConfig: HackPortalConfig = {
             required: true,
             id: 'ethnicity',
             name: 'ethnicity',
+            initialValue: '',
             options: [
               {
                 title: 'Hispanic or Latino',
@@ -129,6 +143,7 @@ export const hackPortalConfig: HackPortalConfig = {
             name: 'university',
             required: true,
             datalist: 'schools',
+            initialValue: '',
           },
           {
             question: 'All majors are welcome at this event. What is your major?',
@@ -136,6 +151,7 @@ export const hackPortalConfig: HackPortalConfig = {
             name: 'major',
             required: true,
             datalist: 'majors',
+            initialValue: '',
           },
         ],
       },
@@ -146,6 +162,7 @@ export const hackPortalConfig: HackPortalConfig = {
             required: true,
             id: 'studyLevel',
             name: 'studyLevel',
+            initialValue: '',
             options: [
               {
                 title: 'Freshman',
@@ -184,6 +201,7 @@ export const hackPortalConfig: HackPortalConfig = {
             min: '0',
             max: '100',
             pattern: '[0-9]+',
+            initialValue: null,
           },
         ],
       },
@@ -194,6 +212,7 @@ export const hackPortalConfig: HackPortalConfig = {
             required: true,
             id: 'softwareExperience',
             name: 'softwareExperience',
+            initialValue: '',
             options: [
               {
                 title: 'Beginner',
@@ -218,6 +237,7 @@ export const hackPortalConfig: HackPortalConfig = {
             required: true,
             id: 'heardFrom',
             name: 'heardFrom',
+            initialValue: '',
             options: [
               {
                 title: 'Instagram',
@@ -253,6 +273,7 @@ export const hackPortalConfig: HackPortalConfig = {
             required: true,
             id: 'size',
             name: 'size',
+            initialValue: '',
             options: [
               {
                 title: 'S',
@@ -281,6 +302,7 @@ export const hackPortalConfig: HackPortalConfig = {
             required: false,
             id: 'dietary',
             name: 'dietary',
+            initialValue: [],
             options: [
               {
                 title: 'Vegan',
@@ -321,6 +343,7 @@ export const hackPortalConfig: HackPortalConfig = {
             id: 'accomodations',
             name: 'accomodations',
             required: false,
+            initialValue: '',
             placeholder: 'List any accessibility concerns here',
           },
         ],
@@ -335,18 +358,21 @@ export const hackPortalConfig: HackPortalConfig = {
             id: 'github',
             name: 'github',
             required: false,
+            initialValue: '',
           },
           {
             question: 'LinkedIn:',
             id: 'linkedin',
             name: 'linkedin',
             required: false,
+            initialValue: '',
           },
           {
             question: 'Personal Website:',
             id: 'website',
             name: 'website',
             required: false,
+            initialValue: '',
           },
         ],
       },
@@ -357,6 +383,7 @@ export const hackPortalConfig: HackPortalConfig = {
             required: false,
             id: 'companies',
             name: 'companies',
+            initialValue: [],
             options: [
               {
                 title: 'State Farm',
@@ -410,6 +437,7 @@ interface RegistrationQuestion {
   id: string;
   name: string;
   required: boolean;
+  initialValue: any; //value that will be first presented on the form
 }
 
 interface CheckboxQuestion extends RegistrationQuestion {
@@ -439,3 +467,52 @@ interface datalistQuestion extends RegistrationQuestion {
 interface textAreaQuestion extends RegistrationQuestion {
   placeholder: string;
 }
+
+//extracting initial values
+var InitialValues: any = {};
+const getInitialValues = () => {
+  for (let obj of hackPortalConfig.registrationFields.generalQuestions) {
+    setInitialValues(obj);
+  }
+  for (let obj of hackPortalConfig.registrationFields.schoolQuestions) {
+    setInitialValues(obj);
+  }
+  for (let obj of hackPortalConfig.registrationFields.hackathonExperienceQuestions) {
+    setInitialValues(obj);
+  }
+  for (let obj of hackPortalConfig.registrationFields.eventInfoQuestions) {
+    setInitialValues(obj);
+  }
+  for (let obj of hackPortalConfig.registrationFields.sponsorInfoQuestions) {
+    setInitialValues(obj);
+  }
+  return InitialValues;
+};
+const setInitialValues = (obj) => {
+  if (obj.textInputQuestions)
+    for (let inputObj of obj.textInputQuestions) {
+      InitialValues[inputObj.name] = inputObj.initialValue;
+    }
+  if (obj.numberInputQuestions)
+    for (let inputObj of obj.numberInputQuestions) {
+      InitialValues[inputObj.name] = inputObj.initialValue;
+    }
+  if (obj.dropdownQuestions)
+    for (let inputObj of obj.dropdownQuestions) {
+      InitialValues[inputObj.name] = inputObj.initialValue;
+    }
+  if (obj.checkboxQuestions)
+    for (let inputObj of obj.checkboxQuestions) {
+      InitialValues[inputObj.name] = inputObj.initialValue;
+    }
+  if (obj.datalistQuestions)
+    for (let inputObj of obj.datalistQuestions) {
+      InitialValues[inputObj.name] = inputObj.initialValue;
+    }
+  if (obj.textAreaQuestions)
+    for (let inputObj of obj.textAreaQuestions) {
+      InitialValues[inputObj.name] = inputObj.initialValue;
+    }
+};
+
+export const formInitialValues = getInitialValues();

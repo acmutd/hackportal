@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState, useLayoutEffect, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoadIcon from '../components/LoadIcon';
 import { useUser } from '../lib/profile/user-data';
 import { RequestHelper } from '../lib/request-helper';
@@ -9,8 +9,7 @@ import firebase from 'firebase/app';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import schools from '../public/schools.json';
 import majors from '../public/majors.json';
-import { hackPortalConfig } from '../hackportal.config';
-import Question from '../components/RegistrationQuestion';
+import { hackPortalConfig, formInitialValues } from '../hackportal.config';
 import DisplayQuestion from '../components/DisplayQuestion';
 
 /**
@@ -36,7 +35,6 @@ export default function Register() {
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(true);
   const [formValid, setFormValid] = useState(true);
-
   const checkRedirect = async () => {
     if (hasProfile) router.push('/profile');
     else setLoading(false);
@@ -65,6 +63,12 @@ export default function Register() {
         }
       }
     }, 0);
+    //setting user specific initial values
+    formInitialValues['id'] = user?.id || '';
+    formInitialValues['preferredEmail'] = user?.preferredEmail || '';
+    formInitialValues['firstName'] = user?.firstName || '';
+    formInitialValues['lastName'] = user?.lastName || '';
+    formInitialValues['permissions'] = user?.permissions || ['hacker'];
   }, []);
 
   useEffect(() => {
@@ -141,59 +145,26 @@ export default function Register() {
 
       <section className="flex justify-center">
         <Formik
-          initialValues={{
-            id: user?.id || '',
-            user: {
-              id: user?.id || '',
-              preferredEmail: user?.preferredEmail || '',
-              firstName: user?.firstName || '',
-              lastName: user?.lastName || '',
-              permissions: user?.permissions || ['hacker'],
-            },
-            age: null,
-            gender: '',
-            race: '',
-            ethnicity: '',
-            university: '',
-            major: '',
-            studyLevel: '',
-            hackathonExperience: null,
-            softwareExperience: '',
-            heardFrom: '',
-            size: '',
-            dietary: [],
-            accomodations: '',
-            github: '',
-            linkedin: '',
-            website: '',
-            companies: [],
-          }}
+          initialValues={formInitialValues}
           //validation
           //Get condition in which values.[value] is invalid and set error message in errors.[value]. Value is a value from the form(look at initialValues)
           validate={(values) => {
             const errors: any = {};
             // empErrors for nested user object
-            let empErrors: any = {};
             //first name validation
-            if (!values.user.firstName) {
-              empErrors.firstName = 'Required';
-              errors.user = empErrors;
+            if (!values.firstName) {
+              errors.firstName = 'Required';
             }
             //last name validation
-            if (!values.user.lastName) {
-              empErrors.lastName = 'Required';
-              errors.user = empErrors;
+            if (!values.lastName) {
+              errors.lastName = 'Required';
             }
             //email validation
-            if (!values.user.preferredEmail) {
-              empErrors.preferredEmail = 'Required';
-              errors.user = empErrors;
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.user.preferredEmail)
-            ) {
+            if (!values.preferredEmail) {
+              errors.preferredEmail = 'Required';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.preferredEmail)) {
               //regex matches characters before @, characters after @, and 2 or more characters after . (domain)
-              empErrors.preferredEmail = 'Invalid email address';
-              errors.user = empErrors;
+              errors.preferredEmail = 'Invalid email address';
             }
             //age validation
             if (!values.age) {
@@ -248,6 +219,21 @@ export default function Register() {
           }}
           onSubmit={async (values, { setSubmitting }) => {
             await new Promise((r) => setTimeout(r, 500));
+            let finalValues: any = values;
+            //add user object
+            let userValues: any = {};
+            userValues['firstName'] = values.firstName;
+            userValues['lastName'] = values.lastName;
+            userValues['id'] = values.id;
+            userValues['preferredEmail'] = values.preferredEmail;
+            userValues['permissions'] = values.permissions;
+            finalValues['user'] = userValues;
+            //delete unnecessary values
+            delete finalValues.firstName;
+            delete finalValues.lastName;
+            delete finalValues.permissions;
+            delete finalValues.preferredEmail;
+            //submitting
             handleSubmit(values);
             setSubmitting(false);
             // alert(JSON.stringify(values, null, 2)); //Displays form results on submit for testing purposes
@@ -289,7 +275,6 @@ export default function Register() {
               ))}
 
               {/* Resume Upload */}
-              {/* Delete if needed */}
               <label className="mt-4">
                 Upload your resume:
                 <br />
