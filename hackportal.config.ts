@@ -1,8 +1,9 @@
 export const hackPortalConfig: HackPortalConfig = {
   //registration fields are separated by question topics (general, school, hackathon experience, etc. )
-  //each question topic is separated by question types which hold all the questions of that type
-  //questions are displayed on page in order
+  //each question topic is separated by question types(textInput, numberInput, dropdown, etc. )
+  //  which hold all the questions of that type
   //add extra questions types(even ones already used) to question topics and add more questions under each question type
+  //questions are displayed on page in order
   registrationFields: {
     //Question Topic
     generalQuestions: [

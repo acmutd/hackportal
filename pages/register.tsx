@@ -123,6 +123,47 @@ export default function Register() {
     }
   }
 
+  const setErrors = (obj, values, errors) => {
+    if (obj.textInputQuestions)
+      for (let inputObj of obj.textInputQuestions) {
+        if (inputObj.required) {
+          if (!values[inputObj.name]) errors[inputObj.name] = 'Required';
+        }
+      }
+    if (obj.numberInputQuestions)
+      for (let inputObj of obj.numberInputQuestions) {
+        if (inputObj.required) {
+          if (!values[inputObj.name]) errors[inputObj.name] = 'Required';
+        }
+      }
+    if (obj.dropdownQuestions)
+      for (let inputObj of obj.dropdownQuestions) {
+        if (inputObj.required) {
+          if (!values[inputObj.name]) errors[inputObj.name] = 'Required';
+        }
+      }
+    if (obj.checkboxQuestions)
+      for (let inputObj of obj.checkboxQuestions) {
+        if (inputObj.required) {
+          if (!values[inputObj.name]) errors[inputObj.name] = 'Required';
+        }
+      }
+    if (obj.datalistQuestions)
+      for (let inputObj of obj.datalistQuestions) {
+        if (inputObj.required) {
+          if (!values[inputObj.name]) errors[inputObj.name] = 'Required';
+        }
+      }
+    if (obj.textAreaQuestions)
+      for (let inputObj of obj.textAreaQuestions) {
+        if (inputObj.required) {
+          if (!values[inputObj.name]) errors[inputObj.name] = 'Required';
+        }
+      }
+
+    return errors;
+  };
+
   return (
     <div className="flex flex-col flex-grow bg-white">
       <Head>
@@ -149,70 +190,39 @@ export default function Register() {
           //validation
           //Get condition in which values.[value] is invalid and set error message in errors.[value]. Value is a value from the form(look at initialValues)
           validate={(values) => {
-            const errors: any = {};
-            // empErrors for nested user object
-            //first name validation
-            if (!values.firstName) {
-              errors.firstName = 'Required';
+            var errors: any = {};
+            for (let obj of generalQuestions) {
+              errors = setErrors(obj, values, errors);
             }
-            //last name validation
-            if (!values.lastName) {
-              errors.lastName = 'Required';
+            for (let obj of schoolQuestions) {
+              errors = setErrors(obj, values, errors);
             }
-            //email validation
-            if (!values.preferredEmail) {
-              errors.preferredEmail = 'Required';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.preferredEmail)) {
+            for (let obj of hackathonExperienceQuestions) {
+              errors = setErrors(obj, values, errors);
+            }
+            for (let obj of eventInfoQuestions) {
+              errors = setErrors(obj, values, errors);
+            }
+            for (let obj of sponsorInfoQuestions) {
+              errors = setErrors(obj, values, errors);
+            }
+
+            //additional custom error validation
+            if (
+              values.preferredEmail &&
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.preferredEmail)
+            ) {
               //regex matches characters before @, characters after @, and 2 or more characters after . (domain)
               errors.preferredEmail = 'Invalid email address';
             }
-            //age validation
-            if (!values.age) {
-              errors.age = 'Required';
-            } else if (values.age < 1 || values.age > 100) {
+            if ((values.age && values.age < 1) || values.age > 100) {
               errors.age = 'Not a valid age';
             }
-            //gender validation
-            if (!values.gender) {
-              errors.gender = 'Required';
-            }
-            //race validation
-            if (!values.race) {
-              errors.race = 'Required';
-            }
-            //ethnicity validation
-            if (!values.ethnicity) {
-              errors.ethnicity = 'Required';
-            }
-            //university validation
-            if (!values.university) {
-              errors.university = 'Required';
-            }
-            //major validation
-            if (!values.major) {
-              errors.major = 'Required';
-            }
-            //studyLevel validation
-            if (!values.studyLevel) {
-              errors.studyLevel = 'Required';
-            }
-            //hackathonExperience validation
-            if (!values.hackathonExperience && values.hackathonExperience !== 0) {
-              errors.hackathonExperience = 'Required';
-            } else if (values.hackathonExperience < 0 || values.hackathonExperience > 100) {
+            if (
+              (values.hackathonExperience && values.hackathonExperience < 0) ||
+              values.hackathonExperience > 100
+            ) {
               errors.hackathonExperience = 'Not a valid number';
-            }
-            //softwareExperience validation
-            if (!values.softwareExperience) {
-              errors.softwareExperience = 'Required';
-            }
-            //heardFrom validation
-            if (!values.heardFrom) {
-              errors.heardFrom = 'Required';
-            }
-            //size validation
-            if (!values.size) {
-              errors.size = 'Required';
             }
 
             return errors;
