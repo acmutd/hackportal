@@ -38,6 +38,7 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         numberInputQuestions: [
           {
+            //Age question
             question: 'Age',
             required: true,
             id: 'age',
@@ -52,6 +53,7 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         dropdownQuestions: [
           {
+            //Gender question
             question: 'Gender',
             required: true,
             id: 'gender',
@@ -77,6 +79,7 @@ export const hackPortalConfig: HackPortalConfig = {
             ],
           },
           {
+            //Race question
             question: 'Race',
             required: true,
             id: 'race',
@@ -114,6 +117,7 @@ export const hackPortalConfig: HackPortalConfig = {
             ],
           },
           {
+            //Ethnicity question
             question: 'Ethnicity',
             required: true,
             id: 'ethnicity',
@@ -138,6 +142,7 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         datalistQuestions: [
           {
+            //University question
             question:
               'This event is for college students worldwide. Which university do you attend?',
             id: 'university',
@@ -147,6 +152,7 @@ export const hackPortalConfig: HackPortalConfig = {
             initialValue: '',
           },
           {
+            //Major question
             question: 'All majors are welcome at this event. What is your major?',
             id: 'major',
             name: 'major',
@@ -159,6 +165,7 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         dropdownQuestions: [
           {
+            //Grade question
             question: 'Current level of study',
             required: true,
             id: 'studyLevel',
@@ -195,6 +202,7 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         numberInputQuestions: [
           {
+            //Hackathons attended question
             question: 'How many hackathons have you attended before?',
             required: true,
             id: 'hackathonExperience',
@@ -209,6 +217,7 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         dropdownQuestions: [
           {
+            //Experience question
             question: 'Relative software-building experience:',
             required: true,
             id: 'softwareExperience',
@@ -234,6 +243,7 @@ export const hackPortalConfig: HackPortalConfig = {
             ],
           },
           {
+            //Heard from question
             question: 'Where did you hear about HackPortal?',
             required: true,
             id: 'heardFrom',
@@ -270,6 +280,7 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         dropdownQuestions: [
           {
+            //Shirt size question
             question: 'Shirt Size',
             required: true,
             id: 'size',
@@ -299,6 +310,7 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         checkboxQuestions: [
           {
+            //Allergies question
             question: 'Allergies / Dietary Restrictions:',
             required: false,
             id: 'dietary',
@@ -340,6 +352,7 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         textAreaQuestions: [
           {
+            //Accomodations question
             question: 'Anything else we can do to better accommodate you at our hackathon?',
             id: 'accomodations',
             name: 'accomodations',
@@ -355,6 +368,7 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         textInputQuestions: [
           {
+            //Github question
             question: 'Github:',
             id: 'github',
             name: 'github',
@@ -362,6 +376,7 @@ export const hackPortalConfig: HackPortalConfig = {
             initialValue: '',
           },
           {
+            //LinkedIn question
             question: 'LinkedIn:',
             id: 'linkedin',
             name: 'linkedin',
@@ -369,6 +384,7 @@ export const hackPortalConfig: HackPortalConfig = {
             initialValue: '',
           },
           {
+            //Website question
             question: 'Personal Website:',
             id: 'website',
             name: 'website',
@@ -380,6 +396,7 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         checkboxQuestions: [
           {
+            //Companies question
             question: 'Companies to send my resume to:',
             required: false,
             id: 'companies',

@@ -37,6 +37,12 @@ export default function Home(props: {
   const [challengeIdx, setChallengeIdx] = useState(0);
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [sponsor, setSponsor] = useState<Sponsor[]>([]);
+  const [challengeData, setChallengeData] = useState({
+    title: '',
+    organization: '',
+    description: '',
+    prizes: [],
+  });
 
   const colorSchemes: ColorScheme[] = [
     {
@@ -59,8 +65,19 @@ export default function Home(props: {
     setSpeakers(props.keynoteSpeakers);
 
     //Organize challenges in order by rank given in firebase
-    setChallenges(props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
+    const sortedChallenges = props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1));
+    setChallenges(sortedChallenges);
+    setChallengeData({
+      title: sortedChallenges[0].title,
+      organization: sortedChallenges[0].organization,
+      description: sortedChallenges[0].description,
+      prizes: sortedChallenges[0].prizes,
+    });
     setSponsor(props.sponsorCard);
+
+    //Organize members in order by rank given in firebase
+    setMembers(props.fetchedMembers.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -70,15 +87,8 @@ export default function Home(props: {
       (
         document.getElementById(`org${challengeIdx}`).firstElementChild as HTMLElement
       ).style.display = 'block';
-      document.getElementById(`card${challengeIdx}`).style.display = 'block';
     }
   });
-
-  useEffect(() => {
-    //Organize members in order by rank given in firebase
-    setMembers(props.fetchedMembers.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
-    setLoading(false);
-  }, []);
 
   // Fade out notification prompt
   const fadeOutEffect = () => {
@@ -112,19 +122,21 @@ export default function Home(props: {
     return false;
   };
 
-  const changeOrg = (newIdx) => {
-    //make old org selected hidden
+  const changeOrg = (challenge, newIdx) => {
     document.getElementById(`org${challengeIdx}`).style.textDecoration = 'none';
     (document.getElementById(`org${challengeIdx}`).firstElementChild as HTMLElement).style.display =
       'none';
-    document.getElementById(`card${challengeIdx}`).style.display = 'none';
-    //make new org selected show
     document.getElementById(`org${newIdx}`).style.textDecoration = 'underline';
     (document.getElementById(`org${newIdx}`).firstElementChild as HTMLElement).style.display =
       'block';
-    document.getElementById(`card${newIdx}`).style.display = 'block';
 
     setChallengeIdx(newIdx);
+    setChallengeData({
+      title: challenge.title,
+      organization: challenge.organization,
+      description: challenge.description,
+      prizes: challenge.prizes,
+    });
   };
 
   if (loading) {
@@ -280,32 +292,28 @@ export default function Home(props: {
         <div className="flex">
           {/* Challenge Orgs Selectors*/}
           <div className="md:w-1/4 w-1/5">
-            {challenges.map(({ organization }, idx) => (
+            {challenges.map((challenge, idx) => (
               <div
                 id={`org${idx}`}
                 className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
                 key={idx}
-                onClick={() => changeOrg(idx)}
+                onClick={() => changeOrg(challenge, idx)}
               >
                 {/* change arrow color in global css to match parent selector */}
                 <div className="arrow-right absolute top-1/2 right-0 -translate-y-1/2 translate-x-full hidden"></div>
-                {organization}
+                {challenge.organization}
               </div>
             ))}
           </div>
           {/* Challenges Description Cards */}
           <div className="md:w-3/4 w-4/5 my-4 pl-6 min-h-full">
             {/* Card */}
-            {challenges.map(({ title, organization, description, prizes }, idx) => (
-              <HomeChallengeCard
-                key={idx}
-                title={title}
-                organization={organization}
-                description={description}
-                prizes={prizes}
-                idx={idx}
-              />
-            ))}
+            <HomeChallengeCard
+              title={challengeData.title}
+              organization={challengeData.organization}
+              description={challengeData.description}
+              prizes={challengeData.prizes}
+            />
           </div>
         </div>
       </section>

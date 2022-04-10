@@ -231,12 +231,13 @@ export default function Register() {
             await new Promise((r) => setTimeout(r, 500));
             let finalValues: any = values;
             //add user object
-            let userValues: any = {};
-            userValues['firstName'] = values.firstName;
-            userValues['lastName'] = values.lastName;
-            userValues['id'] = values.id;
-            userValues['preferredEmail'] = values.preferredEmail;
-            userValues['permissions'] = values.permissions;
+            const userValues: any = {
+              id: values.id,
+              firstName: values.firstName,
+              lastName: values.lastName,
+              preferredEmail: values.preferredEmail,
+              permissions: values.permissions,
+            };
             finalValues['user'] = userValues;
             //delete unnecessary values
             delete finalValues.firstName;
