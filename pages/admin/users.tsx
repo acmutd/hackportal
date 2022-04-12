@@ -9,6 +9,8 @@ import { UserData } from '../api/users';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import UserAdminView from '../../components/UserAdminView';
 import { isAuthorized } from '.';
+import { CSVLink } from 'react-csv';
+import { csvHeaders } from '../../lib/csv/fields';
 
 /**
  *
@@ -188,6 +190,16 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
                   Alphabetically
                 </h4>
                 <h4 className="text-md text-center underline cursor-pointer">User Level</h4>
+              </div>
+              <div className="my-4">
+                <CSVLink
+                  className="bg-blue-400 sm:py-1 md:py-2 md:px-1 2xl:p-3 rounded-lg text-white"
+                  filename="hackportal-users.csv"
+                  data={users}
+                  headers={csvHeaders}
+                >
+                  Export to CSV
+                </CSVLink>
               </div>
             </div>
             <div className="w-full px-8">
