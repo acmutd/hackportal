@@ -17,17 +17,17 @@ function Sidebar() {
       <section
         id="Sidebar"
         className="hidden md:flex flex-col content-center justify-center items-center h-screen fixed top-16 lg:w-1/8 md:w-1/7 w-1/6 border-r-2 border-gray-600 text-xs lg:text-sm text-center"
-        style={{
-          backgroundImage: "url('assets/background.png')",
-          minHeight: 500,
-          backgroundSize: 'cover',
-        }}
+        // style={{
+        //   backgroundImage: "url('assets/background.png')",
+        //   minHeight: 500,
+        //   backgroundSize: 'cover',
+        // }}
       >
         <div>
           Welcome,{' '}
           {!user || !isSignedIn ? 'hacker' : user.firstName !== '' ? user.firstName : 'hacker'}
         </div>
-        <div className="text-indigo-500">{role}</div>
+        <div className="text-violet-750">{role}</div>
       </section>
     </>
   );

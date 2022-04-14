@@ -49,7 +49,7 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
   return (
     <div
       className="flex flex-col flex-grow "
-      style={{ backgroundImage: "url('assets/background.png')" }}
+      // style={{ backgroundImage: "url('assets/background.png')" }}
     >
       <Head>
         <title>HackPortal - About</title>
@@ -58,20 +58,20 @@ export default function AboutPage({ fetchedMembers }: { fetchedMembers: TeamMemb
       <AboutHeader active="/about" />
       <div className="top-6 p-4 flex flex-col gap-y-3 pl-20">
         <h4 className="font-bold text-3xl text-violet-750">About this hackathon</h4>
-        <p>
+        <p className="text-black">
           Here will be a short paragraph providing a general overview of what then hackathon is.
           This can be dates, events, contests, and prizes.
         </p>
-        <p>
+        <p className="text-black">
           This paragraph can be about the size and reach of the hackathon. Can include the number of
           participants every year and the total worth of prizes.
         </p>
-        <p>Any additional information can be provided in this paragraph.</p>
+        <p className="text-black">Any additional information can be provided in this paragraph.</p>
       </div>
 
       <div className="my-2">
         <h4 className="font-bold text-3xl pl-20 pt-10 text-violet-750"> Meet Our Team :)</h4>
-        <div className="flex flex-wrap justify-center md:px-2">
+        <div className="flex flex-wrap justify-center md:px-2 text-black">
           {members.map(({ name, description, linkedin, github, personalSite, fileName }, idx) => (
             <MemberCards
               key={idx}

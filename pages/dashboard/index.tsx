@@ -85,11 +85,13 @@ export default function Dashboard(props: {
     <>
       <div
         className="flex flex-wrap flex-grow"
-        style={{
-          backgroundImage: "url('assets/background.png')",
-          minHeight: 500,
-          backgroundSize: 'cover',
-        }}
+        style={
+          {
+            // backgroundImage: "url('assets/background.png')",
+            // minHeight: 500,
+            // backgroundSize: 'cover',
+          }
+        }
       >
         <Head>
           <title>HackPortal - Dashboard</title>

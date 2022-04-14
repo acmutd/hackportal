@@ -58,11 +58,11 @@ export default function AppHeader() {
   return (
     <>
       <div className="min-h-[4rem]"></div>
-      <header className="top-0 fixed justify-between flex flex-row w-full bg-black items-center h-16 z-10 p-4">
+      <header className="top-0 fixed justify-between flex flex-row w-full bg-white items-center h-16 z-10 p-4">
         <div className="flex w-6/12 max-w-[156px] justify-between items-center md:max-w-full md:justify-start md:w-9/12">
           <Link href="/">
             <a className="flex order-2 relative ml-[-6px] font-display self-center items-center w-[112px] md:order-1 md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400">
-              <span className="text-[16px] font-black md:z-0 md:text-2xl">Hack</span>
+              <span className="text-[16px] font-black md:z-0 md:text-2xl text-black">Hack</span>
               <span className="text-[16px] font-black md:z-0 md:text-2xl text-violet-750">AI</span>
             </a>
           </Link>
@@ -88,7 +88,7 @@ export default function AppHeader() {
             {navItems.map((item) => (
               <Link key={item.text} href={item.path}>
                 <a>
-                  <p className="md:mx-4 text-sm font-bold hover:bg-violet-750 p-1 hover:text-black hover:rounded-md">
+                  <p className="md:mx-4 text-sm font-bold text-black hover:bg-violet-750 p-1 hover:text-white hover:rounded-md">
                     {item.text}
                   </p>
                 </a>
@@ -97,9 +97,9 @@ export default function AppHeader() {
           </div>
         </div>
         <div className="flex lg:mr-8">
-          {/*mt-6 rounded-full py-2 px-8 text-lg bg-capri text-black hover:bg-blue-400 hover:text-black text-ocean font-medium */}
+          {/*mt-6 rounded-full py-2 px-8 text-lg bg-capri text-black hover:bg-blue-400 hover:text-white text-ocean font-medium */}
           <button
-            className="font-header font-bold bg-violet-750 rounded-full border-black hover:bg-violet-850 hover:text-black text-sm px-8 py-2"
+            className="font-header font-bold bg-violet-750 rounded-full border-black hover:bg-violet-850 hover:text-white text-black text-sm px-8 py-2"
             onClick={toggleDialog}
           >
             {!user || !isSignedIn ? 'Sign in' : 'Profile'}

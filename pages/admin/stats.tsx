@@ -50,7 +50,7 @@ export default function AdminStatsPage() {
     <div
       className="flex flex-col flex-grow"
       style={{
-        backgroundImage: "url('../assets/background.png')",
+        // backgroundImage: "url('../assets/background.png')",
         minHeight: 500,
         backgroundSize: 'cover',
       }}
@@ -60,7 +60,7 @@ export default function AdminStatsPage() {
         <meta name="description" content="HackPortal's Admin Page" />
       </Head>
       <AdminHeader />
-      <div className="p-6 flex flex-col gap-y-6">
+      <div className="p-6 flex flex-col gap-y-6 text-black">
         <div className="w-full flex justify-around gap-x-2">
           <AdminStatsCard title="check-ins" value={statsData.checkedInCount} />
           <AdminStatsCard title="hackers" value={statsData.hackerCount} />

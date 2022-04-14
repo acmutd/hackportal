@@ -68,7 +68,7 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
     <div
       className="flex flex-col flex-grow"
       style={{
-        backgroundImage: "url('assets/background.png')",
+        // backgroundImage: "url('assets/background.png')",
         minHeight: 500,
         backgroundSize: 'cover',
       }}

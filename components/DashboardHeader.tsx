@@ -12,7 +12,7 @@ export default function DashboardHeader() {
   return (
     <>
       <header className="flex justify-center py-2 md:p-4 items-center">
-        <div className="mx-auto flex flex-wrap justify-center lg:text-xl sm:text-md text-xs font-header text-center">
+        <div className="mx-auto flex flex-wrap justify-center lg:text-xl sm:text-md text-xs font-header text-center text-black">
           <NavLink href="/dashboard" exact={true} className="mx-4">
             HackCenter
           </NavLink>

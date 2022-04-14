@@ -19,7 +19,7 @@ export default function Sponsors(props: { sponsorCard: Sponsor[] }) {
   return (
     <div
       className="flex flex-col flex-grow"
-      style={{ backgroundImage: "url('assets/background.png')" }}
+      // style={{ backgroundImage: "url('assets/background.png')" }}
     >
       <Head>
         <title>HackPortal - Sponsors</title>

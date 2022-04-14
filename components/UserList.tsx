@@ -13,7 +13,7 @@ export default function UserList({ users, onItemClick, hasSuperAdminPrivilege }:
         <div
           key={idx}
           className={`w-1/4 text-center flex flex-row items-center gap-x-4 my-2 p-2 rounded-lg ${
-            hasSuperAdminPrivilege ? 'cursor-pointer hover:bg-gray-200' : ''
+            hasSuperAdminPrivilege ? 'cursor-pointer hover:bg-violet-850 hover:text-white' : ''
           }`}
           onClick={() => {
             if (hasSuperAdminPrivilege) onItemClick(user.id);

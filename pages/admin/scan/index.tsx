@@ -222,7 +222,7 @@ export default function Admin() {
     <div
       className="relative flex flex-col flex-grow "
       style={{
-        backgroundImage: "url('../assets/background.png')",
+        // backgroundImage: "url('../assets/background.png')",
         minHeight: 500,
         backgroundSize: 'cover',
       }}
@@ -286,7 +286,7 @@ export default function Admin() {
       {showNewScanForm ? (
         <div className="px-6 py-4">
           <button
-            className="p-3 rounded-lg border-2 hover:bg-gray-200"
+            className="p-3 rounded-lg border-2 bg-violet-750 hover:bg-violet-850 hover:text-white text-black"
             onClick={() => {
               setShowNewScanForm(false);
             }}
@@ -326,7 +326,7 @@ export default function Admin() {
           </div>
           <div className="flex justify-around">
             <button
-              className="mx-auto bg-green-300 p-3 rounded-lg font-bold hover:bg-green-200"
+              className="mx-auto bg-violet-750 p-3 rounded-lg font-bold hover:bg-violet-850 hover:text-white text-black"
               onClick={async () => {
                 await createNewScan();
               }}
@@ -338,7 +338,7 @@ export default function Admin() {
       ) : (
         <>
           <div className="flex flex-col justify-center top-6">
-            <div className="text-2xl font-black text-center">Scan Types</div>
+            <div className="text-2xl font-black text-center text-black">Scan Types</div>
             <div className="flex flex-row flex-wrap justify-center top-6">
               {scansFetched ? (
                 scanTypes.map((d, idx) => (
@@ -508,7 +508,7 @@ export default function Admin() {
             {!currentScan && !editScan && !showDeleteScanDialog && !startScan && (
               <div className="mx-auto my-5">
                 <button
-                  className="font-header font-bold bg-capri rounded-full border-black hover:bg-blue-400 hover:text-black text-sm px-8 py-2"
+                  className="font-header font-bold bg-violet-750 rounded-full border-black hover:bg-violet-850 hover:text-white text-black text-sm px-8 py-2"
                   onClick={() => {
                     setShowNewScanForm(true);
                   }}

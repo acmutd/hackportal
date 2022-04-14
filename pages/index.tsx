@@ -129,7 +129,7 @@ export default function Home(props: {
       <section
         className="p-4"
         style={{
-          backgroundImage: "url('assets/background.png')",
+          // backgroundImage: "url('assets/background.png')",
           minHeight: 500,
           backgroundSize: 'cover',
         }}
@@ -147,7 +147,7 @@ export default function Home(props: {
             <Image src="/assets/hackaibrain2.png" alt="hackaibrain" height="100" width="100" />
             {/* <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackAI</h1> */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-bold">
-              <span className="text-slate-250 bg-clip-text">Hack</span>
+              <span className="text-black bg-clip-text">Hack</span>
               <span className="text-violet-750 bg-clip-text">AI</span>
             </h1>
             <h3 className="text-violet-450 py-1 text-lg sm:text-xl md:text-xl lg:text-xl xl:text-2xl font-medium">
@@ -165,7 +165,7 @@ export default function Home(props: {
                 <button
                   key={button.text}
                   onClick={() => window.open(button.path)}
-                  className="font-header font-bold bg-violet-750 rounded-full border-black text-sm px-8 py-3 hover:bg-violet-850 hover:text-black"
+                  className="font-header font-bold bg-violet-750 rounded-full border-black text-sm text-black px-8 py-3 hover:bg-violet-850 hover:text-white"
                 >
                   {button.text}
                 </button>
@@ -177,8 +177,8 @@ export default function Home(props: {
       </section>
       {/* Video Space */}
       <section
-        className="z-0 relative md:h-[560px] py-[3rem]"
-        style={{ backgroundImage: "url('assets/background.png')" }}
+        className="z-0 relative md:h-[560px] py-[3rem] bg-slate-350"
+        // style={{ backgroundImage: "url('assets/background.png')" }}
       >
         <div className="flex flex-col justify-center items-center md:flex-row">
           {/* Video */}
@@ -201,7 +201,7 @@ export default function Home(props: {
                 } text-center md:my-6 my-4`}
               >
                 <p className="font-bold text-2xl text-violet-750 lg:text-5xl">{stat.data}</p>
-                <p className="font-medium text-lg lg:text-3xl">{stat.object}</p>
+                <p className="font-medium text-lg text-black lg:text-3xl">{stat.object}</p>
               </div>
             ))}
           </div>
@@ -246,11 +246,11 @@ export default function Home(props: {
         </div>
       </section> */}
       {/* About*/}
-      <section className="z-0 relative md:h-[560px] py-[3rem]">
+      <section className="z-0 relative md:h-[560px] py-[3rem] bg-slate-350">
         <h2 className="text-left pl-20 font-medium text-5xl bold mb-4 text-violet-750">
           What is HackAI?
         </h2>
-        <p className="text-lg text-justify px-20">
+        <p className="text-lg text-black text-justify px-20">
           HackAI is a student-run annual hackathon organized by the Artificial Intelligence Society
           at The University of Texas of Dallas, aiming to connect today&apos;s students with the
           knowledge and resources needed to build Artificial Intelligence (AI) related projects in
@@ -270,7 +270,7 @@ export default function Home(props: {
             {challenges.map(({ organization }, idx) => (
               <div
                 id={`org${idx}`}
-                className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
+                className={`${idx} relative cursor-pointer text-center text-black md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
                 key={idx}
                 onClick={() => changeOrg(idx)}
               >

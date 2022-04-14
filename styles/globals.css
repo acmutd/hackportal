@@ -8,9 +8,10 @@ body {
   padding: 0;
   margin: 0;
   font-family: sans-serif;
-  background-image: url('../public/assets/background.png');
+  /* background-image: url('../public/assets/background.png'); */
   height: 100%;
 
+  background-color: #F4F4F4;
   background-position: center;
   /* background-repeat: no-repeat; */
   background-size: cover; 
