@@ -5,4 +5,5 @@ export const csvHeaders = [
   { label: 'University', key: 'university' },
   { label: 'Major', key: 'major' },
   { label: 'Study Level', key: 'studyLevel' },
+  { label: 'Scan', key: 'scans' },
 ];
