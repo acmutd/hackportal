@@ -58,7 +58,7 @@ export default function AppHeader() {
   return (
     <>
       <div className="min-h-[4rem]"></div>
-      <header className="top-0 fixed justify-between flex flex-row w-full bg-indigo-100 items-center h-16 z-10 p-4">
+      <header className="top-0 fixed justify-between flex flex-row w-full bg-Honeydew items-center h-16 z-10 p-4">
         <div className="flex w-6/12 max-w-[156px] justify-between items-center md:max-w-full md:justify-start md:w-9/12">
           <Link href="/">
             <a className="flex order-2 relative ml-[-6px] font-display self-center items-center w-[112px] md:order-1 md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400">
@@ -95,7 +95,7 @@ export default function AppHeader() {
         </div>
         <div className="flex lg:mr-8">
           <button
-            className="font-header font-bold bg-white rounded-full border-2 border-black text-sm px-8 py-1"
+            className="font-header font-bold bg-Powderblue rounded-full border-2 border-black text-sm px-8 py-1"
             onClick={toggleDialog}
           >
             {!user || !isSignedIn ? 'Sign in' : 'Profile'}

@@ -28,16 +28,16 @@ export default function Home(props: {
 
   const colorSchemes: ColorScheme[] = [
     {
-      light: '#F2F3FF',
-      dark: '#C1C8FF',
+      light: '#C0EB33',
+      dark: '#A8DADC',
     },
     {
-      light: '#D8F8FF',
-      dark: '#B0F1FF',
+      light: '#C0EB33',
+      dark: '#A8DADC',
     },
     {
-      dark: '#FCD7FF',
-      light: '#FDECFF',
+      dark: '#A8DADC',
+      light: '#A8DADC',
     },
   ];
 
@@ -125,7 +125,7 @@ export default function Home(props: {
         </div>
       )}
       {/* Hero section */}
-      <section className="min-h-screen p-4 bg-indigo-100">
+      <section className="min-h-screen p-4 bg-Powderblue">
         <div
           style={{ minHeight: 480 }}
           className="max-w-4xl mx-auto flex flex-col justify-center items-center"
@@ -134,9 +134,11 @@ export default function Home(props: {
             className="min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative md:mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-16 before:bg-transparent before:border-b-4 before:border-l-4 before:border-black
           after:block after:absolute after:top-0 after:right-0 after:w-16 after:h-16 after:bg-transparent after:border-t-4 after:border-r-4 after:border-black"
           >
-            <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackPortal</h1>
+            <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">
+              Comet Hack Portal
+            </h1>
             <p className="text-center my-4 md:font-bold md:text-3xl text-xl">
-              A Project by ACM Engineering and HackUTD
+              A Project by Comet Hack & IEEE
             </p>
           </div>
           {/* TODO: Programmatically show these based on configured times/organizer preference */}
@@ -146,7 +148,7 @@ export default function Home(props: {
             <button
               key={button.text}
               onClick={() => router.push(button.path)}
-              className="max-w-[12rem] w-[12rem] md:max-w-full bg-indigo-300 py-4"
+              className="max-w-[12rem] w-[12rem] md:max-w-full bg-Honeydew rounded-full py-4"
             >
               {button.text}
             </button>
@@ -154,7 +156,7 @@ export default function Home(props: {
         </div>
       </section>
       {/* Video Space */}
-      <section className="z-0 relative md:h-[560px] py-[3rem] bg-white">
+      <section className="z-0 relative md:h-[560px] py-[3rem] bg-Powderblue">
         <div className="flex flex-col justify-center items-center md:flex-row">
           {/* Video */}
           <iframe
@@ -184,7 +186,7 @@ export default function Home(props: {
         </div>
       </section>
       {/* Featuring Keynotes speakers */}
-      <section className="flex overflow-x-scroll bg-gray-200 min-h-[24rem]">
+      <section className="flex overflow-x-scroll bg-Powderblue min-h-[24rem]">
         <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold">
           Featuring Keynote Speakers
         </div>
@@ -222,7 +224,7 @@ export default function Home(props: {
         </div>
       </section>
       {/* Challenges */}
-      <section className="p-6 border-2">
+      <section className="p-6 bg-Celadonblue border-2">
         <div className="font-bold text-2xl">Challenges</div>
         <div className="flex">
           {/* Challenge Orgs Selectors*/}
