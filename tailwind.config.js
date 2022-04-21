@@ -38,6 +38,9 @@ module.exports = {
         aqua: '#D8F8FF',
         darkAqua: '#B0F1FF',
       }),
+      backgroundImage: {
+        'hero-pattern': `url(${process.env.NEXT_PUBLIC_IMAGE})`,
+      },
     },
   },
   variants: {
