@@ -66,13 +66,21 @@ export default function Home(props: {
 
     //Organize challenges in order by rank given in firebase
     const sortedChallenges = props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1));
-    setChallenges(sortedChallenges);
-    setChallengeData({
-      title: sortedChallenges[0].title,
-      organization: sortedChallenges[0].organization,
-      description: sortedChallenges[0].description,
-      prizes: sortedChallenges[0].prizes,
-    });
+    if (sortedChallenges.length == 0) {
+      setChallengeData({
+        title: 'Dummy Title',
+        organization: 'Dummy Organization',
+        description: 'Dummy Description',
+        prizes: [0],
+      });
+    } else {
+      setChallengeData({
+        title: sortedChallenges[0].title,
+        organization: sortedChallenges[0].organization,
+        description: sortedChallenges[0].description,
+        prizes: sortedChallenges[0].prizes,
+      });
+    }
     setSponsor(props.sponsorCard);
 
     //Organize members in order by rank given in firebase
