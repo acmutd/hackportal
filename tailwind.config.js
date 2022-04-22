@@ -39,7 +39,7 @@ module.exports = {
         darkAqua: '#B0F1FF',
       }),
       backgroundImage: {
-        'hero-pattern': `url(${process.env.NEXT_PUBLIC_IMAGE})`,
+        'hero-pattern': `url(${'/assets/bg2.jpeg'})`, // !change
       },
     },
   },
