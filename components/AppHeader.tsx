@@ -77,8 +77,8 @@ export default function AppHeader() {
         <div className="flex justify-between items-center md:max-w-full md:justify-start md:w-9/12">
           <Link href="/">
             <a className="flex gap-2 order-2 relative ml-[-6px] font-display self-center items-center md:order-1 md:ml-0">
+              <Image src={'/assets/hp-logo.png'} width="30px" height="30px" />
               <span className="text-[16px] font-black md:z-0 md:text-2xl">HackPortal</span>
-              <Image src={process.env.NEXT_PUBLIC_LOGO} width="20px" height="20px" />
             </a>
           </Link>
           {/* Smartphone nav */}
