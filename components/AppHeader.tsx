@@ -7,6 +7,7 @@ import { useUser } from '../lib/profile/user-data';
 import { useAuthContext } from '../lib/user/AuthContext';
 import { navItems } from '../lib/data';
 import firebase from 'firebase/app';
+import Image from 'next/image';
 
 /**
  * A global site header throughout the entire app.
@@ -73,10 +74,11 @@ export default function AppHeader() {
     <>
       <div className="min-h-[4rem]"></div>
       <header className="top-0 fixed justify-between flex flex-row w-full bg-indigo-100 items-center h-16 z-10 p-4">
-        <div className="flex w-6/12 max-w-[156px] justify-between items-center md:max-w-full md:justify-start md:w-9/12">
+        <div className="flex justify-between items-center md:max-w-full md:justify-start md:w-9/12">
           <Link href="/">
-            <a className="flex order-2 relative ml-[-6px] font-display self-center items-center w-[112px] md:order-1 md:ml-0 md:w-[176px] after:absolute after:block after:right-0 after:w-4 after:h-4 md:after:w-6 md:after:h-6 after:rounded-full after:bg-gray-400">
-              <span className="text-[16px] font-black md:z-0 md:text-2xl md:mr-10">HackPortal</span>
+            <a className="flex gap-2 order-2 relative ml-[-6px] font-display self-center items-center md:order-1 md:ml-0">
+              <span className="text-[16px] font-black md:z-0 md:text-2xl">HackPortal</span>
+              <Image src={process.env.NEXT_PUBLIC_LOGO} width="20px" height="20px" />
             </a>
           </Link>
           {/* Smartphone nav */}
