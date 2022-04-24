@@ -66,6 +66,7 @@ export default function Home(props: {
 
     //Organize challenges in order by rank given in firebase
     const sortedChallenges = props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1));
+    setChallenges(sortedChallenges);
     if (sortedChallenges.length == 0) {
       setChallengeData({
         title: 'Dummy Title',
