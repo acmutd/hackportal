@@ -18,7 +18,7 @@
 - Admin console to send announcement, update user roles, show number of check-ins, swag claims
 - And more!
 
-## Set up
+## Setting up HackPortal for your hackathon
 _If you are using HackPortal for your event, please add yourself to this [list](https://github.com/acmutd/hackportal/wiki/HackPortal-Users). It only takes a moment and shows us our software is helping real organizations._ 
 
 Follow the instructions in the [set-up docs](./docs/set-up.md) to set up HackPortal for your hackathon.
@@ -28,7 +28,7 @@ Want to contribute? Follow the instructions in the [contributor docs](./docs/con
 
 
 ## HackPortal Contributors
-
+HackPortal would not be possible without these people. 
 <a href="https://github.com/acmutd/hackportal/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=acmutd/hackportal" />
 </a>
