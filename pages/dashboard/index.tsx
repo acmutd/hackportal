@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import DashboardHeader from '../../components/DashboardHeader';
 import { useUser } from '../../lib/profile/user-data';
 import { useAuthContext } from '../../lib/user/AuthContext';
@@ -33,7 +34,7 @@ export default function Dashboard(props: {
   scheduleEvents: ScheduleEvent[];
   challenges: Challenge[];
 }) {
-  const { isSignedIn } = useAuthContext();
+  const { isSignedIn, hasProfile } = useAuthContext();
   const user = useUser();
   const role = user.permissions?.length > 0 ? user.permissions[0] : '';
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
@@ -81,11 +82,16 @@ export default function Dashboard(props: {
     eventCountString = `There are ${eventCount} events are happening right now!`;
   }
 
+  if (!isSignedIn)
+    return (
+      <div className="text-2xl font-black text-center">Please sign-in to view your dashboard</div>
+    );
+
   return (
     <>
       <div className="flex flex-wrap flex-grow">
         <Head>
-          <title>HackPortal - Dashboard</title>
+          <title>HackPortal - Dashboard</title> {/* !change */}
           <meta name="description" content="HackPortal's Dashboard" />
         </Head>
 
@@ -132,7 +138,7 @@ export default function Dashboard(props: {
               </div>
             )}
             {/* Announcements */}
-            <div className="lg:w-2/5 w-full h-96">
+            <div className={`${eventCount > 0 ? 'lg:w-2/5' : 'lg:w-full'} w-full h-96`}>
               <h1 className="md:text-3xl text-xl font-black">Announcements</h1>
               <div id="announcement-items" className="overflow-y-scroll h-9/10">
                 {announcements.map((announcement, idx) => {

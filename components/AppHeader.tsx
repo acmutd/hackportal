@@ -13,10 +13,10 @@ import firebase from 'firebase/app';
  */
 export default function AppHeader() {
   const [showMenu, setShowMenu] = useState(false);
-  const { isSignedIn } = useAuthContext();
+  const { isSignedIn, hasProfile, profile } = useAuthContext();
   const [mobileIcon, setMobileIcon] = useState(true);
   const [showProfileDialog, setShowProfileDialog] = useState(false);
-
+  const [dynamicNavItems, setDynamicNavItems] = useState(navItems);
   const user = useUser();
 
   useEffect(() => {
@@ -31,7 +31,21 @@ export default function AppHeader() {
           console.warn('Could not sign out');
         });
     }
-  });
+
+    //creating dynamic nav items
+    if (
+      isSignedIn &&
+      profile &&
+      (profile.user.permissions[0] === 'admin' || profile.user.permissions[0] === 'super_admin')
+    ) {
+      setDynamicNavItems((dynamicNavItems) => [
+        ...dynamicNavItems,
+        { text: 'Admin', path: '/admin' },
+      ]);
+    } else {
+      setDynamicNavItems(navItems);
+    }
+  }, []);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -73,7 +87,7 @@ export default function AppHeader() {
                 showMenu ? 'translate-x-0' : '-translate-x-full'
               } transform transition-all ease-out duration-300 flex w-6/12 h-screen border-2 border-black flex-col bg-white fixed top-0 left-0 z-[-1] pt-16`}
             >
-              {navItems.map((item) => (
+              {dynamicNavItems.map((item) => (
                 <Link key={item.text} href={item.path}>
                   <a className="border-b-2 first:border-t-2 border-black p-4 py-6 hover:bg-[#D8F8FF]">
                     <p className="text-sm font-bold">{item.text}</p>
@@ -84,7 +98,7 @@ export default function AppHeader() {
           </div>
           {/* PC nav */}
           <div className="hidden text-xs order-2 md:flex items-center md:text-left lg:ml-12">
-            {navItems.map((item) => (
+            {dynamicNavItems.map((item) => (
               <Link key={item.text} href={item.path}>
                 <a>
                   <p className="md:mx-4 text-sm font-bold">{item.text}</p>
@@ -98,7 +112,7 @@ export default function AppHeader() {
             className="font-header font-bold bg-white rounded-full border-2 border-black text-sm px-8 py-1"
             onClick={toggleDialog}
           >
-            {!user || !isSignedIn ? 'Sign in' : 'Profile'}
+            {!user || !isSignedIn ? 'Sign in' : hasProfile ? 'Profile' : 'Register'}
           </button>
         </div>
         {showProfileDialog && <ProfileDialog onDismiss={dismissDialog} />}

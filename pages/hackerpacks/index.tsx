@@ -7,12 +7,18 @@ import { useAuthContext } from '../../lib/user/AuthContext';
 import DocLink from './Components/DocLinks';
 
 /**
+ * NOTE: The current HackerPack contains dummy data (obviously) and needs to be updated.
+ * A Notion page embed works just as well as typing everything in manually.
+ * Use your best judgement in figuring out which option is better for your hackathon.
+ */
+
+/**
  * The hackerpack page.
  *
  * HackerPack: /
  */
 export default function HackerPack() {
-  const { isSignedIn } = useAuthContext();
+  const { isSignedIn, hasProfile } = useAuthContext();
   const user = useUser();
   const role = user.permissions?.length > 0 ? user.permissions[0] : '';
 
@@ -116,8 +122,6 @@ export default function HackerPack() {
 
       {/* Main content section */}
       <section id="mainContent" className="px-6 py-3 w-3/4 md:wd-5/6 2xl:w-7/8">
-        <DashboardHeader />
-
         <div className="font-bold text-2xl md:text-4xl lg-text-6xl">Big Heading</div>
 
         {/* Document links */}

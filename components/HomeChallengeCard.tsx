@@ -11,7 +11,7 @@ function HomeChallengeCard(props) {
     description = props.description.replaceAll('\\n', '\n');
   }
   return (
-    <div id={`card${props.idx}`} className="bg-purple-200 min-h-[30rem] rounded-sm p-6 hidden">
+    <div className="bg-purple-200 min-h-[100%] rounded-sm p-6">
       <div className="text-center font-bold md:text-2xl test-base">{props.title}</div>
       <div className="text-center md:text-xl test-base">Presented by {props.organization}</div>
       <p className="whitespace-pre-line my-3 md:text-base text-xs">{description}</p>

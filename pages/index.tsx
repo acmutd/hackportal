@@ -9,6 +9,12 @@ import 'firebase/messaging';
 import 'firebase/storage';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import HomeChallengeCard from '../components/HomeChallengeCard';
+import MemberCards from '../components/MemberCards';
+import SponsorCard from '../components/SponsorCard';
+import FAQ from '../components/faq';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 /**
  * The home page.
@@ -19,12 +25,24 @@ import HomeChallengeCard from '../components/HomeChallengeCard';
 export default function Home(props: {
   keynoteSpeakers: KeynoteSpeaker[];
   challenges: Challenge[];
+  answeredQuestion: AnsweredQuestion[];
+  fetchedMembers: TeamMember[];
+  sponsorCard: Sponsor[];
 }) {
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const [speakers, setSpeakers] = useState<KeynoteSpeaker[]>([]);
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [challengeIdx, setChallengeIdx] = useState(0);
+  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [sponsor, setSponsor] = useState<Sponsor[]>([]);
+  const [challengeData, setChallengeData] = useState({
+    title: '',
+    organization: '',
+    description: '',
+    prizes: [],
+  });
 
   const colorSchemes: ColorScheme[] = [
     {
@@ -47,7 +65,19 @@ export default function Home(props: {
     setSpeakers(props.keynoteSpeakers);
 
     //Organize challenges in order by rank given in firebase
-    setChallenges(props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
+    const sortedChallenges = props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1));
+    setChallenges(sortedChallenges);
+    setChallengeData({
+      title: sortedChallenges[0].title,
+      organization: sortedChallenges[0].organization,
+      description: sortedChallenges[0].description,
+      prizes: sortedChallenges[0].prizes,
+    });
+    setSponsor(props.sponsorCard);
+
+    //Organize members in order by rank given in firebase
+    setMembers(props.fetchedMembers.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -57,7 +87,6 @@ export default function Home(props: {
       (
         document.getElementById(`org${challengeIdx}`).firstElementChild as HTMLElement
       ).style.display = 'block';
-      document.getElementById(`card${challengeIdx}`).style.display = 'block';
     }
   });
 
@@ -93,26 +122,36 @@ export default function Home(props: {
     return false;
   };
 
-  const changeOrg = (newIdx) => {
-    //make old org selected hidden
+  const changeOrg = (challenge, newIdx) => {
     document.getElementById(`org${challengeIdx}`).style.textDecoration = 'none';
     (document.getElementById(`org${challengeIdx}`).firstElementChild as HTMLElement).style.display =
       'none';
-    document.getElementById(`card${challengeIdx}`).style.display = 'none';
-    //make new org selected show
     document.getElementById(`org${newIdx}`).style.textDecoration = 'underline';
     (document.getElementById(`org${newIdx}`).firstElementChild as HTMLElement).style.display =
       'block';
-    document.getElementById(`card${newIdx}`).style.display = 'block';
 
     setChallengeIdx(newIdx);
+    setChallengeData({
+      title: challenge.title,
+      organization: challenge.organization,
+      description: challenge.description,
+      prizes: challenge.prizes,
+    });
   };
+
+  if (loading) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
 
   return (
     <>
       <Head>
-        <title>HackPortal</title>
-        <meta name="description" content="A default HackPortal instance" />
+        <title>HackPortal</title> {/* !change */}
+        <meta name="description" content="A default HackPortal instance" /> {/* !change */}
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Notification info pop up */}
@@ -121,11 +160,11 @@ export default function Home(props: {
           id="popup"
           className="fixed z-50 md:translate-x-0 translate-x-1/2 w-[22rem] rounded-md px-4 py-2 top-16 md:right-6 right-1/2 bg-red-200 md:text-base text-sm"
         >
-          Turn on push notifications to stay up to date with events and announcements!
+          Turn on push notifications to recieve announcements!
         </div>
       )}
       {/* Hero section */}
-      <section className="min-h-screen p-4 bg-indigo-100">
+      <section className="min-h-screen p-4 bg-contain bg-hero-pattern">
         <div
           style={{ minHeight: 480 }}
           className="max-w-4xl mx-auto flex flex-col justify-center items-center"
@@ -134,9 +173,11 @@ export default function Home(props: {
             className="min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative md:mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-16 before:bg-transparent before:border-b-4 before:border-l-4 before:border-black
           after:block after:absolute after:top-0 after:right-0 after:w-16 after:h-16 after:bg-transparent after:border-t-4 after:border-r-4 after:border-black"
           >
-            <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackPortal</h1>
+            <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackPortal</h1>{' '}
+            {/* !change */}
             <p className="text-center my-4 md:font-bold md:text-3xl text-xl">
-              A Project by ACM Engineering and HackUTD
+              {' '}
+              {/* !change */}A Project by ACM Development and HackUTD
             </p>
           </div>
           {/* TODO: Programmatically show these based on configured times/organizer preference */}
@@ -157,6 +198,7 @@ export default function Home(props: {
       <section className="z-0 relative md:h-[560px] py-[3rem] bg-white">
         <div className="flex flex-col justify-center items-center md:flex-row">
           {/* Video */}
+          {/* !change */}
           <iframe
             className="video"
             width="700"
@@ -183,9 +225,32 @@ export default function Home(props: {
           </div>
         </div>
       </section>
+      {/* About section */}
+      <section className="md:p-12 p-6">
+        <h1 className="md:text-4xl text-2xl font-bold my-4">About HackPortal</h1> {/* !change */}
+        <div className="md:text-base text-sm">
+          HackPortal is a platform for user-friendly hackathon event management. <br />
+          <br />A few of its features include: A fully customizable front end, sign in with email/
+          Google, hacker registration, images, challenges, sponsors, FAQ and more fetched from
+          backend, push notifications, a spotlight carousel highlighting ongoing events, QR code
+          check in and swag claims, report submission/ Ask a question, a built-in and easy to set up
+          schedule, Hacker, Admin, and Super Admin roles, an Admin console to send announcements,
+          update user roles, show number of check-ins, swag claims, and more!. <br />
+          <br />
+          To set up HackPortal for your hackathon, check out the{' '}
+          <a
+            href="https://github.com/acmutd/hackportal/blob/develop/docs/set-up.md"
+            className="underline"
+          >
+            HackPortal Github
+          </a>
+          !
+        </div>
+      </section>
       {/* Featuring Keynotes speakers */}
-      <section className="flex overflow-x-scroll bg-gray-200 min-h-[24rem]">
-        <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold">
+
+      <section className="flex overflow-x-auto bg-gray-200 min-h-[24rem]">
+        <div className="flex items-center justify-center font-bold p-6 md:text-4xl text-2xl my-4">
           Featuring Keynote Speakers
         </div>
         <div className="flex flex-col justify-center py-6 md:px-6">
@@ -222,37 +287,155 @@ export default function Home(props: {
         </div>
       </section>
       {/* Challenges */}
-      <section className="p-6 border-2">
-        <div className="font-bold text-2xl">Challenges</div>
+      <section className="p-6 ">
+        <div className="font-bold p-6 md:text-4xl text-2xl my-4">Challenges</div>
         <div className="flex">
           {/* Challenge Orgs Selectors*/}
           <div className="md:w-1/4 w-1/5">
-            {challenges.map(({ organization }, idx) => (
+            {challenges.map((challenge, idx) => (
               <div
                 id={`org${idx}`}
                 className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
                 key={idx}
-                onClick={() => changeOrg(idx)}
+                onClick={() => changeOrg(challenge, idx)}
               >
                 {/* change arrow color in global css to match parent selector */}
                 <div className="arrow-right absolute top-1/2 right-0 -translate-y-1/2 translate-x-full hidden"></div>
-                {organization}
+                {challenge.organization}
               </div>
             ))}
           </div>
           {/* Challenges Description Cards */}
-          <div className="md:w-3/4 w-4/5 my-4 px-6 min-h-full">
+          <div className="md:w-3/4 w-4/5 my-4 pl-6 min-h-full">
             {/* Card */}
-            {challenges.map(({ title, organization, description, prizes }, idx) => (
-              <HomeChallengeCard
-                key={idx}
-                title={title}
-                organization={organization}
-                description={description}
-                prizes={prizes}
-                idx={idx}
-              />
+            <HomeChallengeCard
+              title={challengeData.title}
+              organization={challengeData.organization}
+              description={challengeData.description}
+              prizes={challengeData.prizes}
+            />
+          </div>
+        </div>
+      </section>
+      {/* FAQ */}
+      <section>
+        <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
+      </section>
+      <section>
+        {/* Team Members */}
+        <div className="flex flex-col flex-grow bg-white">
+          <div className="my-2">
+            <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Meet Our Team :)</h4>{' '}
+            {/* !change */}
+            <div className="flex flex-wrap justify-center md:px-2">
+              {/* Member Cards */}
+              {members.map(
+                ({ name, description, linkedin, github, personalSite, fileName }, idx) => (
+                  <MemberCards
+                    key={idx}
+                    name={name}
+                    description={description}
+                    fileName={fileName}
+                    linkedin={linkedin}
+                    github={github}
+                    personalSite={personalSite}
+                  />
+                ),
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Sponsors */}
+      <section>
+        <div className="flex flex-col flex-grow bg-white">
+          <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
+          {/* Sponsor Card */}
+          <section className="flex flex-wrap justify-center p-4">
+            {sponsor.map(({ link, reference }, idx) => (
+              <SponsorCard key={idx} link={link} reference={reference} />
             ))}
+          </section>
+          <h2 className="my-2 text-center">
+            {' '}
+            {/* !change */}
+            If you would like to sponsor HackPortal, please reach out to us at&nbsp;
+            <a
+              href="mailto:email@organization.com"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="underline"
+            >
+              email@organization.com
+            </a>
+          </h2>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <section className="bg-gray-100 mt-16 px-6 py-8 md:text-base text-xs">
+        {/* Upper Content */}
+        <div className="my-2 relative">
+          {/* Social icons */} {/* !change */}
+          <div className="space-x-4 > * + *">
+            <a href="https://twitter.com/hackutd" rel="noopener noreferrer" target="_blank">
+              <TwitterIcon className="footerIcon" />
+            </a>
+            <a
+              href="https://www.instagram.com/hackutd/?hl=en"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <InstagramIcon className="footerIcon" />
+            </a>
+            <a href="https://www.facebook.com/hackutd/" rel="noopener noreferrer" target="_blank">
+              <FacebookIcon className="footerIcon" />
+            </a>
+          </div>
+          {/* Text */}
+          <div className="absolute bottom-0 right-0">
+            {' '}
+            {/* !change */}
+            Checkout HackUTD&apos;s{' '}
+            <a
+              href="https://acmutd.co/"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="font-black hover:underline"
+            >
+              organizer site
+            </a>
+          </div>
+        </div>
+        {/* Lower Content */}
+        <div className="flex justify-between border-t-[1px] py-2 border-black">
+          <p>
+            Designed by <p className="font-black inline">HackUTD</p> <br /> {/* !change */}
+            {/* PLEASE DO NOT CHANGE <3 */}
+            HackPortal developed with &lt;3 by <p className="font-black inline">HackUTD</p> and{' '}
+            <p className="font-black inline">ACM Development</p>
+            {/* PLEASE DO NOT CHANGE <3 */}
+          </p>
+
+          <div className="flex md:flex-row flex-col md:ml-0 ml-6">
+            {/* !change */}
+            <a
+              href="mailto:email@organization.com"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="hover:underline md:mr-8 font-thin"
+            >
+              Contact Us
+            </a>
+            {/* !change */}
+            <a
+              href="https://github.com/acmutd/hackportal"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline font-thin whitespace-nowrap"
+            >
+              Source Code
+            </a>
           </div>
         </div>
       </section>
@@ -270,10 +453,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/challenges/`,
     {},
   );
+  const { data: answeredQuestion } = await RequestHelper.get<AnsweredQuestion[]>(
+    `${protocol}://${context.req.headers.host}/api/questions/faq`,
+    {},
+  );
+  const { data: memberData } = await RequestHelper.get<TeamMember[]>(
+    `${protocol}://${context.req.headers.host}/api/members`,
+    {},
+  );
+  const { data: sponsorData } = await RequestHelper.get<Sponsor[]>(
+    `${protocol}://${context.req.headers.host}/api/sponsor`,
+    {},
+  );
   return {
     props: {
       keynoteSpeakers: keynoteData,
       challenges: challengeData,
+      answeredQuestion: answeredQuestion,
+      fetchedMembers: memberData,
+      sponsorCard: sponsorData,
     },
   };
 };
