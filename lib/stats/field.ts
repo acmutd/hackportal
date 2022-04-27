@@ -1,30 +1,6 @@
-export const singleFields = [
-  'age',
-  'ethnicity',
-  'race',
-  'size',
-  'softwareExperience',
-  'studyLevel',
-  'university',
-  'gender',
-  'hackathonExperience',
-  'heardFrom',
-];
+import { fieldNames, arrayField, singleField } from '../../hackportal.config';
+export const singleFields = singleField;
 
-export const arrayFields = ['scans', 'companies', 'dietary'];
+export const arrayFields = arrayField;
 
-export const fieldToName = {
-  age: 'Age',
-  ethnicity: 'Ethnicity',
-  race: 'Race',
-  size: 'Shirt Size',
-  softwareExperience: 'Software Experience',
-  studyLevel: 'Study Level',
-  university: 'University',
-  gender: 'Gender',
-  hackathonExperience: 'Number of Hackathon attended',
-  heardFrom: 'Heard of Hackathon from',
-  scans: 'Swags',
-  companies: 'Companies',
-  dietary: 'Dietary',
-};
+export const fieldToName = fieldNames;

@@ -431,6 +431,58 @@ export const hackPortalConfig: HackPortalConfig = {
   },
 };
 
+//add any question data that your org would like to see on the admin stats page
+export type statRecordTypes = {
+  //name: Record<string || number, number>
+  age: Record<number, number>;
+  companies: Record<string, number>;
+  dietary: Record<string, number>;
+  ethnicity: Record<string, number>;
+  race: Record<string, number>;
+  size: Record<string, number>;
+  softwareExperience: Record<string, number>;
+  studyLevel: Record<string, number>;
+  university: Record<string, number>;
+  gender: Record<string, number>;
+  hackathonExperience: Record<number, number>;
+  heardFrom: Record<string, number>;
+};
+
+//add the title for each field that will be displayed as chart titles in admin stats page
+export const fieldNames = {
+  //name: title
+  age: 'Age',
+  ethnicity: 'Ethnicity',
+  race: 'Race',
+  size: 'Shirt Size',
+  softwareExperience: 'Software Experience',
+  studyLevel: 'Study Level',
+  university: 'University',
+  gender: 'Gender',
+  hackathonExperience: 'Number of Hackathon attended',
+  heardFrom: 'Heard of Hackathon from',
+  scans: 'Swags', //not part of registration questions, used for scanner
+  companies: 'Companies',
+  dietary: 'Dietary',
+};
+
+//name fields that are checkbox questions belong here
+export const arrayField = ['scans', 'companies', 'dietary'];
+//any other fields belong here
+export const singleField = [
+  'age',
+  'ethnicity',
+  'race',
+  'size',
+  'softwareExperience',
+  'studyLevel',
+  'university',
+  'gender',
+  'hackathonExperience',
+  'heardFrom',
+];
+
+//not to be edited ⬇︎ (unless there needs to be more question topics)
 export interface HackPortalConfig {
   registrationFields: {
     generalQuestions: QuestionTypes[];
@@ -534,3 +586,13 @@ const setInitialValues = (obj) => {
 };
 
 export const formInitialValues = getInitialValues();
+
+//extracting statRecords for general stats
+const getStatRecords = () => {
+  let records: any = {};
+  for (const field in fieldNames) {
+    records[field] = {};
+  }
+  return records;
+};
+export const statRecords: statRecordTypes = getStatRecords();
