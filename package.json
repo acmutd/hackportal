@@ -51,7 +51,7 @@
     "webpack": "^5.51.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "12.1.4",
+    "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "12.1.4",
     "@types/jquery": "^3.5.8",
     "@types/qrcode": "^1.4.1",
