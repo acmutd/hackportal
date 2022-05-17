@@ -10,6 +10,26 @@ const db = firestore();
 const APPLICATIONS_COLLECTION = '/registrations';
 const USERS_COLLECTION = '/users';
 
+async function updateAllUsersDoc(userId: string, profile: any) {
+  const userData = await db.collection(APPLICATIONS_COLLECTION).doc('allusers').get();
+  await db
+    .collection(APPLICATIONS_COLLECTION)
+    .doc('allusers')
+    .set({
+      users: [
+        ...userData.data().users,
+        {
+          id: profile.id,
+          user: {
+            firstName: profile.user.firstName,
+            lastName: profile.user.lastName,
+            permissions: profile.user.permissions,
+          },
+        },
+      ],
+    });
+}
+
 /**
  * Handles GET requests to /api/applications.
  *
@@ -41,7 +61,10 @@ async function handleGetApplications(req: NextApiRequest, res: NextApiResponse) 
   }
 
   try {
-    const snapshot = await db.collection(APPLICATIONS_COLLECTION).get();
+    const snapshot = await db
+      .collection(APPLICATIONS_COLLECTION)
+      .where(firestore.FieldPath.documentId(), '!=', 'allusers')
+      .get();
     const applications: Registration[] = snapshot.docs.map((snap) => {
       // TODO: Verify the application is accurate and report if something is off
       return snap.data() as Registration;
@@ -92,7 +115,7 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
   }
 
   await db.collection(APPLICATIONS_COLLECTION).doc(body.user.id).set(body);
-
+  await updateAllUsersDoc(body.user.id, body);
   res.status(200).json({
     msg: 'Operation completed',
   });

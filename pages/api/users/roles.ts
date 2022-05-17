@@ -7,6 +7,19 @@ initializeApi();
 const db = firestore();
 const USERS_COLLECTION = '/registrations';
 
+async function updateAllUserDoc(userId: string, newRole: string) {
+  const docRef = db.collection(USERS_COLLECTION).doc('allusers');
+  const data = await docRef.get();
+
+  const userData = data.data().users.map((obj) => {
+    if (obj.id === userId) return { ...obj, user: { ...obj.user, permissions: [newRole] } };
+    return obj;
+  });
+  await docRef.set({
+    users: userData,
+  });
+}
+
 async function updateUserRole(
   userId: string,
   newRole: string,
@@ -27,6 +40,7 @@ async function updateUserRole(
       permissions: [newRole],
     },
   });
+  await updateAllUserDoc(userId, newRole);
   return {
     statusCode: 200,
     msg: 'Update completed',

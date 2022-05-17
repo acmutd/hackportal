@@ -42,7 +42,10 @@ async function getStatsData() {
     university: {},
   };
 
-  const snapshot = await db.collection(USERS_COLLECTION).get();
+  const snapshot = await db
+    .collection(USERS_COLLECTION)
+    .where(firestore.FieldPath.documentId(), '!=', 'allusers')
+    .get();
   snapshot.forEach((doc) => {
     const userData = doc.data();
 

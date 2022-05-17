@@ -45,24 +45,17 @@ async function getAllUsers(req: NextApiRequest, res: NextApiResponse) {
     });
   }
 
-  const snapshot = await db.collection(USERS_COLLECTION).get();
+  const snapshot = await db
+    .collection(USERS_COLLECTION)
+    .where(firestore.FieldPath.documentId(), '==', 'allusers')
+    .get();
   let data = [];
 
   snapshot.forEach((doc) => {
-    if (doc.data().user) {
-      if (doc.data().user.permissions) data.push(doc.data());
-      else
-        data.push({
-          ...doc.data(),
-          user: {
-            ...doc.data().user,
-            permissions: ['hacker'],
-          },
-        });
-    }
+    data = doc.data().users;
   });
 
-  res.json(data);
+  return res.json(data);
 }
 
 function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
