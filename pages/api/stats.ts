@@ -22,65 +22,54 @@ async function getCheckInEventName() {
 async function getStatsData() {
   const checkInEventName = await getCheckInEventName();
   // const swagData: Record<string, number> = {};
-  const generalStats: GeneralStats = {
-    superAdminCount: 0,
-    checkedInCount: 0,
-    hackerCount: 0,
-    adminCount: 0,
-    scans: {},
-    age: {},
-    companies: {},
-    dietary: {},
-    ethnicity: {},
-    gender: {},
-    hackathonExperience: {},
-    heardFrom: {},
-    race: {},
-    size: {},
-    softwareExperience: {},
-    studyLevel: {},
-    university: {},
-  };
+  const generalStats: Record<string, GeneralStats> = {};
+  for (const role of ['hacker', 'admin', 'super_admin']) {
+    generalStats[role] = {
+      count: 0,
+      checkedInCount: 0,
+      scans: {},
+      age: {},
+      companies: {},
+      dietary: {},
+      ethnicity: {},
+      gender: {},
+      hackathonExperience: {},
+      heardFrom: {},
+      race: {},
+      size: {},
+      softwareExperience: {},
+      studyLevel: {},
+      university: {},
+    };
+  }
 
   const snapshot = await db.collection(USERS_COLLECTION).get();
   snapshot.forEach((doc) => {
     const userData = doc.data();
+    const userPermission = userData.user.permissions[0];
 
     for (let arrayField of arrayFields) {
       if (!userData[arrayField]) continue;
       userData[arrayField].forEach((data: string) => {
-        if (arrayField === 'scans' && data === checkInEventName) generalStats.checkedInCount++;
+        if (arrayField === 'scans' && data === checkInEventName)
+          generalStats[userPermission].checkedInCount++;
         else {
-          if (!generalStats[arrayField].hasOwnProperty(data)) generalStats[arrayField][data] = 0;
-          generalStats[arrayField][data]++;
+          if (!generalStats[userPermission][arrayField].hasOwnProperty(data))
+            generalStats[userPermission][arrayField][data] = 0;
+          generalStats[userPermission][arrayField][data]++;
         }
       });
     }
 
     for (let singleField of singleFields) {
       if (!userData[singleField] || userData[singleField] === '') continue;
-      if (!generalStats[singleField].hasOwnProperty(userData[singleField])) {
-        generalStats[singleField][userData[singleField]] = 0;
+      if (!generalStats[userPermission][singleField].hasOwnProperty(userData[singleField])) {
+        generalStats[userPermission][singleField][userData[singleField]] = 0;
       }
-      generalStats[singleField][userData[singleField]]++;
+      generalStats[userPermission][singleField][userData[singleField]]++;
     }
 
-    const userPermission = userData.user.permissions[0];
-
-    switch (userPermission) {
-      case 'super_admin': {
-        generalStats.superAdminCount++;
-        break;
-      }
-      case 'admin': {
-        generalStats.adminCount++;
-        break;
-      }
-      case 'hacker': {
-        generalStats.hackerCount++;
-        break;
-      }
-    }
+    generalStats[userPermission].count++;
   });
 
   return generalStats;

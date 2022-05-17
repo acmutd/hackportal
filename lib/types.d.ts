@@ -236,10 +236,8 @@ type Sponsor = {
 };
 
 type GeneralStats = {
-  superAdminCount: number;
+  count: number;
   checkedInCount: number;
-  hackerCount: number;
-  adminCount: number;
   scans: Record<string, number>;
   companies: Record<string, number>;
   dietary: Record<string, number>;

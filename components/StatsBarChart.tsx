@@ -7,16 +7,33 @@ import {
   Tooltip,
   ValueAxis,
 } from '@devexpress/dx-react-chart-material-ui';
+import { useState } from 'react';
 
 interface StatsBarChartProps {
   name: string;
-  items: Array<{
-    itemName: string;
-    itemCount: number;
-  }>;
+  fieldName: string;
+  statsData: Record<string, GeneralStats>;
+  rolesDict: Record<string, boolean>;
 }
 
-export default function StatsBarChart({ name, items }: StatsBarChartProps) {
+export default function StatsBarChart({
+  name,
+  fieldName,
+  statsData,
+  rolesDict,
+}: StatsBarChartProps) {
+  const items = Object.entries(
+    Object.entries(statsData)
+      .filter(([k, _]) => rolesDict[k])
+      .map(([k, v]) => v[fieldName])
+      .reduce((acc: Record<string, number>, curr: Record<string, number>) => {
+        for (let key of Object.keys(curr)) {
+          if (!acc.hasOwnProperty(key)) acc[key] = curr[key];
+          else acc[key] += curr[key];
+        }
+        return acc;
+      }, {}) as Record<string, number>,
+  ).map(([k, v]) => ({ itemName: k, itemCount: v }));
   const coordinates = [];
   /**
    *
