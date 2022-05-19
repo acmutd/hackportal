@@ -6,9 +6,10 @@ import { userIsAuthorized } from '../../../lib/authorization/check-authorization
 initializeApi();
 const db = firestore();
 const USERS_COLLECTION = '/registrations';
+const MISC_COLLECTION = '/miscellaneous';
 
 async function updateAllUserDoc(userId: string, newRole: string) {
-  const docRef = db.collection(USERS_COLLECTION).doc('allusers');
+  const docRef = db.collection(MISC_COLLECTION).doc('allusers');
   const data = await docRef.get();
 
   const userData = data.data().users.map((obj) => {

@@ -8,6 +8,7 @@ initializeApi();
 const db = firestore();
 
 const USERS_COLLECTION = '/registrations';
+const MISC_COLLECTION = '/miscellaneous';
 
 /**
  *
@@ -45,17 +46,9 @@ async function getAllUsers(req: NextApiRequest, res: NextApiResponse) {
     });
   }
 
-  const snapshot = await db
-    .collection(USERS_COLLECTION)
-    .where(firestore.FieldPath.documentId(), '==', 'allusers')
-    .get();
-  let data = [];
+  const doc = await db.collection(MISC_COLLECTION).doc('allusers').get();
 
-  snapshot.forEach((doc) => {
-    data = doc.data().users;
-  });
-
-  return res.json(data);
+  return res.json(doc.data().users);
 }
 
 function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {

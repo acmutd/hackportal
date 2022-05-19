@@ -20,10 +20,7 @@ async function checkIfCheckInAlreadyExists() {
 
 async function updateUserDoc(oldScanName: string, newScanName: string) {
   try {
-    const snapshot = await db
-      .collection(REGISTRATION_COLLECTION)
-      .where(firestore.FieldPath.documentId(), '!=', 'allusers')
-      .get();
+    const snapshot = await db.collection(REGISTRATION_COLLECTION).get();
     snapshot.forEach(async (doc) => {
       if (doc.data().scans) {
         const newScans = doc

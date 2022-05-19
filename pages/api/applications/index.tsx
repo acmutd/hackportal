@@ -8,26 +8,24 @@ initializeApi();
 const db = firestore();
 
 const APPLICATIONS_COLLECTION = '/registrations';
-const USERS_COLLECTION = '/users';
+const MISC_COLLECTION = '/miscellaneous';
 
 async function updateAllUsersDoc(userId: string, profile: any) {
-  const userData = await db.collection(APPLICATIONS_COLLECTION).doc('allusers').get();
-  await db
-    .collection(APPLICATIONS_COLLECTION)
-    .doc('allusers')
-    .set({
-      users: [
-        ...userData.data().users,
-        {
-          id: profile.id,
-          user: {
-            firstName: profile.user.firstName,
-            lastName: profile.user.lastName,
-            permissions: profile.user.permissions,
-          },
+  const docRef = db.collection(MISC_COLLECTION).doc('allusers');
+  const userData = await docRef.get();
+  await docRef.set({
+    users: [
+      ...userData.data().users,
+      {
+        id: profile.id,
+        user: {
+          firstName: profile.user.firstName,
+          lastName: profile.user.lastName,
+          permissions: profile.user.permissions,
         },
-      ],
-    });
+      },
+    ],
+  });
 }
 
 /**
@@ -61,10 +59,7 @@ async function handleGetApplications(req: NextApiRequest, res: NextApiResponse) 
   }
 
   try {
-    const snapshot = await db
-      .collection(APPLICATIONS_COLLECTION)
-      .where(firestore.FieldPath.documentId(), '!=', 'allusers')
-      .get();
+    const snapshot = await db.collection(APPLICATIONS_COLLECTION).get();
     const applications: Registration[] = snapshot.docs.map((snap) => {
       // TODO: Verify the application is accurate and report if something is off
       return snap.data() as Registration;

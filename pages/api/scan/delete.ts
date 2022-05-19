@@ -10,10 +10,7 @@ const REGISTRATION_COLLECTION = '/registrations';
 
 async function updateUserDoc(targetScanName: string) {
   try {
-    const snapshot = await db
-      .collection(REGISTRATION_COLLECTION)
-      .where(firestore.FieldPath.documentId(), '!=', 'allusers')
-      .get();
+    const snapshot = await db.collection(REGISTRATION_COLLECTION).get();
     snapshot.forEach(async (doc) => {
       if (doc.data().scans) {
         const newScans = doc.data().scans.filter((scan) => scan !== targetScanName);
