@@ -66,15 +66,9 @@ export default function Home(props: {
 
     //Organize challenges in order by rank given in firebase
     const sortedChallenges = props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1));
-    setChallenges(sortedChallenges);
-    if (sortedChallenges.length == 0) {
-      setChallengeData({
-        title: 'Dummy Title',
-        organization: 'Dummy Organization',
-        description: 'Dummy Description',
-        prizes: [0],
-      });
-    } else {
+
+    if (sortedChallenges.length != 0) {
+      setChallenges(sortedChallenges);
       setChallengeData({
         title: sortedChallenges[0].title,
         organization: sortedChallenges[0].organization,
@@ -296,36 +290,40 @@ export default function Home(props: {
         </div>
       </section>
       {/* Challenges */}
-      <section className="p-6 ">
-        <div className="font-bold p-6 md:text-4xl text-2xl my-4">Challenges</div>
-        <div className="flex">
-          {/* Challenge Orgs Selectors*/}
-          <div className="md:w-1/4 w-1/5">
-            {challenges.map((challenge, idx) => (
-              <div
-                id={`org${idx}`}
-                className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
-                key={idx}
-                onClick={() => changeOrg(challenge, idx)}
-              >
-                {/* change arrow color in global css to match parent selector */}
-                <div className="arrow-right absolute top-1/2 right-0 -translate-y-1/2 translate-x-full hidden"></div>
-                {challenge.organization}
-              </div>
-            ))}
+      {/* This section is hidden if there are no challenges */}
+      {challenges.length != 0 && (
+        <section className="p-6 ">
+          <div className="font-bold p-6 md:text-4xl text-2xl my-4">Challenges</div>
+          <div className="flex">
+            {/* Challenge Orgs Selectors*/}
+            <div className="md:w-1/4 w-1/5">
+              {challenges.map((challenge, idx) => (
+                <div
+                  id={`org${idx}`}
+                  className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
+                  key={idx}
+                  onClick={() => changeOrg(challenge, idx)}
+                >
+                  {/* change arrow color in global css to match parent selector */}
+                  <div className="arrow-right absolute top-1/2 right-0 -translate-y-1/2 translate-x-full hidden"></div>
+                  {challenge.organization}
+                </div>
+              ))}
+            </div>
+            {/* Challenges Description Cards */}
+
+            <div className="md:w-3/4 w-4/5 my-4 pl-6 min-h-full">
+              {/* Card */}
+              <HomeChallengeCard
+                title={challengeData.title}
+                organization={challengeData.organization}
+                description={challengeData.description}
+                prizes={challengeData.prizes}
+              />
+            </div>
           </div>
-          {/* Challenges Description Cards */}
-          <div className="md:w-3/4 w-4/5 my-4 pl-6 min-h-full">
-            {/* Card */}
-            <HomeChallengeCard
-              title={challengeData.title}
-              organization={challengeData.organization}
-              description={challengeData.description}
-              prizes={challengeData.prizes}
-            />
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
       {/* FAQ */}
       <section>
         <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
