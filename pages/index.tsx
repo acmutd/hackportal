@@ -27,11 +27,11 @@ export default function Home(props: { challenges: Challenge[] }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const [speakers, setSpeakers] = useState<KeynoteSpeaker[]>([]);
+  const [speakers, _] = useState<KeynoteSpeaker[]>(hackPortalConfig.keynoteSpeakers);
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [challengeIdx, setChallengeIdx] = useState(0);
-  const [members, setMembers] = useState<Partial<TeamMember>[]>([]);
-  const [sponsor, setSponsor] = useState<Partial<Sponsor>[]>([]);
+  const [members, __] = useState<Partial<TeamMember>[]>(hackPortalConfig.teamMembers);
+  const [sponsor, ___] = useState<Partial<Sponsor>[]>(hackPortalConfig.sponsors);
   const [challengeData, setChallengeData] = useState({
     title: '',
     organization: '',
@@ -57,7 +57,6 @@ export default function Home(props: { challenges: Challenge[] }) {
   useEffect(() => {
     // Set amount of time notification prompt gets displayed before fading out
     setTimeout(fadeOutEffect, 3000);
-    setSpeakers(hackPortalConfig.keynoteSpeakers);
 
     //Organize challenges in order by rank given in firebase
     const sortedChallenges = props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1));
@@ -68,10 +67,7 @@ export default function Home(props: { challenges: Challenge[] }) {
       description: sortedChallenges[0].description,
       prizes: sortedChallenges[0].prizes,
     });
-    setSponsor(hackPortalConfig.sponsors);
 
-    //Organize members in order by rank given in firebase
-    setMembers(hackPortalConfig.teamMembers.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
     setLoading(false);
   }, []);
 
