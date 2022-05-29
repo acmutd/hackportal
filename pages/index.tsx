@@ -23,10 +23,7 @@ import { hackPortalConfig } from '../hackportal.config';
  * Landing: /
  *
  */
-export default function Home(props: {
-  challenges: Challenge[];
-  answeredQuestion: AnsweredQuestion[];
-}) {
+export default function Home(props: { challenges: Challenge[] }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -317,7 +314,7 @@ export default function Home(props: {
       </section>
       {/* FAQ */}
       <section>
-        <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
+        <FAQ fetchedFaqs={hackPortalConfig.faq}></FAQ>
       </section>
       <section>
         {/* Team Members */}
@@ -448,14 +445,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/challenges/`,
     {},
   );
-  const { data: answeredQuestion } = await RequestHelper.get<AnsweredQuestion[]>(
-    `${protocol}://${context.req.headers.host}/api/questions/faq`,
-    {},
-  );
   return {
     props: {
       challenges: challengeData,
-      answeredQuestion: answeredQuestion,
     },
   };
 };

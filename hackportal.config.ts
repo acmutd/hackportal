@@ -556,6 +556,52 @@ export const hackPortalConfig: HackPortalConfig = {
       reference: 'HackutdBlack.png',
     },
   ],
+  faq: [
+    {
+      question: 'Can I participate if I have never hacked before?',
+      answer: 'Yes',
+    },
+    {
+      question: 'When does registration open?',
+      answer: 'IDK',
+    },
+    {
+      answer: 'No',
+      question: 'Can I have 8 team members?',
+    },
+    {
+      question: "What if I don't have a team?",
+      answer: 'There will be a team-building session before the hackathon. ',
+    },
+    {
+      answer: '24 hours',
+      question: 'How long will it last?',
+    },
+    {
+      answer: 'Sai',
+      question: 'whats my name',
+    },
+    {
+      question: 'How u been?',
+      answer: 'Doing well',
+    },
+    {
+      question: 'When is HackUTD VIII?',
+      answer: 'November 13-14',
+    },
+    {
+      question: 'What is a hackathon?',
+      answer: 'A place where you will build something within a weekend. ',
+    },
+    {
+      answer: "It's free :))",
+      question: 'How much does it cost?',
+    },
+    {
+      answer: 'IDK',
+      question: 'What do I need to bring?',
+    },
+  ],
 };
 
 //add any question data that your org would like to see on the admin stats page
@@ -614,6 +660,7 @@ export interface HackPortalConfig {
   keynoteSpeakers: KeynoteSpeaker[];
   teamMembers: Partial<TeamMember>[];
   sponsors: Partial<Sponsor>[];
+  faq: AnsweredQuestion[];
   registrationFields: {
     generalQuestions: QuestionTypes[];
     schoolQuestions: QuestionTypes[];
