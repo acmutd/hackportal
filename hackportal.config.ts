@@ -460,6 +460,83 @@ export const hackPortalConfig: HackPortalConfig = {
       name: 'Nam',
     },
   ],
+  teamMembers: [
+    {
+      name: 'Very Long Name McFlurry',
+      fileName: 'f-erb.jpeg',
+      description: 'Mentor',
+    },
+    {
+      rank: 0,
+      name: 'Mr. Director Man',
+      personalSite: 'https://realhappinessproject.org',
+      github: 'https://github.com/acmutd/hackportal',
+      description: 'Director',
+      fileName: 'director.png',
+      linkedin: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    },
+    {
+      fileName: 'harrietupp.jpg',
+      name: 'Harriet Upp',
+      rank: 1,
+      description: 'Experience Lead',
+    },
+    {
+      description: 'Tech Lead',
+      rank: 1,
+      linkedin: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      github: 'https://github.com/acmutd/hackportal',
+      name: 'Abdullah Hasani',
+      fileName: 'abdullahhasani.png',
+    },
+    {
+      description: 'Logistics Lead',
+      rank: 1,
+      name: 'Justin Time',
+      fileName: 'justintime.jpg',
+      github: 'https://github.com/acmutd/hackportal',
+    },
+    {
+      rank: '2',
+      name: 'Fan E. Pack',
+      description: 'Tech',
+    },
+    {
+      description: 'Experience',
+      rank: '4',
+      fileName: 'faydaway.jpg',
+      name: 'Fay Daway',
+    },
+    {
+      github: 'https://github.com/acmutd/hackportal',
+      description: 'Tech',
+      rank: 2,
+      name: 'Dee End',
+      fileName: 'deeend.jpg',
+      linkedin: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    },
+    {
+      description: 'Industry',
+      rank: 5,
+      fileName: 'hankrcheef.jpg',
+      name: 'Hank R. Cheef',
+    },
+    {
+      name: 'Teri Dactyl',
+      linkedin: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      fileName: 'teridactyl.jpg',
+      rank: 1,
+      description: 'Industry Lead',
+    },
+    {
+      description: 'Logistics',
+      rank: 3,
+      fileName: 'annetdote.png',
+      name: 'Anne T. Dote',
+      linkedin: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      github: 'https://github.com/acmutd/hackportal',
+    },
+  ],
 };
 
 //add any question data that your org would like to see on the admin stats page
@@ -516,6 +593,7 @@ export const singleField = [
 //not to be edited ⬇︎ (unless there needs to be more question topics)
 export interface HackPortalConfig {
   keynoteSpeakers: KeynoteSpeaker[];
+  teamMembers: Partial<TeamMember>[];
   registrationFields: {
     generalQuestions: QuestionTypes[];
     schoolQuestions: QuestionTypes[];

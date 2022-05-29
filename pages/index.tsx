@@ -26,7 +26,6 @@ import { hackPortalConfig } from '../hackportal.config';
 export default function Home(props: {
   challenges: Challenge[];
   answeredQuestion: AnsweredQuestion[];
-  fetchedMembers: TeamMember[];
   sponsorCard: Sponsor[];
 }) {
   const [loading, setLoading] = useState(true);
@@ -35,7 +34,7 @@ export default function Home(props: {
   const [speakers, setSpeakers] = useState<KeynoteSpeaker[]>([]);
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [challengeIdx, setChallengeIdx] = useState(0);
-  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [members, setMembers] = useState<Partial<TeamMember>[]>([]);
   const [sponsor, setSponsor] = useState<Sponsor[]>([]);
   const [challengeData, setChallengeData] = useState({
     title: '',
@@ -76,7 +75,7 @@ export default function Home(props: {
     setSponsor(props.sponsorCard);
 
     //Organize members in order by rank given in firebase
-    setMembers(props.fetchedMembers.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
+    setMembers(hackPortalConfig.teamMembers.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
     setLoading(false);
   }, []);
 
@@ -454,10 +453,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/questions/faq`,
     {},
   );
-  const { data: memberData } = await RequestHelper.get<TeamMember[]>(
-    `${protocol}://${context.req.headers.host}/api/members`,
-    {},
-  );
   const { data: sponsorData } = await RequestHelper.get<Sponsor[]>(
     `${protocol}://${context.req.headers.host}/api/sponsor`,
     {},
@@ -466,7 +461,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       challenges: challengeData,
       answeredQuestion: answeredQuestion,
-      fetchedMembers: memberData,
       sponsorCard: sponsorData,
     },
   };
