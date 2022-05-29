@@ -429,6 +429,37 @@ export const hackPortalConfig: HackPortalConfig = {
       },
     ],
   },
+  keynoteSpeakers: [
+    {
+      description:
+        'Recipient of the Super Soldier serum, World War II hero Steve Rogers fights for American ideals as one of the world’s mightiest heroes and the leader of the Avengers.',
+      fileName: 'SteveRogers.jpg',
+      name: 'Steve Rogers',
+    },
+    {
+      description:
+        'Previously on the HackUTD team, Sameer figured it was time to move on to bigger things. He moved to the HackPortal team and does not regret the decision.',
+      fileName: '',
+      name: 'Sameer',
+    },
+    {
+      description:
+        'Sometimes student, sometimes scientist and sometimes photographer, Peter Parker is a full-time super hero better known as the web-slinging and wall-crawling Spider-Man. At a science expo, Peter was bitten by an errant radioactive spider which granted him an array of arachnid powers',
+      fileName: 'PeterParker.jpg',
+      name: 'Peter Parker',
+    },
+    {
+      description:
+        'Anthony Edward "Tony" Stark was a billionaire industrialist, a founding member of the Avengers, and the former CEO of Stark Industries. A brash but brilliant inventor, Stark was self-described as a genius, billionaire, playboy, and philanthropist.',
+      fileName: 'TonyStark.jpg',
+      name: 'Tony Stark',
+    },
+    {
+      description: 'Minecraft Legend',
+      fileName: 'nam.png',
+      name: 'Nam',
+    },
+  ],
 };
 
 //add any question data that your org would like to see on the admin stats page
@@ -484,6 +515,7 @@ export const singleField = [
 
 //not to be edited ⬇︎ (unless there needs to be more question topics)
 export interface HackPortalConfig {
+  keynoteSpeakers: KeynoteSpeaker[];
   registrationFields: {
     generalQuestions: QuestionTypes[];
     schoolQuestions: QuestionTypes[];

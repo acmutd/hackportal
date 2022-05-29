@@ -15,6 +15,7 @@ import FAQ from '../components/faq';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import { hackPortalConfig } from '../hackportal.config';
 
 /**
  * The home page.
@@ -23,7 +24,6 @@ import FacebookIcon from '@mui/icons-material/Facebook';
  *
  */
 export default function Home(props: {
-  keynoteSpeakers: KeynoteSpeaker[];
   challenges: Challenge[];
   answeredQuestion: AnsweredQuestion[];
   fetchedMembers: TeamMember[];
@@ -62,7 +62,7 @@ export default function Home(props: {
   useEffect(() => {
     // Set amount of time notification prompt gets displayed before fading out
     setTimeout(fadeOutEffect, 3000);
-    setSpeakers(props.keynoteSpeakers);
+    setSpeakers(hackPortalConfig.keynoteSpeakers);
 
     //Organize challenges in order by rank given in firebase
     const sortedChallenges = props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1));
@@ -445,10 +445,7 @@ export default function Home(props: {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const protocol = context.req.headers.referer?.split('://')[0] || 'http';
-  const { data: keynoteData } = await RequestHelper.get<KeynoteSpeaker[]>(
-    `${protocol}://${context.req.headers.host}/api/keynotespeakers`,
-    {},
-  );
+
   const { data: challengeData } = await RequestHelper.get<Challenge[]>(
     `${protocol}://${context.req.headers.host}/api/challenges/`,
     {},
@@ -467,7 +464,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
   return {
     props: {
-      keynoteSpeakers: keynoteData,
       challenges: challengeData,
       answeredQuestion: answeredQuestion,
       fetchedMembers: memberData,
