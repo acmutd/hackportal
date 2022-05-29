@@ -602,6 +602,16 @@ export const hackPortalConfig: HackPortalConfig = {
       question: 'What do I need to bring?',
     },
   ],
+  organizerData: {
+    name: 'HackUTD',
+    email: 'email@organization.com',
+    website: 'https://acmutd.co',
+    socialMedia: {
+      twitter: 'https://twitter.com/hackutd',
+      instagram: 'https://www.instagram.com/hackutd/?hl=en',
+      facebook: 'https://www.facebook.com/hackutd/',
+    },
+  },
 };
 
 //add any question data that your org would like to see on the admin stats page
@@ -667,6 +677,16 @@ export interface HackPortalConfig {
     hackathonExperienceQuestions: QuestionTypes[];
     eventInfoQuestions: QuestionTypes[];
     sponsorInfoQuestions: QuestionTypes[];
+  };
+  organizerData: {
+    name: string;
+    website: string;
+    email: string;
+    socialMedia: {
+      twitter: string;
+      instagram: string;
+      facebook: string;
+    };
   };
 }
 

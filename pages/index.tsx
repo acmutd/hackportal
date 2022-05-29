@@ -369,17 +369,25 @@ export default function Home(props: { challenges: Challenge[] }) {
         <div className="my-2 relative">
           {/* Social icons */} {/* !change */}
           <div className="space-x-4 > * + *">
-            <a href="https://twitter.com/hackutd" rel="noopener noreferrer" target="_blank">
+            <a
+              href={hackPortalConfig.organizerData.socialMedia.twitter}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               <TwitterIcon className="footerIcon" />
             </a>
             <a
-              href="https://www.instagram.com/hackutd/?hl=en"
+              href={hackPortalConfig.organizerData.socialMedia.instagram}
               rel="noopener noreferrer"
               target="_blank"
             >
               <InstagramIcon className="footerIcon" />
             </a>
-            <a href="https://www.facebook.com/hackutd/" rel="noopener noreferrer" target="_blank">
+            <a
+              href={hackPortalConfig.organizerData.socialMedia.facebook}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               <FacebookIcon className="footerIcon" />
             </a>
           </div>
@@ -387,9 +395,9 @@ export default function Home(props: { challenges: Challenge[] }) {
           <div className="absolute bottom-0 right-0">
             {' '}
             {/* !change */}
-            Checkout HackUTD&apos;s{' '}
+            Checkout {hackPortalConfig.organizerData.name}&apos;s{' '}
             <a
-              href="https://acmutd.co/"
+              href={hackPortalConfig.organizerData.website}
               rel="noopener noreferrer"
               target="_blank"
               className="font-black hover:underline"
@@ -411,7 +419,7 @@ export default function Home(props: { challenges: Challenge[] }) {
           <div className="flex md:flex-row flex-col md:ml-0 ml-6">
             {/* !change */}
             <a
-              href="mailto:email@organization.com"
+              href={`mailto:${hackPortalConfig.organizerData.email}`}
               rel="noopener noreferrer"
               target="_blank"
               className="hover:underline md:mr-8 font-thin"
