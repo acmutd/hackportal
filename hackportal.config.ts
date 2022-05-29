@@ -537,6 +537,25 @@ export const hackPortalConfig: HackPortalConfig = {
       github: 'https://github.com/acmutd/hackportal',
     },
   ],
+  sponsors: [
+    {
+      reference: 'ebayLogo.png',
+    },
+    {
+      link: 'https://acmutd.co/',
+      reference: 'DevBlack.png',
+    },
+    {
+      reference: 'match.png',
+    },
+    {
+      reference: 'state-farm.png',
+    },
+    {
+      link: 'https://acmutd.co/',
+      reference: 'HackutdBlack.png',
+    },
+  ],
 };
 
 //add any question data that your org would like to see on the admin stats page
@@ -594,6 +613,7 @@ export const singleField = [
 export interface HackPortalConfig {
   keynoteSpeakers: KeynoteSpeaker[];
   teamMembers: Partial<TeamMember>[];
+  sponsors: Partial<Sponsor>[];
   registrationFields: {
     generalQuestions: QuestionTypes[];
     schoolQuestions: QuestionTypes[];

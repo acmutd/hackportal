@@ -26,7 +26,6 @@ import { hackPortalConfig } from '../hackportal.config';
 export default function Home(props: {
   challenges: Challenge[];
   answeredQuestion: AnsweredQuestion[];
-  sponsorCard: Sponsor[];
 }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -35,7 +34,7 @@ export default function Home(props: {
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [challengeIdx, setChallengeIdx] = useState(0);
   const [members, setMembers] = useState<Partial<TeamMember>[]>([]);
-  const [sponsor, setSponsor] = useState<Sponsor[]>([]);
+  const [sponsor, setSponsor] = useState<Partial<Sponsor>[]>([]);
   const [challengeData, setChallengeData] = useState({
     title: '',
     organization: '',
@@ -72,7 +71,7 @@ export default function Home(props: {
       description: sortedChallenges[0].description,
       prizes: sortedChallenges[0].prizes,
     });
-    setSponsor(props.sponsorCard);
+    setSponsor(hackPortalConfig.sponsors);
 
     //Organize members in order by rank given in firebase
     setMembers(hackPortalConfig.teamMembers.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
@@ -453,15 +452,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/questions/faq`,
     {},
   );
-  const { data: sponsorData } = await RequestHelper.get<Sponsor[]>(
-    `${protocol}://${context.req.headers.host}/api/sponsor`,
-    {},
-  );
   return {
     props: {
       challenges: challengeData,
       answeredQuestion: answeredQuestion,
-      sponsorCard: sponsorData,
     },
   };
 };
