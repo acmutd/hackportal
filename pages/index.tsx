@@ -252,43 +252,45 @@ export default function Home(props: {
       </section>
       {/* Featuring Keynotes speakers */}
 
-      <section className="flex overflow-x-auto bg-gray-200 min-h-[24rem]">
-        <div className="flex items-center justify-center font-bold p-6 md:text-4xl text-2xl my-4">
-          Featuring Keynote Speakers
-        </div>
-        <div className="flex flex-col justify-center py-6 md:px-6">
-          {/* Row 1 */}
-          <div className="flex">
-            {speakers.map(
-              ({ name, description, fileName }, idx) =>
-                idx < speakers.length / 2 && (
-                  <KeynoteSpeaker
-                    key={idx}
-                    name={name}
-                    description={description}
-                    cardColor={colorSchemes[idx % 3]}
-                    imageLink={fileName}
-                  />
-                ),
-            )}
+      {speakers.length != 0 && (
+        <section className="flex overflow-x-auto bg-gray-200 min-h-[24rem]">
+          <div className="flex items-center justify-center font-bold p-6 md:text-4xl text-2xl my-4">
+            Featuring Keynote Speakers
           </div>
-          {/* row 2 */}
-          <div className="flex md:ml-[7rem] ml-[5rem]">
-            {speakers.map(
-              ({ name, description, fileName }, idx) =>
-                idx >= speakers.length / 2 && (
-                  <KeynoteSpeaker
-                    key={idx}
-                    name={name}
-                    description={description}
-                    cardColor={colorSchemes[idx % 3]}
-                    imageLink={fileName}
-                  />
-                ),
-            )}
+          <div className="flex flex-col justify-center py-6 md:px-6">
+            {/* Row 1 */}
+            <div className="flex">
+              {speakers.map(
+                ({ name, description, fileName }, idx) =>
+                  idx < speakers.length / 2 && (
+                    <KeynoteSpeaker
+                      key={idx}
+                      name={name}
+                      description={description}
+                      cardColor={colorSchemes[idx % 3]}
+                      imageLink={fileName}
+                    />
+                  ),
+              )}
+            </div>
+            {/* row 2 */}
+            <div className="flex md:ml-[7rem] ml-[5rem]">
+              {speakers.map(
+                ({ name, description, fileName }, idx) =>
+                  idx >= speakers.length / 2 && (
+                    <KeynoteSpeaker
+                      key={idx}
+                      name={name}
+                      description={description}
+                      cardColor={colorSchemes[idx % 3]}
+                      imageLink={fileName}
+                    />
+                  ),
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
       {/* Challenges */}
       {/* This section is hidden if there are no challenges */}
       {challenges.length != 0 && (
@@ -325,59 +327,65 @@ export default function Home(props: {
         </section>
       )}
       {/* FAQ */}
-      <section>
-        <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
-      </section>
-      <section>
-        {/* Team Members */}
-        <div className="flex flex-col flex-grow bg-white">
-          <div className="my-2">
-            <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Meet Our Team :)</h4>{' '}
-            {/* !change */}
-            <div className="flex flex-wrap justify-center md:px-2">
-              {/* Member Cards */}
-              {members.map(
-                ({ name, description, linkedin, github, personalSite, fileName }, idx) => (
-                  <MemberCards
-                    key={idx}
-                    name={name}
-                    description={description}
-                    fileName={fileName}
-                    linkedin={linkedin}
-                    github={github}
-                    personalSite={personalSite}
-                  />
-                ),
-              )}
+      {props.answeredQuestion.length != 0 && (
+        <section>
+          <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
+        </section>
+      )}
+      {members.length != 0 && (
+        <section>
+          {/* Team Members */}
+          <div className="flex flex-col flex-grow bg-white">
+            <div className="my-2">
+              <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Meet Our Team :)</h4>{' '}
+              {/* !change */}
+              <div className="flex flex-wrap justify-center md:px-2">
+                {/* Member Cards */}
+                {members.map(
+                  ({ name, description, linkedin, github, personalSite, fileName }, idx) => (
+                    <MemberCards
+                      key={idx}
+                      name={name}
+                      description={description}
+                      fileName={fileName}
+                      linkedin={linkedin}
+                      github={github}
+                      personalSite={personalSite}
+                    />
+                  ),
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
       {/* Sponsors */}
-      <section>
-        <div className="flex flex-col flex-grow bg-white">
-          <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
-          {/* Sponsor Card */}
-          <section className="flex flex-wrap justify-center p-4">
-            {sponsor.map(({ link, reference }, idx) => (
-              <SponsorCard key={idx} link={link} reference={reference} />
-            ))}
-          </section>
-          <h2 className="my-2 text-center">
-            {' '}
-            {/* !change */}
-            If you would like to sponsor HackPortal, please reach out to us at&nbsp;
-            <a
-              href="mailto:email@organization.com"
-              rel="noopener noreferrer"
-              target="_blank"
-              className="underline"
-            >
-              email@organization.com
-            </a>
-          </h2>
-        </div>
-      </section>
+      {sponsor.length != 0 && (
+        <section>
+          <div className="flex flex-col flex-grow bg-white">
+            <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
+            {/* Sponsor Card */}
+            <section className="flex flex-wrap justify-center p-4">
+              {sponsor.map(({ link, reference }, idx) => (
+                <SponsorCard key={idx} link={link} reference={reference} />
+              ))}
+            </section>
+            <h2 className="my-2 text-center">
+              {' '}
+              {/* !change */}
+              If you would like to sponsor HackPortal, please reach out to us at&nbsp;
+              <a
+                href="mailto:email@organization.com"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="underline"
+              >
+                email@organization.com
+              </a>
+            </h2>
+          </div>
+        </section>
+      )}
 
       {/* Footer */}
       <section className="bg-gray-100 mt-16 px-6 py-8 md:text-base text-xs">
