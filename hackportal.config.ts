@@ -432,21 +432,6 @@ export const hackPortalConfig: HackPortalConfig = {
 };
 
 //add any question data that your org would like to see on the admin stats page
-export type statRecordTypes = {
-  //name: Record<string || number, number>
-  age: Record<number, number>;
-  companies: Record<string, number>;
-  dietary: Record<string, number>;
-  ethnicity: Record<string, number>;
-  race: Record<string, number>;
-  size: Record<string, number>;
-  softwareExperience: Record<string, number>;
-  studyLevel: Record<string, number>;
-  university: Record<string, number>;
-  gender: Record<string, number>;
-  hackathonExperience: Record<number, number>;
-  heardFrom: Record<string, number>;
-};
 
 //add the title for each field that will be displayed as chart titles in admin stats page
 export const fieldNames = {
@@ -538,9 +523,35 @@ interface textAreaQuestion extends RegistrationQuestion {
   placeholder: string;
 }
 
+export const stringSingleField = [
+  'gender',
+  'race',
+  'ethnicity',
+  'size',
+  'accomodations',
+  'hackathonExperience',
+  'softwareExperience',
+  'heardFrom',
+  'university',
+  'major',
+  'studyLevel',
+  'github',
+  'linkedin',
+  'website',
+] as const;
+export const numberSingleField = ['age', 'hackathonExperience'] as const;
+export const stringArrayField = ['companies', 'dietary'] as const;
+export const stringArrayFieldWithScans = [...stringArrayField, 'scans'] as const;
+export const numberArrayField = [] as const;
+
+type InitialValueType = Record<typeof stringSingleField[number], string | null> &
+  Record<typeof numberSingleField[number], number | null> &
+  Record<typeof stringArrayField[number], string | null> &
+  Record<typeof numberArrayField[number], number | null>;
+
 //extracting initial values
 var InitialValues: any = {};
-const getInitialValues = () => {
+const getInitialValues = (): InitialValueType => {
   for (let obj of hackPortalConfig.registrationFields.generalQuestions) {
     setInitialValues(obj);
   }
@@ -586,6 +597,11 @@ const setInitialValues = (obj) => {
 };
 
 export const formInitialValues = getInitialValues();
+
+export type statRecordTypes = Record<typeof stringSingleField[number], Record<string, number>> &
+  Record<typeof numberSingleField[number], Record<number, number>> &
+  Record<typeof stringArrayField[number], Record<string, number>> &
+  Record<typeof numberArrayField[number], Record<number, number>>;
 
 //extracting statRecords for general stats
 const getStatRecords = () => {
