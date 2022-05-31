@@ -1,5 +1,6 @@
 import { firestore } from 'firebase-admin';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { statRecordTypes, statRecords } from '../../hackportal.config';
 import initializeApi from '../../lib/admin/init';
 import { userIsAuthorized } from '../../lib/authorization/check-authorization';
 import { arrayFields, singleFields } from '../../lib/stats/field';
@@ -22,24 +23,13 @@ async function getCheckInEventName() {
 async function getStatsData() {
   const checkInEventName = await getCheckInEventName();
   // const swagData: Record<string, number> = {};
-  const generalStats: GeneralStats = {
+  const generalStats: GeneralStats & statRecordTypes = {
     superAdminCount: 0,
     checkedInCount: 0,
     hackerCount: 0,
     adminCount: 0,
     scans: {},
-    age: {},
-    companies: {},
-    dietary: {},
-    ethnicity: {},
-    gender: {},
-    hackathonExperience: {},
-    heardFrom: {},
-    race: {},
-    size: {},
-    softwareExperience: {},
-    studyLevel: {},
-    university: {},
+    ...statRecords,
   };
 
   const snapshot = await db.collection(USERS_COLLECTION).get();
