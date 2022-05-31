@@ -1,3 +1,5 @@
+import { statRecordType } from '@generated/types';
+
 export const hackPortalConfig: HackPortalConfig = {
   //registration fields are separated by question topics (general, school, hackathon experience, etc. )
   //each question topic is separated by question types(textInput, numberInput, dropdown, etc. )
@@ -478,7 +480,7 @@ export interface HackPortalConfig {
   };
 }
 
-interface QuestionTypes {
+export interface QuestionTypes {
   checkboxQuestions?: CheckboxQuestion[];
   dropdownQuestions?: DropdownQuestion[];
   textInputQuestions?: RegistrationQuestion[];
@@ -487,7 +489,7 @@ interface QuestionTypes {
   textAreaQuestions?: textAreaQuestion[];
 }
 
-interface RegistrationQuestion {
+export interface RegistrationQuestion {
   question: string;
   id: string;
   name: string;
@@ -495,14 +497,14 @@ interface RegistrationQuestion {
   initialValue: any; //value that will be first presented on the form
 }
 
-interface CheckboxQuestion extends RegistrationQuestion {
+export interface CheckboxQuestion extends RegistrationQuestion {
   options: Array<{
     title: string;
     value: string;
   }>;
 }
 
-interface DropdownQuestion extends RegistrationQuestion {
+export interface DropdownQuestion extends RegistrationQuestion {
   options: Array<{
     title: string;
     value: string;
@@ -523,39 +525,34 @@ interface textAreaQuestion extends RegistrationQuestion {
   placeholder: string;
 }
 
-export const stringSingleField = [
-  'gender',
-  'race',
-  'ethnicity',
-  'size',
-  'accomodations',
-  'hackathonExperience',
-  'softwareExperience',
-  'heardFrom',
-  'university',
-  'major',
-  'studyLevel',
-  'github',
-  'linkedin',
-  'website',
-  'preferredEmail',
-  'id',
-  'firstName',
-  'lastName',
-] as const;
-export const numberSingleField = ['age', 'hackathonExperience'] as const;
-export const stringArrayField = ['companies', 'dietary'] as const;
-export const stringArrayFieldWithScans = [...stringArrayField, 'scans'] as const;
-export const numberArrayField = [] as const;
+// export const stringSingleField = [
+//   'gender',
+//   'race',
+//   'ethnicity',
+//   'size',
+//   'accomodations',
+//   'hackathonExperience',
+//   'softwareExperience',
+//   'heardFrom',
+//   'university',
+//   'major',
+//   'studyLevel',
+//   'github',
+//   'linkedin',
+//   'website',
+//   'preferredEmail',
+//   'id',
+//   'firstName',
+//   'lastName',
+// ] as const;
+// export const numberSingleField = ['age', 'hackathonExperience'] as const;
+// export const stringArrayField = ['companies', 'dietary'] as const;
+// export const stringArrayFieldWithScans = [...stringArrayField, 'scans'] as const;
+// export const numberArrayField = [] as const;
 
-type InitialValueType = Record<typeof stringSingleField[number], string | null> &
-  Record<typeof numberSingleField[number], number | null> &
-  Record<typeof stringArrayField[number], string | null> &
-  Record<typeof numberArrayField[number], number | null> & { permissions: UserPermission[] };
-
-//extracting initial values
+// //extracting initial values
 var InitialValues: any = {};
-const getInitialValues = (): InitialValueType => {
+const getInitialValues = () => {
   for (let obj of hackPortalConfig.registrationFields.generalQuestions) {
     setInitialValues(obj);
   }
@@ -602,12 +599,12 @@ const setInitialValues = (obj) => {
 
 export const formInitialValues = getInitialValues();
 
-export type statRecordTypes = Record<typeof stringSingleField[number], Record<string, number>> &
-  Record<typeof numberSingleField[number], Record<number, number>> &
-  Record<typeof stringArrayField[number], Record<string, number>> &
-  Record<typeof numberArrayField[number], Record<number, number>>;
+// export type statRecordTypes = Record<typeof stringSingleField[number], Record<string, number>> &
+//   Record<typeof numberSingleField[number], Record<number, number>> &
+//   Record<typeof stringArrayField[number], Record<string, number>> &
+//   Record<typeof numberArrayField[number], Record<number, number>>;
 
-//extracting statRecords for general stats
+// //extracting statRecords for general stats
 const getStatRecords = () => {
   let records: any = {};
   for (const field in fieldNames) {
@@ -615,4 +612,4 @@ const getStatRecords = () => {
   }
   return records;
 };
-export const statRecords: statRecordTypes = getStatRecords();
+export const statRecords: statRecordType = getStatRecords();
