@@ -538,6 +538,10 @@ export const stringSingleField = [
   'github',
   'linkedin',
   'website',
+  'preferredEmail',
+  'id',
+  'firstName',
+  'lastName',
 ] as const;
 export const numberSingleField = ['age', 'hackathonExperience'] as const;
 export const stringArrayField = ['companies', 'dietary'] as const;
@@ -547,7 +551,7 @@ export const numberArrayField = [] as const;
 type InitialValueType = Record<typeof stringSingleField[number], string | null> &
   Record<typeof numberSingleField[number], number | null> &
   Record<typeof stringArrayField[number], string | null> &
-  Record<typeof numberArrayField[number], number | null>;
+  Record<typeof numberArrayField[number], number | null> & { permissions: UserPermission[] };
 
 //extracting initial values
 var InitialValues: any = {};
