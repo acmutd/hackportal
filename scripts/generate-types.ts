@@ -151,7 +151,7 @@ function main() {
     ${generateCheckboxTypeDefinition(parsedSection.checkboxFields)}
     ${generateDropdownTypeDefinition(parsedSection.dropdownFields)}
     id: string;
-    resume: string;
+    resume?: string;
     scans: string[];
     timestamp: number;
     user: {
@@ -172,18 +172,11 @@ function main() {
   if (!fs.existsSync('node_modules/@generated')) {
     fs.mkdirSync('node_modules/@generated');
   }
-  fs.writeFile(
+  fs.writeFileSync(
     'node_modules/@generated/types.ts',
     `${registrationTypeDefinition}\n\n${statRecordTypeDefinition}`,
-    (err) => {
-      if (err) {
-        console.log('[ERROR] Error generating type definition\n');
-        console.error(err);
-        process.exit(1);
-      }
-      console.log('[INFO] Type Definition files generated in node_modules/@types/generated.ts\n');
-    },
   );
+  console.log('[INFO] Type Definition files generated in node_modules/@types/generated.ts\n');
 }
 
 main();
