@@ -1,9 +1,10 @@
 import { firestore } from 'firebase-admin';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { statRecordTypes, statRecords } from '../../hackportal.config';
+import { statRecords } from '../../hackportal.config';
 import initializeApi from '../../lib/admin/init';
 import { userIsAuthorized } from '../../lib/authorization/check-authorization';
 import { arrayFields, singleFields } from '../../lib/stats/field';
+import { statRecordType } from '@generated/types';
 
 initializeApi();
 const db = firestore();
@@ -23,7 +24,7 @@ async function getCheckInEventName() {
 async function getStatsData() {
   const checkInEventName = await getCheckInEventName();
   // const swagData: Record<string, number> = {};
-  const generalStats: GeneralStats & statRecordTypes = {
+  const generalStats: GeneralStats & statRecordType = {
     superAdminCount: 0,
     checkedInCount: 0,
     hackerCount: 0,

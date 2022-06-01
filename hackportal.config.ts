@@ -1,5 +1,3 @@
-import { statRecordType } from '@generated/types';
-
 export const hackPortalConfig: HackPortalConfig = {
   //registration fields are separated by question topics (general, school, hackathon experience, etc. )
   //each question topic is separated by question types(textInput, numberInput, dropdown, etc. )
@@ -612,4 +610,4 @@ const getStatRecords = () => {
   }
   return records;
 };
-export const statRecords: statRecordType = getStatRecords();
+export const statRecords = getStatRecords();
