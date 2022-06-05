@@ -4,7 +4,7 @@ Registration setup is done in ***hackportal.config.ts***
 There, you will find a json object that will hold all the registration questions that will displayed in the registration page.
 
 ## Default Registration Field object
-```json
+```
     registrationFields: {
         generalQuestions: [
 
@@ -35,7 +35,7 @@ Question types are represented as arrays of specific questions and are held with
 
 ### Sample question types with questions
 
-```json
+```
     {
         textInputQuestions: [
             {
@@ -78,7 +78,7 @@ Each question type requires specific data for it to be displayed properly
 textInputQuestions
 - question: "" //Question that will be displayed to registrant
 - id: "" //id of field(value not as important)
-- name: "" //string that will be the key in the database (what you see when you as question label when you view registrant data)
+- name: "" //string that will be the key in the database (what you see as question label when you view registrant data)
 - required: true or false //determines if form requires user to input some answer
 - initialValue: "" //initial value displayed before user inputs anything
 
@@ -146,7 +146,7 @@ datalist:
 
 *Datalist require more code change within ***register.tsx***  
 **Two datalists are given and already computed for you, just add under any question topic
-```json
+```
     {
         datalistQuestions: [
             {
@@ -171,7 +171,7 @@ datalist:
 ```
 
 ## Sample of Registration Field Object with questions
-```json
+```
     registrationFields: {
         generalQuestions: [
             {
