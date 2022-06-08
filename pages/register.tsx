@@ -98,7 +98,7 @@ export default function Register() {
           body: formData,
         });
       }
-      await RequestHelper.post<Registration, any>('/api/applications', {}, registrationData);
+      await RequestHelper.post<HackerRegistration, any>('/api/applications', {}, registrationData);
       alert('Profile created successful');
       updateProfile(registrationData);
       router.push('/profile');

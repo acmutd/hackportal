@@ -22,6 +22,8 @@ const ROLE_MAPPINGS: Record<UserPermission, string> = {
   organizer: 'Event Organizer',
   super_admin: 'Super Admin',
   judge: 'Judge',
+  volunteer: 'Event Volunteer',
+  mentor: 'Event Mentor',
 };
 
 /**

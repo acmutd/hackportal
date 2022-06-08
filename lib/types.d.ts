@@ -8,7 +8,15 @@ type WithId<T> = T & {
 /**
  * A flag for the set of functionality that is enabled for an account.
  */
-type UserPermission = 'admin' | 'sponsor' | 'organizer' | 'judge' | 'hacker' | 'super_admin';
+type UserPermission =
+  | 'admin'
+  | 'sponsor'
+  | 'organizer'
+  | 'judge'
+  | 'hacker'
+  | 'super_admin'
+  | 'mentor'
+  | 'volunteer';
 type Companies = 'SF' | 'AA' | 'C1' | 'EB' | 'FB';
 /**
  * Basic information needed for displays on the website.
@@ -63,15 +71,7 @@ type User = Person & {
   university: string;
 };
 
-/**
- * Information about a specific event registration.
- */
-type Registration = {
-  id: string;
-  /**
-   * A UNIX timestamp corresponding to when a hacker registered for the event.
-   */
-  timestamp: number;
+type GeneralInfo = {
   /**
    * Basic biographical user data
    */
@@ -85,29 +85,62 @@ type Registration = {
      */
     preferredEmail: string;
   };
-  // TODO: Allow for qualifiers like "how old will you be at the day of the event?"
-  // TODO: Allow this to be dynamically defined by the organizers
-  // TODO: responses: { [questionId: string]: Question }
   age: number;
   gender: string;
   race: string;
   ethnicity: string;
+};
+
+type SchoolInfo = {
   university: string;
   major: string;
   studyLevel: string;
+};
+
+type ExperienceInfo = {
   hackathonExperience: number;
   softwareExperience: string;
   heardFrom: string;
+};
+
+type EventInfo = {
   size: string;
   dietary: string[];
   accomodations: string;
+};
+
+type SponsorInfo = {
   github?: string;
   linkedin?: string;
   website?: string;
   resume?: string;
   companies: Companies[];
-  //claims: []; //Array of Strings will be used to id any claims (lunch, merch, etc.) made by user
 };
+/**
+ * Information about a specific event registration.
+ */
+type BaseRegistration = {
+  id: string;
+  /**
+   * A UNIX timestamp corresponding to when a hacker registered for the event.
+   */
+  timestamp: number;
+
+  // TODO: Allow for qualifiers like "how old will you be at the day of the event?"
+  // TODO: Allow this to be dynamically defined by the organizers
+  // TODO: responses: { [questionId: string]: Question }
+
+  //claims: []; //Array of Strings will be used to id any claims (lunch, merch, etc.) made by user
+} & GeneralInfo &
+  EventInfo;
+
+type AvailabilityInfo = {};
+
+type HackerRegistration = BaseRegistration & SchoolInfo & ExperienceInfo & SponsorInfo;
+
+type MentorRegistration = BaseRegistration & AvailabilityInfo;
+
+type Volunteer = BaseRegistration & SchoolInfo & ExperienceInfo & SponsorInfo & AvailabilityInfo;
 
 /**
  * Represent an answered question

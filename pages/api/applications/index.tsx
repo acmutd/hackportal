@@ -42,9 +42,9 @@ async function handleGetApplications(req: NextApiRequest, res: NextApiResponse) 
 
   try {
     const snapshot = await db.collection(APPLICATIONS_COLLECTION).get();
-    const applications: Registration[] = snapshot.docs.map((snap) => {
+    const applications: HackerRegistration[] = snapshot.docs.map((snap) => {
       // TODO: Verify the application is accurate and report if something is off
-      return snap.data() as Registration;
+      return snap.data() as HackerRegistration;
     });
     res.status(200).json(applications);
   } catch (error) {
@@ -70,7 +70,10 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
   const {} = req.query;
   const applicationBody = req.body;
 
-  let body: Registration;
+  console.log('UR MOM');
+  console.log(req.body);
+
+  let body: HackerRegistration;
   try {
     body = JSON.parse(req.body);
   } catch (error) {
