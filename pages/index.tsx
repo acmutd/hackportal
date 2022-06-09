@@ -66,13 +66,16 @@ export default function Home(props: {
 
     //Organize challenges in order by rank given in firebase
     const sortedChallenges = props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1));
-    setChallenges(sortedChallenges);
-    setChallengeData({
-      title: sortedChallenges[0].title,
-      organization: sortedChallenges[0].organization,
-      description: sortedChallenges[0].description,
-      prizes: sortedChallenges[0].prizes,
-    });
+
+    if (sortedChallenges.length != 0) {
+      setChallenges(sortedChallenges);
+      setChallengeData({
+        title: sortedChallenges[0].title,
+        organization: sortedChallenges[0].organization,
+        description: sortedChallenges[0].description,
+        prizes: sortedChallenges[0].prizes,
+      });
+    }
     setSponsor(props.sponsorCard);
 
     //Organize members in order by rank given in firebase
@@ -249,128 +252,140 @@ export default function Home(props: {
       </section>
       {/* Featuring Keynotes speakers */}
 
-      <section className="flex overflow-x-auto bg-gray-200 min-h-[24rem]">
-        <div className="flex items-center justify-center font-bold p-6 md:text-4xl text-2xl my-4">
-          Featuring Keynote Speakers
-        </div>
-        <div className="flex flex-col justify-center py-6 md:px-6">
-          {/* Row 1 */}
-          <div className="flex">
-            {speakers.map(
-              ({ name, description, fileName }, idx) =>
-                idx < speakers.length / 2 && (
-                  <KeynoteSpeaker
-                    key={idx}
-                    name={name}
-                    description={description}
-                    cardColor={colorSchemes[idx % 3]}
-                    imageLink={fileName}
-                  />
-                ),
-            )}
+      {speakers.length != 0 && (
+        <section className="flex overflow-x-auto bg-gray-200 min-h-[24rem]">
+          <div className="flex items-center justify-center font-bold p-6 md:text-4xl text-2xl my-4">
+            Featuring Keynote Speakers
           </div>
-          {/* row 2 */}
-          <div className="flex md:ml-[7rem] ml-[5rem]">
-            {speakers.map(
-              ({ name, description, fileName }, idx) =>
-                idx >= speakers.length / 2 && (
-                  <KeynoteSpeaker
-                    key={idx}
-                    name={name}
-                    description={description}
-                    cardColor={colorSchemes[idx % 3]}
-                    imageLink={fileName}
-                  />
-                ),
-            )}
-          </div>
-        </div>
-      </section>
-      {/* Challenges */}
-      <section className="p-6 ">
-        <div className="font-bold p-6 md:text-4xl text-2xl my-4">Challenges</div>
-        <div className="flex">
-          {/* Challenge Orgs Selectors*/}
-          <div className="md:w-1/4 w-1/5">
-            {challenges.map((challenge, idx) => (
-              <div
-                id={`org${idx}`}
-                className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
-                key={idx}
-                onClick={() => changeOrg(challenge, idx)}
-              >
-                {/* change arrow color in global css to match parent selector */}
-                <div className="arrow-right absolute top-1/2 right-0 -translate-y-1/2 translate-x-full hidden"></div>
-                {challenge.organization}
-              </div>
-            ))}
-          </div>
-          {/* Challenges Description Cards */}
-          <div className="md:w-3/4 w-4/5 my-4 pl-6 min-h-full">
-            {/* Card */}
-            <HomeChallengeCard
-              title={challengeData.title}
-              organization={challengeData.organization}
-              description={challengeData.description}
-              prizes={challengeData.prizes}
-            />
-          </div>
-        </div>
-      </section>
-      {/* FAQ */}
-      <section>
-        <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
-      </section>
-      <section>
-        {/* Team Members */}
-        <div className="flex flex-col flex-grow bg-white">
-          <div className="my-2">
-            <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Meet Our Team :)</h4>{' '}
-            {/* !change */}
-            <div className="flex flex-wrap justify-center md:px-2">
-              {/* Member Cards */}
-              {members.map(
-                ({ name, description, linkedin, github, personalSite, fileName }, idx) => (
-                  <MemberCards
-                    key={idx}
-                    name={name}
-                    description={description}
-                    fileName={fileName}
-                    linkedin={linkedin}
-                    github={github}
-                    personalSite={personalSite}
-                  />
-                ),
+          <div className="flex flex-col justify-center py-6 md:px-6">
+            {/* Row 1 */}
+            <div className="flex">
+              {speakers.map(
+                ({ name, description, fileName }, idx) =>
+                  idx < speakers.length / 2 && (
+                    <KeynoteSpeaker
+                      key={idx}
+                      name={name}
+                      description={description}
+                      cardColor={colorSchemes[idx % 3]}
+                      imageLink={fileName}
+                    />
+                  ),
+              )}
+            </div>
+            {/* row 2 */}
+            <div className="flex md:ml-[7rem] ml-[5rem]">
+              {speakers.map(
+                ({ name, description, fileName }, idx) =>
+                  idx >= speakers.length / 2 && (
+                    <KeynoteSpeaker
+                      key={idx}
+                      name={name}
+                      description={description}
+                      cardColor={colorSchemes[idx % 3]}
+                      imageLink={fileName}
+                    />
+                  ),
               )}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+      {/* Challenges */}
+      {/* This section is hidden if there are no challenges */}
+      {challenges.length != 0 && (
+        <section className="p-6 ">
+          <div className="font-bold p-6 md:text-4xl text-2xl my-4">Challenges</div>
+          <div className="flex">
+            {/* Challenge Orgs Selectors*/}
+            <div className="md:w-1/4 w-1/5">
+              {challenges.map((challenge, idx) => (
+                <div
+                  id={`org${idx}`}
+                  className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
+                  key={idx}
+                  onClick={() => changeOrg(challenge, idx)}
+                >
+                  {/* change arrow color in global css to match parent selector */}
+                  <div className="arrow-right absolute top-1/2 right-0 -translate-y-1/2 translate-x-full hidden"></div>
+                  {challenge.organization}
+                </div>
+              ))}
+            </div>
+            {/* Challenges Description Cards */}
+
+            <div className="md:w-3/4 w-4/5 my-4 pl-6 min-h-full">
+              {/* Card */}
+              <HomeChallengeCard
+                title={challengeData.title}
+                organization={challengeData.organization}
+                description={challengeData.description}
+                prizes={challengeData.prizes}
+              />
+            </div>
+          </div>
+        </section>
+      )}
+      {/* FAQ */}
+      {props.answeredQuestion.length != 0 && (
+        <section>
+          <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
+        </section>
+      )}
+      {members.length != 0 && (
+        <section>
+          {/* Team Members */}
+          <div className="flex flex-col flex-grow bg-white">
+            <div className="my-2">
+              <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Meet Our Team :)</h4>{' '}
+              {/* !change */}
+              <div className="flex flex-wrap justify-center md:px-2">
+                {/* Member Cards */}
+                {members.map(
+                  ({ name, description, linkedin, github, personalSite, fileName }, idx) => (
+                    <MemberCards
+                      key={idx}
+                      name={name}
+                      description={description}
+                      fileName={fileName}
+                      linkedin={linkedin}
+                      github={github}
+                      personalSite={personalSite}
+                    />
+                  ),
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
       {/* Sponsors */}
-      <section>
-        <div className="flex flex-col flex-grow bg-white">
-          <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
-          {/* Sponsor Card */}
-          <section className="flex flex-wrap justify-center p-4">
-            {sponsor.map(({ link, reference }, idx) => (
-              <SponsorCard key={idx} link={link} reference={reference} />
-            ))}
-          </section>
-          <h2 className="my-2 text-center">
-            {' '}
-            {/* !change */}
-            If you would like to sponsor HackPortal, please reach out to us at&nbsp;
-            <a
-              href="mailto:email@organization.com"
-              rel="noopener noreferrer"
-              target="_blank"
-              className="underline"
-            >
-              email@organization.com
-            </a>
-          </h2>
-        </div>
-      </section>
+      {sponsor.length != 0 && (
+        <section>
+          <div className="flex flex-col flex-grow bg-white">
+            <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
+            {/* Sponsor Card */}
+            <section className="flex flex-wrap justify-center p-4">
+              {sponsor.map(({ link, reference }, idx) => (
+                <SponsorCard key={idx} link={link} reference={reference} />
+              ))}
+            </section>
+            <h2 className="my-2 text-center">
+              {' '}
+              {/* !change */}
+              If you would like to sponsor HackPortal, please reach out to us at&nbsp;
+              <a
+                href="mailto:email@organization.com"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="underline"
+              >
+                email@organization.com
+              </a>
+            </h2>
+          </div>
+        </section>
+      )}
 
       {/* Footer */}
       <section className="bg-gray-100 mt-16 px-6 py-8 md:text-base text-xs">
