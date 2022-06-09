@@ -19,9 +19,6 @@ module.exports = {
         '9/10': '90%',
       },
       minWidth: {
-        64: '16rem',
-        56: '14rem',
-        '160px': '160px',
         '3/4': '75%',
         '9/10': '90%',
       },
@@ -31,7 +28,6 @@ module.exports = {
         '1/2': '50%',
         '1/4': '25%',
         '5/8': '62.5%',
-        16: '4rem',
       },
       backgroundColor: (theme) => ({
         lightBackground: '#F4F4F4',
@@ -40,6 +36,15 @@ module.exports = {
       }),
       backgroundImage: {
         'hero-pattern': `url(${'/assets/bg2.jpeg'})`, // !change
+      },
+      colors: {
+        // !change
+        primary: '#F2F3FF',
+        primaryDark: '#C1C8FF',
+        secondary: '#D8F8FF',
+        secondaryDark: '#B0F1FF',
+        complementary: '#FDECFF',
+        complementaryDark: '#F8ACFF',
       },
     },
   },

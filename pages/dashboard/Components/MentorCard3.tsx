@@ -10,7 +10,7 @@ import React from 'react';
 function MentorCard3(props) {
   return (
     <>
-      <div className="flex flex-col md:h-80 md:min-w-64 h-64 min-w-56 md:mx-4 mx-2 bg-pink-100 rounded-2xl">
+      <div className="flex flex-col md:h-80 md:min-w-[16rem] h-64 min-w-[14rem] md:mx-4 mx-2 bg-pink-100 rounded-2xl">
         <div className="h-2/5 p-4 md:text-2xl text-lg font-black">{props.room}</div>
         <div className="flex flex-wrap content-start h-2/5 bg-pink-300 p-4">
           <p className="text-md w-full">Find help with:</p>

@@ -62,7 +62,7 @@ export default function Scan() {
 
       <Sidebar />
 
-      <section id="mainContent" className="px-6 py-3 lg:wd-7/8 md:w-6/7 w-full">
+      <section id="mainContent" className="px-6 py-3 lg:w-7/8 md:w-6/7 w-full">
         <DashboardHeader />
         {hasProfile ? (
           <div className="flex flex-col items-center justify-center top-6 ">

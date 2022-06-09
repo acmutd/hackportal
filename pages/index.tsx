@@ -256,6 +256,7 @@ export default function Home(props: { challenges: Challenge[] }) {
                     description={description}
                     cardColor={colorSchemes[idx % 3]}
                     imageLink={fileName}
+                    idx={idx}
                   />
                 ),
             )}
@@ -271,6 +272,7 @@ export default function Home(props: { challenges: Challenge[] }) {
                     description={description}
                     cardColor={colorSchemes[idx % 3]}
                     imageLink={fileName}
+                    idx={idx}
                   />
                 ),
             )}
