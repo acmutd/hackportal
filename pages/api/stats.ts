@@ -1,5 +1,6 @@
 import { firestore } from 'firebase-admin';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { statRecordTypes, statRecords } from '../../hackportal.config';
 import initializeApi from '../../lib/admin/init';
 import { userIsAuthorized } from '../../lib/authorization/check-authorization';
 import { arrayFields, singleFields } from '../../lib/stats/field';
