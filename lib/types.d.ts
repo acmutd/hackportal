@@ -220,11 +220,9 @@ type Announcement = {
 type ScheduleEvent = {
   title: string;
   endDate: Date;
-  endTimestamp;
   location: string;
   startDate: Date;
-  startTimestamp;
-  event: number;
+  Event: number;
   speakers: [];
   page: string;
   description: string;
