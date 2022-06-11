@@ -226,6 +226,8 @@ type ScheduleEvent = {
   speakers: [];
   page: string;
   description: string;
+  startTimestamp?: any;
+  endTimestamp?: any;
 };
 
 type Sponsor = {
