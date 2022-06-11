@@ -118,12 +118,14 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
         ))}
       </div>
 
-      <div className="p-6">
-        <h1 className="font-bold text-xl">Event Details: </h1>
-        <div className="p-4">
-          <EventDetailLink title="View Events" href="/admin/events" />
+      {user.permissions[0] === 'super_admin' && (
+        <div className="p-6">
+          <h1 className="font-bold text-xl">Event Details: </h1>
+          <div className="p-4">
+            <EventDetailLink title="View Events" href="/admin/events" />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

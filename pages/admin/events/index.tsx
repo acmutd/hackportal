@@ -1,7 +1,6 @@
 import { Transition, Dialog } from '@headlessui/react';
 import { GetServerSideProps } from 'next';
 import React, { Fragment } from 'react';
-import { isAuthorized } from '..';
 import EventForm from '../../../components/EventForm';
 import EventList from '../../../components/EventList';
 import { RequestHelper } from '../../../lib/request-helper';
@@ -10,6 +9,11 @@ import Link from 'next/link';
 
 interface EventPageProps {
   events_: ScheduleEvent[];
+}
+
+function isAuthorized(user): boolean {
+  if (!user || !user.permissions) return false;
+  return (user.permissions as string[]).includes('super_admin');
 }
 
 export default function EventPage({ events_ }: EventPageProps) {

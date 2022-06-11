@@ -1,9 +1,13 @@
 import { useRouter } from 'next/router';
-import { isAuthorized } from '..';
 import EventForm from '../../../components/EventForm';
 import { RequestHelper } from '../../../lib/request-helper';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import Link from 'next/link';
+
+function isAuthorized(user): boolean {
+  if (!user || !user.permissions) return false;
+  return (user.permissions as string[]).includes('super_admin');
+}
 
 export default function AddEventPage() {
   const { user, isSignedIn } = useAuthContext();
