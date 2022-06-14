@@ -1,5 +1,5 @@
 import { Disclosure } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/solid';
+import { ChevronDownIcon } from '@heroicons/react/solid';
 
 /**
  *
@@ -43,7 +43,7 @@ export default function FaqDisclosure({
             }}
           >
             <span>{question}</span>
-            <ChevronUpIcon className={`${isOpen ? 'transform rotate-180' : ''} w-5 h-5`} />
+            <ChevronDownIcon className={`${isOpen ? 'transform rotate-180' : ''} w-5 h-5`} />
           </button>
         </Disclosure.Button>
         {isOpen && (

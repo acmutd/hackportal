@@ -1,4 +1,4 @@
-import { ChevronUpIcon } from '@heroicons/react/solid';
+import { ChevronDownIcon } from '@heroicons/react/solid';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
@@ -60,7 +60,7 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
             >
               Expand All
             </button>
-            <ChevronUpIcon className="w-5 h-5" />
+            <ChevronDownIcon className="w-5 h-5" />
           </div>
         </div>
         {/* FAQ for lg-md */}
