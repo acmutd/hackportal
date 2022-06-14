@@ -23,6 +23,11 @@ function setup() {
     var options = {
       body: announcement,
       icon: '/icons/launcher-icon-4x.png',
+      webpush: {
+            fcmOptions: {
+              link: '/dashboard'
+            }
+          }
     };
     self.registration.showNotification("HackPortal Announcement", options);
   });
