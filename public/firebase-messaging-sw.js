@@ -19,7 +19,7 @@ function setup() {
 
   self.addEventListener('notificationclick', function(event) {
     event.notification.close();
-    clients.openWindow(event.notification.data.url);
+    clients.openWindow(event.notification.data.url + '/dashboard');
   })
 
   messaging.onBackgroundMessage(function (payload) {
