@@ -7,7 +7,7 @@ initializeApi();
 
 const db = firestore();
 
-const APPLICATIONS_COLLECTION = '/registrations';
+const APPLICATIONS_COLLECTION = '/volunteers';
 const USERS_COLLECTION = '/users';
 
 /**
@@ -42,9 +42,9 @@ async function handleGetApplications(req: NextApiRequest, res: NextApiResponse) 
 
   try {
     const snapshot = await db.collection(APPLICATIONS_COLLECTION).get();
-    const applications: HackerRegistration[] = snapshot.docs.map((snap) => {
+    const applications: VolunteerRegistration[] = snapshot.docs.map((snap) => {
       // TODO: Verify the application is accurate and report if something is off
-      return snap.data() as HackerRegistration;
+      return snap.data() as VolunteerRegistration;
     });
     res.status(200).json(applications);
   } catch (error) {
@@ -70,7 +70,7 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
   const {} = req.query;
   const applicationBody = req.body;
 
-  let body: HackerRegistration;
+  let body: VolunteerRegistration;
   try {
     body = JSON.parse(req.body);
   } catch (error) {

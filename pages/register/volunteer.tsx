@@ -99,7 +99,11 @@ export default function VolunteerRegistration() {
           body: formData,
         });
       }
-      await RequestHelper.post<HackerRegistration, any>('/api/applications', {}, registrationData);
+      await RequestHelper.post<HackerRegistration, any>(
+        '/api/applications/volunteer',
+        {},
+        registrationData,
+      );
       alert('Profile created successful');
       updateProfile(registrationData);
       router.push('/profile');

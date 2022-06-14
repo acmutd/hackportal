@@ -7,7 +7,7 @@ initializeApi();
 
 const db = firestore();
 
-const APPLICATIONS_COLLECTION = '/registrations';
+const APPLICATIONS_COLLECTION = '/hackers';
 const USERS_COLLECTION = '/users';
 
 /**
@@ -70,6 +70,8 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
   const {} = req.query;
   const applicationBody = req.body;
 
+  console.log(req.body);
+
   let body: HackerRegistration;
   try {
     body = JSON.parse(req.body);
@@ -80,6 +82,7 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
       message: '',
     });
   }
+
   const snapshot = await db
     .collection(APPLICATIONS_COLLECTION)
     .where('user.id', '==', body.user.id)

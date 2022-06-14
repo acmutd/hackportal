@@ -33,7 +33,7 @@ export default function HackerRegistration() {
 
   const { user, hasProfile, updateProfile } = useAuthContext();
   const [resumeFile, setResumeFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [formValid, setFormValid] = useState(true);
   const checkRedirect = async () => {
     if (hasProfile) router.push('/profile');
@@ -98,7 +98,11 @@ export default function HackerRegistration() {
           body: formData,
         });
       }
-      await RequestHelper.post<HackerRegistration, any>('/api/applications', {}, registrationData);
+      await RequestHelper.post<HackerRegistration, any>(
+        '/api/applications/hacker',
+        {},
+        registrationData,
+      );
       alert('Profile created successful');
       updateProfile(registrationData);
       router.push('/profile');

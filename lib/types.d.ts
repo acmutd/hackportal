@@ -143,7 +143,11 @@ type HackerRegistration = BaseRegistration & SchoolInfo & ExperienceInfo & Spons
 
 type MentorRegistration = BaseRegistration & AvailabilityInfo;
 
-type Volunteer = BaseRegistration & SchoolInfo & ExperienceInfo & SponsorInfo & AvailabilityInfo;
+type VolunteerRegistration = BaseRegistration &
+  SchoolInfo &
+  ExperienceInfo &
+  SponsorInfo &
+  AvailabilityInfo;
 
 /**
  * Represent an answered question

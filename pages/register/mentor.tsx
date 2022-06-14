@@ -79,21 +79,11 @@ export default function MentorRegistration() {
 
   const handleSubmit = async (registrationData) => {
     try {
-      if (resumeFile) {
-        const formData = new FormData();
-        formData.append('resume', resumeFile);
-        formData.append(
-          'fileName',
-          `resume_${registrationData.user.firstName}_${
-            registrationData.user.lastName
-          }${getExtension(resumeFile.name)}`,
-        );
-        await fetch('/api/resume/upload', {
-          method: 'post',
-          body: formData,
-        });
-      }
-      await RequestHelper.post<HackerRegistration, any>('/api/applications', {}, registrationData);
+      await RequestHelper.post<MentorRegistration, any>(
+        '/api/applications/mentor',
+        {},
+        registrationData,
+      );
       alert('Profile created successful');
       updateProfile(registrationData);
       //   router.push('/profile');
