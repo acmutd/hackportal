@@ -134,7 +134,10 @@ type BaseRegistration = {
 } & GeneralInfo &
   EventInfo;
 
-type AvailabilityInfo = {};
+type AvailabilityInfo = {
+  isFullyAvailabile: boolean;
+  timesAvailabile: string;
+};
 
 type HackerRegistration = BaseRegistration & SchoolInfo & ExperienceInfo & SponsorInfo;
 

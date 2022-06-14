@@ -428,6 +428,43 @@ export const hackPortalConfig: HackPortalConfig = {
         ],
       },
     ],
+    //Question Topic
+    availabilityInfoQuestions: [
+      {
+        dropdownQuestions: [
+          {
+            //Availability question
+            question: 'Will you be able to attend the full hackathon?',
+            required: true,
+            id: 'availability',
+            name: 'availability',
+            initialValue: '',
+            options: [
+              {
+                title: 'Yes',
+                value: 'yes',
+              },
+              {
+                title: 'No',
+                value: 'no',
+              },
+            ],
+          },
+        ],
+
+        textAreaQuestions: [
+          {
+            //don't remove; for user account info
+            question: 'If not, what times are you free?',
+            id: 'timesOptional',
+            name: 'timesOptional',
+            required: false,
+            initialValue: '',
+            placeholder: 'Ex. Saturday 9AM-5PM and Sunday 9AM - 2PM',
+          },
+        ],
+      },
+    ],
   },
 };
 
@@ -490,6 +527,7 @@ export interface HackPortalConfig {
     hackathonExperienceQuestions: QuestionTypes[];
     eventInfoQuestions: QuestionTypes[];
     sponsorInfoQuestions: QuestionTypes[];
+    availabilityInfoQuestions: QuestionTypes[];
   };
 }
 

@@ -1,16 +1,16 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import LoadIcon from '../components/LoadIcon';
-import { useUser } from '../lib/profile/user-data';
-import { RequestHelper } from '../lib/request-helper';
-import { useAuthContext } from '../lib/user/AuthContext';
+import LoadIcon from '../../components/LoadIcon';
+import { useUser } from '../../lib/profile/user-data';
+import { RequestHelper } from '../../lib/request-helper';
+import { useAuthContext } from '../../lib/user/AuthContext';
 import firebase from 'firebase/app';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import schools from '../public/schools.json';
-import majors from '../public/majors.json';
-import { hackPortalConfig, formInitialValues } from '../hackportal.config';
-import DisplayQuestion from '../components/DisplayQuestion';
+import schools from '../../public/schools.json';
+import majors from '../../public/majors.json';
+import { hackPortalConfig, formInitialValues } from '../../hackportal.config';
+import DisplayQuestion from '../../components/DisplayQuestion';
 
 /**
  * The registration page.
@@ -18,7 +18,7 @@ import DisplayQuestion from '../components/DisplayQuestion';
  * Registration: /
  */
 
-export default function Register() {
+export default function HackerRegistration() {
   const router = useRouter();
 
   const {
