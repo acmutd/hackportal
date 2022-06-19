@@ -17,7 +17,7 @@ export default function ProfilePage() {
   }
 
   if (!hasProfile) {
-    router.push('/register');
+    router.push('/register/hacker');
     return <div></div>;
   }
 
