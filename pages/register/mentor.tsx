@@ -30,8 +30,7 @@ export default function MentorRegistration() {
   const [loading, setLoading] = useState(true);
   const [formValid, setFormValid] = useState(true);
   const checkRedirect = async () => {
-    if (hasProfile) console.log('HI');
-    // router.push('/profile');
+    if (hasProfile) router.push('/profile');
     else setLoading(false);
   };
 
@@ -145,14 +144,13 @@ export default function MentorRegistration() {
           if (!values[inputObj.name]) errors[inputObj.name] = 'Required';
         }
       }
-
     return errors;
   };
 
   return (
     <div className="flex flex-col flex-grow bg-white">
       <Head>
-        <title>Hacker Registration</title>
+        <title>Mentor Registration</title>
         <meta name="description" content="Register for [HACKATHON NAME]" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -249,14 +247,9 @@ export default function MentorRegistration() {
               ))}
 
               <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">Availability</div>
-              {availabilityInfoQuestions.map((obj, idx) => {
-                console.log('HMM');
-                console.log(obj);
-
-                return (
-                  <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-                );
-              })}
+              {availabilityInfoQuestions.map((obj, idx) => (
+                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+              ))}
 
               {/* Submit */}
               <div className="my-8">

@@ -166,13 +166,20 @@ export default function VolunteerRegistration() {
         }
       }
 
+    if (obj.availabilityInfoQuestions)
+      for (let inputObj of obj.textAreaQuestions) {
+        if (inputObj.required) {
+          if (!values[inputObj.name]) errors[inputObj.name] = 'Required';
+        }
+      }
+
     return errors;
   };
 
   return (
     <div className="flex flex-col flex-grow bg-white">
       <Head>
-        <title>Hacker Registration</title>
+        <title>Volunteer Registration</title>
         <meta name="description" content="Register for [HACKATHON NAME]" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

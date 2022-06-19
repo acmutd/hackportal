@@ -594,6 +594,9 @@ const getInitialValues = () => {
   for (let obj of hackPortalConfig.registrationFields.sponsorInfoQuestions) {
     setInitialValues(obj);
   }
+  for (let obj of hackPortalConfig.registrationFields.availabilityInfoQuestions) {
+    setInitialValues(obj);
+  }
   return InitialValues;
 };
 const setInitialValues = (obj) => {
