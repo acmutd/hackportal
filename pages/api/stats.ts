@@ -24,7 +24,7 @@ async function getStatsData() {
   const checkInEventName = await getCheckInEventName();
   // const swagData: Record<string, number> = {};
   const generalStats: Record<string, GeneralStats> = {};
-  for (const role of ['hacker', 'admin', 'super_admin']) {
+  for (const role of ['hacker', 'admin', 'super_admin', 'illegal_hacker']) {
     generalStats[role] = {
       count: 0,
       checkedInCount: 0,
@@ -44,11 +44,7 @@ async function getStatsData() {
     };
   }
 
-  const snapshot = await db.collection(USERS_COLLECTION).get();
-  snapshot.forEach((doc) => {
-    const userData = doc.data();
-    const userPermission = userData.user.permissions[0];
-
+  const addUserToRoleGroup = (userData: any, userPermission: string) => {
     for (let arrayField of arrayFields) {
       if (!userData[arrayField]) continue;
       userData[arrayField].forEach((data: string) => {
@@ -71,6 +67,22 @@ async function getStatsData() {
     }
 
     generalStats[userPermission].count++;
+  };
+
+  const snapshot = await db.collection(USERS_COLLECTION).get();
+  snapshot.forEach((doc) => {
+    const userData = doc.data();
+    const userPermission = userData.user.permissions[0];
+
+    // If a user is a hacker and haven't checked in, then they will be ignored
+    if (
+      userPermission !== 'hacker' ||
+      (userData.scans && userData.scans.includes(checkInEventName))
+    ) {
+      addUserToRoleGroup(userData, userPermission);
+    } else {
+      addUserToRoleGroup(userData, 'illegal_hacker');
+    }
   });
 
   return generalStats;

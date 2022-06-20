@@ -28,6 +28,7 @@ export default function AdminStatsPage() {
     hacker: true,
     admin: true,
     super_admin: true,
+    illegal_hacker: true,
   });
 
   useEffect(() => {
@@ -76,6 +77,13 @@ export default function AdminStatsPage() {
             title="Hackers"
           />
           <FilterComponent
+            checked={roles['illegal_hacker']}
+            onCheck={() => {
+              updateFilter('illegal_hacker');
+            }}
+            title="Non check-in Hackers"
+          />
+          <FilterComponent
             checked={roles['admin']}
             onCheck={() => {
               updateFilter('admin');
@@ -102,6 +110,11 @@ export default function AdminStatsPage() {
             icon={<AccountCircleIcon />}
             title="Hackers"
             value={statsData['hacker'].count}
+          />
+          <AdminStatsCard
+            icon={<AccountCircleIcon />}
+            title="Illegal Hackers"
+            value={statsData['illegal_hacker'].count}
           />
           <AdminStatsCard
             icon={<SupervisorAccountIcon />}
