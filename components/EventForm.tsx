@@ -5,9 +5,11 @@ import TextField from '@mui/material/TextField';
 interface EventFormProps {
   event?: ScheduleEvent;
   onSubmitClick: (eventData: ScheduleEvent) => Promise<void>;
+  formAction: 'Edit' | 'Add';
 }
 
-export default function EventForm({ event, onSubmitClick }: EventFormProps) {
+export default function EventForm({ event, onSubmitClick, formAction }: EventFormProps) {
+  const [disableSubmit, setDisableSubmit] = useState<boolean>(false);
   const [eventForm, setEventForm] = useState<typeof event>(
     event || {
       description: '',
@@ -68,12 +70,19 @@ export default function EventForm({ event, onSubmitClick }: EventFormProps) {
         renderInput={(params) => <TextField {...params} />}
       />
       <button
+        disabled={disableSubmit}
         onClick={async () => {
-          await onSubmitClick(eventForm);
+          setDisableSubmit(true);
+          try {
+            await onSubmitClick(eventForm);
+          } catch (error) {
+          } finally {
+            setDisableSubmit(false);
+          }
         }}
         className="p-3 bg-green-400 rounded-lg"
       >
-        Edit Event
+        {formAction} Event
       </button>
     </div>
   );

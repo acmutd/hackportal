@@ -86,6 +86,7 @@ export default function EventPage({ events_ }: EventPageProps) {
             onSubmitClick={async (event) => {
               await submitEditEventRequest(event);
             }}
+            formAction="Edit"
           />
           <button
             onClick={() => setCurrentEventEditIndex(-1)}

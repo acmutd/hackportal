@@ -45,6 +45,7 @@ export default function AddEventPage() {
           onSubmitClick={async (event) => {
             await submitAddEventRequest(event);
           }}
+          formAction="Add"
         />
         <Link href="/admin/events">
           <button className="p-3 bg-gray-200 rounded-lg">Go Back</button>
