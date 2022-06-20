@@ -11,10 +11,14 @@ interface EventFormProps {
 export default function EventForm({ event, onSubmitClick, formAction }: EventFormProps) {
   const [disableSubmit, setDisableSubmit] = useState<boolean>(false);
   const [eventForm, setEventForm] = useState<typeof event>(
-    event || {
+    {
+      ...event,
+      type: event.type || '',
+    } || {
       description: '',
       title: '',
       page: '',
+      type: '',
       location: '',
       speakers: [],
       startDate: new Date(),
@@ -38,6 +42,19 @@ export default function EventForm({ event, onSubmitClick, formAction }: EventFor
         placeholder="Enter page?"
         className="border-2 p-3 rounded-lg"
       />
+      <select
+        className="border-2 p-3 rounded-lg"
+        defaultValue=""
+        value={eventForm.type}
+        onChange={(e) => setEventForm((prev) => ({ ...prev, type: e.target.value }))}
+      >
+        <option value="" disabled>
+          Choose an event type
+        </option>
+        <option value="social">Social Event</option>
+        <option value="sponsor">Sponsor Event</option>
+        <option value="workshop">Workshop Event</option>
+      </select>
       <input
         value={eventForm.location}
         onChange={(e) => setEventForm((prev) => ({ ...prev, location: e.target.value }))}
