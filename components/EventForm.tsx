@@ -86,6 +86,35 @@ export default function EventForm({ event, onSubmitClick, formAction }: EventFor
         onChange={(newValue) => setEventForm((prev) => ({ ...prev, endDate: newValue }))}
         renderInput={(params) => <TextField {...params} />}
       />
+      {eventForm.speakers.map((speaker, idx) => (
+        <input
+          className="border-2 p-3 rounded-lg"
+          value={speaker}
+          key={idx}
+          type="text"
+          placeholder="Enter speaker name"
+          onChange={(e) =>
+            setEventForm((prev) => ({
+              ...prev,
+              speakers: prev.speakers.map((sp, i) => {
+                if (i === idx) return e.target.value as string;
+                return sp;
+              }),
+            }))
+          }
+        ></input>
+      ))}
+      <button
+        onClick={() =>
+          setEventForm((prev) => ({
+            ...prev,
+            speakers: [...prev.speakers, ''],
+          }))
+        }
+        className="p-3 bg-green-400 rounded-lg"
+      >
+        Add Speaker
+      </button>
       <button
         disabled={disableSubmit}
         onClick={async () => {

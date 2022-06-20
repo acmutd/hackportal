@@ -224,7 +224,7 @@ type ScheduleEvent = {
   location: string;
   startDate: Date;
   Event: number;
-  speakers: [];
+  speakers?: string[];
   page: string;
   description: string;
   startTimestamp?: any;
