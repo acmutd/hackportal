@@ -187,7 +187,7 @@ export default function VolunteerRegistration() {
       <section id="jumbotron" className="p-2 px-6">
         <div className="max-w-4xl py-6 mx-auto flex flex-col items-center">
           <div className="registrationTitle text-4xl font-bold text-center">
-            Hacker Registration
+            Volunteer Registration
           </div>
           <div className="text-1xl my-4 font-bold font-small text-center">
             Please fill out the following fields. The application should take approximately 5
