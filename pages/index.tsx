@@ -15,7 +15,6 @@ import FAQ from '../components/faq';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import { hackPortalConfig } from '../hackportal.config';
 
 /**
  * The home page.
@@ -23,15 +22,21 @@ import { hackPortalConfig } from '../hackportal.config';
  * Landing: /
  *
  */
-export default function Home(props: { challenges: Challenge[] }) {
+export default function Home(props: {
+  keynoteSpeakers: KeynoteSpeaker[];
+  challenges: Challenge[];
+  answeredQuestion: AnsweredQuestion[];
+  fetchedMembers: TeamMember[];
+  sponsorCard: Sponsor[];
+}) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const [speakers, _] = useState<KeynoteSpeaker[]>(hackPortalConfig.keynoteSpeakers);
+  const [speakers, setSpeakers] = useState<KeynoteSpeaker[]>([]);
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [challengeIdx, setChallengeIdx] = useState(0);
-  const [members, __] = useState<Partial<TeamMember>[]>(hackPortalConfig.teamMembers);
-  const [sponsor, ___] = useState<Partial<Sponsor>[]>(hackPortalConfig.sponsors);
+  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [sponsor, setSponsor] = useState<Sponsor[]>([]);
   const [challengeData, setChallengeData] = useState({
     title: '',
     organization: '',
@@ -57,17 +62,24 @@ export default function Home(props: { challenges: Challenge[] }) {
   useEffect(() => {
     // Set amount of time notification prompt gets displayed before fading out
     setTimeout(fadeOutEffect, 3000);
+    setSpeakers(props.keynoteSpeakers);
 
     //Organize challenges in order by rank given in firebase
     const sortedChallenges = props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1));
-    setChallenges(sortedChallenges);
-    setChallengeData({
-      title: sortedChallenges[0].title,
-      organization: sortedChallenges[0].organization,
-      description: sortedChallenges[0].description,
-      prizes: sortedChallenges[0].prizes,
-    });
 
+    if (sortedChallenges.length != 0) {
+      setChallenges(sortedChallenges);
+      setChallengeData({
+        title: sortedChallenges[0].title,
+        organization: sortedChallenges[0].organization,
+        description: sortedChallenges[0].description,
+        prizes: sortedChallenges[0].prizes,
+      });
+    }
+    setSponsor(props.sponsorCard);
+
+    //Organize members in order by rank given in firebase
+    setMembers(props.fetchedMembers.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
     setLoading(false);
   }, []);
 
@@ -240,130 +252,140 @@ export default function Home(props: { challenges: Challenge[] }) {
       </section>
       {/* Featuring Keynotes speakers */}
 
-      <section className="flex overflow-x-auto bg-gray-200 min-h-[24rem]">
-        <div className="flex items-center justify-center font-bold p-6 md:text-4xl text-2xl my-4">
-          Featuring Keynote Speakers
-        </div>
-        <div className="flex flex-col justify-center py-6 md:px-6">
-          {/* Row 1 */}
-          <div className="flex">
-            {speakers.map(
-              ({ name, description, fileName }, idx) =>
-                idx < speakers.length / 2 && (
-                  <KeynoteSpeaker
-                    key={idx}
-                    name={name}
-                    description={description}
-                    cardColor={colorSchemes[idx % 3]}
-                    imageLink={fileName}
-                    idx={idx}
-                  />
-                ),
-            )}
+      {speakers.length != 0 && (
+        <section className="flex overflow-x-auto bg-gray-200 min-h-[24rem]">
+          <div className="flex items-center justify-center font-bold p-6 md:text-4xl text-2xl my-4">
+            Featuring Keynote Speakers
           </div>
-          {/* row 2 */}
-          <div className="flex md:ml-[7rem] ml-[5rem]">
-            {speakers.map(
-              ({ name, description, fileName }, idx) =>
-                idx >= speakers.length / 2 && (
-                  <KeynoteSpeaker
-                    key={idx}
-                    name={name}
-                    description={description}
-                    cardColor={colorSchemes[idx % 3]}
-                    imageLink={fileName}
-                    idx={idx}
-                  />
-                ),
-            )}
-          </div>
-        </div>
-      </section>
-      {/* Challenges */}
-      <section className="p-6 ">
-        <div className="font-bold p-6 md:text-4xl text-2xl my-4">Challenges</div>
-        <div className="flex">
-          {/* Challenge Orgs Selectors*/}
-          <div className="md:w-1/4 w-1/5">
-            {challenges.map((challenge, idx) => (
-              <div
-                id={`org${idx}`}
-                className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
-                key={idx}
-                onClick={() => changeOrg(challenge, idx)}
-              >
-                {/* change arrow color in global css to match parent selector */}
-                <div className="arrow-right absolute top-1/2 right-0 -translate-y-1/2 translate-x-full hidden"></div>
-                {challenge.organization}
-              </div>
-            ))}
-          </div>
-          {/* Challenges Description Cards */}
-          <div className="md:w-3/4 w-4/5 my-4 pl-6 min-h-full">
-            {/* Card */}
-            <HomeChallengeCard
-              title={challengeData.title}
-              organization={challengeData.organization}
-              description={challengeData.description}
-              prizes={challengeData.prizes}
-            />
-          </div>
-        </div>
-      </section>
-      {/* FAQ */}
-      <section>
-        <FAQ fetchedFaqs={hackPortalConfig.faq}></FAQ>
-      </section>
-      <section>
-        {/* Team Members */}
-        <div className="flex flex-col flex-grow bg-white">
-          <div className="my-2">
-            <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Meet Our Team :)</h4>{' '}
-            {/* !change */}
-            <div className="flex flex-wrap justify-center md:px-2">
-              {/* Member Cards */}
-              {members.map(
-                ({ name, description, linkedin, github, personalSite, fileName }, idx) => (
-                  <MemberCards
-                    key={idx}
-                    name={name}
-                    description={description}
-                    fileName={fileName}
-                    linkedin={linkedin}
-                    github={github}
-                    personalSite={personalSite}
-                  />
-                ),
+          <div className="flex flex-col justify-center py-6 md:px-6">
+            {/* Row 1 */}
+            <div className="flex">
+              {speakers.map(
+                ({ name, description, fileName }, idx) =>
+                  idx < speakers.length / 2 && (
+                    <KeynoteSpeaker
+                      key={idx}
+                      name={name}
+                      description={description}
+                      cardColor={colorSchemes[idx % 3]}
+                      imageLink={fileName}
+                    />
+                  ),
+              )}
+            </div>
+            {/* row 2 */}
+            <div className="flex md:ml-[7rem] ml-[5rem]">
+              {speakers.map(
+                ({ name, description, fileName }, idx) =>
+                  idx >= speakers.length / 2 && (
+                    <KeynoteSpeaker
+                      key={idx}
+                      name={name}
+                      description={description}
+                      cardColor={colorSchemes[idx % 3]}
+                      imageLink={fileName}
+                    />
+                  ),
               )}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+      {/* Challenges */}
+      {/* This section is hidden if there are no challenges */}
+      {challenges.length != 0 && (
+        <section className="p-6 ">
+          <div className="font-bold p-6 md:text-4xl text-2xl my-4">Challenges</div>
+          <div className="flex">
+            {/* Challenge Orgs Selectors*/}
+            <div className="md:w-1/4 w-1/5">
+              {challenges.map((challenge, idx) => (
+                <div
+                  id={`org${idx}`}
+                  className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
+                  key={idx}
+                  onClick={() => changeOrg(challenge, idx)}
+                >
+                  {/* change arrow color in global css to match parent selector */}
+                  <div className="arrow-right absolute top-1/2 right-0 -translate-y-1/2 translate-x-full hidden"></div>
+                  {challenge.organization}
+                </div>
+              ))}
+            </div>
+            {/* Challenges Description Cards */}
+
+            <div className="md:w-3/4 w-4/5 my-4 pl-6 min-h-full">
+              {/* Card */}
+              <HomeChallengeCard
+                title={challengeData.title}
+                organization={challengeData.organization}
+                description={challengeData.description}
+                prizes={challengeData.prizes}
+              />
+            </div>
+          </div>
+        </section>
+      )}
+      {/* FAQ */}
+      {props.answeredQuestion.length != 0 && (
+        <section>
+          <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
+        </section>
+      )}
+      {members.length != 0 && (
+        <section>
+          {/* Team Members */}
+          <div className="flex flex-col flex-grow bg-white">
+            <div className="my-2">
+              <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Meet Our Team :)</h4>{' '}
+              {/* !change */}
+              <div className="flex flex-wrap justify-center md:px-2">
+                {/* Member Cards */}
+                {members.map(
+                  ({ name, description, linkedin, github, personalSite, fileName }, idx) => (
+                    <MemberCards
+                      key={idx}
+                      name={name}
+                      description={description}
+                      fileName={fileName}
+                      linkedin={linkedin}
+                      github={github}
+                      personalSite={personalSite}
+                    />
+                  ),
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
       {/* Sponsors */}
-      <section>
-        <div className="flex flex-col flex-grow bg-white">
-          <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
-          {/* Sponsor Card */}
-          <section className="flex flex-wrap justify-center p-4">
-            {sponsor.map(({ link, reference }, idx) => (
-              <SponsorCard key={idx} link={link} reference={reference} />
-            ))}
-          </section>
-          <h2 className="my-2 text-center">
-            {' '}
-            {/* !change */}
-            If you would like to sponsor HackPortal, please reach out to us at&nbsp;
-            <a
-              href="mailto:email@organization.com"
-              rel="noopener noreferrer"
-              target="_blank"
-              className="underline"
-            >
-              email@organization.com
-            </a>
-          </h2>
-        </div>
-      </section>
+      {sponsor.length != 0 && (
+        <section>
+          <div className="flex flex-col flex-grow bg-white">
+            <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
+            {/* Sponsor Card */}
+            <section className="flex flex-wrap justify-center p-4">
+              {sponsor.map(({ link, reference }, idx) => (
+                <SponsorCard key={idx} link={link} reference={reference} />
+              ))}
+            </section>
+            <h2 className="my-2 text-center">
+              {' '}
+              {/* !change */}
+              If you would like to sponsor HackPortal, please reach out to us at&nbsp;
+              <a
+                href="mailto:email@organization.com"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="underline"
+              >
+                email@organization.com
+              </a>
+            </h2>
+          </div>
+        </section>
+      )}
 
       {/* Footer */}
       <section className="bg-gray-100 mt-16 px-6 py-8 md:text-base text-xs">
@@ -371,25 +393,17 @@ export default function Home(props: { challenges: Challenge[] }) {
         <div className="my-2 relative">
           {/* Social icons */} {/* !change */}
           <div className="space-x-4 > * + *">
-            <a
-              href={hackPortalConfig.organizerData.socialMedia.twitter}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
+            <a href="https://twitter.com/hackutd" rel="noopener noreferrer" target="_blank">
               <TwitterIcon className="footerIcon" />
             </a>
             <a
-              href={hackPortalConfig.organizerData.socialMedia.instagram}
+              href="https://www.instagram.com/hackutd/?hl=en"
               rel="noopener noreferrer"
               target="_blank"
             >
               <InstagramIcon className="footerIcon" />
             </a>
-            <a
-              href={hackPortalConfig.organizerData.socialMedia.facebook}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
+            <a href="https://www.facebook.com/hackutd/" rel="noopener noreferrer" target="_blank">
               <FacebookIcon className="footerIcon" />
             </a>
           </div>
@@ -397,9 +411,9 @@ export default function Home(props: { challenges: Challenge[] }) {
           <div className="absolute bottom-0 right-0">
             {' '}
             {/* !change */}
-            Checkout {hackPortalConfig.organizerData.name}&apos;s{' '}
+            Checkout HackUTD&apos;s{' '}
             <a
-              href={hackPortalConfig.organizerData.website}
+              href="https://acmutd.co/"
               rel="noopener noreferrer"
               target="_blank"
               className="font-black hover:underline"
@@ -421,7 +435,7 @@ export default function Home(props: { challenges: Challenge[] }) {
           <div className="flex md:flex-row flex-col md:ml-0 ml-6">
             {/* !change */}
             <a
-              href={`mailto:${hackPortalConfig.organizerData.email}`}
+              href="mailto:email@organization.com"
               rel="noopener noreferrer"
               target="_blank"
               className="hover:underline md:mr-8 font-thin"
@@ -446,14 +460,33 @@ export default function Home(props: { challenges: Challenge[] }) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const protocol = context.req.headers.referer?.split('://')[0] || 'http';
-
+  const { data: keynoteData } = await RequestHelper.get<KeynoteSpeaker[]>(
+    `${protocol}://${context.req.headers.host}/api/keynotespeakers`,
+    {},
+  );
   const { data: challengeData } = await RequestHelper.get<Challenge[]>(
     `${protocol}://${context.req.headers.host}/api/challenges/`,
     {},
   );
+  const { data: answeredQuestion } = await RequestHelper.get<AnsweredQuestion[]>(
+    `${protocol}://${context.req.headers.host}/api/questions/faq`,
+    {},
+  );
+  const { data: memberData } = await RequestHelper.get<TeamMember[]>(
+    `${protocol}://${context.req.headers.host}/api/members`,
+    {},
+  );
+  const { data: sponsorData } = await RequestHelper.get<Sponsor[]>(
+    `${protocol}://${context.req.headers.host}/api/sponsor`,
+    {},
+  );
   return {
     props: {
+      keynoteSpeakers: keynoteData,
       challenges: challengeData,
+      answeredQuestion: answeredQuestion,
+      fetchedMembers: memberData,
+      sponsorCard: sponsorData,
     },
   };
 };
