@@ -80,8 +80,6 @@ async function getStatsData() {
       (userData.scans && userData.scans.includes(checkInEventName))
     ) {
       addUserToRoleGroup(userData, userPermission);
-    } else {
-      addUserToRoleGroup(userData, 'illegal_hacker');
     }
   });
 
