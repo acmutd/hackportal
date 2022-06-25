@@ -8,7 +8,25 @@ initializeApi();
 const db = firestore();
 
 const APPLICATIONS_COLLECTION = '/registrations';
-const USERS_COLLECTION = '/users';
+const MISC_COLLECTION = '/miscellaneous';
+
+async function updateAllUsersDoc(userId: string, profile: any) {
+  const docRef = db.collection(MISC_COLLECTION).doc('allusers');
+  const userData = await docRef.get();
+  await docRef.set({
+    users: [
+      ...userData.data().users,
+      {
+        id: profile.id,
+        user: {
+          firstName: profile.user.firstName,
+          lastName: profile.user.lastName,
+          permissions: profile.user.permissions,
+        },
+      },
+    ],
+  });
+}
 
 /**
  * Handles GET requests to /api/applications.
@@ -92,7 +110,7 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
   }
 
   await db.collection(APPLICATIONS_COLLECTION).doc(body.user.id).set(body);
-
+  await updateAllUsersDoc(body.user.id, body);
   res.status(200).json({
     msg: 'Operation completed',
   });
