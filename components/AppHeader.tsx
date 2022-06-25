@@ -92,7 +92,7 @@ export default function AppHeader() {
             >
               {dynamicNavItems.map((item) => (
                 <Link key={item.text} href={item.path}>
-                  <a className="border-b-2 first:border-t-2 border-black p-4 py-6 hover:bg-[#D8F8FF]">
+                  <a className="border-b-2 first:border-t-2 border-black p-4 py-6 hover:bg-secondary">
                     <p className="text-sm font-bold">{item.text}</p>
                   </a>
                 </Link>

@@ -27,7 +27,6 @@ export default function KeynoteSpeaker(props) {
   return (
     <div className="flex w-[28rem] h-[9rem] md:mr-20 mr-16 my-4">
       <div
-        // style={{ backgroundColor: props.cardColor.light, overflow: 'hidden' }}
         className={`w-1/4 rounded-l-md ${
           props.idx % 3 === 0
             ? 'bg-primary'
@@ -48,7 +47,6 @@ export default function KeynoteSpeaker(props) {
         )}
       </div>
       <div
-        // style={{ backgroundColor: props.cardColor.dark, overflow: 'hidden' }}
         className={`w-3/4 p-2 rounded-r-md ${
           props.idx % 3 === 0
             ? 'bg-primaryDark'

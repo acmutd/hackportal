@@ -41,9 +41,9 @@ module.exports = {
         // !change
         primary: '#F2F3FF',
         primaryDark: '#C1C8FF',
-        secondary: '#D8F8FF',
+        secondary: '#D8F8FF', //turquoise
         secondaryDark: '#B0F1FF',
-        complementary: '#FDECFF',
+        complementary: '#FDECFF', //pink
         complementaryDark: '#F8ACFF',
       },
     },

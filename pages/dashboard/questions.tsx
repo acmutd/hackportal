@@ -123,6 +123,7 @@ export default function QuestionsPage() {
     });
   }, [user]);
 
+  //!change
   const colorSchemes: ColorScheme[] = [
     {
       light: '#F2F3FF',
@@ -173,18 +174,18 @@ export default function QuestionsPage() {
         <h4 className="font-bold text-3xl">Ask the organizers a question!</h4>
         <div>
           <textarea
-            className="w-full rounded-xl p-4"
+            className="w-full rounded-xl p-4 bg-primary"
             rows={5}
             value={currentQuestion}
             onChange={(e) => setCurrentQuestion(e.target.value)}
-            style={{ backgroundColor: '#F2F3FF' }}
+            // style={{ backgroundColor: '#F2F3FF' }}
             placeholder="Type your question here"
           ></textarea>
           <div className="flex flex-row justify-end my-4">
             <button
               type="button"
-              className="p-2 rounded-lg"
-              style={{ backgroundColor: '#9CA6FF', color: 'black' }}
+              className="p-2 rounded-lg bg-primaryDark"
+              style={{ color: 'black' }}
               onClick={() => {
                 submitQuestion();
               }}

@@ -18,7 +18,7 @@ export default function PendingQuestion({ question }: PendingQuestionProps) {
       <svg height="14" width="14">
         <circle cx="7" cy="7" r="5" fill="#F8ACFF" />
       </svg>
-      <div className="rounded-lg w-full py-2 px-3" style={{ backgroundColor: '#FDECFF' }}>
+      <div className="rounded-lg w-full py-2 px-3 bg-complementary">
         <h1 className="font-semibold">{question}</h1>
       </div>
     </div>

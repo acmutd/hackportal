@@ -33,7 +33,7 @@ export default function FaqDisclosure({
     <Disclosure>
       <div className="">
         <Disclosure.Button
-          className="p-2 text-black text-left rounded-md w-full bg-[#D0D5FF]"
+          className="p-2 text-black text-left rounded-md w-full bg-primaryDark"
           as="div"
         >
           <button
@@ -47,7 +47,7 @@ export default function FaqDisclosure({
           </button>
         </Disclosure.Button>
         {isOpen && (
-          <Disclosure.Panel className="rounded-md my-2 py-2 bg-[#ECEEFF] p-2" static>
+          <Disclosure.Panel className="rounded-md my-2 py-2 bg-primary p-2" static>
             {answer}
           </Disclosure.Panel>
         )}
