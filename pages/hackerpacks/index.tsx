@@ -1,10 +1,9 @@
-import DashboardHeader from '../../components/DashboardHeader';
-import Header from '../../components/AppHeader';
 import Head from 'next/head';
 import React from 'react';
-import { useUser } from '../../lib/profile/user-data';
-import { useAuthContext } from '../../lib/user/AuthContext';
 import DocLink from './Components/DocLinks';
+import HackerpackSidebar from './Components/HackerpackSidebar';
+import MobileDropdownMenu from '../../components/MobileDropdownMenu';
+import sidebarContent from './Components/sidebar-content.json';
 
 /**
  * NOTE: The current HackerPack contains dummy data (obviously) and needs to be updated.
@@ -18,116 +17,29 @@ import DocLink from './Components/DocLinks';
  * HackerPack: /
  */
 export default function HackerPack() {
-  const { isSignedIn, hasProfile } = useAuthContext();
-  const user = useUser();
-  const role = user.permissions?.length > 0 ? user.permissions[0] : '';
-
   return (
-    <div className="flex flex-grow flex-wrap">
+    <div className="flex flex-col md:flex-row flex-grow flex-wrap">
       <Head>
         <title>HackerPacks</title>
         <meta name="description" content="HackerPack Information" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* ghost section to fill in for fixed sidebar */}
-      <section
-        id="ghost"
-        className="flex justify-center h-screen sticky top-0 w-1/4 md:w-1/6 2xl:w-1/8 text-xs md:text-xs lg:text-sm overflow-auto"
-      ></section>
-
-      {/* Sidebar */}
-      <section
-        id="Sidebar"
-        className="flex justify-center h-screen fixed top-16 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-xs md:text-xs lg:text-sm overflow-auto"
-      >
-        <section id="options" className="relative px-6 py-4">
-          <div className="font-bold mb-3">HackerPack</div>
-          {/* Sidebar selection options */}
-          {/* Change hrefs(id) to jump to specific sections in main content */}
-          <ul className="pl-4 pb-32">
-            <li>
-              General
-              <ul className="pl-4">
-                <li>
-                  <a href="#Subsection1">Food</a>
-                </li>
-                <li>
-                  <a href="#Subsection2">Mentors</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              Tech Workshop Packs
-              <ul className="pl-4">
-                <li>
-                  <a href="#Subsection3">Name of Workshop</a>
-                </li>
-                <li>
-                  <a href="#Subsection4">Name of Workshop</a>
-                </li>
-                <li>
-                  <a href="#Subsection5">Name of Workshop</a>
-                </li>
-                <li>
-                  <a href="#Subsection6">Name of Workshop</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              Comm Workshop Packs
-              <ul className="pl-4">
-                <li>
-                  <a href="">Name of Workshop</a>
-                </li>
-                <li>
-                  <a href="">Name of Workshop</a>
-                </li>
-                <li>
-                  <a href="">Name of Workshop</a>
-                </li>
-                <li>
-                  <a href="">Name of Workshop</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              Sponsor Workshop Packs
-              <ul className="pl-4">
-                <li>
-                  <a href="">Name of Workshop</a>
-                </li>
-                <li>
-                  <a href="">Name of Workshop</a>
-                </li>
-                <li>
-                  <a href="">Name of Workshop</a>
-                </li>
-                <li>
-                  <a href="">Name of Workshop</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </section>
-        {/* User greeting for bottom of sidebar */}
-        <div className="fixed bottom-0 border-t-2 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-center py-3 bg-white">
-          <div>
-            Welcome,{' '}
-            {!user || !isSignedIn ? 'hacker' : user.firstName !== '' ? user.firstName : 'hacker'}
-          </div>
-          <div className="text-indigo-500">{role}</div>
+      <HackerpackSidebar content={sidebarContent} />
+      <MobileDropdownMenu name="HackerPack" content={sidebarContent} className="flex md:hidden" />
+      <section id="mainContent" className="px-6 py-3 w-full md:w-5/6 2xl:w-7/8 relative">
+        {/* Main content start here */}
+        <div
+          id="Section1"
+          className="font-bold text-2xl md:text-4xl lg-text-6xl before:content-[''] before:block before:h-36 before:-mt-36"
+        >
+          General
         </div>
-      </section>
-
-      {/* Main content section */}
-      <section id="mainContent" className="px-6 py-3 w-3/4 md:wd-5/6 2xl:w-7/8">
-        <div className="font-bold text-2xl md:text-4xl lg-text-6xl">Big Heading</div>
 
         {/* Document links */}
-        <section id="docLinks" className="bg-gray-200 rounded-lg my-6 p-5 w-5/6">
+        <section id="docLinks" className="bg-gray-200 rounded-lg my-6 p-5 w-full md:w-5/6">
           Linked Documents:
-          <div className="flex flex-wrap grid grid-cols-2 lg:grid-cols-3 ">
+          <div className="grid grid-cols-2 lg:grid-cols-3 ">
             <DocLink
               type="doc"
               link="https://docs.google.com/document/d/1adXBUwGyVwdzgt43W8JTWb67JMPAaiERei6QWopodVw/edit"
@@ -162,8 +74,11 @@ export default function HackerPack() {
         </section>
 
         {/* Section 1 */}
-        <div id="Subsection1" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 1</div>
+        <div
+          id="Subsection1"
+          className="my-7 before:content-[''] before:block before:h-36 before:-mt-36"
+        >
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">Food</div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
             incididunt ut labore et dolore magna aliqua. Morbi tempus iaculis urna id volutpat lacus
@@ -178,9 +93,12 @@ export default function HackerPack() {
           </p>
         </div>
         {/* Section 2 */}
-        <div id="Subsection2" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 2</div>
-          <div className="flex grid grid-cols-2 gap-x-4 ">
+        <div
+          id="Subsection2"
+          className="my-7 before:content-[''] before:block before:h-36 before:-mt-36"
+        >
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">Mentors</div>
+          <div className="grid grid-cols-2 gap-x-4 ">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et eu et vitae, in quis metus
               quam integer et. Luctus elit cursus a habitasse velit. Egestas nisi, vel, sodales
@@ -199,9 +117,21 @@ export default function HackerPack() {
             </p>
           </div>
         </div>
+
+        {/* Main Heading 2 */}
+        <div
+          id="Section2"
+          className="font-bold text-2xl md:text-4xl lg-text-6xl before:content-[''] before:block before:h-36 before:-mt-36"
+        >
+          Tech Workshop Packs
+        </div>
+
         {/* Section 3 */}
-        <div id="Subsection3" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 3</div>
+        <div
+          id="Subsection3"
+          className="my-7 before:content-[''] before:block before:h-36 before:-mt-36"
+        >
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">Name of Workshop 1</div>
           <p>
             Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Mauris nunc congue nisi
             vitae suscipit. Vestibulum morbi blandit cursus risus at ultrices mi tempus imperdiet.
@@ -212,8 +142,11 @@ export default function HackerPack() {
           </p>
         </div>
         {/* Section 4 */}
-        <div id="Subsection4" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 4</div>
+        <div
+          id="Subsection4"
+          className="my-7 before:content-[''] before:block before:h-36 before:-mt-36"
+        >
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">Name of Workshop 2</div>
           <p>
             Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Mauris nunc congue nisi
             vitae suscipit. Vestibulum morbi blandit cursus risus at ultrices mi tempus imperdiet.
@@ -224,8 +157,11 @@ export default function HackerPack() {
           </p>
         </div>
         {/* Section 5 */}
-        <div id="Subsection5" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 5</div>
+        <div
+          id="Subsection5"
+          className="my-7 before:content-[''] before:block before:h-36 before:-mt-36"
+        >
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">Name of Workshop 3</div>
           <div>
             <p>
               Turpis egestas pretium aenean pharetra magna. Turpis in eu mi bibendum neque egestas
@@ -243,9 +179,12 @@ export default function HackerPack() {
           </div>
         </div>
         {/* Section 6 */}
-        <div id="Subsection6" className="my-7">
-          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">SubHeading 6</div>
-          <div className="flex grid grid-cols-2 gap-x-4 ">
+        <div
+          id="Subsection6"
+          className="my-7 before:content-[''] before:block before:h-36 before:-mt-36"
+        >
+          <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">Name of Workshop 4</div>
+          <div className="grid grid-cols-2 gap-x-4 ">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et eu et vitae, in quis metus
               quam integer et. Luctus elit cursus a habitasse velit. Egestas nisi, vel, sodales

@@ -242,3 +242,31 @@ type GeneralStats = {
   adminCount: number;
   scans: Record<string, number>;
 };
+
+/**
+ * Data object passed into the MobileDropdownMenu component
+ * that contains the sections and subsections to display, as well
+ * as the section to redirect to
+ */
+type MobileDropdownSection = {
+  /** Display name of the section */
+  title: string;
+
+  /** Path to redirect to (eg. '#Workshops') */
+  href?: string;
+
+  /** List of subsections that will appear when clicked */
+  sections?: MobileDropdownSubsection[];
+};
+
+/**
+ * Subsection object for the MobileDropdownSection;
+ * does NOT contain deeper nestings of sections
+ */
+type MobileDropdownSubsection = {
+  /** Display name of the section */
+  title: string;
+
+  /** Path to redirect to (eg. '#Workshops') */
+  href?: string;
+};
