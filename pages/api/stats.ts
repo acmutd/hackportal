@@ -24,7 +24,7 @@ async function getStatsData() {
   const checkInEventName = await getCheckInEventName();
   // const swagData: Record<string, number> = {};
   const generalStats: Record<string, GeneralStats> = {};
-  for (const role of ['hacker', 'admin', 'super_admin', 'illegal_hacker']) {
+  for (const role of ['hacker', 'admin', 'super_admin']) {
     generalStats[role] = {
       count: 0,
       checkedInCount: 0,
