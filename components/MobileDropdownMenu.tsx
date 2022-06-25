@@ -19,7 +19,20 @@ const sectionStyle = 'bg-indigo-100 w-full pl-3 h-8 cursor-pointer relative flex
 const activeSectionStyle = sectionStyle + ' bg-indigo-200';
 const subsectionStyle = 'bg-indigo-100 w-full pl-9 pr-3 h-8 flex items-center';
 
-export default function DropdownMenu({ name, content, className }: DropdownMenuProps) {
+/**
+ * Menu for navigating within pages on a mobile device.
+ * The menu has a fixed position with a height of 20 (80px)
+ * and contains a "ghost" element that will occupy the same
+ * amount of space at the top of the page, in the scroll container.
+ *
+ * Note that for anchor links (eg. `#Section1`) to work properly,
+ * you must define a scroll-padding or extra margins in the
+ * ::before CSS property:
+ *
+ * - Tailwind v2: `before:content-[''] before:block before:h-36 before:-mt-36`
+ * - Tailwind v3: `scroll-pt-36`
+ */
+export default function MobileDropdownMenu({ name, content, className }: DropdownMenuProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [sectionOpen, setSectionOpen] = useState<boolean[]>(
     new Array<boolean>(content.length).fill(false),
