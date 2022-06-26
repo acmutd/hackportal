@@ -58,18 +58,24 @@ export default function ProfilePage() {
                   <div className="font-bold text-xl">Role</div>
                   <h1 className="font-bold">{profile.user.permissions[0]}</h1>
                 </div>
-                <div className="profile-view-univ flex flex-col gap-y-2">
-                  <div className="font-bold text-xl">University</div>
-                  <h1 className="font-bold">{profile.university}</h1>
-                </div>
-                <div className="profile-view-major flex flex-col gap-y-2">
-                  <div className="font-bold text-xl">Major</div>
-                  <h1 className="font-bold">{profile.major}</h1>
-                </div>
-                <div className="profile-view-stlvl flex flex-col gap-y-2">
-                  <div className="font-bold text-xl">Level of Study</div>
-                  <h1 className="font-bold">{profile.studyLevel}</h1>
-                </div>
+                {'university' in profile && (
+                  <div className="profile-view-univ flex flex-col gap-y-2">
+                    <div className="font-bold text-xl">University</div>
+                    <h1 className="font-bold">{profile.university}</h1>
+                  </div>
+                )}
+                {'major' in profile && (
+                  <div className="profile-view-major flex flex-col gap-y-2">
+                    <div className="font-bold text-xl">Major</div>
+                    <h1 className="font-bold">{profile.major}</h1>
+                  </div>
+                )}
+                {'studyLevel' in profile && (
+                  <div className="profile-view-stlvl flex flex-col gap-y-2">
+                    <div className="font-bold text-xl">Level of Study</div>
+                    <h1 className="font-bold">{profile.studyLevel}</h1>
+                  </div>
+                )}
               </div>
             </div>
           </div>
