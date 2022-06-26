@@ -61,10 +61,10 @@ export default function AdminStatsPage() {
     } else {
       setRoles((prev) =>
         !prev[name]
-          ? Object.entries(prev).reduce((acc, [category, _]) => {
-              console.log('here');
-              return { ...acc, [category]: category === 'checked_in' };
-            }, {} as Record<string, boolean>)
+          ? Object.entries(prev).reduce(
+              (acc, [category, _]) => ({ ...acc, [category]: category === 'checked_in' }),
+              {} as Record<string, boolean>,
+            )
           : { ...prev, [name]: !prev[name] },
       );
     }
