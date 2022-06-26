@@ -10,6 +10,8 @@ import { useAuthContext } from '../../lib/user/AuthContext';
 import UserAdminView from '../../components/UserAdminView';
 import { isAuthorized } from '.';
 
+type UserIdentifier = Omit<UserData, 'scans'>;
+
 /**
  *
  * The User Dashboard of Admin Console. Shows all users that are registered in the system.
@@ -17,10 +19,10 @@ import { isAuthorized } from '.';
  * Route: /admin/users
  *
  */
-export default function UserPage({ userData }: { userData: UserData[] }) {
+export default function UserPage() {
   const [loading, setLoading] = useState(true);
-  const [users, setUsers] = useState<UserData[]>([]);
-  const [filteredUsers, setFilteredUsers] = useState<UserData[]>([]);
+  const [users, setUsers] = useState<UserIdentifier[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<UserIdentifier[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentUser, setCurrentUser] = useState('');
 
@@ -40,7 +42,7 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
     setLoading(true);
     if (!user) return;
 
-    const { data } = await RequestHelper.get<UserData[]>('/api/users', {
+    const { data } = await RequestHelper.get<UserIdentifier[]>('/api/users', {
       headers: {
         Authorization: user.token,
       },
@@ -203,7 +205,7 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
         </>
       ) : (
         <UserAdminView
-          currentUser={users.find((user) => user.id === currentUser)}
+          currentUserId={currentUser}
           goBack={() => {
             setCurrentUser('');
           }}
@@ -215,16 +217,3 @@ export default function UserPage({ userData }: { userData: UserData[] }) {
     </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const protocol = context.req.headers.referer?.split('://')[0] || 'http';
-  const { data } = await RequestHelper.get<UserData[]>(
-    `${protocol}://${context.req.headers.host}/api/users/`,
-    {},
-  );
-  return {
-    props: {
-      userData: data,
-    },
-  };
-};
