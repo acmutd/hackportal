@@ -12,7 +12,7 @@ interface UserAdminViewProps {
   updateCurrentUser: (value: Omit<UserData, 'scans'>) => void;
 }
 
-interface UserProfile extends Omit<Registration, 'user'> {
+interface UserProfile extends Omit<BaseRegistration, 'user'> {
   user: {
     id: string;
     firstName: string;
