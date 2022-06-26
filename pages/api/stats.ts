@@ -24,7 +24,7 @@ async function getStatsData() {
   const checkInEventName = await getCheckInEventName();
   // const swagData: Record<string, number> = {};
   const generalStats: Record<string, GeneralStats> = {};
-  for (const role of ['hacker', 'admin', 'super_admin']) {
+  for (const role of ['hacker', 'admin', 'super_admin', 'checked_in']) {
     generalStats[role] = {
       count: 0,
       checkedInCount: 0,
@@ -75,11 +75,9 @@ async function getStatsData() {
     const userPermission = userData.user.permissions[0];
 
     // If a user is a hacker and haven't checked in, then they will be ignored
-    if (
-      userPermission !== 'hacker' ||
-      (userData.scans && userData.scans.includes(checkInEventName))
-    ) {
-      addUserToRoleGroup(userData, userPermission);
+    addUserToRoleGroup(userData, userPermission);
+    if (userData.scans && userData.scans.includes(checkInEventName)) {
+      addUserToRoleGroup(userData, 'checked_in');
     }
   });
 

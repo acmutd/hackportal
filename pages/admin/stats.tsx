@@ -28,6 +28,7 @@ export default function AdminStatsPage() {
     hacker: true,
     admin: true,
     super_admin: true,
+    checked_in: false,
   });
 
   useEffect(() => {
@@ -44,9 +45,29 @@ export default function AdminStatsPage() {
   }, []);
 
   const updateFilter = (name: string) => {
-    const newFilter = { ...roles };
-    newFilter[name] = !newFilter[name];
-    setRoles(newFilter);
+    if (name !== 'checked_in') {
+      setRoles((prev) =>
+        !prev[name]
+          ? {
+              ...prev,
+              [name]: !prev[name],
+              checked_in: false,
+            }
+          : {
+              ...prev,
+              [name]: !prev[name],
+            },
+      );
+    } else {
+      setRoles((prev) =>
+        !prev[name]
+          ? Object.entries(prev).reduce((acc, [category, _]) => {
+              console.log('here');
+              return { ...acc, [category]: category === 'checked_in' };
+            }, {} as Record<string, boolean>)
+          : { ...prev, [name]: !prev[name] },
+      );
+    }
   };
 
   if (!isSignedIn || !isAuthorized(user)) {
@@ -89,6 +110,13 @@ export default function AdminStatsPage() {
               updateFilter('super_admin');
             }}
             title="Super Admin"
+          />
+          <FilterComponent
+            checked={roles['checked_in']}
+            onCheck={() => {
+              updateFilter('checked_in');
+            }}
+            title="Checked in"
           />
         </div>
         <div className="flex-col gap-y-3 w-full md:flex-row flex justify-around gap-x-2">
