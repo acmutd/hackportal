@@ -178,6 +178,14 @@ export default function HackerPack() {
             </p>
           </div>
         </div>
+
+        <div
+          id="Section3"
+          className="font-bold text-2xl md:text-4xl lg-text-6xl before:content-[''] before:block before:h-16 before:-mt-16"
+        >
+          Sponsor Workshop Packs
+        </div>
+
         {/* Section 6 */}
         <div
           id="Subsection6"
