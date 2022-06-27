@@ -2,7 +2,7 @@ import Head from 'next/head';
 import React from 'react';
 import DocLink from './Components/DocLinks';
 import HackerpackSidebar from './Components/HackerpackSidebar';
-import MobileDropdownMenu from '../../components/MobileDropdownMenu';
+import MobileDropdownMenu from './Components/MobileDropdownMenu';
 import sidebarContent from './Components/sidebar-content.json';
 
 /**
@@ -31,7 +31,7 @@ export default function HackerPack() {
         {/* Main content start here */}
         <div
           id="Section1"
-          className="font-bold text-2xl md:text-4xl lg-text-6xl before:content-[''] before:block before:h-36 before:-mt-36"
+          className="font-bold text-2xl md:text-4xl lg-text-6xl before:content-[''] before:block before:h-16 before:-mt-16"
         >
           General
         </div>
@@ -76,7 +76,7 @@ export default function HackerPack() {
         {/* Section 1 */}
         <div
           id="Subsection1"
-          className="my-7 before:content-[''] before:block before:h-36 before:-mt-36"
+          className="my-7 before:content-[''] before:block before:h-16 before:-mt-16"
         >
           <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">Food</div>
           <p>
@@ -95,7 +95,7 @@ export default function HackerPack() {
         {/* Section 2 */}
         <div
           id="Subsection2"
-          className="my-7 before:content-[''] before:block before:h-36 before:-mt-36"
+          className="my-7 before:content-[''] before:block before:h-16 before:-mt-16"
         >
           <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">Mentors</div>
           <div className="grid grid-cols-2 gap-x-4 ">
@@ -121,7 +121,7 @@ export default function HackerPack() {
         {/* Main Heading 2 */}
         <div
           id="Section2"
-          className="font-bold text-2xl md:text-4xl lg-text-6xl before:content-[''] before:block before:h-36 before:-mt-36"
+          className="font-bold text-2xl md:text-4xl lg-text-6xl before:content-[''] before:block before:h-16 before:-mt-16"
         >
           Tech Workshop Packs
         </div>
@@ -129,7 +129,7 @@ export default function HackerPack() {
         {/* Section 3 */}
         <div
           id="Subsection3"
-          className="my-7 before:content-[''] before:block before:h-36 before:-mt-36"
+          className="my-7 before:content-[''] before:block before:h-16 before:-mt-16"
         >
           <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">Name of Workshop 1</div>
           <p>
@@ -144,7 +144,7 @@ export default function HackerPack() {
         {/* Section 4 */}
         <div
           id="Subsection4"
-          className="my-7 before:content-[''] before:block before:h-36 before:-mt-36"
+          className="my-7 before:content-[''] before:block before:h-16 before:-mt-16"
         >
           <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">Name of Workshop 2</div>
           <p>
@@ -159,7 +159,7 @@ export default function HackerPack() {
         {/* Section 5 */}
         <div
           id="Subsection5"
-          className="my-7 before:content-[''] before:block before:h-36 before:-mt-36"
+          className="my-7 before:content-[''] before:block before:h-16 before:-mt-16"
         >
           <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">Name of Workshop 3</div>
           <div>
@@ -181,7 +181,7 @@ export default function HackerPack() {
         {/* Section 6 */}
         <div
           id="Subsection6"
-          className="my-7 before:content-[''] before:block before:h-36 before:-mt-36"
+          className="my-7 before:content-[''] before:block before:h-16 before:-mt-16"
         >
           <div className="font-bold text-lg md:text-xl lg:text-3xl mb-4">Name of Workshop 4</div>
           <div className="grid grid-cols-2 gap-x-4 ">
