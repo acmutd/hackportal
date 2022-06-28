@@ -117,6 +117,15 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
           </Link>
         ))}
       </div>
+
+      {user.permissions[0] === 'super_admin' && (
+        <div className="p-6">
+          <h1 className="font-bold text-xl">Event Details: </h1>
+          <div className="p-4">
+            <EventDetailLink title="View Challenges" href="/admin/challenges" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

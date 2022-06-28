@@ -182,7 +182,7 @@ type KeynoteSpeaker = {
 type Challenge = {
   title: string;
   description: string;
-  prizes: [];
+  prizes: string[];
   organization: string;
   rank: int;
 };
@@ -220,14 +220,15 @@ type Announcement = {
 type ScheduleEvent = {
   title: string;
   endDate: Date;
-  endTimestamp;
+  type?: string;
   location: string;
   startDate: Date;
-  startTimestamp;
-  event: number;
-  speakers: [];
+  Event: number;
+  speakers?: string[];
   page: string;
   description: string;
+  startTimestamp?: any;
+  endTimestamp?: any;
 };
 
 type Sponsor = {
