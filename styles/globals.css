@@ -140,7 +140,6 @@ a.link {
   -o-transition: width 0.15s ease-in-out;
   transition: width 0.15s ease-in-out;
 }
-
 .menuactive {
   width: 100%;
 }
@@ -152,6 +151,12 @@ a.link {
 }
 
 .accordion:after {
+  content: '\02795';
+  font-size: 12px;
+  float: right;
+}
+
+.adminAccordion:after {
   content: '\02795';
   font-size: 12px;
   float: right;
