@@ -15,10 +15,10 @@ export interface ScanTypeProps {
 export default function ScanType({ name, onClick }: ScanTypeProps) {
   return (
     <div
-      className="bg-red-300 p-4 rounded-xl cursor-pointer m-3 hover:brightness-125"
+      className="bg-red-300 md:p-4 p-2 rounded-xl cursor-pointer m-3 hover:brightness-125 md:whitespace-normal whitespace-nowrap"
       onClick={onClick}
     >
-      <div className="text-center text-lg font-bold">{name}</div>
+      <div className="text-center md:text-lg font-bold">{name}</div>
     </div>
   );
 }

@@ -325,7 +325,7 @@ export default function Admin() {
         <>
           <div className="flex flex-col justify-center top-6">
             <div className="text-2xl font-black text-center">Scan Types</div>
-            <div className="flex flex-row flex-wrap justify-center top-6">
+            <div className="flex md:flex-row md:flex-wrap md:justify-center overflow-x-auto">
               {scansFetched ? (
                 scanTypes.map((d, idx) => (
                   <ScanType
@@ -336,7 +336,9 @@ export default function Admin() {
                   />
                 ))
               ) : (
-                <LoadIcon width={150} height={150} />
+                <div className="bg-red-200 w-full flex justify-center">
+                  <LoadIcon width={150} height={150} />
+                </div>
               )}
             </div>
 
@@ -448,7 +450,7 @@ export default function Admin() {
                   ) : (
                     <div className="mx-auto flex flex-row gap-x-4">
                       <button
-                        className="font-bold bg-green-300 hover:bg-green-200 rounded-lg p-3"
+                        className="font-bold bg-green-300 hover:bg-green-200 rounded-lg md:p-3 p-1 px-2"
                         onClick={() => {
                           setStartScan(true);
                         }}
@@ -456,7 +458,7 @@ export default function Admin() {
                         Start Scan
                       </button>
                       <button
-                        className="font-bold bg-gray-300 hover:bg-gray-200 rounded-lg p-3"
+                        className="font-bold bg-gray-300 hover:bg-gray-200 rounded-lg md:p-3 p-1 px-2"
                         onClick={() => {
                           setCurrentEditScan(currentScan);
                           setEditScan(true);
@@ -465,7 +467,7 @@ export default function Admin() {
                         Edit Scan Info
                       </button>
                       <button
-                        className="font-bold bg-red-300 hover:bg-red-200 rounded-lg p-3"
+                        className="font-bold bg-red-300 hover:bg-red-200 rounded-lg md:p-3 p-1 px-2"
                         onClick={() => {
                           if (currentScan.isCheckIn) {
                             alert('Check-in scan cannot be deleted');
@@ -477,7 +479,7 @@ export default function Admin() {
                         Delete this ScanType
                       </button>
                       <button
-                        className="font-bold bg-red-300 hover:bg-red-200 rounded-lg p-3"
+                        className="font-bold bg-red-300 hover:bg-red-200 rounded-lg md:p-3 p-1 px-2"
                         onClick={() => {
                           setCurrentScan(undefined);
                           setCurrentScanIdx(-1);
