@@ -1,5 +1,8 @@
 import Head from 'next/head';
 import React from 'react';
+import { GetStaticProps } from 'next';
+import ReactMarkdown from 'react-markdown';
+import rehypeSlug from 'rehype-slug';
 import { NotionAPI } from 'notion-client';
 import { NotionRenderer } from 'react-notion-x';
 import DocLink from './Components/DocLinks';
@@ -7,7 +10,26 @@ import HackerpackSidebar from './Components/HackerpackSidebar';
 import MobileDropdownMenu from './Components/MobileDropdownMenu';
 import hackerpackSettings from './Components/hackerpack-settings.json';
 import sidebarContent from './Components/sidebar-content.json';
-import { GetStaticProps } from 'next';
+import indexMarkdown from './Components/markdown/index.md';
+
+// Tailwind rendering for markdown
+// TODO: Need to add support for more elements
+const markdownRendering = {
+  h1: ({ node, ...props }) => (
+    <h1
+      className="font-bold text-2xl md:text-4xl lg-text-6xl mt-10 before:content-[''] before:block before:h-16 before:-mt-16"
+      {...props}
+    />
+  ),
+  h2: ({ node, ...props }) => (
+    <h2
+      className="font-bold text-lg md:text-xl lg:text-3xl mb-4 mt-7 before:content-[''] before:block before:h-16 before:-mt-16"
+      {...props}
+    />
+  ),
+  p: ({ node, ...props }) => <p className="my-3" {...props} />,
+  ul: ({ node, ...props }) => <ul className="list-disc list-inside my-3" {...props} />,
+};
 
 /**
  * NOTE: The current HackerPack contains dummy data (obviously) and
@@ -52,7 +74,11 @@ export default function HackerPack(props: { content: any }) {
           <NotionRenderer recordMap={props.content} darkMode={false} />
         )}
 
-        {hackerpackSettings.mainContent === 'markdown' && <></>}
+        {hackerpackSettings.mainContent === 'markdown' && (
+          <ReactMarkdown components={markdownRendering} rehypePlugins={[rehypeSlug]}>
+            {indexMarkdown}
+          </ReactMarkdown>
+        )}
 
         {hackerpackSettings.mainContent === 'html' && (
           <>
@@ -250,13 +276,12 @@ export default function HackerPack(props: { content: any }) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
+  // Load Notion page data from Notion API if using notion
   if (hackerpackSettings.mainContent === 'notion') {
     const notion = new NotionAPI();
-
     const page = await notion.getPage(hackerpackSettings.notionPageId);
     return { props: { content: page } };
   }
-
   return { props: { content: null } };
 };

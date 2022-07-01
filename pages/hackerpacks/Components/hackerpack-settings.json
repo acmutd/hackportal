@@ -1,5 +1,5 @@
 {
-  "sidebar": false,
-  "mainContent": "notion",
+  "sidebar": true,
+  "mainContent": "markdown",
   "notionPageId": "b76d2dee46474cd0a9bb7f62b384ad25"
 }

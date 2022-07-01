@@ -270,3 +270,11 @@ type MobileDropdownSubsection = {
   /** Path to redirect to (eg. '#Workshops') */
   href?: string;
 };
+
+/**
+ * Typescript module decleration for markdown files
+ */
+declare module '*.md' {
+  const content: any;
+  export default content;
+}
