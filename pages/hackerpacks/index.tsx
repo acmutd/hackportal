@@ -1,10 +1,13 @@
 import Head from 'next/head';
 import React from 'react';
+import { NotionAPI } from 'notion-client';
+import { NotionRenderer } from 'react-notion-x';
 import DocLink from './Components/DocLinks';
 import HackerpackSidebar from './Components/HackerpackSidebar';
 import MobileDropdownMenu from './Components/MobileDropdownMenu';
 import hackerpackSettings from './Components/hackerpack-settings.json';
 import sidebarContent from './Components/sidebar-content.json';
+import { GetServerSideProps } from 'next';
 
 /**
  * NOTE: The current HackerPack contains dummy data (obviously) and
@@ -20,7 +23,7 @@ import sidebarContent from './Components/sidebar-content.json';
  *
  * HackerPack: /
  */
-export default function HackerPack() {
+export default function HackerPack(props: { content: any }) {
   // Adjust width of the main content if sidebar is present
   const adjustedWidth = hackerpackSettings.sidebar ? 'md:w-5/6 2xl:w-7/8' : '';
 
@@ -45,7 +48,9 @@ export default function HackerPack() {
 
       {/* Generate main content based on mainContent setting [notion, markdown, html] */}
       <section id="mainContent" className={`px-6 py-3 relative w-full ${adjustedWidth}`}>
-        {hackerpackSettings.mainContent === 'notion' && <></>}
+        {hackerpackSettings.mainContent === 'notion' && (
+          <NotionRenderer recordMap={props.content} darkMode={false} />
+        )}
 
         {hackerpackSettings.mainContent === 'markdown' && <></>}
 
@@ -244,3 +249,14 @@ export default function HackerPack() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  if (hackerpackSettings.mainContent === 'notion') {
+    const notion = new NotionAPI();
+
+    const page = await notion.getPage(hackerpackSettings.notionPageId);
+    return { props: { content: page } };
+  }
+
+  return { props: { content: null } };
+};

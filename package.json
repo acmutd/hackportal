@@ -42,10 +42,12 @@
     "next-connect": "^0.11.0",
     "next-fonts": "^1.5.1",
     "next-pwa": "^5.2.24",
+    "notion-client": "^6.12.9",
     "qrcode": "^1.4.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-material-ui-carousel": "^2.3.5",
+    "react-notion-x": "^6.12.10",
     "react-select": "^4.3.1",
     "swiper": "^7.4.1",
     "webpack": "^5.51.1"
