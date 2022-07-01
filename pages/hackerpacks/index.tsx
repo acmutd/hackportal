@@ -7,7 +7,7 @@ import HackerpackSidebar from './Components/HackerpackSidebar';
 import MobileDropdownMenu from './Components/MobileDropdownMenu';
 import hackerpackSettings from './Components/hackerpack-settings.json';
 import sidebarContent from './Components/sidebar-content.json';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 
 /**
  * NOTE: The current HackerPack contains dummy data (obviously) and
@@ -250,7 +250,7 @@ export default function HackerPack(props: { content: any }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   if (hackerpackSettings.mainContent === 'notion') {
     const notion = new NotionAPI();
 
