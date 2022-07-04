@@ -6,6 +6,20 @@ import { userIsAuthorized } from '../../../lib/authorization/check-authorization
 initializeApi();
 const db = firestore();
 const USERS_COLLECTION = '/registrations';
+const MISC_COLLECTION = '/miscellaneous';
+
+async function updateAllUserDoc(userId: string, newRole: string) {
+  const docRef = db.collection(MISC_COLLECTION).doc('allusers');
+  const data = await docRef.get();
+
+  const userData = data.data().users.map((obj) => {
+    if (obj.id === userId) return { ...obj, user: { ...obj.user, permissions: [newRole] } };
+    return obj;
+  });
+  await docRef.set({
+    users: userData,
+  });
+}
 
 async function updateUserRole(
   userId: string,
@@ -27,6 +41,7 @@ async function updateUserRole(
       permissions: [newRole],
     },
   });
+  await updateAllUserDoc(userId, newRole);
   return {
     statusCode: 200,
     msg: 'Update completed',
