@@ -39,12 +39,18 @@ module.exports = {
       },
       colors: {
         // !change
-        primary: '#F2F3FF',
-        primaryDark: '#C1C8FF',
-        secondary: '#D8F8FF', //turquoise
-        secondaryDark: '#B0F1FF',
-        complementary: '#FDECFF', //pink
-        complementaryDark: '#F8ACFF',
+        // primary: '#F2F3FF',
+        // primaryDark: '#C1C8FF',
+        // secondary: '#D8F8FF', //turquoise
+        // secondaryDark: '#B0F1FF',
+        // complementary: '#FDECFF', //pink
+        // complementaryDark: '#F8ACFF',
+        primary: '#F99DE3',
+        primaryDark: '#C0329D',
+        secondary: '#7AE194', //turquoise
+        secondaryDark: '#009C28',
+        complementary: '#FFAE73', //pink
+        complementaryDark: '#BE6625',
       },
     },
   },

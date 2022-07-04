@@ -45,13 +45,13 @@ export default function DashboardHeader() {
         <div className="panel w-full bg-primary text-sm">
           <ul className="">
             {/* change hover background */}
-            <li className="p-2 hover:bg-[#DCDEFF]">
+            <li className="p-2 hover:bg-primaryDark">
               <Link href="/dashboard">HackCenter</Link>
             </li>
-            <li className="p-2 hover:bg-[#DCDEFF]">
+            <li className="p-2 hover:bg-primaryDark">
               <Link href="/dashboard/scan-in">Scan-In</Link>
             </li>
-            <li className="p-2 hover:bg-[#DCDEFF]">
+            <li className="p-2 hover:bg-primaryDark">
               <Link href="/dashboard/questions">Ask a Question</Link>
             </li>
           </ul>

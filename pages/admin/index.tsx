@@ -89,16 +89,15 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
         <textarea
           value={announcement}
           onChange={(e) => setAnnouncement(e.target.value)}
-          className="w-full rounded-xl p-4"
-          style={{ backgroundColor: '#F2F3FF' }}
+          className="w-full rounded-xl p-4 bg-primary text-black"
           placeholder="Type your announcement here"
           rows={5}
         ></textarea>
         <div className="flex flex-row justify-end my-4">
           <button
             type="button"
-            className="py-2 px-5 rounded-lg font-bold"
-            style={{ backgroundColor: '#9CA6FF', color: 'black' }}
+            className="py-2 px-5 rounded-lg font-bold bg-primaryDark"
+            style={{ color: 'black' }}
             onClick={() => {
               postAnnouncement();
             }}
