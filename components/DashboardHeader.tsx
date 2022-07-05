@@ -9,10 +9,10 @@ export default function DashboardHeader() {
   useEffect(() => {
     accordion();
   }, []);
+
   const accordion = () => {
-    var acc = document.getElementsByClassName('accordion');
-    var i;
-    for (i = 0; i < acc.length; i++) {
+    let acc = document.getElementsByClassName('accordion');
+    for (let i = 0; i < acc.length; i++) {
       acc[i].addEventListener('click', function () {
         this.classList.toggle('menuactive');
         var panel = this.nextElementSibling;
@@ -26,8 +26,8 @@ export default function DashboardHeader() {
   };
 
   return (
-    <>
-      <header className="md:inline hidden flex justify-center py-2 md:p-4 items-center">
+    <section>
+      <header className="md:inline hidden justify-center py-2 md:p-4 items-center">
         <div className="mx-auto flex flex-wrap justify-center lg:text-xl text-lg font-header text-center">
           <NavLink href="/dashboard" exact={true} className="mx-4">
             HackCenter
@@ -57,6 +57,6 @@ export default function DashboardHeader() {
           </ul>
         </div>
       </div>
-    </>
+    </section>
   );
 }
