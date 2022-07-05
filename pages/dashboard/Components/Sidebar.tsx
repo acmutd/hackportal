@@ -22,7 +22,7 @@ function Sidebar() {
           Welcome,{' '}
           {!user || !isSignedIn ? 'hacker' : user.firstName !== '' ? user.firstName : 'hacker'}
         </div>
-        <div className="text-indigo-500">{role}</div>
+        <div className="text-primaryDark">{role}</div>
       </section>
     </>
   );
