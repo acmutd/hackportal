@@ -3,6 +3,7 @@ import React from 'react';
 import { GetStaticProps } from 'next';
 import ReactMarkdown from 'react-markdown';
 import rehypeSlug from 'rehype-slug';
+import remarkGfm from 'remark-gfm';
 import { NotionAPI } from 'notion-client';
 import { NotionRenderer } from 'react-notion-x';
 import DocLink from './Components/DocLinks';
@@ -29,6 +30,17 @@ const markdownRendering = {
   ),
   p: ({ node, ...props }) => <p className="my-3" {...props} />,
   ul: ({ node, ...props }) => <ul className="list-disc list-inside my-3" {...props} />,
+  a: ({ node, ...props }) => <a className="underline hover:text-indigo-500" {...props} />,
+  table: ({ node, ...props }) => (
+    <table className="border-collapse table-auto w-full text-xs md:text-md lg:text-lg" {...props} />
+  ),
+  th: ({ node, ...props }) => (
+    <th
+      className="text-left text-sm md:text-lg lg:text-xl text-indigo-600 border-black border py-1 px-2"
+      {...props}
+    />
+  ),
+  td: ({ node, ...props }) => <td className="border-black border py-1 px-2" {...props} />,
 };
 
 /**
@@ -75,7 +87,11 @@ export default function HackerPack(props: { content: any }) {
         )}
 
         {hackerpackSettings.mainContent === 'markdown' && (
-          <ReactMarkdown components={markdownRendering} rehypePlugins={[rehypeSlug]}>
+          <ReactMarkdown
+            components={markdownRendering}
+            rehypePlugins={[rehypeSlug]}
+            remarkPlugins={[remarkGfm]}
+          >
             {indexMarkdown}
           </ReactMarkdown>
         )}

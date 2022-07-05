@@ -2,9 +2,15 @@
 
 ## Food 🌮
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Morbi tempus iaculis urna id volutpat lacus laoreet non curabitur. Eget aliquet nibh praesent tristique. In est ante in nibh mauris. Imperdiet dui accumsan sit amet nulla facilisi morbi. Sed pulvinar proin gravida hendrerit lectus a.
+Lorem ipsum dolor sit amet, **consectetur adipiscing** elit, sed do eiusmod tempor *incididunt ut labore* et dolore magna aliqua. Morbi tempus iaculis urna id volutpat lacus laoreet non curabitur. Eget aliquet nibh praesent tristique. In est ante in nibh mauris. Imperdiet dui accumsan sit amet nulla facilisi morbi. Sed pulvinar proin gravida hendrerit lectus a.
 
-Cursus mattis molestie a iaculis at. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Placerat orci nulla pellentesque dignissim enim sit amet venenatis. Dolor magna eget est lorem ipsum dolor sit.
+Cursus mattis molestie a iaculis at. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Placerat orci nulla pellentesque dignissim enim sit amet venenatis. Dolor magna eget est lorem [ipsum dolor sit](https://github.com/acmutd/hackportal).
+
+| Location               | Distance | Cost |
+|------------------------|----------|------|
+| **Taco Bell**          | 0.5mi    | $    |
+| **Joe's Crab Shack**   | 1.2mi    | $$   |
+| **The Capital Grille** | 20mi     | $$$  |
 
 ## Mentors 🧑‍🏫
 
