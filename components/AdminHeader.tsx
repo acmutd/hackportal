@@ -1,7 +1,7 @@
+import Link from 'next/link';
+import NavLink from './NavLink';
 import { useAuthContext } from '../lib/user/AuthContext';
 import { useEffect } from 'react';
-import NavLink from './NavLink';
-import Link from 'next/link';
 
 function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;
@@ -9,7 +9,7 @@ function isAuthorized(user): boolean {
 }
 
 /**
- * An about header.
+ * A dashboard header.
  */
 export default function AdminHeader() {
   const { user } = useAuthContext();
@@ -17,10 +17,10 @@ export default function AdminHeader() {
   useEffect(() => {
     accordion();
   }, []);
+
   const accordion = () => {
-    var acc = document.getElementsByClassName('adminAccordion');
-    var i;
-    for (i = 0; i < acc.length; i++) {
+    var acc = document.getElementsByClassName('accordion');
+    for (let i = 0; i < acc.length; i++) {
       acc[i].addEventListener('click', function () {
         this.classList.toggle('menuactive');
         var panel = this.nextElementSibling;
@@ -32,32 +32,29 @@ export default function AdminHeader() {
       });
     }
   };
+
   return (
-    <>
-      <section className="md:inline hidden p-4">
-        <header className="top-0 sticky flex flex-row justify-between p-2 md:p-4 items-center">
-          <div className="mx-auto md:flex justify-center text-xl font-header md:text-left">
-            <NavLink href="/admin" exact={true} className="mx-4">
-              Event Dashboard
+    <section className="p-4">
+      <header className="top-0 sticky hidden md:flex flex-row justify-between p-2 md:p-4 items-center">
+        <div className="mx-auto md:flex justify-center text-xl font-header md:text-left">
+          <NavLink href="/admin" exact={true} className="mx-4">
+            Event Dashboard
+          </NavLink>
+          <NavLink href="/admin/scan" exact={true} className="mx-4">
+            Scanner
+          </NavLink>
+          <NavLink href="/admin/users" exact={true} className="mx-4">
+            Users Dashboard
+          </NavLink>
+          {isAuthorized(user) && (
+            <NavLink href="/admin/stats" exact={true} className="mx-4">
+              Stats at a Glance
             </NavLink>
-            <NavLink href="/admin/scan" exact={true} className="mx-4">
-              Scanner
-            </NavLink>
-            <NavLink href="/admin/users" exact={true} className="mx-4">
-              Users Dashboard
-            </NavLink>
-            {isAuthorized(user) && (
-              <NavLink href="/admin/stats" exact={true} className="mx-4">
-                Stats at a Glance
-              </NavLink>
-            )}
-          </div>
-        </header>
-      </section>
-      <section className="my-4 md:hidden px-6">
-        <button className="adminAccordion text-left p-2 text-sm bg-[#C1C8FF] w-full">
-          Admin Menu
-        </button>
+          )}
+        </div>
+      </header>
+      <div className="my-4 md:hidden ">
+        <button className="accordion text-left p-2 text-sm bg-[#C1C8FF]">Admin Menu</button>
         <div className="panel w-full bg-[#F2F3FF] text-sm">
           <ul className="">
             <li className="p-2 hover:bg-[#DCDEFF]">
@@ -76,7 +73,7 @@ export default function AdminHeader() {
             )}
           </ul>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

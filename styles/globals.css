@@ -156,12 +156,6 @@ a.link {
   float: right;
 }
 
-.adminAccordion:after {
-  content: '\02795';
-  font-size: 12px;
-  float: right;
-}
-
 .menuactive:after {
   content: '\2796';
 }
