@@ -11,20 +11,22 @@ interface EventFormProps {
 export default function EventForm({ event, onSubmitClick, formAction }: EventFormProps) {
   const [disableSubmit, setDisableSubmit] = useState<boolean>(false);
   const [eventForm, setEventForm] = useState<typeof event>(
-    {
-      ...event,
-      type: event.type || '',
-    } || {
-      description: '',
-      title: '',
-      page: '',
-      type: '',
-      location: '',
-      speakers: [],
-      startDate: new Date(),
-      endDate: new Date(),
-      Event: -1,
-    },
+    formAction === 'Edit'
+      ? {
+          ...event,
+          type: event.type || '',
+        }
+      : {
+          description: '',
+          title: '',
+          page: '',
+          type: '',
+          location: '',
+          speakers: [],
+          startDate: new Date(),
+          endDate: new Date(),
+          Event: -1,
+        },
   );
   return (
     <div className="my-3 flex flex-col gap-y-4">
