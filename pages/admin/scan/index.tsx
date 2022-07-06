@@ -464,7 +464,7 @@ export default function Admin() {
                           setEditScan(true);
                         }}
                       >
-                        Edit Scan Info
+                        Edit
                       </button>
                       <button
                         className="font-bold bg-red-300 hover:bg-red-200 rounded-lg md:p-3 p-1 px-2"
@@ -476,7 +476,7 @@ export default function Admin() {
                           setShowDeleteScanDialog(true);
                         }}
                       >
-                        Delete this ScanType
+                        Delete
                       </button>
                       <button
                         className="font-bold bg-red-300 hover:bg-red-200 rounded-lg md:p-3 p-1 px-2"
