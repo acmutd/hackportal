@@ -51,22 +51,35 @@ export default function ChallengeForm({
       />
 
       {challengeForm.prizes.map((prize, idx) => (
-        <input
-          className="border-2 p-3 rounded-lg"
-          value={prize}
-          key={idx}
-          type="text"
-          placeholder="Enter prizes"
-          onChange={(e) =>
-            setChallengeForm((prev) => ({
-              ...prev,
-              prizes: prev.prizes.map((sp, i) => {
-                if (i === idx) return e.target.value as string;
-                return sp;
-              }),
-            }))
-          }
-        ></input>
+        <div key={idx} className="flex gap-x-2 w-full">
+          <input
+            className="border-2 p-3 rounded-lg w-3/4"
+            value={prize}
+            key={idx}
+            type="text"
+            placeholder="Enter prizes"
+            onChange={(e) =>
+              setChallengeForm((prev) => ({
+                ...prev,
+                prizes: prev.prizes.map((sp, i) => {
+                  if (i === idx) return e.target.value as string;
+                  return sp;
+                }),
+              }))
+            }
+          ></input>
+          <button
+            onClick={() =>
+              setChallengeForm((prev) => ({
+                ...prev,
+                prizes: prev.prizes.filter((sp, i) => i !== idx),
+              }))
+            }
+            className="bg-red-400 rounded-lg p-2 w-1/4"
+          >
+            Delete Prizes
+          </button>
+        </div>
       ))}
       <button
         onClick={() =>
@@ -92,7 +105,7 @@ export default function ChallengeForm({
         }}
         className="p-3 bg-green-400 rounded-lg"
       >
-        {formAction} Challenge
+        {formAction === 'Edit' ? 'Save Changes' : 'Add Event'}
       </button>
     </div>
   );

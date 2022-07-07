@@ -27,7 +27,7 @@ export default function AddChallengePage() {
           rank: parseInt(router.query.id as string),
         },
       );
-      alert('Challengne created');
+      alert('Challenge created');
       router.push('/admin/challenges');
     } catch (error) {
       alert('Unexpected error! Please try again');
