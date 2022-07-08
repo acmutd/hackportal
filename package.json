@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "dev:debug": "NODE_OPTIONS='--inspect' next dev",
-    "build": "next build",
+    "dev": "npm run type:generate && next dev",
+    "dev:debug": "npm run type:generate && NODE_OPTIONS='--inspect' next dev",
+    "build": "npm run type:generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "type:generate": "tsc scripts/generate-types.ts && node scripts/generate-types"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -48,6 +49,7 @@
     "react-material-ui-carousel": "^2.3.5",
     "react-select": "^4.3.1",
     "swiper": "^7.4.1",
+    "ts-node": "^10.8.0",
     "webpack": "^5.51.1"
   },
   "devDependencies": {
