@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import { Registration } from '@generated/types';
 
 /**
  * Utility attributes and functions used to handle user auth state within an AuthContext.
@@ -31,9 +32,11 @@ interface AuthContextState {
    */
   hasProfile: boolean;
 
-  profile: Registration;
+  profile: HackerRegistration | VolunteerRegistration | MentorRegistration;
 
-  updateProfile: (newProfile: Registration) => void;
+  updateProfile: (
+    newProfile: HackerRegistration | VolunteerRegistration | MentorRegistration,
+  ) => void;
 
   /**
    * Updates user after logging in using password
@@ -65,7 +68,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
   const [loading, setLoading] = React.useState(true);
   const [profile, setProfile] = React.useState(null);
 
-  const updateProfile = (profile: Registration) => {
+  const updateProfile = (profile: BaseRegistration) => {
     setProfile(profile);
   };
 

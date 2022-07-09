@@ -1,24 +1,24 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import LoadIcon from '../components/LoadIcon';
-import { useUser } from '../lib/profile/user-data';
-import { RequestHelper } from '../lib/request-helper';
-import { useAuthContext } from '../lib/user/AuthContext';
+import LoadIcon from '../../components/LoadIcon';
+import { useUser } from '../../lib/profile/user-data';
+import { RequestHelper } from '../../lib/request-helper';
+import { useAuthContext } from '../../lib/user/AuthContext';
 import firebase from 'firebase/app';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import schools from '../public/schools.json';
-import majors from '../public/majors.json';
-import { hackPortalConfig, formInitialValues } from '../hackportal.config';
-import DisplayQuestion from '../components/DisplayQuestion';
-
+import schools from '../../public/schools.json';
+import majors from '../../public/majors.json';
+import { hackPortalConfig, formInitialValues } from '../../hackportal.config';
+import DisplayQuestion from '../../components/DisplayQuestion';
+import { Registration } from '@generated/types';
 /**
  * The registration page.
  *
  * Registration: /
  */
 
-export default function Register() {
+export default function HackerRegistration() {
   const router = useRouter();
 
   const {
@@ -33,7 +33,7 @@ export default function Register() {
 
   const { user, hasProfile, updateProfile } = useAuthContext();
   const [resumeFile, setResumeFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [formValid, setFormValid] = useState(true);
   const checkRedirect = async () => {
     if (hasProfile) router.push('/profile');
@@ -98,7 +98,11 @@ export default function Register() {
           body: formData,
         });
       }
-      await RequestHelper.post<Registration, any>('/api/applications', {}, registrationData);
+      await RequestHelper.post<HackerRegistration, any>(
+        '/api/applications/hacker',
+        {},
+        registrationData,
+      );
       alert('Profile created successful');
       updateProfile(registrationData);
       router.push('/profile');

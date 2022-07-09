@@ -428,25 +428,47 @@ export const hackPortalConfig: HackPortalConfig = {
         ],
       },
     ],
+    //Question Topic
+    availabilityInfoQuestions: [
+      {
+        dropdownQuestions: [
+          {
+            //Availability question
+            question: 'Will you be able to attend the full hackathon?',
+            required: true,
+            id: 'availability',
+            name: 'availability',
+            initialValue: '',
+            options: [
+              {
+                title: 'Yes',
+                value: 'yes',
+              },
+              {
+                title: 'No',
+                value: 'no',
+              },
+            ],
+          },
+        ],
+
+        textAreaQuestions: [
+          {
+            //don't remove; for user account info
+            question: 'If not, what times are you free?',
+            id: 'timesOptional',
+            name: 'timesOptional',
+            required: false,
+            initialValue: '',
+            placeholder: 'Ex. Saturday 9AM-5PM and Sunday 9AM - 2PM',
+          },
+        ],
+      },
+    ],
   },
 };
 
 //add any question data that your org would like to see on the admin stats page
-export type statRecordTypes = {
-  //name: Record<string || number, number>
-  age: Record<number, number>;
-  companies: Record<string, number>;
-  dietary: Record<string, number>;
-  ethnicity: Record<string, number>;
-  race: Record<string, number>;
-  size: Record<string, number>;
-  softwareExperience: Record<string, number>;
-  studyLevel: Record<string, number>;
-  university: Record<string, number>;
-  gender: Record<string, number>;
-  hackathonExperience: Record<number, number>;
-  heardFrom: Record<string, number>;
-};
 
 //add the title for each field that will be displayed as chart titles in admin stats page
 export const fieldNames = {
@@ -490,10 +512,11 @@ export interface HackPortalConfig {
     hackathonExperienceQuestions: QuestionTypes[];
     eventInfoQuestions: QuestionTypes[];
     sponsorInfoQuestions: QuestionTypes[];
+    availabilityInfoQuestions: QuestionTypes[];
   };
 }
 
-interface QuestionTypes {
+export interface QuestionTypes {
   checkboxQuestions?: CheckboxQuestion[];
   dropdownQuestions?: DropdownQuestion[];
   textInputQuestions?: RegistrationQuestion[];
@@ -502,7 +525,7 @@ interface QuestionTypes {
   textAreaQuestions?: textAreaQuestion[];
 }
 
-interface RegistrationQuestion {
+export interface RegistrationQuestion {
   question: string;
   id: string;
   name: string;
@@ -510,14 +533,14 @@ interface RegistrationQuestion {
   initialValue: any; //value that will be first presented on the form
 }
 
-interface CheckboxQuestion extends RegistrationQuestion {
+export interface CheckboxQuestion extends RegistrationQuestion {
   options: Array<{
     title: string;
     value: string;
   }>;
 }
 
-interface DropdownQuestion extends RegistrationQuestion {
+export interface DropdownQuestion extends RegistrationQuestion {
   options: Array<{
     title: string;
     value: string;
@@ -538,7 +561,32 @@ interface textAreaQuestion extends RegistrationQuestion {
   placeholder: string;
 }
 
-//extracting initial values
+// export const stringSingleField = [
+//   'gender',
+//   'race',
+//   'ethnicity',
+//   'size',
+//   'accomodations',
+//   'hackathonExperience',
+//   'softwareExperience',
+//   'heardFrom',
+//   'university',
+//   'major',
+//   'studyLevel',
+//   'github',
+//   'linkedin',
+//   'website',
+//   'preferredEmail',
+//   'id',
+//   'firstName',
+//   'lastName',
+// ] as const;
+// export const numberSingleField = ['age', 'hackathonExperience'] as const;
+// export const stringArrayField = ['companies', 'dietary'] as const;
+// export const stringArrayFieldWithScans = [...stringArrayField, 'scans'] as const;
+// export const numberArrayField = [] as const;
+
+// //extracting initial values
 var InitialValues: any = {};
 const getInitialValues = () => {
   for (let obj of hackPortalConfig.registrationFields.generalQuestions) {
@@ -554,6 +602,9 @@ const getInitialValues = () => {
     setInitialValues(obj);
   }
   for (let obj of hackPortalConfig.registrationFields.sponsorInfoQuestions) {
+    setInitialValues(obj);
+  }
+  for (let obj of hackPortalConfig.registrationFields.availabilityInfoQuestions) {
     setInitialValues(obj);
   }
   return InitialValues;
@@ -587,7 +638,12 @@ const setInitialValues = (obj) => {
 
 export const formInitialValues = getInitialValues();
 
-//extracting statRecords for general stats
+// export type statRecordTypes = Record<typeof stringSingleField[number], Record<string, number>> &
+//   Record<typeof numberSingleField[number], Record<number, number>> &
+//   Record<typeof stringArrayField[number], Record<string, number>> &
+//   Record<typeof numberArrayField[number], Record<number, number>>;
+
+// //extracting statRecords for general stats
 const getStatRecords = () => {
   let records: any = {};
   for (const field in fieldNames) {
@@ -595,4 +651,4 @@ const getStatRecords = () => {
   }
   return records;
 };
-export const statRecords: statRecordTypes = getStatRecords();
+export const statRecords = getStatRecords();

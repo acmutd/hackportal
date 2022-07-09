@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { auth, firestore } from 'firebase-admin';
-import { Registration } from '@generated/types';
 import initializeApi from '../../../lib/admin/init';
 import { userIsAuthorized } from '../../../lib/authorization/check-authorization';
 
@@ -8,26 +7,8 @@ initializeApi();
 
 const db = firestore();
 
-const APPLICATIONS_COLLECTION = '/registrations';
-const MISC_COLLECTION = '/miscellaneous';
-
-async function updateAllUsersDoc(userId: string, profile: any) {
-  const docRef = db.collection(MISC_COLLECTION).doc('allusers');
-  const userData = await docRef.get();
-  await docRef.set({
-    users: [
-      ...userData.data().users,
-      {
-        id: profile.id,
-        user: {
-          firstName: profile.user.firstName,
-          lastName: profile.user.lastName,
-          permissions: profile.user.permissions,
-        },
-      },
-    ],
-  });
-}
+const APPLICATIONS_COLLECTION = '/hackers';
+const USERS_COLLECTION = '/users';
 
 /**
  * Handles GET requests to /api/applications.
@@ -89,6 +70,8 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
   const {} = req.query;
   const applicationBody = req.body;
 
+  console.log(req.body);
+
   let body: HackerRegistration;
   try {
     body = JSON.parse(req.body);
@@ -99,6 +82,7 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
       message: '',
     });
   }
+
   const snapshot = await db
     .collection(APPLICATIONS_COLLECTION)
     .where('user.id', '==', body.user.id)
@@ -111,7 +95,7 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
   }
 
   await db.collection(APPLICATIONS_COLLECTION).doc(body.user.id).set(body);
-  await updateAllUsersDoc(body.user.id, body);
+
   res.status(200).json({
     msg: 'Operation completed',
   });
