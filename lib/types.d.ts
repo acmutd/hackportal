@@ -66,48 +66,48 @@ type User = Person & {
 /**
  * Information about a specific event registration.
  */
-type Registration = {
-  id: string;
-  /**
-   * A UNIX timestamp corresponding to when a hacker registered for the event.
-   */
-  timestamp: number;
-  /**
-   * Basic biographical user data
-   */
-  user: {
-    id: string;
-    permissions: UserPermission[];
-    firstName: string;
-    lastName: string;
-    /**
-     * The email used to contact the user.
-     */
-    preferredEmail: string;
-  };
-  // TODO: Allow for qualifiers like "how old will you be at the day of the event?"
-  // TODO: Allow this to be dynamically defined by the organizers
-  // TODO: responses: { [questionId: string]: Question }
-  age: number;
-  gender: string;
-  race: string;
-  ethnicity: string;
-  university: string;
-  major: string;
-  studyLevel: string;
-  hackathonExperience: number;
-  softwareExperience: string;
-  heardFrom: string;
-  size: string;
-  dietary: string[];
-  accomodations: string;
-  github?: string;
-  linkedin?: string;
-  website?: string;
-  resume?: string;
-  companies: Companies[];
-  //claims: []; //Array of Strings will be used to id any claims (lunch, merch, etc.) made by user
-};
+// type Registration = {
+//   id: string;
+//   /**
+//    * A UNIX timestamp corresponding to when a hacker registered for the event.
+//    */
+//   timestamp: number;
+//   /**
+//    * Basic biographical user data
+//    */
+//   user: {
+//     id: string;
+//     permissions: UserPermission[];
+//     firstName: string;
+//     lastName: string;
+//     /**
+//      * The email used to contact the user.
+//      */
+//     preferredEmail: string;
+//   };
+//   // TODO: Allow for qualifiers like "how old will you be at the day of the event?"
+//   // TODO: Allow this to be dynamically defined by the organizers
+//   // TODO: responses: { [questionId: string]: Question }
+//   age: number;
+//   gender: string;
+//   race: string;
+//   ethnicity: string;
+//   university: string;
+//   major: string;
+//   studyLevel: string;
+//   hackathonExperience: number;
+//   softwareExperience: string;
+//   heardFrom: string;
+//   size: string;
+//   dietary: string[];
+//   accomodations: string;
+//   github?: string;
+//   linkedin?: string;
+//   website?: string;
+//   resume?: string;
+//   companies: Companies[];
+//   //claims: []; //Array of Strings will be used to id any claims (lunch, merch, etc.) made by user
+// };
 
 /**
  * Represent an answered question
