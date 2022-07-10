@@ -8,6 +8,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import GoogleIcon from '../../public/icons/googleicon.png';
 import Image from 'next/image';
+import NextConnect from 'next-connect';
 /**
  * A page that allows the user to sign in.
  *
@@ -133,14 +134,18 @@ export default function AuthPage() {
 
   return (
     <>
-      <div className="flex items-center p-4">
-        <ChevronLeftIcon />
-        <Link href="/">Return to event site</Link>
+      <div className="p-4">
+        <Link href="/" passHref>
+          <div className="cursor-pointer items-center inline-flex">
+            <ChevronLeftIcon />
+            Return to event site
+          </div>
+        </Link>
       </div>
       <section className="py-2 md:px-16 px-10">
-        <h1 className="text-3xl font-black">HackUTD VIII Hacker Registration</h1>
-        <p>
-          To complete your application or access event features, please create an account, or log in
+        <h1 className="md:text-3xl text-2xl font-black">HackUTD VIII Hacker Registration</h1>
+        <p className="md:text-base text-sm">
+          To complete your application or access event features, please create an account or log in
           with an existing one.
         </p>
         <div className="mt-16 flex text-2xl">
@@ -161,7 +166,7 @@ export default function AuthPage() {
         </div>
         <section
           id="signInSection"
-          className="bg-[#F2F3FF] xl:w-1/2 lg:w-3/4 w-5/6 min-h-[30rem] rounded-lg p-6"
+          className="bg-[#F2F3FF] xl:w-1/2 lg:w-2/3 w-5/6 2xl:min-h-[30rem] min-h-[28rem] rounded-lg p-6"
         >
           {!passwordResetDialog ? (
             <React.Fragment>
@@ -189,7 +194,7 @@ export default function AuthPage() {
                   autoComplete="current-password"
                   placeholder="Password"
                 ></input>
-                <div className="flex justify-between md:flex-row flex-col-reverse">
+                <div className="inline-flex md:flex justify-between md:flex-row flex-col-reverse">
                   <div
                     className="hover:underline cursor-pointer text-left"
                     onClick={() => {
@@ -276,7 +281,7 @@ export default function AuthPage() {
         </section>
         <section
           id="signUpSection"
-          className="hidden bg-[#F2F3FF] xl:w-1/2 lg:w-3/4 w-5/6 min-h-[30rem] rounded-lg p-6"
+          className="hidden bg-[#F2F3FF] xl:w-1/2 lg:w-3/4 w-5/6 2xl:min-h-[30rem] min-h-[28rem] rounded-lg p-6"
         >
           <form onSubmit={handleSignUpSubmit}>
             <h1 className="text-xl font-bold mt-4 mb-2">Email</h1>
