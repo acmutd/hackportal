@@ -140,7 +140,6 @@ a.link {
   -o-transition: width 0.15s ease-in-out;
   transition: width 0.15s ease-in-out;
 }
-
 .menuactive {
   width: 100%;
 }
