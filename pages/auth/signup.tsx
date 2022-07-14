@@ -53,7 +53,7 @@ export default function SignupPage() {
 
   return (
     <div className="h-screen flex justify-center items-center">
-      <div className="relative flex flex-col items-center w-96 h-[28rem] bg-blue-200 p-8">
+      <div className="relative flex flex-col items-center w-96 h-[28rem] bg-primary p-8">
         <Link href="/auth">
           <a className="absolute top-3 left-3 text-3xl">
             <ArrowBackIcon />

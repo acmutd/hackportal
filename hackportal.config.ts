@@ -429,6 +429,189 @@ export const hackPortalConfig: HackPortalConfig = {
       },
     ],
   },
+  keynoteSpeakers: [
+    {
+      description:
+        'Recipient of the Super Soldier serum, World War II hero Steve Rogers fights for American ideals as one of the world’s mightiest heroes and the leader of the Avengers.',
+      fileName: 'SteveRogers.jpg',
+      name: 'Steve Rogers',
+    },
+    {
+      description:
+        'Previously on the HackUTD team, Sameer figured it was time to move on to bigger things. He moved to the HackPortal team and does not regret the decision.',
+      fileName: '',
+      name: 'Sameer',
+    },
+    {
+      description:
+        'Sometimes student, sometimes scientist and sometimes photographer, Peter Parker is a full-time super hero better known as the web-slinging and wall-crawling Spider-Man. At a science expo, Peter was bitten by an errant radioactive spider which granted him an array of arachnid powers',
+      fileName: 'PeterParker.jpg',
+      name: 'Peter Parker',
+    },
+    {
+      description:
+        'Anthony Edward "Tony" Stark was a billionaire industrialist, a founding member of the Avengers, and the former CEO of Stark Industries. A brash but brilliant inventor, Stark was self-described as a genius, billionaire, playboy, and philanthropist.',
+      fileName: 'TonyStark.jpg',
+      name: 'Tony Stark',
+    },
+    {
+      description: 'Minecraft Legend',
+      fileName: 'nam.png',
+      name: 'Nam',
+    },
+  ],
+  teamMembers: [
+    {
+      github: 'https://github.com/acmutd/hackportal',
+      rank: 0,
+      description: 'Director',
+      name: 'Mr. Director Man',
+      personalSite: 'https://realhappinessproject.org',
+      linkedin: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      fileName: 'director.png',
+    },
+    {
+      fileName: 'teridactyl.jpg',
+      description: 'Industry Lead',
+      linkedin: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      rank: 1,
+      name: 'Teri Dactyl',
+    },
+    {
+      rank: 1,
+      github: 'https://github.com/acmutd/hackportal',
+      fileName: 'justintime.jpg',
+      description: 'Logistics Lead',
+      name: 'Justin Time',
+    },
+    {
+      linkedin: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      rank: 1,
+      fileName: 'abdullahhasani.png',
+      github: 'https://github.com/acmutd/hackportal',
+      name: 'Abdullah Hasani',
+      description: 'Tech Lead',
+    },
+    {
+      name: 'Harriet Upp',
+      rank: 1,
+      fileName: 'harrietupp.jpg',
+      description: 'Experience Lead',
+    },
+    {
+      name: 'Dee End',
+      linkedin: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      github: 'https://github.com/acmutd/hackportal',
+      description: 'Tech',
+      rank: 2,
+      fileName: 'deeend.jpg',
+    },
+    {
+      name: 'Fan E. Pack',
+      rank: '2',
+      description: 'Tech',
+    },
+    {
+      linkedin: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      name: 'Anne T. Dote',
+      fileName: 'annetdote.png',
+      description: 'Logistics',
+      rank: 3,
+      github: 'https://github.com/acmutd/hackportal',
+    },
+    {
+      name: 'Fay Daway',
+      rank: '4',
+      fileName: 'faydaway.jpg',
+      description: 'Experience',
+    },
+    {
+      name: 'Hank R. Cheef',
+      fileName: 'hankrcheef.jpg',
+      description: 'Industry',
+      rank: 5,
+    },
+    {
+      description: 'Mentor',
+      name: 'Very Long Name McFlurry',
+      fileName: 'f-erb.jpeg',
+    },
+  ],
+  sponsors: [
+    {
+      reference: 'ebayLogo.png',
+    },
+    {
+      link: 'https://acmutd.co/',
+      reference: 'DevBlack.png',
+    },
+    {
+      reference: 'match.png',
+    },
+    {
+      reference: 'state-farm.png',
+    },
+    {
+      link: 'https://acmutd.co/',
+      reference: 'HackutdBlack.png',
+    },
+  ],
+  faq: [
+    {
+      question: 'Can I participate if I have never hacked before?',
+      answer: 'Yes',
+    },
+    {
+      question: 'When does registration open?',
+      answer: 'IDK',
+    },
+    {
+      answer: 'No',
+      question: 'Can I have 8 team members?',
+    },
+    {
+      question: "What if I don't have a team?",
+      answer: 'There will be a team-building session before the hackathon. ',
+    },
+    {
+      answer: '24 hours',
+      question: 'How long will it last?',
+    },
+    {
+      answer: 'Sai',
+      question: 'whats my name',
+    },
+    {
+      question: 'How u been?',
+      answer: 'Doing well',
+    },
+    {
+      question: 'When is HackUTD VIII?',
+      answer: 'November 13-14',
+    },
+    {
+      question: 'What is a hackathon?',
+      answer: 'A place where you will build something within a weekend. ',
+    },
+    {
+      answer: "It's free :))",
+      question: 'How much does it cost?',
+    },
+    {
+      answer: 'IDK',
+      question: 'What do I need to bring?',
+    },
+  ],
+  organizerData: {
+    name: 'HackUTD',
+    email: 'email@organization.com',
+    website: 'https://acmutd.co',
+    socialMedia: {
+      twitter: 'https://twitter.com/hackutd',
+      instagram: 'https://www.instagram.com/hackutd/?hl=en',
+      facebook: 'https://www.facebook.com/hackutd/',
+    },
+  },
 };
 
 //add any question data that your org would like to see on the admin stats page
@@ -484,12 +667,26 @@ export const singleField = [
 
 //not to be edited ⬇︎ (unless there needs to be more question topics)
 export interface HackPortalConfig {
+  keynoteSpeakers: KeynoteSpeaker[];
+  teamMembers: Partial<TeamMember>[];
+  sponsors: Partial<Sponsor>[];
+  faq: AnsweredQuestion[];
   registrationFields: {
     generalQuestions: QuestionTypes[];
     schoolQuestions: QuestionTypes[];
     hackathonExperienceQuestions: QuestionTypes[];
     eventInfoQuestions: QuestionTypes[];
     sponsorInfoQuestions: QuestionTypes[];
+  };
+  organizerData: {
+    name: string;
+    website: string;
+    email: string;
+    socialMedia: {
+      twitter: string;
+      instagram: string;
+      facebook: string;
+    };
   };
 }
 

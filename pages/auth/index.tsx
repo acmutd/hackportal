@@ -148,7 +148,7 @@ export default function AuthPage() {
                   </div>
                   <button
                     type="button"
-                    className="px-4 py-2 w-[24rem] rounded-md shadow-md bg-green-200 hover:shadow-lg hover:bg-green-300"
+                    className="px-4 py-2 w-[24rem] rounded-md shadow-md bg-primary hover:shadow-lg hover:bg-primaryDark"
                     onClick={() => {
                       signIn();
                     }}
@@ -189,7 +189,7 @@ export default function AuthPage() {
                   placeholder="Email"
                 ></input>
                 <button
-                  className="w-[24rem] px-4 py-2 rounded-md shadow-md bg-green-200 hover:shadow-lg hover:bg-green-300"
+                  className="w-[24rem] px-4 py-2 rounded-md shadow-md bg-primary hover:shadow-lg hover:bg-primaryDark"
                   onClick={() => {
                     sendResetEmail();
                     setErrorMsg('');
@@ -203,7 +203,7 @@ export default function AuthPage() {
           )}
         </div>
         {/* Create new account sidebar*/}
-        <div className="flex flex-col justify-center items-center h-full w-1/3 bg-green-200 text-center p-4">
+        <div className="flex flex-col justify-center items-center h-full w-1/3 bg-primary text-center p-4">
           <h1 className="text-3xl font-black">Don&#39;t have an account?</h1>
           <p className="my-6">
             Create an account to apply to the hackathon and access user specific functionalities!

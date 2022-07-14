@@ -302,7 +302,7 @@ export default function Home(props: {
               {challenges.map((challenge, idx) => (
                 <div
                   id={`org${idx}`}
-                  className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
+                  className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-primary rounded-sm`}
                   key={idx}
                   onClick={() => changeOrg(challenge, idx)}
                 >
