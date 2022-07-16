@@ -9,6 +9,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import GoogleIcon from '../../public/icons/googleicon.png';
 import Image from 'next/image';
 import NextConnect from 'next-connect';
+import LoginImage from '../../public/assets/fillerAsset.png';
 /**
  * A page that allows the user to sign in.
  *
@@ -142,197 +143,202 @@ export default function AuthPage() {
           </div>
         </Link>
       </div>
-      <section className="py-2 md:px-16 px-10">
-        <h1 className="md:text-3xl text-2xl font-black">HackUTD VIII Hacker Registration</h1>
-        <p className="md:text-base text-sm">
-          To complete your application or access event features, please create an account or log in
-          with an existing one.
-        </p>
-        <div className="mt-16 flex text-2xl">
-          <div
-            id="signInOption"
-            className="py-2 mr-6 underline cursor-pointer"
-            onClick={() => changeOption(true)}
-          >
-            Sign In
+      <section className="py-2 md:px-16 px-10 flex lg:justify-between justify-center flex-wrap">
+        <div className="xl:w-1/2 lg:w-2/3 w-5/6 my-4">
+          <h1 className="md:text-3xl text-2xl font-black">HackUTD VIII Hacker Registration</h1>
+          <p className="md:text-base text-sm">
+            To complete your application or access event features, please create an account or log
+            in with an existing one.
+          </p>
+          <div className="mt-16 flex text-2xl">
+            <div
+              id="signInOption"
+              className="py-2 mr-6 underline cursor-pointer"
+              onClick={() => changeOption(true)}
+            >
+              Sign In
+            </div>
+            <div
+              id="signUpOption"
+              className="py-2 cursor-pointer"
+              onClick={() => changeOption(false)}
+            >
+              Create Account
+            </div>
           </div>
-          <div
-            id="signUpOption"
-            className="py-2 cursor-pointer"
-            onClick={() => changeOption(false)}
+          <section
+            id="signInSection"
+            className="bg-[#F2F3FF] 2xl:min-h-[30rem] min-h-[28rem] rounded-lg p-6"
           >
-            Create Account
-          </div>
-        </div>
-        <section
-          id="signInSection"
-          className="bg-[#F2F3FF] xl:w-1/2 lg:w-2/3 w-5/6 2xl:min-h-[30rem] min-h-[28rem] rounded-lg p-6"
-        >
-          {!passwordResetDialog ? (
-            <React.Fragment>
-              <form onSubmit={handleSubmit}>
-                <h1 className="text-xl font-bold mt-4 mb-2">Email</h1>
+            {!passwordResetDialog ? (
+              <React.Fragment>
+                <form onSubmit={handleSubmit}>
+                  <h1 className="text-xl font-bold mt-4 mb-2">Email</h1>
+                  <input
+                    className="w-full rounded-lg p-2"
+                    value={currentEmail}
+                    onChange={(e) => setCurrentEmail(e.target.value)}
+                    style={{ backgroundColor: '#C1C8FF' }}
+                    type="text"
+                    name="email"
+                    autoComplete="email"
+                    placeholder="email@example.com"
+                  ></input>
+                  <h1 className="text-xl font-bold mt-4 mb-2">Password</h1>
+                  <input
+                    id="passwordInputLg"
+                    className="w-full rounded-lg p-2"
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    style={{ backgroundColor: '#C1C8FF' }}
+                    type="password"
+                    name="password"
+                    autoComplete="current-password"
+                    placeholder="Password"
+                  ></input>
+                  <div className="inline-flex md:flex justify-between md:flex-row flex-col-reverse">
+                    <div
+                      className="hover:underline cursor-pointer text-left"
+                      onClick={() => {
+                        setPasswordResetDialog(true);
+                        setErrorMsg('');
+                        setSendVerification(false);
+                      }}
+                    >
+                      Forgot password?
+                    </div>
+                    <div>
+                      <input
+                        className="mx-1"
+                        type="checkbox"
+                        onClick={() => showPassword('passwordInputLg')}
+                      />
+                      Show Password
+                    </div>
+                    <input className="hidden" type="submit" value="Submit" />
+                  </div>
+                  <div className="flex justify-center mt-6 mb-4">
+                    <button
+                      type="button"
+                      className="rounded-md text-xl w-[20rem] bg-[#C1C8FF] hover:brightness-90 px-4 py-2"
+                      onClick={() => {
+                        signIn();
+                      }}
+                    >
+                      Sign in
+                    </button>
+                  </div>
+                </form>
+                {/* Error and verification messages */}
+                <div className="text-center">{errorMsg}</div>
+                {/* !change if needed */}
+                {/* Uncomment to allow resend verification email option (users could spam) */}
+                {/* {sendVerification && (
+                    <div className='flex justify-center'>
+                      <button className="underline" onClick={() => sendVerificationEmail()}>
+                        Resend verification
+                      </button>
+                    </div>
+                  )} */}
+                <div className="text-center text-gray-500 text-xl">or</div>
+                <button
+                  className="px-4 py-2 w-full rounded-md shadow-md bg-white my-4 text-lg font-bold hover:shadow-lg hover:bg-gray-100 text-left flex items-center"
+                  onClick={() => signInWithGoogle()}
+                >
+                  <Image src={GoogleIcon} alt="GoogleIcon" width={25} height={25} />
+                  <p className="mx-2">Sign in with Google</p>
+                </button>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <div className="text-left">
+                  <ArrowBackIcon
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setPasswordResetDialog(false);
+                      setErrorMsg('');
+                    }}
+                  />
+                </div>
+                <h1 className="text-2xl my-4">Reset Password</h1>
                 <input
                   className="w-full rounded-lg p-2"
                   value={currentEmail}
                   onChange={(e) => setCurrentEmail(e.target.value)}
                   style={{ backgroundColor: '#C1C8FF' }}
-                  type="text"
-                  name="email"
-                  autoComplete="email"
-                  placeholder="email@example.com"
+                  placeholder="Email"
                 ></input>
-                <h1 className="text-xl font-bold mt-4 mb-2">Password</h1>
-                <input
-                  id="passwordInputLg"
-                  className="w-full rounded-lg p-2"
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                  style={{ backgroundColor: '#C1C8FF' }}
-                  type="password"
-                  name="password"
-                  autoComplete="current-password"
-                  placeholder="Password"
-                ></input>
-                <div className="inline-flex md:flex justify-between md:flex-row flex-col-reverse">
-                  <div
-                    className="hover:underline cursor-pointer text-left"
-                    onClick={() => {
-                      setPasswordResetDialog(true);
-                      setErrorMsg('');
-                      setSendVerification(false);
-                    }}
-                  >
-                    Forgot password?
-                  </div>
-                  <div>
-                    <input
-                      className="mx-1"
-                      type="checkbox"
-                      onClick={() => showPassword('passwordInputLg')}
-                    />
-                    Show Password
-                  </div>
-                  <input className="hidden" type="submit" value="Submit" />
-                </div>
-                <div className="flex justify-center mt-6 mb-4">
-                  <button
-                    type="button"
-                    className="rounded-md text-xl w-[20rem] bg-[#C1C8FF] hover:brightness-90 px-4 py-2"
-                    onClick={() => {
-                      signIn();
-                    }}
-                  >
-                    Sign in
-                  </button>
-                </div>
-              </form>
-              {/* Error and verification messages */}
-              <div className="text-center">{errorMsg}</div>
-              {/* !change if needed */}
-              {/* Uncomment to allow resend verification email option (users could spam) */}
-              {/* {sendVerification && (
-                  <div className='flex justify-center'>
-                    <button className="underline" onClick={() => sendVerificationEmail()}>
-                      Resend verification
-                    </button>
-                  </div>
-                )} */}
-              <div className="text-center text-gray-500 text-xl">or</div>
-              <button
-                className="px-4 py-2 w-full rounded-md shadow-md bg-white my-4 text-lg font-bold hover:shadow-lg hover:bg-gray-100 text-left flex items-center"
-                onClick={() => signInWithGoogle()}
-              >
-                <Image src={GoogleIcon} alt="GoogleIcon" width={25} height={25} />
-                <p className="mx-2">Sign in with Google</p>
-              </button>
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <div className="text-left">
-                <ArrowBackIcon
-                  className="cursor-pointer"
+                <button
+                  className=" px-4 py-2 rounded-md shadow-md bg-[#C1C8FF] hover:brightness-90 my-6"
                   onClick={() => {
-                    setPasswordResetDialog(false);
+                    sendResetEmail();
                     setErrorMsg('');
                   }}
-                />
-              </div>
-              <h1 className="text-2xl my-4">Reset Password</h1>
+                >
+                  Send Reset Email
+                </button>
+                <div className="text-left">{errorMsg}</div>
+              </React.Fragment>
+            )}
+          </section>
+          <section
+            id="signUpSection"
+            className="hidden bg-[#F2F3FF] 2xl:min-h-[30rem] min-h-[28rem] rounded-lg p-6"
+          >
+            <form onSubmit={handleSignUpSubmit}>
+              <h1 className="text-xl font-bold mt-4 mb-2">Email</h1>
               <input
                 className="w-full rounded-lg p-2"
                 value={currentEmail}
                 onChange={(e) => setCurrentEmail(e.target.value)}
                 style={{ backgroundColor: '#C1C8FF' }}
-                placeholder="Email"
+                type="text"
+                name="email"
+                autoComplete="email"
+                placeholder="email@example.com"
               ></input>
-              <button
-                className=" px-4 py-2 rounded-md shadow-md bg-[#C1C8FF] hover:brightness-90 my-6"
-                onClick={() => {
-                  sendResetEmail();
-                  setErrorMsg('');
-                }}
-              >
-                Send Reset Email
-              </button>
-              <div className="text-left">{errorMsg}</div>
-            </React.Fragment>
-          )}
-        </section>
-        <section
-          id="signUpSection"
-          className="hidden bg-[#F2F3FF] xl:w-1/2 lg:w-3/4 w-5/6 2xl:min-h-[30rem] min-h-[28rem] rounded-lg p-6"
-        >
-          <form onSubmit={handleSignUpSubmit}>
-            <h1 className="text-xl font-bold mt-4 mb-2">Email</h1>
-            <input
-              className="w-full rounded-lg p-2"
-              value={currentEmail}
-              onChange={(e) => setCurrentEmail(e.target.value)}
-              style={{ backgroundColor: '#C1C8FF' }}
-              type="text"
-              name="email"
-              autoComplete="email"
-              placeholder="email@example.com"
-            ></input>
-            <h1 className="text-xl font-bold mt-4 mb-2">Password</h1>
-            <input
-              id="passwordInputSignUp"
-              className="w-full rounded-lg p-2"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-              style={{ backgroundColor: '#C1C8FF' }}
-              type="password"
-              name="password"
-              autoComplete="current-password"
-              placeholder="Password"
-            ></input>
-            <div className="flex justify-end">
-              <div>
-                <input
-                  className="mx-1"
-                  type="checkbox"
-                  onClick={() => showPassword('passwordInputSignUp')}
-                />
-                Show Password
+              <h1 className="text-xl font-bold mt-4 mb-2">Password</h1>
+              <input
+                id="passwordInputSignUp"
+                className="w-full rounded-lg p-2"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                style={{ backgroundColor: '#C1C8FF' }}
+                type="password"
+                name="password"
+                autoComplete="current-password"
+                placeholder="Password"
+              ></input>
+              <div className="flex justify-end">
+                <div>
+                  <input
+                    className="mx-1"
+                    type="checkbox"
+                    onClick={() => showPassword('passwordInputSignUp')}
+                  />
+                  Show Password
+                </div>
+                <input className="hidden" type="submit" value="Submit" />
               </div>
-              <input className="hidden" type="submit" value="Submit" />
-            </div>
-            <div className="flex justify-center mt-6 mb-4">
-              <button
-                type="button"
-                className="rounded-md text-xl w-[20rem] bg-[#C1C8FF] hover:brightness-90 px-4 py-2"
-                onClick={() => {
-                  signUp();
-                }}
-              >
-                Sign Up
-              </button>
-            </div>
-          </form>
-          {/* Error and verification messages */}
-          <div className="text-center">{errorMsg}</div>
-        </section>
+              <div className="flex justify-center mt-6 mb-4">
+                <button
+                  type="button"
+                  className="rounded-md text-xl w-[20rem] bg-[#C1C8FF] hover:brightness-90 px-4 py-2"
+                  onClick={() => {
+                    signUp();
+                  }}
+                >
+                  Sign Up
+                </button>
+              </div>
+            </form>
+            {/* Error and verification messages */}
+            <div className="text-center">{errorMsg}</div>
+          </section>
+        </div>
+        <div className="flex xl:w-1/2 w-full items-center xl:justify-center lg:justify-start justify-center">
+          <Image alt="login image" src={LoginImage} width={500} height={600}></Image>
+        </div>
       </section>
     </>
   );
