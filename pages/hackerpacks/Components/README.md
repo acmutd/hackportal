@@ -34,3 +34,5 @@ The sidebar will display `h1` and `h2` headings, with the `h2` tags nested under
 - `markdown` - the sidebar will be generated based on `# [main headings]` and `## [subheadings]` as the `h1` and `h2` tags
 - `notion` - as Notion has built-in headings, so the `h1` and `h2` tags will be used
 - `html` - you will need to manually define the sidebar in the `sidebar-content.json` file
+
+**NOTE**: The markdown and Notion pages should contain a main heading (`# heading` or `h1`) first to generate the sidebar correctly as subheadings are nested under the main headings.

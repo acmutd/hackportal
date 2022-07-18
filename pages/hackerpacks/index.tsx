@@ -6,6 +6,7 @@ import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 import { NotionAPI } from 'notion-client';
 import { NotionRenderer } from 'react-notion-x';
+import GithubSlugger from 'github-slugger';
 import DocLink from './Components/DocLinks';
 import HackerpackSidebar from './Components/HackerpackSidebar';
 import MobileDropdownMenu from './Components/MobileDropdownMenu';
@@ -14,7 +15,6 @@ import sidebarContent from './Components/sidebar-content.json';
 import indexMarkdown from './Components/markdown/index.md';
 
 // Tailwind rendering for markdown
-// TODO: Need to add support for more elements
 const markdownRendering = {
   h1: ({ node, ...props }) => (
     <h1
@@ -61,6 +61,46 @@ export default function HackerPack(props: { content: any }) {
   // Adjust width of the main content if sidebar is present
   const adjustedWidth = hackerpackSettings.sidebar ? 'md:w-5/6 2xl:w-7/8' : '';
 
+  let actualSidebarContent = sidebarContent;
+  if (hackerpackSettings.mainContent === 'markdown') {
+    // Use regex to parse through the markdown
+    const re = /^#(#|) (.*)\n$/gm;
+    let m;
+    const headingList = [];
+    do {
+      m = re.exec(indexMarkdown);
+      if (m) headingList.push({ text: m[2], h2: m[1] === '#' });
+    } while (m);
+
+    // Nest the h2 elements under the h1 elements
+    // and parse the tags using GithubSlugger
+    const slugger = new GithubSlugger();
+    if (headingList.length !== 0) {
+      actualSidebarContent = [];
+      let currH1 = {
+        title: headingList[0].text,
+        href: '#' + slugger.slug(headingList[0].text),
+        sections: [],
+      };
+      for (let i = 1; i < headingList.length; i++) {
+        if (headingList[i].h2) {
+          currH1.sections.push({
+            title: headingList[i].text,
+            href: '#' + slugger.slug(headingList[i].text),
+          });
+        } else {
+          actualSidebarContent.push(currH1);
+          currH1 = {
+            title: headingList[i].text,
+            href: '#' + slugger.slug(headingList[i].text),
+            sections: [],
+          };
+        }
+      }
+      actualSidebarContent.push(currH1);
+    }
+  }
+
   return (
     <div className="flex flex-col md:flex-row flex-grow flex-wrap">
       <Head>
@@ -71,10 +111,10 @@ export default function HackerPack(props: { content: any }) {
 
       {hackerpackSettings.sidebar && (
         <>
-          <HackerpackSidebar content={sidebarContent} />
+          <HackerpackSidebar content={actualSidebarContent} />
           <MobileDropdownMenu
             name="HackerPack"
-            content={sidebarContent}
+            content={actualSidebarContent}
             className="flex md:hidden"
           />
         </>
