@@ -59,10 +59,14 @@ const markdownRendering = {
  */
 export default function HackerPack(props: { content: any }) {
   // Adjust width of the main content if sidebar is present
-  const adjustedWidth = hackerpackSettings.sidebar ? 'md:w-5/6 2xl:w-7/8' : '';
+  const adjustedWidth =
+    hackerpackSettings.sidebar && hackerpackSettings.mainContent !== 'notion'
+      ? 'md:w-5/6 2xl:w-7/8'
+      : '';
 
+  // Generate the sidebar from markdown
   let actualSidebarContent = sidebarContent;
-  if (hackerpackSettings.mainContent === 'markdown') {
+  if (hackerpackSettings.sidebar && hackerpackSettings.mainContent === 'markdown') {
     // Use regex to parse through the markdown
     const re = /^#(#|) (.*)\n$/gm;
     let m;
@@ -109,7 +113,7 @@ export default function HackerPack(props: { content: any }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {hackerpackSettings.sidebar && (
+      {hackerpackSettings.sidebar && hackerpackSettings.mainContent !== 'notion' && (
         <>
           <HackerpackSidebar content={actualSidebarContent} />
           <MobileDropdownMenu
