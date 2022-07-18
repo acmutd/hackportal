@@ -23,7 +23,7 @@ export default function HackerpackSidebar({ content }: { content: SidebarSection
       >
         <section id="options" className="relative px-6 py-4">
           <div className="font-bold mb-3">HackerPack</div>
-          <ul className="pl-4 pb-32">
+          <ul className="pb-32">
             {/* Maps the sidebar-content.json file to a nested list */}
             {content.map((mainSection) => (
               <li key={mainSection.title}>
