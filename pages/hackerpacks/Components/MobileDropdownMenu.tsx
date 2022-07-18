@@ -8,7 +8,7 @@ type DropdownMenuProps = {
   name: string;
 
   /** Content to display in the dropdown menu */
-  content: MobileDropdownSection[];
+  content: SidebarSection[];
 
   /** Extra formatting for menu div */
   className?: string;

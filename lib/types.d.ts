@@ -248,7 +248,7 @@ type GeneralStats = {
  * that contains the sections and subsections to display, as well
  * as the section to redirect to
  */
-type MobileDropdownSection = {
+type SidebarSection = {
   /** Display name of the section */
   title: string;
 
@@ -256,14 +256,14 @@ type MobileDropdownSection = {
   href?: string;
 
   /** List of subsections that will appear when clicked */
-  sections?: MobileDropdownSubsection[];
+  sections?: SidebarSubsection[];
 };
 
 /**
  * Subsection object for the MobileDropdownSection;
  * does NOT contain deeper nestings of sections
  */
-type MobileDropdownSubsection = {
+type SidebarSubsection = {
   /** Display name of the section */
   title: string;
 

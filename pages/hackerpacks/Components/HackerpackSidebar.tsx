@@ -5,7 +5,7 @@ import { useAuthContext } from '../../../lib/user/AuthContext';
 /**
  * Sidebar for the hackerpack; this is hidden on mobile
  */
-export default function HackerpackSidebar({ content }: { content: MobileDropdownSection[] }) {
+export default function HackerpackSidebar({ content }: { content: SidebarSection[] }) {
   const { isSignedIn } = useAuthContext();
   const user = useUser();
   const role = user.permissions?.length > 0 ? user.permissions[0] : '';
