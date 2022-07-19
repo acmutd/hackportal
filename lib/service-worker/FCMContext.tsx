@@ -23,11 +23,14 @@ function FCMProvider({ children }: React.PropsWithChildren<Record<string, any>>)
   const [messageToken, setMessageToken] = useState<string>();
 
   useEffect(() => {
-    // Check for service worker in Navigator
-    // and register messaging sw if it exists
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in window.navigator) {
+      const swParamString = new URLSearchParams({
+        iconUrl: process.env.NEXT_PUBLIC_ICON_URL,
+        ...firebaseConfig,
+      }).toString();
+
       window.navigator.serviceWorker
-        .register(`/firebase-messaging-sw.js`)
+        .register(`/firebase-messaging-sw.js?${swParamString}`)
         .then(listenForNotifications, (error) => {
           console.log('Service worker registration failed:', error);
         });
