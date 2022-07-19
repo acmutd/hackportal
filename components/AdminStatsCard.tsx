@@ -1,6 +1,3 @@
-import { SvgIconTypeMap } from '@mui/material';
-import { OverridableComponent } from '@mui/material/OverridableComponent';
-
 interface AdminStatsCardProps {
   title: string;
   value: number;
