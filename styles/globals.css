@@ -163,3 +163,25 @@ a.link {
 .footerIcon {
   transform: scale(1.5);
 }
+
+.home {
+  background-image: url("../public/assets/homeBackground.png");
+  background-repeat: no-repeat;
+  /* background-attachment: fixed;  */
+  background-size: cover;
+}
+
+.appHeader {
+  background-color: rgba(168, 168, 168, 0.4);
+  backdrop-filter: blur(15px);
+}
+
+.slant {
+  background: 
+       linear-gradient(to top left,
+           rgba(255, 255, 255, 0) 0%,
+           rgba(255, 255, 255, 0) calc(50% - 2px),
+           rgb(255, 255, 255) 50%,
+           rgba(255, 255, 255, 0) calc(50% + 2px),
+           rgba(255, 255, 255, 0) 100%)
+}

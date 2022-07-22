@@ -72,18 +72,17 @@ export default function AppHeader() {
 
   return (
     <>
-      <div className="min-h-[4rem]"></div>
-      <header className="top-0 fixed justify-between flex flex-row w-full bg-indigo-100 items-center h-16 z-10 p-4">
-        <div className="flex justify-between items-center md:max-w-full md:justify-start md:w-9/12">
+      <header className="appHeader sticky top-0 justify-between flex w-full items-center h-16 z-10 py-4 lg:px-6 px-4">
+        <div className="flex items-center md:w-44 lg:w-48 text-white">
           <Link href="/">
-            <a className="flex gap-2 order-2 relative ml-[6px] font-display self-center items-center md:order-1 md:ml-0">
+            <a className="flex gap-2 order-2 relative font-display md:order-1 items-center">
               {/* !change src */}
-              <Image src={'/assets/hp-logo.png'} width="30px" height="30px" />
-              <span className="text-[16px] font-black md:z-0 md:text-2xl">HackPortal</span>
+              <Image src={'/assets/HackUTD-IX-Logo.png'} alt="Logo" width="50px" height="50px" />
+              <span className="font-black md:z-0 text-xl lg:text-2xl">HackUTD IX</span>
             </a>
           </Link>
           {/* Smartphone nav */}
-          <div onClick={toggleMenu} className={'relative md:hidden'}>
+          <div onClick={toggleMenu} className={'relative md:hidden mr-2'}>
             {mobileIcon ? <MenuIcon /> : <CloseIcon />}
             <ul
               className={`${
@@ -93,26 +92,47 @@ export default function AppHeader() {
               {dynamicNavItems.map((item) => (
                 <Link key={item.text} href={item.path}>
                   <a className="border-b-2 first:border-t-2 border-black p-4 py-6 hover:bg-[#D8F8FF]">
-                    <p className="text-sm font-bold">{item.text}</p>
+                    <p className="text-sm font-bold text-black">{item.text}</p>
                   </a>
                 </Link>
               ))}
             </ul>
           </div>
-          {/* PC nav */}
-          <div className="hidden text-xs order-2 md:flex items-center md:text-left lg:ml-12">
-            {dynamicNavItems.map((item) => (
-              <Link key={item.text} href={item.path}>
-                <a>
-                  <p className="md:mx-4 text-sm font-bold">{item.text}</p>
-                </a>
-              </Link>
-            ))}
+        </div>
+        {/* PC nav */}
+        <div className="hidden order-2 md:flex justify-center text-white">
+          <div className="flex justify-end xl:w-[23rem] lg:w-[18rem] md:w-11">
+            {dynamicNavItems.map(
+              (item, idx) =>
+                idx < 2 && (
+                  <Link key={item.text} href={item.path}>
+                    <a>
+                      <p className="mx-2 lg:mx-4 xl:mx-10 2xl:mx-14 text-lg lg:text-2xl font-bold">
+                        {item.text}
+                      </p>
+                    </a>
+                  </Link>
+                ),
+            )}
+          </div>
+          <div className="flex xl:w-[23rem] lg:w-[18rem] md:w-11">
+            {dynamicNavItems.map(
+              (item, idx) =>
+                idx > 1 && (
+                  <Link key={item.text} href={item.path}>
+                    <a>
+                      <p className="mx-1 lg:mx-4 xl:mx-10 2xl:mx-14 text-lg lg:text-2xl font-bold">
+                        {item.text}
+                      </p>
+                    </a>
+                  </Link>
+                ),
+            )}
           </div>
         </div>
-        <div className="flex lg:mr-8">
+        <div className="order-3 md:w-44 lg:w-48 flex justify-end text-white">
           <button
-            className="font-header font-bold bg-white rounded-full border-2 border-black text-sm px-8 py-1"
+            className="font-header font-bold bg-[#D85F5F] rounded-full text-lg lg:text-xl px-8 py-1"
             onClick={toggleDialog}
           >
             {!user || !isSignedIn ? 'Sign in' : hasProfile ? 'Profile' : 'Register'}
