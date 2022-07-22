@@ -5,6 +5,8 @@ type WithId<T> = T & {
   id: string;
 };
 
+type SortableObject<T> = T & { id: string };
+
 /**
  * A flag for the set of functionality that is enabled for an account.
  */
@@ -182,7 +184,7 @@ type KeynoteSpeaker = {
 type Challenge = {
   title: string;
   description: string;
-  prizes: string[];
+  prizes?: string[];
   organization: string;
   rank: int;
 };

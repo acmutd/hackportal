@@ -6,6 +6,7 @@ import { RequestHelper } from '../../../lib/request-helper';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import Link from 'next/link';
 import ChallengeList from '../../../components/ChallengeList';
+import { arrayMove } from '@dnd-kit/sortable';
 
 interface ChallengePageProps {
   challenges_: Challenge[];
@@ -18,13 +19,16 @@ function isAuthorized(user): boolean {
 
 export default function ChallengePage({ challenges_ }: ChallengePageProps) {
   const { user, isSignedIn } = useAuthContext();
-  const [challenges, setChallenges] = React.useState<Challenge[]>(challenges_);
+  const [challenges, setChallenges] = React.useState<SortableObject<Challenge>[]>(
+    challenges_.sort((a, b) => a.rank - b.rank).map((obj, i) => ({ ...obj, id: i.toString() })),
+  );
   const [currentChallengeEditIndex, setCurrentChallengeEditIndex] = React.useState<number>(-1);
   const [currentChallengeDeleteIndex, setCurrentChallengeDeleteIndex] = React.useState<number>(-1);
   const [modalOpen, setModalOpen] = React.useState(false);
   const nextChallengeIndex = challenges_.reduce((acc, curr) => Math.max(acc, curr.rank), 0) + 1;
 
-  const submitEditChallengeRequest = async (challengeData: Challenge) => {
+  const submitEditChallengeRequest = async (challengeDataWrapper: SortableObject<Challenge>) => {
+    const { id, ...challengeData } = challengeDataWrapper;
     try {
       const { status, data } = await RequestHelper.post<Challenge, unknown>(
         '/api/challenges',
@@ -39,7 +43,7 @@ export default function ChallengePage({ challenges_ }: ChallengePageProps) {
       alert('Challenge info updated');
       setChallenges(
         challenges.map((challenge, idx) => {
-          if (idx === currentChallengeEditIndex) return challengeData;
+          if (idx === currentChallengeEditIndex) return challengeDataWrapper;
           return challenge;
         }),
       );
@@ -51,7 +55,28 @@ export default function ChallengePage({ challenges_ }: ChallengePageProps) {
     }
   };
 
+  const submitReorderChallengesRequest = async () => {
+    try {
+      await RequestHelper.post<Challenge[], void>(
+        '/api/challenges/reorder',
+        {
+          headers: {
+            Authorization: user.token,
+            'Content-Type': 'application/json',
+          },
+        },
+        challenges.map(({ id, ...challenge }) => challenge),
+      );
+      alert('Reorder request completed');
+      setChallenges((prev) => prev.map((obj, idx) => ({ ...obj, rank: idx })));
+    } catch (error) {
+      alert('Unexpected error! Please check console log for more info :(');
+      console.log(error);
+    }
+  };
+
   const submitDeleteChallengeRequest = async () => {
+    const { id, ...challengeData } = challenges[currentChallengeDeleteIndex];
     try {
       await RequestHelper.delete<Challenge, unknown>(
         '/api/challenges',
@@ -60,7 +85,7 @@ export default function ChallengePage({ challenges_ }: ChallengePageProps) {
             Authorization: user.token,
           },
         },
-        challenges[currentChallengeDeleteIndex],
+        challengeData,
       );
       alert('Challenge deleted successfully');
       setChallenges(challenges.filter((_, idx) => idx !== currentChallengeDeleteIndex));
@@ -74,6 +99,8 @@ export default function ChallengePage({ challenges_ }: ChallengePageProps) {
   if (!isSignedIn || !isAuthorized(user))
     return <div className="text-2xl font-black text-center">Unauthorized</div>;
 
+  const orderChanged = challenges.filter((obj, idx) => obj.rank !== idx).length !== 0;
+
   return (
     <div className="p-3">
       {currentChallengeEditIndex !== -1 ? (
@@ -81,7 +108,10 @@ export default function ChallengePage({ challenges_ }: ChallengePageProps) {
           <ChallengeForm
             challenge={challenges[currentChallengeEditIndex]}
             onSubmitClick={async (challenge) => {
-              await submitEditChallengeRequest(challenge);
+              await submitEditChallengeRequest({
+                id: currentChallengeEditIndex.toString(),
+                ...challenge,
+              });
             }}
             formAction="Edit"
           />
@@ -103,6 +133,9 @@ export default function ChallengePage({ challenges_ }: ChallengePageProps) {
               setModalOpen(true);
             }}
             challenges={challenges}
+            onUpdateOrder={(oldIndex, newIndex) => {
+              setChallenges((prev) => arrayMove(prev, oldIndex, newIndex));
+            }}
           />
           <div className="p-3 flex gap-x-4">
             <Link href={`/admin/challenges/add?id=${nextChallengeIndex}`}>
@@ -111,6 +144,16 @@ export default function ChallengePage({ challenges_ }: ChallengePageProps) {
             <Link href="/admin">
               <button className="p-3 bg-gray-200 rounded-lg">Go Back</button>
             </Link>
+            {orderChanged && (
+              <button
+                onClick={async () => {
+                  await submitReorderChallengesRequest();
+                }}
+                className="p-3 bg-green-400 rounded-lg"
+              >
+                Update Challenge Ranking
+              </button>
+            )}
           </div>
         </>
       )}

@@ -50,7 +50,7 @@ export default function ChallengeForm({
         }}
       />
 
-      {challengeForm.prizes.map((prize, idx) => (
+      {challengeForm.prizes?.map((prize, idx) => (
         <div key={idx} className="flex gap-x-2 w-full">
           <input
             className="border-2 p-3 rounded-lg w-3/4"
@@ -85,7 +85,7 @@ export default function ChallengeForm({
         onClick={() =>
           setChallengeForm((prev) => ({
             ...prev,
-            prizes: [...prev.prizes, ''],
+            prizes: prev.prizes ? [...prev.prizes, ''] : [''],
           }))
         }
         className="p-3 bg-green-400 rounded-lg"
