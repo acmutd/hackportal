@@ -29,8 +29,8 @@ We designed the hackerpack to be as easy as possible to customize! In the curren
 
 ## Sidebar Generation
 
-The sidebar will display `h1` and `h2` headings, with the `h2` tags nested under their respective `h1` tag. This will differ in generation methods based on how you generate your main content. Currently, hackportal only supports markdown heading parsing. If the `mainContent` attribute is set to `markdown`, the sidebar will be generated based on `# [main headings]` and `## [subheadings]` as the `h1` and `h2` tags.
-
-Due to the Notion renderer generating random tag names, the navigation sidebar will be unavaliable for Notion page renders. For the hardcoded HTML option, you will need to manually define the sidebar in the `sidebar-content.json` file.
+The sidebar will display `h1` and `h2` headings, with the `h2` tags nested under their respective `h1` tag. This will differ in generation methods based on how you generate your main content. The sidebar is automatically generated if content is either rendered from Markdown or from Notion. If the `mainContent` attribute is set to `markdown`, the sidebar will be generated based on `# [main headings]` and `## [subheadings]` as the `h1` and `h2` tags. If the `mainContent` attribute is set to `notion`, the sidebar will be generated based on Notion's `Heading 1` and `Heading 2` blocks.
 
 **NOTE**: The markdown page should contain a main heading (`# [heading name]`) first to generate the sidebar correctly as subheadings are nested under the main headings.
+
+Unfortunately, there is no good way to read hardcoded HTML and generate a sidebar, so custom HTML pages will need to modify the `sidebar-content.json` file to generate a working sidebar.
