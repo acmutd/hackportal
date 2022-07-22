@@ -42,3 +42,5 @@ public/sw.*
 public/workbox-*.*
 
 hackportal.config.js
+
+package-lock.json
