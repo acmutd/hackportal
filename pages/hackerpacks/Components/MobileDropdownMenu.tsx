@@ -38,9 +38,7 @@ export default function MobileDropdownMenu({ name, content, className }: Dropdow
   };
 
   // If there's no content, then there can be no menu
-  if (content.length == 0) {
-    return <div>Menu has no content!</div>;
-  }
+  if (content.length == 0) return null;
 
   return (
     <>
