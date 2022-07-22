@@ -59,10 +59,7 @@ const markdownRendering = {
  */
 export default function HackerPack(props: { content: any }) {
   // Adjust width of the main content if sidebar is present
-  const adjustedWidth =
-    hackerpackSettings.sidebar && hackerpackSettings.mainContent !== 'notion'
-      ? 'md:w-5/6 2xl:w-7/8'
-      : '';
+  const adjustedWidth = hackerpackSettings.sidebar ? 'md:w-5/6 2xl:w-7/8' : '';
 
   // Generate the sidebar from markdown
   let actualSidebarContent = sidebarContent;
@@ -103,6 +100,42 @@ export default function HackerPack(props: { content: any }) {
       }
       actualSidebarContent.push(currH1);
     }
+  } else if (hackerpackSettings.sidebar && hackerpackSettings.mainContent === 'notion') {
+    // Find the root block because Notion IDs have hyphens
+    const rootId = Object.keys(props.content.block).find(
+      (k) => k.replaceAll(/-/g, '') === hackerpackSettings.notionPageId,
+    );
+
+    // Get the ordered list of blocks
+    const rootObj = props.content.block[rootId];
+    const blockList = rootObj.value.content;
+
+    // Parse through the blocks and extract text/ids from
+    // the blocks that are either 'header' or 'sub_header' (h1 and h2)
+    actualSidebarContent = [];
+    const firstObj = props.content.block[blockList[0]];
+    let currH1 = {
+      title: firstObj.value.properties.title[0][0],
+      href: '#' + firstObj.value.id.replaceAll(/-/g, ''),
+      sections: [],
+    };
+    for (let i = 1; i < blockList.length; i++) {
+      const currObj = props.content.block[blockList[i]];
+      if (currObj.value.type === 'sub_header') {
+        currH1.sections.push({
+          title: currObj.value.properties.title[0][0],
+          href: '#' + currObj.value.id.replaceAll(/-/g, ''),
+        });
+      } else if (currObj.value.type === 'header') {
+        actualSidebarContent.push(currH1);
+        currH1 = {
+          title: currObj.value.properties.title[0][0],
+          href: '#' + currObj.value.id.replaceAll(/-/g, ''),
+          sections: [],
+        };
+      }
+    }
+    actualSidebarContent.push(currH1);
   }
 
   return (
@@ -113,7 +146,7 @@ export default function HackerPack(props: { content: any }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {hackerpackSettings.sidebar && hackerpackSettings.mainContent !== 'notion' && (
+      {hackerpackSettings.sidebar && (
         <>
           <HackerpackSidebar content={actualSidebarContent} />
           <MobileDropdownMenu
