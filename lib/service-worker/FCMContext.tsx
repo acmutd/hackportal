@@ -63,12 +63,11 @@ function FCMProvider({ children }: React.PropsWithChildren<Record<string, any>>)
 
     // Listen for messages
     messaging.onMessage((payload) => {
-      const { announcement, baseUrl: url, iconUrl } = payload.data;
+      const { announcement, iconUrl } = payload.data;
       const options = {
         body: announcement,
         icon: iconUrl,
         tag: new Date().toUTCString(),
-        data: { url },
       };
       registration.showNotification('HackPortal Announcement', options);
     });

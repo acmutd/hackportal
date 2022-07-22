@@ -3,12 +3,10 @@ importScripts('https://www.gstatic.com/firebasejs/8.9.0/firebase-messaging.js');
 
 // set up service worker
 self.addEventListener('push', async function (event) {
-  console.log('[Service Worker] Push Received.', event);
-  const { announcement, baseUrl, iconUrl } = event.data.json().data;
+  const { announcement, iconUrl } = event.data.json().data;
   var options = {
     body: announcement,
     icon: iconUrl,
-    data: { url: baseUrl },
   };
   event.waitUntil(
     self.registration.showNotification('HackPortal Announcement', options)
@@ -22,10 +20,10 @@ self.addEventListener('notificationclick', function (event) {
     type: "window"
   }).then(function (clientList) {
     for (const client of clientList) {
-      if (client.url == '/' && 'focus' in client)
+      if (client.url == '/dashboard' && 'focus' in client)
         return client.focus();
     }
-    if (clients.openWindow) return clients.openWindow('/');
+    if (clients.openWindow) return clients.openWindow('/dashboard');
   }))
 }
 );
