@@ -12,6 +12,13 @@ const withFonts = require('next-fonts');
     runtimeCaching,
     disable: !process.env.ENABLE_PWA && process.env.NODE_ENV === 'development',
   },
+  webpack(config, options) {
+    config.module.rules.push({
+      test: /\.md$/,
+      use: 'raw-loader',
+    });
+    return config;
+  },
 })),
   withFonts({
     enableSvg: true,

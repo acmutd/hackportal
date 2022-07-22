@@ -11,25 +11,21 @@ import Red from '@material-ui/core/colors/red';
  * props.type determines the icon that corresponds to specified type
  */
 
-function DocLink(props) {
-  var icon;
+function DocLink(props: { type: 'doc' | 'pdf'; link: string; title: string }) {
+  let icon = <></>;
   if (props.type == 'doc') {
     icon = <DescriptionIcon style={{ color: Blue[500], fontSize: 'large' }} />;
   } else if (props.type == 'pdf') {
     icon = <PictureAsPdfIcon style={{ color: Red[500], fontSize: 'medium' }} />;
-  } else {
-    icon = <></>;
   }
 
   return (
-    <>
-      <div>
-        {icon}{' '}
-        <a href={props.link} rel="noopener noreferrer" target="_blank">
-          {props.title}
-        </a>
-      </div>
-    </>
+    <div>
+      {icon}{' '}
+      <a href={props.link} rel="noopener noreferrer" target="_blank">
+        {props.title}
+      </a>
+    </div>
   );
 }
 
