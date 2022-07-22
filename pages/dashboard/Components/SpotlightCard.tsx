@@ -15,7 +15,7 @@ function SpotlightCard(props: any) {
   const startDate = new firebase.firestore.Timestamp(props.startDate._seconds, 0).toDate();
   const endDate = new firebase.firestore.Timestamp(props.endDate._seconds, 0).toDate();
 
-  const speakersData = props.speaker
+  const speakersData = props.speakers
     ? props.speakers.filter((speaker: string) => speaker.length !== 0)
     : undefined;
 
