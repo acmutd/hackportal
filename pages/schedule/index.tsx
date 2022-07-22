@@ -219,19 +219,23 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
       ', ' +
       startDate.toString().match(/^\w+ (\w{3} \d{1,2})/)[1];
 
+    const speakersData = data.speakers
+      ? data.speakers.map((speaker) => speaker.length !== 0)
+      : undefined;
+
     var speakerString = '';
-    if (data.speakers !== undefined && data.speakers !== null && data.speakers.length !== 0) {
-      if (data.speakers.length == 2) {
-        speakerString = `Hosted by ${data.speakers[0]} & ${data.speakers[1]}`;
-      } else if (data.speakers.length == 1) {
-        speakerString = `Hosted by ${data.speakers[0]}`;
+    if (speakersData !== undefined && speakersData !== null && speakersData.length !== 0) {
+      if (speakersData.length == 2) {
+        speakerString = `Hosted by ${speakersData[0]} & ${speakersData[1]}`;
+      } else if (speakersData.length == 1) {
+        speakerString = `Hosted by ${speakersData[0]}`;
       } else {
         speakerString = 'Hosted by ';
-        for (var i = 0; i < data.speakers.length; i++) {
-          if (i === data.speakers.length - 1) {
-            speakerString += 'and ' + data.speakers[i];
+        for (var i = 0; i < speakersData.length; i++) {
+          if (i === speakersData.length - 1) {
+            speakerString += 'and ' + speakersData[i];
           } else {
-            speakerString += data.speakers[i] + ', ';
+            speakerString += speakersData[i] + ', ';
           }
         }
       }
