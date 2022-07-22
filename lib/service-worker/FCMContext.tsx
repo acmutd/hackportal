@@ -24,13 +24,8 @@ function FCMProvider({ children }: React.PropsWithChildren<Record<string, any>>)
 
   useEffect(() => {
     if ('serviceWorker' in window.navigator) {
-      const swParamString = new URLSearchParams({
-        iconUrl: process.env.NEXT_PUBLIC_ICON_URL,
-        ...firebaseConfig,
-      }).toString();
-
       window.navigator.serviceWorker
-        .register(`/firebase-messaging-sw.js?${swParamString}`)
+        .register(`/firebase-messaging-sw.js`)
         .then(listenForNotifications, (error) => {
           console.log('Service worker registration failed:', error);
         });
@@ -68,10 +63,10 @@ function FCMProvider({ children }: React.PropsWithChildren<Record<string, any>>)
 
     // Listen for messages
     messaging.onMessage((payload) => {
-      const { announcement, baseUrl: url } = payload.data;
+      const { announcement, baseUrl: url, iconUrl } = payload.data;
       const options = {
         body: announcement,
-        icon: 'icons/icon-128x128.png',
+        icon: iconUrl,
         tag: new Date().toUTCString(),
         data: { url },
       };
