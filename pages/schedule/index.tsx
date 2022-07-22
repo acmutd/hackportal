@@ -220,7 +220,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
       startDate.toString().match(/^\w+ (\w{3} \d{1,2})/)[1];
 
     const speakersData = data.speakers
-      ? data.speakers.map((speaker) => speaker.length !== 0)
+      ? data.speakers.filter((speaker) => speaker.length !== 0)
       : undefined;
 
     var speakerString = '';
