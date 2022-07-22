@@ -40,3 +40,5 @@ yarn-error.log*
 # Ignores automatically-generated workbox files for next-pwa
 public/sw.*
 public/workbox-*.*
+
+hackportal.config.js
