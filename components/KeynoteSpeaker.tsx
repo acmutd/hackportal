@@ -38,7 +38,7 @@ export default function KeynoteSpeaker(props) {
         )}
       </div>
       <div className=" p-2">
-        <h1 className="sm:text-4xl text-2xl font-bold"> {props.name}</h1>
+        <h2 className="sm:text-4xl text-2xl font-medium"> {props.name}</h2>
         <div className="2xl:text-base md:text-base sm:text-sm text-xs">{props.description}</div>
       </div>
     </div>

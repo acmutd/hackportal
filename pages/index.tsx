@@ -184,7 +184,7 @@ export default function Home(props: {
             ></Image>
           </div>
           <Link href="/register" passHref={true}>
-            <div className="cursor-pointer xl:px-12 xl:py-4 sm:px-8 sm:py-4 px-6 py-2 bg-gradient-to-b from-[#00D1FF] to-[#124866] rounded-full mt-16 xl:text-4xl sm:text-2xl text-xl">
+            <div className="cursor-pointer xl:px-12 xl:py-4 sm:px-8 sm:py-4 px-6 py-2 bg-gradient-to-b from-[#00D1FF] to-[#124866] rounded-full mt-16 xl:text-4xl sm:text-2xl text-xl font-medium">
               Register Now
             </div>
           </Link>
@@ -203,7 +203,9 @@ export default function Home(props: {
 
         {/* About section */}
         <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto flex justify-between">
-          <h1 className="lg:text-6xl md:text-4xl text-3xl font-black">About</h1> {/* !change */}
+          <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient self-start">
+            About
+          </h1>
           <div className="xl:text-xl md:text-base text-xs lg:w-7/12 w-2/3">
             HackPortal is a platform for user-friendly hackathon event management. <br />
             <br />A few of its features include: A fully customizable front end, sign in with email/
@@ -226,12 +228,12 @@ export default function Home(props: {
         </section>
         {/* Overview */}
         <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
-          <h1 className="lg:text-6xl md:text-4xl text-3xl font-black">Overview</h1>
+          <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">Overview</h1>
           {/* 01 */}
           <div className="flex justify-center mt-16">
             <div className="flex w-4/5">
               <div className="slant xl:w-[4rem] xl:h-[4rem] md:w-[3rem] md:h-[3rem] w-[2rem] h-[2rem] flex-none"></div>
-              <div className="border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
+              <div className="nasalization border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
                 01
               </div>
             </div>
@@ -256,10 +258,10 @@ export default function Home(props: {
             >
               <div className="flex w-4/5 relative">
                 <div className="slant xl:w-[4rem] xl:h-[4rem] md:w-[3rem] md:h-[3rem] w-[2rem] h-[2rem] flex-none"></div>
-                <div className="flex border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
+                <div className="nasalization flex border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
                   0{index + 2}
                 </div>
-                <div className="absolute left-1/2 xl:text-5xl lg:text-4xl md:text-3xl sm:text-xl text-lg font-black md:p-2">
+                <div className="absolute left-1/2 xl:text-5xl lg:text-4xl md:text-3xl sm:text-xl text-lg font-medium md:p-2">
                   {stat.data}
                 </div>
               </div>
@@ -274,7 +276,7 @@ export default function Home(props: {
         )}
         {/* Keynote Speakers */}
         <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
-          <h1 className="lg:text-6xl md:text-4xl text-3xl font-black">Speakers</h1>
+          <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">Speakers</h1>
           <div className="flex flex-wrap justify-around my-8">
             {speakers.map(({ name, description, fileName }, idx) => (
               <KeynoteSpeaker
@@ -291,7 +293,9 @@ export default function Home(props: {
         {/* This section is hidden if there are no challenges */}
         {challenges.length != 0 && (
           <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
-            <h1 className="lg:text-6xl md:text-4xl text-3xl font-black">Challenges</h1>
+            <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">
+              Challenges
+            </h1>
             <div className="flex my-6">
               {/* Challenge Orgs Selectors*/}
               <div className="md:w-1/4 w-1/5">
@@ -326,7 +330,9 @@ export default function Home(props: {
         {sponsor.length != 0 && (
           <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
             <div className="flex flex-col flex-grow">
-              <h1 className="lg:text-6xl md:text-4xl text-3xl font-black">Sponsors</h1>
+              <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">
+                Sponsors
+              </h1>
               {/* Sponsor Card */}
               <section className="flex flex-wrap justify-center p-4">
                 {sponsor.map(({ link, reference }, idx) => (
@@ -379,7 +385,7 @@ export default function Home(props: {
                 href="https://hackutd.co/"
                 rel="noopener noreferrer"
                 target="_blank"
-                className="font-black hover:underline"
+                className="font-bold hover:underline"
               >
                 organizer site
               </a>
@@ -388,11 +394,11 @@ export default function Home(props: {
           {/* Lower Content */}
           <div className="flex justify-between border-t-[1px] py-2 border-white">
             <p>
-              Designed by <p className="font-black inline">HackUTD</p> <br /> {/* !change */}
+              Designed by <p className="font-bold inline">HackUTD</p> <br /> {/* !change */}
               {/* PLEASE DO NOT CHANGE <3 */}
-              HackPortal developed with &lt;3 by <p className="font-black inline">
+              HackPortal developed with &lt;3 by <p className="font-bold inline">
                 HackUTD
-              </p> and <p className="font-black inline">ACM Development</p>
+              </p> and <p className="font-bold inline">ACM Development</p>
               {/* PLEASE DO NOT CHANGE <3 */}
             </p>
 

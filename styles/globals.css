@@ -7,27 +7,22 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+  font-family: 'Source Sans Pro', sans-serif !important;
 }
 
 @font-face {
-  font-family: 'wavehaus';
-  src: url('/fonts/Wavehaus-66Book.ttf') format('truetype');
-  font-display: auto;
+  font-family: 'nasalization';
+  src: url('/fonts/nasalization-rg.otf') format('truetype');
 }
 
-.MuiTypography-root {
-  font-family: 'wavehaus' !important;
-  src: url('/fonts/Wavehaus-66Book.ttf') format('truetype') !important;
-  font-display: auto !important;
-  font-weight: 600 !important;
+.nasalization {
+  font-family: 'nasalization';
 }
 
-.Target-root {
-  font-family: 'wavehaus' !important;
-  src: url('/fonts/Wavehaus-66Book.ttf') format('truetype') !important;
-  font-display: auto !important;
-}
 
 a.link {
   /* padding-right: 30px; */
@@ -39,7 +34,7 @@ a.link {
 }
 
 .element {
-  font-family: 'wavehaus';
+  font-family: 'Montserrat';
 }
 
 .profile-view {
@@ -184,4 +179,11 @@ a.link {
            rgb(255, 255, 255) 50%,
            rgba(255, 255, 255, 0) calc(50% + 2px),
            rgba(255, 255, 255, 0) 100%)
+}
+
+.textGradient {
+  background: linear-gradient(180deg, #FFFFFF 56.25%, rgba(255, 255, 255, 0) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
 }

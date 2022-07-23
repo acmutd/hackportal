@@ -73,14 +73,14 @@ export default function AppHeader() {
   return (
     <>
       <header className="appHeader sticky top-0 justify-between flex w-full items-center h-16 z-10 py-4 lg:px-6 px-4">
-        <div className="flex items-center md:w-44 lg:w-48 text-white">
+        <div className="flex items-center md:w-46 lg:w-52 text-white">
           <Link href="/">
             <a className="flex gap-2 order-2 relative font-display md:order-1 items-center">
               {/* !change src */}
               <div className="relative md:w-[50px] md:h-[50px] w-[40px] h-[40px]">
                 <Image src={'/assets/HackUTD-IX-Logo.png'} alt="Logo" layout="fill" />
               </div>
-              <span className="font-black md:z-0 text-xl lg:text-2xl">HackUTD IX</span>
+              <span className="nasalization  md:z-0 text-xl lg:text-2xl">HACKUTD IX</span>
             </a>
           </Link>
           {/* Smartphone nav */}
@@ -109,7 +109,7 @@ export default function AppHeader() {
                 idx < 2 && (
                   <Link key={item.text} href={item.path}>
                     <a>
-                      <p className="mx-2 lg:mx-4 xl:mx-10 2xl:mx-14 text-lg lg:text-2xl font-bold">
+                      <p className="mx-2 lg:mx-4 xl:mx-10 2xl:mx-14 text-base lg:text-2xl ">
                         {item.text}
                       </p>
                     </a>
@@ -123,7 +123,7 @@ export default function AppHeader() {
                 idx > 1 && (
                   <Link key={item.text} href={item.path}>
                     <a>
-                      <p className="mx-1 lg:mx-4 xl:mx-10 2xl:mx-14 text-lg lg:text-2xl font-bold">
+                      <p className="mx-1 lg:mx-4 xl:mx-10 2xl:mx-14 text-base lg:text-2xl ">
                         {item.text}
                       </p>
                     </a>
@@ -132,9 +132,9 @@ export default function AppHeader() {
             )}
           </div>
         </div>
-        <div className="order-3 md:w-44 lg:w-48 flex justify-end text-white">
+        <div className="order-3 md:w-44 lg:w-52 flex justify-end text-white">
           <button
-            className="font-header font-bold bg-gradient-to-b from-[#F33C2C] to-[#661912] rounded-full text-base md:text-lg lg:text-xl md:px-8 px-5 py-1"
+            className="font-header font-medium bg-gradient-to-b from-[#F33C2C] to-[#661912] rounded-full text-base md:text-lg lg:text-xl md:px-8 px-5 py-1"
             onClick={toggleDialog}
           >
             {!user || !isSignedIn ? 'Sign in' : hasProfile ? 'Profile' : 'Register'}

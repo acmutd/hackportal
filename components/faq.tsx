@@ -43,14 +43,10 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
 
   return (
     <div className="flex flex-col flex-grow">
-      <Head>
-        <title>HackUTD IX - FAQ</title>
-        <meta name="description" content="HackUTD's Frequently Asked Questions" />
-      </Head>
       {/* <AboutHeader active="/about/faq" /> */}
       <div className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
         <div className="flex justify-between">
-          <h4 className="lg:text-6xl md:text-4xl text-3xl font-black">FAQ</h4>
+          <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">FAQ</h1>
           <div
             className="flex flex-row items-center gap-x-2 cursor-pointer"
             onClick={() => {
