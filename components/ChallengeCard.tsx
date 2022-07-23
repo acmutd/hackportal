@@ -29,13 +29,7 @@ export default function ChallengeCard({
     >
       <h1 className="text-lg">{challenge.title}</h1>
       <div className="flex gap-4">
-        <button
-          onClick={() => {
-            console.log('hi');
-            onChallengeEditClick();
-          }}
-          className="p-3 bg-green-400 rounded-lg"
-        >
+        <button onClick={() => onChallengeEditClick()} className="p-3 bg-green-400 rounded-lg">
           Edit Challenge
         </button>
         <button onClick={() => onChallengeDeleteClick()} className="p-3 bg-red-400 rounded-lg">
