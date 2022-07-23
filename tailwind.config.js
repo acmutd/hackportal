@@ -38,9 +38,6 @@ module.exports = {
         aqua: '#D8F8FF',
         darkAqua: '#B0F1FF',
       }),
-      backgroundImage: {
-        'hero-pattern': `url(${'/assets/bg2.jpeg'})`, // !change
-      },
     },
   },
   variants: {

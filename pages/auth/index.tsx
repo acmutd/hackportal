@@ -145,7 +145,7 @@ export default function AuthPage() {
       </div>
       <section className="py-2 md:px-16 px-10 flex lg:justify-between justify-center flex-wrap">
         <div className="xl:w-1/2 lg:w-2/3 w-5/6 my-4">
-          <h1 className="md:text-3xl text-2xl font-black">HackUTD VIII Hacker Registration</h1>
+          <h1 className="md:text-3xl text-2xl font-black">HackUTD IX Hacker Registration</h1>
           <p className="md:text-base text-sm">
             To complete your application or access event features, please create an account or log
             in with an existing one.

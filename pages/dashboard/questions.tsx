@@ -155,8 +155,8 @@ export default function QuestionsPage() {
   return (
     <div className="flex flex-col flex-grow">
       <Head>
-        <title>HackPortal - Questions</title> {/* !change */}
-        <meta name="description" content="HackPortal's Quesiton and Answer Page " /> {/* !change */}
+        <title>HackUTD IX - Questions</title> {/* !change */}
+        <meta name="description" content="HackUTD's Quesiton and Answer Page " /> {/* !change */}
       </Head>
       <ErrorList
         errors={errors}

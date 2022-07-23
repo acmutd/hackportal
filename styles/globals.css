@@ -165,7 +165,7 @@ a.link {
 }
 
 .home {
-  background-image: url("../public/assets/homeBackground.png");
+  background-image: url("/assets/homeBackground.png");
   background-repeat: no-repeat;
   /* background-attachment: fixed;  */
   background-size: cover;

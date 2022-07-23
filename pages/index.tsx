@@ -155,8 +155,12 @@ export default function Home(props: {
   return (
     <>
       <Head>
-        <title>HackPortal</title> {/* !change */}
-        <meta name="description" content="A default HackPortal instance" /> {/* !change */}
+        <title>HackUTD IX</title> {/* !change */}
+        <meta
+          name="description"
+          content="Event site for HackUTD IX: Spaced Out. Powered by HackPortal."
+        />{' '}
+        {/* !change */}
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Notification info pop up */}
@@ -332,14 +336,14 @@ export default function Home(props: {
               <h2 className="mt-6 text-center">
                 {' '}
                 {/* !change */}
-                If you would like to sponsor HackPortal, please reach out to us at&nbsp;
+                If you would like to sponsor HackUTD IX, please reach out to us at&nbsp;
                 <a
                   href="mailto:email@organization.com"
                   rel="noopener noreferrer"
                   target="_blank"
                   className="underline"
                 >
-                  email@organization.com
+                  industry@acmutd.co
                 </a>
               </h2>
             </div>
@@ -372,7 +376,7 @@ export default function Home(props: {
               {/* !change */}
               Checkout HackUTD&apos;s{' '}
               <a
-                href="https://acmutd.co/"
+                href="https://hackutd.co/"
                 rel="noopener noreferrer"
                 target="_blank"
                 className="font-black hover:underline"
