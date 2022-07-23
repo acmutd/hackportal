@@ -16,6 +16,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import Image from 'next/image';
+import Link from 'next/link';
 
 /**
  * The home page.
@@ -178,6 +179,11 @@ export default function Home(props: {
               width={200}
             ></Image>
           </div>
+          <Link href="/register" passHref={true}>
+            <div className="cursor-pointer xl:px-12 xl:py-4 sm:px-8 sm:py-4 px-6 py-2 bg-gradient-to-b from-[#00D1FF] to-[#124866] rounded-full mt-16 xl:text-4xl sm:text-2xl text-xl">
+              Register Now
+            </div>
+          </Link>
           {/* <div className="flex flex-col items-center md:flex-row md:justify-around px-4 md:space-y-0 space-y-3 > * + *">
           {buttonDatas.map((button) => (
             <button
@@ -192,7 +198,7 @@ export default function Home(props: {
         </section>
 
         {/* About section */}
-        <section className="md:py-12 py-6 border-t-2 border-white xl:w-5/6 w-11/12 m-auto flex justify-between">
+        <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto flex justify-between">
           <h1 className="lg:text-6xl md:text-4xl text-3xl font-black">About</h1> {/* !change */}
           <div className="xl:text-xl md:text-base text-xs lg:w-7/12 w-2/3">
             HackPortal is a platform for user-friendly hackathon event management. <br />
@@ -215,7 +221,7 @@ export default function Home(props: {
           </div>
         </section>
         {/* Overview */}
-        <section className="md:py-12 py-6 border-t-2 border-white xl:w-5/6 w-11/12 m-auto">
+        <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
           <h1 className="lg:text-6xl md:text-4xl text-3xl font-black">Overview</h1>
           {/* 01 */}
           <div className="flex justify-center mt-16">
@@ -240,11 +246,14 @@ export default function Home(props: {
           </div>
           {/* Stats */}
           {stats.map((stat, index) => (
-            <div className="flex justify-center lg:my-32 md:my-24 my-16" key={index}>
+            <div
+              className={`flex justify-center lg:my-32 md:my-24 ${index === 0 ? 'my-0' : 'my-16'}`}
+              key={index}
+            >
               <div className="flex w-4/5 relative">
                 <div className="slant xl:w-[4rem] xl:h-[4rem] md:w-[3rem] md:h-[3rem] w-[2rem] h-[2rem] flex-none"></div>
                 <div className="flex border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
-                  0{index + 1}
+                  0{index + 2}
                 </div>
                 <div className="absolute left-1/2 xl:text-5xl lg:text-4xl md:text-3xl sm:text-xl text-lg font-black md:p-2">
                   {stat.data}
@@ -253,52 +262,33 @@ export default function Home(props: {
             </div>
           ))}
         </section>
-        {/* Featuring Keynotes speakers */}
-        {speakers.length != 0 && (
-          <section className="flex overflow-x-auto min-h-[24rem]">
-            <div className="flex items-center justify-center font-bold p-6 md:text-4xl text-2xl my-4">
-              Featuring Keynote Speakers
-            </div>
-            <div className="flex flex-col justify-center py-6 md:px-6">
-              {/* Row 1 */}
-              <div className="flex">
-                {speakers.map(
-                  ({ name, description, fileName }, idx) =>
-                    idx < speakers.length / 2 && (
-                      <KeynoteSpeaker
-                        key={idx}
-                        name={name}
-                        description={description}
-                        cardColor={colorSchemes[idx % 3]}
-                        imageLink={fileName}
-                      />
-                    ),
-                )}
-              </div>
-              {/* row 2 */}
-              <div className="flex md:ml-[7rem] ml-[5rem]">
-                {speakers.map(
-                  ({ name, description, fileName }, idx) =>
-                    idx >= speakers.length / 2 && (
-                      <KeynoteSpeaker
-                        key={idx}
-                        name={name}
-                        description={description}
-                        cardColor={colorSchemes[idx % 3]}
-                        imageLink={fileName}
-                      />
-                    ),
-                )}
-              </div>
-            </div>
+        {/* FAQ */}
+        {props.answeredQuestion.length != 0 && (
+          <section>
+            <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
           </section>
         )}
+        {/* Keynote Speakers */}
+        <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
+          <h1 className="lg:text-6xl md:text-4xl text-3xl font-black">Speakers</h1>
+          <div className="flex flex-wrap justify-around my-8">
+            {speakers.map(({ name, description, fileName }, idx) => (
+              <KeynoteSpeaker
+                key={idx}
+                name={name}
+                description={description}
+                cardColor={colorSchemes[idx % 3]}
+                imageLink={fileName}
+              />
+            ))}
+          </div>
+        </section>
         {/* Challenges */}
         {/* This section is hidden if there are no challenges */}
         {challenges.length != 0 && (
-          <section className="p-6 ">
-            <div className="font-bold p-6 md:text-4xl text-2xl my-4">Challenges</div>
-            <div className="flex">
+          <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
+            <h1 className="lg:text-6xl md:text-4xl text-3xl font-black">Challenges</h1>
+            <div className="flex my-6">
               {/* Challenge Orgs Selectors*/}
               <div className="md:w-1/4 w-1/5">
                 {challenges.map((challenge, idx) => (
@@ -328,51 +318,18 @@ export default function Home(props: {
             </div>
           </section>
         )}
-        {/* FAQ */}
-        {props.answeredQuestion.length != 0 && (
-          <section>
-            <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
-          </section>
-        )}
-        {members.length != 0 && (
-          <section>
-            {/* Team Members */}
-            <div className="flex flex-col flex-grow">
-              <div className="my-2">
-                <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Meet Our Team :)</h4>{' '}
-                {/* !change */}
-                <div className="flex flex-wrap justify-center md:px-2">
-                  {/* Member Cards */}
-                  {members.map(
-                    ({ name, description, linkedin, github, personalSite, fileName }, idx) => (
-                      <MemberCards
-                        key={idx}
-                        name={name}
-                        description={description}
-                        fileName={fileName}
-                        linkedin={linkedin}
-                        github={github}
-                        personalSite={personalSite}
-                      />
-                    ),
-                  )}
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
         {/* Sponsors */}
         {sponsor.length != 0 && (
-          <section>
+          <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
             <div className="flex flex-col flex-grow">
-              <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
+              <h1 className="lg:text-6xl md:text-4xl text-3xl font-black">Sponsors</h1>
               {/* Sponsor Card */}
               <section className="flex flex-wrap justify-center p-4">
                 {sponsor.map(({ link, reference }, idx) => (
                   <SponsorCard key={idx} link={link} reference={reference} />
                 ))}
               </section>
-              <h2 className="my-2 text-center">
+              <h2 className="mt-6 text-center">
                 {' '}
                 {/* !change */}
                 If you would like to sponsor HackPortal, please reach out to us at&nbsp;
@@ -390,7 +347,7 @@ export default function Home(props: {
         )}
 
         {/* Footer */}
-        <section className="mt-16 px-6 py-8 md:text-base text-xs">
+        <section className="mt-16 px-6 pt-8 pb-6 md:text-base text-xs">
           {/* Upper Content */}
           <div className="my-2 relative">
             {/* Social icons */} {/* !change */}
@@ -425,7 +382,7 @@ export default function Home(props: {
             </div>
           </div>
           {/* Lower Content */}
-          <div className="flex justify-between border-t-[1px] py-2 border-black">
+          <div className="flex justify-between border-t-[1px] py-2 border-white">
             <p>
               Designed by <p className="font-black inline">HackUTD</p> <br /> {/* !change */}
               {/* PLEASE DO NOT CHANGE <3 */}

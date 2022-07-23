@@ -109,7 +109,7 @@ export default function Register() {
   };
 
   if (!user) {
-    router.push('/');
+    router.push('/auth');
   }
 
   if (loading) {

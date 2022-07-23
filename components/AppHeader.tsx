@@ -77,7 +77,9 @@ export default function AppHeader() {
           <Link href="/">
             <a className="flex gap-2 order-2 relative font-display md:order-1 items-center">
               {/* !change src */}
-              <Image src={'/assets/HackUTD-IX-Logo.png'} alt="Logo" width="50px" height="50px" />
+              <div className="relative md:w-[50px] md:h-[50px] w-[40px] h-[40px]">
+                <Image src={'/assets/HackUTD-IX-Logo.png'} alt="Logo" layout="fill" />
+              </div>
               <span className="font-black md:z-0 text-xl lg:text-2xl">HackUTD IX</span>
             </a>
           </Link>
@@ -87,12 +89,12 @@ export default function AppHeader() {
             <ul
               className={`${
                 showMenu ? 'translate-x-0' : '-translate-x-full'
-              } transform transition-all ease-out duration-300 flex w-6/12 h-screen border-2 border-black flex-col bg-white fixed top-0 left-0 z-[-1] pt-16`}
+              } transform transition-all ease-out duration-300 flex w-full h-screen border-2 border-black flex-col bg-[#310047] fixed top-0 left-0 z-[-1] pt-16`}
             >
               {dynamicNavItems.map((item) => (
                 <Link key={item.text} href={item.path}>
                   <a className="border-b-2 first:border-t-2 border-black p-4 py-6 hover:bg-[#D8F8FF]">
-                    <p className="text-sm font-bold text-black">{item.text}</p>
+                    <p className="text-sm font-bold text-white">{item.text}</p>
                   </a>
                 </Link>
               ))}
@@ -132,7 +134,7 @@ export default function AppHeader() {
         </div>
         <div className="order-3 md:w-44 lg:w-48 flex justify-end text-white">
           <button
-            className="font-header font-bold bg-[#D85F5F] rounded-full text-lg lg:text-xl px-8 py-1"
+            className="font-header font-bold bg-gradient-to-b from-[#F33C2C] to-[#661912] rounded-full text-base md:text-lg lg:text-xl md:px-8 px-5 py-1"
             onClick={toggleDialog}
           >
             {!user || !isSignedIn ? 'Sign in' : hasProfile ? 'Profile' : 'Register'}
