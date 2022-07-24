@@ -134,22 +134,26 @@ export default function AuthPage() {
   };
 
   return (
-    <>
-      <div className="p-4">
+    <div className="background mt-[-4rem] h-screen text-white">
+      <div className="p-4 mt-[4rem]">
         <Link href="/" passHref>
-          <div className="cursor-pointer items-center inline-flex">
-            <ChevronLeftIcon />
+          <div className="cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-lgfont-medium text-[#7B81FF]">
+            <ChevronLeftIcon fontSize="large" />
             Return to event site
           </div>
         </Link>
       </div>
+      <div className=" md:px-16 px-10 mt-10">
+        <h1 className="lg:text-5xl md:text-3xl text-2xl w-full font-medium text-left">
+          HackUTD IX Hacker Registration
+        </h1>
+        <p className="md:text-base text-sm text-left my-1">
+          To complete your application or access event features, please create an account or log in
+          with an existing one.
+        </p>
+      </div>
       <section className="py-2 md:px-16 px-10 flex lg:justify-between justify-center flex-wrap">
         <div className="xl:w-1/2 lg:w-2/3 w-5/6 my-4">
-          <h1 className="md:text-3xl text-2xl font-black">HackUTD IX Hacker Registration</h1>
-          <p className="md:text-base text-sm">
-            To complete your application or access event features, please create an account or log
-            in with an existing one.
-          </p>
           <div className="mt-16 flex text-2xl">
             <div
               id="signInOption"
@@ -168,17 +172,16 @@ export default function AuthPage() {
           </div>
           <section
             id="signInSection"
-            className="bg-[#F2F3FF] 2xl:min-h-[30rem] min-h-[28rem] rounded-lg p-6"
+            className="accountSection 2xl:min-h-[30rem] min-h-[28rem] rounded-lg p-6"
           >
             {!passwordResetDialog ? (
               <React.Fragment>
                 <form onSubmit={handleSubmit}>
                   <h1 className="text-xl font-bold mt-4 mb-2">Email</h1>
                   <input
-                    className="w-full rounded-lg p-2"
+                    className="w-full rounded-lg p-2 accountInput"
                     value={currentEmail}
                     onChange={(e) => setCurrentEmail(e.target.value)}
-                    style={{ backgroundColor: '#C1C8FF' }}
                     type="text"
                     name="email"
                     autoComplete="email"
@@ -187,10 +190,9 @@ export default function AuthPage() {
                   <h1 className="text-xl font-bold mt-4 mb-2">Password</h1>
                   <input
                     id="passwordInputLg"
-                    className="w-full rounded-lg p-2"
+                    className="w-full rounded-lg p-2 accountInput"
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
-                    style={{ backgroundColor: '#C1C8FF' }}
                     type="password"
                     name="password"
                     autoComplete="current-password"
@@ -220,7 +222,7 @@ export default function AuthPage() {
                   <div className="flex justify-center mt-6 mb-4">
                     <button
                       type="button"
-                      className="rounded-md text-xl w-[20rem] bg-[#C1C8FF] hover:brightness-90 px-4 py-2"
+                      className="text-3xl font-bold submit px-4 py-2"
                       onClick={() => {
                         signIn();
                       }}
@@ -240,9 +242,9 @@ export default function AuthPage() {
                       </button>
                     </div>
                   )} */}
-                <div className="text-center text-gray-500 text-xl">or</div>
+                <div className="text-center text-white font-bold opacity-50 text-xl">or</div>
                 <button
-                  className="px-4 py-2 w-full rounded-md shadow-md bg-white my-4 text-lg font-bold hover:shadow-lg hover:bg-gray-100 text-left flex items-center"
+                  className="submit px-4 py-2 w-full rounded-md shadow-md accountInput my-4 text-lg font-bold hover:shadow-lg hover:brightness-[1.3] text-left flex items-center"
                   onClick={() => signInWithGoogle()}
                 >
                   <Image src={GoogleIcon} alt="GoogleIcon" width={25} height={25} />
@@ -262,14 +264,13 @@ export default function AuthPage() {
                 </div>
                 <h1 className="text-2xl my-4">Reset Password</h1>
                 <input
-                  className="w-full rounded-lg p-2"
+                  className="w-full rounded-lg p-2 accountInput"
                   value={currentEmail}
                   onChange={(e) => setCurrentEmail(e.target.value)}
-                  style={{ backgroundColor: '#C1C8FF' }}
                   placeholder="Email"
                 ></input>
                 <button
-                  className=" px-4 py-2 rounded-md shadow-md bg-[#C1C8FF] hover:brightness-90 my-6"
+                  className="py-2 submit text-3xl font-bold my-6"
                   onClick={() => {
                     sendResetEmail();
                     setErrorMsg('');
@@ -283,15 +284,14 @@ export default function AuthPage() {
           </section>
           <section
             id="signUpSection"
-            className="hidden bg-[#F2F3FF] 2xl:min-h-[30rem] min-h-[28rem] rounded-lg p-6"
+            className="hidden accountSection 2xl:min-h-[30rem] min-h-[28rem] rounded-lg p-6"
           >
             <form onSubmit={handleSignUpSubmit}>
               <h1 className="text-xl font-bold mt-4 mb-2">Email</h1>
               <input
-                className="w-full rounded-lg p-2"
+                className="w-full rounded-lg p-2 accountInput"
                 value={currentEmail}
                 onChange={(e) => setCurrentEmail(e.target.value)}
-                style={{ backgroundColor: '#C1C8FF' }}
                 type="text"
                 name="email"
                 autoComplete="email"
@@ -300,10 +300,9 @@ export default function AuthPage() {
               <h1 className="text-xl font-bold mt-4 mb-2">Password</h1>
               <input
                 id="passwordInputSignUp"
-                className="w-full rounded-lg p-2"
+                className="w-full rounded-lg p-2 accountInput"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
-                style={{ backgroundColor: '#C1C8FF' }}
                 type="password"
                 name="password"
                 autoComplete="current-password"
@@ -323,12 +322,12 @@ export default function AuthPage() {
               <div className="flex justify-center mt-6 mb-4">
                 <button
                   type="button"
-                  className="rounded-md text-xl w-[20rem] bg-[#C1C8FF] hover:brightness-90 px-4 py-2"
+                  className="submit text-3xl font-bold px-4 py-2"
                   onClick={() => {
                     signUp();
                   }}
                 >
-                  Sign Up
+                  Submit
                 </button>
               </div>
             </form>
@@ -340,6 +339,6 @@ export default function AuthPage() {
           <Image alt="login image" src={LoginImage} width={500} height={600}></Image>
         </div>
       </section>
-    </>
+    </div>
   );
 }

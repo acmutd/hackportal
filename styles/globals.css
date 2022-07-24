@@ -171,6 +171,15 @@ a.link {
   backdrop-filter: blur(15px);
 }
 
+.accountSection {
+  background-color: rgba(157, 115, 210, 0.2);
+  /* backdrop-filter: blur(15px); */
+}
+
+.accountInput{
+  background-color: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+}
 .slant {
   background: 
        linear-gradient(to top left,
@@ -186,4 +195,27 @@ a.link {
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
+}
+
+.background {
+  background-image: url("/assets/HackUTDBackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@keyframes raise {
+  0% {
+    transform: translatey(0px);
+  }
+  30% {
+    transform: translatey(-6px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
+}
+
+.submit:hover {
+  animation: raise 1s ease-out;
+  transition: 0.3s ease-out;
 }
