@@ -83,6 +83,7 @@ export default function Home(props: {
     //Organize members in order by rank given in firebase
     setMembers(props.fetchedMembers.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
     setLoading(false);
+    countdownTimer();
   }, []);
 
   useEffect(() => {
@@ -144,6 +145,40 @@ export default function Home(props: {
     });
   };
 
+  const [expiryTime, setExpiryTime] = useState('12 nov 2022 0:00:00');
+  const [countdownTime, setCountdownTime] = useState({
+    countdownDays: '',
+    countdownHours: '',
+    countdownMinutes: '',
+    countdownSeconds: '',
+  });
+
+  const countdownTimer = () => {
+    const timeInterval = setInterval(() => {
+      const countdownDateTime = new Date(expiryTime).getTime();
+      const currentTime = new Date().getTime();
+      const remainingDayTime = countdownDateTime - currentTime;
+      const totalDays = Math.floor(remainingDayTime / (1000 * 60 * 60 * 24));
+      const totalHours = Math.floor((remainingDayTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const totalMinutes = Math.floor((remainingDayTime % (1000 * 60 * 60)) / (1000 * 60));
+      const totalSeconds = Math.floor((remainingDayTime % (1000 * 60)) / 1000);
+
+      const runningCountdownTime = {
+        countdownDays: totalDays.toString(),
+        countdownHours: totalHours.toString(),
+        countdownMinutes: totalMinutes.toString(),
+        countdownSeconds: totalSeconds.toString(),
+      };
+
+      setCountdownTime(runningCountdownTime);
+
+      if (remainingDayTime < 0) {
+        clearInterval(timeInterval);
+        setExpiryTime('0');
+      }
+    }, 1000);
+  };
+
   if (loading) {
     return (
       <div>
@@ -172,7 +207,7 @@ export default function Home(props: {
           Turn on push notifications to recieve announcements!
         </div>
       )}
-      <div className="mt-[-4rem] home text-white">
+      <div className="home text-white">
         {/* Hero section */}
         <section className="min-h-screen p-4 flex flex-col items-center justify-center">
           <div className="xl:w-[60rem] xl:h-[25rem] md:w-[45rem] md:h-[19rem] sm:w-[27rem] sm:h-[15rem] w-[20rem] h-[10rem] relative">
@@ -188,6 +223,16 @@ export default function Home(props: {
               Register Now
             </div>
           </Link>
+          <p className="md:mt-16 mt-10 text-bold xl:text-6xl sm:text-4xl text-3xl textGradient">
+            {'T - ' +
+              countdownTime.countdownDays +
+              ':' +
+              countdownTime.countdownHours +
+              ':' +
+              countdownTime.countdownMinutes +
+              ':' +
+              countdownTime.countdownSeconds}
+          </p>
           {/* <div className="flex flex-col items-center md:flex-row md:justify-around px-4 md:space-y-0 space-y-3 > * + *">
           {buttonDatas.map((button) => (
             <button
@@ -362,17 +407,28 @@ export default function Home(props: {
           <div className="my-2 relative">
             {/* Social icons */} {/* !change */}
             <div className="space-x-4 > * + *">
-              <a href="https://twitter.com/hackutd" rel="noopener noreferrer" target="_blank">
+              <a
+                href="https://twitter.com/hackutd"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="raiseIcon"
+              >
                 <TwitterIcon className="footerIcon" />
               </a>
               <a
                 href="https://www.instagram.com/hackutd/?hl=en"
                 rel="noopener noreferrer"
                 target="_blank"
+                className="raiseIcon"
               >
                 <InstagramIcon className="footerIcon" />
               </a>
-              <a href="https://www.facebook.com/hackutd/" rel="noopener noreferrer" target="_blank">
+              <a
+                href="https://www.facebook.com/hackutd/"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="raiseIcon"
+              >
                 <FacebookIcon className="footerIcon" />
               </a>
             </div>

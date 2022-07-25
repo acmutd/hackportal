@@ -8,6 +8,7 @@ import { useAuthContext } from '../lib/user/AuthContext';
 import { navItems } from '../lib/data';
 import firebase from 'firebase/app';
 import Image from 'next/image';
+import NavLink from './NavLink';
 
 /**
  * A global site header throughout the entire app.
@@ -72,7 +73,7 @@ export default function AppHeader() {
 
   return (
     <>
-      <header className="appHeader sticky top-0 justify-between flex w-full items-center h-16 z-10 py-4 lg:px-6 px-4">
+      <header className="appHeader fixed top-0 justify-between flex w-full items-center h-16 z-10 py-4 lg:px-6 px-4">
         <div className="flex items-center md:w-46 lg:w-52 text-white">
           <Link href="/">
             <a className="flex gap-2 order-2 relative font-display md:order-1 items-center">
@@ -107,13 +108,13 @@ export default function AppHeader() {
             {dynamicNavItems.map(
               (item, idx) =>
                 idx < 2 && (
-                  <Link key={item.text} href={item.path}>
+                  <NavLink key={item.text} href={item.path} exact={true} addClass="font-bold">
                     <a>
                       <p className="mx-2 lg:mx-4 xl:mx-10 2xl:mx-14 text-base lg:text-2xl ">
                         {item.text}
                       </p>
                     </a>
-                  </Link>
+                  </NavLink>
                 ),
             )}
           </div>
@@ -121,13 +122,13 @@ export default function AppHeader() {
             {dynamicNavItems.map(
               (item, idx) =>
                 idx > 1 && (
-                  <Link key={item.text} href={item.path}>
+                  <NavLink key={item.text} href={item.path} exact={true} addClass="font-bold">
                     <a>
                       <p className="mx-1 lg:mx-4 xl:mx-10 2xl:mx-14 text-base lg:text-2xl ">
                         {item.text}
                       </p>
                     </a>
-                  </Link>
+                  </NavLink>
                 ),
             )}
           </div>

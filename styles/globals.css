@@ -167,7 +167,7 @@ a.link {
 }
 
 .appHeader {
-  background-color: rgba(168, 168, 168, 0.4);
+  background-color: rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(15px);
 }
 
@@ -217,5 +217,10 @@ a.link {
 
 .submit:hover {
   animation: raise 1s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.footerIcon:hover {
+  animation: raise 0.5s ease-out;
   transition: 0.3s ease-out;
 }

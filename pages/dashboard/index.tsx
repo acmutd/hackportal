@@ -84,8 +84,11 @@ export default function Dashboard(props: {
   if (!isSignedIn)
     return (
       <>
-        <div className="text-6xl font-black text-center">|</div>
-        <div className="text-2xl font-black text-center">Please sign-in to view your dashboard</div>
+        <div className="background h-screen">
+          <div className="md:text-4xl sm:text-2xl text-xl text-white font-medium text-center mt-[6rem]">
+            Please sign-in to view your dashboard
+          </div>
+        </div>
       </>
     );
 
@@ -99,7 +102,7 @@ export default function Dashboard(props: {
 
         <Sidebar />
 
-        <section id="mainContent" className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 bg-white">
+        <section id="mainContent" className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 background">
           <DashboardHeader />
           {/* Spotlight & Announcements */}
           <div className="flex flex-wrap my-16">

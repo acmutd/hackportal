@@ -134,7 +134,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="background mt-[-4rem] h-screen text-white">
+    <div className="background h-screen text-white">
       <div className="p-4 mt-[4rem]">
         <Link href="/" passHref>
           <div className="cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-lgfont-medium text-[#7B81FF]">
