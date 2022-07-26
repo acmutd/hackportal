@@ -23,9 +23,7 @@ function FCMProvider({ children }: React.PropsWithChildren<Record<string, any>>)
   const [messageToken, setMessageToken] = useState<string>();
 
   useEffect(() => {
-    // Check for service worker in Navigator
-    // and register messaging sw if it exists
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in window.navigator) {
       window.navigator.serviceWorker
         .register(`/firebase-messaging-sw.js`)
         .then(listenForNotifications, (error) => {
@@ -65,12 +63,11 @@ function FCMProvider({ children }: React.PropsWithChildren<Record<string, any>>)
 
     // Listen for messages
     messaging.onMessage((payload) => {
-      const { announcement, baseUrl: url } = payload.data;
+      const { announcement, iconUrl } = payload.data;
       const options = {
         body: announcement,
-        icon: 'icons/icon-128x128.png',
+        icon: iconUrl,
         tag: new Date().toUTCString(),
-        data: { url },
       };
       registration.showNotification('HackPortal Announcement', options);
     });

@@ -424,13 +424,13 @@ export default function Home(props: {
         </div>
         {/* Lower Content */}
         <div className="flex justify-between border-t-[1px] py-2 border-black">
-          <p>
+          <div>
             Designed by <p className="font-black inline">HackUTD</p> <br /> {/* !change */}
             {/* PLEASE DO NOT CHANGE <3 */}
             HackPortal developed with &lt;3 by <p className="font-black inline">HackUTD</p> and{' '}
             <p className="font-black inline">ACM Development</p>
             {/* PLEASE DO NOT CHANGE <3 */}
-          </p>
+          </div>
 
           <div className="flex md:flex-row flex-col md:ml-0 ml-6">
             {/* !change */}
