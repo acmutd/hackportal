@@ -103,36 +103,60 @@ export default function AppHeader() {
           </div>
         </div>
         {/* PC nav */}
-        <div className="hidden order-2 md:flex justify-center text-white">
-          <div className="flex justify-end xl:w-[23rem] lg:w-[18rem] md:w-11">
-            {dynamicNavItems.map(
-              (item, idx) =>
-                idx < 2 && (
-                  <NavLink key={item.text} href={item.path} exact={true} addClass="font-bold">
-                    <a>
-                      <p className="mx-2 lg:mx-4 xl:mx-10 2xl:mx-14 text-base lg:text-2xl ">
-                        {item.text}
-                      </p>
-                    </a>
-                  </NavLink>
-                ),
-            )}
+        {isSignedIn &&
+        profile &&
+        (profile.user.permissions[0] === 'admin' ||
+          profile.user.permissions[0] === 'super_admin') ? (
+          <div className="hidden order-2 md:flex justify-center text-white">
+            <div className="flex">
+              {dynamicNavItems.map((item, idx) => (
+                <NavLink key={item.text} href={item.path} exact={true} addClass="font-bold">
+                  <a>
+                    <p className="mx-2 xl:mx-6 2xl:mx-10 text-sm lg:text-lg xl:text-2xl ">
+                      {item.text}
+                    </p>
+                  </a>
+                </NavLink>
+              ))}
+            </div>
           </div>
-          <div className="flex xl:w-[23rem] lg:w-[18rem] md:w-11">
-            {dynamicNavItems.map(
-              (item, idx) =>
-                idx > 1 && (
-                  <NavLink key={item.text} href={item.path} exact={true} addClass="font-bold">
-                    <a>
-                      <p className="mx-1 lg:mx-4 xl:mx-10 2xl:mx-14 text-base lg:text-2xl ">
-                        {item.text}
-                      </p>
-                    </a>
-                  </NavLink>
-                ),
-            )}
+        ) : (
+          <div className="hidden order-2 md:flex justify-center text-white">
+            <div className="flex justify-end xl:w-[23rem] lg:w-[18rem] md:w-11">
+              {dynamicNavItems.map(
+                (item, idx) =>
+                  idx < 2 && (
+                    <NavLink
+                      key={item.text}
+                      href={item.path}
+                      exact={item.text === 'Dashboard' ? false : true}
+                      addClass="font-bold"
+                    >
+                      <a>
+                        <p className="mx-2 lg:mx-4 xl:mx-10 2xl:mx-14 text-base lg:text-2xl ">
+                          {item.text}
+                        </p>
+                      </a>
+                    </NavLink>
+                  ),
+              )}
+            </div>
+            <div className="flex xl:w-[23rem] lg:w-[18rem] md:w-11">
+              {dynamicNavItems.map(
+                (item, idx) =>
+                  idx > 1 && (
+                    <NavLink key={item.text} href={item.path} exact={true} addClass="font-bold">
+                      <a>
+                        <p className="mx-1 lg:mx-4 xl:mx-10 2xl:mx-14 text-base lg:text-2xl ">
+                          {item.text}
+                        </p>
+                      </a>
+                    </NavLink>
+                  ),
+              )}
+            </div>
           </div>
-        </div>
+        )}
         <div className="order-3 md:w-44 lg:w-52 flex justify-end text-white">
           <button
             className="font-header font-medium bg-gradient-to-b from-[#F33C2C] to-[#661912] rounded-full text-base md:text-lg lg:text-xl md:px-8 px-5 py-1"
