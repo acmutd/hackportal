@@ -236,3 +236,7 @@ a.link {
   /* background-attachment: fixed;  */
   background-size: 100vw 100vh;
 }
+
+.navbarBackground {
+  background: linear-gradient(171.65deg, #11021E 0%, #1D123D 45.31%, #37214F 99.29%);;
+}

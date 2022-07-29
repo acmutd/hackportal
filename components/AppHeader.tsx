@@ -9,6 +9,7 @@ import { navItems } from '../lib/data';
 import firebase from 'firebase/app';
 import Image from 'next/image';
 import NavLink from './NavLink';
+import Pluwuto from '../public/assets/Pluwuto.png';
 
 /**
  * A global site header throughout the entire app.
@@ -90,15 +91,23 @@ export default function AppHeader() {
             <ul
               className={`${
                 showMenu ? 'translate-x-0' : '-translate-x-full'
-              } transform transition-all ease-out duration-300 flex w-full h-screen border-2 border-black flex-col bg-[#310047] fixed top-0 left-0 z-[-1] pt-16`}
+              } transform transition-all ease-out duration-300 flex w-full h-screen border-2 navbarBackground border-black flex-col fixed top-0 left-0 z-[-1] pt-16`}
             >
               {dynamicNavItems.map((item) => (
-                <Link key={item.text} href={item.path}>
-                  <a className="border-b-2 first:border-t-2 border-black p-4 py-6 hover:bg-[#D8F8FF]">
-                    <p className="text-sm font-bold text-white">{item.text}</p>
+                <NavLink
+                  key={item.text}
+                  href={item.path}
+                  exact={item.text === 'Dashboard' ? false : true}
+                  addClass="font-semibold"
+                >
+                  <a className="">
+                    <p className="text-lg text-white p-4 py-6 raise">{item.text}</p>
                   </a>
-                </Link>
+                </NavLink>
               ))}
+              <div className="p-6 -rotate-12 absolute bottom-0">
+                <Image src={Pluwuto} alt="" width={90} height={90}></Image>
+              </div>
             </ul>
           </div>
         </div>
