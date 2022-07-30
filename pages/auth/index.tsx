@@ -134,7 +134,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="background h-screen text-white">
+    <div className="background min-h-screen text-white">
       <div className="p-4 mt-[4rem]">
         <Link href="/" passHref>
           <div className="cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-lgfont-medium text-[#7B81FF]">
@@ -154,7 +154,7 @@ export default function AuthPage() {
       </div>
       <section className="py-2 md:px-16 px-10 flex lg:justify-between justify-center flex-wrap">
         <div className="xl:w-1/2 lg:w-2/3 w-5/6 my-4">
-          <div className="md:mt-16 mt-8 flex text-2xl">
+          <div className="md:mt-12 mt-8 flex text-2xl">
             <div
               id="signInOption"
               className="py-2 mr-6 underline cursor-pointer"
@@ -335,8 +335,8 @@ export default function AuthPage() {
             <div className="text-center">{errorMsg}</div>
           </section>
         </div>
-        <div className="flex xl:w-1/2 w-full items-center xl:justify-center lg:justify-start justify-center">
-          <Image alt="login image" src={LoginImage} width={500} height={500}></Image>
+        <div className="lg:flex hidden xl:w-1/2 lg:w-[30%] w-full items-center xl:justify-center lg:justify-start justify-center">
+          <Image alt="login image" src={LoginImage} width={400} height={400}></Image>
         </div>
       </section>
     </div>
