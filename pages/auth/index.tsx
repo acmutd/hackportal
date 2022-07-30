@@ -179,7 +179,7 @@ export default function AuthPage() {
                 <form onSubmit={handleSubmit}>
                   <h1 className="text-xl font-bold mt-4 mb-2">Email</h1>
                   <input
-                    className="w-full rounded-lg p-2 accountInput"
+                    className="w-full rounded-lg p-2 input"
                     value={currentEmail}
                     onChange={(e) => setCurrentEmail(e.target.value)}
                     type="text"
@@ -190,7 +190,7 @@ export default function AuthPage() {
                   <h1 className="text-xl font-bold mt-4 mb-2">Password</h1>
                   <input
                     id="passwordInputLg"
-                    className="w-full rounded-lg p-2 accountInput"
+                    className="w-full rounded-lg p-2 input"
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
                     type="password"
@@ -244,7 +244,7 @@ export default function AuthPage() {
                   )} */}
                 <div className="text-center text-white font-bold opacity-50 text-xl">or</div>
                 <button
-                  className="submit px-4 py-2 w-full rounded-md shadow-md accountInput my-4 text-lg font-bold hover:shadow-lg hover:brightness-[1.3] text-left flex items-center"
+                  className="submit px-4 py-2 w-full rounded-md shadow-md input my-4 text-lg font-bold hover:shadow-lg hover:brightness-[1.3] text-left flex items-center"
                   onClick={() => signInWithGoogle()}
                 >
                   <Image src={GoogleIcon} alt="GoogleIcon" width={25} height={25} />
@@ -264,7 +264,7 @@ export default function AuthPage() {
                 </div>
                 <h1 className="text-2xl my-4">Reset Password</h1>
                 <input
-                  className="w-full rounded-lg p-2 accountInput"
+                  className="w-full rounded-lg p-2 input"
                   value={currentEmail}
                   onChange={(e) => setCurrentEmail(e.target.value)}
                   placeholder="Email"
@@ -289,7 +289,7 @@ export default function AuthPage() {
             <form onSubmit={handleSignUpSubmit}>
               <h1 className="text-xl font-bold mt-4 mb-2">Email</h1>
               <input
-                className="w-full rounded-lg p-2 accountInput"
+                className="w-full rounded-lg p-2 input"
                 value={currentEmail}
                 onChange={(e) => setCurrentEmail(e.target.value)}
                 type="text"
@@ -300,7 +300,7 @@ export default function AuthPage() {
               <h1 className="text-xl font-bold mt-4 mb-2">Password</h1>
               <input
                 id="passwordInputSignUp"
-                className="w-full rounded-lg p-2 accountInput"
+                className="w-full rounded-lg p-2 input"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 type="password"

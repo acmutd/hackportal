@@ -11,6 +11,8 @@ import schools from '../public/schools.json';
 import majors from '../public/majors.json';
 import { hackPortalConfig, formInitialValues } from '../hackportal.config';
 import DisplayQuestion from '../components/DisplayQuestion';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import Link from 'next/link';
 
 /**
  * The registration page.
@@ -39,6 +41,8 @@ export default function Register() {
     if (hasProfile) router.push('/profile');
     else setLoading(false);
   };
+
+  const [displayPage, setDisplayPage] = useState(0);
 
   useEffect(() => {
     setTimeout(() => {
@@ -108,6 +112,28 @@ export default function Register() {
     }
   };
 
+  const changePage = (next) => {
+    // next signifies if displayPage should go foward or backward (1 or -1)
+    let nextPage = displayPage + next;
+    if (nextPage < 0 || nextPage > 5) return;
+
+    if (nextPage > 0) {
+      (document.getElementById(`previous`) as HTMLElement).style.opacity = '1';
+    } else if (nextPage === 0) {
+      (document.getElementById(`previous`) as HTMLElement).style.opacity = '0';
+    }
+
+    if (nextPage < 5) {
+      (document.getElementById(`next`) as HTMLElement).style.opacity = '1';
+    } else if (nextPage === 5) {
+      (document.getElementById(`next`) as HTMLElement).style.opacity = '0';
+    }
+
+    (document.getElementById(`page${displayPage}`) as HTMLElement).style.display = 'none';
+    (document.getElementById(`page${nextPage}`) as HTMLElement).style.display = 'flex';
+    setDisplayPage(nextPage);
+  };
+
   if (!user) {
     router.push('/auth');
   }
@@ -165,15 +191,15 @@ export default function Register() {
   };
 
   return (
-    <div className="flex flex-col flex-grow bg-white">
+    <div className="flex flex-col flex-grow background text-white">
       <Head>
         <title>Hacker Registration</title>
         <meta name="description" content="Register for [HACKATHON NAME]" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section id="jumbotron" className="p-2 px-6">
-        <div className="max-w-4xl py-6 mx-auto flex flex-col items-center">
+      {/* <section id="jumbotron" className="p-2 px-6 mt-16">
+        <div className="max-w-4xl py-6flex flex-col items-center">
           <div className="registrationTitle text-4xl font-bold text-center">
             Hacker Registration
           </div>
@@ -182,139 +208,186 @@ export default function Register() {
             minutes.
           </div>
         </div>
+      </section> */}
+      <div className="p-4 mt-[4rem]">
+        <Link href="/" passHref>
+          <div className="cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-lgfont-medium text-[#7B81FF]">
+            <ChevronLeftIcon fontSize="large" />
+            Return to event site
+          </div>
+        </Link>
+      </div>
+
+      <section className="mt-10 md:mx-14 mx-8">
+        <div className="md:text-4xl text-2xl">HackUTD IX Hacker Registration</div>
+        <div className="my-1 md:text-xl text-base font-light">
+          Please fill out the following fields. The application should take approximately 5 minutes.
+        </div>
       </section>
 
-      <section className="flex justify-center">
-        <Formik
-          initialValues={formInitialValues}
-          //validation
-          //Get condition in which values.[value] is invalid and set error message in errors.[value]. Value is a value from the form(look at initialValues)
-          validate={(values) => {
-            var errors: any = {};
-            for (let obj of generalQuestions) {
-              errors = setErrors(obj, values, errors);
-            }
-            for (let obj of schoolQuestions) {
-              errors = setErrors(obj, values, errors);
-            }
-            for (let obj of hackathonExperienceQuestions) {
-              errors = setErrors(obj, values, errors);
-            }
-            for (let obj of eventInfoQuestions) {
-              errors = setErrors(obj, values, errors);
-            }
-            for (let obj of sponsorInfoQuestions) {
-              errors = setErrors(obj, values, errors);
-            }
+      <section className="flex-grow flex flex-col justify-between">
+        <section className="md:mx-14 mx-8">
+          <Formik
+            initialValues={formInitialValues}
+            //validation
+            //Get condition in which values.[value] is invalid and set error message in errors.[value]. Value is a value from the form(look at initialValues)
+            validate={(values) => {
+              var errors: any = {};
+              for (let obj of generalQuestions) {
+                errors = setErrors(obj, values, errors);
+              }
+              for (let obj of schoolQuestions) {
+                errors = setErrors(obj, values, errors);
+              }
+              for (let obj of hackathonExperienceQuestions) {
+                errors = setErrors(obj, values, errors);
+              }
+              for (let obj of eventInfoQuestions) {
+                errors = setErrors(obj, values, errors);
+              }
+              for (let obj of sponsorInfoQuestions) {
+                errors = setErrors(obj, values, errors);
+              }
 
-            //additional custom error validation
-            if (
-              values.preferredEmail &&
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.preferredEmail)
-            ) {
-              //regex matches characters before @, characters after @, and 2 or more characters after . (domain)
-              errors.preferredEmail = 'Invalid email address';
-            }
-            if ((values.age && values.age < 1) || values.age > 100) {
-              errors.age = 'Not a valid age';
-            }
-            if (
-              (values.hackathonExperience && values.hackathonExperience < 0) ||
-              values.hackathonExperience > 100
-            ) {
-              errors.hackathonExperience = 'Not a valid number';
-            }
+              //additional custom error validation
+              if (
+                values.preferredEmail &&
+                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.preferredEmail)
+              ) {
+                //regex matches characters before @, characters after @, and 2 or more characters after . (domain)
+                errors.preferredEmail = 'Invalid email address';
+              }
+              if ((values.age && values.age < 1) || values.age > 100) {
+                errors.age = 'Not a valid age';
+              }
+              if (
+                (values.hackathonExperience && values.hackathonExperience < 0) ||
+                values.hackathonExperience > 100
+              ) {
+                errors.hackathonExperience = 'Not a valid number';
+              }
 
-            return errors;
-          }}
-          onSubmit={async (values, { setSubmitting }) => {
-            await new Promise((r) => setTimeout(r, 500));
-            let finalValues: any = values;
-            //add user object
-            const userValues: any = {
-              id: values.id,
-              firstName: values.firstName,
-              lastName: values.lastName,
-              preferredEmail: values.preferredEmail,
-              permissions: values.permissions,
-            };
-            finalValues['user'] = userValues;
-            //delete unnecessary values
-            delete finalValues.firstName;
-            delete finalValues.lastName;
-            delete finalValues.permissions;
-            delete finalValues.preferredEmail;
-            //submitting
-            handleSubmit(values);
-            setSubmitting(false);
-            // alert(JSON.stringify(values, null, 2)); //Displays form results on submit for testing purposes
-          }}
-        >
-          {({ values, handleChange, isValid, dirty }) => (
-            // Field component automatically hooks input to form values. Use name attribute to match corresponding value
-            // ErrorMessage component automatically displays error based on validation above. Use name attribute to match corresponding value
-            <Form
-              onKeyDown={onKeyDown}
-              noValidate
-              className="registrationForm flex flex-col max-w-4xl px-6 w-[56rem] text-lg"
-            >
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">General</div>
-              {generalQuestions.map((obj, idx) => (
-                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-              ))}
+              return errors;
+            }}
+            onSubmit={async (values, { setSubmitting }) => {
+              await new Promise((r) => setTimeout(r, 500));
+              let finalValues: any = values;
+              //add user object
+              const userValues: any = {
+                id: values.id,
+                firstName: values.firstName,
+                lastName: values.lastName,
+                preferredEmail: values.preferredEmail,
+                permissions: values.permissions,
+              };
+              finalValues['user'] = userValues;
+              //delete unnecessary values
+              delete finalValues.firstName;
+              delete finalValues.lastName;
+              delete finalValues.permissions;
+              delete finalValues.preferredEmail;
+              //submitting
+              handleSubmit(values);
+              setSubmitting(false);
+              // alert(JSON.stringify(values, null, 2)); //Displays form results on submit for testing purposes
+            }}
+          >
+            {({ values, handleChange, isValid, dirty }) => (
+              // Field component automatically hooks input to form values. Use name attribute to match corresponding value
+              // ErrorMessage component automatically displays error based on validation above. Use name attribute to match corresponding value
+              <Form
+                onKeyDown={onKeyDown}
+                noValidate
+                className="registrationForm flex flex-col max-w-4xl text-lg"
+              >
+                <div id="page0" className="flex flex-col">
+                  <div className="text-3xl py-1 mt-8">General</div>
+                  {generalQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </div>
 
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">School Info</div>
-              {schoolQuestions.map((obj, idx) => (
-                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-              ))}
+                <div id="page1" className="flex flex-col hidden">
+                  <div className="text-3xl py-1 mt-8">School Info</div>
+                  {schoolQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </div>
 
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">
-                Hackathon Experience
-              </div>
-              {hackathonExperienceQuestions.map((obj, idx) => (
-                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-              ))}
+                <div id="page2" className="flex flex-col hidden">
+                  <div className="text-3xl py-1 mt-8">Hackathon Experience</div>
+                  {hackathonExperienceQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </div>
 
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">Event Info</div>
-              {eventInfoQuestions.map((obj, idx) => (
-                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-              ))}
+                <div id="page3" className="flex flex-col hidden">
+                  <div className="text-3xl py-1 mt-8">Event Info</div>
+                  {eventInfoQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </div>
 
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">Sponsor Info</div>
-              {sponsorInfoQuestions.map((obj, idx) => (
-                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-              ))}
+                <div id="page4" className="flex flex-col hidden">
+                  <div className="text-3xl py-1 mt-8">Sponsor Info</div>
+                  {sponsorInfoQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </div>
 
-              {/* Resume Upload */}
-              <label className="mt-4">
-                Upload your resume:
-                <br />
-                <input
-                  onChange={(e) => setResumeFile(e.target.files[0])}
-                  name="resume"
-                  type="file"
-                  formEncType="multipart/form-data"
-                  accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
-                />
-                <br />
-              </label>
-
-              {/* Submit */}
-              <div className="my-8">
-                <button
-                  type="submit"
-                  className="mr-auto cursor-pointer px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-300"
-                  onClick={() => setFormValid(!(!isValid || !dirty))}
-                >
-                  Submit
-                </button>
-                {!isValid && !formValid && (
-                  <div className="text-red-600">Error: The form has invalid fields</div>
-                )}
-              </div>
-            </Form>
-          )}
-        </Formik>
+                {/* Resume Upload */}
+                <div id="page5" className="flex flex-col hidden">
+                  <label>
+                    <div className="mt-8 text-2xl py-1">Upload your resume</div>
+                    <input
+                      onChange={(e) => setResumeFile(e.target.files[0])}
+                      name="resume"
+                      type="file"
+                      formEncType="multipart/form-data"
+                      accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
+                    />
+                    <br />
+                  </label>
+                  {/* Submit */}
+                  <div className="mt-16">
+                    <button
+                      type="submit"
+                      className="cursor-pointer raise text-3xl font-bold"
+                      onClick={() => setFormValid(!(!isValid || !dirty))}
+                    >
+                      Submit
+                    </button>
+                    {!isValid && !formValid && (
+                      <div className="text-red-600">Error: The form has invalid fields</div>
+                    )}
+                  </div>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </section>
+        <div className="md:mx-14 mx-8 flex justify-between mb-16 mt-10 select-none">
+          <div
+            id="previous"
+            className="opacity-0 cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF] raise"
+            onClick={() => {
+              changePage(-1);
+            }}
+          >
+            <ChevronLeftIcon fontSize="large" className="" />
+            Previous Page
+          </div>
+          <div
+            id="next"
+            className="cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF] raise"
+            onClick={() => {
+              changePage(1);
+            }}
+          >
+            Next Page
+            <ChevronLeftIcon fontSize="large" className="rotate-180" />
+          </div>
+        </div>
       </section>
     </div>
   );

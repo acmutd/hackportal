@@ -176,7 +176,7 @@ a.link {
   /* backdrop-filter: blur(15px); */
 }
 
-.accountInput{
+.input{
   background-color: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(8px);
 }
