@@ -35,7 +35,7 @@ export default function ProfilePage() {
           <section className="w-full py-5">
             <div className="flex flex-col md:flex-row gap-x-10">
               <div
-                className="bg-gray-300 w-full md:w-2/3 rounded-xl p-4 flex flex-col justify-around"
+                className="accountSection w-full md:w-2/3 rounded-xl p-4 flex flex-col justify-around"
                 style={{ minHeight: '500px' }}
               >
                 <h1 className="font-bold text-xl text-center">HackUTD IX</h1> {/* !change */}

@@ -377,6 +377,9 @@ export default function Register() {
             <ChevronLeftIcon fontSize="large" className="" />
             Previous Page
           </div>
+          <div className="lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF]">
+            {displayPage}/5
+          </div>
           <div
             id="next"
             className="cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF] raise"

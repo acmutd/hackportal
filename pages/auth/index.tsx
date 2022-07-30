@@ -9,7 +9,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import GoogleIcon from '../../public/icons/googleicon.png';
 import Image from 'next/image';
 import NextConnect from 'next-connect';
-import LoginImage from '../../public/assets/fillerAsset.png';
+import LoginImage from '../../public/assets/Pluwuto.png';
 /**
  * A page that allows the user to sign in.
  *
@@ -154,7 +154,7 @@ export default function AuthPage() {
       </div>
       <section className="py-2 md:px-16 px-10 flex lg:justify-between justify-center flex-wrap">
         <div className="xl:w-1/2 lg:w-2/3 w-5/6 my-4">
-          <div className="mt-16 flex text-2xl">
+          <div className="md:mt-16 mt-8 flex text-2xl">
             <div
               id="signInOption"
               className="py-2 mr-6 underline cursor-pointer"
@@ -336,7 +336,7 @@ export default function AuthPage() {
           </section>
         </div>
         <div className="flex xl:w-1/2 w-full items-center xl:justify-center lg:justify-start justify-center">
-          <Image alt="login image" src={LoginImage} width={500} height={600}></Image>
+          <Image alt="login image" src={LoginImage} width={500} height={500}></Image>
         </div>
       </section>
     </div>
