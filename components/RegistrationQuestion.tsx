@@ -1,5 +1,9 @@
 import React, { useEffect, useState, useLayoutEffect, Fragment } from 'react';
-import { Field, ErrorMessage } from 'formik';
+import { Field, ErrorMessage, Formik } from 'formik';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import TextField from '@mui/material/TextField';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 /**
  *Text input question Component
@@ -137,6 +141,70 @@ function Question(props) {
           name={props.question.name}
           render={(msg) => <div className="text-red-600">{msg}</div>}
         />
+      </Fragment>
+    );
+  } else if (props.type === 'availabilityInfo') {
+    const addAvailability = () => {
+      const clone = JSON.parse(JSON.stringify(props.value));
+      clone.push({ start: new Date(), end: new Date() });
+      props.onChange('timesOptional', clone, false);
+    };
+
+    const removeAvailability = () => {
+      const clone = JSON.parse(JSON.stringify(props.value));
+      if (clone.length > 1) clone.pop();
+      props.onChange('timesOptional', clone, false);
+    };
+    return (
+      <Fragment>
+        <label htmlFor={props.question.name} className="mt-4">
+          {props.question.required ? '*' : ''}
+          {props.question.question}
+        </label>
+
+        {props.value.map((elm, idx) => (
+          <div className="flex flex-row px-10 py-4 justify-center gap-20" key={idx}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateTimePicker
+                minDateTime={props.range.start}
+                maxDateTime={props.range.end}
+                orientation="portrait"
+                renderInput={(props) => <TextField {...props} />}
+                label="DateTimePicker"
+                value={elm.start}
+                onChange={(val) => {
+                  // Perform validation logic here
+                  const clone = JSON.parse(JSON.stringify(props.value));
+                  clone[idx].start = val;
+                  props.onChange('timesOptional', clone, false);
+                }}
+              />
+              <ErrorMessage
+                name={props.question.name}
+                render={(msg) => <div className="text-red-600">{msg}</div>}
+              />
+              <DateTimePicker
+                renderInput={(props) => <TextField {...props} />}
+                label="DateTimePicker"
+                value={elm.end}
+                onChange={(val) => {
+                  // Perform validation logic here
+                  const clone = JSON.parse(JSON.stringify(props.value));
+                  clone[idx].end = val;
+                  props.onChange('timesOptional', clone, false);
+                }}
+              />
+              <ErrorMessage
+                name={props.question.name}
+                render={(msg) => <div className="text-red-600">{msg}</div>}
+              />
+            </LocalizationProvider>
+          </div>
+        ))}
+        <div className="flex flex-row justify-end gap-10">
+          <button onClick={addAvailability}> Add </button>
+          <button onClick={removeAvailability}> Remove </button>
+        </div>
       </Fragment>
     );
   }

@@ -228,7 +228,7 @@ export default function MentorRegistration() {
             // alert(JSON.stringify(values, null, 2)); //Displays form results on submit for testing purposes
           }}
         >
-          {({ values, handleChange, isValid, dirty }) => (
+          {({ values, handleChange, isValid, dirty, setFieldValue }) => (
             // Field component automatically hooks input to form values. Use name attribute to match corresponding value
             // ErrorMessage component automatically displays error based on validation above. Use name attribute to match corresponding value
             <Form
@@ -248,7 +248,7 @@ export default function MentorRegistration() {
 
               <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">Availability</div>
               {availabilityInfoQuestions.map((obj, idx) => (
-                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                <DisplayQuestion key={idx} obj={obj} values={values} onChange={setFieldValue} />
               ))}
 
               {/* Submit */}

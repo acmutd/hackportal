@@ -41,6 +41,19 @@ function DisplayQuestion(props) {
       {props.obj.textAreaQuestions?.map((inputObj) => (
         <Question key={inputObj.id} type="textArea" question={inputObj} />
       ))}
+      {/* Display availability input questions */}
+      {props.obj.availabilityInfoQuestions?.map((inputObj) => {
+        return (
+          <Question
+            key={inputObj.id}
+            type="availabilityInfo"
+            question={inputObj}
+            onChange={props.onChange}
+            value={props.values[inputObj.name]}
+            range={inputObj.range}
+          />
+        );
+      })}
     </Fragment>
   );
 }

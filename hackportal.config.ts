@@ -452,15 +452,15 @@ export const hackPortalConfig: HackPortalConfig = {
           },
         ],
 
-        textAreaQuestions: [
+        availabilityInfoQuestions: [
           {
-            //don't remove; for user account info
             question: 'If not, what times are you free?',
             id: 'timesOptional',
             name: 'timesOptional',
             required: false,
-            initialValue: '',
-            placeholder: 'Ex. Saturday 9AM-5PM and Sunday 9AM - 2PM',
+            initialValue: [{ start: new Date(), end: new Date() }],
+            value: [{ start: new Date(), end: new Date() }],
+            range: { start: new Date(2022, 1, 1), end: new Date(2022, 12, 31) }, // Set these values to be the start & end date/time of the hackathon
           },
         ],
       },
@@ -523,6 +523,7 @@ export interface QuestionTypes {
   numberInputQuestions?: NumberInputQuestion[];
   datalistQuestions?: datalistQuestion[];
   textAreaQuestions?: textAreaQuestion[];
+  availabilityInfoQuestions?: AvailabilityInfoQuestion[];
 }
 
 export interface RegistrationQuestion {
@@ -555,6 +556,13 @@ interface NumberInputQuestion extends RegistrationQuestion {
 
 interface datalistQuestion extends RegistrationQuestion {
   datalist: string;
+}
+
+export type DateRange = { start: Date; end: Date };
+
+interface AvailabilityInfoQuestion extends RegistrationQuestion {
+  value: DateRange[];
+  range: DateRange;
 }
 
 interface textAreaQuestion extends RegistrationQuestion {
@@ -632,6 +640,10 @@ const setInitialValues = (obj) => {
     }
   if (obj.textAreaQuestions)
     for (let inputObj of obj.textAreaQuestions) {
+      InitialValues[inputObj.name] = inputObj.initialValue;
+    }
+  if (obj.availabilityInfoQuestions)
+    for (let inputObj of obj.availabilityInfoQuestions) {
       InitialValues[inputObj.name] = inputObj.initialValue;
     }
 };
