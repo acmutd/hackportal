@@ -452,7 +452,7 @@ export const hackPortalConfig: HackPortalConfig = {
           },
         ],
 
-        availabilityInfoQuestions: [
+        availabilityTimesQuestions: [
           {
             question: 'If not, what times are you free?',
             id: 'timesOptional',
@@ -523,7 +523,7 @@ export interface QuestionTypes {
   numberInputQuestions?: NumberInputQuestion[];
   datalistQuestions?: datalistQuestion[];
   textAreaQuestions?: textAreaQuestion[];
-  availabilityInfoQuestions?: AvailabilityInfoQuestion[];
+  availabilityTimesQuestions?: AvailabilityTimesQuestion[];
 }
 
 export interface RegistrationQuestion {
@@ -560,7 +560,7 @@ interface datalistQuestion extends RegistrationQuestion {
 
 export type DateRange = { start: Date; end: Date };
 
-interface AvailabilityInfoQuestion extends RegistrationQuestion {
+interface AvailabilityTimesQuestion extends RegistrationQuestion {
   value: DateRange[];
   range: DateRange;
 }

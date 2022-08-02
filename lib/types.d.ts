@@ -136,7 +136,7 @@ type BaseRegistration = {
 
 type AvailabilityInfo = {
   isFullyAvailabile: boolean;
-  timesAvailabile: string;
+  timesAvailabile: DateRange[];
 };
 
 type HackerRegistration = BaseRegistration & SchoolInfo & ExperienceInfo & SponsorInfo;
