@@ -168,22 +168,19 @@ const createParsedSection = (sections: ParsedSection[]) => {
   );
 };
 function main() {
-  const parsedHackerSection = createParsedSection([
+  const parsedBaseSection = createParsedSection([
     parseSection(generalQuestions),
     parseSection(eventInfoQuestions),
+  ]);
+  const parsedHackerSection = createParsedSection([
     parseSection(hackathonExperienceQuestions),
     parseSection(schoolQuestions),
     parseSection(sponsorInfoQuestions),
   ]);
 
-  const parsedMentorSection = createParsedSection([
-    parseSection(generalQuestions),
-    parseSection(availabilityInfoQuestions),
-  ]);
+  const parsedMentorSection = createParsedSection([parseSection(availabilityInfoQuestions)]);
 
   const parsedVolunteerSection = createParsedSection([
-    parseSection(generalQuestions),
-    parseSection(eventInfoQuestions),
     parseSection(hackathonExperienceQuestions),
     parseSection(schoolQuestions),
     parseSection(sponsorInfoQuestions),
@@ -191,12 +188,7 @@ function main() {
   ]);
   const DateRangeTypeDefinition: string = `export type DateRange = { start: Date; end: Date };`;
 
-  const hackerRegistrationTypeDefinition = `export interface HackerRegistration {
-    ${generateSingleFieldTypeDefinition(parsedHackerSection.singleTextFields, 'string')}
-    ${generateSingleFieldTypeDefinition(parsedHackerSection.singleNumberFields, 'number')}
-    ${generateCheckboxTypeDefinition(parsedHackerSection.checkboxFields)}
-    ${generateDropdownTypeDefinition(parsedHackerSection.dropdownFields)}
-    ${generateAvailabilityTimesTypeDefinition(parsedHackerSection.availabilityTimesFields)}
+  const BaseRegistrationTypeDefinition: string = `export type BaseRegistration = {
     id: string;
     resume?: string;
     scans: string[];
@@ -207,42 +199,33 @@ function main() {
         id: string;
         permissions: string[];
     }
-}`;
+  }`;
 
-  const mentorRegistrationTypeDefinition = `export interface MentorRegistration {
+  const hackerRegistrationTypeDefinition = `export type HackerRegistration = {
+    ${generateSingleFieldTypeDefinition(parsedHackerSection.singleTextFields, 'string')}
+    ${generateSingleFieldTypeDefinition(parsedHackerSection.singleNumberFields, 'number')}
+    ${generateCheckboxTypeDefinition(parsedHackerSection.checkboxFields)}
+    ${generateDropdownTypeDefinition(parsedHackerSection.dropdownFields)}
+    ${generateAvailabilityTimesTypeDefinition(parsedHackerSection.availabilityTimesFields)}
+  
+} & BaseRegistration`;
+
+  const mentorRegistrationTypeDefinition = `export type MentorRegistration = {
   ${generateSingleFieldTypeDefinition(parsedMentorSection.singleTextFields, 'string')}
   ${generateSingleFieldTypeDefinition(parsedMentorSection.singleNumberFields, 'number')}
   ${generateCheckboxTypeDefinition(parsedMentorSection.checkboxFields)}
   ${generateDropdownTypeDefinition(parsedMentorSection.dropdownFields)}
   ${generateAvailabilityTimesTypeDefinition(parsedMentorSection.availabilityTimesFields)}
-  id: string;
-  resume?: string;
-  scans: string[];
-  timestamp: number;
-  user: {
-      firstName: string;
-      lastName: string;
-      id: string;
-      permissions: string[];
-  }
-}`;
-  const volunteerRegistrationTypeDefinition = `export interface VolunteerRegistration {
+ 
+}  & BaseRegistration `;
+  const volunteerRegistrationTypeDefinition = `export type VolunteerRegistration = {
   ${generateSingleFieldTypeDefinition(parsedVolunteerSection.singleTextFields, 'string')}
   ${generateSingleFieldTypeDefinition(parsedVolunteerSection.singleNumberFields, 'number')}
   ${generateCheckboxTypeDefinition(parsedVolunteerSection.checkboxFields)}
   ${generateDropdownTypeDefinition(parsedVolunteerSection.dropdownFields)}
   ${generateAvailabilityTimesTypeDefinition(parsedVolunteerSection.availabilityTimesFields)}
-  id: string;
-  resume?: string;
-  scans: string[];
-  timestamp: number;
-  user: {
-      firstName: string;
-      lastName: string;
-      id: string;
-      permissions: string[];
-  }
-}`;
+  
+} & BaseRegistration`;
 
   const statRecordTypeDefinition = `export interface statRecordType {
     ${generateSingleFieldRecordTypeDefinition(parsedHackerSection.singleTextFields, 'string')}
@@ -256,7 +239,7 @@ function main() {
   }
   fs.writeFileSync(
     'node_modules/@generated/types.ts',
-    `${DateRangeTypeDefinition}\n\n
+    `${DateRangeTypeDefinition}\n\n${BaseRegistrationTypeDefinition}
     ${hackerRegistrationTypeDefinition}\n\n${mentorRegistrationTypeDefinition}\n\n${volunteerRegistrationTypeDefinition}\n\n${statRecordTypeDefinition}`,
   );
   console.log('[INFO] Type Definition files generated in node_modules/@types/generated.ts\n');

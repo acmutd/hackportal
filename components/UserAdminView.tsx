@@ -5,6 +5,7 @@ import { useAuthContext } from '../lib/user/AuthContext';
 import { UserData } from '../pages/api/users';
 import ErrorList from './ErrorList';
 import LoadIcon from './LoadIcon';
+import { BaseRegistration } from '@generated/types';
 
 interface UserAdminViewProps {
   goBack: () => void;

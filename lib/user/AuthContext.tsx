@@ -1,7 +1,12 @@
 import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { Registration } from '@generated/types';
+import {
+  BaseRegistration,
+  HackerRegistration,
+  VolunteerRegistration,
+  MentorRegistration,
+} from '@generated/types';
 
 /**
  * Utility attributes and functions used to handle user auth state within an AuthContext.

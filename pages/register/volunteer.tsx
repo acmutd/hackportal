@@ -11,6 +11,7 @@ import schools from '../../public/schools.json';
 import majors from '../../public/majors.json';
 import { hackPortalConfig, formInitialValues } from '../../hackportal.config';
 import DisplayQuestion from '../../components/DisplayQuestion';
+import { VolunteerRegistration } from '@generated/types';
 
 /**
  * The registration page.
@@ -18,7 +19,7 @@ import DisplayQuestion from '../../components/DisplayQuestion';
  * Registration: /
  */
 
-export default function VolunteerRegistration() {
+export default function VolunteerRegistrationForm() {
   const router = useRouter();
 
   const {
@@ -99,7 +100,7 @@ export default function VolunteerRegistration() {
           body: formData,
         });
       }
-      await RequestHelper.post<HackerRegistration, any>(
+      await RequestHelper.post<VolunteerRegistration, any>(
         '/api/applications/volunteer',
         {},
         registrationData,

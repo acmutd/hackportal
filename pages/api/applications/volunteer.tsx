@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { auth, firestore } from 'firebase-admin';
 import initializeApi from '../../../lib/admin/init';
 import { userIsAuthorized } from '../../../lib/authorization/check-authorization';
+import { VolunteerRegistration } from '@generated/types';
 
 initializeApi();
 

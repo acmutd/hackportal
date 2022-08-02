@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { auth, firestore } from 'firebase-admin';
-import { Registration } from '@generated/types';
+import { HackerRegistration } from '@generated/types';
 import initializeApi from '../../../lib/admin/init';
 import { userIsAuthorized } from '../../../lib/authorization/check-authorization';
 

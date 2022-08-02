@@ -11,6 +11,7 @@ import schools from '../../public/schools.json';
 import majors from '../../public/majors.json';
 import { hackPortalConfig, formInitialValues } from '../../hackportal.config';
 import DisplayQuestion from '../../components/DisplayQuestion';
+import { MentorRegistration } from '@generated/types';
 
 /**
  * The registration page.
@@ -18,7 +19,7 @@ import DisplayQuestion from '../../components/DisplayQuestion';
  * Registration: /
  */
 
-export default function MentorRegistration() {
+export default function MentorRegistrationForm() {
   const router = useRouter();
 
   const {

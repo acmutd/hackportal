@@ -11,14 +11,15 @@ import schools from '../../public/schools.json';
 import majors from '../../public/majors.json';
 import { hackPortalConfig, formInitialValues } from '../../hackportal.config';
 import DisplayQuestion from '../../components/DisplayQuestion';
-import { Registration } from '@generated/types';
+import { HackerRegistration } from '@generated/types';
+
 /**
  * The registration page.
  *
  * Registration: /
  */
 
-export default function HackerRegistration() {
+export default function HackerRegistrationForm() {
   const router = useRouter();
 
   const {

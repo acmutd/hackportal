@@ -119,35 +119,35 @@ type SponsorInfo = {
 /**
  * Information about a specific event registration.
  */
-type BaseRegistration = {
-  id: string;
-  /**
-   * A UNIX timestamp corresponding to when a hacker registered for the event.
-   */
-  timestamp: number;
+// type BaseRegistration = {
+//   id: string;
+//   /**
+//    * A UNIX timestamp corresponding to when a hacker registered for the event.
+//    */
+//   timestamp: number;
 
-  // TODO: Allow for qualifiers like "how old will you be at the day of the event?"
-  // TODO: Allow this to be dynamically defined by the organizers
-  // TODO: responses: { [questionId: string]: Question }
+//   // TODO: Allow for qualifiers like "how old will you be at the day of the event?"
+//   // TODO: Allow this to be dynamically defined by the organizers
+//   // TODO: responses: { [questionId: string]: Question }
 
-  //claims: []; //Array of Strings will be used to id any claims (lunch, merch, etc.) made by user
-} & GeneralInfo &
-  EventInfo;
+//   //claims: []; //Array of Strings will be used to id any claims (lunch, merch, etc.) made by user
+// } & GeneralInfo &
+//   EventInfo;
 
 type AvailabilityInfo = {
   isFullyAvailabile: boolean;
   timesAvailabile: DateRange[];
 };
 
-type HackerRegistration = BaseRegistration & SchoolInfo & ExperienceInfo & SponsorInfo;
+// type HackerRegistration = BaseRegistration & SchoolInfo & ExperienceInfo & SponsorInfo;
 
-type MentorRegistration = BaseRegistration & AvailabilityInfo;
+// type MentorRegistration = BaseRegistration & AvailabilityInfo;
 
-type VolunteerRegistration = BaseRegistration &
-  SchoolInfo &
-  ExperienceInfo &
-  SponsorInfo &
-  AvailabilityInfo;
+// type VolunteerRegistration = BaseRegistration &
+//   SchoolInfo &
+//   ExperienceInfo &
+//   SponsorInfo &
+//   AvailabilityInfo;
 
 /**
  * Represent an answered question
