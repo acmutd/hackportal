@@ -30,6 +30,7 @@ export default function Register() {
       hackathonExperienceQuestions,
       eventInfoQuestions,
       sponsorInfoQuestions,
+      oneLastThing,
     },
   } = hackPortalConfig;
 
@@ -47,24 +48,19 @@ export default function Register() {
   useEffect(() => {
     setTimeout(() => {
       //load json data into dropdown list for universities and majors
-      if (document.getElementById('schools') !== null) {
+      if (document.getElementById('university') !== null) {
+        let schoolOptions = [];
         for (let school of schools) {
-          let option = document.createElement('option');
-          option.text = school['university'];
-          option.value = school['university'];
-          let select = document.getElementById('schools');
-          select.appendChild(option);
+          schoolOptions.push({ title: school['university'], value: school['university'] });
         }
+        schoolQuestions[0].dropdownQuestions[0].options = schoolOptions;
       }
-
-      if (document.getElementById('majors') !== null) {
+      if (document.getElementById('major') !== null) {
+        let majorOptions = [];
         for (let major of majors) {
-          let option = document.createElement('option');
-          option.text = major['major'];
-          option.value = major['major'];
-          let select = document.getElementById('majors');
-          select.appendChild(option);
+          majorOptions.push({ title: major['major'], value: major['major'] });
         }
+        schoolQuestions[0].dropdownQuestions[1].options = majorOptions;
       }
     }, 0);
     //setting user specific initial values
@@ -198,17 +194,6 @@ export default function Register() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* <section id="jumbotron" className="p-2 px-6 mt-16">
-        <div className="max-w-4xl py-6flex flex-col items-center">
-          <div className="registrationTitle text-4xl font-bold text-center">
-            Hacker Registration
-          </div>
-          <div className="text-1xl my-4 font-bold font-small text-center">
-            Please fill out the following fields. The application should take approximately 5
-            minutes.
-          </div>
-        </div>
-      </section> */}
       <div className="p-4 mt-[4rem]">
         <Link href="/" passHref>
           <div className="cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-lgfont-medium text-[#7B81FF]">
@@ -248,6 +233,9 @@ export default function Register() {
               for (let obj of sponsorInfoQuestions) {
                 errors = setErrors(obj, values, errors);
               }
+              for (let obj of oneLastThing) {
+                errors = setErrors(obj, values, errors);
+              }
 
               //additional custom error validation
               if (
@@ -265,6 +253,9 @@ export default function Register() {
                 values.hackathonExperience > 100
               ) {
                 errors.hackathonExperience = 'Not a valid number';
+              }
+              if (values.CoC.length == 0) {
+                errors.CoC = 'Code of Conduct not accepted';
               }
 
               return errors;
@@ -333,10 +324,6 @@ export default function Register() {
                   {sponsorInfoQuestions.map((obj, idx) => (
                     <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
                   ))}
-                </div>
-
-                {/* Resume Upload */}
-                <div id="page5" className="flex flex-col hidden">
                   <label>
                     <div className="mt-8 text-2xl py-1">Upload your resume</div>
                     <input
@@ -348,11 +335,18 @@ export default function Register() {
                     />
                     <br />
                   </label>
+                </div>
+
+                <div id="page5" className="flex flex-col hidden">
+                  <div className="text-3xl py-1 mt-8">One Last Thing</div>
+                  {oneLastThing.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
                   {/* Submit */}
                   <div className="mt-16">
                     <button
                       type="submit"
-                      className="cursor-pointer raise text-3xl font-bold"
+                      className="cursor-pointer bounce-in text-3xl font-bold"
                       onClick={() => setFormValid(!(!isValid || !dirty))}
                     >
                       Submit
@@ -366,7 +360,7 @@ export default function Register() {
             )}
           </Formik>
         </section>
-        <div className="md:mx-14 mx-8 flex justify-between mb-16 mt-10 select-none">
+        <div className="md:mx-14 mx-8 flex md:justify-end justify-between mb-16 mt-10 select-none">
           <div
             id="previous"
             className="opacity-0 cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF] raise"
@@ -377,7 +371,7 @@ export default function Register() {
             <ChevronLeftIcon fontSize="large" className="" />
             Previous Page
           </div>
-          <div className="lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF]">
+          <div className="lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF] md:mx-10 inline-flex items-center">
             {displayPage}/5
           </div>
           <div

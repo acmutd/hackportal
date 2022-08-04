@@ -240,3 +240,19 @@ a.link {
 .navbarBackground {
   background: linear-gradient(171.65deg, #11021E 0%, #1D123D 45.31%, #37214F 99.29%);;
 }
+
+.bounce-in {
+  animation: bounce-in 1.5s ease;
+}
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% { transform: scale(.9); }
+  100% { transform: scale(1); }
+}
