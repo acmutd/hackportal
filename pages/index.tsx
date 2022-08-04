@@ -247,39 +247,69 @@ export default function Home(props: {
         </section>
 
         {/* About section */}
-        <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto flex justify-between">
+        <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto flex justify-between md:flex-row flex-col">
           <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient self-start">
             About
           </h1>
-          <div className="xl:text-xl md:text-base text-xs lg:w-7/12 w-2/3">
-            HackPortal is a platform for user-friendly hackathon event management. <br />
-            <br />A few of its features include: A fully customizable front end, sign in with email/
-            Google, hacker registration, images, challenges, sponsors, FAQ and more fetched from
-            backend, push notifications, a spotlight carousel highlighting ongoing events, QR code
-            check in and swag claims, report submission/ Ask a question, a built-in and easy to set
-            up schedule, Hacker, Admin, and Super Admin roles, an Admin console to send
-            announcements, update user roles, show number of check-ins, swag claims, and more!.{' '}
-            <br />
-            <br />
-            To set up HackPortal for your hackathon, check out the{' '}
-            <a
-              href="https://github.com/acmutd/hackportal/blob/develop/docs/set-up.md"
-              className="underline"
-            >
-              HackPortal Github
-            </a>
-            !
+          <div className="lg:w-7/12 md:w-2/3 w-full">
+            <div className="xl:text-2xl md:text-lg text-base font-semibold md:mt-0 mt-6">
+              🖥️ What is HackUTD?
+            </div>
+            <div className="md:text-base text-sm">
+              HackUTD, the largest university hackathon in Texas, is a weekend-long event where
+              students build apps, hardware, and more. HackUTD provides a venue for self-expression
+              and creativity through technology. People with varying technical backgrounds from
+              universities all over the US come together, form teams around a problem or idea, and
+              collaboratively build a unique solution from scratch. Whether you&#39;re a frequent
+              hackathon attendee or just getting started, we&#39;d love to see what you can make!
+            </div>
+            <div className="xl:text-2xl md:text-lg text-base font-semibold mt-6">
+              💫 What&#39;s the Purpose?
+            </div>
+            <div className="md:text-base text-sm">
+              Develop CS &#38; non-CS student relations and skills through hacking challenges.
+              Showcase new technologies through workshops and connect passionate hackers with
+              industry leaders who choose to participate in our hackathon!
+            </div>
+            <div className="xl:text-2xl md:text-lg text-base font-semibold mt-6">
+              🎉 Why attend HackUTD?
+            </div>
+            <div className="md:text-base text-sm">
+              HackUTD is a student-organized hackathon aimed at offering fellow students an outlet
+              for self expression and welcoming everyone with or without experience! HackUTD hosts
+              events that introduce key concepts and relevant topics that new hackers will find
+              useful.
+            </div>
           </div>
         </section>
         {/* Overview */}
         <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
           <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">Overview</h1>
-          {/* 01 */}
+          {/* Stats */}
+          {stats.map((stat, index) => (
+            <div
+              className={`flex justify-center ${
+                index === 0 ? 'my-14' : ' lg:my-32 md:my-24 my-16'
+              }`}
+              key={index}
+            >
+              <div className="flex w-4/5 relative">
+                <div className="slant xl:w-[4rem] xl:h-[4rem] md:w-[3rem] md:h-[3rem] w-[2rem] h-[2rem] flex-none"></div>
+                <div className="nasalization flex border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
+                  0{index + 1}
+                </div>
+                <div className="absolute left-1/2 xl:text-5xl lg:text-4xl md:text-3xl sm:text-xl text-lg font-medium md:p-2">
+                  {stat.data}
+                </div>
+              </div>
+            </div>
+          ))}
+          {/* 05 */}
           <div className="flex justify-center mt-16">
             <div className="flex w-4/5">
               <div className="slant xl:w-[4rem] xl:h-[4rem] md:w-[3rem] md:h-[3rem] w-[2rem] h-[2rem] flex-none"></div>
               <div className="nasalization border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
-                01
+                05
               </div>
             </div>
           </div>
@@ -295,23 +325,6 @@ export default function Home(props: {
               allowFullScreen
             ></iframe>
           </div>
-          {/* Stats */}
-          {stats.map((stat, index) => (
-            <div
-              className={`flex justify-center lg:my-32 md:my-24 ${index === 0 ? 'my-0' : 'my-16'}`}
-              key={index}
-            >
-              <div className="flex w-4/5 relative">
-                <div className="slant xl:w-[4rem] xl:h-[4rem] md:w-[3rem] md:h-[3rem] w-[2rem] h-[2rem] flex-none"></div>
-                <div className="nasalization flex border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
-                  0{index + 2}
-                </div>
-                <div className="absolute left-1/2 xl:text-5xl lg:text-4xl md:text-3xl sm:text-xl text-lg font-medium md:p-2">
-                  {stat.data}
-                </div>
-              </div>
-            </div>
-          ))}
         </section>
         {/* FAQ */}
         {props.answeredQuestion.length != 0 && (
@@ -394,7 +407,7 @@ export default function Home(props: {
                   target="_blank"
                   className="underline"
                 >
-                  industry@acmutd.co
+                  hello@hackutd.co
                 </a>
               </h2>
             </div>
@@ -461,7 +474,7 @@ export default function Home(props: {
             <div className="flex md:flex-row flex-col md:ml-0 ml-6">
               {/* !change */}
               <a
-                href="mailto:email@organization.com"
+                href="mailto:hello@hackutd.co"
                 rel="noopener noreferrer"
                 target="_blank"
                 className="hover:underline md:mr-8 font-thin"
