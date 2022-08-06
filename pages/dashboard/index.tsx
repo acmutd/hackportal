@@ -80,6 +80,14 @@ export default function Dashboard(props: {
   } else {
     eventCountString = `There are ${eventCount} events are happening right now!`;
   }
+  // remove when it's time to reveal page
+  return (
+    <div className="background h-screen">
+      <div className="md:text-4xl sm:text-2xl text-xl text-white font-medium text-center mt-[6rem]">
+        Stay tuned for more info!
+      </div>
+    </div>
+  );
 
   if (!isSignedIn)
     return (

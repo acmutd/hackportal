@@ -256,6 +256,15 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
     });
   };
 
+  // remove when it's time to reveal page
+  return (
+    <div className="background h-screen">
+      <div className="md:text-4xl sm:text-2xl text-xl text-white font-medium text-center mt-[6rem]">
+        Stay tuned for more info!
+      </div>
+    </div>
+  );
+
   return (
     <>
       <div className="text-6xl font-black p-6">Schedule</div>

@@ -164,10 +164,12 @@ export default function Home(props: {
       const totalSeconds = Math.floor((remainingDayTime % (1000 * 60)) / 1000);
 
       const runningCountdownTime = {
-        countdownDays: totalDays.toString(),
-        countdownHours: totalHours.toString(),
-        countdownMinutes: totalMinutes.toString(),
-        countdownSeconds: totalSeconds.toString(),
+        countdownDays: totalDays < 10 ? '0' + totalDays.toString() : totalDays.toString(),
+        countdownHours: totalHours < 10 ? '0' + totalHours.toString() : totalHours.toString(),
+        countdownMinutes:
+          totalMinutes < 10 ? '0' + totalMinutes.toString() : totalMinutes.toString(),
+        countdownSeconds:
+          totalSeconds < 10 ? '0' + totalSeconds.toString() : totalSeconds.toString(),
       };
 
       setCountdownTime(runningCountdownTime);
@@ -202,7 +204,7 @@ export default function Home(props: {
       {checkNotif() && (
         <div
           id="popup"
-          className="fixed z-50 md:translate-x-0 translate-x-1/2 w-[22rem] rounded-md px-4 py-2 top-16 md:right-6 right-1/2 bg-red-200 md:text-base text-sm"
+          className="fixed z-50 md:translate-x-0 translate-x-1/2 w-[22rem] rounded-md px-4 py-2 top-16 md:right-6 right-1/2 notif text-white md:text-base text-sm"
         >
           Turn on push notifications to recieve announcements!
         </div>
@@ -218,20 +220,43 @@ export default function Home(props: {
               width={200}
             ></Image>
           </div>
+          <div className="dateGradient font-bold lg:text-5xl md:text-4xl text-3xl md:mt-8 mt-16">
+            11.12 - 11.13
+          </div>
           <Link href="/register" passHref={true}>
-            <div className="cursor-pointer xl:px-12 xl:py-4 sm:px-8 sm:py-4 px-6 py-2 bg-gradient-to-b from-[#00D1FF] to-[#124866] rounded-full mt-16 xl:text-4xl sm:text-2xl text-xl font-medium">
+            <div className="registerGlow cursor-pointer xl:px-12 xl:py-4 sm:px-8 sm:py-4 px-6 py-2 bg-gradient-to-b from-[#00D1FF] to-[#124866] rounded-full md:mt-8 mt-12 xl:text-4xl sm:text-2xl text-xl font-medium">
               Register Now
             </div>
           </Link>
-          <p className="md:mt-16 mt-10 text-bold xl:text-6xl sm:text-4xl text-3xl textGradient">
-            {'T - ' +
+          <p className="md:mt-16 mt-12 text-bold xl:text-6xl sm:text-4xl text-3xl flex">
+            T -
+            <div className="lg:mx-5 md:mx-4 mx-2">
+              <div>{countdownTime.countdownDays}</div>
+              <div className="xl:text-3xl sm:text-2xl text-xl textGradient">Days</div>
+            </div>
+            :
+            <div className="lg:mx-5 md:mx-4 mx-2">
+              <div>{countdownTime.countdownHours}</div>
+              <div className="xl:text-3xl sm:text-2xl text-xl textGradient">Hrs</div>
+            </div>
+            :
+            <div className="lg:mx-5 md:mx-4 mx-2">
+              <div>{countdownTime.countdownMinutes}</div>
+              <div className="xl:text-3xl sm:text-2xl text-xl textGradient">Mins</div>
+            </div>
+            :
+            <div className="lg:mx-5 md:mx-4 mx-2">
+              <div>{countdownTime.countdownSeconds}</div>
+              <div className="xl:text-3xl sm:text-2xl text-xl textGradient">Secs</div>
+            </div>
+            {/* {'T - ' +
               countdownTime.countdownDays +
               ':' +
               countdownTime.countdownHours +
               ':' +
               countdownTime.countdownMinutes +
               ':' +
-              countdownTime.countdownSeconds}
+              countdownTime.countdownSeconds} */}
           </p>
           {/* <div className="flex flex-col items-center md:flex-row md:justify-around px-4 md:space-y-0 space-y-3 > * + *">
           {buttonDatas.map((button) => (
@@ -251,11 +276,11 @@ export default function Home(props: {
           <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient self-start">
             About
           </h1>
-          <div className="lg:w-7/12 md:w-2/3 w-full">
+          <div className="md:w-2/3 w-full">
             <div className="xl:text-2xl md:text-lg text-base font-semibold md:mt-0 mt-6">
               🖥️ What is HackUTD?
             </div>
-            <div className="md:text-base text-sm">
+            <div className="lg:text-lg md:text-base text-sm">
               HackUTD, the largest university hackathon in Texas, is a weekend-long event where
               students build apps, hardware, and more. HackUTD provides a venue for self-expression
               and creativity through technology. People with varying technical backgrounds from
@@ -266,7 +291,7 @@ export default function Home(props: {
             <div className="xl:text-2xl md:text-lg text-base font-semibold mt-6">
               💫 What&#39;s the Purpose?
             </div>
-            <div className="md:text-base text-sm">
+            <div className="lg:text-lg md:text-base text-sm">
               Develop CS &#38; non-CS student relations and skills through hacking challenges.
               Showcase new technologies through workshops and connect passionate hackers with
               industry leaders who choose to participate in our hackathon!
@@ -274,7 +299,7 @@ export default function Home(props: {
             <div className="xl:text-2xl md:text-lg text-base font-semibold mt-6">
               🎉 Why attend HackUTD?
             </div>
-            <div className="md:text-base text-sm">
+            <div className="lg:text-lg md:text-base text-sm">
               HackUTD is a student-organized hackathon aimed at offering fellow students an outlet
               for self expression and welcoming everyone with or without experience! HackUTD hosts
               events that introduce key concepts and relevant topics that new hackers will find
@@ -298,7 +323,7 @@ export default function Home(props: {
                 <div className="nasalization flex border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
                   0{index + 1}
                 </div>
-                <div className="absolute left-1/2 xl:text-5xl lg:text-4xl md:text-3xl sm:text-xl text-lg font-medium md:p-2">
+                <div className="absolute right-1/2 translate-x-1/2 xl:text-5xl lg:text-4xl md:text-3xl sm:text-xl text-lg font-medium md:p-2 text-center">
                   {stat.data}
                 </div>
               </div>
