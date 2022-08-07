@@ -12,7 +12,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import StatsPieChart from '../../components/StatsPieChart';
-import { fieldToName } from '../../lib/stats/field';
+import { arrayFields, fieldToName, singleFields } from '../../lib/stats/field';
 import FilterComponent from '../../components/FilterComponent';
 
 function isAuthorized(user): boolean {
@@ -20,54 +20,122 @@ function isAuthorized(user): boolean {
   return (user.permissions as string[]).includes('super_admin');
 }
 
+function mergeStatsData(
+  statsData: Record<string, Record<'checked_in' | 'not_checked_in', GeneralStats>>,
+  checkInFilter: Record<string, boolean>,
+): Record<string, GeneralStats> {
+  return Object.entries(statsData).reduce((acc, [role, statsDataByRole]) => {
+    return {
+      ...acc,
+      [role]: Object.entries(statsDataByRole).reduce(
+        (roleAcc, [checkedInStatus, checkedInData]) => {
+          if (!checkInFilter[checkedInStatus]) return roleAcc;
+          return {
+            ...roleAcc,
+            count: roleAcc.count + checkedInData.count,
+            checkedInCount: roleAcc.checkedInCount + checkedInData.count,
+            ...singleFields.reduce((fieldAcc, fieldCurr) => {
+              return {
+                ...fieldAcc,
+                [fieldCurr]: Object.entries(checkedInData[fieldCurr] as Record<any, number>).reduce(
+                  (qAcc, [qCurr, _]) => ({
+                    ...qAcc,
+                    [qCurr]: (roleAcc[fieldCurr][qCurr] || 0) + checkedInData[fieldCurr][qCurr],
+                  }),
+                  {} as Record<any, number>,
+                ),
+              };
+            }, {}),
+            ...arrayFields.reduce(
+              (fieldAcc, fieldCurr) => ({
+                ...fieldAcc,
+                [fieldCurr]: Object.entries(checkedInData[fieldCurr] as Record<any, number>).reduce(
+                  (qAcc: Record<any, number>, [qCurr, _]) => ({
+                    ...qAcc,
+                    [qCurr]: (roleAcc[fieldCurr][qCurr] || 0) + checkedInData[fieldCurr][qCurr],
+                  }),
+                  {},
+                ),
+              }),
+              {},
+            ),
+          };
+        },
+        {
+          count: 0,
+          checkedInCount: 0,
+          ...singleFields.reduce(
+            (fieldAcc, fieldCurr) => ({
+              ...fieldAcc,
+              [fieldCurr]: {},
+            }),
+            {},
+          ),
+          ...arrayFields.reduce(
+            (fieldAcc, fieldCurr) => ({
+              ...fieldAcc,
+              [fieldCurr]: {},
+            }),
+            {},
+          ),
+        } as GeneralStats,
+      ),
+    };
+  }, {});
+}
+
 export default function AdminStatsPage() {
   const [loading, setLoading] = useState(true);
   const { user, isSignedIn } = useAuthContext();
+  const [unfilteredData, setUnfilteredData] = useState<
+    Record<string, Record<string, GeneralStats>>
+  >({});
   const [statsData, setStatsData] = useState<Record<string, GeneralStats>>();
   const [roles, setRoles] = useState<Record<string, boolean>>({
     hacker: true,
     admin: true,
     super_admin: true,
-    checked_in: false,
+  });
+
+  const [checkInFilter, setCheckInFilter] = useState<Record<string, boolean>>({
+    checked_in: true,
+    not_checked_in: true,
   });
 
   useEffect(() => {
     async function getData() {
-      const { data } = await RequestHelper.get<Record<string, GeneralStats>>('/api/stats', {
-        headers: {
-          Authorization: user.token,
+      const { data } = await RequestHelper.get<Record<string, Record<string, GeneralStats>>>(
+        '/api/stats',
+        {
+          headers: {
+            Authorization: user.token,
+          },
         },
-      });
-      setStatsData(data);
+      );
+      setUnfilteredData(data);
+      setStatsData(mergeStatsData(data, checkInFilter));
       setLoading(false);
     }
     getData();
   }, []);
 
+  useEffect(() => {
+    setStatsData(mergeStatsData(unfilteredData, checkInFilter));
+  }, [checkInFilter]);
+
   const updateFilter = (name: string) => {
-    if (name !== 'checked_in') {
-      setRoles((prev) =>
-        !prev[name]
-          ? {
-              ...prev,
-              [name]: !prev[name],
-              checked_in: false,
-            }
-          : {
-              ...prev,
-              [name]: !prev[name],
-            },
-      );
-    } else {
-      setRoles((prev) =>
-        !prev[name]
-          ? Object.entries(prev).reduce(
-              (acc, [category, _]) => ({ ...acc, [category]: category === 'checked_in' }),
-              {} as Record<string, boolean>,
-            )
-          : { ...prev, [name]: !prev[name] },
-      );
-    }
+    setRoles((prev) =>
+      !prev[name]
+        ? {
+            ...prev,
+            [name]: !prev[name],
+            checked_in: false,
+          }
+        : {
+            ...prev,
+            [name]: !prev[name],
+          },
+    );
   };
 
   if (!isSignedIn || !isAuthorized(user)) {
@@ -88,7 +156,6 @@ export default function AdminStatsPage() {
       <div className="w-full xl:w-3/5 mx-auto p-6 flex flex-col gap-y-6">
         <div className="border-2 rounded-xl p-3">
           <h1 className="text-center text-xl font-bold">Filter Stats by:</h1>
-
           <FilterComponent
             checked={roles['hacker']}
             onCheck={() => {
@@ -111,12 +178,23 @@ export default function AdminStatsPage() {
             }}
             title="Super Admin"
           />
+        </div>
+        <div className="border-2 rounded-xl p-3">
+          <h1 className="text-center text-xl font-bold">Filter Stats by:</h1>
           <FilterComponent
-            checked={roles['checked_in']}
+            checked={checkInFilter['checked_in']}
             onCheck={() => {
-              updateFilter('checked_in');
+              setCheckInFilter((prev) => ({ ...prev, checked_in: !prev['checked_in'] }));
             }}
-            title="Checked in"
+            title="Checked In"
+          />
+
+          <FilterComponent
+            checked={checkInFilter['not_checked_in']}
+            onCheck={() => {
+              setCheckInFilter((prev) => ({ ...prev, not_checked_in: !prev['not_checked_in'] }));
+            }}
+            title="Not checked in"
           />
         </div>
         <div className="flex-col gap-y-3 w-full md:flex-row flex justify-around gap-x-2">

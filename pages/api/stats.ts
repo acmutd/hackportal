@@ -23,9 +23,27 @@ async function getCheckInEventName() {
 async function getStatsData() {
   const checkInEventName = await getCheckInEventName();
   // const swagData: Record<string, number> = {};
-  const generalStats: Record<string, GeneralStats> = {};
-  for (const role of ['hacker', 'admin', 'super_admin', 'checked_in']) {
-    generalStats[role] = {
+  const generalStats: Record<string, Record<string, GeneralStats>> = {};
+  for (const role of ['hacker', 'admin', 'super_admin']) {
+    generalStats[role] = {};
+    generalStats[role]['checked_in'] = {
+      count: 0,
+      checkedInCount: 0,
+      scans: {},
+      age: {},
+      companies: {},
+      dietary: {},
+      ethnicity: {},
+      gender: {},
+      hackathonExperience: {},
+      heardFrom: {},
+      race: {},
+      size: {},
+      softwareExperience: {},
+      studyLevel: {},
+      university: {},
+    };
+    generalStats[role]['not_checked_in'] = {
       count: 0,
       checkedInCount: 0,
       scans: {},
@@ -44,41 +62,44 @@ async function getStatsData() {
     };
   }
 
-  const addUserToRoleGroup = (userData: any, userPermission: string) => {
+  const addUserToRoleGroup = (userData: any, userPermission: string, checkedInStatus: string) => {
     for (let arrayField of arrayFields) {
       if (!userData[arrayField]) continue;
       userData[arrayField].forEach((data: string) => {
         if (arrayField === 'scans' && data === checkInEventName)
-          generalStats[userPermission].checkedInCount++;
+          generalStats[userPermission][checkedInStatus].checkedInCount++;
         else {
-          if (!generalStats[userPermission][arrayField].hasOwnProperty(data))
-            generalStats[userPermission][arrayField][data] = 0;
-          generalStats[userPermission][arrayField][data]++;
+          if (!generalStats[userPermission][checkedInStatus][arrayField].hasOwnProperty(data))
+            generalStats[userPermission][checkedInStatus][arrayField][data] = 0;
+          generalStats[userPermission][checkedInStatus][arrayField][data]++;
         }
       });
     }
 
     for (let singleField of singleFields) {
       if (!userData[singleField] || userData[singleField] === '') continue;
-      if (!generalStats[userPermission][singleField].hasOwnProperty(userData[singleField])) {
-        generalStats[userPermission][singleField][userData[singleField]] = 0;
+      if (
+        !generalStats[userPermission][checkedInStatus][singleField].hasOwnProperty(
+          userData[singleField],
+        )
+      ) {
+        generalStats[userPermission][checkedInStatus][singleField][userData[singleField]] = 0;
       }
-      generalStats[userPermission][singleField][userData[singleField]]++;
+      generalStats[userPermission][checkedInStatus][singleField][userData[singleField]]++;
     }
 
-    generalStats[userPermission].count++;
+    generalStats[userPermission][checkedInStatus].count++;
   };
 
   const snapshot = await db.collection(USERS_COLLECTION).get();
   snapshot.forEach((doc) => {
     const userData = doc.data();
     const userPermission = userData.user.permissions[0];
+    const userCheckedInStatus =
+      userData.scans && userData.scans.includes(checkInEventName) ? 'checked_in' : 'not_checked_in';
 
     // If a user is a hacker and haven't checked in, then they will be ignored
-    addUserToRoleGroup(userData, userPermission);
-    if (userData.scans && userData.scans.includes(checkInEventName)) {
-      addUserToRoleGroup(userData, 'checked_in');
-    }
+    addUserToRoleGroup(userData, userPermission, userCheckedInStatus);
   });
 
   return generalStats;
