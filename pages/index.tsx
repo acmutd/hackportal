@@ -212,7 +212,7 @@ export default function Home(props: {
       <div className="home text-white">
         {/* Hero section */}
         <section className="min-h-screen p-4 flex flex-col items-center justify-center">
-          <div className="xl:w-[60rem] xl:h-[25rem] md:w-[45rem] md:h-[19rem] sm:w-[27rem] sm:h-[15rem] w-[20rem] h-[10rem] relative">
+          <div className="2xl:w-[60rem] 2xl:h-[25rem] lg:w-[52rem] lg:h-[21rem] md:w-[45rem] md:h-[19rem] sm:w-[27rem] sm:h-[15rem] w-[20rem] h-[10rem] relative">
             <Image
               src={'/assets/HackUTD-IX-Title.png'}
               alt="Hero"
@@ -237,7 +237,7 @@ export default function Home(props: {
             :
             <div className="lg:mx-5 md:mx-4 mx-2">
               <div>{countdownTime.countdownHours}</div>
-              <div className="xl:text-3xl sm:text-2xl text-xl textGradient">Hrs</div>
+              <div className="xl:text-3xl sm:text-2xl text-xl textGradient">Hours</div>
             </div>
             :
             <div className="lg:mx-5 md:mx-4 mx-2">
@@ -276,7 +276,7 @@ export default function Home(props: {
           <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient self-start">
             About
           </h1>
-          <div className="md:w-2/3 w-full">
+          <div className="md:w-4/5 w-full">
             <div className="xl:text-2xl md:text-lg text-base font-semibold md:mt-0 mt-6">
               🖥️ What is HackUTD?
             </div>
@@ -310,45 +310,56 @@ export default function Home(props: {
         {/* Overview */}
         <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
           <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">Overview</h1>
-          {/* Stats */}
-          {stats.map((stat, index) => (
-            <div
-              className={`flex justify-center ${
-                index === 0 ? 'my-14' : ' lg:my-32 md:my-24 my-16'
-              }`}
-              key={index}
-            >
-              <div className="flex w-4/5 relative">
-                <div className="slant xl:w-[4rem] xl:h-[4rem] md:w-[3rem] md:h-[3rem] w-[2rem] h-[2rem] flex-none"></div>
-                <div className="nasalization flex border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
-                  0{index + 1}
+          <div className="md:flex">
+            <section className="lg:w-[14rem] md:w-[12rem] sm:w-[10rem] w-[8rem] relative my-6 hidden md:block float">
+              <Image
+                src={'/assets/Rocket.png'}
+                alt="rocket"
+                layout="fill"
+                objectFit="fill"
+                // width={200}
+              ></Image>
+            </section>
+            <section className="md:flex-1">
+              {/* Stats */}
+              {stats.map((stat, index) => (
+                <div
+                  className={`flex justify-center ${index === 0 ? 'my-14' : ' 2xl:my-28 my-16'}`}
+                  key={index}
+                >
+                  <div className="flex md:w-[90%] w-4/5 relative">
+                    <div className="slant xl:w-[4rem] xl:h-[4rem] md:w-[3rem] md:h-[3rem] w-[2rem] h-[2rem] flex-none"></div>
+                    <div className="nasalization flex border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
+                      0{index + 1}
+                    </div>
+                    <div className="absolute right-1/2 translate-x-1/2 xl:text-5xl lg:text-4xl md:text-3xl sm:text-xl text-lg font-medium md:p-2 text-center">
+                      {stat.data}
+                    </div>
+                  </div>
                 </div>
-                <div className="absolute right-1/2 translate-x-1/2 xl:text-5xl lg:text-4xl md:text-3xl sm:text-xl text-lg font-medium md:p-2 text-center">
-                  {stat.data}
+              ))}
+              {/* 05 */}
+              <div className="flex justify-center">
+                <div className="flex md:w-[90%] w-4/5">
+                  <div className="slant xl:w-[4rem] xl:h-[4rem] md:w-[3rem] md:h-[3rem] w-[2rem] h-[2rem] flex-none"></div>
+                  <div className="nasalization border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
+                    05
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-          {/* 05 */}
-          <div className="flex justify-center mt-16">
-            <div className="flex w-4/5">
-              <div className="slant xl:w-[4rem] xl:h-[4rem] md:w-[3rem] md:h-[3rem] w-[2rem] h-[2rem] flex-none"></div>
-              <div className="nasalization border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
-                05
+              <div className="flex justify-center mt-6">
+                <iframe
+                  className="video"
+                  width="700"
+                  height="400"
+                  src="https://www.youtube.com/embed/niFBblrblqo"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
               </div>
-            </div>
-          </div>
-          <div className="flex justify-center mt-6">
-            <iframe
-              className="video"
-              width="700"
-              height="400"
-              src="https://www.youtube.com/embed/niFBblrblqo"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+            </section>
           </div>
         </section>
         {/* FAQ */}
