@@ -23,46 +23,51 @@ async function getCheckInEventName() {
 async function getStatsData() {
   const checkInEventName = await getCheckInEventName();
   // const swagData: Record<string, number> = {};
-  const generalStats: Record<string, Record<string, GeneralStats>> = {};
+  const generalStats: Record<string, Record<'checked_in' | 'not_checked_in', GeneralStats>> = {};
   for (const role of ['hacker', 'admin', 'super_admin']) {
-    generalStats[role] = {};
-    generalStats[role]['checked_in'] = {
-      count: 0,
-      checkedInCount: 0,
-      scans: {},
-      age: {},
-      companies: {},
-      dietary: {},
-      ethnicity: {},
-      gender: {},
-      hackathonExperience: {},
-      heardFrom: {},
-      race: {},
-      size: {},
-      softwareExperience: {},
-      studyLevel: {},
-      university: {},
-    };
-    generalStats[role]['not_checked_in'] = {
-      count: 0,
-      checkedInCount: 0,
-      scans: {},
-      age: {},
-      companies: {},
-      dietary: {},
-      ethnicity: {},
-      gender: {},
-      hackathonExperience: {},
-      heardFrom: {},
-      race: {},
-      size: {},
-      softwareExperience: {},
-      studyLevel: {},
-      university: {},
+    generalStats[role] = {
+      checked_in: {
+        count: 0,
+        checkedInCount: 0,
+        scans: {},
+        age: {},
+        companies: {},
+        dietary: {},
+        ethnicity: {},
+        gender: {},
+        hackathonExperience: {},
+        heardFrom: {},
+        race: {},
+        size: {},
+        softwareExperience: {},
+        studyLevel: {},
+        university: {},
+      },
+      not_checked_in: {
+        count: 0,
+        checkedInCount: 0,
+        scans: {},
+        age: {},
+        companies: {},
+        dietary: {},
+        ethnicity: {},
+        gender: {},
+        hackathonExperience: {},
+        heardFrom: {},
+        race: {},
+        size: {},
+        softwareExperience: {},
+        studyLevel: {},
+        university: {},
+      },
     };
   }
 
-  const addUserToRoleGroup = (userData: any, userPermission: string, checkedInStatus: string) => {
+  const addUserToRoleGroup = (
+    userData: any,
+    userPermission: string,
+    checkedInStatus: 'checked_in' | 'not_checked_in',
+  ) => {
     for (let arrayField of arrayFields) {
       if (!userData[arrayField]) continue;
       userData[arrayField].forEach((data: string) => {
@@ -98,7 +103,6 @@ async function getStatsData() {
     const userCheckedInStatus =
       userData.scans && userData.scans.includes(checkInEventName) ? 'checked_in' : 'not_checked_in';
 
-    // If a user is a hacker and haven't checked in, then they will be ignored
     addUserToRoleGroup(userData, userPermission, userCheckedInStatus);
   });
 

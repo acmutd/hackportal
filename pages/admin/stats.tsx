@@ -23,18 +23,19 @@ function isAuthorized(user): boolean {
 function mergeStatsData(
   statsData: Record<string, Record<'checked_in' | 'not_checked_in', GeneralStats>>,
   checkInFilter: Record<string, boolean>,
+  roleFilter: Record<string, boolean>,
 ): Record<string, GeneralStats> {
   return Object.entries(statsData).reduce((acc, [role, statsDataByRole]) => {
     return {
       ...acc,
-      [role]: Object.entries(statsDataByRole).reduce(
+      [role]: Object.entries(roleFilter[role] ? statsDataByRole : {}).reduce(
         (roleAcc, [checkedInStatus, checkedInData]) => {
           if (!checkInFilter[checkedInStatus]) return roleAcc;
           return {
             ...roleAcc,
             count: roleAcc.count + checkedInData.count,
             checkedInCount: roleAcc.checkedInCount + checkedInData.count,
-            ...singleFields.reduce((fieldAcc, fieldCurr) => {
+            ...[...singleFields, ...arrayFields].reduce((fieldAcc, fieldCurr) => {
               return {
                 ...fieldAcc,
                 [fieldCurr]: Object.entries(checkedInData[fieldCurr] as Record<any, number>).reduce(
@@ -46,32 +47,12 @@ function mergeStatsData(
                 ),
               };
             }, {}),
-            ...arrayFields.reduce(
-              (fieldAcc, fieldCurr) => ({
-                ...fieldAcc,
-                [fieldCurr]: Object.entries(checkedInData[fieldCurr] as Record<any, number>).reduce(
-                  (qAcc: Record<any, number>, [qCurr, _]) => ({
-                    ...qAcc,
-                    [qCurr]: (roleAcc[fieldCurr][qCurr] || 0) + checkedInData[fieldCurr][qCurr],
-                  }),
-                  {},
-                ),
-              }),
-              {},
-            ),
           };
         },
         {
           count: 0,
           checkedInCount: 0,
-          ...singleFields.reduce(
-            (fieldAcc, fieldCurr) => ({
-              ...fieldAcc,
-              [fieldCurr]: {},
-            }),
-            {},
-          ),
-          ...arrayFields.reduce(
+          ...[...singleFields, ...arrayFields].reduce(
             (fieldAcc, fieldCurr) => ({
               ...fieldAcc,
               [fieldCurr]: {},
@@ -104,38 +85,29 @@ export default function AdminStatsPage() {
 
   useEffect(() => {
     async function getData() {
-      const { data } = await RequestHelper.get<Record<string, Record<string, GeneralStats>>>(
-        '/api/stats',
-        {
-          headers: {
-            Authorization: user.token,
-          },
+      const { data } = await RequestHelper.get<
+        Record<string, Record<'checked_in' | 'not_checked_in', GeneralStats>>
+      >('/api/stats', {
+        headers: {
+          Authorization: user.token,
         },
-      );
+      });
       setUnfilteredData(data);
-      setStatsData(mergeStatsData(data, checkInFilter));
+      setStatsData(mergeStatsData(data, checkInFilter, roles));
       setLoading(false);
     }
     getData();
   }, []);
 
   useEffect(() => {
-    setStatsData(mergeStatsData(unfilteredData, checkInFilter));
-  }, [checkInFilter]);
+    setStatsData(mergeStatsData(unfilteredData, checkInFilter, roles));
+  }, [checkInFilter, roles]);
 
   const updateFilter = (name: string) => {
-    setRoles((prev) =>
-      !prev[name]
-        ? {
-            ...prev,
-            [name]: !prev[name],
-            checked_in: false,
-          }
-        : {
-            ...prev,
-            [name]: !prev[name],
-          },
-    );
+    setRoles((prev) => ({
+      ...prev,
+      [name]: !prev[name],
+    }));
   };
 
   if (!isSignedIn || !isAuthorized(user)) {
