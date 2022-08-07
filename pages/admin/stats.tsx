@@ -34,7 +34,7 @@ function mergeStatsData(
           return {
             ...roleAcc,
             count: roleAcc.count + checkedInData.count,
-            checkedInCount: roleAcc.checkedInCount + checkedInData.count,
+            checkedInCount: roleAcc.checkedInCount + checkedInData.checkedInCount,
             ...[...singleFields, ...arrayFields].reduce((fieldAcc, fieldCurr) => {
               return {
                 ...fieldAcc,
