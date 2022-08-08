@@ -25,21 +25,25 @@ export default function KeynoteSpeaker(props) {
   }, []);
 
   return (
-    <div className="flex 3xl:w-[32%] lg:w-[48%] w-full my-4">
-      <div className="md:min-w-[15rem] md:max-w-[15rem] md:h-[20rem] min-w-[10rem] max-w-[10rem] h-[15rem] relative">
+    <div className="flex w-[28rem] h-[9rem] md:mr-20 mr-16 my-4">
+      <div
+        style={{ backgroundColor: props.cardColor.light, overflow: 'hidden' }}
+        className="w-1/4 rounded-l-md"
+      >
         {props.imageLink !== undefined && imageLink !== undefined && (
           <Image
             src={imageLink}
             // make sure width and height matches width and height of parent div
-            layout="fill"
-            objectFit="fill"
+            width={112}
+            height={144}
+            objectFit="cover"
             alt=""
           />
         )}
       </div>
-      <div className=" p-2">
-        <h2 className="sm:text-4xl text-2xl font-medium"> {props.name}</h2>
-        <div className="2xl:text-base md:text-base sm:text-sm text-xs">{props.description}</div>
+      <div style={{ backgroundColor: props.cardColor.dark }} className="w-3/4 p-2 rounded-r-md">
+        <h1 className="text-lg font-bold"> {props.name}</h1>
+        <div className="text-xs">{props.description}</div>
       </div>
     </div>
   );

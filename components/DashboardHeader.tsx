@@ -29,28 +29,13 @@ export default function DashboardHeader() {
     <section>
       <header className="md:inline hidden justify-center py-2 md:p-4 items-center">
         <div className="mx-auto flex flex-wrap justify-center lg:text-xl text-lg font-header text-center">
-          <NavLink
-            href="/dashboard"
-            exact={true}
-            addClass="border-b-2 border-black"
-            className="mx-4"
-          >
+          <NavLink href="/dashboard" exact={true} className="mx-4">
             HackCenter
           </NavLink>
-          <NavLink
-            href="/dashboard/scan-in"
-            exact={true}
-            addClass="border-b-2 border-black"
-            className="mx-4"
-          >
+          <NavLink href="/dashboard/scan-in" exact={true} className="mx-4">
             Scan-In
           </NavLink>
-          <NavLink
-            href="/dashboard/questions"
-            exact={true}
-            addClass="border-b-2 border-black"
-            className="mx-4"
-          >
+          <NavLink href="/dashboard/questions" exact={true} className="mx-4">
             Ask a Question
           </NavLink>
         </div>

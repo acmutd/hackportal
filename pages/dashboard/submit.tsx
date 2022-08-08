@@ -17,7 +17,7 @@ export default function Submit() {
     <div className="flex flex-wrap flex-grow">
       <Head>
         <title>Project Submissions</title>
-        <meta name="description" content="HackUTD's Project Submissions" /> {/* !change */}
+        <meta name="description" content="HackPortal's Project Submissions" /> {/* !change */}
       </Head>
 
       <Sidebar />

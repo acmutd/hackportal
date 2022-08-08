@@ -221,8 +221,8 @@ export default function Admin() {
   return (
     <div className="relative flex flex-col flex-grow">
       <Head>
-        <title>HackUTD IX - Admin</title>
-        <meta name="description" content="HackUTD's Admin Page" />
+        <title>HackPortal - Admin</title>
+        <meta name="description" content="HackPortal's Admin Page" />
       </Head>
 
       <section id="subheader" className="p-4">
