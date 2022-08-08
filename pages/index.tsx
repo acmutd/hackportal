@@ -209,7 +209,7 @@ export default function Home(props: {
           Turn on push notifications to recieve announcements!
         </div>
       )}
-      <div className="home text-white">
+      <div className="home text-white overflow-x-hidden">
         {/* Hero section */}
         <section className="min-h-screen p-4 flex flex-col items-center justify-center">
           <div className="2xl:w-[60rem] 2xl:h-[25rem] md:w-[43rem] md:h-[18rem] sm:w-[27rem] sm:h-[15rem] w-[20rem] h-[10rem] relative">
@@ -248,11 +248,16 @@ export default function Home(props: {
         </section>
 
         {/* About section */}
-        <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto flex justify-between md:flex-row flex-col">
+        <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto flex justify-between md:flex-row flex-col relative">
+          <div className="absolute 2xl:-bottom-24 2xl:-right-56 lg:-bottom-16 lg:-right-36 -bottom-12 -right-32 z-0">
+            <div className="relative 2xl:w-[35rem] 2xl:h-[19rem] lg:w-[23rem] lg:h-[14rem] w-[18rem] h-[10rem] asteroid">
+              <Image src={'/assets/Comet.png'} alt="comet" layout="fill" />
+            </div>
+          </div>
           <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient self-start">
             About
           </h1>
-          <div className="md:w-4/5 w-full">
+          <div className="md:w-4/5 w-full z-10">
             <div className="xl:text-2xl md:text-lg text-base font-semibold md:mt-0 mt-6">
               🖥️ What is HackUTD?
             </div>
@@ -284,7 +289,7 @@ export default function Home(props: {
           </div>
         </section>
         {/* Overview */}
-        <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
+        <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto z-20 relative">
           <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">Overview</h1>
           <div className="md:flex">
             <section className="lg:w-[14rem] md:w-[12rem] sm:w-[10rem] w-[8rem] relative my-6 hidden md:block float">
@@ -315,11 +320,16 @@ export default function Home(props: {
                 </div>
               ))}
               {/* 05 */}
-              <div className="flex justify-center">
+              <div className="flex justify-center relative ">
                 <div className="flex md:w-[90%] w-4/5">
                   <div className="slant xl:w-[4rem] xl:h-[4rem] md:w-[3rem] md:h-[3rem] w-[2rem] h-[2rem] flex-none"></div>
                   <div className="nasalization border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
                     05
+                  </div>
+                </div>
+                <div className="absolute top-0 -translate-y-full right-0 z-0">
+                  <div className="relative 2xl:w-[8rem] 2xl:h-[8rem] lg:w-[6rem] lg:h-[6rem] w-[4rem] h-[4rem] rotate-[15deg]">
+                    <Image src={'/assets/Tobor.png'} alt="comet" layout="fill" />
                   </div>
                 </div>
               </div>
