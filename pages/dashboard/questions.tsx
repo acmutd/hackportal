@@ -147,18 +147,16 @@ export default function QuestionsPage() {
 
   if (!isSignedIn)
     return (
-      <div className="background h-screen">
-        <div className="md:text-4xl sm:text-2xl text-xl text-white font-medium text-center mt-[6rem]">
-          Please sign-in to ask organizers questions
-        </div>
+      <div className="text-2xl font-black text-center">
+        Please sign-in to ask organizers questions
       </div>
     );
 
   return (
     <div className="flex flex-col flex-grow">
       <Head>
-        <title>HackUTD IX - Questions</title> {/* !change */}
-        <meta name="description" content="HackUTD's Quesiton and Answer Page " /> {/* !change */}
+        <title>HackPortal - Questions</title> {/* !change */}
+        <meta name="description" content="HackPortal's Quesiton and Answer Page " /> {/* !change */}
       </Head>
       <ErrorList
         errors={errors}

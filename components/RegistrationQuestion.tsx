@@ -17,7 +17,7 @@ function Question(props) {
         <Field
           id={props.question.id}
           name={props.question.name}
-          className="input rounded-md px-2 py-1"
+          className="border-2 border-gray-400 rounded-md p-1"
         />
         <ErrorMessage
           name={props.question.name}
@@ -34,7 +34,7 @@ function Question(props) {
         </label>
         <input
           id={props.question.id}
-          className="input rounded-md px-2 py-1"
+          className="border-2 border-gray-400 rounded-md p-1"
           name={props.question.name}
           type="number"
           min={props.question.min}
@@ -60,7 +60,7 @@ function Question(props) {
           as="select"
           name={props.question.name}
           id={props.question.id}
-          className="input rounded-md px-2 py-1 mr-auto"
+          className="border-2 border-gray-400 rounded-md p-1 mr-auto"
         >
           <option value="" disabled selected></option>
           {props.question.options.map((option) => (
@@ -108,7 +108,7 @@ function Question(props) {
           id={props.question.id}
           name={props.question.name}
           list={props.question.datalist}
-          className="input rounded-md px-2 py-1"
+          className="border-2 border-gray-400 rounded-md p-1"
           autoComplete="off"
         ></Field>
         <datalist id={props.question.datalist}>
@@ -131,7 +131,7 @@ function Question(props) {
           as="textarea"
           name={props.question.name}
           placeholder={props.question.placeholder}
-          className="input rounded-md px-2 py-1"
+          className="border-2 border-gray-400 rounded-md p-1"
         ></Field>
         <ErrorMessage
           name={props.question.name}

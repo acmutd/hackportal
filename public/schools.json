@@ -406,6 +406,5 @@
   { "university" : "Yale University" },
   { "university" : "York University" },
   { "university" : "The University of Chicago" },
-  { "university" : "York College, CUNY" },
-  { "university" : "Other" }
+  { "university" : "York College, CUNY" }
 ]

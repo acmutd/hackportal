@@ -80,41 +80,23 @@ export default function Dashboard(props: {
   } else {
     eventCountString = `There are ${eventCount} events are happening right now!`;
   }
-  // remove when it's time to reveal page
-  return (
-    <div className="background h-screen">
-      <div className="md:text-4xl sm:text-2xl text-xl text-white font-medium text-center mt-[6rem]">
-        Stay tuned for more info!
-      </div>
-    </div>
-  );
 
   if (!isSignedIn)
     return (
-      <>
-        <div className="background h-screen">
-          <div className="md:text-4xl sm:text-2xl text-xl text-white font-medium text-center mt-[6rem]">
-            Please sign-in to view your dashboard
-          </div>
-        </div>
-      </>
+      <div className="text-2xl font-black text-center">Please sign-in to view your dashboard</div>
     );
 
   return (
     <>
       <div className="flex flex-wrap flex-grow">
         <Head>
-          <title>HackUTD IX - Dashboard</title> {/* !change */}
+          <title>HackPortal - Dashboard</title> {/* !change */}
           <meta name="description" content="HackPortal's Dashboard" />
         </Head>
 
         <Sidebar />
 
-        <section
-          id="mainContent"
-          className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 background text-white"
-        >
-          <div className="mt-[4rem]"></div>
+        <section id="mainContent" className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 bg-white">
           <DashboardHeader />
           {/* Spotlight & Announcements */}
           <div className="flex flex-wrap my-16">

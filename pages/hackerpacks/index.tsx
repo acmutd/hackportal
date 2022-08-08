@@ -22,15 +22,6 @@ export default function HackerPack() {
   const user = useUser();
   const role = user.permissions?.length > 0 ? user.permissions[0] : '';
 
-  // remove when it's time to reveal page
-  return (
-    <div className="background h-screen">
-      <div className="md:text-4xl sm:text-2xl text-xl text-white font-medium text-center mt-[6rem]">
-        Stay tuned for more info!
-      </div>
-    </div>
-  );
-
   return (
     <div className="flex flex-grow flex-wrap">
       <Head>
