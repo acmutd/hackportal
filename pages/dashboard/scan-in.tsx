@@ -48,8 +48,10 @@ export default function Scan() {
 
   if (!isSignedIn)
     return (
-      <div className="text-2xl font-black text-center">
-        Please sign-in and register to access your QR code
+      <div className="background h-screen">
+        <div className="md:text-4xl sm:text-2xl text-xl text-white font-medium text-center mt-[6rem]">
+          Please sign-in and register to access your QR code
+        </div>
       </div>
     );
 

@@ -119,8 +119,8 @@ export default function UserPage() {
   return (
     <div className="flex flex-col flex-grow">
       <Head>
-        <title>HackPortal - Admin</title> {/* !change */}
-        <meta name="description" content="HackPortal's Admin Page" />
+        <title>HackUTD IX - Admin</title> {/* !change */}
+        <meta name="description" content="HackUTD's Admin Page" />
       </Head>
       <section id="subheader" className="p-4">
         <AdminHeader />

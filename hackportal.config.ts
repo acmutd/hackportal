@@ -140,7 +140,7 @@ export const hackPortalConfig: HackPortalConfig = {
     //Question Topic
     schoolQuestions: [
       {
-        datalistQuestions: [
+        dropdownQuestions: [
           {
             //University question
             question:
@@ -148,8 +148,8 @@ export const hackPortalConfig: HackPortalConfig = {
             id: 'university',
             name: 'university',
             required: true,
-            datalist: 'schools',
             initialValue: '',
+            options: [],
           },
           {
             //Major question
@@ -157,8 +157,8 @@ export const hackPortalConfig: HackPortalConfig = {
             id: 'major',
             name: 'major',
             required: true,
-            datalist: 'majors',
             initialValue: '',
+            options: [],
           },
         ],
       },
@@ -244,7 +244,7 @@ export const hackPortalConfig: HackPortalConfig = {
           },
           {
             //Heard from question
-            question: 'Where did you hear about HackPortal?',
+            question: 'Where did you hear about HackUTD IX?',
             required: true,
             id: 'heardFrom',
             name: 'heardFrom',
@@ -428,6 +428,40 @@ export const hackPortalConfig: HackPortalConfig = {
         ],
       },
     ],
+    // Question Topic
+    oneLastThing: [
+      {
+        textAreaQuestions: [
+          {
+            //Songs question
+            question: 'Link to your favorite song(s):',
+            id: 'song',
+            name: 'song',
+            required: false,
+            initialValue: '',
+            placeholder: 'List song links here',
+          },
+        ],
+      },
+      {
+        checkboxQuestions: [
+          {
+            //Companies question
+            question: 'MLH Code of Conduct',
+            required: true,
+            id: 'CoC',
+            name: 'CoC',
+            initialValue: [],
+            options: [
+              {
+                title: 'Agree/Disagree',
+                value: 'Agree',
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
 };
 
@@ -490,6 +524,7 @@ export interface HackPortalConfig {
     hackathonExperienceQuestions: QuestionTypes[];
     eventInfoQuestions: QuestionTypes[];
     sponsorInfoQuestions: QuestionTypes[];
+    oneLastThing: QuestionTypes[];
   };
 }
 
@@ -554,6 +589,9 @@ const getInitialValues = () => {
     setInitialValues(obj);
   }
   for (let obj of hackPortalConfig.registrationFields.sponsorInfoQuestions) {
+    setInitialValues(obj);
+  }
+  for (let obj of hackPortalConfig.registrationFields.oneLastThing) {
     setInitialValues(obj);
   }
   return InitialValues;

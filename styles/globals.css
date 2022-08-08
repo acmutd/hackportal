@@ -7,27 +7,22 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+  font-family: 'Source Sans Pro', sans-serif !important;
 }
 
 @font-face {
-  font-family: 'wavehaus';
-  src: url('/fonts/Wavehaus-66Book.ttf') format('truetype');
-  font-display: auto;
+  font-family: 'nasalization';
+  src: url('/fonts/nasalization-rg.otf') format('truetype');
 }
 
-.MuiTypography-root {
-  font-family: 'wavehaus' !important;
-  src: url('/fonts/Wavehaus-66Book.ttf') format('truetype') !important;
-  font-display: auto !important;
-  font-weight: 600 !important;
+.nasalization {
+  font-family: 'nasalization';
 }
 
-.Target-root {
-  font-family: 'wavehaus' !important;
-  src: url('/fonts/Wavehaus-66Book.ttf') format('truetype') !important;
-  font-display: auto !important;
-}
 
 a.link {
   /* padding-right: 30px; */
@@ -39,7 +34,7 @@ a.link {
 }
 
 .element {
-  font-family: 'wavehaus';
+  font-family: 'Montserrat';
 }
 
 .profile-view {
@@ -162,4 +157,134 @@ a.link {
 
 .footerIcon {
   transform: scale(1.5);
+}
+
+.home {
+  background-image: url("/assets/homeBackground.png");
+  background-repeat: no-repeat;
+  /* background-attachment: fixed;  */
+  background-size: cover;
+}
+
+.appHeader {
+  background-color: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(15px);
+}
+
+.accountSection {
+  background-color: rgba(157, 115, 210, 0.2);
+  /* backdrop-filter: blur(15px); */
+}
+
+.input{
+  background-color: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+}
+.slant {
+  background: 
+       linear-gradient(to top left,
+           rgba(255, 255, 255, 0) 0%,
+           rgba(255, 255, 255, 0) calc(50% - 2px),
+           rgb(255, 255, 255) 50%,
+           rgba(255, 255, 255, 0) calc(50% + 2px),
+           rgba(255, 255, 255, 0) 100%)
+}
+
+.textGradient {
+  background: linear-gradient(180deg, #FFFFFF 56.25%, rgba(255, 255, 255, 0) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.background {
+  background-image: url("/assets/HackUTDBackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@keyframes raise {
+  0% {
+    transform: translatey(0px);
+  }
+  30% {
+    transform: translatey(-6px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
+}
+
+.submit:hover {
+  animation: raise 1s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.footerIcon:hover {
+  animation: raise 0.5s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.raise:hover {
+  animation: raise 1s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.background404 {
+  background-image: url("/assets/background404.png");
+  background-repeat: no-repeat;
+  /* background-attachment: fixed;  */
+  background-size: 100vw 100vh;
+}
+
+.navbarBackground {
+  background: linear-gradient(171.65deg, #11021E 0%, #1D123D 45.31%, #37214F 99.29%);;
+}
+
+.bounce-in {
+  animation: bounce-in 1.5s ease;
+}
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% { transform: scale(.9); }
+  100% { transform: scale(1); }
+}
+
+.notif {
+  background-color: rgba(157, 115, 210, 0.2);
+  box-shadow: rgba(255, 255, 255, 0.16) 0px 10px 36px 0px, rgba(255, 255, 255, 0.06) 0px 0px 0px 1px;
+}
+
+.dateGradient {
+  background: linear-gradient(180deg, rgba(255, 0, 0, 0.76) 47.4%, rgba(113, 0, 0, 0.57) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.registerGlow:hover {
+  -moz-box-shadow: 0 0 20px rgb(210, 212, 214);
+  -webkit-box-shadow: 0 0 20px rgb(210, 212, 214);
+  box-shadow: 0px 0px 20px rgb(210, 212, 214);
+}
+
+.float { 
+    animation-name: float;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+ 
+@keyframes float {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 15px); }
+    100%   { transform: translate(0, -0px); }   
 }
