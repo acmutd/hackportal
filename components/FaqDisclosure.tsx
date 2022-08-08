@@ -1,3 +1,4 @@
+import { IntegratedEditingProps } from '@devexpress/dx-react-scheduler';
 import { Disclosure } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 
@@ -15,6 +16,8 @@ interface FaqDisclosureProps {
   question: string;
   answer: string;
   isOpen: boolean;
+  idx: number;
+  max: number;
   toggleDisclosure: () => void;
 }
 
@@ -27,13 +30,17 @@ export default function FaqDisclosure({
   question,
   answer,
   isOpen,
+  idx,
+  max,
   toggleDisclosure,
 }: FaqDisclosureProps) {
   return (
     <Disclosure>
-      <div className="">
+      <div
+        className={`${idx <= max ? 'border-t-2' : 'border-t-0'} border-b-2 border-white text-white`}
+      >
         <Disclosure.Button
-          className="p-2 text-black text-left rounded-md w-full bg-[#D0D5FF]"
+          className="py-4 text-left rounded-md w-full xl:text-2xl lg:text-lg md:text-base text-sm font-black"
           as="div"
         >
           <button
@@ -42,12 +49,12 @@ export default function FaqDisclosure({
               toggleDisclosure();
             }}
           >
-            <span>{question}</span>
+            <span className="text-left">{question}</span>
             <ChevronDownIcon className={`${isOpen ? 'transform rotate-180' : ''} w-5 h-5`} />
           </button>
         </Disclosure.Button>
         {isOpen && (
-          <Disclosure.Panel className="rounded-md my-2 py-2 bg-[#ECEEFF] p-2" static>
+          <Disclosure.Panel className="xl:text-lg md:text-base text-sm" static>
             {answer}
           </Disclosure.Panel>
         )}

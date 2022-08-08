@@ -21,8 +21,10 @@ export default function SignOutPage() {
   }, [router]);
 
   return (
-    <div className="p-4 text-center flex flex-col justify-center">
-      <div className="max-w-3xl mx-auto p-4">Signing out of HackPortal</div>
+    <div className="background h-screen text-white">
+      <div className="md:text-4xl sm:text-2xl text-xl text-white font-medium text-center mt-[6rem]">
+        Signing out of HackPortal
+      </div>
     </div>
   );
 }
