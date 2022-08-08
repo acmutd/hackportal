@@ -212,19 +212,14 @@ export default function Home(props: {
       <div className="home text-white">
         {/* Hero section */}
         <section className="min-h-screen p-4 flex flex-col items-center justify-center">
-          <div className="2xl:w-[60rem] 2xl:h-[25rem] lg:w-[52rem] lg:h-[21rem] md:w-[45rem] md:h-[19rem] sm:w-[27rem] sm:h-[15rem] w-[20rem] h-[10rem] relative">
-            <Image
-              src={'/assets/HackUTD-IX-Title.png'}
-              alt="Hero"
-              layout="fill"
-              width={200}
-            ></Image>
+          <div className="2xl:w-[60rem] 2xl:h-[25rem] md:w-[43rem] md:h-[18rem] sm:w-[27rem] sm:h-[15rem] w-[20rem] h-[10rem] relative">
+            <Image src={'/assets/HackUTD-IX-Title.png'} alt="Hero" layout="fill"></Image>
           </div>
           <div className="dateGradient font-bold lg:text-5xl md:text-4xl text-3xl md:mt-8 mt-16">
             11.12 - 11.13
           </div>
           <Link href="/register" passHref={true}>
-            <div className="registerGlow cursor-pointer xl:px-12 xl:py-4 sm:px-8 sm:py-4 px-6 py-2 bg-gradient-to-b from-[#00D1FF] to-[#124866] rounded-full md:mt-8 mt-12 xl:text-4xl sm:text-2xl text-xl font-medium">
+            <div className="registerGlow cursor-pointer xl:px-12 xl:py-4 sm:px-8 sm:py-4 px-6 py-2 bg-gradient-to-b from-[#00D1FF] to-[#124866] rounded-full md:mt-8 mt-12 2xl:text-4xl lg:text-3xl sm:text-2xl text-xl font-medium">
               Register Now
             </div>
           </Link>
@@ -232,43 +227,24 @@ export default function Home(props: {
             T -
             <div className="lg:mx-5 md:mx-4 mx-2">
               <div>{countdownTime.countdownDays}</div>
-              <div className="xl:text-3xl sm:text-2xl text-xl textGradient">Days</div>
+              <div className="2xl:text-3xl sm:text-2xl text-xl textGradient">Days</div>
             </div>
             :
             <div className="lg:mx-5 md:mx-4 mx-2">
               <div>{countdownTime.countdownHours}</div>
-              <div className="xl:text-3xl sm:text-2xl text-xl textGradient">Hours</div>
+              <div className="2xl:text-3xl sm:text-2xl text-xl textGradient">Hours</div>
             </div>
             :
             <div className="lg:mx-5 md:mx-4 mx-2">
               <div>{countdownTime.countdownMinutes}</div>
-              <div className="xl:text-3xl sm:text-2xl text-xl textGradient">Mins</div>
+              <div className="2xl:text-3xl sm:text-2xl text-xl textGradient">Mins</div>
             </div>
             :
             <div className="lg:mx-5 md:mx-4 mx-2">
               <div>{countdownTime.countdownSeconds}</div>
-              <div className="xl:text-3xl sm:text-2xl text-xl textGradient">Secs</div>
+              <div className="2xl:text-3xl sm:text-2xl text-xl textGradient">Secs</div>
             </div>
-            {/* {'T - ' +
-              countdownTime.countdownDays +
-              ':' +
-              countdownTime.countdownHours +
-              ':' +
-              countdownTime.countdownMinutes +
-              ':' +
-              countdownTime.countdownSeconds} */}
           </p>
-          {/* <div className="flex flex-col items-center md:flex-row md:justify-around px-4 md:space-y-0 space-y-3 > * + *">
-          {buttonDatas.map((button) => (
-            <button
-              key={button.text}
-              onClick={() => router.push(button.path)}
-              className="max-w-[12rem] w-[12rem] md:max-w-full bg-indigo-300 py-4"
-            >
-              {button.text}
-            </button>
-          ))}
-        </div> */}
         </section>
 
         {/* About section */}
