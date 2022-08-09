@@ -288,3 +288,12 @@ a.link {
     50%  { transform: translate(0, 15px); }
     100%   { transform: translate(0, -0px); }   
 }
+
+@keyframes asteroid {
+  50% { -webkit-transform: scale(1.1) rotate(-3deg) translateY(8px) translateX(-20px) }
+
+}
+
+.asteroid {
+  animation: asteroid 6s infinite ease-in-out;
+}

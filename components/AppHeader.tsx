@@ -74,7 +74,7 @@ export default function AppHeader() {
 
   return (
     <>
-      <header className="appHeader fixed top-0 justify-between flex w-full items-center h-16 z-10 py-4 lg:px-6 px-4">
+      <header className="appHeader fixed top-0 justify-between flex w-full items-center h-16 z-50 py-4 lg:px-6 px-4">
         <div className="flex items-center md:w-46 lg:w-52 text-white">
           <Link href="/">
             <a className="flex gap-2 order-2 relative font-display md:order-1 items-center">
