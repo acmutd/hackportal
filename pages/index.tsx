@@ -292,7 +292,7 @@ export default function Home(props: {
         <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto z-20 relative">
           <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">Overview</h1>
           <div className="md:flex">
-            <section className="lg:w-[14rem] md:w-[12rem] sm:w-[10rem] w-[8rem] relative my-6 hidden md:block float">
+            <section className="lg:w-[14rem] md:w-[12rem] sm:w-[10rem] w-[8rem] relative my-6 hidden md:block">
               <Image
                 src={'/assets/Rocket.png'}
                 alt="rocket"
@@ -308,7 +308,7 @@ export default function Home(props: {
                   className={`flex justify-center ${index === 0 ? 'my-14' : ' 2xl:my-28 my-16'}`}
                   key={index}
                 >
-                  <div className="flex md:w-[90%] w-4/5 relative">
+                  <div className="flex w-4/5 relative">
                     <div className="slant xl:w-[4rem] xl:h-[4rem] md:w-[3rem] md:h-[3rem] w-[2rem] h-[2rem] flex-none"></div>
                     <div className="nasalization flex border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
                       0{index + 1}
@@ -320,15 +320,15 @@ export default function Home(props: {
                 </div>
               ))}
               {/* 05 */}
-              <div className="flex justify-center relative ">
-                <div className="flex md:w-[90%] w-4/5">
+              <div className="flex justify-center relative">
+                <div className="flex w-4/5">
                   <div className="slant xl:w-[4rem] xl:h-[4rem] md:w-[3rem] md:h-[3rem] w-[2rem] h-[2rem] flex-none"></div>
                   <div className="nasalization border-t-2 border-white flex-1 lg:text-3xl md:text-2xl text-lg">
                     05
                   </div>
                 </div>
-                <div className="absolute top-0 -translate-y-full right-0 z-0">
-                  <div className="relative 2xl:w-[8rem] 2xl:h-[8rem] lg:w-[6rem] lg:h-[6rem] w-[4rem] h-[4rem] rotate-[15deg]">
+                <div className="absolute lg:-translate-y-3/4 -translate-y-full lg:top-0 -top-4 lg:-right-10 right-0 z-0">
+                  <div className="relative 2xl:w-[8rem] 2xl:h-[8rem] lg:w-[6rem] lg:h-[6rem] md:w-[4rem] md:h-[4rem] w-[3rem] h-[3rem] spin">
                     <Image src={'/assets/Tobor.png'} alt="comet" layout="fill" />
                   </div>
                 </div>
@@ -355,20 +355,24 @@ export default function Home(props: {
           </section>
         )}
         {/* Keynote Speakers */}
-        <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
-          <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">Speakers</h1>
-          <div className="flex flex-wrap justify-around my-8">
-            {speakers.map(({ name, description, fileName }, idx) => (
-              <KeynoteSpeaker
-                key={idx}
-                name={name}
-                description={description}
-                cardColor={colorSchemes[idx % 3]}
-                imageLink={fileName}
-              />
-            ))}
-          </div>
-        </section>
+        {speakers.length != 0 && (
+          <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
+            <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">
+              Speakers
+            </h1>
+            <div className="flex flex-wrap justify-around my-8">
+              {speakers.map(({ name, description, fileName }, idx) => (
+                <KeynoteSpeaker
+                  key={idx}
+                  name={name}
+                  description={description}
+                  cardColor={colorSchemes[idx % 3]}
+                  imageLink={fileName}
+                />
+              ))}
+            </div>
+          </section>
+        )}
         {/* Challenges */}
         {/* This section is hidden if there are no challenges */}
         {challenges.length != 0 && (

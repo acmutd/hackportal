@@ -360,7 +360,7 @@ export default function Register() {
             )}
           </Formik>
         </section>
-        <div className="md:mx-14 mx-8 flex md:justify-end justify-between mb-16 mt-10 select-none">
+        <div className="md:mx-14 mx-8 flex justify-between mb-16 mt-10 select-none">
           <div
             id="previous"
             className="opacity-0 cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF] raise"
@@ -371,8 +371,8 @@ export default function Register() {
             <ChevronLeftIcon fontSize="large" className="" />
             Previous Page
           </div>
-          <div className="lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF] md:mx-10 inline-flex items-center">
-            {displayPage}/5
+          <div className="lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF]">
+            {displayPage + 1}/6
           </div>
           <div
             id="next"

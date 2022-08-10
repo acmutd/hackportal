@@ -75,7 +75,7 @@ export default function AppHeader() {
   return (
     <>
       <header className="appHeader fixed top-0 justify-between flex w-full items-center h-16 z-50 py-4 lg:px-6 px-4">
-        <div className="flex items-center md:w-46 lg:w-52 text-white">
+        <div className="flex items-center md:w-46 lg:w-52 text-white ml-0 lg:ml-6">
           <Link href="/">
             <a className="flex gap-2 order-2 relative font-display md:order-1 items-center">
               {/* !change src */}
@@ -131,7 +131,7 @@ export default function AppHeader() {
           </div>
         ) : (
           <div className="hidden order-2 md:flex justify-center text-white">
-            <div className="flex justify-end xl:w-[23rem] lg:w-[18rem] md:w-11">
+            <div className="flex justify-end xl:w-[23rem] lg:w-[16rem] md:w-11">
               {dynamicNavItems.map(
                 (item, idx) =>
                   idx < 2 && (
@@ -142,7 +142,7 @@ export default function AppHeader() {
                       addClass="font-bold"
                     >
                       <a>
-                        <p className="mx-2 lg:mx-4 xl:mx-10 2xl:mx-14 text-base lg:text-2xl ">
+                        <p className="mx-2 lg:mx-4 xl:mx-10 2xl:mx-14 text-base lg:text-lg xl:text-2xl">
                           {item.text}
                         </p>
                       </a>
@@ -150,13 +150,13 @@ export default function AppHeader() {
                   ),
               )}
             </div>
-            <div className="flex xl:w-[23rem] lg:w-[18rem] md:w-11">
+            <div className="flex xl:w-[23rem] lg:w-[16rem] md:w-11">
               {dynamicNavItems.map(
                 (item, idx) =>
                   idx > 1 && (
                     <NavLink key={item.text} href={item.path} exact={true} addClass="font-bold">
                       <a>
-                        <p className="mx-1 lg:mx-4 xl:mx-10 2xl:mx-14 text-base lg:text-2xl ">
+                        <p className="mx-1 lg:mx-4 xl:mx-10 2xl:mx-14 text-base lg:text-lg  xl:text-2xl">
                           {item.text}
                         </p>
                       </a>
@@ -166,7 +166,7 @@ export default function AppHeader() {
             </div>
           </div>
         )}
-        <div className="order-3 md:w-44 lg:w-52 flex justify-end text-white">
+        <div className="order-3 md:w-44 lg:w-52 flex justify-end text-white md:mr-6 mr-8">
           <button
             className="font-header font-medium bg-gradient-to-b from-[#F33C2C] to-[#661912] rounded-full text-base md:text-lg lg:text-xl md:px-8 px-5 py-1"
             onClick={toggleDialog}
