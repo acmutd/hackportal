@@ -137,15 +137,15 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
  * Fetch FAQ questions stored in the backend, which will be used as props by FaqPage component upon build time
  *
  */
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const protocol = context.req.headers.referer?.split('://')[0] || 'http';
-  const { data } = await RequestHelper.get<AnsweredQuestion[]>(
-    `${protocol}://${context.req.headers.host}/api/questions/faq`,
-    {},
-  );
-  return {
-    props: {
-      fetchedFaqs: data,
-    },
-  };
-};
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const protocol = context.req.headers.referer?.split('://')[0] || 'http';
+//   const { data } = await RequestHelper.get<AnsweredQuestion[]>(
+//     `${protocol}://${context.req.headers.host}/api/questions/faq`,
+//     {},
+//   );
+//   return {
+//     props: {
+//       fetchedFaqs: data,
+//     },
+//   };
+// };

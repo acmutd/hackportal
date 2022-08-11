@@ -203,188 +203,190 @@ export default function Register() {
         </Link>
       </div>
 
-      <section className="mt-10 md:mx-14 mx-8">
+      <section className="mt-10 md:mx-24 mx-8">
         <div className="md:text-4xl text-2xl">HackUTD IX Hacker Registration</div>
         <div className="my-1 md:text-xl text-base font-light">
           Please fill out the following fields. The application should take approximately 5 minutes.
         </div>
       </section>
 
-      <section className="flex-grow flex flex-col justify-between">
-        <section className="md:mx-14 mx-8">
-          <Formik
-            initialValues={formInitialValues}
-            //validation
-            //Get condition in which values.[value] is invalid and set error message in errors.[value]. Value is a value from the form(look at initialValues)
-            validate={(values) => {
-              var errors: any = {};
-              for (let obj of generalQuestions) {
-                errors = setErrors(obj, values, errors);
-              }
-              for (let obj of schoolQuestions) {
-                errors = setErrors(obj, values, errors);
-              }
-              for (let obj of hackathonExperienceQuestions) {
-                errors = setErrors(obj, values, errors);
-              }
-              for (let obj of eventInfoQuestions) {
-                errors = setErrors(obj, values, errors);
-              }
-              for (let obj of sponsorInfoQuestions) {
-                errors = setErrors(obj, values, errors);
-              }
-              for (let obj of oneLastThing) {
-                errors = setErrors(obj, values, errors);
-              }
+      {/* <section className="flex-grow flex flex-col justify-between"> */}
+      <section className="md:mx-24 mx-8 flex flex-col flex-grow">
+        <Formik
+          initialValues={formInitialValues}
+          //validation
+          //Get condition in which values.[value] is invalid and set error message in errors.[value]. Value is a value from the form(look at initialValues)
+          validate={(values) => {
+            var errors: any = {};
+            for (let obj of generalQuestions) {
+              errors = setErrors(obj, values, errors);
+            }
+            for (let obj of schoolQuestions) {
+              errors = setErrors(obj, values, errors);
+            }
+            for (let obj of hackathonExperienceQuestions) {
+              errors = setErrors(obj, values, errors);
+            }
+            for (let obj of eventInfoQuestions) {
+              errors = setErrors(obj, values, errors);
+            }
+            for (let obj of sponsorInfoQuestions) {
+              errors = setErrors(obj, values, errors);
+            }
+            for (let obj of oneLastThing) {
+              errors = setErrors(obj, values, errors);
+            }
 
-              //additional custom error validation
-              if (
-                values.preferredEmail &&
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.preferredEmail)
-              ) {
-                //regex matches characters before @, characters after @, and 2 or more characters after . (domain)
-                errors.preferredEmail = 'Invalid email address';
-              }
-              if ((values.age && values.age < 1) || values.age > 100) {
-                errors.age = 'Not a valid age';
-              }
-              if (
-                (values.hackathonExperience && values.hackathonExperience < 0) ||
-                values.hackathonExperience > 100
-              ) {
-                errors.hackathonExperience = 'Not a valid number';
-              }
-              if (values.CoC.length == 0) {
-                errors.CoC = 'Code of Conduct not accepted';
-              }
+            //additional custom error validation
+            if (
+              values.preferredEmail &&
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.preferredEmail)
+            ) {
+              //regex matches characters before @, characters after @, and 2 or more characters after . (domain)
+              errors.preferredEmail = 'Invalid email address';
+            }
+            if ((values.age && values.age < 1) || values.age > 100) {
+              errors.age = 'Not a valid age';
+            }
+            if (
+              (values.hackathonExperience && values.hackathonExperience < 0) ||
+              values.hackathonExperience > 100
+            ) {
+              errors.hackathonExperience = 'Not a valid number';
+            }
+            if (values.CoC.length == 0) {
+              errors.CoC = 'Code of Conduct not accepted';
+            }
 
-              return errors;
-            }}
-            onSubmit={async (values, { setSubmitting }) => {
-              await new Promise((r) => setTimeout(r, 500));
-              let finalValues: any = values;
-              //add user object
-              const userValues: any = {
-                id: values.id,
-                firstName: values.firstName,
-                lastName: values.lastName,
-                preferredEmail: values.preferredEmail,
-                permissions: values.permissions,
-              };
-              finalValues['user'] = userValues;
-              //delete unnecessary values
-              delete finalValues.firstName;
-              delete finalValues.lastName;
-              delete finalValues.permissions;
-              delete finalValues.preferredEmail;
-              //submitting
-              handleSubmit(values);
-              setSubmitting(false);
-              // alert(JSON.stringify(values, null, 2)); //Displays form results on submit for testing purposes
-            }}
-          >
-            {({ values, handleChange, isValid, dirty }) => (
-              // Field component automatically hooks input to form values. Use name attribute to match corresponding value
-              // ErrorMessage component automatically displays error based on validation above. Use name attribute to match corresponding value
-              <Form
-                onKeyDown={onKeyDown}
-                noValidate
-                className="registrationForm flex flex-col max-w-4xl text-lg"
-              >
-                <div id="page0" className="flex flex-col">
-                  <div className="text-3xl py-1 mt-8">General</div>
-                  {generalQuestions.map((obj, idx) => (
-                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-                  ))}
+            return errors;
+          }}
+          onSubmit={async (values, { setSubmitting }) => {
+            await new Promise((r) => setTimeout(r, 500));
+            let finalValues: any = values;
+            //add user object
+            const userValues: any = {
+              id: values.id,
+              firstName: values.firstName,
+              lastName: values.lastName,
+              preferredEmail: values.preferredEmail,
+              permissions: values.permissions,
+            };
+            finalValues['user'] = userValues;
+            //delete unnecessary values
+            delete finalValues.firstName;
+            delete finalValues.lastName;
+            delete finalValues.permissions;
+            delete finalValues.preferredEmail;
+            //submitting
+            handleSubmit(values);
+            setSubmitting(false);
+            // alert(JSON.stringify(values, null, 2)); //Displays form results on submit for testing purposes
+          }}
+        >
+          {({ values, handleChange, isValid, dirty }) => (
+            // Field component automatically hooks input to form values. Use name attribute to match corresponding value
+            // ErrorMessage component automatically displays error based on validation above. Use name attribute to match corresponding value
+            <Form
+              onKeyDown={onKeyDown}
+              noValidate
+              className="registrationForm flex flex-col flex-grow justify-between text-lg"
+            >
+              <div id="page0" className="flex flex-col max-w-4xl">
+                <div className="text-3xl py-1 mt-8">General</div>
+                {generalQuestions.map((obj, idx) => (
+                  <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                ))}
+              </div>
+
+              <div id="page1" className="flex flex-col hidden max-w-4xl">
+                <div className="text-3xl py-1 mt-8">School Info</div>
+                {schoolQuestions.map((obj, idx) => (
+                  <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                ))}
+              </div>
+
+              <div id="page2" className="flex flex-col hidden max-w-4xl">
+                <div className="text-3xl py-1 mt-8">Hackathon Experience</div>
+                {hackathonExperienceQuestions.map((obj, idx) => (
+                  <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                ))}
+              </div>
+
+              <div id="page3" className="flex flex-col hidden max-w-4xl">
+                <div className="text-3xl py-1 mt-8">Event Info</div>
+                {eventInfoQuestions.map((obj, idx) => (
+                  <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                ))}
+              </div>
+
+              <div id="page4" className="flex flex-col hidden max-w-4xl">
+                <div className="text-3xl py-1 mt-8">Sponsor Info</div>
+                {sponsorInfoQuestions.map((obj, idx) => (
+                  <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                ))}
+                <label>
+                  <div className="mt-8 text-2xl py-1">Upload your resume</div>
+                  <input
+                    onChange={(e) => setResumeFile(e.target.files[0])}
+                    name="resume"
+                    type="file"
+                    formEncType="multipart/form-data"
+                    accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
+                  />
+                  <br />
+                </label>
+              </div>
+
+              <div id="page5" className="flex flex-col hidden max-w-4xl">
+                <div className="text-3xl py-1 mt-8">One Last Thing</div>
+                {oneLastThing.map((obj, idx) => (
+                  <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                ))}
+              </div>
+              <div className="flex justify-between 2xl:mb-24 mb-16 mt-10 select-none">
+                <div
+                  id="previous"
+                  className="opacity-0 cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF] raise"
+                  onClick={() => {
+                    changePage(-1);
+                  }}
+                >
+                  <ChevronLeftIcon fontSize="large" className="" />
+                  Previous Page
                 </div>
-
-                <div id="page1" className="flex flex-col hidden">
-                  <div className="text-3xl py-1 mt-8">School Info</div>
-                  {schoolQuestions.map((obj, idx) => (
-                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-                  ))}
+                <div className="lg:text-3xl sm:text-xl text-lg inline-flex items-center font-medium text-[#7B81FF]">
+                  {displayPage + 1}/6
                 </div>
-
-                <div id="page2" className="flex flex-col hidden">
-                  <div className="text-3xl py-1 mt-8">Hackathon Experience</div>
-                  {hackathonExperienceQuestions.map((obj, idx) => (
-                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-                  ))}
+                <div
+                  id="next"
+                  className={`cursor-pointer items-center lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF] raise ${
+                    displayPage + 1 == 6 ? 'hidden' : 'inline-flex'
+                  }`}
+                  onClick={() => {
+                    changePage(1);
+                  }}
+                >
+                  Next Page
+                  <ChevronLeftIcon fontSize="large" className="rotate-180" />
                 </div>
-
-                <div id="page3" className="flex flex-col hidden">
-                  <div className="text-3xl py-1 mt-8">Event Info</div>
-                  {eventInfoQuestions.map((obj, idx) => (
-                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-                  ))}
+                <div className={`${displayPage + 1 == 6 ? '' : 'hidden'} text-right`}>
+                  <button
+                    type="submit"
+                    className={`cursor-pointer items-center lg:text-3xl sm:text-xl text-lg text-[#7B81FF] font-bold raise`}
+                    onClick={() => setFormValid(!(!isValid || !dirty))}
+                  >
+                    Submit
+                  </button>
+                  {!isValid && !formValid && (
+                    <div className="text-red-600 lg:text-lg md:text-base sm:text-sm text-xs">
+                      Error: The form has invalid fields
+                    </div>
+                  )}
                 </div>
-
-                <div id="page4" className="flex flex-col hidden">
-                  <div className="text-3xl py-1 mt-8">Sponsor Info</div>
-                  {sponsorInfoQuestions.map((obj, idx) => (
-                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-                  ))}
-                  <label>
-                    <div className="mt-8 text-2xl py-1">Upload your resume</div>
-                    <input
-                      onChange={(e) => setResumeFile(e.target.files[0])}
-                      name="resume"
-                      type="file"
-                      formEncType="multipart/form-data"
-                      accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
-                    />
-                    <br />
-                  </label>
-                </div>
-
-                <div id="page5" className="flex flex-col hidden">
-                  <div className="text-3xl py-1 mt-8">One Last Thing</div>
-                  {oneLastThing.map((obj, idx) => (
-                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-                  ))}
-                  {/* Submit */}
-                  <div className="mt-16">
-                    <button
-                      type="submit"
-                      className="cursor-pointer bounce-in text-3xl font-bold"
-                      onClick={() => setFormValid(!(!isValid || !dirty))}
-                    >
-                      Submit
-                    </button>
-                    {!isValid && !formValid && (
-                      <div className="text-red-600">Error: The form has invalid fields</div>
-                    )}
-                  </div>
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </section>
-        <div className="md:mx-14 mx-8 flex justify-between mb-16 mt-10 select-none">
-          <div
-            id="previous"
-            className="opacity-0 cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF] raise"
-            onClick={() => {
-              changePage(-1);
-            }}
-          >
-            <ChevronLeftIcon fontSize="large" className="" />
-            Previous Page
-          </div>
-          <div className="lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF]">
-            {displayPage + 1}/6
-          </div>
-          <div
-            id="next"
-            className="cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF] raise"
-            onClick={() => {
-              changePage(1);
-            }}
-          >
-            Next Page
-            <ChevronLeftIcon fontSize="large" className="rotate-180" />
-          </div>
-        </div>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </section>
     </div>
   );
