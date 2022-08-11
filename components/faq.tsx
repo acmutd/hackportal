@@ -69,14 +69,14 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
           <div className="w-[49%] my-3 ">
             {faqs.map(
               ({ question, answer }, idx) =>
-                idx % 2 == 0 && (
+                idx <= faqs.length / 2 && (
                   <FaqDisclosure
                     key={idx}
                     question={question}
                     answer={answer}
                     isOpen={disclosuresStatus[idx]}
                     idx={idx}
-                    max={1}
+                    max={Math.ceil(faqs.length / 2)}
                     toggleDisclosure={() => {
                       const currDisclosure = [...disclosuresStatus];
                       currDisclosure[idx] = !currDisclosure[idx];
@@ -89,14 +89,14 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
           <div className="w-[49%] my-3">
             {faqs.map(
               ({ question, answer }, idx) =>
-                idx % 2 != 0 && (
+                idx > faqs.length / 2 && (
                   <FaqDisclosure
                     key={idx}
                     question={question}
                     answer={answer}
                     isOpen={disclosuresStatus[idx]}
                     idx={idx}
-                    max={1}
+                    max={Math.ceil(faqs.length / 2)}
                     toggleDisclosure={() => {
                       const currDisclosure = [...disclosuresStatus];
                       currDisclosure[idx] = !currDisclosure[idx];

@@ -119,6 +119,7 @@ type Registration = {
 type AnsweredQuestion = {
   question: string;
   answer: string;
+  rank: number;
 };
 
 /**

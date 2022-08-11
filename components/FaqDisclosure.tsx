@@ -37,7 +37,9 @@ export default function FaqDisclosure({
   return (
     <Disclosure>
       <div
-        className={`${idx <= max ? 'border-t-2' : 'border-t-0'} border-b-2 border-white text-white`}
+        className={`${
+          idx == 0 || idx == max ? 'border-t-2' : 'border-t-0'
+        } border-b-2 border-white text-white`}
       >
         <Disclosure.Button
           className="py-4 text-left rounded-md w-full xl:text-2xl lg:text-lg md:text-base text-sm font-black"

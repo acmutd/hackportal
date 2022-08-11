@@ -39,6 +39,7 @@ export default function Home(props: {
   const [challengeIdx, setChallengeIdx] = useState(0);
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [sponsor, setSponsor] = useState<Sponsor[]>([]);
+  const [questions, setQuestions] = useState<AnsweredQuestion[]>([]);
   const [challengeData, setChallengeData] = useState({
     title: '',
     organization: '',
@@ -68,6 +69,7 @@ export default function Home(props: {
 
     //Organize challenges in order by rank given in firebase
     const sortedChallenges = props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1));
+    const sortedQuestions = props.answeredQuestion.sort((a, b) => (a.rank > b.rank ? 1 : -1));
 
     if (sortedChallenges.length != 0) {
       setChallenges(sortedChallenges);
@@ -77,6 +79,10 @@ export default function Home(props: {
         description: sortedChallenges[0].description,
         prizes: sortedChallenges[0].prizes,
       });
+    }
+
+    if (sortedQuestions.length != 0) {
+      setQuestions(sortedQuestions);
     }
     setSponsor(props.sponsorCard);
 
@@ -351,7 +357,7 @@ export default function Home(props: {
         {/* FAQ */}
         {props.answeredQuestion.length != 0 && (
           <section>
-            <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
+            <FAQ fetchedFaqs={questions}></FAQ>
           </section>
         )}
         {/* Keynote Speakers */}

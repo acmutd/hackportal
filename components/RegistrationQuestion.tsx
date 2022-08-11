@@ -78,10 +78,22 @@ function Question(props) {
   } else if (props.type === 'checkbox') {
     return (
       <Fragment>
-        <label htmlFor={props.question.name} className="mt-4">
-          {props.question.required ? '*' : ''}
-          {props.question.question}
-        </label>
+        {props.question.name == 'CoC' ? (
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https:/static.mlh.io/docs/mlh-member-event-guidelines.pdf"
+            className="mt-4 hover:underline"
+          >
+            {props.question.required ? '*' : ''}
+            {props.question.question}
+          </a>
+        ) : (
+          <label htmlFor={props.question.name} className="mt-4">
+            {props.question.required ? '*' : ''}
+            {props.question.question}
+          </label>
+        )}
         <div role="group" aria-labelledby="checkbox-group" className="flex flex-col">
           {props.question.options.map((option) => (
             <label key={option.value}>
