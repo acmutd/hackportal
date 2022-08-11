@@ -8,6 +8,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
+  overflow: overlay;
 }
 
 h1 {
@@ -160,7 +161,8 @@ a.link {
 }
 
 .home {
-  background-image: url("/assets/homeBackground.png");
+  /* background-image: url("/assets/homeBackground.png"); */
+  background-image: url("/assets/homeBackground2.png");
   background-repeat: no-repeat;
   /* background-attachment: fixed;  */
   background-size: cover;
@@ -198,7 +200,8 @@ a.link {
 }
 
 .background {
-  background-image: url("/assets/HackUTDBackground.jpg");
+  /* background-image: url("/assets/HackUTDBackground.jpg"); */
+  background-image: url("/assets/HackUTDBackground2.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -231,7 +234,7 @@ a.link {
 }
 
 .background404 {
-  background-image: url("/assets/background404.png");
+  background-image: url("/assets/HackUTDBackground.jpg");
   background-repeat: no-repeat;
   /* background-attachment: fixed;  */
   background-size: 100vw 100vh;
@@ -296,4 +299,26 @@ a.link {
 
 .asteroid {
   animation: asteroid 6s infinite ease-in-out;
+}
+
+.spin {
+  animation: spin 25s infinite linear;
+}
+@keyframes spin {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+  width: 25px;
+}
+
+::-webkit-scrollbar {
+  width: 25px;
+}
+*::-webkit-scrollbar-thumb {
+  background:rgba(0, 0, 0, 0) url('/assets/ToborScroll.png') no-repeat;
+  background-size:25px 30px;  
+  display: block;
 }
