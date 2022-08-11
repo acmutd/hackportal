@@ -6,6 +6,11 @@ initializeApi();
 const db = firestore();
 
 async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
+  if (process.env.NODE_ENV !== 'development') {
+    return res.status(404).json({
+      msg: 'Route not found',
+    });
+  }
   const snapshot = await db.collection('/registrations').get();
   const users = [];
   snapshot.forEach((doc) => {
