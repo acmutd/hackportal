@@ -28,7 +28,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="background text-white h-screen">
+    <div className="background text-white min-h-screen">
       <div className="p-8 w-full mt-[4rem]">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-3xl font-bold">User Profile</h1>

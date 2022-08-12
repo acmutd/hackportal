@@ -18,6 +18,7 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
   const [loading, setLoading] = useState(true);
   const [faqs, setFaqs] = useState<AnsweredQuestion[]>([]);
   const [disclosuresStatus, setDisclosureStatus] = useState<boolean[]>();
+  const [allExpanded, setAllExpanded] = useState(false);
 
   useEffect(() => {
     setFaqs(fetchedFaqs);
@@ -32,6 +33,17 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
    */
   const expandAll = () => {
     setDisclosureStatus(new Array(disclosuresStatus.length).fill(true));
+    setAllExpanded(true);
+  };
+
+  /**
+   *
+   * Collapse all FAQ disclosures
+   *
+   */
+  const collapseAll = () => {
+    setDisclosureStatus(new Array(disclosuresStatus.length).fill(false));
+    setAllExpanded(false);
   };
 
   if (loading) {
@@ -56,11 +68,13 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
           <div
             className="flex flex-row items-center gap-x-2 cursor-pointer"
             onClick={() => {
-              expandAll();
+              !allExpanded ? expandAll() : collapseAll();
             }}
           >
-            <div className="lg:text-xl sm:text-lg text-base text-bold">Expand All</div>
-            <ChevronDownIcon className="w-5 h-5" />
+            <div className="lg:text-xl sm:text-lg text-base text-bold">
+              {!allExpanded ? 'Expand All' : 'Collapse All'}
+            </div>
+            <ChevronDownIcon className={`w-5 h-5 ${allExpanded ? 'rotate-180' : ''}`} />
           </div>
         </div>
         {/* FAQ for lg-md */}
