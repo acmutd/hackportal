@@ -57,12 +57,12 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
   return (
     <div className="flex flex-col flex-grow relative">
       {/* <AboutHeader active="/about/faq" /> */}
-      <div className="absolute top-0 right-1/2 z-0 -translate-y-1/2 -translate-x-1/2 2xl:-translate-x-full">
+      <div className="absolute z-0 -left-28 -translate-x-full shootingStar">
         <div className="relative 2xl:w-[14rem] 2xl:h-[14rem] lg:w-[10rem] lg:h-[10rem] w-[7rem] h-[7rem] rotate-[-30deg]">
           <Image src={'/assets/Shooting-star.png'} alt="comet" layout="fill" />
         </div>
       </div>
-      <div className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
+      <div className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto z-10">
         <div className="flex justify-between">
           <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">FAQ</h1>
           <div

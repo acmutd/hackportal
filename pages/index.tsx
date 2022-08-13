@@ -255,7 +255,7 @@ export default function Home(props: {
 
         {/* About section */}
         <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto flex justify-between md:flex-row flex-col relative">
-          <div className="absolute 2xl:-bottom-24 2xl:-right-56 lg:-bottom-16 lg:-right-36 -bottom-12 -right-32 z-0">
+          <div className="absolute 2xl:-bottom-6  lg:-bottom-16  -bottom-4 right-0 z-0 translate-y-1/2 translate-x-1/2">
             <div className="relative 2xl:w-[35rem] 2xl:h-[19rem] lg:w-[23rem] lg:h-[14rem] w-[18rem] h-[10rem] asteroid">
               <Image src={'/assets/Comet.png'} alt="comet" layout="fill" />
             </div>
@@ -296,7 +296,9 @@ export default function Home(props: {
         </section>
         {/* Overview */}
         <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto z-20 relative">
-          <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">Overview</h1>
+          <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient mb-8">
+            Overview
+          </h1>
           <div className="md:flex">
             <section className="lg:w-[14rem] md:w-[12rem] sm:w-[10rem] w-[8rem] relative my-6 hidden md:block">
               <Image
@@ -333,11 +335,11 @@ export default function Home(props: {
                     05
                   </div>
                 </div>
-                <div className="absolute lg:-translate-y-3/4 -translate-y-full lg:top-0 -top-4 lg:-right-10 right-0 z-0">
+                {/* <div className="absolute lg:-translate-y-3/4 -translate-y-full lg:top-0 -top-4 lg:-right-10 right-0 z-0">
                   <div className="relative 2xl:w-[8rem] 2xl:h-[8rem] lg:w-[6rem] lg:h-[6rem] md:w-[4rem] md:h-[4rem] w-[3rem] h-[3rem] spin">
                     <Image src={'/assets/Tobor.png'} alt="comet" layout="fill" />
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="flex justify-center mt-6">
                 <iframe
@@ -363,8 +365,13 @@ export default function Home(props: {
         {/* Keynote Speakers */}
         {speakers.length != 0 && (
           <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
-            <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">
-              Speakers
+            <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient relative inline">
+              <p className="inline md:mr-20 mr-12">Speakers</p>
+              <div className="absolute top-0 right-0 z-0 translate-x-full">
+                <div className="relative 2xl:w-[5.5rem] 2xl:h-[5.5rem] md:w-[4rem] md:h-[4rem] w-[3rem] h-[3rem] spin">
+                  <Image src={'/assets/Spaceman.png'} alt="spaceman" layout="fill" />
+                </div>
+              </div>
             </h1>
             <div className="flex flex-wrap justify-around my-8">
               {speakers.map(({ name, description, fileName }, idx) => (
