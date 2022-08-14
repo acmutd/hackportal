@@ -393,40 +393,6 @@ export const hackPortalConfig: HackPortalConfig = {
           },
         ],
       },
-      {
-        checkboxQuestions: [
-          {
-            //Companies question
-            question: 'Companies to send my resume to:',
-            required: false,
-            id: 'companies',
-            name: 'companies',
-            initialValue: [],
-            options: [
-              {
-                title: 'State Farm',
-                value: 'State Farm',
-              },
-              {
-                title: 'American Airlines',
-                value: 'American Airlines',
-              },
-              {
-                title: 'Capital One',
-                value: 'Capital One',
-              },
-              {
-                title: 'Ebay',
-                value: 'Ebay',
-              },
-              {
-                title: 'Facebook',
-                value: 'Facebook',
-              },
-            ],
-          },
-        ],
-      },
     ],
     // Question Topic
     oneLastThing: [
@@ -454,7 +420,7 @@ export const hackPortalConfig: HackPortalConfig = {
             initialValue: [],
             options: [
               {
-                title: 'Agree/Disagree',
+                title: 'Agree',
                 value: 'Agree',
               },
             ],

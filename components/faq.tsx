@@ -18,6 +18,7 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
   const [loading, setLoading] = useState(true);
   const [faqs, setFaqs] = useState<AnsweredQuestion[]>([]);
   const [disclosuresStatus, setDisclosureStatus] = useState<boolean[]>();
+  const [allExpanded, setAllExpanded] = useState(false);
 
   useEffect(() => {
     setFaqs(fetchedFaqs);
@@ -32,6 +33,17 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
    */
   const expandAll = () => {
     setDisclosureStatus(new Array(disclosuresStatus.length).fill(true));
+    setAllExpanded(true);
+  };
+
+  /**
+   *
+   * Collapse all FAQ disclosures
+   *
+   */
+  const collapseAll = () => {
+    setDisclosureStatus(new Array(disclosuresStatus.length).fill(false));
+    setAllExpanded(false);
   };
 
   if (loading) {
@@ -45,22 +57,24 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
   return (
     <div className="flex flex-col flex-grow relative">
       {/* <AboutHeader active="/about/faq" /> */}
-      <div className="absolute top-0 right-1/2 z-0 -translate-y-1/2 -translate-x-1/2 2xl:-translate-x-full">
+      <div className="absolute z-0 -left-28 -translate-x-full shootingStar">
         <div className="relative 2xl:w-[14rem] 2xl:h-[14rem] lg:w-[10rem] lg:h-[10rem] w-[7rem] h-[7rem] rotate-[-30deg]">
           <Image src={'/assets/Shooting-star.png'} alt="comet" layout="fill" />
         </div>
       </div>
-      <div className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
+      <div className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto z-10">
         <div className="flex justify-between">
           <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">FAQ</h1>
           <div
             className="flex flex-row items-center gap-x-2 cursor-pointer"
             onClick={() => {
-              expandAll();
+              !allExpanded ? expandAll() : collapseAll();
             }}
           >
-            <div className="lg:text-xl sm:text-lg text-base text-bold">Expand All</div>
-            <ChevronDownIcon className="w-5 h-5" />
+            <div className="lg:text-xl sm:text-lg text-base text-bold">
+              {!allExpanded ? 'Expand All' : 'Collapse All'}
+            </div>
+            <ChevronDownIcon className={`w-5 h-5 ${allExpanded ? 'rotate-180' : ''}`} />
           </div>
         </div>
         {/* FAQ for lg-md */}
@@ -69,14 +83,14 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
           <div className="w-[49%] my-3 ">
             {faqs.map(
               ({ question, answer }, idx) =>
-                idx <= faqs.length / 2 && (
+                idx % 2 == 0 && (
                   <FaqDisclosure
                     key={idx}
                     question={question}
                     answer={answer}
                     isOpen={disclosuresStatus[idx]}
                     idx={idx}
-                    max={Math.ceil(faqs.length / 2)}
+                    max={1}
                     toggleDisclosure={() => {
                       const currDisclosure = [...disclosuresStatus];
                       currDisclosure[idx] = !currDisclosure[idx];
@@ -89,14 +103,14 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
           <div className="w-[49%] my-3">
             {faqs.map(
               ({ question, answer }, idx) =>
-                idx > faqs.length / 2 && (
+                idx % 2 != 0 && (
                   <FaqDisclosure
                     key={idx}
                     question={question}
                     answer={answer}
                     isOpen={disclosuresStatus[idx]}
                     idx={idx}
-                    max={Math.ceil(faqs.length / 2)}
+                    max={1}
                     toggleDisclosure={() => {
                       const currDisclosure = [...disclosuresStatus];
                       currDisclosure[idx] = !currDisclosure[idx];
