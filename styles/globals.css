@@ -8,7 +8,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  overflow: overlay;
+  /* overflow: overlay; */
 }
 
 h1 {
@@ -266,7 +266,7 @@ a.link {
 }
 
 .dateGradient {
-  background: linear-gradient(180deg, rgba(255, 0, 0, 0.76) 47.4%, rgba(113, 0, 0, 0.57) 100%);
+  background: linear-gradient(180deg, #01C8F5 47.4%, rgba(113, 0, 0, 0.57) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -309,7 +309,7 @@ a.link {
   to { transform: rotate(0deg); }
 }
 
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
   background-color: transparent;
   width: 25px;
 }
@@ -321,16 +321,16 @@ a.link {
   background:rgba(0, 0, 0, 0) url('/assets/ToborScroll.png') no-repeat;
   background-size:25px 30px;  
   display: block;
-}
+} */
 
 .shootingStar {
-  animation: shootingStar 7s infinite linear;
+  animation: shootingStar 6s infinite linear;
 }
 @keyframes shootingStar {
   0% {
     transform: translatex(0px) translatey(0px);
   }
-  28%, 100% {
+  33%, 100% {
     transform: translatex(110vw) translatey(300%);
   }
 }

@@ -15,6 +15,7 @@ import FAQ from '../components/faq';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -459,6 +460,14 @@ export default function Home(props: {
           <div className="my-2 relative">
             {/* Social icons */} {/* !change */}
             <div className="space-x-4 > * + *">
+              <a
+                href="https://www.linkedin.com/company/hackutd/"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="raiseIcon"
+              >
+                <LinkedInIcon className="footerIcon" />
+              </a>
               <a
                 href="https://twitter.com/hackutd"
                 rel="noopener noreferrer"
