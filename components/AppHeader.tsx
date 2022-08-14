@@ -166,7 +166,7 @@ export default function AppHeader() {
             </div>
           </div>
         )}
-        <div className="order-3 md:w-44 lg:w-52 flex justify-end text-white md:mr-6 mr-8">
+        <div className="order-3 md:w-44 lg:w-52 flex justify-end text-white md:mr-6">
           <button
             className="font-header font-medium bg-gradient-to-b from-[#F33C2C] to-[#661912] rounded-full text-base md:text-lg lg:text-xl md:px-8 px-5 py-1"
             onClick={toggleDialog}

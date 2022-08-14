@@ -346,7 +346,7 @@ export default function Register() {
               <div className="flex justify-between 2xl:mb-24 mb-16 mt-10 select-none">
                 <div
                   id="previous"
-                  className="opacity-0 cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF] raise"
+                  className="opacity-0 cursor-pointer items-center inline-flex lg:text-3xl sm:text-xl text-base font-medium text-[#7B81FF] raise"
                   onClick={() => {
                     changePage(-1);
                   }}
@@ -354,12 +354,12 @@ export default function Register() {
                   <ChevronLeftIcon fontSize="large" className="" />
                   Previous Page
                 </div>
-                <div className="lg:text-3xl sm:text-xl text-lg inline-flex items-center font-medium text-[#7B81FF]">
+                <div className="lg:text-3xl sm:text-xl text-base inline-flex items-center font-medium text-[#7B81FF]">
                   {displayPage + 1}/6
                 </div>
                 <div
                   id="next"
-                  className={`cursor-pointer items-center lg:text-3xl sm:text-xl text-lg font-medium text-[#7B81FF] raise ${
+                  className={`cursor-pointer items-center lg:text-3xl sm:text-xl text-base font-medium text-[#7B81FF] raise ${
                     displayPage + 1 == 6 ? 'hidden' : 'inline-flex'
                   }`}
                   onClick={() => {
@@ -372,7 +372,7 @@ export default function Register() {
                 <div className={`${displayPage + 1 == 6 ? '' : 'hidden'} text-right`}>
                   <button
                     type="submit"
-                    className={`cursor-pointer items-center lg:text-3xl sm:text-xl text-lg text-[#7B81FF] font-bold raise`}
+                    className={`cursor-pointer items-center lg:text-3xl sm:text-xl text-base text-[#7B81FF] font-bold raise`}
                     onClick={() => setFormValid(!(!isValid || !dirty))}
                   >
                     Submit
