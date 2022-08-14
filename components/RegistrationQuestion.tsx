@@ -82,7 +82,7 @@ function Question(props) {
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https:/static.mlh.io/docs/mlh-member-event-guidelines.pdf"
+            href="https://github.com/MLH/mlh-policies/blob/main/member-event-guidelines.md"
             className="mt-4 hover:underline"
           >
             {props.question.required ? '*' : ''}
