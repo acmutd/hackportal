@@ -218,19 +218,29 @@ export default function Home(props: {
       )}
       <div className="home text-white overflow-x-hidden overflow-y-hidden">
         {/* Hero section */}
-        <section className="min-h-screen p-4 flex flex-col items-center justify-center">
-          <div className="2xl:w-[60rem] 2xl:h-[25rem] md:w-[43rem] md:h-[18rem] sm:w-[27rem] sm:h-[15rem] w-[20rem] h-[10rem] relative">
+        <section className="min-h-screen p-4 flex flex-col items-center justify-center relative">
+          <div className="absolute top-0 right-0 z-0 satelliteX">
+            <div className="relative 2xl:w-[5.5rem] 2xl:h-[5.5rem] md:w-[4rem] md:h-[4rem] w-[3rem] h-[3rem] satelliteY">
+              <Image src={'/assets/Satellite.png'} alt="Satellite" layout="fill" />
+            </div>
+          </div>
+          <div className="absolute bottom-[20%] -left-24 z-0 satelliteX2">
+            <div className="relative 2xl:w-[5.5rem] 2xl:h-[5.5rem] md:w-[4rem] md:h-[4rem] w-[3rem] h-[3rem] satelliteY2">
+              <Image src={'/assets/Satellite.png'} alt="Satellite" layout="fill" />
+            </div>
+          </div>
+          <div className="2xl:w-[60rem] 2xl:h-[25rem] md:w-[43rem] md:h-[18rem] sm:w-[27rem] sm:h-[15rem] w-[20rem] h-[10rem] relative z-10">
             <Image src={'/assets/HackUTD-IX-Title.png'} alt="Hero" layout="fill"></Image>
           </div>
-          <div className="dateGradient font-bold lg:text-5xl md:text-4xl text-3xl md:mt-8 mt-16">
+          <div className="dateGradient font-bold lg:text-5xl md:text-4xl text-3xl md:mt-8 mt-16 relative z-10">
             11.12 - 11.13
           </div>
           <Link href="/register" passHref={true}>
-            <div className="registerGlow cursor-pointer xl:px-12 xl:py-4 sm:px-8 sm:py-4 px-6 py-2 bg-gradient-to-b from-[#00D1FF] to-[#124866] rounded-full md:mt-8 mt-12 2xl:text-4xl lg:text-3xl sm:text-2xl text-xl font-medium">
+            <div className="registerGlow relative z-10 cursor-pointer xl:px-12 xl:py-4 sm:px-8 sm:py-4 px-6 py-2 bg-gradient-to-b from-[#00D1FF] to-[#124866] rounded-full md:mt-8 mt-12 2xl:text-4xl lg:text-3xl sm:text-2xl text-xl font-medium">
               Register Now
             </div>
           </Link>
-          <p className="md:mt-16 mt-12 text-bold xl:text-6xl sm:text-4xl text-3xl flex">
+          <p className="md:mt-16 mt-12 text-bold xl:text-6xl sm:text-4xl text-3xl flex relative z-10">
             T -
             <div className="lg:mx-5 md:mx-4 mx-2">
               <div>{countdownTime.countdownDays}</div>
