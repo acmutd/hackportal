@@ -143,7 +143,7 @@ export default function AuthPage() {
           </div>
         </Link>
       </div>
-      <div className=" md:px-16 px-10 mt-10">
+      <div className=" md:px-16 sm:px-10 px-5 sm:mt-10 mt-2">
         <h1 className="lg:text-5xl md:text-3xl text-2xl w-full font-medium text-left">
           HackUTD IX Hacker Registration
         </h1>
@@ -152,9 +152,9 @@ export default function AuthPage() {
           with an existing one.
         </p>
       </div>
-      <section className="py-2 md:px-16 px-10 flex lg:justify-between justify-center flex-wrap">
-        <div className="xl:w-1/2 lg:w-2/3 w-5/6 my-4">
-          <div className="md:mt-12 mt-8 flex text-2xl">
+      <section className="py-2 md:px-16 sm:px-10 px-5 flex lg:justify-between justify-center flex-wrap">
+        <div className="xl:w-1/2 lg:w-2/3 sm:w-5/6 w-full sm:my-4 my-0">
+          <div className="md:mt-12 sm:mt-8 mt-4 flex md:text-2xl text-xl">
             <div
               id="signInOption"
               className="py-2 mr-6 underline cursor-pointer"
@@ -222,7 +222,7 @@ export default function AuthPage() {
                   <div className="flex justify-center mt-6 mb-4">
                     <button
                       type="button"
-                      className="text-3xl font-bold submit px-4 py-2"
+                      className="sm:text-3xl text-2xl font-bold submit px-4 py-2"
                       onClick={() => {
                         signIn();
                       }}
@@ -322,7 +322,7 @@ export default function AuthPage() {
               <div className="flex justify-center mt-6 mb-4">
                 <button
                   type="button"
-                  className="submit text-3xl font-bold px-4 py-2"
+                  className="submit sm:text-3xl text-2xl font-bold px-4 py-2"
                   onClick={() => {
                     signUp();
                   }}

@@ -65,7 +65,7 @@ export default function Home(props: {
 
   useEffect(() => {
     // Set amount of time notification prompt gets displayed before fading out
-    setTimeout(fadeOutEffect, 3000);
+    setTimeout(fadeOutEffect, 2500);
     setSpeakers(props.keynoteSpeakers);
 
     //Organize challenges in order by rank given in firebase
@@ -529,7 +529,7 @@ export default function Home(props: {
               </a>
               {/* !change */}
               <a
-                href="https://github.com/acmutd/hackportal"
+                href="https://github.com/acmutd/hackutd-ix-site"
                 target="_blank"
                 rel="noreferrer"
                 className="hover:underline font-bold whitespace-nowrap"
@@ -540,7 +540,7 @@ export default function Home(props: {
           </div>
         </section>
         {/* Footer for mobile */}
-        <section className="block sm:hidden mt-16 px-10 pb-6 text-xs">
+        <section className="block sm:hidden mt-16 px-8 pb-4 text-xs">
           <div className="flex justify-between py-4 border-b-2 border-white">
             <a
               href="https://www.instagram.com/hackutd/?hl=en"
@@ -575,7 +575,7 @@ export default function Home(props: {
               <FacebookIcon className="mobileFooterIcon" fontSize="large" />
             </a>
           </div>
-          <div className="text-center text-lg py-4">
+          <div className="text-center text-sm py-3">
             Designed by{' '}
             <a
               href="https://hackutd.co/"
@@ -586,7 +586,7 @@ export default function Home(props: {
               HackUTD
             </a>
           </div>
-          <div className="flex justify-around text-lg">
+          <div className="flex justify-around text-sm">
             <a
               href="mailto:hello@hackutd.co"
               rel="noopener noreferrer"
@@ -596,7 +596,7 @@ export default function Home(props: {
               Contact Us
             </a>
             <a
-              href="https://github.com/acmutd/hackportal"
+              href="https://github.com/acmutd/hackutd-ix-site"
               target="_blank"
               rel="noreferrer"
               className="font-bold"
@@ -604,7 +604,7 @@ export default function Home(props: {
               Source Code
             </a>
           </div>
-          <div className="text-base text-center pt-4">
+          <div className="text-sm text-center pt-3">
             HackPortal developed with &lt;3 by HackUTD and ACM Development
           </div>
         </section>
