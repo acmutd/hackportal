@@ -32,7 +32,7 @@ function PortalApp({ Component, pageProps }: AppProps) {
           <meta
             property="og:image"
             content={
-              'https://ix.hackutd.co/_next/image?url=%2Fassets%2FHackUTD-IX-Logo.png&w=3840&q=75'
+              'https://ix.hackutd.co/_next/image?url=%2Fassets%2FHackUTD-IX-Logo.png&w=256&q=75'
             }
           />
           {process.env.ENABLE_PWA ||
