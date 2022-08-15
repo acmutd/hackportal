@@ -29,7 +29,12 @@ function PortalApp({ Component, pageProps }: AppProps) {
           />
           <title>HackUTD IX</title> {/* !change */}
           <meta name="description" content="Your all-in-one guide to this hackathon." />
-          <meta property="og:image" content="/assets/HackUTD-IX-Logo.png" />
+          <meta
+            property="og:image"
+            content={
+              'https://ix.hackutd.co/_next/image?url=%2Fassets%2FHackUTD-IX-Logo.png&w=3840&q=75'
+            }
+          />
           {process.env.ENABLE_PWA ||
             (process.env.NODE_ENV !== 'development' && (
               <link rel="manifest" href="/manifest.json" />
