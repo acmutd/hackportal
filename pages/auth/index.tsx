@@ -58,7 +58,9 @@ export default function AuthPage() {
           .currentUser.sendEmailVerification()
           .then(() => {
             router.push('/auth');
-            alert('Account created, check your email to verify your account and log in');
+            alert(
+              'Account created! Check your email/spam folder to verify your account and log in. ',
+            );
           });
       })
       .catch((error) => {
@@ -330,6 +332,14 @@ export default function AuthPage() {
                   Submit
                 </button>
               </div>
+              <div className="text-center text-white font-bold opacity-50 text-xl">or</div>
+              <button
+                className="submit px-4 py-2 w-full rounded-md shadow-md input my-4 text-lg font-bold hover:shadow-lg hover:brightness-[1.3] text-left flex items-center"
+                onClick={() => signInWithGoogle()}
+              >
+                <Image src={GoogleIcon} alt="GoogleIcon" width={25} height={25} />
+                <p className="mx-2">Sign up with Google</p>
+              </button>
             </form>
             {/* Error and verification messages */}
             <div className="text-center">{errorMsg}</div>

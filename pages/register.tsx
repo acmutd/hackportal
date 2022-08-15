@@ -99,7 +99,7 @@ export default function Register() {
         });
       }
       await RequestHelper.post<Registration, any>('/api/applications', {}, registrationData);
-      alert('Profile created successful');
+      alert('Registered successfully');
       updateProfile(registrationData);
       router.push('/profile');
     } catch (error) {
