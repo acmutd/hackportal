@@ -25,7 +25,7 @@ export const stats = [
     object: '',
   },
   {
-    data: '$1,000,000 In Prizes',
+    data: '$30,000+ In Prizes',
     object: '',
   },
 ];
