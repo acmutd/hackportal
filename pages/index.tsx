@@ -346,11 +346,11 @@ export default function Home(props: {
                     05
                   </div>
                 </div>
-                {/* <div className="absolute lg:-translate-y-3/4 -translate-y-full lg:top-0 -top-4 lg:-right-10 right-0 z-0">
+                <div className="absolute lg:-translate-y-3/4 -translate-y-full lg:top-0 -top-4 lg:-right-10 right-0 z-0">
                   <div className="relative 2xl:w-[8rem] 2xl:h-[8rem] lg:w-[6rem] lg:h-[6rem] md:w-[4rem] md:h-[4rem] w-[3rem] h-[3rem] spin">
                     <Image src={'/assets/Tobor.png'} alt="comet" layout="fill" />
                   </div>
-                </div> */}
+                </div>
               </div>
               <div className="flex justify-center mt-6">
                 <iframe
