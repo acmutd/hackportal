@@ -324,13 +324,17 @@ a.link {
 } */
 
 .shootingStar {
-  animation: shootingStar 6s infinite linear;
+  animation: shootingStar 7s infinite linear;
 }
 @keyframes shootingStar {
   0% {
     transform: translatex(0px) translatey(0px);
   }
-  33%, 100% {
-    transform: translatex(110vw) translatey(300%);
+  28%, 100% {
+    transform: translatex(130vw) translatey(300%);
   }
 }
+
+/* .mobileFooterIcon {
+  transform: scale(2);
+} */

@@ -216,7 +216,7 @@ export default function Home(props: {
           Turn on push notifications to recieve announcements!
         </div>
       )}
-      <div className="home text-white overflow-x-hidden">
+      <div className="home text-white overflow-x-hidden overflow-y-hidden">
         {/* Hero section */}
         <section className="min-h-screen p-4 flex flex-col items-center justify-center">
           <div className="2xl:w-[60rem] 2xl:h-[25rem] md:w-[43rem] md:h-[18rem] sm:w-[27rem] sm:h-[15rem] w-[20rem] h-[10rem] relative">
@@ -454,12 +454,20 @@ export default function Home(props: {
           </section>
         )}
 
-        {/* Footer */}
-        <section className="mt-16 px-6 pt-8 pb-6 md:text-base text-xs">
+        {/* Footer sm and larger screen*/}
+        <section className="mt-16 px-6 pt-8 pb-6 md:text-base text-xs hidden sm:block">
           {/* Upper Content */}
           <div className="my-2 relative">
             {/* Social icons */} {/* !change */}
             <div className="space-x-4 > * + *">
+              <a
+                href="https://www.instagram.com/hackutd/?hl=en"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="raiseIcon"
+              >
+                <InstagramIcon className="footerIcon" />
+              </a>
               <a
                 href="https://www.linkedin.com/company/hackutd/"
                 rel="noopener noreferrer"
@@ -475,14 +483,6 @@ export default function Home(props: {
                 className="raiseIcon"
               >
                 <TwitterIcon className="footerIcon" />
-              </a>
-              <a
-                href="https://www.instagram.com/hackutd/?hl=en"
-                rel="noopener noreferrer"
-                target="_blank"
-                className="raiseIcon"
-              >
-                <InstagramIcon className="footerIcon" />
               </a>
               <a
                 href="https://www.facebook.com/hackutd/"
@@ -511,11 +511,9 @@ export default function Home(props: {
           {/* Lower Content */}
           <div className="flex justify-between border-t-[1px] py-2 border-white">
             <p>
-              Designed by <p className="font-bold inline">HackUTD</p> <br /> {/* !change */}
+              Designed by HackUTD <br /> {/* !change */}
               {/* PLEASE DO NOT CHANGE <3 */}
-              HackPortal developed with &lt;3 by <p className="font-bold inline">
-                HackUTD
-              </p> and <p className="font-bold inline">ACM Development</p>
+              HackPortal developed with &lt;3 by HackUTD and ACM Development
               {/* PLEASE DO NOT CHANGE <3 */}
             </p>
 
@@ -525,7 +523,7 @@ export default function Home(props: {
                 href="mailto:hello@hackutd.co"
                 rel="noopener noreferrer"
                 target="_blank"
-                className="hover:underline md:mr-8 font-thin"
+                className="hover:underline md:mr-8 font-bold"
               >
                 Contact Us
               </a>
@@ -534,11 +532,80 @@ export default function Home(props: {
                 href="https://github.com/acmutd/hackportal"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:underline font-thin whitespace-nowrap"
+                className="hover:underline font-bold whitespace-nowrap"
               >
                 Source Code
               </a>
             </div>
+          </div>
+        </section>
+        {/* Footer for mobile */}
+        <section className="block sm:hidden mt-16 px-10 pb-6 text-xs">
+          <div className="flex justify-between py-4 border-b-2 border-white">
+            <a
+              href="https://www.instagram.com/hackutd/?hl=en"
+              rel="noopener noreferrer"
+              target="_blank"
+              className=""
+            >
+              <InstagramIcon className="mobileFooterIcon" fontSize="large" />
+            </a>
+            <a
+              href="https://www.linkedin.com/company/hackutd/"
+              rel="noopener noreferrer"
+              target="_blank"
+              className=""
+            >
+              <LinkedInIcon className="mobileFooterIcon" fontSize="large" />
+            </a>
+            <a
+              href="https://twitter.com/hackutd"
+              rel="noopener noreferrer"
+              target="_blank"
+              className=""
+            >
+              <TwitterIcon className="mobileFooterIcon" fontSize="large" />
+            </a>
+            <a
+              href="https://www.facebook.com/hackutd/"
+              rel="noopener noreferrer"
+              target="_blank"
+              className=""
+            >
+              <FacebookIcon className="mobileFooterIcon" fontSize="large" />
+            </a>
+          </div>
+          <div className="text-center text-lg py-4">
+            Designed by{' '}
+            <a
+              href="https://hackutd.co/"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="font-bold"
+            >
+              HackUTD
+            </a>
+          </div>
+          <div className="flex justify-around text-lg">
+            <a
+              href="mailto:hello@hackutd.co"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="font-bold"
+            >
+              Contact Us
+            </a>
+            <a
+              href="https://github.com/acmutd/hackportal"
+              target="_blank"
+              rel="noreferrer"
+              className="font-bold"
+            >
+              Source Code
+            </a>
+          </div>
+          <div className="text-base text-center pt-4">
+            HackPortal developed with &lt;3 by HackUTD and ACM Development
           </div>
         </section>
       </div>

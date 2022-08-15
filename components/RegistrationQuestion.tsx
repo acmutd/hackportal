@@ -60,7 +60,7 @@ function Question(props) {
           as="select"
           name={props.question.name}
           id={props.question.id}
-          className="input rounded-md px-2 py-1 mr-auto"
+          className="input rounded-md px-2 py-1"
         >
           <option value="" disabled selected></option>
           {props.question.options.map((option) => (
