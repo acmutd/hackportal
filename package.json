@@ -47,6 +47,8 @@
     "qrcode": "^1.4.4",
     "raw-loader": "^4.0.2",
     "react": "17.0.2",
+    "react-dnd": "^15.1.2",
+    "react-dnd-html5-backend": "^15.1.2",
     "react-dom": "17.0.2",
     "react-markdown": "^8.0.3",
     "react-material-ui-carousel": "^2.3.5",
