@@ -12,6 +12,7 @@ import {
   TodayButton,
   Resources,
   AppointmentTooltip,
+  GroupingPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { withStyles, Theme, createStyles } from '@material-ui/core';
 import { grey, indigo, blue, teal, purple, red, orange } from '@material-ui/core/colors';
@@ -124,7 +125,7 @@ type DayScaleCellProps = MonthView.DayScaleCellProps & WithStyles<typeof styles>
 const isWeekEnd = (date: Date): boolean => date.getDay() === 0 || date.getDay() === 6;
 const defaultCurrentDate = new Date(2021, 10, 13, 9, 0);
 {
-  /* !change */
+  /* !!!change */
 }
 // const defaultCurrentDate = new Date();
 
