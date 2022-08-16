@@ -29,6 +29,7 @@ import ClockIcon from '@material-ui/icons/AccessTime';
 import Backpack from '@material-ui/icons/LocalMall';
 import Description from '@material-ui/icons/BorderColor';
 import firebase from 'firebase';
+import { useAuthContext } from '../../lib/user/AuthContext';
 
 const resources = [
   {
@@ -261,6 +262,46 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
     });
   };
 
+  const { user } = useAuthContext();
+  const [loading, setLoading] = useState(true);
+  const [errors, setErrors] = useState<string[]>([]);
+  const [trackList, setTrackList] = useState<string[]>([]);
+  const [trackGroups, setTrackGroups] = useState<string[]>([]);
+
+  useEffect(() => {
+    function getTrackGroups() {
+      const trackGroups = [];
+      for (const track of trackList) {
+        const trackEvents = props.scheduleCard.filter((event) => event.track === track);
+        trackGroups.push({
+          title: track,
+          events: trackEvents,
+        });
+      }
+      return trackGroups;
+    }
+
+    async function getTracks() {
+      try {
+        const { status, data } = await RequestHelper.get<[ScheduleEvent]>(`/api/schedule`, {
+          headers: {
+            Authorization: user.token!,
+          },
+        });
+        const tracks = data.map((event) => event.track);
+        const uniqueTracks = new Set(tracks);
+        setTrackList(Array.from(uniqueTracks));
+        setTrackGroups(getTrackGroups());
+      } catch (error) {
+        console.error(error);
+        setErrors((prev) => [...prev, 'Unexpected error. Please try again later']);
+      } finally {
+        setLoading(false);
+      }
+    }
+    getTracks();
+  }, []);
+
   return (
     <>
       <div className="text-6xl font-black p-6">Schedule</div>
@@ -268,22 +309,34 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
         {/* Calender */}
         <div className="overflow-y-auto overflow-x-hidden lg:w-[62%] w-full h-full border-2 border-black rounded-md">
           <Paper>
-            <Scheduler data={props.scheduleCard}>
-              <ViewState defaultCurrentDate={defaultCurrentDate} />
+            <div className="flex flex-row">
+              {trackList.map((trackName) => (
+                <>
+                  <div className="w-inherit">
+                    <h2>
+                      <span>{trackName}</span>
+                    </h2>
+                  </div>
+                  <Scheduler
+                    key={trackName}
+                    data={props.scheduleCard.filter((event) => event.track == trackName)}
+                  >
+                    <ViewState defaultCurrentDate={defaultCurrentDate} />
+                    <DayView startDayHour={8} endDayHour={24} intervalCount={1} />
+                    <Appointments
+                      appointmentComponent={Appointment}
+                      appointmentContentComponent={AppointmentContent}
+                    />
 
-              <DayView startDayHour={8} endDayHour={24} intervalCount={1} />
-
-              <Appointments
-                appointmentComponent={Appointment}
-                appointmentContentComponent={AppointmentContent}
-              />
-              {/* <Resources data={resources} /> */}
-
-              <Toolbar />
-              <DateNavigator />
-              <ViewSwitcher />
-              <TodayButton />
-            </Scheduler>
+                    {/* <Resources data={resources} /> */}
+                    <Toolbar />
+                    <DateNavigator />
+                    <ViewSwitcher />
+                    <TodayButton />
+                  </Scheduler>
+                </>
+              ))}
+            </div>
           </Paper>
         </div>
 
