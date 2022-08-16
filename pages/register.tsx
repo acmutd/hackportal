@@ -155,7 +155,8 @@ export default function Register() {
     if (obj.numberInputQuestions)
       for (let inputObj of obj.numberInputQuestions) {
         if (inputObj.required) {
-          if (!values[inputObj.name]) errors[inputObj.name] = 'Required';
+          if (!values[inputObj.name] && values[inputObj.name] !== 0)
+            errors[inputObj.name] = 'Required';
         }
       }
     if (obj.dropdownQuestions)
