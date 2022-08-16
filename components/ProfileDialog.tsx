@@ -47,7 +47,7 @@ export default function ProfileDialog({ onDismiss }: ProfileDialogProps) {
   }
 
   return (
-    <div className="profileDialog absolute top-8 right-8 min-w-xl max-w-2xl shadow-md rounded-md bg-white">
+    <div className="profileDialog absolute top-8 sm:right-8 right-4 md:max-w-2xl sm:max-w-lg max-w-sm shadow-md rounded-md bg-white md:text-lg text-base">
       {/* TODO: Don't show specific UI unless signed in */}
       <div className="flex px-4 pt-4 pb-2">
         {/* TODO: Handle default undefined photo URL with default */}
@@ -66,7 +66,7 @@ export default function ProfileDialog({ onDismiss }: ProfileDialogProps) {
             <div className="text-md">{role}</div>
           </div>
         )) || (
-          <div className="p-4 text-lg font-bold">
+          <div className="p-4 font-bold">
             Sign in to add events to your schedule, check in, and more!
           </div>
         )}

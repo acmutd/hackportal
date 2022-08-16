@@ -335,6 +335,58 @@ a.link {
   }
 }
 
+.satelliteX {
+  animation: xAxis 70s infinite ease-out;
+}
+
+.satelliteY {
+  animation: yAxis 70s infinite ease-in;
+}
+
+
+@keyframes xAxis {
+  50%, 100% {
+    animation-timing-function: ease-out;
+    transform: translatex(-120vw);
+  }
+}
+
+@keyframes yAxis {
+  40%, 100% {
+    animation-timing-function: ease-in;
+    transform: translatey(500%);
+  }
+}
+
+.satelliteX2 {
+  animation: xAxis2 70s infinite ease-out;
+}
+
+.satelliteY2 {
+  animation: yAxis2 70s infinite ease-in;
+}
+
+
+@keyframes xAxis2 {
+  0%, 40% {
+    transform: translatex(0vw);
+  }
+  100% {
+    animation-timing-function: ease-out;
+    transform: translatex(130vw);
+  }
+}
+
+@keyframes yAxis2 {
+  0%, 30% {
+    transform: translatey(0%);
+  }
+  100% {
+    animation-timing-function: ease-in;
+    transform: translatey(-500%);
+  }
+}
+
 /* .mobileFooterIcon {
   transform: scale(2);
 } */
