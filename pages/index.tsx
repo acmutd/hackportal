@@ -47,6 +47,7 @@ export default function Home(props: {
     description: '',
     prizes: [],
   });
+  const [notif, setNotif] = useState(false);
 
   const colorSchemes: ColorScheme[] = [
     {
@@ -64,6 +65,7 @@ export default function Home(props: {
   ];
 
   useEffect(() => {
+    setNotif(checkNotif());
     // Set amount of time notification prompt gets displayed before fading out
     setTimeout(fadeOutEffect, 2500);
     setSpeakers(props.keynoteSpeakers);
@@ -81,7 +83,6 @@ export default function Home(props: {
         prizes: sortedChallenges[0].prizes,
       });
     }
-
     if (sortedQuestions.length != 0) {
       setQuestions(sortedQuestions);
     }
@@ -208,7 +209,7 @@ export default function Home(props: {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Notification info pop up */}
-      {checkNotif() && (
+      {notif && (
         <div
           id="popup"
           className="fixed z-50 md:translate-x-0 translate-x-1/2 w-[22rem] rounded-md px-4 py-2 top-16 md:right-6 right-1/2 notif text-white md:text-base text-sm"
