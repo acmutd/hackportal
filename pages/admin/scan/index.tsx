@@ -216,16 +216,22 @@ export default function Admin() {
   });
 
   if (!isSignedIn || !isAuthorized(user))
-    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+    return (
+      <div className="background h-screen">
+        <div className="md:text-4xl sm:text-2xl text-xl text-white font-medium text-center mt-[6rem]">
+          Unauthorized
+        </div>
+      </div>
+    );
 
   return (
-    <div className="relative flex flex-col flex-grow">
+    <div className="relative flex flex-col flex-grow background text-white">
       <Head>
         <title>HackUTD IX - Admin</title>
         <meta name="description" content="HackUTD's Admin Page" />
       </Head>
 
-      <section id="subheader" className="p-4">
+      <section id="subheader" className="">
         <AdminHeader />
       </section>
       {currentScan && (
@@ -237,7 +243,7 @@ export default function Admin() {
           <div className="flex items-center justify-center min-h-screen">
             <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
 
-            <div className="rounded-2xl relative bg-white flex flex-col ljustify-between p-4 rounded max-w-sm mx-auto">
+            <div className="rounded-2xl relative bg-white flex flex-col justify-between p-4 rounded max-w-sm mx-auto">
               <Dialog.Title>
                 Delete <span className="font-bold">{currentScan.name}</span>
               </Dialog.Title>
@@ -272,7 +278,7 @@ export default function Admin() {
       {showNewScanForm ? (
         <div className="px-6 py-4">
           <button
-            className="p-3 rounded-lg border-2 hover:bg-gray-200"
+            className="p-3 rounded-lg border-2 hover:bg-gray-500"
             onClick={() => {
               setShowNewScanForm(false);
             }}
@@ -282,7 +288,7 @@ export default function Admin() {
           <div className="text-2xl font-black text-center">Add New Scan</div>
           <div className="w-3/5 my-5 mx-auto">
             <input
-              className="p-3 rounded-lg w-full border-2"
+              className="p-3 rounded-lg w-full input"
               type="text"
               name="name"
               value={newScanForm.name}
@@ -312,7 +318,7 @@ export default function Admin() {
           </div>
           <div className="flex justify-around">
             <button
-              className="mx-auto bg-green-300 p-3 rounded-lg font-bold hover:bg-green-200"
+              className="mx-auto bg-green-500 p-3 rounded-lg font-bold hover:bg-green-400"
               onClick={async () => {
                 await createNewScan();
               }}
@@ -324,7 +330,7 @@ export default function Admin() {
       ) : (
         <>
           <div className="flex flex-col justify-center top-6">
-            <div className="text-2xl font-black text-center">Scan Types</div>
+            <div className="text-2xl font-bold text-center">Scan Types</div>
             <div className="flex md:flex-row md:flex-wrap md:justify-center overflow-x-auto mx-2">
               {scansFetched ? (
                 scanTypes.map((d, idx) => (
@@ -336,7 +342,7 @@ export default function Admin() {
                   />
                 ))
               ) : (
-                <div className="bg-red-200 w-full flex justify-center">
+                <div className="w-full flex justify-center">
                   <LoadIcon width={150} height={150} />
                 </div>
               )}
@@ -450,7 +456,7 @@ export default function Admin() {
                   ) : (
                     <div className="mx-auto flex flex-row gap-x-4">
                       <button
-                        className="font-bold bg-green-300 hover:bg-green-200 rounded-lg md:p-3 p-1 px-2"
+                        className="font-bold bg-green-500 hover:bg-green-400 rounded-lg md:p-3 p-1 px-2"
                         onClick={() => {
                           setStartScan(true);
                         }}
@@ -458,7 +464,7 @@ export default function Admin() {
                         Start Scan
                       </button>
                       <button
-                        className="font-bold bg-gray-300 hover:bg-gray-200 rounded-lg md:p-3 p-1 px-2"
+                        className="font-bold bg-gray-500 hover:bg-gray-400 rounded-lg md:p-3 p-1 px-2"
                         onClick={() => {
                           setCurrentEditScan(currentScan);
                           setEditScan(true);
@@ -467,7 +473,7 @@ export default function Admin() {
                         Edit
                       </button>
                       <button
-                        className="font-bold bg-red-300 hover:bg-red-200 rounded-lg md:p-3 p-1 px-2"
+                        className="font-bold bg-red-400 hover:bg-red-300 rounded-lg md:p-3 p-1 px-2"
                         onClick={() => {
                           if (currentScan.isCheckIn) {
                             alert('Check-in scan cannot be deleted');
@@ -479,7 +485,7 @@ export default function Admin() {
                         Delete
                       </button>
                       <button
-                        className="font-bold bg-red-300 hover:bg-red-200 rounded-lg md:p-3 p-1 px-2"
+                        className="font-bold bg-red-400 hover:bg-red-300 rounded-lg md:p-3 p-1 px-2"
                         onClick={() => {
                           setCurrentScan(undefined);
                           setCurrentScanIdx(-1);
@@ -496,7 +502,7 @@ export default function Admin() {
             {!currentScan && !editScan && !showDeleteScanDialog && !startScan && (
               <div className="mx-auto my-5">
                 <button
-                  className="bg-green-300 p-3 rounded-lg font-bold hover:bg-green-200"
+                  className="input registerGlow p-3 rounded-lg font-bold"
                   onClick={() => {
                     setShowNewScanForm(true);
                   }}
