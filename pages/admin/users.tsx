@@ -106,7 +106,13 @@ export default function UserPage() {
   };
 
   if (!user || !isAuthorized(user))
-    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+    return (
+      <div className="background h-screen">
+        <div className="md:text-4xl sm:text-2xl text-xl text-white font-medium text-center mt-[6rem]">
+          Unauthorized
+        </div>
+      </div>
+    );
 
   if (loading) {
     return (
@@ -117,7 +123,7 @@ export default function UserPage() {
   }
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow background text-white ">
       <Head>
         <title>HackUTD IX - Admin</title> {/* !change */}
         <meta name="description" content="HackUTD's Admin Page" />
@@ -131,8 +137,7 @@ export default function UserPage() {
             <h1 className="font-bold text-lg">Search Users</h1>
             <input
               type="text"
-              className="rounded-lg px-2 py-1 w-2/5"
-              style={{ backgroundColor: '#F2F3FF' }}
+              className="rounded-lg px-2 py-1 w-2/5 input"
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);

@@ -38,7 +38,13 @@ export default function AdminStatsPage() {
   }, []);
 
   if (!isSignedIn || !isAuthorized(user)) {
-    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+    return (
+      <div className="background h-screen">
+        <div className="md:text-4xl sm:text-2xl text-xl text-white font-medium text-center mt-[6rem]">
+          Unauthorized
+        </div>
+      </div>
+    );
   }
 
   if (loading) {
@@ -46,7 +52,7 @@ export default function AdminStatsPage() {
   }
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow home text-white">
       <Head>
         <title>HackUTD IX - Admin</title>
         <meta name="description" content="HackPortal's Admin Page" />
