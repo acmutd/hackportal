@@ -34,25 +34,30 @@ export default function AdminHeader() {
   };
 
   return (
-    <section className="p-4">
+    <section className="p-4 mt-[6rem]">
       <header className="top-0 sticky hidden md:flex flex-row justify-between p-2 md:p-4 items-center">
         <div className="mx-auto md:flex justify-center text-xl font-header md:text-left">
-          <NavLink href="/admin" exact={true} addClass="border-b-2 border-black" className="mx-4">
+          <NavLink
+            href="/admin"
+            exact={true}
+            addClass="border-b-2 border-white"
+            className="mx-4 sourceSansPro textGradient 2xl:text-4xl lg:text-3xl md:text-xl font-semibold"
+          >
             Event Dashboard
           </NavLink>
           <NavLink
             href="/admin/scan"
             exact={true}
-            addClass="border-b-2 border-black"
-            className="mx-4"
+            addClass="border-b-2 border-white"
+            className="mx-4 sourceSansPro textGradient 2xl:text-4xl lg:text-3xl md:text-xl font-semibold"
           >
             Scanner
           </NavLink>
           <NavLink
             href="/admin/users"
             exact={true}
-            addClass="border-b-2 border-black"
-            className="mx-4"
+            addClass="border-b-2 border-white"
+            className="mx-4 sourceSansPro textGradient 2xl:text-4xl lg:text-3xl md:text-xl font-semibold"
           >
             Users Dashboard
           </NavLink>
@@ -60,8 +65,8 @@ export default function AdminHeader() {
             <NavLink
               href="/admin/stats"
               exact={true}
-              addClass="border-b-2 border-black"
-              className="mx-4"
+              addClass="border-b-2 border-white"
+              className="mx-4 sourceSansPro textGradient 2xl:text-4xl lg:text-3xl md:text-xl font-semibold"
             >
               Stats at a Glance
             </NavLink>
@@ -69,22 +74,27 @@ export default function AdminHeader() {
         </div>
       </header>
       <div className="my-4 md:hidden ">
-        <button className="accordion text-left p-2 text-sm bg-[#C1C8FF]">Admin Menu</button>
-        <div className="panel w-full bg-[#F2F3FF] text-sm">
+        <button className="accordion text-left p-2 text-base accountSection font-bold">
+          Admin Menu
+        </button>
+        <div className="panel adminHeaderList w-full text-sm">
           <ul className="">
-            <li className="p-2 hover:bg-[#DCDEFF]">
+            <Link href="/admin" passHref={true}>
+              <li className="p-2 adminHeaderItem cursor-pointer">Event Dashboard</li>
+            </Link>
+            {/* <li className="p-2 adminHeaderItem">
               <Link href="/admin">Event Dashboard</Link>
-            </li>
-            <li className="p-2 hover:bg-[#DCDEFF]">
-              <Link href="/admin/scan">Scanner</Link>
-            </li>
-            <li className="p-2 hover:bg-[#DCDEFF]">
-              <Link href="/admin/users">Users Dashboard</Link>
-            </li>
+            </li> */}
+            <Link href="/admin/scan" passHref={true}>
+              <li className="p-2 adminHeaderItem cursor-pointer">Scanner</li>
+            </Link>
+            <Link href="/admin/users" passHref={true}>
+              <li className="p-2 adminHeaderItem cursor-pointer">Users Dashbaord</li>
+            </Link>
             {isAuthorized(user) && (
-              <li className="p-2 hover:bg-[#DCDEFF]">
-                <Link href="/admin/stats">Stats at a Glance</Link>
-              </li>
+              <Link href="/admin/stats" passHref={true}>
+                <li className="p-2 adminHeaderItem cursor-pointer">Stats at a Glance</li>
+              </Link>
             )}
           </ul>
         </div>

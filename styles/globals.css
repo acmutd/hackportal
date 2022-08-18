@@ -24,6 +24,9 @@ h1 {
   font-family: 'nasalization';
 }
 
+.sourceSansPro {
+  font-family: 'Source Sans Pro', sans-serif !important;
+}
 
 a.link {
   /* padding-right: 30px; */
@@ -150,6 +153,7 @@ a.link {
   content: '\02795';
   font-size: 12px;
   float: right;
+  color: white;
 }
 
 .menuactive:after {
@@ -387,6 +391,15 @@ a.link {
   }
 }
 
-/* .mobileFooterIcon {
-  transform: scale(2);
-} */
+.adminHeaderList {
+  background-color: rgba(255, 255, 255, 0.168);
+}
+
+.adminHeaderItem:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+.post {
+  background-color: rgba(157, 115, 210, 0.2);
+}

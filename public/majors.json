@@ -1,4 +1,7 @@
 [
+    { "major" : "Computer Science" },
+    { "major" : "Software Engineering" },
+    { "major" : "Data Science" },
     { "major" : "Accounting" },
     { "major" : "Accounting Technician" },
     { "major" : "Actuarial Science" },
@@ -32,7 +35,6 @@
     { "major" : "Computer & Information Sciences, General" },
     { "major" : "Computer Engineering" },
     { "major" : "Computer Networking/Telecommunications" },
-    { "major" : "Computer Science" },
     { "major" : "Computer Software & Media Applications" },
     { "major" : "Computer System Administration" },
     { "major" : "Construction Engineering/Management" },
@@ -103,7 +105,6 @@
     { "major" : "Small Business Management/Operations" },
     { "major" : "Social Sciences, General" },
     { "major" : "Sociology" },
-    { "major" : "Software Engineering" },
     { "major" : "Statistics" },
     { "major" : "Supply Chain Management" },
     { "major" : "Urban Studies/Urban Affairs" },

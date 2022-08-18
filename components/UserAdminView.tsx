@@ -119,7 +119,7 @@ export default function UserAdminView({
         />
       )}
       <button
-        className="border-2 rounded-lg p-3 bg-gray-200"
+        className="p-3 rounded-lg border-2 hover:bg-gray-500 ml-4"
         onClick={() => {
           goBack();
         }}
@@ -136,7 +136,7 @@ export default function UserAdminView({
                 setNewRole(e.target.value);
               }}
               name="new_role"
-              className="border-2 rounded-xl p-2"
+              className="border-2 rounded-xl p-2 input"
             >
               <option value="" disabled>
                 Choose a role

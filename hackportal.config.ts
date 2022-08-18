@@ -144,7 +144,7 @@ export const hackPortalConfig: HackPortalConfig = {
           {
             //University question
             question:
-              'This event is for college students worldwide. Which university do you attend?',
+              'This event is for students worldwide. Which university/school do you attend?',
             id: 'university',
             name: 'university',
             required: true,
@@ -153,7 +153,7 @@ export const hackPortalConfig: HackPortalConfig = {
           },
           {
             //Major question
-            question: 'All majors are welcome at this event. What is your major?',
+            question: 'ALL majors are welcome at this event! What is your major?',
             id: 'major',
             name: 'major',
             required: true,
@@ -172,6 +172,10 @@ export const hackPortalConfig: HackPortalConfig = {
             name: 'studyLevel',
             initialValue: '',
             options: [
+              {
+                title: 'High School',
+                value: 'hs',
+              },
               {
                 title: 'Freshman',
                 value: 'freshman',
@@ -443,6 +447,7 @@ export type statRecordTypes = {
   softwareExperience: Record<string, number>;
   studyLevel: Record<string, number>;
   university: Record<string, number>;
+  major: Record<string, number>;
   gender: Record<string, number>;
   hackathonExperience: Record<number, number>;
   heardFrom: Record<string, number>;
@@ -458,6 +463,7 @@ export const fieldNames = {
   softwareExperience: 'Software Experience',
   studyLevel: 'Study Level',
   university: 'University',
+  major: 'major',
   gender: 'Gender',
   hackathonExperience: 'Number of Hackathon attended',
   heardFrom: 'Heard of Hackathon from',
@@ -477,6 +483,7 @@ export const singleField = [
   'softwareExperience',
   'studyLevel',
   'university',
+  'major',
   'gender',
   'hackathonExperience',
   'heardFrom',

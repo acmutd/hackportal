@@ -20,7 +20,7 @@ function NavLink({ href, exact, addClass, children, ...props }) {
   //   props.className += ' active border-b-2 border-black';
   // }
   if (isActive) {
-    props.className += `active ${addClass}`;
+    props.className += ` active ${addClass} `;
   }
 
   return (

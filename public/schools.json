@@ -1,4 +1,5 @@
 [
+  { "university" : "The University of Texas at Dallas" },
   { "university" : "American Heritage School" },
   { "university" : "American River College, California" },
   { "university" : "American University, Washington, D.C." },
@@ -333,7 +334,6 @@
   { "university" : "The University of Texas Rio Grande Valley" },
   { "university" : "The University of Texas at Arlington" },
   { "university" : "The University of Texas at Austin" },
-  { "university" : "The University of Texas at Dallas" },
   { "university" : "The University of Texas at El Paso" },
   { "university" : "The University of Texas at San Antonio" },
   { "university" : "The University of Texas of the Permian Basin" },

@@ -66,8 +66,8 @@ export default function Register() {
     //setting user specific initial values
     formInitialValues['id'] = user?.id || '';
     formInitialValues['preferredEmail'] = user?.preferredEmail || '';
-    formInitialValues['firstName'] = user?.firstName || '';
-    formInitialValues['lastName'] = user?.lastName || '';
+    // formInitialValues['firstName'] = user?.firstName || '';
+    // formInitialValues['lastName'] = user?.lastName || '';
     formInitialValues['permissions'] = user?.permissions || ['hacker'];
   }, []);
 
