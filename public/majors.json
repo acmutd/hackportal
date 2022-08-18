@@ -90,7 +90,6 @@
     { "major" : "Natural Resources Management" },
     { "major" : "Neuroscience" },
     { "major" : "Nuclear Engineering" },
-    { "major" : "Occupational Therapy Assisting" },
     { "major" : "Philosophy" },
     { "major" : "Photography" },
     { "major" : "Physical Sciences, General" },
@@ -108,5 +107,6 @@
     { "major" : "Statistics" },
     { "major" : "Supply Chain Management" },
     { "major" : "Urban Studies/Urban Affairs" },
-    { "major" : "Webpage Design" }
+    { "major" : "Webpage Design" },
+    { "major" : "Other"}
 ]

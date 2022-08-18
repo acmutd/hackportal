@@ -278,17 +278,17 @@ export default function Admin() {
       {showNewScanForm ? (
         <div className="px-6 py-4">
           <button
-            className="p-3 rounded-lg border-2 hover:bg-gray-500"
+            className="md:p-3 p-2 rounded-lg border-2 md:text-lg text-base hover:bg-gray-500 mb-5"
             onClick={() => {
               setShowNewScanForm(false);
             }}
           >
             Back to ScanTypes List
           </button>
-          <div className="text-2xl font-black text-center">Add New Scan</div>
+          <div className="text-2xl font-bold text-center">Add New Scan</div>
           <div className="w-3/5 my-5 mx-auto">
             <input
-              className="p-3 rounded-lg w-full input"
+              className="p-3 rounded-lg w-full input md:text-base text-sm"
               type="text"
               name="name"
               value={newScanForm.name}

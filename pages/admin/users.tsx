@@ -145,9 +145,9 @@ export default function UserPage() {
             />
           </div>
           <div className="p-4 flex flex-row w-full">
-            <div className="w-full md:w-1/6 lg:w-1/12 flex flex-col gap-y-4">
+            <div className="w-[45%] md:w-1/6 lg:w-1/12 flex flex-col gap-y-4">
               <div>
-                <h1 className="text-md font-bold text-center">Filters</h1>
+                <h1 className="text-md font-bold md:text-center">Filters</h1>
                 <FilterComponent
                   checked={filter['hacker']}
                   onCheck={() => {
@@ -185,16 +185,16 @@ export default function UserPage() {
                 />
               </div>
               <div className="my-4">
-                <h1 className="text-md font-bold text-center mb-4">Sort By:</h1>
+                <h1 className="text-md font-bold md:text-center mb-4">Sort By:</h1>
                 <h4
-                  className="text-md text-center underline cursor-pointer"
+                  className="text-md md:text-center underline cursor-pointer"
                   onClick={() => {
                     sortByName();
                   }}
                 >
                   Alphabetically
                 </h4>
-                <h4 className="text-md text-center underline cursor-pointer">User Level</h4>
+                <h4 className="text-md md:text-center underline cursor-pointer">User Level</h4>
               </div>
             </div>
             <div className="w-full px-8">
