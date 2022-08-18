@@ -174,7 +174,7 @@ export const hackPortalConfig: HackPortalConfig = {
             options: [
               {
                 title: 'High School',
-                value: 'hs',
+                value: 'high school',
               },
               {
                 title: 'Freshman',
