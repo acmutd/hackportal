@@ -54,10 +54,17 @@ export default function ResolveQuestionPage({
   };
 
   if (!user || !isAuthorized(user))
-    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+    return (
+      <div className="background h-screen">
+        <div className="md:text-4xl sm:text-2xl text-xl text-white font-medium text-center mt-[6rem]">
+          Unauthorized
+        </div>
+      </div>
+    );
 
   return (
-    <div className="p-6">
+    <div className="p-6 background h-screen text-white">
+      <div className="mt-[6rem]"></div>
       <ErrorList
         errors={errors}
         onClose={(idx: number) => {
@@ -68,18 +75,16 @@ export default function ResolveQuestionPage({
       />
       <PendingQuestion question={question.question} />
       <textarea
-        className="w-full rounded-xl p-4"
+        className="w-full rounded-xl p-4 input"
         rows={5}
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
-        style={{ backgroundColor: '#F2F3FF' }}
         placeholder="Type your answer here"
       ></textarea>
       <div className="flex flex-row justify-end my-4">
         <button
           type="button"
-          className="p-2 rounded-lg"
-          style={{ backgroundColor: '#9CA6FF', color: 'black' }}
+          className="p-2 rounded-lg font-semibold post hover:brightness-125"
           onClick={() => {
             submitAnswer();
           }}
