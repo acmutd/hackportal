@@ -12,7 +12,7 @@ interface StatsPieChartProps {
 
 export default function StatsPieChart({ name, items }: StatsPieChartProps) {
   return (
-    <div className="w-full flex-grow border-2 my-2 rounded-2xl p-6">
+    <div className="w-full flex-grow border-2 my-2 rounded-2xl p-6 text-white">
       <Chart data={items}>
         <Palette
           scheme={['#3FB98E', '#00CDFF', '#A6E5FF', '#CDC4FF', '#FFD9FA', '#DAFFD1', '#F9FFD1']}

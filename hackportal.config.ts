@@ -439,7 +439,6 @@ export const hackPortalConfig: HackPortalConfig = {
 export type statRecordTypes = {
   //name: Record<string || number, number>
   age: Record<number, number>;
-  companies: Record<string, number>;
   dietary: Record<string, number>;
   ethnicity: Record<string, number>;
   race: Record<string, number>;
@@ -468,12 +467,11 @@ export const fieldNames = {
   hackathonExperience: 'Number of Hackathon attended',
   heardFrom: 'Heard of Hackathon from',
   scans: 'Swags', //not part of registration questions, used for scanner
-  companies: 'Companies',
   dietary: 'Dietary',
 };
 
 //name fields that are checkbox questions belong here
-export const arrayField = ['scans', 'companies', 'dietary'];
+export const arrayField = ['scans', 'dietary'];
 //any other fields belong here
 export const singleField = [
   'age',
