@@ -40,12 +40,20 @@ export default function ProfilePage() {
               >
                 <h1 className="font-bold text-xl text-center">HackUTD IX</h1> {/* !change */}
                 <div className="mx-auto">
-                  {user.photoUrl && (
+                  {user.photoUrl ? (
                     <Image
                       className="rounded-full object-cover"
                       src={user.photoUrl}
                       height={180}
                       width={180}
+                      alt="Your profile"
+                    />
+                  ) : (
+                    <Image
+                      className="rounded-full object-cover"
+                      src={'/assets/HackUTD-IX-Logo.png'}
+                      height={250}
+                      width={250}
                       alt="Your profile"
                     />
                   )}

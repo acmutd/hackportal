@@ -89,7 +89,7 @@ export default function AdminHeader() {
               <li className="p-2 adminHeaderItem cursor-pointer">Scanner</li>
             </Link>
             <Link href="/admin/users" passHref={true}>
-              <li className="p-2 adminHeaderItem cursor-pointer">Users Dashbaord</li>
+              <li className="p-2 adminHeaderItem cursor-pointer">Users Dashboard</li>
             </Link>
             {isAuthorized(user) && (
               <Link href="/admin/stats" passHref={true}>
