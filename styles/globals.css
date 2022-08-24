@@ -403,3 +403,15 @@ a.link {
 .post {
   background-color: rgba(157, 115, 210, 0.2);
 }
+
+.announcements {
+  background: rgba(143, 36, 26, 0.4);
+}
+
+.events {
+  background: rgba(78, 149, 255, 0.2);
+}
+
+.dashboardChallenges {
+  background: rgba(188, 78, 255, 0.2);
+}

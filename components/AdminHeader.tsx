@@ -82,9 +82,6 @@ export default function AdminHeader() {
             <Link href="/admin" passHref={true}>
               <li className="p-2 adminHeaderItem cursor-pointer">Event Dashboard</li>
             </Link>
-            {/* <li className="p-2 adminHeaderItem">
-              <Link href="/admin">Event Dashboard</Link>
-            </li> */}
             <Link href="/admin/scan" passHref={true}>
               <li className="p-2 adminHeaderItem cursor-pointer">Scanner</li>
             </Link>

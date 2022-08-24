@@ -27,47 +27,49 @@ export default function DashboardHeader() {
 
   return (
     <section>
-      <header className="md:inline hidden justify-center py-2 md:p-4 items-center">
-        <div className="mx-auto flex flex-wrap justify-center lg:text-xl text-lg font-header text-center">
+      <header className="md:block hidden justify-center py-2 md:p-4 items-center">
+        <div className="mx-auto flex flex-wrap justify-center text-center">
           <NavLink
             href="/dashboard"
             exact={true}
-            addClass="border-b-2 border-black"
-            className="mx-4"
+            addClass="border-b-2 border-white"
+            className="mx-4 sourceSansPro textGradient xl:text-5xl md:text-3xl font-semibold"
           >
             HackCenter
           </NavLink>
           <NavLink
             href="/dashboard/scan-in"
             exact={true}
-            addClass="border-b-2 border-black"
-            className="mx-4"
+            addClass="border-b-2 border-white"
+            className="xl:mx-16 md:mx-8 sourceSansPro textGradient xl:text-5xl md:text-3xl font-semibold"
           >
             Scan-In
           </NavLink>
           <NavLink
             href="/dashboard/questions"
             exact={true}
-            addClass="border-b-2 border-black"
-            className="mx-4"
+            addClass="border-b-2 border-white"
+            className="mx-4 sourceSansPro textGradient xl:text-5xl md:text-3xl font-semibold"
           >
             Ask a Question
           </NavLink>
         </div>
       </header>
       <div className="my-4 md:hidden ">
-        <button className="accordion text-left p-2 text-sm bg-[#C1C8FF]">Dashboard Menu</button>
-        <div className="panel w-full bg-[#F2F3FF] text-sm">
+        <button className="accordion text-left p-2 text-base accountSection font-bold">
+          Dashboard Menu
+        </button>
+        <div className="panel w-full adminHeaderList text-sm">
           <ul className="">
-            <li className="p-2 hover:bg-[#DCDEFF]">
-              <Link href="/dashboard">HackCenter</Link>
-            </li>
-            <li className="p-2 hover:bg-[#DCDEFF]">
-              <Link href="/dashboard/scan-in">Scan-In</Link>
-            </li>
-            <li className="p-2 hover:bg-[#DCDEFF]">
-              <Link href="/dashboard/questions">Ask a Question</Link>
-            </li>
+            <Link href="/dashboard" passHref={true}>
+              <li className="p-2 adminHeaderItem cursor-pointer">HackCenter</li>
+            </Link>
+            <Link href="/dashboard/scan-in" passHref={true}>
+              <li className="p-2 adminHeaderItem cursor-pointer">Scan-In</li>
+            </Link>
+            <Link href="/dashboard/questions" passHref={true}>
+              <li className="p-2 adminHeaderItem cursor-pointer">Ask a Question</li>
+            </Link>
           </ul>
         </div>
       </div>
