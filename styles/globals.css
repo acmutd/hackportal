@@ -415,3 +415,7 @@ a.link {
 .dashboardChallenges {
   background: rgba(188, 78, 255, 0.2);
 }
+
+.blueButtonGradient {
+  background: linear-gradient(180deg, #01CCF9 0%, #11506F 100%);
+}

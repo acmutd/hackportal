@@ -40,7 +40,7 @@ export default function AnsweredQuestion({
         {({ open }) => (
           <div className="w-full">
             <div className="flex flex-row items-center gap-x-2">
-              <CheckCircleFilled style={{ color: iconColorCode }} />
+              {/* <CheckCircleFilled style={{ color: iconColorCode }}/> */}
               <Disclosure.Button className="w-full" as="div">
                 <button
                   className="w-full"
@@ -48,10 +48,7 @@ export default function AnsweredQuestion({
                     toggleDisclosure();
                   }}
                 >
-                  <div
-                    className="rounded-lg py-2 px-3 flex flex-row justify-between"
-                    style={{ backgroundColor: colorCode }}
-                  >
+                  <div className="rounded-lg py-2 px-3 flex flex-row justify-between events">
                     <h1 className="text-left font-semibold">{question}</h1>
                     <ChevronUpIcon className={`${isOpen ? 'transform rotate-180' : ''} w-5 h-5`} />
                   </div>
@@ -59,7 +56,7 @@ export default function AnsweredQuestion({
               </Disclosure.Button>
             </div>
             {isOpen && (
-              <Disclosure.Panel className="py-2 px-6" static>
+              <Disclosure.Panel className="py-2 px-3" static>
                 {answer}
               </Disclosure.Panel>
             )}
