@@ -1,0 +1,44 @@
+[
+  {
+    "title": "General",
+    "href": "#Section1",
+    "sections": [
+      {
+        "title": "Food",
+        "href": "#Subsection1"
+      },
+      {
+        "title": "Mentors",
+        "href": "#Subsection2"
+      }
+    ]
+  },
+  {
+    "title": "Tech Workshop Packs",
+    "href": "#Section2",
+    "sections": [
+      {
+        "title": "Name of Workshop 1",
+        "href": "#Subsection3"
+      },
+      {
+        "title": "Name of Workshop 2",
+        "href": "#Subsection4"
+      },
+      {
+        "title": "Name of Workshop 3",
+        "href": "#Subsection5"
+      }
+    ]
+  },
+  {
+    "title": "Sponsor Workshop Packs",
+    "href": "#Section3",
+    "sections": [
+      {
+        "title": "Name of Workshop 4",
+        "href": "#Subsection6"
+      }
+    ]
+  }
+]
