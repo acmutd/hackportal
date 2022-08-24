@@ -12,6 +12,13 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
+// core styles shared by all of react-notion-x (required)
+import 'react-notion-x/src/styles.css';
+// used for code syntax highlighting
+import 'prismjs/themes/prism-tomorrow.css';
+// used for rendering equations
+import 'katex/dist/katex.min.css';
+
 initFirebase();
 
 /**
