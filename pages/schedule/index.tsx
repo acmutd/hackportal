@@ -279,7 +279,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
                 <Toolbar />
                 <DateNavigator />
                 <TodayButton />
-                <GroupingState grouping={grouping} />
+                <GroupingState grouping={grouping} groupByDate={() => true} />
                 <IntegratedGrouping />
                 <GroupingPanel />
               </Scheduler>
