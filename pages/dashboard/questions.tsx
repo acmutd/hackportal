@@ -155,7 +155,7 @@ export default function QuestionsPage() {
     );
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow background text-white">
       <Head>
         <title>HackUTD IX - Questions</title> {/* !change */}
         <meta name="description" content="HackUTD's Quesiton and Answer Page " /> {/* !change */}
@@ -168,25 +168,23 @@ export default function QuestionsPage() {
           setErrors(newErrorList);
         }}
       />
-      <div className="px-4">
+      <div className="mt-[4rem] px-6">
         <DashboardHeader />
       </div>
-      <div className="top-6 p-4 flex flex-col gap-y-3">
-        <h4 className="font-bold text-3xl">Ask the organizers a question!</h4>
+      <div className="top-6 md:mt-12 mt-8 xl:px-36 md:px-12 px-6 flex flex-col gap-y-3">
+        <h4 className="font-medium text-3xl">Ask Us Your Questions!</h4>
         <div>
           <textarea
-            className="w-full rounded-xl p-4"
+            className="w-full rounded-xl p-4 dashboardChallenges"
             rows={5}
             value={currentQuestion}
             onChange={(e) => setCurrentQuestion(e.target.value)}
-            style={{ backgroundColor: '#F2F3FF' }}
             placeholder="Type your question here"
           ></textarea>
           <div className="flex flex-row justify-end my-4">
             <button
               type="button"
-              className="p-2 rounded-lg"
-              style={{ backgroundColor: '#9CA6FF', color: 'black' }}
+              className="py-2 px-4 font-bold rounded-full blueButtonGradient"
               onClick={() => {
                 submitQuestion();
               }}
@@ -197,7 +195,7 @@ export default function QuestionsPage() {
         </div>
 
         <div>
-          <h4 className="font-bold text-2xl">My Pending Questions</h4>
+          <h4 className="font-medium text-2xl">My Pending Questions</h4>
           {user ? (
             pendingQuestions.map(({ question }, idx) => (
               <PendingQuestion key={idx} question={question} />
@@ -208,7 +206,7 @@ export default function QuestionsPage() {
         </div>
 
         <div className="my-4">
-          <h4 className="font-bold text-2xl">My Answered Questions</h4>
+          <h4 className="font-medium text-2xl">My Answered Questions</h4>
           {user ? (
             answeredQuestions.map(({ question, answer }, idx) => (
               <AnsweredQuestion

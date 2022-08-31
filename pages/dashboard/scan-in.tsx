@@ -56,32 +56,30 @@ export default function Scan() {
     );
 
   return (
-    <div className="flex flex-wrap flex-grow">
+    <div className="flex flex-wrap flex-col flex-grow text-white background">
       <Head>
         <title>Scan-In</title>
         <meta name="description" content="HackPortal's Scan-In" /> {/* !change */}
       </Head>
 
-      <Sidebar />
-
-      <section id="mainContent" className="px-6 py-3 lg:wd-7/8 md:w-6/7 w-full">
+      <section id="mainContent" className="px-6 py-3 mt-[5rem]">
         <DashboardHeader />
         {hasProfile ? (
           <div className="flex flex-col items-center justify-center top-6 ">
-            <div>
+            <div className="mt-[2rem]">
               <h4 className="text-center text-xl">Hacker Tag</h4>
-              <p>
+              <p className="text-center">
                 Tap the button to generate your QR code to be scanned by an organizer for events
               </p>
               <span className="text-center text-lg">{error}</span>
             </div>
             <div
-              className="rounded-2xl bg-green-300 text-center p-3 m-auto cursor-pointer hover:brightness-125 my-3"
+              className="rounded-2xl accountSection text-center py-3 px-5 m-auto cursor-pointer hover:brightness-150 my-6 sm:my-3"
               onClick={fetchQR}
             >
               Fetch QR
             </div>
-            <QRCode data={qrData} loading={qrLoading} width={200} height={200} />
+            <QRCode data={qrData} loading={qrLoading} width={300} height={300} />
           </div>
         ) : (
           <div className="top-6 flex justify-center md:text-lg text-base">
