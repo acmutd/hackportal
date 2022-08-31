@@ -224,20 +224,12 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
   ];
 
   const trackColor = (track: string) => {
-    if (track === 'general') return teal;
-    if (track === 'technical') return red;
-    if (track === 'social') return indigo;
-    if (track === 'sponsor') return orange;
-    if (track === 'workshop') return blue;
+    if (track === 'General') return teal;
+    if (track === 'Technical') return red;
+    if (track === 'Social') return indigo;
+    if (track === 'Sponsor') return orange;
+    if (track === 'Workshop') return blue;
     else return teal;
-  };
-  const trackText = (track: string) => {
-    if (track === 'general') return 'General';
-    if (track === 'technical') return 'Technical';
-    if (track === 'social') return 'Social';
-    if (track === 'sponsor') return 'Sponsor';
-    if (track === 'workshop') return 'Workshop';
-    else return 'General';
   };
 
   const data = props.scheduleCard;
