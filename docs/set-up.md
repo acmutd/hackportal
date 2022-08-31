@@ -99,6 +99,9 @@ NEXT_PUBLIC_RESUME_UPLOAD_PASSWORD=
 ## Firebase Setup
  Follow the instructions in the [Firebase Setup doc](./firebase-setup.md) to see how to set Firebase up for your hackathon.
 
+## Hackerpack Setup
+Follow the instructions in the [Hackerpack Setup docs](./hackerpack-setup.md) to see the different ways to set up the hackerpack. This is a place where you can display your detailed event info, workshops, food, tech guides, and whatever else you want. We have made it as simple as creating a Notion page (though you can definitely write your HTML!).
+
 # Starting the Server
 Run the development server:
 
