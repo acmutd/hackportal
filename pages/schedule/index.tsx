@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { ViewState } from '@devexpress/dx-react-scheduler';
+import { GroupingState, IntegratedGrouping, ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   DayView,
@@ -8,10 +8,8 @@ import {
   MonthView,
   Toolbar,
   DateNavigator,
-  ViewSwitcher,
   TodayButton,
   Resources,
-  AppointmentTooltip,
   GroupingPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { withStyles, Theme, createStyles } from '@material-ui/core';
@@ -22,7 +20,6 @@ import { WithStyles } from '@material-ui/styles';
 import classNames from 'clsx';
 import { GetServerSideProps } from 'next';
 import { RequestHelper } from '../../lib/request-helper';
-import { StayCurrentLandscapeTwoTone } from '@material-ui/icons';
 import CalendarIcon from '@material-ui/icons/CalendarToday';
 import PinDrop from '@material-ui/icons/PinDrop';
 import ClockIcon from '@material-ui/icons/AccessTime';
@@ -30,29 +27,7 @@ import Backpack from '@material-ui/icons/LocalMall';
 import Description from '@material-ui/icons/BorderColor';
 import firebase from 'firebase';
 import { useAuthContext } from '../../lib/user/AuthContext';
-
-const resources = [
-  {
-    fieldName: 'location',
-    title: 'Location',
-    instances: [
-      { id: 'Room 1', text: 'Room 1', color: indigo },
-      { id: 'Room 2', text: 'Room 2', color: blue },
-      { id: 'Room 3', text: 'Room 3', color: teal },
-    ],
-  },
-  {
-    fieldName: 'Event',
-    title: 'Type',
-    instances: [
-      { id: 1, text: 'Event', color: red },
-      { id: 2, text: 'Sponsor', color: blue },
-      { id: 3, text: 'Tech Talk', color: indigo },
-      { id: 4, text: 'Workshop', color: purple },
-      { id: 5, text: 'Social', color: orange },
-    ],
-  },
-];
+import { ControlOutlined } from '@ant-design/icons';
 
 const styles = ({ palette }: Theme) =>
   createStyles({
@@ -130,30 +105,6 @@ const defaultCurrentDate = new Date(2021, 10, 13, 9, 0);
 }
 // const defaultCurrentDate = new Date();
 
-const DayScaleCell = withStyles(styles)(
-  ({ startDate, classes, ...restProps }: DayScaleCellProps) => (
-    <MonthView.DayScaleCell
-      className={classNames({
-        [classes.weekEndDayScaleCell]: isWeekEnd(startDate),
-      })}
-      startDate={startDate}
-      {...restProps}
-    />
-  ),
-);
-
-const TimeTableCell = withStyles(styles)(
-  ({ startDate, classes, ...restProps }: TimeTableCellProps) => (
-    <MonthView.TimeTableCell
-      className={classNames({
-        [classes.weekEndCell]: isWeekEnd(startDate),
-      })}
-      startDate={startDate}
-      {...restProps}
-    />
-  ),
-);
-
 // #FOLD_BLOCK
 const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(
   ({
@@ -183,6 +134,7 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(
 );
 
 export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
+  // Hooks
   const [eventData, setEventData] = useState({
     title: '',
     speakers: '',
@@ -191,8 +143,10 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
     page: '',
     description: '',
     location: '',
+    track: '',
   });
 
+  // Scheduler configuration
   const Appointment = withStyles(styles)(
     ({ onClick, classes, data, ...restProps }: AppointmentProps) => (
       <Appointments.Appointment
@@ -259,48 +213,52 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
       page: data.page,
       description: data.description,
       location: data.location,
+      track: data.track,
     });
   };
 
-  const { user } = useAuthContext();
-  const [loading, setLoading] = useState(true);
-  const [errors, setErrors] = useState<string[]>([]);
-  const [trackList, setTrackList] = useState<string[]>([]);
-  const [trackGroups, setTrackGroups] = useState<string[]>([]);
+  const grouping = [
+    {
+      resourceName: 'track',
+    },
+  ];
 
-  useEffect(() => {
-    function getTrackGroups() {
-      const trackGroups = [];
-      for (const track of trackList) {
-        const trackEvents = props.scheduleCard.filter((event) => event.track === track);
-        trackGroups.push({
-          title: track,
-          events: trackEvents,
-        });
-      }
-      return trackGroups;
-    }
+  const trackColor = (track: string) => {
+    if (track === 'general') return teal;
+    if (track === 'technical') return red;
+    if (track === 'social') return indigo;
+    if (track === 'sponsor') return orange;
+    if (track === 'workshop') return blue;
+    else return teal;
+  };
+  const trackText = (track: string) => {
+    if (track === 'general') return 'General';
+    if (track === 'technical') return 'Technical';
+    if (track === 'social') return 'Social';
+    if (track === 'sponsor') return 'Sponsor';
+    if (track === 'workshop') return 'Workshop';
+    else return 'General';
+  };
 
-    async function getTracks() {
-      try {
-        const { status, data } = await RequestHelper.get<[ScheduleEvent]>(`/api/schedule`, {
-          headers: {
-            Authorization: user.token!,
-          },
-        });
-        const tracks = data.map((event) => event.track);
-        const uniqueTracks = new Set(tracks);
-        setTrackList(Array.from(uniqueTracks));
-        setTrackGroups(getTrackGroups());
-      } catch (error) {
-        console.error(error);
-        setErrors((prev) => [...prev, 'Unexpected error. Please try again later']);
-      } finally {
-        setLoading(false);
-      }
-    }
-    getTracks();
-  }, []);
+  const data = props.scheduleCard;
+  const tracks = data.map((event) => event.track);
+  const uniqueTracks = new Set(tracks);
+  const resources = [
+    {
+      fieldName: 'track',
+      title: 'track',
+      instances: Array.from(
+        new Set(
+          Array.from(uniqueTracks).map((track) => ({
+            id: track,
+            text: track,
+            color: trackColor(track),
+          })),
+        ),
+      ),
+    },
+  ];
+  console.log(resources);
 
   return (
     <>
@@ -310,32 +268,21 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
         <div className="overflow-y-auto overflow-x-hidden lg:w-[62%] w-full h-full border-2 border-black rounded-md">
           <Paper>
             <div className="flex flex-row">
-              {trackList.map((trackName) => (
-                <>
-                  <div className="w-inherit">
-                    <h2>
-                      <span>{trackName}</span>
-                    </h2>
-                  </div>
-                  <Scheduler
-                    key={trackName}
-                    data={props.scheduleCard.filter((event) => event.track == trackName)}
-                  >
-                    <ViewState defaultCurrentDate={defaultCurrentDate} />
-                    <DayView startDayHour={8} endDayHour={24} intervalCount={1} />
-                    <Appointments
-                      appointmentComponent={Appointment}
-                      appointmentContentComponent={AppointmentContent}
-                    />
-
-                    {/* <Resources data={resources} /> */}
-                    <Toolbar />
-                    <DateNavigator />
-                    <ViewSwitcher />
-                    <TodayButton />
-                  </Scheduler>
-                </>
-              ))}
+              <Scheduler data={props.scheduleCard}>
+                <ViewState defaultCurrentDate={defaultCurrentDate} />
+                <DayView startDayHour={8} endDayHour={24} intervalCount={1} />
+                <Appointments
+                  appointmentComponent={Appointment}
+                  appointmentContentComponent={AppointmentContent}
+                />
+                <Resources data={resources} mainResourceName={'track'} />
+                <Toolbar />
+                <DateNavigator />
+                <TodayButton />
+                <GroupingState grouping={grouping} />
+                <IntegratedGrouping />
+                <GroupingPanel />
+              </Scheduler>
             </div>
           </Paper>
         </div>
