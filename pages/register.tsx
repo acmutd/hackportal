@@ -99,7 +99,7 @@ export default function Register() {
         });
       }
       await RequestHelper.post<Registration, any>('/api/applications', {}, registrationData);
-      alert('Profile created successful');
+      alert('Registered successfully');
       updateProfile(registrationData);
       router.push('/profile');
     } catch (error) {
@@ -133,7 +133,8 @@ export default function Register() {
     if (obj.numberInputQuestions)
       for (let inputObj of obj.numberInputQuestions) {
         if (inputObj.required) {
-          if (!values[inputObj.name]) errors[inputObj.name] = 'Required';
+          if (!values[inputObj.name] && values[inputObj.name] !== 0)
+            errors[inputObj.name] = 'Required';
         }
       }
     if (obj.dropdownQuestions)

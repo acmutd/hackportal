@@ -34,18 +34,18 @@ export default function AppHeader() {
     }
 
     //creating dynamic nav items
-    if (
-      isSignedIn &&
-      profile &&
-      (profile.user.permissions[0] === 'admin' || profile.user.permissions[0] === 'super_admin')
-    ) {
-      setDynamicNavItems((dynamicNavItems) => [
-        ...dynamicNavItems,
-        { text: 'Admin', path: '/admin' },
-      ]);
-    } else {
-      setDynamicNavItems(navItems);
-    }
+    setDynamicNavItems((dynamicNavItems) => {
+      if (
+        isSignedIn &&
+        profile &&
+        (profile.user.permissions[0] === 'admin' ||
+          profile.user.permissions[0] === 'super_admin') &&
+        dynamicNavItems.filter(({ text }) => text === 'Admin').length === 0
+      ) {
+        return [...dynamicNavItems, { text: 'Admin', path: '/admin' }];
+      }
+      return dynamicNavItems;
+    });
   }, []);
 
   const toggleMenu = () => {

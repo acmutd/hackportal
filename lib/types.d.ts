@@ -5,6 +5,8 @@ type WithId<T> = T & {
   id: string;
 };
 
+type SortableObject<T> = T & { id: string };
+
 /**
  * A flag for the set of functionality that is enabled for an account.
  */
@@ -182,7 +184,7 @@ type KeynoteSpeaker = {
 type Challenge = {
   title: string;
   description: string;
-  prizes: [];
+  prizes?: string[];
   organization: string;
   rank: int;
 };
@@ -220,14 +222,15 @@ type Announcement = {
 type ScheduleEvent = {
   title: string;
   endDate: Date;
-  endTimestamp;
+  type?: string;
   location: string;
   startDate: Date;
-  startTimestamp;
-  event: number;
-  speakers: [];
+  Event: number;
+  speakers?: string[];
   page: string;
   description: string;
+  startTimestamp?: any;
+  endTimestamp?: any;
 };
 
 type Sponsor = {
@@ -242,3 +245,39 @@ type GeneralStats = {
   adminCount: number;
   scans: Record<string, number>;
 };
+
+/**
+ * Data object passed into the MobileDropdownMenu component
+ * that contains the sections and subsections to display, as well
+ * as the section to redirect to
+ */
+type SidebarSection = {
+  /** Display name of the section */
+  title: string;
+
+  /** Path to redirect to (eg. '#Workshops') */
+  href?: string;
+
+  /** List of subsections that will appear when clicked */
+  sections?: SidebarSubsection[];
+};
+
+/**
+ * Subsection object for the MobileDropdownSection;
+ * does NOT contain deeper nestings of sections
+ */
+type SidebarSubsection = {
+  /** Display name of the section */
+  title: string;
+
+  /** Path to redirect to (eg. '#Workshops') */
+  href?: string;
+};
+
+/**
+ * Typescript module decleration for markdown files
+ */
+declare module '*.md' {
+  const content: any;
+  export default content;
+}
