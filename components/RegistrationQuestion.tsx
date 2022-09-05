@@ -88,6 +88,27 @@ function Question(props) {
             {props.question.required ? '*' : ''}
             {props.question.question}
           </a>
+        ) : props.question.name == 'policy' ? (
+          <label className="mt-4">
+            *I further agree to the terms of both the&nbsp;
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
+              className="underline"
+            >
+              MLH Contest Terms and Conditions
+            </a>
+            &nbsp;and the&nbsp;
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://mlh.io/privacy"
+              className="underline"
+            >
+              MLH Privacy Policy
+            </a>
+          </label>
         ) : (
           <label htmlFor={props.question.name} className="mt-4">
             {props.question.required ? '*' : ''}

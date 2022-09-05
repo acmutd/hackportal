@@ -416,7 +416,6 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         checkboxQuestions: [
           {
-            //Companies question
             question: 'MLH Code of Conduct',
             required: true,
             id: 'CoC',
@@ -426,6 +425,48 @@ export const hackPortalConfig: HackPortalConfig = {
               {
                 title: 'Agree',
                 value: 'Agree',
+              },
+            ],
+          },
+          {
+            question:
+              'I further agree to the terms of both the MLH Contest Terms and Conditions and the MLH Privacy Policy',
+            required: true,
+            id: 'policy',
+            name: 'policy',
+            initialValue: [],
+            options: [
+              {
+                title: 'Agree',
+                value: 'Agree',
+              },
+            ],
+          },
+          {
+            question:
+              'I authorize you to share my application/registration information with Major League Hacking for event administration, ranking, and MLH administration in-line with the MLH Privacy Policy',
+            required: false,
+            id: 'shareApp',
+            name: 'shareApp',
+            initialValue: [],
+            options: [
+              {
+                title: 'Authorize',
+                value: 'Authorize',
+              },
+            ],
+          },
+          {
+            question:
+              'I authorize MLH to send me an email where I can further opt into the MLH Hacker, Events, or Organizer Newsletters and other communications from MLH',
+            required: false,
+            id: 'emailMLH',
+            name: 'emailMLH',
+            initialValue: [],
+            options: [
+              {
+                title: 'Authorize',
+                value: 'Authorize',
               },
             ],
           },
