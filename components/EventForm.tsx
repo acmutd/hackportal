@@ -43,8 +43,7 @@ export default function EventForm({ event, onSubmitClick, formAction }: EventFor
         <option value="sponsor">Sponsor Event</option>
         <option value="workshop">Workshop Event</option>
       </select>
-      <input //TODO: convert to a dropdown input that allows selecting multiple tracks, or adding a new one
-        //https://react-select.com/creatable
+      <input
         type="text"
         className="border-2 p-3 rounded-lg"
         placeholder={`Enter track ("General", "Technical", etc.)`}
