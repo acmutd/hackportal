@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { GroupingState, IntegratedGrouping, ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   DayView,
   Appointments,
-  MonthView,
   Toolbar,
   DateNavigator,
   TodayButton,
@@ -26,8 +25,6 @@ import ClockIcon from '@material-ui/icons/AccessTime';
 import Backpack from '@material-ui/icons/LocalMall';
 import Description from '@material-ui/icons/BorderColor';
 import firebase from 'firebase';
-import { useAuthContext } from '../../lib/user/AuthContext';
-import { ControlOutlined } from '@ant-design/icons';
 
 const styles = ({ palette }: Theme) =>
   createStyles({
@@ -95,24 +92,15 @@ const styles = ({ palette }: Theme) =>
 
 type AppointmentProps = Appointments.AppointmentProps & WithStyles<typeof styles>;
 type AppointmentContentProps = Appointments.AppointmentContentProps & WithStyles<typeof styles>;
-type TimeTableCellProps = MonthView.TimeTableCellProps & WithStyles<typeof styles>;
-type DayScaleCellProps = MonthView.DayScaleCellProps & WithStyles<typeof styles>;
 
 const isWeekEnd = (date: Date): boolean => date.getDay() === 0 || date.getDay() === 6;
 const defaultCurrentDate = new Date(2021, 10, 13, 9, 0);
 {
   /* !!!change */
 }
-// const defaultCurrentDate = new Date();
 
-// #FOLD_BLOCK
 const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(
-  ({
-    classes,
-    data,
-    ...restProps
-  }: // #FOLD_BLOCK
-  AppointmentContentProps) => {
+  ({ classes, data, ...restProps }: AppointmentContentProps) => {
     let Event = 'Event';
     if (data.Event === 2) Event = 'Sponsor';
     if (data.Event === 3) Event = 'Tech Talk';
@@ -232,9 +220,10 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
     else return teal;
   };
 
-  const data = props.scheduleCard;
-  const tracks = data.map((event) => event.track);
+  const scheduleEvents = props.scheduleCard;
+  const tracks = scheduleEvents.map((event) => event.track);
   const uniqueTracks = new Set(tracks);
+
   const resources = [
     {
       fieldName: 'track',
@@ -250,13 +239,12 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
       ),
     },
   ];
-  console.log(resources);
 
   return (
     <>
       <div className="text-6xl font-black p-6">Schedule</div>
       <div className="flex flex-wrap lg:justify-between px-6 h-[75vh]">
-        {/* Calender */}
+        {/* Calendar */}
         <div className="overflow-y-auto overflow-x-hidden lg:w-[62%] w-full h-full border-2 border-black rounded-md">
           <Paper>
             <div className="flex flex-row">

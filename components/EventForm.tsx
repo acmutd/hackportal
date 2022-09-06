@@ -1,62 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import TextField from '@mui/material/TextField';
-import { RequestHelper } from '../lib/request-helper';
-import { useAuthContext } from '../lib/user/AuthContext';
+import { DEFAULT_EVENT_FORM_DATA } from '../lib/data';
 
 interface EventFormProps {
   event?: ScheduleEvent;
   onSubmitClick: (eventData: ScheduleEvent) => Promise<void>;
-  formAction: 'Edit' | 'Add';
+  formAction: 'Update' | 'Add';
 }
 
 export default function EventForm({ event, onSubmitClick, formAction }: EventFormProps) {
   const [disableSubmit, setDisableSubmit] = useState<boolean>(false);
   const [eventForm, setEventForm] = useState<typeof event>(
-    formAction === 'Edit'
+    formAction === 'Update'
       ? {
           ...event,
           type: event.type || '',
         }
-      : {
-          description: '',
-          title: '',
-          page: '',
-          type: '',
-          track: '',
-          location: '',
-          speakers: [],
-          startDate: new Date(),
-          endDate: new Date(),
-          Event: -1,
-        },
+      : DEFAULT_EVENT_FORM_DATA,
   );
-
-  const { user } = useAuthContext();
-  const [loading, setLoading] = useState(true);
-  const [errors, setErrors] = useState<string[]>([]);
-  const [tracks, setTracks] = useState<string[]>([]);
-
-  useEffect(() => {
-    async function getTracks() {
-      try {
-        const { status, data } = await RequestHelper.get<[ScheduleEvent]>(`/api/schedule`, {
-          headers: {
-            Authorization: user.token!,
-          },
-        });
-        const tracks = data.map((event) => event.track);
-        const uniqueTracks = new Set(tracks);
-        setTracks(Array.from(uniqueTracks));
-      } catch (error) {
-        console.error(error);
-        setErrors((prev) => [...prev, 'Unexpected error. Please try again later']);
-      } finally {
-        setLoading(false);
-      }
-    }
-    getTracks();
-  }, []);
 
   return (
     <div className="my-3 flex flex-col gap-y-4">
@@ -90,7 +52,7 @@ export default function EventForm({ event, onSubmitClick, formAction }: EventFor
         //https://react-select.com/creatable
         type="text"
         className="border-2 p-3 rounded-lg"
-        placeholder={`Enter track (${tracks.map((track) => '"' + track + '"').join(', ')})`}
+        placeholder={`Enter track ("General", "Technical", etc.)`}
         value={eventForm.track}
         onChange={(e) => setEventForm((prev) => ({ ...prev, track: e.target.value }))}
       />
@@ -150,7 +112,7 @@ export default function EventForm({ event, onSubmitClick, formAction }: EventFor
             speakers: [...prev.speakers, ''],
           }))
         }
-        className="p-3 bg-green-400 rounded-lg"
+        className="p-3 bg-blue-400 rounded-lg"
       >
         Add Speaker
       </button>
