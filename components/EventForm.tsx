@@ -6,18 +6,13 @@ import { DEFAULT_EVENT_FORM_DATA } from '../lib/data';
 interface EventFormProps {
   event?: ScheduleEvent;
   onSubmitClick: (eventData: ScheduleEvent) => Promise<void>;
-  formAction: 'Update' | 'Add';
+  formAction: 'Edit' | 'Add';
 }
 
 export default function EventForm({ event, onSubmitClick, formAction }: EventFormProps) {
   const [disableSubmit, setDisableSubmit] = useState<boolean>(false);
   const [eventForm, setEventForm] = useState<typeof event>(
-    formAction === 'Update'
-      ? {
-          ...event,
-          type: event.type || '',
-        }
-      : DEFAULT_EVENT_FORM_DATA,
+    formAction === 'Edit' ? event : DEFAULT_EVENT_FORM_DATA,
   );
 
   return (
