@@ -258,6 +258,9 @@ export default function Register() {
             if (values.CoC.length == 0) {
               errors.CoC = 'Code of Conduct not accepted';
             }
+            if (values.policy.length == 0) {
+              errors.policy = 'Policy not accepted';
+            }
 
             return errors;
           }}
@@ -338,7 +341,7 @@ export default function Register() {
                 </label>
               </div>
 
-              <div id="page5" className="flex flex-col hidden max-w-4xl">
+              <div id="page5" className="flex flex-col hidden w-full">
                 <div className="text-3xl py-1 mt-8">One Last Thing</div>
                 {oneLastThing.map((obj, idx) => (
                   <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
