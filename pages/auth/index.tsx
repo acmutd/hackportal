@@ -58,7 +58,9 @@ export default function AuthPage() {
           .currentUser.sendEmailVerification()
           .then(() => {
             router.push('/auth');
-            alert('Account created, check your email to verify your account and log in');
+            alert(
+              'Account created! Check your email/spam folder to verify your account and log in.',
+            );
           });
       })
       .catch((error) => {

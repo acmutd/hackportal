@@ -44,6 +44,8 @@ export default function Home(props: {
     prizes: [],
   });
 
+  const [notif, setNotif] = useState(false);
+
   const colorSchemes: ColorScheme[] = [
     {
       light: '#F2F3FF',
@@ -61,6 +63,7 @@ export default function Home(props: {
 
   useEffect(() => {
     // Set amount of time notification prompt gets displayed before fading out
+    setNotif(checkNotif());
     setTimeout(fadeOutEffect, 3000);
     setSpeakers(props.keynoteSpeakers);
 
@@ -158,7 +161,7 @@ export default function Home(props: {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Notification info pop up */}
-      {checkNotif() && (
+      {notif && (
         <div
           id="popup"
           className="fixed z-50 md:translate-x-0 translate-x-1/2 w-[22rem] rounded-md px-4 py-2 top-16 md:right-6 right-1/2 bg-red-200 md:text-base text-sm"
