@@ -419,3 +419,7 @@ a.link {
 .blueButtonGradient {
   background: linear-gradient(180deg, #01CCF9 0%, #11506F 100%);
 }
+
+.homeChallengeCard {
+  background: rgba(78, 149, 255, 0.5);
+}
