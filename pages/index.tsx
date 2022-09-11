@@ -146,8 +146,8 @@ export default function Home(props: {
 
   const changeOrg = (challenge, newIdx) => {
     setShowChallengeCard(true);
-    // document.getElementById(`org${challengeIdx}`).style.textDecoration = 'none';
-    // document.getElementById(`org${newIdx}`).style.textDecoration = 'underline';
+    document.getElementById(`org${challengeIdx}`).style.backgroundColor = 'rgba(78, 149, 255, 0.2)';
+    document.getElementById(`org${newIdx}`).style.backgroundColor = 'rgba(78, 149, 255, 0.5)';
 
     setChallengeIdx(newIdx);
     setChallengeData({
@@ -410,19 +410,20 @@ export default function Home(props: {
             <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">
               Challenges
             </h1>
-            <div className="relative mt-4">
+            <div className="relative mt-4 sm:w-[95%] w-[85%] mx-auto">
               <Swiper
-                modules={[Navigation, A11y]}
+                modules={[Navigation, A11y, Pagination]}
                 spaceBetween={10}
-                slidesPerView={3}
                 allowTouchMove={false}
                 // navigation
                 navigation={{
                   prevEl: '.swiper-button-prev',
                   nextEl: '.swiper-button-next',
                 }}
-                loop={true}
-                pagination={{ clickable: false }}
+                pagination={{
+                  el: '.swiper-pagination',
+                  type: 'bullets',
+                }}
                 breakpoints={{
                   // when window width is >= 0px
                   0: {
@@ -453,7 +454,7 @@ export default function Home(props: {
                         width={120}
                         height={120}
                       />
-                      <div className="font-semibold xl:text-2xl sm:text-xl text-lg">
+                      <div className="font-semibold xl:text-2xl sm:text-xl text-base">
                         {challenge.organization}
                       </div>
                       <div className="flex items-center sm:text-sm text-xs">
@@ -464,27 +465,15 @@ export default function Home(props: {
                 ))}
               </Swiper>
               <div className="-translate-x-12 -translate-y-32">
-                <div className="swiper-button-prev swiper-button-white"></div>
+                <div className="swiper-button-prev"></div>
+              </div>
+              <div className="translate-y-10">
+                <div className="swiper-pagination"></div>
               </div>
               <div className="translate-x-12 -translate-y-32">
                 <div className="swiper-button-next"></div>
               </div>
             </div>
-
-            {/* Challenge Orgs Selectors*/}
-            {/* <div className="md:w-1/4 w-1/5">
-              {challenges.map((challenge, idx) => (
-                <div
-                  id={`org${idx}`}
-                  className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
-                  key={idx}
-                  onClick={() => changeOrg(challenge, idx)}
-                >
-                  <div className="arrow-right absolute top-1/2 right-0 -translate-y-1/2 translate-x-full hidden"></div>
-                  {challenge.organization}
-                </div>
-              ))}
-            </div> */}
 
             {/* Challenges Description Cards */}
             {showChallengeCard && (
@@ -502,7 +491,7 @@ export default function Home(props: {
         )}
         {/* Sponsors */}
         {sponsor.length != 0 && (
-          <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
+          <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto mt-4">
             <div className="flex flex-col flex-grow">
               <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">
                 Sponsors
