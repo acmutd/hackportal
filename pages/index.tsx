@@ -24,6 +24,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { ChevronUpIcon } from '@heroicons/react/solid';
 
 /**
  * The home page.
@@ -409,11 +410,8 @@ export default function Home(props: {
             <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">
               Challenges
             </h1>
-            <div className="relative">
+            <div className="relative mt-4">
               <Swiper
-                style={{
-                  '--swiper-navigation-color': '#fff',
-                }}
                 modules={[Navigation, A11y]}
                 spaceBetween={10}
                 slidesPerView={3}
@@ -425,26 +423,50 @@ export default function Home(props: {
                 }}
                 loop={true}
                 pagination={{ clickable: false }}
+                breakpoints={{
+                  // when window width is >= 0px
+                  0: {
+                    slidesPerView: 2,
+                  },
+                  // when window width is >= 768px
+                  768: {
+                    slidesPerView: 3,
+                  },
+                  // when window width is >= 1536px
+                  1536: {
+                    slidesPerView: 4,
+                  },
+                }}
                 className="swiper"
               >
                 {challenges.map((challenge, idx) => (
                   <SwiperSlide key={idx}>
                     <div
                       id={`org${idx}`}
-                      className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4rounded-sm homeChallengeCard`}
+                      className={`${idx} relative cursor-pointer md:text-lg sm:text-sm text-xs md:p-6 p-4 rounded-md homeChallengeCard h-[16rem]`}
                       key={idx}
                       onClick={() => changeOrg(challenge, idx)}
                     >
-                      {/* change arrow color in global css to match parent selector */}
-                      {challenge.organization}
+                      <Image
+                        src={`/assets/planets/planet${(idx % 9) + 1}.png`}
+                        alt="planet"
+                        width={120}
+                        height={120}
+                      />
+                      <div className="font-semibold xl:text-2xl sm:text-xl text-lg">
+                        {challenge.organization}
+                      </div>
+                      <div className="flex items-center sm:text-sm text-xs">
+                        Learn more <ChevronUpIcon className="w-5 h-5 rotate-180" />
+                      </div>
                     </div>
                   </SwiperSlide>
                 ))}
               </Swiper>
-              <div className="-translate-x-12 -translate-y-10">
-                <div className="swiper-button-prev"></div>
+              <div className="-translate-x-12 -translate-y-32">
+                <div className="swiper-button-prev swiper-button-white"></div>
               </div>
-              <div className="translate-x-12 -translate-y-10">
+              <div className="translate-x-12 -translate-y-32">
                 <div className="swiper-button-next"></div>
               </div>
             </div>
