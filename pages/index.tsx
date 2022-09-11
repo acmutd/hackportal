@@ -9,7 +9,6 @@ import 'firebase/messaging';
 import 'firebase/storage';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import HomeChallengeCard from '../components/HomeChallengeCard';
-import MemberCards from '../components/MemberCards';
 import SponsorCard from '../components/SponsorCard';
 import FAQ from '../components/faq';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -84,12 +83,6 @@ export default function Home(props: {
 
     if (sortedChallenges.length != 0) {
       setChallenges(sortedChallenges);
-      // setChallengeData({
-      //   title: sortedChallenges[0].title,
-      //   organization: sortedChallenges[0].organization,
-      //   description: sortedChallenges[0].description,
-      //   prizes: sortedChallenges[0].prizes,
-      // });
     }
     if (sortedQuestions.length != 0) {
       setQuestions(sortedQuestions);
@@ -101,16 +94,6 @@ export default function Home(props: {
     setLoading(false);
     countdownTimer();
   }, []);
-
-  // useEffect(() => {
-  //   // Initialize styles to first organization in list
-  //   if (document.getElementById(`org${challengeIdx}`) !== null) {
-  //     document.getElementById(`org${challengeIdx}`).style.textDecoration = 'underline';
-  //     (
-  //       document.getElementById(`org${challengeIdx}`).firstElementChild as HTMLElement
-  //     ).style.display = 'block';
-  //   }
-  // });
 
   // Fade out notification prompt
   const fadeOutEffect = () => {
