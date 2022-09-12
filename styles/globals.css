@@ -423,3 +423,10 @@ a.link {
 text.Target-root {
   fill: white !important;
 }
+.scheduleCard {
+  background: rgba(0, 224, 255, 0.3);
+}
+
+.appointment{
+  background: rgba(0, 224, 255, 0.3);
+}
