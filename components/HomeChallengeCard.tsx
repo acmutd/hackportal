@@ -11,13 +11,13 @@ function HomeChallengeCard(props) {
     description = props.description.replaceAll('\\n', '\n');
   }
   return (
-    <div className="bg-purple-200 min-h-[100%] rounded-sm p-6">
-      <div className="text-center font-bold md:text-2xl test-base">{props.title}</div>
-      <div className="text-center md:text-xl test-base">Presented by {props.organization}</div>
-      <p className="whitespace-pre-line my-3 md:text-base text-xs">{description}</p>
+    <div className="homeChallengeCardSelected min-h-[30rem] rounded-md p-6">
+      <div className="font-semibold md:text-2xl test-base">{props.title}</div>
+      <div className="md:text-xl test-base">Presented by {props.organization}</div>
+      <p className="whitespace-pre-line my-5 md:text-base text-xs">{description}</p>
       {props.prizes !== null && props.prizes !== undefined && (
         <div className="md:text-base text-sm">
-          <div className="underline font-medium md:text-base text-sm">Prizes</div>
+          <div className="font-semibold md:text-lg text-base">Prizes</div>
           <ul className="list-decimal list-inside md:text-base text-sm">
             {props.prizes.map((prize, idx) => (
               <li key={idx}>{prize}</li>

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { buttonDatas, stats } from '../lib/data';
 import { RequestHelper } from '../lib/request-helper';
 import firebase from 'firebase/app';
@@ -9,7 +9,6 @@ import 'firebase/messaging';
 import 'firebase/storage';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import HomeChallengeCard from '../components/HomeChallengeCard';
-import MemberCards from '../components/MemberCards';
 import SponsorCard from '../components/SponsorCard';
 import FAQ from '../components/faq';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -18,6 +17,13 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Navigation, Pagination, A11y } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import { ChevronUpIcon } from '@heroicons/react/solid';
 
 /**
  * The home page.
@@ -47,6 +53,7 @@ export default function Home(props: {
     description: '',
     prizes: [],
   });
+  const [showChallengeCard, setShowChallengeCard] = useState(false);
   const [notif, setNotif] = useState(false);
 
   const colorSchemes: ColorScheme[] = [
@@ -76,12 +83,6 @@ export default function Home(props: {
 
     if (sortedChallenges.length != 0) {
       setChallenges(sortedChallenges);
-      setChallengeData({
-        title: sortedChallenges[0].title,
-        organization: sortedChallenges[0].organization,
-        description: sortedChallenges[0].description,
-        prizes: sortedChallenges[0].prizes,
-      });
     }
     if (sortedQuestions.length != 0) {
       setQuestions(sortedQuestions);
@@ -93,16 +94,6 @@ export default function Home(props: {
     setLoading(false);
     countdownTimer();
   }, []);
-
-  useEffect(() => {
-    // Initialize styles to first organization in list
-    if (document.getElementById(`org${challengeIdx}`) !== null) {
-      document.getElementById(`org${challengeIdx}`).style.textDecoration = 'underline';
-      (
-        document.getElementById(`org${challengeIdx}`).firstElementChild as HTMLElement
-      ).style.display = 'block';
-    }
-  });
 
   // Fade out notification prompt
   const fadeOutEffect = () => {
@@ -137,12 +128,9 @@ export default function Home(props: {
   };
 
   const changeOrg = (challenge, newIdx) => {
-    document.getElementById(`org${challengeIdx}`).style.textDecoration = 'none';
-    (document.getElementById(`org${challengeIdx}`).firstElementChild as HTMLElement).style.display =
-      'none';
-    document.getElementById(`org${newIdx}`).style.textDecoration = 'underline';
-    (document.getElementById(`org${newIdx}`).firstElementChild as HTMLElement).style.display =
-      'block';
+    setShowChallengeCard(true);
+    document.getElementById(`org${challengeIdx}`).style.backgroundColor = 'rgba(78, 149, 255, 0.2)';
+    document.getElementById(`org${newIdx}`).style.backgroundColor = 'rgba(78, 149, 255, 0.5)';
 
     setChallengeIdx(newIdx);
     setChallengeData({
@@ -405,25 +393,74 @@ export default function Home(props: {
             <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">
               Challenges
             </h1>
-            <div className="flex my-6">
-              {/* Challenge Orgs Selectors*/}
-              <div className="md:w-1/4 w-1/5">
+            <div className="relative mt-4 sm:w-[95%] w-[85%] mx-auto">
+              <Swiper
+                modules={[Navigation, A11y, Pagination]}
+                spaceBetween={10}
+                allowTouchMove={false}
+                // navigation
+                navigation={{
+                  prevEl: '.swiper-button-prev',
+                  nextEl: '.swiper-button-next',
+                }}
+                pagination={{
+                  el: '.swiper-pagination',
+                  type: 'bullets',
+                }}
+                breakpoints={{
+                  // when window width is >= 0px
+                  0: {
+                    slidesPerView: 2,
+                  },
+                  // when window width is >= 768px
+                  768: {
+                    slidesPerView: 3,
+                  },
+                  // when window width is >= 1536px
+                  1536: {
+                    slidesPerView: 4,
+                  },
+                }}
+                className="swiper"
+              >
                 {challenges.map((challenge, idx) => (
-                  <div
-                    id={`org${idx}`}
-                    className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
-                    key={idx}
-                    onClick={() => changeOrg(challenge, idx)}
-                  >
-                    {/* change arrow color in global css to match parent selector */}
-                    <div className="arrow-right absolute top-1/2 right-0 -translate-y-1/2 translate-x-full hidden"></div>
-                    {challenge.organization}
-                  </div>
+                  <SwiperSlide key={idx}>
+                    <div
+                      id={`org${idx}`}
+                      className={`${idx} relative cursor-pointer md:text-lg sm:text-sm text-xs md:p-6 p-4 rounded-md homeChallengeCard h-[16rem]`}
+                      key={idx}
+                      onClick={() => changeOrg(challenge, idx)}
+                    >
+                      <Image
+                        src={`/assets/planets/planet${(idx % 9) + 1}.png`}
+                        alt="planet"
+                        width={120}
+                        height={120}
+                      />
+                      <div className="font-semibold xl:text-2xl sm:text-xl text-base">
+                        {challenge.organization}
+                      </div>
+                      <div className="flex items-center sm:text-sm text-xs">
+                        Learn more <ChevronUpIcon className="w-5 h-5 rotate-180" />
+                      </div>
+                    </div>
+                  </SwiperSlide>
                 ))}
+              </Swiper>
+              <div className="-translate-x-12 -translate-y-32">
+                <div className="swiper-button-prev"></div>
               </div>
-              {/* Challenges Description Cards */}
+              <div className="translate-y-10">
+                <div className="swiper-pagination"></div>
+              </div>
+              <div className="translate-x-12 -translate-y-32">
+                <div className="swiper-button-next"></div>
+              </div>
+            </div>
 
-              <div className="md:w-3/4 w-4/5 my-4 pl-6 min-h-full">
+            {/* Challenges Description Cards */}
+            {showChallengeCard && (
+              <div className="my-4 p-6">
                 {/* Card */}
                 <HomeChallengeCard
                   title={challengeData.title}
@@ -432,12 +469,12 @@ export default function Home(props: {
                   prizes={challengeData.prizes}
                 />
               </div>
-            </div>
+            )}
           </section>
         )}
         {/* Sponsors */}
         {sponsor.length != 0 && (
-          <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
+          <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto mt-4">
             <div className="flex flex-col flex-grow">
               <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">
                 Sponsors

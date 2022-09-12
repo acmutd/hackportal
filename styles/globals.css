@@ -423,3 +423,28 @@ a.link {
 text.Target-root {
   fill: white !important;
 }
+
+.homeChallengeCardSelected {
+  background: rgba(78, 149, 255, 0.5);
+}
+
+.homeChallengeCard {
+  background: rgba(78, 149, 255, 0.2);
+}
+
+.swiper-button-prev {
+  color: var(--swiper-navigation-color,var(--swiper-theme-color));
+}
+
+.swiper-button-next {
+  color: var(--swiper-navigation-color,var(--swiper-theme-color));
+}
+
+:root {
+  --swiper-navigation-color: #ffffff;
+}
+
+.swiper-pagination-bullet {
+  background-color: rgb(255, 255, 255) !important;
+  opacity: 1;
+}
