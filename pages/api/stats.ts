@@ -29,12 +29,20 @@ async function getStatsData() {
     hackerCount: 0,
     adminCount: 0,
     scans: {},
+    timestamp: {},
     ...statRecords,
   };
 
   const snapshot = await db.collection(USERS_COLLECTION).get();
   snapshot.forEach((doc) => {
     const userData = doc.data();
+    const date = doc.createTime.toDate();
+    const stringDate = `${date.getMonth() + 1}-${date.getDate()}`;
+
+    if (!generalStats.timestamp.hasOwnProperty(stringDate)) {
+      generalStats.timestamp[stringDate] = 0;
+    }
+    generalStats.timestamp[stringDate]++;
 
     for (let arrayField of arrayFields) {
       if (!userData[arrayField]) continue;

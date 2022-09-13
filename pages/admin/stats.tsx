@@ -26,7 +26,7 @@ export default function AdminStatsPage() {
 
   useEffect(() => {
     async function getData() {
-      const { data } = await RequestHelper.get<GeneralStats>('/api/stats', {
+      const { data } = await RequestHelper.get<GeneralStats & { timestamp: any }>('/api/stats', {
         headers: {
           Authorization: user.token,
         },
@@ -79,20 +79,42 @@ export default function AdminStatsPage() {
                 <StatsPieChart
                   key={key}
                   name={fieldToName[key]}
-                  items={Object.entries(statsData[key] as Record<any, any>).map(([k, v]) => ({
-                    itemName: k,
-                    itemCount: v,
-                  }))}
+                  items={Object.entries(statsData[key] as Record<any, any>)
+                    .sort((a, b) => {
+                      const aMonth = parseInt(a[0].substring(0, a[0].indexOf('-')));
+                      const aDate = parseInt(a[0].substring(a[0].indexOf('-') + 1));
+
+                      const bMonth = parseInt(b[0].substring(0, b[0].indexOf('-')));
+                      const bDate = parseInt(b[0].substring(b[0].indexOf('-') + 1));
+
+                      if (aMonth != bMonth) return aMonth - bMonth;
+                      return aDate - bDate;
+                    })
+                    .map(([k, v]) => ({
+                      itemName: k,
+                      itemCount: v,
+                    }))}
                 />
               );
             return (
               <StatsBarChart
                 key={key}
                 name={fieldToName[key]}
-                items={Object.entries(statsData[key] as Record<any, any>).map(([k, v]) => ({
-                  itemName: k,
-                  itemCount: v,
-                }))}
+                items={Object.entries(statsData[key] as Record<any, any>)
+                  .sort((a, b) => {
+                    const aMonth = parseInt(a[0].substring(0, a[0].indexOf('-')));
+                    const aDate = parseInt(a[0].substring(a[0].indexOf('-') + 1));
+
+                    const bMonth = parseInt(b[0].substring(0, b[0].indexOf('-')));
+                    const bDate = parseInt(b[0].substring(b[0].indexOf('-') + 1));
+
+                    if (aMonth != bMonth) return bMonth - aMonth;
+                    return bDate - aDate;
+                  })
+                  .map(([k, v]) => ({
+                    itemName: k,
+                    itemCount: v,
+                  }))}
               />
             );
           })}
