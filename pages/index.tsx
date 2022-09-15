@@ -577,12 +577,12 @@ export default function Home(props: {
               </a>
               {/* !change */}
               <a
-                href="https://github.com/acmutd/hackutd-ix-site"
+                href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
                 target="_blank"
                 rel="noreferrer"
                 className="hover:underline font-bold whitespace-nowrap"
               >
-                Source Code
+                Code of Conduct
               </a>
             </div>
           </div>
@@ -644,12 +644,12 @@ export default function Home(props: {
               Contact Us
             </a>
             <a
-              href="https://github.com/acmutd/hackutd-ix-site"
+              href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
               target="_blank"
               rel="noreferrer"
               className="font-bold"
             >
-              Source Code
+              Code of Conduct
             </a>
           </div>
           <div className="text-sm text-center pt-3">
