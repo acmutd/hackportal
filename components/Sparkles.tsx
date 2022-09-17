@@ -88,7 +88,7 @@ const Sparkle = ({ size, color, style, path }) => {
 };
 
 // container for holding and managing sparkles
-const Sparkles = ({ color = DEFAULT_COLOR, children, ...delegated }) => {
+const Sparkles = ({ color = DEFAULT_COLOR, children = undefined, ...delegated }) => {
   const [sparkles, setSparkles] = React.useState(() => {
     // initial sparkles
     return range(0, 3).map(() => generateSparkle(color));
