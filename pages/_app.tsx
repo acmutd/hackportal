@@ -6,6 +6,7 @@ import { initFirebase } from '../lib/firebase-client';
 import { AuthProvider } from '../lib/user/AuthContext';
 import '../styles/globals.css';
 import '../styles/tailwind.css';
+import '../styles/sparkles.css';
 import { FCMProvider } from '../lib/service-worker/FCMContext';
 
 initFirebase();
