@@ -10,7 +10,6 @@ import 'firebase/storage';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import HomeChallengeCard from '../components/HomeChallengeCard';
 import SponsorCard from '../components/SponsorCard';
-import Sparkles from '../components/Sparkles';
 import FAQ from '../components/faq';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -207,8 +206,6 @@ export default function Home(props: {
         </div>
       )}
       <div className="home text-white overflow-x-hidden overflow-y-hidden">
-        {/* Sparkles */}
-        <Sparkles></Sparkles>
         {/* Hero section */}
         <section className="min-h-screen p-4 flex flex-col items-center justify-center relative">
           <div className="absolute top-0 right-0 z-0 satelliteX">

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
 // Hook to run a function at a random interval between min and max delay
 const useRandomInterval = (callback, minDelay, maxDelay) => {
@@ -88,15 +89,23 @@ const Sparkle = ({ size, color, style, path }) => {
 };
 
 // container for holding and managing sparkles
-const Sparkles = ({ color = DEFAULT_COLOR, children = undefined, ...delegated }) => {
+function Sparkles({ color = DEFAULT_COLOR, children = undefined, ...delegated }) {
+  const router = useRouter();
+
   const [sparkles, setSparkles] = React.useState(() => {
     // initial sparkles
     return range(0, 3).map(() => generateSparkle(color));
   });
 
+  React.useEffect(() => {
+    console.log(`LOCATION: ${router.pathname}`);
+  }, [router]);
+
   useRandomInterval(
     () => {
-      const newSparkles = range(0, 3).map(() => generateSparkle(color));
+      // Hacky solution to prevent stars from being too frequent on pages that aren't as tall as index
+      const numSparkles = router.pathname == '/' ? 3 : 1;
+      const newSparkles = range(0, numSparkles).map(() => generateSparkle(color));
       const now = Date.now();
       const nextSparkles = sparkles.filter((sp) => {
         const delta = now - sp.createdAt;
@@ -123,6 +132,6 @@ const Sparkles = ({ color = DEFAULT_COLOR, children = undefined, ...delegated })
       <strong id="sparkles-child-wrapper">{children}</strong>
     </span>
   );
-};
+}
 
 export default Sparkles;

@@ -9,6 +9,7 @@ body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   /* overflow: overlay; */
+  position: relative;
 }
 
 h1 {
@@ -170,7 +171,6 @@ a.link {
   background-repeat: no-repeat;
   /* background-attachment: fixed;  */
   background-size: cover;
-  position: relative;
 }
 
 .appHeader {
