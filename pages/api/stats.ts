@@ -20,6 +20,27 @@ async function getCheckInEventName() {
   return checkInEventName;
 }
 
+function computeHash(userId: string): number {
+  const p = 61,
+    m = 1000000009;
+  let ans = 0,
+    curr = 1;
+  for (let c of userId) {
+    ans = (ans + ((c.charCodeAt(0) * curr) % m)) % m;
+    curr = (curr * p) % m;
+  }
+  return ans;
+}
+
+function determineColorByTeamIdx(teamIdx: number) {
+  return {
+    0: 'red',
+    1: 'blue',
+    2: 'green',
+    3: 'yellow',
+  }[teamIdx];
+}
+
 async function getStatsData() {
   const checkInEventName = await getCheckInEventName();
   // const swagData: Record<string, number> = {};
@@ -30,6 +51,7 @@ async function getStatsData() {
     adminCount: 0,
     scans: {},
     timestamp: {},
+    color: {},
     ...statRecords,
   };
 
@@ -43,6 +65,12 @@ async function getStatsData() {
       generalStats.timestamp[stringDate] = 0;
     }
     generalStats.timestamp[stringDate]++;
+
+    const userTeam = determineColorByTeamIdx(computeHash(doc.id) % 4);
+    if (!generalStats.color.hasOwnProperty(userTeam)) {
+      generalStats.color[userTeam] = 0;
+    }
+    generalStats.color[userTeam]++;
 
     for (let arrayField of arrayFields) {
       if (!userData[arrayField]) continue;

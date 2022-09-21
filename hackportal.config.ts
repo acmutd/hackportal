@@ -492,6 +492,7 @@ export type statRecordTypes = {
   hackathonExperience: Record<number, number>;
   heardFrom: Record<string, number>;
   timestamp: Record<string, number>;
+  color: Record<string, number>;
 };
 
 //add the title for each field that will be displayed as chart titles in admin stats page
