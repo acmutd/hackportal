@@ -1,0 +1,52 @@
+#sparkles-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+#sparkles-child-wrapper {
+  position: relative;
+  z-index: 1;
+  font-weight: bold;
+}
+
+.sparkle-wrapper {
+  position: absolute;
+  display: block;
+}
+
+.sparkle-svg {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sparkle-wrapper {
+    animation: sparkle-comeInOut 1500ms forwards;
+  }
+  .sparkle-svg {
+    animation: sparkle-spin 2000ms linear;
+  }
+}
+
+@keyframes sparkle-comeInOut {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes sparkle-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}

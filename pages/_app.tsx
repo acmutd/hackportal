@@ -6,7 +6,9 @@ import { initFirebase } from '../lib/firebase-client';
 import { AuthProvider } from '../lib/user/AuthContext';
 import '../styles/globals.css';
 import '../styles/tailwind.css';
+import '../styles/sparkles.css';
 import { FCMProvider } from '../lib/service-worker/FCMContext';
+import Sparkles from '../components/Sparkles';
 
 initFirebase();
 
@@ -56,6 +58,8 @@ function PortalApp({ Component, pageProps }: AppProps) {
           </Head>
           <div className="min-h-screen flex flex-col bg-gray-50">
             <AppHeader />
+            {/* Sparkles */}
+            <Sparkles></Sparkles>
             <Component {...pageProps} />
           </div>
         </FCMProvider>
