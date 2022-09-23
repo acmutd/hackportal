@@ -54,7 +54,7 @@ export default function FaqDisclosure({
           </button>
         </Disclosure.Button>
         {isOpen && (
-          <Disclosure.Panel className="xl:text-lg md:text-base text-sm" static>
+          <Disclosure.Panel className="xl:text-lg md:text-base text-sm mb-4" static>
             {answer}
           </Disclosure.Panel>
         )}
