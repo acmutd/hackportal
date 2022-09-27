@@ -80,13 +80,15 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
     }
 
     const { displayName, email, photoURL, uid } = firebaseUser;
+    const firstName = displayName.split(" ")[0]
+    const lastName = displayName.substring(firstName.length).trim()
 
     const token = await firebaseUser.getIdToken();
     setUser({
       id: uid,
       token,
-      firstName: displayName,
-      lastName: '',
+      firstName,
+      lastName,
       preferredEmail: email,
       photoUrl: photoURL,
       permissions: ['hacker'],
