@@ -4,6 +4,7 @@ export const hackPortalConfig: HackPortalConfig = {
   //  which hold all the questions of that type
   //add extra questions types(even ones already used) to question topics and add more questions under each question type
   //questions are displayed on page in order
+  teamColor: ['Red', 'Green', 'Blue', 'Yellow'],
   registrationFields: {
     //Question Topic
     generalQuestions: [
@@ -541,6 +542,7 @@ export interface HackPortalConfig {
     sponsorInfoQuestions: QuestionTypes[];
     oneLastThing: QuestionTypes[];
   };
+  teamColor: string[];
 }
 
 interface QuestionTypes {
