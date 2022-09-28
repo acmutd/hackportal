@@ -513,6 +513,7 @@ export const fieldNames = {
   scans: 'Swags', //not part of registration questions, used for scanner
   dietary: 'Dietary',
   timestamp: 'Registration Time',
+  color: 'Team Color Distribution',
 };
 
 //name fields that are checkbox questions belong here
