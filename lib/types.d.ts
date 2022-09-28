@@ -76,6 +76,7 @@ type Registration = {
    * Basic biographical user data
    */
   user: {
+    color: string;
     id: string;
     permissions: UserPermission[];
     firstName: string;
