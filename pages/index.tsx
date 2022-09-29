@@ -218,7 +218,7 @@ export default function Home(props: {
               <Image src={'/assets/Satellite.png'} alt="Satellite" layout="fill" />
             </div>
           </div>
-          <div className="2xl:w-[63rem] 2xl:h-[25rem] md:w-[46rem] md:h-[18rem] sm:w-[29rem] sm:h-[15rem] w-[22rem] h-[10rem] relative z-10 md:mb-10 mb-6">
+          <div className="2xl:w-[60rem] 2xl:h-[27rem] md:w-[43rem] md:h-[22rem] sm:w-[30rem] sm:h-[17rem] w-[22rem] h-[12rem] relative z-10 md:mb-8 mb-6">
             <Image src={'/assets/HackUTD-IX-Title-Date.png'} alt="Hero" layout="fill"></Image>
           </div>
           {/* <div className="dateGradient font-bold lg:text-5xl md:text-4xl text-3xl md:mt-8 mt-16 relative z-10">
@@ -229,7 +229,7 @@ export default function Home(props: {
               Register Now
             </div>
           </Link>
-          <p className="md:mt-16 mt-12 text-bold xl:text-6xl sm:text-4xl text-3xl flex relative z-10">
+          <p className="md:mt-14 mt-12 text-bold xl:text-6xl sm:text-4xl text-3xl flex relative z-10">
             T -
             <div className="lg:mx-5 md:mx-4 mx-2">
               <div>{countdownTime.countdownDays}</div>
