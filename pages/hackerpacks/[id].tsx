@@ -8,22 +8,12 @@ import hackerpackSettings from './Components/hackerpack-settings.json';
 import HackerpackSidebar from './Components/HackerpackSidebar';
 import MobileDropdownMenu from './Components/MobileDropdownMenu';
 
-export const customMapPageUrl = (rootPageId?: string) => (pageId: string) => {
-  pageId = (pageId || '').replace(/-/g, '');
-
-  if (rootPageId && pageId === rootPageId) {
-    return '/hackerpacks';
-  } else {
-    return `/hackerpacks/${pageId}`;
-  }
-};
-
 export default function NotionSubpage(props: { content: any; error: boolean }) {
   const router = useRouter();
   // If the hackerpack is not a Notion page, ignore it
   if (props.error) {
     router.push('/hackerpacks');
-    return;
+    return null;
   }
 
   // Adjust width of the main content if sidebar is present
@@ -95,11 +85,14 @@ export default function NotionSubpage(props: { content: any; error: boolean }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // Load Notion page data from Notion API if using notion
-  if (hackerpackSettings.mainContent === 'notion') {
-    const notion = new NotionAPI();
-    const page = await notion.getPage(context.params['id'] as string);
-    return { props: { content: page, error: false } };
-  }
+  // Load Notion page data from Notion API
+  // Catch invalid IDs and make sure content is generated from Notion pages
+  try {
+    if (hackerpackSettings.mainContent === 'notion') {
+      const notion = new NotionAPI();
+      const page = await notion.getPage(context.params['id'] as string);
+      return { props: { content: page, error: false } };
+    }
+  } catch (err) {}
   return { props: { content: null, error: true } };
 };
