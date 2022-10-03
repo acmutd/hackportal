@@ -161,7 +161,11 @@ export default function HackerPack(props: { content: any }) {
       {/* Generate main content based on mainContent setting [notion, markdown, html] */}
       <section id="mainContent" className={`mt-12 px-6 py-3 relative w-full ${adjustedWidth}`}>
         {hackerpackSettings.mainContent === 'notion' && (
-          <NotionRenderer recordMap={props.content} darkMode={true} />
+          <NotionRenderer
+            recordMap={props.content}
+            darkMode={true}
+            mapPageUrl={(pageId) => `/hackerpacks/${pageId}`}
+          />
         )}
 
         {hackerpackSettings.mainContent === 'markdown' && (
