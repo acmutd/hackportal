@@ -9,6 +9,7 @@ import 'firebase/messaging';
 import 'firebase/storage';
 import KeynoteSpeaker from '../components/KeynoteSpeaker';
 import HomeChallengeCard from '../components/HomeChallengeCard';
+import TrackCard from '../components/TrackCard';
 import SponsorCard from '../components/SponsorCard';
 import FAQ from '../components/faq';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -37,6 +38,7 @@ export default function Home(props: {
   answeredQuestion: AnsweredQuestion[];
   fetchedMembers: TeamMember[];
   sponsorCard: Sponsor[];
+  tracks: Track[];
 }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -44,6 +46,8 @@ export default function Home(props: {
   const [speakers, setSpeakers] = useState<KeynoteSpeaker[]>([]);
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [challengeIdx, setChallengeIdx] = useState(0);
+  const [tracks, setTracks] = useState<Track[]>([]);
+  const [trackIdx, setTrackIdx] = useState(0);
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [sponsor, setSponsor] = useState<Sponsor[]>([]);
   const [questions, setQuestions] = useState<AnsweredQuestion[]>([]);
@@ -53,7 +57,14 @@ export default function Home(props: {
     description: '',
     prizes: [],
   });
+  const [trackData, setTrackData] = useState({
+    track: '',
+    subtitle: '',
+    description: '',
+    prizes: [],
+  });
   const [showChallengeCard, setShowChallengeCard] = useState(false);
+  const [showTrackCard, setShowTrackCard] = useState(false);
   const [notif, setNotif] = useState(false);
 
   const colorSchemes: ColorScheme[] = [
@@ -79,10 +90,14 @@ export default function Home(props: {
 
     //Organize challenges in order by rank given in firebase
     const sortedChallenges = props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1));
+    const sortedTracks = props.tracks.sort((a, b) => (a.rank > b.rank ? 1 : -1));
     const sortedQuestions = props.answeredQuestion.sort((a, b) => (a.rank > b.rank ? 1 : -1));
 
     if (sortedChallenges.length != 0) {
       setChallenges(sortedChallenges);
+    }
+    if (sortedTracks.length != 0) {
+      setTracks(sortedTracks);
     }
     if (sortedQuestions.length != 0) {
       setQuestions(sortedQuestions);
@@ -138,6 +153,20 @@ export default function Home(props: {
       organization: challenge.organization,
       description: challenge.description,
       prizes: challenge.prizes,
+    });
+  };
+
+  const changeTrack = (track, newIdx) => {
+    setShowTrackCard(true);
+    document.getElementById(`track${trackIdx}`).style.backgroundColor = 'rgba(143, 36, 26, 0.4)';
+    document.getElementById(`track${newIdx}`).style.backgroundColor = 'rgba(143, 36, 26, 0.7)';
+
+    setTrackIdx(newIdx);
+    setTrackData({
+      track: track.track,
+      subtitle: track.subtitle,
+      description: track.description,
+      prizes: track.prizes,
     });
   };
 
@@ -386,6 +415,93 @@ export default function Home(props: {
             </div>
           </section>
         )}
+        {/* Tracks */}
+        {/* This section is hidden if there are no tracks */}
+        {tracks.length != 0 && (
+          <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
+            <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">Tracks</h1>
+            <div className="relative mt-4 sm:w-[95%] w-[85%] mx-auto">
+              <Swiper
+                modules={[Navigation, A11y, Pagination]}
+                spaceBetween={10}
+                allowTouchMove={false}
+                // navigation
+                navigation={{
+                  prevEl: '.swiper-button-prev-tracks',
+                  nextEl: '.swiper-button-next-tracks',
+                }}
+                pagination={{
+                  el: '.swiper-pagination-tracks',
+                  type: 'bullets',
+                }}
+                breakpoints={{
+                  // when window width is >= 0px
+                  0: {
+                    slidesPerView: 2,
+                  },
+                  // when window width is >= 768px
+                  768: {
+                    slidesPerView: 3,
+                  },
+                  // when window width is >= 1536px
+                  1536: {
+                    slidesPerView: 4,
+                  },
+                }}
+                className="swiper"
+              >
+                {tracks.map((track, idx) => (
+                  <SwiperSlide key={idx}>
+                    <div
+                      id={`track${idx}`}
+                      className={`${idx} relative cursor-pointer md:text-lg sm:text-sm text-xs md:p-6 p-4 rounded-md trackCard h-[16rem]`}
+                      key={idx}
+                      onClick={() => changeTrack(track, idx)}
+                    >
+                      <Image
+                        src={`/assets/planets/planet${(idx % 9) + 1}.png`}
+                        alt="planet"
+                        width={120}
+                        height={120}
+                      />
+                      <div className="font-semibold xl:text-2xl sm:text-xl text-base">
+                        {track.track}
+                      </div>
+                      <div className="font-semibold xl:text-lg sm:text-base text-xs">
+                        {track.subtitle}
+                      </div>
+                      <div className="flex items-center sm:text-sm text-xs">
+                        Learn more <ChevronUpIcon className="w-5 h-5 rotate-180" />
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <div className="-translate-x-12 -translate-y-32">
+                <div className="swiper-button-prev-tracks"></div>
+              </div>
+              <div className="translate-y-10">
+                <div className="swiper-pagination-tracks"></div>
+              </div>
+              <div className="translate-x-12 -translate-y-32">
+                <div className="swiper-button-next-tracks"></div>
+              </div>
+            </div>
+
+            {/* Tracks Description Cards */}
+            {showTrackCard && (
+              <div className="my-4 p-6">
+                {/* Card */}
+                <TrackCard
+                  track={trackData.track}
+                  description={trackData.description}
+                  prizes={trackData.prizes}
+                />
+              </div>
+            )}
+          </section>
+        )}
+
         {/* Challenges */}
         {/* This section is hidden if there are no challenges */}
         {challenges.length != 0 && (
@@ -472,6 +588,7 @@ export default function Home(props: {
             )}
           </section>
         )}
+
         {/* Sponsors */}
         {sponsor.length != 0 && (
           <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto mt-4">
@@ -671,6 +788,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/challenges/`,
     {},
   );
+  const { data: trackData } = await RequestHelper.get<Track[]>(
+    `${protocol}://${context.req.headers.host}/api/tracks`,
+    {},
+  );
   const { data: answeredQuestion } = await RequestHelper.get<AnsweredQuestion[]>(
     `${protocol}://${context.req.headers.host}/api/questions/faq`,
     {},
@@ -690,6 +811,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       answeredQuestion: answeredQuestion,
       fetchedMembers: memberData,
       sponsorCard: sponsorData,
+      tracks: trackData,
     },
   };
 };

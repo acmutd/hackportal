@@ -190,6 +190,24 @@ type Challenge = {
 
 /**
  *
+ * Represent a track
+ *
+ * @param track title of track
+ * @param subtitle subtitle of track
+ * @param prizes array of prizes starting from first and ending to last place prize, not required
+ * @param description description of that track. To add a linebreak, simply add \n into the string value where needed in firebase
+ * @param rank number determining which track gets displayed in higher order, lower rank means higher order(index of array)
+ */
+type Track = {
+  track: string;
+  subtitle: string;
+  description: string;
+  prizes: [];
+  rank: int;
+};
+
+/**
+ *
  * Represent a color scheme consist of a light and dark version used by a component
  *
  * @param light color code of the light variant
