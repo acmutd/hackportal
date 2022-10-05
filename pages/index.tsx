@@ -219,7 +219,13 @@ export default function Home(props: {
             </div>
           </div>
           <div className="2xl:w-[60rem] 2xl:h-[25rem] md:w-[43rem] md:h-[18rem] sm:w-[27rem] sm:h-[15rem] w-[20rem] h-[10rem] relative z-10">
-            <Image src={'/assets/HackUTD-IX-Title.png'} alt="Hero" layout="fill"></Image>
+            <Image
+              style={{ width: null, minWidth: null }}
+              src={'/assets/HackUTD-IX-Title.png'}
+              alt="Hero"
+              layout="fill"
+              objectFit="contain"
+            ></Image>
           </div>
           <div className="dateGradient font-bold lg:text-5xl md:text-4xl text-3xl md:mt-8 mt-16 relative z-10">
             11.12 - 11.13
