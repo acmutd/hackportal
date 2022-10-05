@@ -7,6 +7,7 @@ import Image from 'next/image';
 interface SponsorCardProps {
   link: string;
   reference: string;
+  tier: string;
 }
 
 /**
@@ -38,9 +39,27 @@ export default function SponsorCard(props: SponsorCardProps) {
   return (
     <>
       {imgSrc !== undefined && (
-        <div className="flex justify-center">
+        <div className="flex justify-center mx-6">
           <a href={props.link} target="_blank" className="" rel="noreferrer">
-            <Image src={imgSrc} width={300} height={200} layout="fixed" objectFit="contain" />
+            {props.tier === 'title' ? (
+              <Image
+                src={imgSrc}
+                width={600}
+                height={250}
+                layout="fixed"
+                objectFit="contain"
+                alt="sponsorImage"
+              />
+            ) : (
+              <Image
+                src={imgSrc}
+                width={300}
+                height={200}
+                layout="fixed"
+                objectFit="contain"
+                alt="sponsorImage"
+              />
+            )}
           </a>
           <br></br>
         </div>
