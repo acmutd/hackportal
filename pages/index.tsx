@@ -240,8 +240,13 @@ export default function Home(props: {
               <Image src={'/assets/Satellite.png'} alt="Satellite" layout="fill" />
             </div>
           </div>
-          <div className="2xl:w-[60rem] 2xl:h-[27rem] md:w-[40rem] md:h-[18rem] sm:w-[29rem] sm:h-[17rem] w-[21rem] h-[12rem] relative z-10 mb-6">
-            <Image src={'/assets/HackUTD-IX-TitleDate.png'} alt="Hero" layout="fill" objectFit="contain"></Image>
+          <div className="2xl:w-[60rem] 2xl:h-[27rem] md:w-[40rem] md:h-[18rem] sm:w-[29rem] sm:h-[17rem] w-[21rem] h-[12rem] relative z-10 my-6">
+            <Image
+              src={'/assets/HackUTD-IX-TitleDate.png'}
+              alt="Hero"
+              layout="fill"
+              objectFit="contain"
+            ></Image>
           </div>
           {/* <div className="dateGradient font-bold lg:text-5xl md:text-4xl text-3xl md:mt-8 mt-16 relative z-10">
             11.12 - 11.13
