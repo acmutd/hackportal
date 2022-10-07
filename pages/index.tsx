@@ -45,7 +45,17 @@ export default function Home(props: {
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [challengeIdx, setChallengeIdx] = useState(0);
   const [members, setMembers] = useState<TeamMember[]>([]);
-  const [sponsor, setSponsor] = useState<Sponsor[]>([]);
+
+  //Sponsor Tier Lists
+  //Title
+  const [titleSponsor, setTitleSponsor] = useState<Sponsor>();
+  //Platinum & Gold
+  const [secondTierSponsor, setSecondTierSponsor] = useState<Sponsor[]>([]);
+  //Silver & Bronze
+  const [thirdTierSponsor, setThirdTierSponsor] = useState<Sponsor[]>([]);
+  //Other
+  const [fourthTierSponsor, setFourthTierSponsor] = useState<Sponsor[]>([]);
+
   const [questions, setQuestions] = useState<AnsweredQuestion[]>([]);
   const [challengeData, setChallengeData] = useState({
     title: '',
@@ -87,7 +97,19 @@ export default function Home(props: {
     if (sortedQuestions.length != 0) {
       setQuestions(sortedQuestions);
     }
-    setSponsor(props.sponsorCard);
+
+    //Setting sponsor tier lists
+    props.sponsorCard.forEach((sponsor) => {
+      if (sponsor.tier === 'title') {
+        setTitleSponsor(sponsor);
+      } else if (sponsor.tier === 'platinum' || sponsor.tier === 'gold') {
+        setSecondTierSponsor((arr) => [...arr, sponsor]);
+      } else if (sponsor.tier === 'silver' || sponsor.tier === 'bronze') {
+        setThirdTierSponsor((arr) => [...arr, sponsor]);
+      } else {
+        setFourthTierSponsor((arr) => [...arr, sponsor]);
+      }
+    });
 
     //Organize members in order by rank given in firebase
     setMembers(props.fetchedMembers.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
@@ -473,18 +495,37 @@ export default function Home(props: {
           </section>
         )}
         {/* Sponsors */}
-        {sponsor.length != 0 && (
+        {props.sponsorCard.length != 0 && (
           <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto mt-4">
             <div className="flex flex-col flex-grow">
               <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">
                 Sponsors
               </h1>
+
               {/* Sponsor Card */}
-              <section className="flex flex-wrap justify-center p-4">
-                {sponsor.map(({ link, reference }, idx) => (
-                  <SponsorCard key={idx} link={link} reference={reference} />
+              <section className="flex flex-wrap justify-center">
+                <SponsorCard
+                  link={titleSponsor.link}
+                  reference={titleSponsor.reference}
+                  tier={'title'}
+                />
+              </section>
+              <section className="flex flex-wrap justify-center">
+                {secondTierSponsor.map(({ link, reference }, idx) => (
+                  <SponsorCard key={idx} link={link} reference={reference} tier={'second'} />
                 ))}
               </section>
+              <section className="flex flex-wrap justify-center">
+                {thirdTierSponsor.map(({ link, reference }, idx) => (
+                  <SponsorCard key={idx} link={link} reference={reference} tier={'third'} />
+                ))}
+              </section>
+              <section className="flex flex-wrap justify-center">
+                {fourthTierSponsor.map(({ link, reference }, idx) => (
+                  <SponsorCard key={idx} link={link} reference={reference} tier={'fourth'} />
+                ))}
+              </section>
+
               <h2 className="mt-6 text-center">
                 {' '}
                 {/* !change */}

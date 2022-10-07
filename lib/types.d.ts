@@ -234,6 +234,7 @@ type ScheduleEvent = {
 type Sponsor = {
   link: string;
   reference: string;
+  tier: string;
 };
 
 type GeneralStats = {
