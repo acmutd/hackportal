@@ -86,7 +86,7 @@ export default function ProfilePage() {
                     <h1 className="font-bold">{profile.studyLevel}</h1>
                   </div>
                   <div className="profile-view-color flex flex-col gap-y-2">
-                    <div className="font-bold text-xl">Team Color</div>
+                    <div className="font-bold text-xl">Your Color</div>
                     <h1 className="font-bold">{profile.user.color}</h1>
                   </div>
                 </div>
