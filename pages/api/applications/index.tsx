@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { auth, firestore } from 'firebase-admin';
 import initializeApi from '../../../lib/admin/init';
 import { userIsAuthorized } from '../../../lib/authorization/check-authorization';
+import { computeHash, determineColorByTeamIdx } from '../../../lib/stats/color';
 
 initializeApi();
 
@@ -98,6 +99,12 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
       message: '',
     });
   }
+
+  body = {
+    ...body,
+    user: { ...body.user, color: determineColorByTeamIdx(computeHash(body.user.id)) },
+  };
+
   const snapshot = await db
     .collection(APPLICATIONS_COLLECTION)
     .where('user.id', '==', body.user.id)

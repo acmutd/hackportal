@@ -45,9 +45,13 @@ a.link {
   display: grid;
   grid-template-areas:
     'name role'
-    'university university';
+    'university color';
   row-gap: 2rem;
   column-gap: 1rem;
+}
+
+.profile-view-color {
+  grid-area: color;
 }
 
 .profile-view-name {

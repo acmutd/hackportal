@@ -4,6 +4,7 @@ export const hackPortalConfig: HackPortalConfig = {
   //  which hold all the questions of that type
   //add extra questions types(even ones already used) to question topics and add more questions under each question type
   //questions are displayed on page in order
+  teamColor: ['Red', 'Green', 'Blue', 'Yellow'],
   registrationFields: {
     //Question Topic
     generalQuestions: [
@@ -492,6 +493,7 @@ export type statRecordTypes = {
   hackathonExperience: Record<number, number>;
   heardFrom: Record<string, number>;
   timestamp: Record<string, number>;
+  color: Record<string, number>;
 };
 
 //add the title for each field that will be displayed as chart titles in admin stats page
@@ -511,6 +513,7 @@ export const fieldNames = {
   scans: 'Swags', //not part of registration questions, used for scanner
   dietary: 'Dietary',
   timestamp: 'Registration Time',
+  color: 'Team Color Distribution',
 };
 
 //name fields that are checkbox questions belong here
@@ -540,6 +543,7 @@ export interface HackPortalConfig {
     sponsorInfoQuestions: QuestionTypes[];
     oneLastThing: QuestionTypes[];
   };
+  teamColor: string[];
 }
 
 interface QuestionTypes {
