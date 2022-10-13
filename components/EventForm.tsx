@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import TextField from '@mui/material/TextField';
+import { DEFAULT_EVENT_FORM_DATA } from '../lib/data';
 
 interface EventFormProps {
   event?: ScheduleEvent;
@@ -11,23 +12,9 @@ interface EventFormProps {
 export default function EventForm({ event, onSubmitClick, formAction }: EventFormProps) {
   const [disableSubmit, setDisableSubmit] = useState<boolean>(false);
   const [eventForm, setEventForm] = useState<typeof event>(
-    formAction === 'Edit'
-      ? {
-          ...event,
-          type: event.type || '',
-        }
-      : {
-          description: '',
-          title: '',
-          page: '',
-          type: '',
-          location: '',
-          speakers: [],
-          startDate: new Date(),
-          endDate: new Date(),
-          Event: -1,
-        },
+    formAction === 'Edit' ? event : DEFAULT_EVENT_FORM_DATA,
   );
+
   return (
     <div className="my-3 flex flex-col gap-y-4">
       <input
@@ -41,12 +28,11 @@ export default function EventForm({ event, onSubmitClick, formAction }: EventFor
         value={eventForm.page}
         onChange={(e) => setEventForm((prev) => ({ ...prev, page: e.target.value }))}
         type="text"
-        placeholder="Enter page?"
+        placeholder="Enter page"
         className="border-2 p-3 rounded-lg"
       />
       <select
         className="border-2 p-3 rounded-lg"
-        defaultValue=""
         value={eventForm.type}
         onChange={(e) => setEventForm((prev) => ({ ...prev, type: e.target.value }))}
       >
@@ -57,6 +43,13 @@ export default function EventForm({ event, onSubmitClick, formAction }: EventFor
         <option value="sponsor">Sponsor Event</option>
         <option value="workshop">Workshop Event</option>
       </select>
+      <input
+        type="text"
+        className="border-2 p-3 rounded-lg"
+        placeholder={`Enter track ("General", "Technical", etc.)`}
+        value={eventForm.track}
+        onChange={(e) => setEventForm((prev) => ({ ...prev, track: e.target.value }))}
+      />
       <input
         value={eventForm.location}
         onChange={(e) => setEventForm((prev) => ({ ...prev, location: e.target.value }))}
@@ -113,7 +106,7 @@ export default function EventForm({ event, onSubmitClick, formAction }: EventFor
             speakers: [...prev.speakers, ''],
           }))
         }
-        className="p-3 bg-green-400 rounded-lg"
+        className="p-3 bg-blue-400 rounded-lg"
       >
         Add Speaker
       </button>

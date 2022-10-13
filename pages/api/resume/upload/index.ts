@@ -40,9 +40,9 @@ handler.post(async (req, res) => {
     );
   const storage = firebase.storage();
 
-  const rootRef = firebase.storage().ref();
+  const rootRef = firebase.storage().ref('resumes');
   const fileRef = rootRef.child(req.body.fileName);
-  const snapshot = await fileRef.put(req.file.buffer);
+  await fileRef.put(req.file.buffer);
   res.end();
 });
 
