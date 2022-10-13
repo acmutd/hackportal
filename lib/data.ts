@@ -24,3 +24,16 @@ export const stats = [
     object: 'statistic 3',
   },
 ];
+
+export const DEFAULT_EVENT_FORM_DATA: ScheduleEvent = {
+  description: '',
+  title: '',
+  page: '',
+  type: '',
+  track: '',
+  location: '',
+  speakers: [],
+  startDate: new Date(),
+  endDate: new Date(),
+  Event: -1,
+};

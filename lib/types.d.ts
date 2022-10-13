@@ -19,7 +19,7 @@ type Companies = 'SF' | 'AA' | 'C1' | 'EB' | 'FB';
  */
 type Person = {
   /**
-   * The uesr's first name.
+   * The user's first name.
    */
   firstName: string;
 
@@ -209,28 +209,34 @@ type Announcement = {
 /**
  *
  * Represent an event
- *
  * @param title title of event
  * @param speakers speakers of event
- * @param startDate start timestamp of event
- * @param endDate end timestamp of event
+ * @param type type of event (Tech talk, workshop, social, etc.)
+ * @param tracks what track the event is on (super-admin defined) ex: "General Event", "Technical Event", "Skills Event"
+ * @param startDate start date of event
+ * @param startTimestamp start timestamp of event
+ * @param endDate end date of event
+ * @param endTimestamp end timestamp of event
+ * @param Event event id number
  * @param location location/room of event
  * @param page page where more information can be found about event
  * @param description description about event
  *
  */
+
 type ScheduleEvent = {
   title: string;
-  endDate: Date;
-  type?: string;
-  location: string;
-  startDate: Date;
-  Event: number;
   speakers?: string[];
+  type?: string;
+  track: string;
+  startDate: Date;
+  startTimestamp?: any;
+  endDate: Date;
+  endTimestamp?: any;
+  Event: number;
+  location: string;
   page: string;
   description: string;
-  startTimestamp?: any;
-  endTimestamp?: any;
 };
 
 type Sponsor = {
