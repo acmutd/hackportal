@@ -11,6 +11,7 @@ import schools from '../public/schools.json';
 import majors from '../public/majors.json';
 import { hackPortalConfig, formInitialValues } from '../hackportal.config';
 import DisplayQuestion from '../components/DisplayQuestion';
+import { getFileExtension } from '../lib/util';
 
 /**
  * The registration page.
@@ -75,24 +76,12 @@ export default function Register() {
     checkRedirect();
   }, [user]);
 
-  const getExtension = (filename: string) => {
-    for (let i = filename.length - 1; i >= 0; i--) {
-      if (filename.charAt(i) == '.') return filename.substring(i, filename.length);
-    }
-    return '';
-  };
-
   const handleSubmit = async (registrationData) => {
     try {
       if (resumeFile) {
         const formData = new FormData();
         formData.append('resume', resumeFile);
-        formData.append(
-          'fileName',
-          `resume_${registrationData.user.firstName}_${
-            registrationData.user.lastName
-          }${getExtension(resumeFile.name)}`,
-        );
+        formData.append('fileName', `${user.id}${getFileExtension(resumeFile.name)}`);
         await fetch('/api/resume/upload', {
           method: 'post',
           body: formData,
