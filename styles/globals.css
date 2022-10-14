@@ -22,6 +22,7 @@ h1 {
 
 .nasalization {
   font-family: 'nasalization';
+  color: white!important;
 }
 
 .sourceSansPro {
@@ -453,14 +454,13 @@ text.Target-root {
   opacity: 1;
 }
 
+span.faq {
+  color: white!important; 
+}
+
 span {
   color: black;
 }
-
-span.nasalization {
-  color: white!important;
-}
-
 text[dominant-baseline="central"] {
   fill: white !important;
 }

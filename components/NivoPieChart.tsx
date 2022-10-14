@@ -9,6 +9,8 @@ interface NivoPieChartProps {
 }
 
 export default function NivoPieChart({ name, items }: NivoPieChartProps) {
+  const total = items.reduce((acc, curr) => acc + curr.value, 0);
+
   return (
     <div style={{ height: 650 }} className="w-full flex-grow border-2 my-2 rounded-2xl p-6">
       <h1 className="text-2xl font-bold text-center">{name}</h1>
@@ -25,6 +27,16 @@ export default function NivoPieChart({ name, items }: NivoPieChartProps) {
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: 'color' }}
         arcLabelsSkipAngle={10}
+        tooltip={({ datum }) => {
+          return (
+            <div className="bg-white p-4 rounded-md">
+              <h1 className="text-black">
+                {datum.data.id} - <span className="font-bold">{datum.value}</span> (
+                {((datum.value * 100) / total).toFixed(2)}%)
+              </h1>
+            </div>
+          );
+        }}
         arcLabelsTextColor={{
           from: 'color',
           modifiers: [['darker', 2]],
