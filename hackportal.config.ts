@@ -475,6 +475,7 @@ export const hackPortalConfig: HackPortalConfig = {
       },
     ],
   },
+  registrationCutoff: 1665945883640,
 };
 
 //add any question data that your org would like to see on the admin stats page
@@ -544,6 +545,7 @@ export interface HackPortalConfig {
     oneLastThing: QuestionTypes[];
   };
   teamColor: string[];
+  registrationCutoff: number;
 }
 
 interface QuestionTypes {

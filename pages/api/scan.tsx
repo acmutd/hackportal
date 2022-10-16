@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { auth, firestore } from 'firebase-admin';
 import initializeApi from '../../lib/admin/init';
 import { userIsAuthorized } from '../../lib/authorization/check-authorization';
+import { hackPortalConfig } from '../../hackportal.config';
 
 initializeApi();
 
@@ -101,6 +102,14 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
     }
 
     if (scans.includes(bodyData.scan)) return res.status(201).json({ code: 'duplicate' });
+    
+    if (scanIsCheckInEvent && snapshot.createTime.toDate().getTime() > hackPortalConfig.registrationCutoff && !bodyData.overrideRegistrationCutoff) {
+      return res.status(418).json({
+        code: 'late-registration',
+        message: 'User registered passed cutoff time',
+        user_id: bodyData.id
+      })
+    }
     scans.push(bodyData.scan);
     await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans });
     res.status(200).json({});

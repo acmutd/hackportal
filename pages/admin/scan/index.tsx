@@ -16,6 +16,7 @@ const successStrings = {
   unexpectedError: 'Unexpected error...',
   notCheckedIn: "User hasn't checked in!",
   invalidFormat: 'Invalid hacker tag format...',
+  lateRegistration: 'User registered passed the deadline...'
 };
 
 function getSuccessColor(success: string) {
@@ -65,7 +66,7 @@ export default function Admin() {
     setCurrentScanIdx(idx);
   };
 
-  const handleScan = async (data: string) => {
+  const handleScan = async (data: string, flags) => {
     if (!data.startsWith('hack:')) {
       setScanData(data);
       setSuccess(successStrings.invalidFormat);
@@ -80,14 +81,18 @@ export default function Admin() {
       body: JSON.stringify({
         id: data.replaceAll('hack:', ''),
         scan: currentScan.name,
+        overrideRegistrationCutoff: !!flags.overrideRegistrationCutoff
       }),
     })
       .then(async (result) => {
+        const data = await result.json()
         setScanData(data);
         if (result.status === 404) {
           return setSuccess(successStrings.invalidUser);
         } else if (result.status === 201) {
           return setSuccess(successStrings.alreadyClaimed);
+        } else if (result.status == 418) {
+          return setSuccess(successStrings.lateRegistration)
         } else if (result.status === 403) {
           return setSuccess(successStrings.notCheckedIn);
         } else if (result.status !== 200) {
@@ -375,14 +380,23 @@ export default function Admin() {
 
                       {scanData ? (
                         <div className="flex m-auto items-center justify-center">
-                          <div
+                            {success === successStrings.lateRegistration ? (
+                              <div className="w-min-5 m-3 rounded-lg text-center text-lg font-black p-3 bg-green-300 cursor-pointer hover:brightness-125" onClick={() => {
+                                const userId = scanData.user_id
+                                setScanData(undefined)
+                                setSuccess(undefined)
+                                handleScan(`hack:${userId}`, { overrideRegistrationCutoff: true })
+                              }}>
+                                Confirm Checkin
+                              </div>
+                            ) : <div
                             className="w-min-5 m-3 rounded-lg text-center text-lg font-black p-3 bg-green-300 cursor-pointer hover:brightness-125"
                             onClick={() => {
                               setScanData(undefined);
                             }}
                           >
                             Next Scan
-                          </div>
+                          </div>}
                           <div
                             className="w-min-5 m-3 rounded-lg text-center text-lg font-black p-3 bg-green-300 cursor-pointer hover:brightness-125"
                             onClick={() => {

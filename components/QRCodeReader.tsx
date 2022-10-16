@@ -6,6 +6,7 @@ import LoadIcon from './LoadIcon';
 export interface QRCodeReaderProps {
   callback?: (
     data: string,
+    flags: object,
     video: HTMLVideoElement,
     setVideoReady: (state: boolean) => void,
     setPaused: (state: boolean) => void,
