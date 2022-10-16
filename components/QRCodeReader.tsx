@@ -55,7 +55,7 @@ export default function QRCodeReader({ callback, width, height }: QRCodeReaderPr
         video.pause();
         setPaused(true);
         setVideoReady(false);
-        callback(qrCode.data, video, setVideoReady, setPaused, tick);
+        callback(qrCode.data, {}, video, setVideoReady, setPaused, tick);
         return;
       }
     }
