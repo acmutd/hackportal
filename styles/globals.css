@@ -22,6 +22,7 @@ h1 {
 
 .nasalization {
   font-family: 'nasalization';
+  color: white!important;
 }
 
 .sourceSansPro {
@@ -451,4 +452,15 @@ text.Target-root {
 .swiper-pagination-bullet {
   background-color: rgb(255, 255, 255) !important;
   opacity: 1;
+}
+
+span.faq {
+  color: white!important; 
+}
+
+span {
+  color: black;
+}
+text[dominant-baseline="central"] {
+  fill: white !important;
 }
