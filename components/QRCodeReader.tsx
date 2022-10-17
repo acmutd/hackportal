@@ -6,6 +6,7 @@ import LoadIcon from './LoadIcon';
 export interface QRCodeReaderProps {
   callback?: (
     data: string,
+    flags: object,
     video: HTMLVideoElement,
     setVideoReady: (state: boolean) => void,
     setPaused: (state: boolean) => void,
@@ -54,7 +55,7 @@ export default function QRCodeReader({ callback, width, height }: QRCodeReaderPr
         video.pause();
         setPaused(true);
         setVideoReady(false);
-        callback(qrCode.data, video, setVideoReady, setPaused, tick);
+        callback(qrCode.data, {}, video, setVideoReady, setPaused, tick);
         return;
       }
     }
