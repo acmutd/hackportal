@@ -102,13 +102,17 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
     }
 
     if (scans.includes(bodyData.scan)) return res.status(201).json({ code: 'duplicate' });
-    
-    if (scanIsCheckInEvent && snapshot.createTime.toDate().getTime() > hackPortalConfig.registrationCutoff && !bodyData.overrideRegistrationCutoff) {
+
+    if (
+      scanIsCheckInEvent &&
+      snapshot.createTime.toDate().getTime() > hackPortalConfig.registrationCutoff &&
+      !bodyData.overrideRegistrationCutoff
+    ) {
       return res.status(418).json({
         code: 'late-registration',
         message: 'User registered passed cutoff time',
-        user_id: bodyData.id
-      })
+        user_id: bodyData.id,
+      });
     }
     scans.push(bodyData.scan);
     await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans });

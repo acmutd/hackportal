@@ -475,7 +475,7 @@ export const hackPortalConfig: HackPortalConfig = {
       },
     ],
   },
-  registrationCutoff: 1666069200,
+  registrationCutoff: 1666069200000,
 };
 
 //add any question data that your org would like to see on the admin stats page
