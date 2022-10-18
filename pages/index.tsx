@@ -373,7 +373,7 @@ export default function Home(props: {
                   className="video"
                   width="700"
                   height="400"
-                  src="https://www.youtube.com/embed/krh4vjU2Ovs"
+                  src="https://www.youtube.com/embed/f6-Kwfi-CQM"
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -531,10 +531,10 @@ export default function Home(props: {
                 ))}
               </section>
 
-              <h2 className="mt-6 text-center">
+              {/* <h2 className="mt-6 text-center">
                 {' '}
                 {/* !change */}
-                If you would like to sponsor HackUTD IX, please reach out to us at&nbsp;
+              {/* If you would like to sponsor HackUTD IX, please reach out to us at&nbsp;
                 <a
                   href="mailto:email@organization.com"
                   rel="noopener noreferrer"
@@ -543,7 +543,7 @@ export default function Home(props: {
                 >
                   hello@hackutd.co
                 </a>
-              </h2>
+              </h2> } */}
             </div>
           </section>
         )}
