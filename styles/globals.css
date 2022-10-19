@@ -455,3 +455,45 @@ text.Target-root {
   background-color: rgb(255, 255, 255) !important;
   opacity: 1;
 }
+
+.MuiIconButton-label {
+  color: white !important;
+}
+
+.MuiToolbar-root, .MuiToolbar-gutters, .MuiToolbar-regular, .Toolbar-toolbar {
+  background-color: transparent!important;
+  color: white !important;
+  border-color: white !important;
+}
+.MuiTableCell-body {
+  border-color: grey !important;
+  color: #ffffff !important;
+  background-color: transparent !important;
+}
+.MuiPaper-root {
+  background-color: transparent !important;
+  
+}
+.MuiTableRow-root {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  text-decoration-color: white;
+}
+.MuiButton-root, .css-71a9mb-MuiButtonBase-root-MuiIconButton-root{
+  color: #ffffff !important;
+}
+.css-xya8j6-MuiButtonBase-root-MuiButton-root {
+  border: 1px solid white !important;
+}
+.MuiSelect-nativeInput {
+  color: white !important;
+}
+
+.MainLayout-container, .css-4plepo, .MainLayout-stickyElement, .Cell-highlightedText {
+  background-color: transparent !important;
+  color: white !important
+}
+
+.MuiTable-root {
+  background-color: red !important;
+}
