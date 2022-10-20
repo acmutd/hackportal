@@ -459,7 +459,12 @@ text.Target-root {
 .MuiIconButton-label {
   color: white !important;
 }
-
+.css-4plepo .MainLayout-background {
+  background: transparent; 
+}
+.MuiTable-root {
+  background-color: transparent !important;
+}
 .MuiToolbar-root, .MuiToolbar-gutters, .MuiToolbar-regular, .Toolbar-toolbar {
   background-color: transparent!important;
   color: white !important;
@@ -467,12 +472,17 @@ text.Target-root {
 }
 .MuiTableCell-body {
   border-color: grey !important;
-  color: #ffffff !important;
+  color: transparent !important;
   background-color: transparent !important;
 }
+
 .MuiPaper-root {
   background-color: transparent !important;
   
+}
+
+.css-4plepo .MainLayout-background {
+  background: transparent !important;
 }
 .MuiTableRow-root {
   background-color: transparent !important;
@@ -491,9 +501,9 @@ text.Target-root {
 
 .MainLayout-container, .css-4plepo, .MainLayout-stickyElement, .Cell-highlightedText {
   background-color: transparent !important;
-  color: white !important
+  text-decoration-color: white !important
 }
 
 .MuiTable-root {
-  background-color: red !important;
+  background-color: transparent !important;
 }

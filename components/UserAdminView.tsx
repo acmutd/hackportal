@@ -19,6 +19,7 @@ interface UserProfile extends Omit<Registration, 'user'> {
     lastName: string;
     permissions: string[];
     preferredEmail: string;
+    color: string;
   };
 }
 
@@ -163,6 +164,10 @@ export default function UserAdminView({
             <h1 className="font-bold text-center">
               {currentUser.user.firstName + ' ' + currentUser.user.lastName}
             </h1>
+          </div>
+          <div className="flex flex-col gap-y-2">
+            <h1 className="text-center">Color</h1>
+            <h1 className="font-bold text-center">{currentUser.user.color}</h1>
           </div>
           <div className="flex flex-col gap-y-2">
             <h1 className="text-center">Role</h1>

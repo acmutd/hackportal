@@ -14,7 +14,7 @@ import Sidebar from './Components/Sidebar';
  */
 export default function Scan() {
   const router = useRouter();
-  const { user, isSignedIn, hasProfile } = useAuthContext();
+  const { user, isSignedIn, hasProfile, profile } = useAuthContext();
   const [qrData, setQRData] = useState('');
   const [qrLoading, setQRLoading] = useState(false);
   const [error, setError] = useState('');
@@ -79,6 +79,7 @@ export default function Scan() {
             >
               Fetch QR
             </div>
+            <div className="text-xl my-3">Your color: {profile.user.color}</div>
             <QRCode data={qrData} loading={qrLoading} width={300} height={300} />
           </div>
         ) : (

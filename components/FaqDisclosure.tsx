@@ -49,7 +49,7 @@ export default function FaqDisclosure({
               toggleDisclosure();
             }}
           >
-            <span className="text-left">{question}</span>
+            <span className="faq text-left">{question}</span>
             <ChevronDownIcon className={`${isOpen ? 'transform rotate-180' : ''} w-5 h-5`} />
           </button>
         </Disclosure.Button>

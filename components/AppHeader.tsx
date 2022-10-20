@@ -75,7 +75,7 @@ export default function AppHeader() {
   return (
     <>
       <header className="appHeader fixed top-0 justify-between flex w-full items-center h-16 z-50 py-4 lg:px-6 px-4">
-        <div className="flex items-center md:w-46 lg:w-52 text-white ml-0 lg:ml-6">
+        <div className="flex items-center w-52 md:w-46 lg:w-52 text-white ml-0 lg:ml-6">
           <Link href="/">
             <a className="flex gap-2 order-2 relative font-display md:order-1 items-center">
               {/* !change src */}
@@ -166,7 +166,7 @@ export default function AppHeader() {
             </div>
           </div>
         )}
-        <div className="order-3 md:w-44 lg:w-52 flex justify-end text-white md:mr-6">
+        <div className="order-3 flex justify-end text-white lg:mr-6">
           <button
             className="font-header font-medium bg-gradient-to-b from-[#F33C2C] to-[#661912] rounded-full text-base md:text-lg lg:text-xl md:px-8 px-5 py-1"
             onClick={toggleDialog}
