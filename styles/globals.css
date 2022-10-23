@@ -22,7 +22,7 @@ h1 {
 
 .nasalization {
   font-family: 'nasalization';
-  color: white!important;
+  color: white !important;
 }
 
 .sourceSansPro {
@@ -98,6 +98,7 @@ a.link {
 }
 
 @media (max-width: 1024px) {
+
   /* Home page video scaling */
   .video {
     zoom: 0.85;
@@ -144,6 +145,7 @@ a.link {
   -o-transition: width 0.15s ease-in-out;
   transition: width 0.15s ease-in-out;
 }
+
 .menuactive {
   width: 100%;
 }
@@ -187,18 +189,19 @@ a.link {
   /* backdrop-filter: blur(15px); */
 }
 
-.input{
+.input {
   background-color: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(8px);
 }
+
 .slant {
-  background: 
-       linear-gradient(to top left,
-           rgba(255, 255, 255, 0) 0%,
-           rgba(255, 255, 255, 0) calc(50% - 2px),
-           rgb(255, 255, 255) 50%,
-           rgba(255, 255, 255, 0) calc(50% + 2px),
-           rgba(255, 255, 255, 0) 100%)
+  background:
+    linear-gradient(to top left,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0) calc(50% - 2px),
+      rgb(255, 255, 255) 50%,
+      rgba(255, 255, 255, 0) calc(50% + 2px),
+      rgba(255, 255, 255, 0) 100%)
 }
 
 .textGradient {
@@ -219,9 +222,11 @@ a.link {
   0% {
     transform: translatey(0px);
   }
+
   30% {
     transform: translatey(-6px);
   }
+
   100% {
     transform: translatey(0px);
   }
@@ -250,23 +255,32 @@ a.link {
 }
 
 .navbarBackground {
-  background: linear-gradient(171.65deg, #11021E 0%, #1D123D 45.31%, #37214F 99.29%);;
+  background: linear-gradient(171.65deg, #11021E 0%, #1D123D 45.31%, #37214F 99.29%);
+  ;
 }
 
 .bounce-in {
   animation: bounce-in 1.5s ease;
 }
+
 @keyframes bounce-in {
   0% {
     opacity: 0;
     transform: scale(.3);
   }
+
   50% {
     opacity: 1;
     transform: scale(1.05);
   }
-  70% { transform: scale(.9); }
-  100% { transform: scale(1); }
+
+  70% {
+    transform: scale(.9);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .notif {
@@ -288,21 +302,31 @@ a.link {
   box-shadow: 0px 0px 20px rgb(210, 212, 214);
 }
 
-.float { 
-    animation-name: float;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
+.float {
+  animation-name: float;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
- 
+
 @keyframes float {
-    0% { transform: translate(0,  0px); }
-    50%  { transform: translate(0, 15px); }
-    100%   { transform: translate(0, -0px); }   
+  0% {
+    transform: translate(0, 0px);
+  }
+
+  50% {
+    transform: translate(0, 15px);
+  }
+
+  100% {
+    transform: translate(0, -0px);
+  }
 }
 
 @keyframes asteroid {
-  50% { -webkit-transform: scale(1.1)  translateY(8px) translateX(-20px) }
+  50% {
+    -webkit-transform: scale(1.1) translateY(8px) translateX(-20px)
+  }
 
 }
 
@@ -313,9 +337,15 @@ a.link {
 .spin {
   animation: spin 25s infinite linear;
 }
+
 @keyframes spin {
-  from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
 }
 
 /* ::-webkit-scrollbar-track {
@@ -335,11 +365,14 @@ a.link {
 .shootingStar {
   animation: shootingStar 7s infinite linear;
 }
+
 @keyframes shootingStar {
   0% {
     transform: translatex(0px) translatey(0px);
   }
-  28%, 100% {
+
+  28%,
+  100% {
     transform: translatex(130vw) translatey(300%);
   }
 }
@@ -354,14 +387,18 @@ a.link {
 
 
 @keyframes xAxis {
-  50%, 100% {
+
+  50%,
+  100% {
     animation-timing-function: ease-out;
     transform: translatex(-120vw);
   }
 }
 
 @keyframes yAxis {
-  40%, 100% {
+
+  40%,
+  100% {
     animation-timing-function: ease-in;
     transform: translatey(500%);
   }
@@ -377,9 +414,12 @@ a.link {
 
 
 @keyframes xAxis2 {
-  0%, 40% {
+
+  0%,
+  40% {
     transform: translatex(0vw);
   }
+
   100% {
     animation-timing-function: ease-out;
     transform: translatex(130vw);
@@ -387,9 +427,12 @@ a.link {
 }
 
 @keyframes yAxis2 {
-  0%, 30% {
+
+  0%,
+  30% {
     transform: translatey(0%);
   }
+
   100% {
     animation-timing-function: ease-in;
     transform: translatey(-500%);
@@ -445,30 +488,39 @@ text.Target-root {
   background: rgba(143, 36, 26, 0.4);
 }
 
-.swiper-button-prev, .swiper-button-prev {
-  color: var(--swiper-navigation-color,var(--swiper-theme-color));
+.swiper-button-prev,
+.swiper-button-prev {
+  color: var(--swiper-navigation-color, var(--swiper-theme-color));
 }
 
-.swiper-button-next, .swiper-button-next-track {
-  color: var(--swiper-navigation-color,var(--swiper-theme-color));
+.swiper-button-next,
+.swiper-button-next-track {
+  color: var(--swiper-navigation-color, var(--swiper-theme-color));
 }
 
 :root {
   --swiper-navigation-color: #ffffff;
 }
 
-.swiper-pagination-bullet, .swiper-pagination-bullet-track {
+.swiper-pagination-bullet,
+.swiper-pagination-bullet-track {
   background-color: rgb(255, 255, 255) !important;
   opacity: 1;
 }
 
 span.faq {
-  color: white!important; 
+  color: white !important;
 }
 
 span {
   color: black;
 }
+
 text[dominant-baseline="central"] {
   fill: white !important;
+}
+
+.notion-h-title,
+.notion-page-title-text {
+  color: white;
 }
