@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticProps } from 'next';
 import ReactMarkdown from 'react-markdown';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
@@ -182,7 +182,7 @@ export default function HackerPack(props: { content: any }) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   // Load Notion page data from Notion API if using notion
   if (hackerpackSettings.mainContent === 'notion') {
     const notion = new NotionAPI();
