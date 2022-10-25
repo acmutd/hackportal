@@ -42,7 +42,7 @@ export default function MobileDropdownMenu({ name, content, className }: Dropdow
 
   return (
     <>
-      <div className={`py-4 px-6 w-full flex flex-col bg-gray-50 z-[1] ${className}`}>
+      {/* <div className={`home py-4 px-6 w-full flex flex-col bg-gray-50 z-[1] ${className}`}>
         <span className="font-bold">{name} Menu</span>
         <div className="flex flex-col w-full relative">
           {content.map((mainSection, i) => (
@@ -100,7 +100,7 @@ export default function MobileDropdownMenu({ name, content, className }: Dropdow
             </>
           ))}
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

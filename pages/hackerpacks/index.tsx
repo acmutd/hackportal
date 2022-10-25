@@ -140,7 +140,7 @@ export default function HackerPack(props: { content: any }) {
 
   // remove when it's time to reveal page
   return (
-    <div className="flex flex-col md:flex-row flex-grow flex-wrap home">
+    <div className="pt-12 flex flex-col md:flex-row flex-grow flex-wrap home">
       <Head>
         <title>HackerPacks</title>
         <meta name="description" content="HackerPack Information" />
@@ -159,7 +159,7 @@ export default function HackerPack(props: { content: any }) {
       )}
 
       {/* Generate main content based on mainContent setting [notion, markdown, html] */}
-      <section id="mainContent" className={`mt-12 px-6 py-3 relative w-full ${adjustedWidth}`}>
+      <section id="mainContent" className={`px-6 py-3 relative w-full ${adjustedWidth}`}>
         {hackerpackSettings.mainContent === 'notion' && (
           <NotionRenderer
             recordMap={props.content}
