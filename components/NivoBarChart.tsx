@@ -2,20 +2,23 @@ import { ResponsiveBar } from '@nivo/bar';
 
 interface NivoBarChartProps {
   name: string;
-  items: Array<
-    {
-      itemName: string;
-    } & any
-  >;
+  items: Array<{
+    itemName: string;
+    itemValue: string;
+  }>;
 }
 
 export default function NivoBarChart({ name, items }: NivoBarChartProps) {
   const longestKey = items.reduce((prev, curr) => Math.max(prev, curr.itemName.length), 0);
+  const items_ = items.map(({ itemName, itemValue }) => ({
+    itemName,
+    [name]: itemValue,
+  }));
   return (
     <div style={{ height: 650 }} className="border-2 my-2 rounded-2xl md:p-6">
       <h1 className="text-2xl font-bold text-center">{name}</h1>
       <ResponsiveBar
-        data={items}
+        data={items_}
         indexBy="itemName"
         keys={[name]}
         margin={{ top: 50, right: 130, bottom: 110, left: 60 }}

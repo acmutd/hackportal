@@ -91,7 +91,7 @@ export default function AdminStatsPage() {
                 name={fieldToName[key]}
                 items={Object.entries(statsData[key] as Record<any, any>).map(([k, v]) => ({
                   itemName: k,
-                  [fieldToName[key]]: v,
+                  itemValue: v,
                 }))}
               />
             );
