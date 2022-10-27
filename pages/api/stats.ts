@@ -70,7 +70,7 @@ async function getStatsData() {
       generalStats[singleField][userData[singleField]]++;
     }
 
-    const userPermission = userData.user.permissions[0];
+    const userPermission = userData.user.permissions ? userData.user.permissions[0] : 'hacker';
 
     switch (userPermission) {
       case 'super_admin': {
