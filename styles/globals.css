@@ -456,20 +456,7 @@ text.Target-root {
   opacity: 1;
 }
 
-.MuiIconButton-label {
-  color: white !important;
-}
-.css-4plepo .MainLayout-background {
-  background: transparent; 
-}
-.MuiTable-root {
-  background-color: transparent !important;
-}
-.MuiToolbar-root, .MuiToolbar-gutters, .MuiToolbar-regular, .Toolbar-toolbar {
-  background-color: transparent!important;
-  color: white !important;
-  border-color: white !important;
-}
+/* grid rows */
 .MuiTableCell-body {
   border-color: grey !important;
   color: transparent !important;
@@ -478,32 +465,53 @@ text.Target-root {
 
 .MuiPaper-root {
   background-color: transparent !important;
-  
 }
-
+/* Top row */
 .css-4plepo .MainLayout-background {
   background: transparent !important;
+  color: white !important
 }
 .MuiTableRow-root {
   background-color: transparent !important;
   color: #ffffff !important;
   text-decoration-color: white;
 }
+/* button, arrows, date */
 .MuiButton-root, .css-71a9mb-MuiButtonBase-root-MuiIconButton-root{
   color: #ffffff !important;
 }
+/* Today button outline */
 .css-xya8j6-MuiButtonBase-root-MuiButton-root {
   border: 1px solid white !important;
 }
-.MuiSelect-nativeInput {
+
+/* gutters */
+.MainLayout-stickyElement, .Cell-highlightedText {
+  background-color: transparent !important;
+  text-decoration-color: white !important;
   color: white !important;
 }
 
-.MainLayout-container, .css-4plepo, .MainLayout-stickyElement, .Cell-highlightedText {
-  background-color: transparent !important;
-  text-decoration-color: white !important
+/* popup calendar */
+.css-3bmhjh-MuiPaper-root-MuiPopover-paper {
+  background-color: rgba(66, 146, 251, 0.8) !important;
+  backdrop-filter: blur(5px);
+  color: white !important;
+}
+.css-yyuo3s-MuiTableCell-root {
+  color: white !important;
 }
 
-.MuiTable-root {
-  background-color: transparent !important;
+.css-19yoqom-MuiTableCell-root{
+  color: white !important;
+}
+
+/* Selected popup calendar date */
+.Cell-selected{
+  background-color: rgba(102, 57, 164, 0.682) !important;
+}
+
+/* Time Text on left */
+.css-1fbp63r .Label-text{
+  color: white !important;
 }
