@@ -431,6 +431,14 @@ text.Target-root {
   background: rgba(0, 224, 255, 0.3);
 }
 
+.trackCardSelected {
+  background: rgba(143, 36, 26, 0.7);
+}
+
+.trackCard {
+  background: rgba(143, 36, 26, 0.4);
+}
+
 .homeChallengeCardSelected {
   background: rgba(78, 149, 255, 0.5);
 }
@@ -439,11 +447,11 @@ text.Target-root {
   background: rgba(78, 149, 255, 0.2);
 }
 
-.swiper-button-prev {
+.swiper-button-prev, .swiper-button-prev-tracks {
   color: var(--swiper-navigation-color,var(--swiper-theme-color));
 }
 
-.swiper-button-next {
+.swiper-button-next, .swiper-button-next-track  {
   color: var(--swiper-navigation-color,var(--swiper-theme-color));
 }
 
@@ -451,7 +459,7 @@ text.Target-root {
   --swiper-navigation-color: #ffffff;
 }
 
-.swiper-pagination-bullet {
+.swiper-pagination-bullet, .swiper-pagination-bullet-track {
   background-color: rgb(255, 255, 255) !important;
   opacity: 1;
 }
