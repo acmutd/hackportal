@@ -57,22 +57,21 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
       appointment: {
         borderRadius: 0,
         borderBottom: 0,
-        backgroundColor: `#ff00e6`,
       },
       EventTypeAppointment: {
-        backgroundColor: `#ff00e6`,
+        backgroundColor: `#8C2380 !important`,
       },
       SponsorTypeAppointment: {
-        backgroundColor: `#ff00e6`,
+        backgroundColor: `#2D93A2 !important`,
       },
       TechTalkTypeAppointment: {
-        backgroundColor: `#ff00e6`,
+        backgroundColor: `#682293 !important`,
       },
       WorkshopTypeAppointment: {
-        backgroundColor: `#ff00e6`,
+        backgroundColor: `#390758 !important`,
       },
       SocialTypeAppointment: {
-        backgroundColor: `#ff00e6`,
+        backgroundColor: `#3A6B39 !important`,
       },
       weekEndCell: {
         backgroundColor: alpha(palette.action.disabledBackground, 0.04),
@@ -137,6 +136,22 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
     ),
   );
 
+  const Appointment = withStyles(styles)(({ classes, data, ...restProps }: AppointmentProps) => (
+    <Appointments.Appointment
+      {...restProps}
+      className={classNames({
+        [classes.EventTypeAppointment]: data.type === '' || data.type === 'event',
+        [classes.SponsorTypeAppointment]: data.type === 'sponsor',
+        [classes.TechTalkTypeAppointment]: data.type === 'techtalk',
+        [classes.WorkshopTypeAppointment]: data.type === 'workshop',
+        [classes.SocialTypeAppointment]: data.type === 'social',
+        [classes.appointment]: true,
+      })}
+      data={data}
+      onClick={() => changeEventData(data)}
+    />
+  ));
+
   // #FOLD_BLOCK
   const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(
     ({
@@ -153,7 +168,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
 
       return (
         <Appointments.AppointmentContent {...restProps} data={data}>
-          <div className={`${classes.container}`}>
+          <div className={classes.container}>
             <div className={classes.text}>{data.title}</div>
             <div className={classNames(classes.text, classes.content)}>{`Type: ${Event}`}</div>
             <div className={classNames(classes.text, classes.content)}>
@@ -174,24 +189,6 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
     description: '',
     location: '',
   });
-
-  const Appointment = withStyles(styles)(
-    ({ onClick, classes, data, ...restProps }: AppointmentProps) => (
-      <Appointments.Appointment
-        {...restProps}
-        className={classNames({
-          [classes.EventTypeAppointment]: data.type === '' || data.type === 'event',
-          [classes.SponsorTypeAppointment]: data.type === 'sponsor',
-          [classes.TechTalkTypeAppointment]: data.type === 'techtalk',
-          [classes.WorkshopTypeAppointment]: data.type === 'workshop',
-          [classes.SocialTypeAppointment]: data.type === 'social',
-          [classes.appointment]: true,
-        })}
-        data={data}
-        onClick={() => changeEventData(data)}
-      />
-    ),
-  );
 
   const changeEventData = (data) => {
     const startDate = new firebase.firestore.Timestamp(data.startTimestamp._seconds, 0).toDate();

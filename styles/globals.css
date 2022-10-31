@@ -485,7 +485,7 @@ text.Target-root {
   text-decoration-color: white;
 }
 /* button, arrows, date */
-.MuiButton-root, .MuiButtonBase-root{
+.MuiButton-root, .MuiButtonBase-root, .Cell-dayOfWeek, .Cell-dayOfMonth{
   color: #ffffff !important;
 }
 /* Today button outline */
@@ -513,6 +513,10 @@ text.Target-root {
 /* Popup calendar individual dates */
 .MuiTableCell-root{
   color: white !important;
+}
+
+.Cell-today {
+  color:black !important;
 }
 
 /* Selected popup calendar date */
