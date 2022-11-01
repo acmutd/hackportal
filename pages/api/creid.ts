@@ -20,6 +20,7 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
         firstName: doc.data().user.firstName,
         lastName: doc.data().user.lastName,
         permissions: doc.data().user.permissions,
+        registeredAt: doc.createTime,
       },
     });
   });

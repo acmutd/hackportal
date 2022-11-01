@@ -22,6 +22,7 @@ export interface UserData {
     firstName: string;
     lastName: string;
     permissions: string[];
+    registeredAt: Date;
   };
 }
 
@@ -48,7 +49,12 @@ async function getAllUsers(req: NextApiRequest, res: NextApiResponse) {
 
   const doc = await db.collection(MISC_COLLECTION).doc('allusers').get();
 
-  return res.json(doc.data().users);
+  return res.json(
+    doc.data().users.map((u) => ({
+      ...u,
+      user: { ...u.user, registeredAt: u.user.registeredAt.toDate() },
+    })),
+  );
 }
 
 function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
