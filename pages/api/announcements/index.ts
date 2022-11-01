@@ -33,6 +33,7 @@ async function sendNotifications(announcement: any) {
       data: {
         ...announcement,
         baseUrl: process.env.BASE_URL,
+        iconUrl: 'icons/icon-128x128.png', // !!!CHANGE
       },
       tokens: currentBatch,
     };
