@@ -1,10 +1,15 @@
+import React from 'react';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { useState, useEffect } from 'react';
 import firebase from 'firebase/app';
 import Link from 'next/link';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import GoogleIcon from '../../public/icons/googleicon.png';
+import Image from 'next/image';
+import NextConnect from 'next-connect';
+import LoginImage from '../../public/assets/fillerAsset.png';
 /**
  * A page that allows the user to sign in.
  *
@@ -17,6 +22,7 @@ export default function AuthPage() {
   const [errorMsg, setErrorMsg] = useState('');
   const [passwordResetDialog, setPasswordResetDialog] = useState(false);
   const [sendVerification, setSendVerification] = useState(false);
+  const [signInOption, setSignInOption] = useState(true);
 
   const router = useRouter();
   const signIn = () => {
@@ -35,6 +41,31 @@ export default function AuthPage() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        setErrorMsg(errorMessage);
+      });
+  };
+
+  const signUp = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(currentEmail, currentPassword)
+      .then((userCredential) => {
+        // Signed in
+        var user = userCredential.user;
+        //send email verification
+        firebase
+          .auth()
+          .currentUser.sendEmailVerification()
+          .then(() => {
+            router.push('/auth');
+            alert(
+              'Account created! Check your email/spam folder to verify your account and log in.',
+            );
+          });
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
         setErrorMsg(errorMessage);
       });
   };
@@ -85,47 +116,89 @@ export default function AuthPage() {
     event.preventDefault();
   }
 
+  function handleSignUpSubmit(event) {
+    signUp();
+    event.preventDefault();
+  }
+
+  // Switches between sign in and create an account
+  const changeOption = (option) => {
+    document.getElementById(`signInOption`).style.textDecoration = option ? 'underline' : 'none';
+    document.getElementById(`signUpOption`).style.textDecoration = option ? 'none' : 'underline';
+
+    (document.getElementById(`signInSection`) as HTMLElement).style.display = option
+      ? 'block'
+      : 'none';
+    (document.getElementById(`signUpSection`) as HTMLElement).style.display = option
+      ? 'none'
+      : 'block';
+    setErrorMsg('');
+  };
+
   return (
     <>
-      {/* md-lg screens */}
-      <section className="min-h-screen h-screen md:flex hidden">
-        {/* Login */}
-        <div className="flex flex-col justify-center items-center h-full w-2/3 text-center bg-white p-4">
-          {!passwordResetDialog ? (
-            <div>
-              <h1 className="text-3xl font-black">Login to your account</h1>
-              <button
-                className="px-4 py-2 rounded-md shadow-md bg-white my-4 text-lg font-bold hover:shadow-lg hover:bg-gray-100"
-                onClick={() => signInWithGoogle()}
-              >
-                Sign in with Google
-              </button>
-              <div className="text-sm">or</div>
-              {/* Account credential input fields */}
-              <div className="w-[24rem]">
+      <div className="p-4">
+        <Link href="/" passHref>
+          <div className="cursor-pointer items-center inline-flex">
+            <ChevronLeftIcon />
+            Return to event site
+          </div>
+        </Link>
+      </div>
+      <section className="py-2 md:px-16 px-10 flex lg:justify-between justify-center flex-wrap">
+        <div className="xl:w-1/2 lg:w-2/3 w-5/6 my-4">
+          <h1 className="md:text-3xl text-2xl font-black">HackUTD VIII Hacker Registration</h1>
+          <p className="md:text-base text-sm">
+            To complete your application or access event features, please create an account or log
+            in with an existing one.
+          </p>
+          <div className="mt-16 flex text-2xl">
+            <div
+              id="signInOption"
+              className="py-2 mr-6 underline cursor-pointer"
+              onClick={() => changeOption(true)}
+            >
+              Sign In
+            </div>
+            <div
+              id="signUpOption"
+              className="py-2 cursor-pointer"
+              onClick={() => changeOption(false)}
+            >
+              Create Account
+            </div>
+          </div>
+          <section
+            id="signInSection"
+            className="bg-[#F2F3FF] 2xl:min-h-[30rem] min-h-[28rem] rounded-lg p-6"
+          >
+            {!passwordResetDialog ? (
+              <React.Fragment>
                 <form onSubmit={handleSubmit}>
+                  <h1 className="text-xl font-bold mt-4 mb-2">Email</h1>
                   <input
-                    className="w-full rounded-lg p-2 border-[1px] border-gray-500"
+                    className="w-full rounded-lg p-2"
                     value={currentEmail}
                     onChange={(e) => setCurrentEmail(e.target.value)}
-                    style={{ backgroundColor: '#FFF' }}
+                    style={{ backgroundColor: '#C1C8FF' }}
                     type="text"
                     name="email"
                     autoComplete="email"
-                    placeholder="Email"
+                    placeholder="email@example.com"
                   ></input>
+                  <h1 className="text-xl font-bold mt-4 mb-2">Password</h1>
                   <input
                     id="passwordInputLg"
-                    className="w-full rounded-lg p-2 my-2 border-[1px] border-gray-500"
+                    className="w-full rounded-lg p-2"
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
-                    style={{ backgroundColor: '#FFF' }}
+                    style={{ backgroundColor: '#C1C8FF' }}
                     type="password"
                     name="password"
                     autoComplete="current-password"
                     placeholder="Password"
                   ></input>
-                  <div className="flex justify-between">
+                  <div className="inline-flex md:flex justify-between md:flex-row flex-col-reverse">
                     <div
                       className="hover:underline cursor-pointer text-left"
                       onClick={() => {
@@ -146,181 +219,59 @@ export default function AuthPage() {
                     </div>
                     <input className="hidden" type="submit" value="Submit" />
                   </div>
-                  <button
-                    type="button"
-                    className="px-4 py-2 w-[24rem] rounded-md shadow-md bg-green-200 hover:shadow-lg hover:bg-green-300"
+                  <div className="flex justify-center mt-6 mb-4">
+                    <button
+                      type="button"
+                      className="rounded-md text-xl w-[20rem] bg-[#C1C8FF] hover:brightness-90 px-4 py-2"
+                      onClick={() => {
+                        signIn();
+                      }}
+                    >
+                      Sign in
+                    </button>
+                  </div>
+                </form>
+                {/* Error and verification messages */}
+                <div className="text-center">{errorMsg}</div>
+                {/* !change if needed */}
+                {/* Uncomment to allow resend verification email option (users could spam) */}
+                {/* {sendVerification && (
+                    <div className='flex justify-center'>
+                      <button className="underline" onClick={() => sendVerificationEmail()}>
+                        Resend verification
+                      </button>
+                    </div>
+                  )} */}
+                <div className="text-center text-gray-500 text-xl">or</div>
+                <button
+                  className="px-4 py-2 w-full rounded-md shadow-md bg-white my-4 text-lg font-bold hover:shadow-lg hover:bg-gray-100 text-left flex items-center"
+                  onClick={() => signInWithGoogle()}
+                >
+                  <Image src={GoogleIcon} alt="GoogleIcon" width={25} height={25} />
+                  <p className="mx-2">Sign in with Google</p>
+                </button>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <div className="text-left">
+                  <ArrowBackIcon
+                    className="cursor-pointer"
                     onClick={() => {
-                      signIn();
+                      setPasswordResetDialog(false);
+                      setErrorMsg('');
                     }}
-                  >
-                    Sign in
-                  </button>
-                </form>
-              </div>
-              {/* Error and verification messages */}
-              <div className="mt-4 w-[24rem]">{errorMsg}</div>
-              {/* !change if needed */}
-              {/* Uncomment to allow resend verification email option (users could spam) */}
-              {/* {sendVerification && (
-                <button className="underline" onClick={() => sendVerificationEmail()}>
-                  Resend verification
-                </button>
-              )} */}
-            </div>
-          ) : (
-            // Password reset section
-            <div>
-              <div className="w-[24rem] text-left">
-                <ArrowBackIcon
-                  className="cursor-pointer"
-                  onClick={() => {
-                    setPasswordResetDialog(false);
-                    setErrorMsg('');
-                  }}
-                />
-              </div>
-              <h1 className="text-3xl font-black">Reset Password</h1>
-              <div className="w-[24rem]">
-                <input
-                  className="w-full rounded-lg p-2 border-[1px] border-gray-500 mt-8 mb-4"
-                  value={currentEmail}
-                  onChange={(e) => setCurrentEmail(e.target.value)}
-                  style={{ backgroundColor: '#FFF' }}
-                  placeholder="Email"
-                ></input>
-                <button
-                  className="w-[24rem] px-4 py-2 rounded-md shadow-md bg-green-200 hover:shadow-lg hover:bg-green-300"
-                  onClick={() => {
-                    sendResetEmail();
-                    setErrorMsg('');
-                  }}
-                >
-                  Send Reset Email
-                </button>
-                <div className="text-left">{errorMsg}</div>
-              </div>
-            </div>
-          )}
-        </div>
-        {/* Create new account sidebar*/}
-        <div className="flex flex-col justify-center items-center h-full w-1/3 bg-green-200 text-center p-4">
-          <h1 className="text-3xl font-black">Don&#39;t have an account?</h1>
-          <p className="my-6">
-            Create an account to apply to the hackathon and access user specific functionalities!
-          </p>
-          <Link href="/auth/signup">
-            <a className="px-4 py-2 rounded-xl shadow-md bg-white hover:shadow-lg hover:bg-gray-100">
-              Sign up
-            </a>
-          </Link>
-        </div>
-      </section>
-
-      {/* Small Screen */}
-      <section className="flex md:hidden min-h-screen h-screen justify-center bg-white">
-        <div className="flex flex-col items-center justify-center w-5/6 h-4/5 bg-blue-200 my-8 p-6">
-          {!passwordResetDialog ? (
-            <>
-              {/* Main Login Screen */}
-              <h1 className="text-2xl font-black text-center">HackPortal 1.0</h1> {/* !change */}
-              <p className="text-sm text-center">
-                Log in to continue or create an account to register
-              </p>
-              <button
-                className="px-4 py-2 rounded-md shadow-md bg-white my-4 font-bold hover:shadow-lg hover:bg-gray-100"
-                onClick={() => signInWithGoogle()}
-              >
-                Sign in with Google
-              </button>
-              <div className="text-sm">or</div>
-              {/* Account credential input fields */}
-              <div className="w-5/6">
-                <form onSubmit={handleSubmit}>
-                  <input
-                    className="w-full rounded-lg p-2 border-[1px] border-gray-500"
-                    value={currentEmail}
-                    onChange={(e) => setCurrentEmail(e.target.value)}
-                    style={{ backgroundColor: '#FFF' }}
-                    type="text"
-                    name="email"
-                    autoComplete="email"
-                    placeholder="Email"
-                  ></input>
-                  <input
-                    id="passwordInputSm"
-                    className="passwordInput w-full rounded-lg p-2 my-2 border-[1px] border-gray-500"
-                    value={currentPassword}
-                    onChange={(e) => setCurrentPassword(e.target.value)}
-                    style={{ backgroundColor: '#FFF' }}
-                    type="password"
-                    name="password"
-                    autoComplete="current-password"
-                    placeholder="Password"
-                  ></input>
-                  <input className="hidden" type="submit" value="Submit" />
-                </form>
-              </div>
-              <div>
-                <input
-                  className="mr-1"
-                  type="checkbox"
-                  onClick={() => showPassword('passwordInputSm')}
-                />
-                Show Password
-              </div>
-              <button
-                className="px-4 py-2 rounded-md shadow-md bg-white w-5/6 hover:shadow-lg hover:bg-gray-100"
-                onClick={() => signIn()}
-              >
-                Sign in
-              </button>
-              {/* Error and verification messages */}
-              <div className="text-sm">{errorMsg}</div>
-              {/* {sendVerification && (
-                <button className="underline text-sm" onClick={() => sendVerificationEmail()}>
-                  Resend verification
-                </button>
-              )} */}
-              {/* Account options */}
-              <div className="text-sm w-5/6 my-4">
-                <div
-                  className="cursor-pointer hover:underline"
-                  onClick={() => {
-                    setPasswordResetDialog(true);
-                    setErrorMsg('');
-                    setSendVerification(false);
-                  }}
-                >
-                  Forgot Password?
+                  />
                 </div>
-                <Link href="/auth/signup">
-                  <a className="w-full hover:underline">Create an account</a>
-                </Link>
-              </div>
-            </>
-          ) : (
-            //Password reset section
-            <div>
-              <div className="w-full text-left my-4">
-                <ArrowBackIcon
-                  className="cursor-pointer"
-                  onClick={() => {
-                    setPasswordResetDialog(false);
-                    setErrorMsg('');
-                  }}
-                />
-              </div>
-              <h1 className="text-3xl font-black">Reset Password</h1>
-              <div className="w-full">
+                <h1 className="text-2xl my-4">Reset Password</h1>
                 <input
-                  className="w-full rounded-lg p-2 border-[1px] border-gray-500 my-4"
+                  className="w-full rounded-lg p-2"
                   value={currentEmail}
                   onChange={(e) => setCurrentEmail(e.target.value)}
-                  style={{ backgroundColor: '#FFF' }}
+                  style={{ backgroundColor: '#C1C8FF' }}
                   placeholder="Email"
                 ></input>
                 <button
-                  className="px-4 py-2 rounded-md shadow-md bg-white hover:shadow-lg hover:bg-gray-100"
+                  className=" px-4 py-2 rounded-md shadow-md bg-[#C1C8FF] hover:brightness-90 my-6"
                   onClick={() => {
                     sendResetEmail();
                     setErrorMsg('');
@@ -329,9 +280,66 @@ export default function AuthPage() {
                   Send Reset Email
                 </button>
                 <div className="text-left">{errorMsg}</div>
+              </React.Fragment>
+            )}
+          </section>
+          <section
+            id="signUpSection"
+            className="hidden bg-[#F2F3FF] 2xl:min-h-[30rem] min-h-[28rem] rounded-lg p-6"
+          >
+            <form onSubmit={handleSignUpSubmit}>
+              <h1 className="text-xl font-bold mt-4 mb-2">Email</h1>
+              <input
+                className="w-full rounded-lg p-2"
+                value={currentEmail}
+                onChange={(e) => setCurrentEmail(e.target.value)}
+                style={{ backgroundColor: '#C1C8FF' }}
+                type="text"
+                name="email"
+                autoComplete="email"
+                placeholder="email@example.com"
+              ></input>
+              <h1 className="text-xl font-bold mt-4 mb-2">Password</h1>
+              <input
+                id="passwordInputSignUp"
+                className="w-full rounded-lg p-2"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                style={{ backgroundColor: '#C1C8FF' }}
+                type="password"
+                name="password"
+                autoComplete="current-password"
+                placeholder="Password"
+              ></input>
+              <div className="flex justify-end">
+                <div>
+                  <input
+                    className="mx-1"
+                    type="checkbox"
+                    onClick={() => showPassword('passwordInputSignUp')}
+                  />
+                  Show Password
+                </div>
+                <input className="hidden" type="submit" value="Submit" />
               </div>
-            </div>
-          )}
+              <div className="flex justify-center mt-6 mb-4">
+                <button
+                  type="button"
+                  className="rounded-md text-xl w-[20rem] bg-[#C1C8FF] hover:brightness-90 px-4 py-2"
+                  onClick={() => {
+                    signUp();
+                  }}
+                >
+                  Sign Up
+                </button>
+              </div>
+            </form>
+            {/* Error and verification messages */}
+            <div className="text-center">{errorMsg}</div>
+          </section>
+        </div>
+        <div className="flex xl:w-1/2 w-full items-center xl:justify-center lg:justify-start justify-center">
+          <Image alt="login image" src={LoginImage} width={500} height={600}></Image>
         </div>
       </section>
     </>

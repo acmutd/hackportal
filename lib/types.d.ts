@@ -5,6 +5,8 @@ type WithId<T> = T & {
   id: string;
 };
 
+type SortableObject<T> = T & { id: string };
+
 /**
  * A flag for the set of functionality that is enabled for an account.
  */
@@ -17,7 +19,7 @@ type Companies = 'SF' | 'AA' | 'C1' | 'EB' | 'FB';
  */
 type Person = {
   /**
-   * The uesr's first name.
+   * The user's first name.
    */
   firstName: string;
 
@@ -182,7 +184,7 @@ type KeynoteSpeaker = {
 type Challenge = {
   title: string;
   description: string;
-  prizes: [];
+  prizes?: string[];
   organization: string;
   rank: int;
 };
@@ -207,25 +209,32 @@ type Announcement = {
 /**
  *
  * Represent an event
- *
  * @param title title of event
  * @param speakers speakers of event
- * @param startDate start timestamp of event
- * @param endDate end timestamp of event
+ * @param type type of event (Tech talk, workshop, social, etc.)
+ * @param tracks what track the event is on (super-admin defined) ex: "General Event", "Technical Event", "Skills Event"
+ * @param startDate start date of event
+ * @param startTimestamp start timestamp of event
+ * @param endDate end date of event
+ * @param endTimestamp end timestamp of event
+ * @param Event event id number
  * @param location location/room of event
  * @param page page where more information can be found about event
  * @param description description about event
  *
  */
+
 type ScheduleEvent = {
   title: string;
-  endDate: Date;
-  endTimestamp;
-  location: string;
+  speakers?: string[];
+  type?: string;
+  track: string;
   startDate: Date;
-  startTimestamp;
-  event: number;
-  speakers: [];
+  startTimestamp?: any;
+  endDate: Date;
+  endTimestamp?: any;
+  Event: number;
+  location: string;
   page: string;
   description: string;
 };
@@ -241,17 +250,40 @@ type GeneralStats = {
   hackerCount: number;
   adminCount: number;
   scans: Record<string, number>;
-  companies: Record<string, number>;
-  dietary: Record<string, number>;
-
-  age: Record<number, number>;
-  ethnicity: Record<string, number>;
-  race: Record<string, number>;
-  size: Record<string, number>;
-  softwareExperience: Record<string, number>;
-  studyLevel: Record<string, number>;
-  university: Record<string, number>;
-  gender: Record<string, number>;
-  hackathonExperience: Record<number, number>;
-  heardFrom: Record<string, number>;
 };
+
+/**
+ * Data object passed into the MobileDropdownMenu component
+ * that contains the sections and subsections to display, as well
+ * as the section to redirect to
+ */
+type SidebarSection = {
+  /** Display name of the section */
+  title: string;
+
+  /** Path to redirect to (eg. '#Workshops') */
+  href?: string;
+
+  /** List of subsections that will appear when clicked */
+  sections?: SidebarSubsection[];
+};
+
+/**
+ * Subsection object for the MobileDropdownSection;
+ * does NOT contain deeper nestings of sections
+ */
+type SidebarSubsection = {
+  /** Display name of the section */
+  title: string;
+
+  /** Path to redirect to (eg. '#Workshops') */
+  href?: string;
+};
+
+/**
+ * Typescript module decleration for markdown files
+ */
+declare module '*.md' {
+  const content: any;
+  export default content;
+}

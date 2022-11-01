@@ -3,7 +3,7 @@
 Make sure your local server is up and running before configuring Firebase. If it is not, please follow the instructions given in the [Set Up Guide](./set-up.md).
 
 ## Database Schema  
-As information is added to the database, the information will show on the local server.     
+As information is added to the database, the updates will show on the local server.     
 
 Example Layout
 - collection
@@ -66,26 +66,28 @@ Announcements, Registrations, and Scan Types will update as added by an Admin.
 Tokens will update as people accept push notifications from the site.   
 
 
-### Important Info
+## Important Info
 All collections and fields are to be copied exactly as they are found in these docs.  
-All links must begin with "https://"  
+All web links must begin with "https://"  
 All image references must have their file type (.jpg, .png, etc.)  
 Note that there is only one collection, and each collection can contain multiple documents that contain the fields described.  
-Documents can be Auto-ID'd.
+Documents can (and should) be Auto-ID'd.
 
 ## Storage Setup
 
 Create the following folders in Firebase Storage:  
 `member_images/`  
 `speaker_images/`  
-`sponsor-images/`  
+`sponsor_images/`  
 These folders will contain images of the team members, the keynote speakers, and the sponsor logos respectively. Upload the images to the folders and reference them in the database.  
-For example, if there was a `default.png` in the `speaker-images/` folder, then the "fileName" field of the "members" collection needs to contain the string "default.png".
+For example, if there was a "default.png" in the `speaker_images/` folder, then the "fileName" field of the "members" collection needs to contain the string "default.png".
 
 ## Authentication Setup
-Navigate to the "Authentication" tab. Under "Sign-in method", ensure that Email/Password and Google are valid Sign-in providers. Below that, add any domains that need to be authorized to enable Google and email sign-in. 
+Navigate to the "Authentication" tab. Under "Sign-in method", ensure that Email/Password and Google are valid Sign-in providers. 
 
-**Production Release Note**: At the end of the "Sign-in method" page, increase the sign-up quota to ensure sign-ins are not being prevented during registration and check-in.
+Below that, add any domains that need to be authorized to enable Google and email sign-in. 
+
+**IMPORTANT Production Release Note**: At the end of the "Sign-in method" page, increase the sign-up quota to ensure sign-ins are not being prevented during registration and check-in.
 
 Optional: Under "Templates" customize the emails that are sent out when verifying email addresses or resetting passwords.
 

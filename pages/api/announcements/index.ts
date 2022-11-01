@@ -1,44 +1,45 @@
-import { firestore } from 'firebase-admin';
+import { firestore, messaging } from 'firebase-admin';
 import { NextApiRequest, NextApiResponse } from 'next';
 import initializeApi from '../../../lib/admin/init';
 import { userIsAuthorized } from '../../../lib/authorization/check-authorization';
 
 initializeApi();
 const db = firestore();
+const mesg = messaging();
 
 const ANNOUNCEMENTS_COLLECTION = '/announcements';
 const TOKENS_COLLECTION = '/tokens';
-const MAX_PER_BATCH = 1000;
+const MAX_PER_BATCH = 500;
 
+/**
+ *
+ * Send notifications to users using the firebase admin messaging SDK
+ *
+ * @param announcement Announcement to send
+ *
+ *
+ */
 async function sendNotifications(announcement: any) {
-  const tokens_snapshot = await db.collection(TOKENS_COLLECTION).get();
-  let tokens = [];
+  // Retrieve tokens from firestore
+  const tokenListSnapshot = await db.collection(TOKENS_COLLECTION).get();
+  const tokenList = tokenListSnapshot.docs.map((doc) => doc.data().token);
 
-  tokens_snapshot.forEach((doc) => {
-    tokens.push(doc.data().token);
-  });
+  // Chunk the tokenList by max # of tokens per batch
+  for (let i = 0; i < tokenList.length; i += MAX_PER_BATCH) {
+    const currentBatch = tokenList.slice(i, i + MAX_PER_BATCH);
 
-  for (let i = 0; i < tokens.length; i += MAX_PER_BATCH) {
-    let currentBatch = [];
-    for (let j = i; j < Math.min(i + MAX_PER_BATCH, tokens.length); j++) {
-      currentBatch.push(tokens[j]);
-    }
-    await fetch('https://fcm.googleapis.com/fcm/send', {
-      method: 'post',
-      headers: {
-        Authorization: `key=${process.env.NEXT_PUBLIC_CLOUD_MESSAGING_SERVER_TOKEN}`,
-        'Content-Type': 'application/json',
+    // Create the message body
+    const message = {
+      data: {
+        ...announcement,
+        baseUrl: process.env.BASE_URL,
       },
-      body: JSON.stringify({
-        registration_ids: currentBatch,
-        data: {
-          notification: {
-            ...announcement,
-            baseUrl: process.env.BASE_URL,
-          },
-        },
-        content_available: true,
-      }),
+      tokens: currentBatch,
+    };
+
+    // Call the messaging API to send the notification
+    mesg.sendMulticast(message).catch((err) => {
+      console.error(err);
     });
   }
 }

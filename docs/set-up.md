@@ -1,49 +1,30 @@
+# Introduction
+This tutorial will walk you through setting up the environment variables for a local deployment of HackPortal and populating fields in the database to add information to the web app. Basic knowledge of Git and web development terminology is required. Frontend development experience and familiarity with Firebase is recommended, but not required.
+
 # Set up
 
-First, make sure you have a working installation of [Node.js](https://nodejs.org/en/download/) and [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/).
+Ensure you have a working installation of [Node.js](https://nodejs.org/en/download/) and [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/).
 
-Now clone the repository and install dependencies:
+Clone the repository and install dependencies:
 
 ```
 git clone https://github.com/acmutd/hackportal
 cd hackportal
 npm install
 ```
-Next, set up the environment variables.
-
 
 # Important to Remember
-- Make sure you start your Cloud Storage and Firestore Database in **test mode**, not **production mode** if you are setting up for development.  
-- Make sure you have copied all required environment variables _completely and correctly_.  
-- Make sure all environment variables are in double quotes, ex: 
+- Start your Cloud Storage and Firestore Database in **test mode**, not **production mode** if you are setting up for development.  
+- Copy all required environment variables _completely and correctly_.  
+- Ensure all environment variables are in double quotes and no spaces are present, ex: 
   ```
   MEASUREMENT_ID="1234567890"
   ```
 
 
 # Setting up Environment Variables
-By default, this project uses Firebase APIs. If you use any of
-the following, you must set up Firebase APIs before running this app:
 
-- Firebase Authentication
-- Cloud Firestore
-- Google Cloud Storage for Firebase
-
-To set up Firebase APIs, first go to the [Firebase Console](https://console.firebase.google.com).
-Make sure to switch to your intended account before continuing.
-
-Now create a Firebase project or use an existing Firebase project.
-
-- If creating a new project, create a new web application and take note of the
-  configuration code provided. Copy that somewhere.
-- If using an existing project, navigate to project settings and find the app's
-  Firebase configuration.
-
-![Firebase Settings](./images/set-up-1.png)
-
-![App configuration](./images/set-up-2.png)
-
-Now go back to the HackPortal project files. Rename the `.env.template` file to
+Go to the HackPortal project files in your IDE. Rename the `.env.template` file to
 `.env.local`. This is where the app's environment variables will be set up.
 
 The file should look like this:
@@ -56,7 +37,6 @@ NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
 NEXT_PUBLIC_FIREBASE_APP_ID=
 MEASUREMENT_ID=
-NEXT_PUBLIC_CLOUD_MESSAGING_SERVER_TOKEN=
 NEXT_PUBLIC_RESUME_UPLOAD_PASSWORD=
 NEXT_PUBLIC_RESUME_UPLOAD_SERVICE_ACCOUNT=
 NEXT_PUBLIC_VAPID_KEY=
@@ -66,25 +46,39 @@ SERVICE_ACCOUNT_PROJECT_ID=
 
 ```
 
-Fill in the corresponding environment variables using the appropriate images from the Firebase Console.  
-Next, find the cloud messaging server token under the “Cloud Mesaging” tab. It can be found under the project credentials and is named “Server key”. Update the corresponding environment variable.
+## Creating a Project and Preliminary Setup
+To set up the environment, first go to the [Firebase Console](https://console.firebase.google.com).
+Switch to your intended Google account before continuing.
+
+Create a Firebase project or use an existing Firebase project.
+
+- If creating a new project, create a new web application and take note of the
+  configuration code provided. Copy that somewhere.
+- If using an existing project, navigate to project settings and find the app's
+  Firebase configuration.
+
+![Firebase Settings](./images/set-up-1.png)
+
+![App configuration](./images/set-up-2.png)
+
+
+Copy the API Key, the Auth Domain, the Project ID, the Storage Bucket, the Messaging Sender ID, and the App ID into their corresponding environment variables in `.env.local`.
+
+To configure the cloud messaging API, go to the “Cloud Mesaging” tab. To generate the vapid key, scroll down to the "Web Configuration" and generate a key pair. Copy the key pair generated and fill in the corresponding environment variable.
 
 ![Cloud Messaging](./images/set-up-3.png)
-![Server key](./images/set-up-4.png)
-
-To generate the vapid key, scroll down to the "Web Configuration" and generate a key pair. Copy the key pair generated and fill in the corresponding environment variable.
 ![Vapid key](./images/set-up-7.png)
 
-Next, set up the service account environment variables.  
+## Setting up the service account environment variables.  
 Navigate to "Service Accounts" under the Project Settings and copy the Firebase service account name. This is the Service Account Client Email.  
-Next, generate a new private key and download the file. Open the file and copy the Project ID. Update the corresponding environment variable.  
-In the same JSON file, copy the private key (it should be lengthy) and paste it into the  corresponding environment variable.  
+Generate a new private key and download the file. Open the file and copy the Project ID. Update the corresponding environment variable.  
+In the same JSON file, copy the full private key (it should be lengthy) and paste it into the  corresponding environment variable.  
 
 ![Service account](./images/set-up-8.png)
 ![Service account details](./images/set-up-9.png)
 
+## Resume Upload Account Setup
 
-Next, set up the account to take care of resume uploads.  
 Navigate to the authentication tab.
 
 ![Auth tab](./images/set-up-5.png)
@@ -105,8 +99,11 @@ NEXT_PUBLIC_RESUME_UPLOAD_PASSWORD=
 ## Firebase Setup
  Follow the instructions in the [Firebase Setup doc](./firebase-setup.md) to see how to set Firebase up for your hackathon.
 
+## Hackerpack Setup
+Follow the instructions in the [Hackerpack Setup docs](./hackerpack-setup.md) to see the different ways to set up the hackerpack. This is a place where you can display your detailed event info, workshops, food, tech guides, and whatever else you want. We have made it as simple as creating a Notion page (though you can definitely write your HTML!).
+
 # Starting the Server
-Now run the development server:
+Run the development server:
 
 ```
 npm run dev
