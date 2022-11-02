@@ -19,8 +19,15 @@ function isAuthorized(user): boolean {
   return (user.permissions as string[]).includes('super_admin');
 }
 
+interface AccomodationData {
+  name: string;
+  email: string;
+  accomodation: string;
+}
+
 export default function AdminStatsPage() {
   const [loading, setLoading] = useState(true);
+  const [accomodationData, setAccomodationData] = useState<AccomodationData[]>([]);
   const { user, isSignedIn } = useAuthContext();
   const [statsData, setStatsData] = useState<GeneralStats>();
 
@@ -31,7 +38,16 @@ export default function AdminStatsPage() {
           Authorization: user.token,
         },
       });
+      const { data: accomodationData_ } = await RequestHelper.get<AccomodationData[]>(
+        '/api/accomodations',
+        {
+          headers: {
+            Authorization: user.token,
+          },
+        },
+      );
       setStatsData(data);
+      setAccomodationData(accomodationData_);
       setLoading(false);
     }
     getData();
@@ -111,6 +127,19 @@ export default function AdminStatsPage() {
               />
             );
           })}
+        <div className="border-2 my-2 rounded-2xl md:p-6">
+          <h1 className="text-2xl font-bold text-center">Accomodations</h1>
+          {accomodationData.map((accomodation, idx) => (
+            <div key={idx} className="flex flex-row items-center gap-x-2 my-3">
+              <div className="rounded-lg w-full py-2 md:px-4 px-2 announcements">
+                <h1>
+                  Name: <span className="font-bold text-white">{accomodation.name}</span>
+                </h1>
+                <h1>Accomodation: {accomodation.accomodation}</h1>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
