@@ -19,9 +19,9 @@ export default function HackerpackSidebar({ content }: { content: SidebarSection
 
       <section
         id="Sidebar"
-        className="hidden md:flex justify-center h-screen fixed top-16 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-xs md:text-xs lg:text-sm overflow-auto text-white"
+        className="hidden md:flex flex-col justify-start h-screen fixed top-16 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-xs md:text-xs lg:text-sm text-white"
       >
-        <section id="options" className="relative px-6 py-4">
+        <section id="options" className="relative px-6 py-4 h-[85vh] overflow-auto">
           <div className="font-bold mb-3">HackerPack</div>
           <ul className="pb-32">
             {/* Maps the sidebar-content.json file to a nested list */}
@@ -52,7 +52,7 @@ export default function HackerpackSidebar({ content }: { content: SidebarSection
           </ul>
         </section>
         {/* User greeting for bottom of sidebar */}
-        <div className="fixed bottom-0 border-t-2 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-center py-3 bg-transparent text-white">
+        <div className="bottom-0 w-full border-t-2 border-gray-600 text-center py-3 bg-transparent text-white bg-black bg-opacity-75">
           <div>
             Welcome,{' '}
             {!user || !isSignedIn ? 'hacker' : user.firstName !== '' ? user.firstName : 'hacker'}
