@@ -59,19 +59,19 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
         borderBottom: 0,
       },
       EventTypeAppointment: {
-        backgroundColor: `#8C2380 !important`,
+        backgroundColor: `#802c6c !important`,
       },
       SponsorTypeAppointment: {
-        backgroundColor: `#2D93A2 !important`,
+        backgroundColor: `#506444 !important`,
       },
       TechTalkTypeAppointment: {
         backgroundColor: `#682293 !important`,
       },
       WorkshopTypeAppointment: {
-        backgroundColor: `#390758 !important`,
+        backgroundColor: `#306c74 !important`,
       },
       SocialTypeAppointment: {
-        backgroundColor: `#3A6B39 !important`,
+        backgroundColor: `#684474 !important`,
       },
       weekEndCell: {
         backgroundColor: alpha(palette.action.disabledBackground, 0.04),
@@ -255,7 +255,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
             <Scheduler data={props.scheduleCard}>
               <ViewState defaultCurrentDate={defaultCurrentDate} />
 
-              <DayView startDayHour={8} endDayHour={24} intervalCount={1} />
+              <DayView startDayHour={0} endDayHour={24} intervalCount={1} />
 
               <Appointments
                 appointmentComponent={Appointment}
