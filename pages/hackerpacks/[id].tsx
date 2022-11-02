@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { NotionAPI } from 'notion-client';
 import { NotionRenderer } from 'react-notion-x';
 import { useRouter } from 'next/router';
+import { Collection } from 'react-notion-x/build/third-party/collection';
 
 import hackerpackSettings from './Components/hackerpack-settings.json';
 import HackerpackSidebar from './Components/HackerpackSidebar';
@@ -19,6 +20,7 @@ export default function NotionSubpage(props: { content: any; error: boolean }) {
   // Adjust width of the main content if sidebar is present
   const adjustedWidth = hackerpackSettings.sidebar ? 'md:w-5/6 2xl:w-7/8' : '';
 
+  console.log(props.content.block);
   // Generate the sidebar content from Notion
   // Find the root block because Notion IDs have hyphens
   const rootId = Object.keys(props.content.block).find(
@@ -32,31 +34,33 @@ export default function NotionSubpage(props: { content: any; error: boolean }) {
   // Parse through the blocks and extract text/ids from
   // the blocks that are either 'header' or 'sub_header' (h1 and h2)
   let actualSidebarContent = [];
-  const firstObj = props.content.block[blockList[0]];
-  let currH1 = {
-    title: firstObj.value.properties.title[0][0],
-    href: '#' + firstObj.value.id.replaceAll(/-/g, ''),
-    sections: [],
-  };
-  for (let i = 1; i < blockList.length; i++) {
-    const currObj = props.content.block[blockList[i]];
-    if (currObj.value.type === 'sub_header') {
-      currH1.sections.push({
-        title: currObj.value.properties.title[0][0],
-        href: '#' + currObj.value.id.replaceAll(/-/g, ''),
-      });
-    } else if (currObj.value.type === 'header') {
-      actualSidebarContent.push(currH1);
-      currH1 = {
-        title: currObj.value.properties.title[0][0],
-        href: '#' + currObj.value.id.replaceAll(/-/g, ''),
-        sections: [],
-      };
+  if (blockList != null) {
+    const firstObj = props.content.block[blockList[0]];
+    let currH1 = {
+      title: firstObj.value.properties.title[0][0],
+      href: '#' + firstObj.value.id.replaceAll(/-/g, ''),
+      sections: [],
+    };
+    for (let i = 1; i < blockList.length; i++) {
+      const currObj = props.content.block[blockList[i]];
+      if (currObj.value.type === 'sub_header') {
+        currH1.sections.push({
+          title: currObj.value.properties.title[0][0],
+          href: '#' + currObj.value.id.replaceAll(/-/g, ''),
+        });
+      } else if (currObj.value.type === 'header') {
+        actualSidebarContent.push(currH1);
+        currH1 = {
+          title: currObj.value.properties.title[0][0],
+          href: '#' + currObj.value.id.replaceAll(/-/g, ''),
+          sections: [],
+        };
+      }
     }
+    actualSidebarContent.push(currH1);
   }
-  actualSidebarContent.push(currH1);
   return (
-    <div className="flex flex-col md:flex-row flex-grow flex-wrap home">
+    <div className="flex flex-col md:flex-row flex-grow flex-wrap home overflow-x-hidden">
       <Head>
         <title>HackerPacks</title>
         <meta name="description" content="HackerPack Information" />
@@ -78,6 +82,7 @@ export default function NotionSubpage(props: { content: any; error: boolean }) {
           recordMap={props.content}
           darkMode={true}
           mapPageUrl={(pageId) => `/hackerpacks/${pageId}`}
+          components={{ Collection }}
         />
       </section>
     </div>

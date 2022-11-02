@@ -537,3 +537,19 @@ text[dominant-baseline="central"] {
 .notion-table-of-contents-item-body {
   color: white;
 }
+
+.notion-table {
+  overflow: hidden !important;
+}
+
+.notion-table-cell-text .notion-property-text {
+  color: white;
+}
+
+.notion-collection-row-value .notion-property-text {
+  color: white;
+}
+
+.notion-collection-row {
+  border: none !important;
+}

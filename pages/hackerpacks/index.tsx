@@ -13,6 +13,7 @@ import MobileDropdownMenu from './Components/MobileDropdownMenu';
 import hackerpackSettings from './Components/hackerpack-settings.json';
 import sidebarContent from './Components/sidebar-content.json';
 import indexMarkdown from './Components/markdown/index.md';
+import { Collection } from 'react-notion-x/build/third-party/collection';
 
 // Tailwind rendering for markdown
 const markdownRendering = {
@@ -165,6 +166,7 @@ export default function HackerPack(props: { content: any }) {
             recordMap={props.content}
             darkMode={true}
             mapPageUrl={(pageId) => `/hackerpacks/${pageId}`}
+            components={{ Collection }}
           />
         )}
 
