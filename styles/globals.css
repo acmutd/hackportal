@@ -22,7 +22,6 @@ h1 {
 
 .nasalization {
   font-family: 'nasalization';
-  color: white!important;
 }
 
 .sourceSansPro {
@@ -46,13 +45,9 @@ a.link {
   display: grid;
   grid-template-areas:
     'name role'
-    'university color';
+    'university university';
   row-gap: 2rem;
   column-gap: 1rem;
-}
-
-.profile-view-color {
-  grid-area: color;
 }
 
 .profile-view-name {
@@ -428,13 +423,12 @@ a.link {
 text.Target-root {
   fill: white !important;
 }
-
-.homeChallengeCardSelected {
-  background: rgba(78, 149, 255, 0.5);
+.scheduleCard {
+  background: rgba(0, 224, 255, 0.3);
 }
 
-.homeChallengeCard {
-  background: rgba(78, 149, 255, 0.2);
+.appointment{
+  background: rgba(0, 224, 255, 0.3);
 }
 
 .trackCardSelected {
@@ -445,11 +439,19 @@ text.Target-root {
   background: rgba(143, 36, 26, 0.4);
 }
 
-.swiper-button-prev, .swiper-button-prev {
+.homeChallengeCardSelected {
+  background: rgba(78, 149, 255, 0.5);
+}
+
+.homeChallengeCard {
+  background: rgba(78, 149, 255, 0.2);
+}
+
+.swiper-button-prev, .swiper-button-prev-tracks {
   color: var(--swiper-navigation-color,var(--swiper-theme-color));
 }
 
-.swiper-button-next, .swiper-button-next-track {
+.swiper-button-next, .swiper-button-next-track  {
   color: var(--swiper-navigation-color,var(--swiper-theme-color));
 }
 
@@ -462,13 +464,67 @@ text.Target-root {
   opacity: 1;
 }
 
-span.faq {
-  color: white!important; 
+/* grid rows */
+.MuiTableCell-body {
+  border-color: grey !important;
+  color: transparent !important;
+  background-color: transparent !important;
 }
 
-span {
-  color: black;
+.MuiPaper-root {
+  background-color: transparent !important;
 }
-text[dominant-baseline="central"] {
-  fill: white !important;
+/* Top row */
+.css-4plepo .MainLayout-background {
+  background: transparent !important;
+  color: white !important
+}
+.MuiTableRow-root {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  text-decoration-color: white;
+}
+/* button, arrows, date */
+.MuiButton-root, .MuiButtonBase-root, .Cell-dayOfWeek, .Cell-dayOfMonth{
+  color: #ffffff !important;
+}
+/* Today button outline */
+.MuiButton-outlined {
+  border: 1px solid white !important;
+}
+
+/* gutters */
+.MainLayout-stickyElement, .Cell-highlightedText {
+  background-color: transparent !important;
+  text-decoration-color: white !important;
+  color: white !important;
+}
+
+/* popup calendar */
+.MuiPopover-paper {
+  background-color: rgba(66, 146, 251, 0.8) !important;
+  backdrop-filter: blur(5px);
+  color: white !important;
+}
+/* Popup calendar days row */
+.MuiTableCell-head {
+  color: white !important;
+}
+/* Popup calendar individual dates */
+.MuiTableCell-root{
+  color: white !important;
+}
+
+.Cell-today {
+  color:black !important;
+}
+
+/* Selected popup calendar date */
+.Cell-selected{
+  background-color: rgba(102, 57, 164, 0.682) !important;
+}
+
+/* Time Text on left */
+.Label-text{
+  color: white !important;
 }
