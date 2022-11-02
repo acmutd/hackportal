@@ -524,3 +524,16 @@ text[dominant-baseline="central"] {
 .notion-page-title-text {
   color: white;
 }
+
+.notion-simple-table {
+  margin-top: 0.5rem !important;
+}
+
+.notion-simple-table tbody .notion-simple-table-row:first-child td {
+  font-weight: 600;
+  background-color: #01C8F5aa;
+}
+
+.notion-table-of-contents-item-body {
+  color: white;
+}
