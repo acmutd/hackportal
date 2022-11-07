@@ -59,19 +59,34 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
         borderBottom: 0,
       },
       EventTypeAppointment: {
-        backgroundColor: `#802c6c !important`,
+        backgroundColor: `rgba(246, 184, 221, 0.95) !important`,
+        '&:hover': {
+          backgroundColor: `rgba(246, 184, 221) !important`,
+        },
       },
       SponsorTypeAppointment: {
-        backgroundColor: `#506444 !important`,
+        backgroundColor: `rgba(134, 202, 214, 0.95) !important`,
+        '&:hover': {
+          backgroundColor: `rgba(134, 202, 214) !important`,
+        },
       },
       TechTalkTypeAppointment: {
-        backgroundColor: `#682293 !important`,
+        backgroundColor: ` rgba(255, 118, 40, 0.95) !important`,
+        '&:hover': {
+          backgroundColor: `rgba(255, 118, 40) !important`,
+        },
       },
       WorkshopTypeAppointment: {
-        backgroundColor: `#306c74 !important`,
+        backgroundColor: `rgba(217, 142, 121, 0.95) !important`,
+        '&:hover': {
+          backgroundColor: `rgba(217, 142, 121) !important`,
+        },
       },
       SocialTypeAppointment: {
-        backgroundColor: `#684474 !important`,
+        backgroundColor: `rgba(185, 185, 185, 0.95) !important`,
+        '&:hover': {
+          backgroundColor: `rgba(185, 185, 185) !important`,
+        },
       },
       weekEndCell: {
         backgroundColor: alpha(palette.action.disabledBackground, 0.04),
