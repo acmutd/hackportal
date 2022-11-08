@@ -14,6 +14,13 @@ const nextConfig = {
     runtimeCaching,
     disable: !process.env.ENABLE_PWA && process.env.NODE_ENV !== 'production',
   },
+  webpack(config, options) {
+    config.module.rules.push({
+      test: /\.md$/,
+      use: 'raw-loader',
+    });
+    return config;
+  },
 };
 
 (module.exports = process.env.NODE_ENV === 'production' ? withPWA(nextConfig) : nextConfig),
