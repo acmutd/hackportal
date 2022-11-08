@@ -166,7 +166,7 @@ export default function UserAdminView({
             </h1>
           </div>
           <div className="flex flex-col gap-y-2">
-            <h1 className="text-center">Color</h1>
+            <h1 className="text-center">Group</h1>
             <h1 className="font-bold text-center">{currentUser.user.color}</h1>
           </div>
           <div className="flex flex-col gap-y-2">
