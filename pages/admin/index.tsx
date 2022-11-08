@@ -25,12 +25,20 @@ export function isAuthorized(user): boolean {
  *
  * Route: /admin
  */
-export default function Admin({ questions }: { questions: QADocument[] }) {
+export default function Admin({
+  questions,
+  preferences,
+}: {
+  questions: QADocument[];
+  preferences;
+}) {
   const { user, isSignedIn } = useAuthContext();
 
   const [announcement, setAnnouncement] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
   const [showSuccessMsg, setShowSuccessMsg] = useState(false);
+  const [tracksEnabled, setTracksEnabled] = useState(preferences.tracks);
+  const [challengesEnabled, setChallengesEnabled] = useState(preferences.challenges);
 
   const addError = (errMsg: string) => {
     setErrors((prev) => [...prev, errMsg]);
@@ -70,6 +78,28 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
       </div>
     );
 
+  const togglePreferences = (t: string) => {
+    const query = new URL(`http://localhost:3000/api/preferences`);
+    query.searchParams.append('token', user.token!);
+    query.searchParams.append('type', t);
+    fetch(query.toString().replaceAll('http://localhost:3000', ''), {
+      mode: 'cors',
+      headers: { Authorization: user.token },
+      method: 'POST',
+    })
+      .then(async (result) => {
+        if (result.status !== 200) {
+          return console.error(`Failed to toggle ${t}...`);
+        }
+        const { data } = await result.json();
+        setTracksEnabled(data.tracks!);
+        setChallengesEnabled(data.challenges!);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="flex flex-col flex-grow h-screen background text-white">
       <Head>
@@ -91,6 +121,24 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
             <SuccessCard msg="Announcement posted successfully" />
           </div>
         )}
+        <div className="flex font-bold text-xl mb-4">
+          <div
+            className={`m-4 transition hover:brightness-125 cursor-pointer p-2 rounded-lg ${
+              tracksEnabled ? 'bg-green-400' : 'bg-red-400'
+            }`}
+            onClick={() => togglePreferences('tracks')}
+          >
+            {tracksEnabled ? 'Tracks Enabled' : 'Tracks Disabled'}
+          </div>
+          <div
+            className={`m-4 transition hover:brightness-125 cursor-pointer p-2 rounded-lg ${
+              challengesEnabled ? 'bg-green-400' : 'bg-red-400'
+            }`}
+            onClick={() => togglePreferences('challenges')}
+          >
+            {challengesEnabled ? 'Challenges Enabled' : 'Challenges Disabled'}
+          </div>
+        </div>
         <h1 className="font-bold text-xl">Post Announcement: </h1>
         <textarea
           value={announcement}
@@ -131,9 +179,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/questions/pending`,
     {},
   );
+  const {
+    data: { data: preferences },
+  } = await RequestHelper.get<any>(`${protocol}://${context.req.headers.host}/api/preferences`, {});
   return {
     props: {
       questions: data,
+      preferences,
     },
   };
 };

@@ -850,14 +850,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/sponsor`,
     {},
   );
+  const {
+    data: { data: preferences },
+  } = await RequestHelper.get<any>(`${protocol}://${context.req.headers.host}/api/preferences`, {});
   return {
     props: {
       keynoteSpeakers: keynoteData,
-      challenges: challengeData,
+      challenges: preferences.challenges ? challengeData : [],
       answeredQuestion: answeredQuestion,
       fetchedMembers: memberData,
       sponsorCard: sponsorData,
-      tracks: trackData,
+      tracks: preferences.tracks ? trackData : [],
     },
   };
 };
