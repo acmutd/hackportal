@@ -468,6 +468,8 @@ text.Target-root {
 }
 .scheduleCard {
   background: rgba(0, 224, 255, 0.3);
+  backdrop-filter: blur(3px);
+
 }
 
 .appointment{
