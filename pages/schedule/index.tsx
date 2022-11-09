@@ -59,9 +59,9 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
         borderBottom: 0,
       },
       EventTypeAppointment: {
-        backgroundColor: `rgba(246, 184, 221, 0.95) !important`,
+        backgroundColor: `rgba(192,148,196, 0.95) !important`,
         '&:hover': {
-          backgroundColor: `rgba(246, 184, 221) !important`,
+          backgroundColor: `rgba(192,148,196) !important`,
         },
       },
       SponsorTypeAppointment: {
@@ -285,7 +285,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
         </div>
 
         {/* Event info card */}
-        <div className="overflow-y-auto flex flex-col justify-between lg:sticky top-24 lg:w-[36%] w-full h-[75vh] lg:my-0 my-2 border-2 border-black rounded-md scheduleCard p-4">
+        <div className="overflow-y-auto flex flex-col justify-between lg:sticky top-24 lg:w-[36%] w-full h-[76vh] lg:my-0 my-2 border-2 border-black rounded-md scheduleCard p-4">
           <section>
             {eventData.title === '' ? (
               <div className="text-2xl">Click on an event for more info</div>
