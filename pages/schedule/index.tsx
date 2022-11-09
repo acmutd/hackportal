@@ -65,9 +65,9 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
         },
       },
       SponsorTypeAppointment: {
-        backgroundColor: `rgba(134, 202, 214, 0.95) !important`,
+        backgroundColor: `rgba(120,172,180, 0.95) !important`,
         '&:hover': {
-          backgroundColor: `rgba(134, 202, 214) !important`,
+          backgroundColor: `rgba(120,172,180) !important`,
         },
       },
       TechTalkTypeAppointment: {
@@ -77,15 +77,15 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
         },
       },
       WorkshopTypeAppointment: {
-        backgroundColor: `rgba(217, 142, 121, 0.95) !important`,
+        backgroundColor: `rgba(224, 148, 124, 0.95) !important`,
         '&:hover': {
-          backgroundColor: `rgba(217, 142, 121) !important`,
+          backgroundColor: `rgba(224, 148, 124) !important`,
         },
       },
       SocialTypeAppointment: {
-        backgroundColor: `rgba(185, 185, 185, 0.95) !important`,
+        backgroundColor: `rgba(168,164,164, 0.95) !important`,
         '&:hover': {
-          backgroundColor: `rgba(185, 185, 185) !important`,
+          backgroundColor: `rgba(168,164,164) !important`,
         },
       },
       weekEndCell: {
@@ -185,6 +185,11 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
         <Appointments.AppointmentContent {...restProps} data={data}>
           <div className={classes.container}>
             <div className={classes.text}>{data.title}</div>
+            {data.host && (
+              <div className={classNames(classes.text, classes.content)}>
+                {`Host: ${data.host}`}
+              </div>
+            )}
             <div className={classNames(classes.text, classes.content)}>{`Type: ${Event}`}</div>
             <div className={classNames(classes.text, classes.content)}>
               {`Location: ${data.location}`}
