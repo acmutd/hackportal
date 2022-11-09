@@ -192,12 +192,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/challenges/`,
     {},
   );
+  const {
+    data: { data: preferences },
+  } = await RequestHelper.get<any>(`${protocol}://${context.req.headers.host}/api/preferences`, {});
 
   return {
     props: {
       announcements: announcementData,
       scheduleEvents: eventData,
-      challenges: challengeData,
+      challenges: preferences.challenges ? challengeData : [],
     },
   };
 };
