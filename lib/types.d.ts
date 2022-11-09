@@ -299,3 +299,9 @@ declare module '*.md' {
   const content: any;
   export default content;
 }
+
+/**
+ * Typescript module decleration for PDF files
+ */
+
+declare module '*.pdf';
