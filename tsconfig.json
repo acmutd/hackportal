@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "typeRoots": ["./lib/types"],
     "lib": [
       "dom",
       "dom.iterable",
