@@ -106,7 +106,8 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
     if (
       scanIsCheckInEvent &&
       snapshot.createTime.toDate().getTime() > hackPortalConfig.registrationCutoff &&
-      !bodyData.overrideRegistrationCutoff
+      !bodyData.overrideRegistrationCutoff &&
+      !snapshot.data().metadata?.special
     ) {
       return res.status(418).json({
         code: 'late-registration',
