@@ -329,7 +329,16 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
                     {<Backpack style={{ fontSize: 'medium', margin: '2px' }} />}
                     Page
                   </p>
-                  <p>{eventData.page}</p>
+                  {eventData.page && (
+                    <a
+                      href={eventData.page}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="italic hover:underline font-medium"
+                    >
+                      Notion Page
+                    </a>
+                  )}
                 </div>
               </div>
 
