@@ -442,7 +442,7 @@ export default function Home(props: {
         {tracks.length != 0 && (
           <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
             <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">Tracks</h1>
-            <div className="relative mt-4 sm:w-[95%] w-[85%] mx-auto">
+            <div className="relative mt-4 w-full mx-auto px-6">
               <Swiper
                 modules={[Navigation, A11y, Pagination]}
                 spaceBetween={10}
@@ -464,10 +464,6 @@ export default function Home(props: {
                   // when window width is >= 768px
                   768: {
                     slidesPerView: 3,
-                  },
-                  // when window width is >= 1536px
-                  1536: {
-                    slidesPerView: 4,
                   },
                 }}
                 className="swiper"
