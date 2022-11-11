@@ -412,12 +412,7 @@ export default function Home(props: {
             </section>
           </div>
         </section>
-        {/* FAQ */}
-        {props.answeredQuestion.length != 0 && (
-          <section>
-            <FAQ fetchedFaqs={questions}></FAQ>
-          </section>
-        )}
+
         {/* Keynote Speakers */}
         {speakers.length != 0 && (
           <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
@@ -613,6 +608,13 @@ export default function Home(props: {
                 />
               </div>
             )}
+          </section>
+        )}
+
+        {/* FAQ */}
+        {props.answeredQuestion.length != 0 && (
+          <section>
+            <FAQ fetchedFaqs={questions}></FAQ>
           </section>
         )}
 
