@@ -97,7 +97,7 @@ export default function AppHeader() {
                 <NavLink
                   key={item.text}
                   href={item.path}
-                  exact={item.text === 'Dashboard' ? false : true}
+                  exact={item.text === 'Dashboard' || item.text === 'Admin' ? false : true}
                   addClass="font-semibold"
                 >
                   <a className="">
@@ -119,7 +119,12 @@ export default function AppHeader() {
           <div className="hidden order-2 md:flex justify-center text-white">
             <div className="flex">
               {dynamicNavItems.map((item, idx) => (
-                <NavLink key={item.text} href={item.path} exact={true} addClass="font-bold">
+                <NavLink
+                  key={item.text}
+                  href={item.path}
+                  exact={item.text === 'Dashboard' || item.text === 'Admin' ? false : true}
+                  addClass="font-bold"
+                >
                   <a>
                     <p className="mx-2 xl:mx-6 2xl:mx-10 text-sm lg:text-lg xl:text-2xl ">
                       {item.text}
@@ -138,7 +143,7 @@ export default function AppHeader() {
                     <NavLink
                       key={item.text}
                       href={item.path}
-                      exact={item.text === 'Dashboard' ? false : true}
+                      exact={item.text === 'Dashboard' || item.text === 'Admin' ? false : true}
                       addClass="font-bold"
                     >
                       <a>
@@ -154,7 +159,12 @@ export default function AppHeader() {
               {dynamicNavItems.map(
                 (item, idx) =>
                   idx > 1 && (
-                    <NavLink key={item.text} href={item.path} exact={true} addClass="font-bold">
+                    <NavLink
+                      key={item.text}
+                      href={item.path}
+                      exact={item.text === 'Dashboard' || item.text === 'Admin' ? false : true}
+                      addClass="font-bold"
+                    >
                       <a>
                         <p className="mx-1 lg:mx-4 xl:mx-10 2xl:mx-14 text-base lg:text-lg  xl:text-2xl">
                           {item.text}

@@ -18,6 +18,7 @@ import DashboardHeader from '../../components/DashboardHeader';
 export default function QuestionsPage() {
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState<string[]>([]);
+  const [errorMessage, setErrorMessage] = useState('');
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([]);
   const [pendingQuestions, setPendingQuestions] = useState<PendingQuestion[]>([]);
@@ -80,6 +81,11 @@ export default function QuestionsPage() {
       addError('You must log in to be able to ask question');
       return;
     }
+    if (currentQuestion === '') {
+      setErrorMessage('Please type a question');
+      return;
+    }
+    setErrorMessage('');
     try {
       await RequestHelper.post<QAReqBody, {}>(
         '/api/questions/',
@@ -181,7 +187,7 @@ export default function QuestionsPage() {
             onChange={(e) => setCurrentQuestion(e.target.value)}
             placeholder="Type your question here"
           ></textarea>
-          <div className="flex flex-row justify-end my-4">
+          <div className="flex flex-row justify-end mt-4">
             <button
               type="button"
               className="py-2 px-4 font-bold rounded-full blueButtonGradient"
@@ -192,6 +198,7 @@ export default function QuestionsPage() {
               Submit Question
             </button>
           </div>
+          <div className="flex flex-row justify-end my-2 text-red-700">{errorMessage}</div>
         </div>
 
         <div>

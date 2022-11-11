@@ -268,7 +268,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
 
   return (
     <div className="background text-white min-h-screen">
-      <div className="flex flex-wrap lg:justify-between lg:px-12 px-16 mt-[8rem] lg:relative">
+      <div className="flex flex-wrap lg:justify-between lg:px-12 px-7 mt-[8rem] lg:relative">
         {/* Calender */}
         <div className="overflow-y-auto overflow-x-hidden lg:w-[62%] w-full h-[75vh] lg:h-auto lg:mb-12 mb-0 rounded-md">
           <Paper>
@@ -293,16 +293,16 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
         <div className="overflow-y-auto flex flex-col justify-between lg:sticky top-24 lg:w-[36%] w-full h-[76vh] lg:my-0 my-2 border-2 border-black rounded-md scheduleCard p-4">
           <section>
             {eventData.title === '' ? (
-              <div className="text-2xl">Click on an event for more info</div>
+              <div className="2xl:text-3xl text-2xl">Click on an event for more info</div>
             ) : (
               <div />
             )}
-            <h1 className="md:text-4xl text-2xl font-bold">{eventData.title}</h1>
-            <div className="md:text-lg text-sm mb-4">{eventData.speakers}</div>
+            <h1 className="2xl:text-5xl md:text-4xl text-2xl font-bold">{eventData.title}</h1>
+            <div className="2xl:text-xl md:text-lg text-sm mb-4">{eventData.speakers}</div>
 
             {/* Shows card info if user has clicked on an event */}
             <div className={`${eventData.title === '' ? 'hidden' : 'inline'}`}>
-              <div className="grid grid-cols-2 gap-y-2 md:my-8 my-6 md:text-lg text-sm">
+              <div className="grid grid-cols-2 gap-y-2 md:my-8 my-6 2xl:text-2xl md:text-lg text-sm">
                 <div className="">
                   <p className="flex items-center font-semibold">
                     {<CalendarIcon style={{ fontSize: 'medium', margin: '2px' }} />}
@@ -342,7 +342,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
                 </div>
               </div>
 
-              <div className="lg:text-base text-sm">
+              <div className=" 2xl:text-xl lg:text-base text-sm">
                 <p className="flex items-center font-semibold">
                   {<Description style={{ fontSize: 'medium', margin: '2px' }} />}
                   Description
