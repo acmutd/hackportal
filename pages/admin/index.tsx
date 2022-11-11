@@ -101,7 +101,7 @@ export default function Admin({
   };
 
   return (
-    <div className="flex flex-col flex-grow h-screen background text-white">
+    <div className="flex flex-col flex-grow min-h-screen background text-white">
       <Head>
         <title>HackUTD IX - Admin</title>
         <meta name="description" content="HackUTD's Admin Page" />
