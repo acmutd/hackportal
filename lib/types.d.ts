@@ -169,6 +169,8 @@ type KeynoteSpeaker = {
   name: string;
   description: string;
   fileName: string;
+  subtitle: string;
+  rank: int;
 };
 
 /**

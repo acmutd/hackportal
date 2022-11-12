@@ -96,12 +96,13 @@ export default function Home(props: {
     setNotif(checkNotif());
     // Set amount of time notification prompt gets displayed before fading out
     setTimeout(fadeOutEffect, 2500);
-    setSpeakers(props.keynoteSpeakers);
 
     //Organize challenges in order by rank given in firebase
     const sortedChallenges = props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1));
     const sortedTracks = props.tracks.sort((a, b) => (a.rank > b.rank ? 1 : -1));
     const sortedQuestions = props.answeredQuestion.sort((a, b) => (a.rank > b.rank ? 1 : -1));
+    const sortedSpeakers = props.keynoteSpeakers.sort((a, b) => (a.rank > b.rank ? 1 : -1));
+    setSpeakers(sortedSpeakers);
 
     if (sortedChallenges.length != 0) {
       setChallenges(sortedChallenges);
@@ -192,7 +193,7 @@ export default function Home(props: {
     });
   };
 
-  const [expiryTime, setExpiryTime] = useState('12 nov 2022 0:00:00');
+  const [expiryTime, setExpiryTime] = useState('12 nov 2022 08:00:00');
   const [countdownTime, setCountdownTime] = useState({
     countdownDays: '',
     countdownHours: '',
@@ -425,11 +426,12 @@ export default function Home(props: {
               </div>
             </h1>
             <div className="flex flex-wrap justify-around my-8">
-              {speakers.map(({ name, description, fileName }, idx) => (
+              {speakers.map(({ name, description, fileName, subtitle }, idx) => (
                 <KeynoteSpeaker
                   key={idx}
                   name={name}
                   description={description}
+                  subtitle={subtitle}
                   cardColor={colorSchemes[idx % 3]}
                   imageLink={fileName}
                 />
