@@ -445,11 +445,11 @@ export default function Home(props: {
         {tracks.length != 0 && (
           <section className="md:py-12 py-6 border-t-2 border-white xl:w-9/10 w-11/12 m-auto">
             <h1 className="lg:text-6xl md:text-4xl text-3xl font-semibold textGradient">Tracks</h1>
-            <div className="relative mt-4 w-full mx-auto px-6">
+            <div className="mt-4 sm:w-[95%] w-[85%] mx-auto">
               <Swiper
                 modules={[Navigation, A11y, Pagination]}
                 spaceBetween={10}
-                allowTouchMove={false}
+                allowTouchMove={true}
                 // navigation
                 navigation={{
                   prevEl: '.swiper-button-prev-tracks',
@@ -501,7 +501,7 @@ export default function Home(props: {
               <div className="-translate-x-12 -translate-y-32">
                 <div className="swiper-button-prev-tracks"></div>
               </div>
-              <div className="translate-y-10">
+              <div className="">
                 <div className="swiper-pagination-tracks"></div>
               </div>
               <div className="translate-x-12 -translate-y-32">

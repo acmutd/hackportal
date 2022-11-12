@@ -496,7 +496,7 @@ text.Target-root {
   color: var(--swiper-navigation-color,var(--swiper-theme-color));
 }
 
-.swiper-button-next, .swiper-button-next-track  {
+.swiper-button-next, .swiper-button-next-tracks  {
   color: var(--swiper-navigation-color,var(--swiper-theme-color));
 }
 
@@ -505,7 +505,7 @@ text.Target-root {
 }
 
 .swiper-pagination-bullet,
-.swiper-pagination-bullet-track {
+.swiper-pagination-bullet-tracks {
   background-color: rgb(255, 255, 255) !important;
   opacity: 1;
 }
