@@ -9,6 +9,11 @@ import firebase from 'firebase';
 export default function KeynoteSpeaker(props) {
   const [imageLink, setImageLink] = useState();
 
+  var description;
+  if (props.description !== undefined && props.description !== null) {
+    description = props.description.replaceAll('\\n', '\n');
+  }
+
   useEffect(() => {
     if (props.imageLink !== undefined) {
       const storageRef = firebase.storage().ref();
@@ -26,7 +31,7 @@ export default function KeynoteSpeaker(props) {
 
   return (
     <div className="flex 3xl:w-[32%] lg:w-[48%] w-full my-4">
-      <div className="md:min-w-[15rem] md:max-w-[15rem] md:h-[20rem] min-w-[10rem] max-w-[10rem] h-[15rem] relative">
+      <div className="md:min-w-[15rem] md:max-w-[15rem] md:h-[15rem] min-w-[10rem] max-w-[10rem] h-[10rem] relative">
         {props.imageLink !== undefined && imageLink !== undefined && (
           <Image
             src={imageLink}
@@ -37,9 +42,12 @@ export default function KeynoteSpeaker(props) {
           />
         )}
       </div>
-      <div className=" p-2">
-        <h2 className="sm:text-4xl text-2xl font-medium"> {props.name}</h2>
-        <div className="2xl:text-base md:text-base sm:text-sm text-xs">{props.description}</div>
+      <div className=" px-4">
+        <h2 className="sm:text-3xl text-2xl font-medium mb-2"> {props.name}</h2>
+        <h1 className="sm:text-xl text-lg mb-2">{props.subtitle}</h1>
+        <p className="whitespace-pre-line 2xl:text-base md:text-base sm:text-sm text-xs">
+          {description}
+        </p>
       </div>
     </div>
   );
