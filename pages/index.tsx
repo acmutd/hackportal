@@ -193,7 +193,7 @@ export default function Home(props: {
     });
   };
 
-  const [expiryTime, setExpiryTime] = useState('12 nov 2022 12:00:00');
+  const [expiryTime, setExpiryTime] = useState('12 nov 2022 08:00:00');
   const [countdownTime, setCountdownTime] = useState({
     countdownDays: '',
     countdownHours: '',
