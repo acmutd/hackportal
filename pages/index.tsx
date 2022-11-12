@@ -281,13 +281,13 @@ export default function Home(props: {
           {/* <div className="dateGradient font-bold lg:text-5xl md:text-4xl text-3xl md:mt-8 mt-16 relative z-10">
             11.12 - 11.13
           </div> */}
-          <Link href="/register" passHref={true}>
+          {/* <Link href="/register" passHref={true}>
             <div className="registerGlow relative z-10 cursor-pointer xl:px-12 xl:py-4 sm:px-8 sm:py-4 px-6 py-2 bg-gradient-to-b from-[#00D1FF] to-[#124866] rounded-full md:mt-8 mt-12 2xl:text-4xl lg:text-3xl sm:text-2xl text-xl font-medium">
               Register Now
             </div>
-          </Link>
+          </Link> */}
           <p className="md:mt-16 mt-12 text-bold xl:text-6xl sm:text-4xl text-3xl flex relative z-10">
-            T -
+            {/* T -
             <div className="lg:mx-5 md:mx-4 mx-2">
               <div>{countdownTime.countdownDays}</div>
               <div className="2xl:text-3xl sm:text-2xl text-xl textGradient">Days</div>
@@ -306,7 +306,8 @@ export default function Home(props: {
             <div className="lg:mx-5 md:mx-4 mx-2">
               <div>{countdownTime.countdownSeconds}</div>
               <div className="2xl:text-3xl sm:text-2xl text-xl textGradient">Secs</div>
-            </div>
+            </div> */}
+            Hacking Has Started!
           </p>
         </section>
 
