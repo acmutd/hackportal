@@ -121,7 +121,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
   type DayScaleCellProps = MonthView.DayScaleCellProps & WithStyles<typeof styles>;
 
   const isWeekEnd = (date: Date): boolean => date.getDay() === 0 || date.getDay() === 6;
-  const defaultCurrentDate = new Date(2022, 10, 12, 9, 0);
+  const defaultCurrentDate = new Date(2022, 10, 13, 9, 0);
 
   /* !change */
 
