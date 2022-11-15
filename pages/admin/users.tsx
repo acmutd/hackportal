@@ -189,7 +189,6 @@ export default function UserPage() {
                 >
                   Alphabetically
                 </h4>
-                <h4 className="text-md text-center underline cursor-pointer">User Level</h4>
               </div>
             </div>
             <div className="w-full px-8">
