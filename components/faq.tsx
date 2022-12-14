@@ -33,6 +33,10 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
     setDisclosureStatus(new Array(disclosuresStatus.length).fill(true));
   };
 
+  const closeAll = () => {
+    setDisclosureStatus(new Array(disclosuresStatus.length).fill(false));
+  };
+
   if (loading) {
     return (
       <div>
@@ -54,13 +58,23 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
           <div className="flex flex-row items-center gap-x-2">
             <button
               onClick={() => {
-                expandAll();
+                if (disclosuresStatus.every((status) => status)) {
+                  closeAll();
+                } else {
+                  expandAll();
+                }
               }}
               className="font-bold"
             >
-              Expand All
+              {disclosuresStatus.every((status) => status) ? 'Close All' : 'Expand All'}
             </button>
-            <ChevronDownIcon className="w-5 h-5" />
+            <ChevronDownIcon
+              className={`${
+                disclosuresStatus.every((status) => status)
+                  ? 'transform rotate-180 transition duration-500 ease-in-out'
+                  : 'transition duration-500 ease-in-out'
+              } w-5 h-5`}
+            />
           </div>
         </div>
         {/* FAQ for lg-md */}
