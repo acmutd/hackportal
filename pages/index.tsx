@@ -256,7 +256,7 @@ export default function Home(props: {
       {/* Featuring Keynotes speakers */}
 
       {speakers.length != 0 && (
-        <section className=" overflow-x-auto bg-gray-200 min-h-[24rem]">
+        <section className=" overflow-x-auto min-h-[24rem]">
           <div className="flex items-start justify-start font-bold p-6 md:text-4xl text-2xl my-4">
             Featuring Keynote Speakers
           </div>
