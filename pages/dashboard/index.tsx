@@ -160,12 +160,6 @@ export default function Dashboard(props: {
             </div>
           </div>
 
-          {/* Theme */}
-          <div className="flex flex-col items-center my-8">
-            <h1 className="md:text-3xl text-xl font-black text-white">Theme</h1>
-            <p>The Future is NOW</p>
-          </div>
-
           {/* Challenges */}
           <div className="flex flex-col items-center my-8">
             <h1 className="md:text-3xl text-xl font-black text-white">Challenges</h1>

@@ -202,10 +202,10 @@ export default function Home(props: {
         </div>
       </section>
     */}
-      {/* Featuring Keynotes speakers */}
+      {/* Keynotes speakers */}
       <section className="flex overflow-x-scroll min-h-[24rem] bg-blue-850">
         <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold bg-blue-850 text-white">
-          Featuring Keynote Speakers
+          Keynote Speakers
         </div>
         <div className="flex flex-col justify-center py-6 md:px-6 bg-blue-850">
           {/* Row 1 */}
@@ -278,40 +278,6 @@ export default function Home(props: {
       {/* FAQ */}
       <section>
         <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
-      </section>
-      <section>
-        {/* Team Members */}
-        <div className="flex flex-col flex-grow bg-white">
-          <div className="my-2">
-            <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Meet Our Team :)</h4>{' '}
-            <div className="flex flex-wrap justify-center md:px-2">
-              {/* Member Cards */}
-              {members.map(
-                ({ name, description, linkedin, github, personalSite, fileName }, idx) => (
-                  <MemberCards
-                    key={idx}
-                    name={name}
-                    description={description}
-                    fileName={fileName}
-                    linkedin={linkedin}
-                    github={github}
-                    personalSite={personalSite}
-                  />
-                ),
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* Sponsors */}
-      <section>
-        <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
-        {/* Sponsor Card */}
-        <section className="flex flex-wrap justify-center p-4">
-          {sponsor.map(({ link, reference }, idx) => (
-            <SponsorCard key={idx} link={link} reference={reference} />
-          ))}
-        </section>
       </section>
 
       {/* Footer */}
