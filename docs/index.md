@@ -9,4 +9,3 @@ HackPortal currently uses:
 
 - Cloud Firestore as a NoSQL database
 - Firebase Auth (server-side) for authentication
-- Cloud Storage for Firebase for user-generated blob content
