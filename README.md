@@ -3,7 +3,7 @@
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-
+[Join the HackPortal HQ Discord!](https://discord.gg/GueKFPdN64)
 ## Features Summary
 - Fully customizable front end  
 - Sign in with email/ Google  
