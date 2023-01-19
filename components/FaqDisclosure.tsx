@@ -44,10 +44,8 @@ export default function FaqDisclosure({
           >
             <span>{question}</span>
             <ChevronDownIcon
-              className={`${
-                isOpen
-                  ? 'transform rotate-180 transition duration-500 ease-in-out'
-                  : 'transition duration-500 ease-in-out'
+              className={`transition duration-500 ease-in-out ${
+                isOpen ? 'transform rotate-180' : ''
               } w-5 h-5`}
             />
           </button>
