@@ -43,6 +43,9 @@ const markdownRendering = {
   td: ({ node, ...props }) => <td className="border-black border py-1 px-2" {...props} />,
 };
 
+// Stores a heading item; h2 will be false if it's an h1 tag
+type HeadingItem = { text: string; h2: boolean };
+
 /**
  * NOTE: The current HackerPack contains dummy data (obviously) and
  * needs to be updated to match your hackathon.
@@ -64,10 +67,10 @@ export default function HackerPack(props: { content: any }) {
   // Generate the sidebar from markdown
   let actualSidebarContent = sidebarContent;
   if (hackerpackSettings.sidebar && hackerpackSettings.mainContent === 'markdown') {
-    // Use regex to parse through the markdown
+    // Use regex to parse through the markdown header tags
     const re = /^#(#|) (.*)\n$/gm;
-    let m;
-    const headingList = [];
+    let m: RegExpExecArray;
+    const headingList: HeadingItem[] = [];
     do {
       m = re.exec(indexMarkdown);
       if (m) headingList.push({ text: m[2], h2: m[1] === '#' });
