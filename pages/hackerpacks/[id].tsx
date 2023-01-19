@@ -72,7 +72,7 @@ export default function NotionSubpage(props: { content: any; error: boolean }) {
       )}
       <NotionRenderer
         recordMap={props.content}
-        darkMode={false}
+        darkMode={hackerpackSettings.darkMode}
         mapPageUrl={(pageId) => `/hackerpacks/${pageId}`}
       />
     </div>

@@ -165,7 +165,7 @@ export default function HackerPack(props: { content: any }) {
         {hackerpackSettings.mainContent === 'notion' && (
           <NotionRenderer
             recordMap={props.content}
-            darkMode={false}
+            darkMode={hackerpackSettings.darkMode}
             mapPageUrl={(pageId) => `/hackerpacks/${pageId}`}
           />
         )}
