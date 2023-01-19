@@ -50,7 +50,6 @@ export default function FaqDisclosure({
             />
           </button>
         </Disclosure.Button>
-
         {/* {isOpen && ( */}
         <Transition
           show={isOpen}

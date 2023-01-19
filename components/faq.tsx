@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import AboutHeader from './AboutHeader';
 import FaqDisclosure from './FaqDisclosure';
 import { RequestHelper } from '../lib/request-helper';
+import FaqExpandCloseButton from './FaqExpandCloseButton';
 
 /**
  * The FAQ page.
@@ -29,13 +30,6 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
    * Expand all FAQ disclosures
    *
    */
-  const expandAll = () => {
-    setDisclosureStatus(new Array(disclosuresStatus.length).fill(true));
-  };
-
-  const closeAll = () => {
-    setDisclosureStatus(new Array(disclosuresStatus.length).fill(false));
-  };
 
   if (loading) {
     return (
@@ -56,24 +50,9 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
         <div className="flex flex-row justify-between items-center py-2">
           <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">FAQ</h4>
           <div className="flex flex-row items-center gap-x-2">
-            <button
-              onClick={() => {
-                if (disclosuresStatus.every((status) => status)) {
-                  closeAll();
-                } else {
-                  expandAll();
-                }
-              }}
-              className="font-bold"
-            >
-              {disclosuresStatus.every((status) => status) ? 'Close All' : 'Expand All'}
-            </button>
-            <ChevronDownIcon
-              className={`${
-                disclosuresStatus.every((status) => status)
-                  ? 'transform rotate-180 transition duration-500 ease-in-out'
-                  : 'transition duration-500 ease-in-out'
-              } w-5 h-5`}
+            <FaqExpandCloseButton
+              disclosuresStatus={disclosuresStatus}
+              setDisclosureStatus={setDisclosureStatus}
             />
           </div>
         </div>
