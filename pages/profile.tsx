@@ -13,8 +13,8 @@ import { getFileExtension } from '../lib/util';
 export default function ProfilePage() {
   const router = useRouter();
   const { isSignedIn, hasProfile, user, profile } = useAuthContext();
-  const [uploading, setUploading] = useState<boolean>(false)
-  const resumeRef = useRef(null)
+  const [uploading, setUploading] = useState<boolean>(false);
+  const resumeRef = useRef(null);
 
   const handleResumeUpload = () => {
     const resumeFile =
