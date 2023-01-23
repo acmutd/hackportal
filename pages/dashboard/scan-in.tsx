@@ -5,7 +5,7 @@ import DashboardHeader from '../../components/DashboardHeader';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import QRCode from '../../components/QRCode';
 import QRCodeReader from '../../components/QRCodeReader';
-import Sidebar from './Components/Sidebar';
+import Sidebar from '../../components/dashboardComponents/Sidebar';
 
 /**
  * The dashboard / scan-in.

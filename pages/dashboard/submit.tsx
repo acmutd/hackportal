@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 import DashboardHeader from '../../components/DashboardHeader';
-import Sidebar from './Components/Sidebar';
+import Sidebar from '../../components/dashboardComponents/Sidebar';
 
 /**
  * NOTE: THIS IS NOT BEING USED.
