@@ -15,6 +15,7 @@ import FAQ from '../components/faq';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import Image from 'next/image';
 
 /**
  * The home page.
@@ -40,16 +41,16 @@ export default function Home(props: {
 
   const colorSchemes: ColorScheme[] = [
     {
-      light: '#F2F3FF',
-      dark: '#C1C8FF',
+      light: '#fce2c2',
+      dark: '#face9b',
     },
     {
-      light: '#D8F8FF',
-      dark: '#B0F1FF',
+      light: '#fccacd',
+      dark: '#fc9a9f',
     },
     {
-      dark: '#FCD7FF',
-      light: '#FDECFF',
+      light: '#ceedcc',
+      dark: '#b2d9b0',
     },
   ];
 
@@ -146,29 +147,46 @@ export default function Home(props: {
       {checkNotif() && (
         <div
           id="popup"
-          className="fixed z-50 md:translate-x-0 translate-x-1/2 w-[22rem] rounded-md px-4 py-2 top-16 md:right-6 right-1/2 bg-red-200 md:text-base text-sm"
+          className="fixed z-50 md:translate-x-0 translate-x-1/2 w-[22rem] rounded-md px-4 py-2 top-16 md:right-6 right-1/2 bg-yellow-250 md:text-base text-sm"
         >
           Turn on push notifications to recieve announcements!
         </div>
       )}
       {/* Hero section */}
-      <section className="min-h-screen p-4 bg-indigo-100 bg-blue-850">
+      <section className="min-h-screen p-4 bg-indigo-100 bg-blue-450">
         <div
           style={{ minHeight: 480 }}
           className="max-w-4xl mx-auto flex flex-col justify-center items-center"
         >
           <div
-            className="min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative md:mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-16 before:bg-transparent before:border-b-4 before:border-l-4 before:border-black
-          after:block after:absolute after:top-0 after:right-0 after:w-16 after:h-16 after:bg-transparent after:border-t-4 after:border-r-4 after:border-black"
+            className="min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative md:mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-16 before:bg-transparent
+          after:block after:absolute after:top-0 after:right-0 after:w-16 after:h-16 after:bg-transparent"
           >
-            <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold text-white">
+            <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold text-black">
               WEHack Portal
             </h1>
-            <p className="text-center my-4 md:font-bold md:text-3xl text-xl text-white">
-              The Largest Inclusive Hackathon in Texas
+            <p className="text-center my-4 md:font-bold md:text-3xl text-xl text-yellow-250">
+              Adventure is Out There!
             </p>
           </div>
+          <Image
+            src="https://wehackutd.com/images/logos/updated_wehack_logo.jpg"
+            alt="WEHack 2023 Logo"
+            width={250}
+            height={250}
+          />
           {/* TODO: Programmatically show these based on configured times/organizer preference */}
+          <div className="flex flex-col items-center">
+            <p className="text-center my-4 md:font-bold md:text-xl text-x1 text-black-250">
+              Click below to learn more about WEHack!
+            </p>
+            <a
+              href="https://wehackutd.com/"
+              className="px-4 py-3 text-yellow-250 no-underline bg-orange-550 rounded hover:bg-orange-650 font-bold"
+            >
+              wehackutd.com
+            </a>
+          </div>
         </div>
       </section>
       {/* Video Space 
@@ -203,13 +221,13 @@ export default function Home(props: {
       </section>
     */}
       {/* Keynotes speakers */}
-      <section className="flex overflow-x-scroll min-h-[24rem] bg-blue-850">
-        <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold bg-blue-850 text-white">
+      <section className="flex overflow-x-scroll min-h-[24rem] bg-blue-450">
+        <div className="flex items-center justify-center md:p-12 p-6 max-w-[18rem] text-2xl font-bold bg-blue-450 text-black">
           Keynote Speakers
         </div>
-        <div className="flex flex-col justify-center py-6 md:px-6 bg-blue-850">
+        <div className="flex flex-col justify-center py-6 md:px-6 bg-blue-450">
           {/* Row 1 */}
-          <div className="flex bg-blue-850">
+          <div className="flex bg-blue-450">
             {speakers.map(
               ({ name, description, fileName }, idx) =>
                 idx < speakers.length / 2 && (
@@ -224,7 +242,7 @@ export default function Home(props: {
             )}
           </div>
           {/* row 2 */}
-          <div className="flex md:ml-[7rem] ml-[5rem] bg-blue-850">
+          <div className="flex md:ml-[7rem] ml-[5rem] bg-blue-450">
             {speakers.map(
               ({ name, description, fileName }, idx) =>
                 idx >= speakers.length / 2 && (
@@ -241,8 +259,8 @@ export default function Home(props: {
         </div>
       </section>
       {/* Challenges */}
-      <section className="p-6 bg-blue-850">
-        <div className="font-bold text-2xl text-white">Challenges</div>
+      <section className="p-6 bg-blue-450">
+        <div className="font-bold text-2xl text-black">Challenges</div>
         <div className="flex">
           {/* Challenge Orgs Selectors*/}
           <div className="md:w-1/4 w-1/5">

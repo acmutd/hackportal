@@ -4,6 +4,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      backgroundImage: {
+        'wehack-icon-2023': 'url(https://wehackutd.com/images/logos/updated_wehack_logo.jpg)',
+      },
       fontFamily: {
         sans: ['wavehaus'],
       },
@@ -35,6 +38,7 @@ module.exports = {
       },
       colors: {
         blue: {
+          450: '#C5C9E4',
           550: '#00B9FF',
           650: '#3980B3',
           750: '#203150',
@@ -62,6 +66,14 @@ module.exports = {
           450: '#939AD8',
           750: '#7965DE',
           850: '#732EE2',
+        },
+        orange: {
+          550: '#E0A269',
+          650: '#E38F61',
+          750: '#D24A32',
+        },
+        yellow: {
+          250: '#FFF2CE',
         },
       },
 

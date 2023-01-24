@@ -5,7 +5,7 @@ const withFonts = require('next-fonts');
 (module.exports = withPWA({
   reactStrictMode: true,
   images: {
-    domains: ['lh3.googleusercontent.com', 'firebasestorage.googleapis.com'],
+    domains: ['lh3.googleusercontent.com', 'firebasestorage.googleapis.com', 'wehackutd.com'],
   },
   pwa: {
     dest: 'public',
