@@ -93,11 +93,10 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
           placeholder="Type your announcement here"
           rows={5}
         ></textarea>
-        <div className="flex flex-row justify-end my-4">
+        <div className="flex flex-row justify-end my-4 text-black">
           <button
             type="button"
             className="py-2 px-5 rounded-lg font-bold bg-primaryDark"
-            style={{ color: 'black' }}
             onClick={() => {
               postAnnouncement();
             }}

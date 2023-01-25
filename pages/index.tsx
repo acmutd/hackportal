@@ -272,6 +272,7 @@ export default function Home(props: {
                       description={description}
                       cardColor={colorSchemes[idx % 3]}
                       imageLink={fileName}
+                      idx={idx}
                     />
                   ),
               )}
@@ -287,6 +288,7 @@ export default function Home(props: {
                       description={description}
                       cardColor={colorSchemes[idx % 3]}
                       imageLink={fileName}
+                      idx={idx}
                     />
                   ),
               )}

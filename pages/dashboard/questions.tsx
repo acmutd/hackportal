@@ -184,8 +184,7 @@ export default function QuestionsPage() {
           <div className="flex flex-row justify-end my-4">
             <button
               type="button"
-              className="p-2 rounded-lg bg-primaryDark"
-              style={{ color: 'black' }}
+              className="p-2 rounded-lg bg-primaryDark text-black"
               onClick={() => {
                 submitQuestion();
               }}

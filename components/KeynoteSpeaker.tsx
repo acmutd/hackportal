@@ -9,6 +9,9 @@ import firebase from 'firebase';
 export default function KeynoteSpeaker(props) {
   const [imageLink, setImageLink] = useState();
 
+  const cardColor =
+    props.idx % 3 === 0 ? 'bg-primary' : props.idx % 3 === 1 ? 'bg-secondary' : 'bg-complementary';
+
   useEffect(() => {
     if (props.imageLink !== undefined) {
       const storageRef = firebase.storage().ref();
@@ -26,15 +29,7 @@ export default function KeynoteSpeaker(props) {
 
   return (
     <div className="flex w-[28rem] h-[9rem] md:mr-20 mr-16 my-4">
-      <div
-        className={`w-1/4 rounded-l-md ${
-          props.idx % 3 === 0
-            ? 'bg-primary'
-            : props.idx % 3 === 1
-            ? 'bg-secondary'
-            : 'bg-complementary'
-        }`}
-      >
+      <div className={`w-1/4 rounded-l-md ${cardColor}`}>
         {props.imageLink !== undefined && imageLink !== undefined && (
           <Image
             src={imageLink}
@@ -46,15 +41,7 @@ export default function KeynoteSpeaker(props) {
           />
         )}
       </div>
-      <div
-        className={`w-3/4 p-2 rounded-r-md ${
-          props.idx % 3 === 0
-            ? 'bg-primaryDark'
-            : props.idx % 3 === 1
-            ? 'bg-secondaryDark'
-            : 'bg-complementaryDark'
-        }`}
-      >
+      <div className={`w-3/4 p-2 rounded-r-md ${cardColor}`}>
         <h1 className="text-lg font-bold"> {props.name}</h1>
         <div className="text-xs">{props.description}</div>
       </div>
