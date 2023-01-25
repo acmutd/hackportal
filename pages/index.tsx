@@ -193,7 +193,7 @@ export default function Home(props: {
             <button
               key={button.text}
               onClick={() => router.push(button.path)}
-              className="max-w-[12rem] w-[12rem] md:max-w-full bg-indigo-300 py-4"
+              className="max-w-[14rem] w-[14rem] md:max-w-full bg-indigo-300 py-4 rounded-xl h-10 flex items-center justify-center font-bold text-xl"
             >
               {button.text}
             </button>
@@ -256,28 +256,23 @@ export default function Home(props: {
       {/* Featuring Keynotes speakers */}
 
       {speakers.length != 0 && (
-        <section className="flex overflow-x-auto bg-gray-200 min-h-[24rem]">
-          <div className="flex items-center justify-center font-bold p-6 md:text-4xl text-2xl my-4">
+        <section className=" overflow-x-auto min-h-[24rem]">
+          <div className="flex items-start justify-start font-bold p-6 md:text-4xl text-2xl my-4">
             Featuring Keynote Speakers
           </div>
-          <div className="flex flex-col justify-center py-6 md:px-6">
-            {/* Row 1 */}
-            <div className="flex">
-              {speakers.map(
-                ({ name, description, fileName }, idx) =>
-                  idx < speakers.length / 2 && (
-                    <KeynoteSpeaker
-                      key={idx}
-                      name={name}
-                      description={description}
-                      cardColor={colorSchemes[idx % 3]}
-                      imageLink={fileName}
-                      idx={idx}
-                    />
-                  ),
-              )}
-            </div>
-            {/* row 2 */}
+
+          <div className="flex md:flex-row flex-col items-center justify-center font-bold p-6 md:text-4xl text-2xl my-4 md:gap-24 gap-12">
+            {speakers.map(({ name, description, fileName }, idx) => (
+              <KeynoteSpeaker
+                key={idx}
+                name={name}
+                description={description}
+                cardColor={colorSchemes[idx % 3]}
+                imageLink={fileName}
+              />
+            ))}
+          </div>
+          {/* row 2
             <div className="flex md:ml-[7rem] ml-[5rem]">
               {speakers.map(
                 ({ name, description, fileName }, idx) =>
@@ -292,8 +287,7 @@ export default function Home(props: {
                     />
                   ),
               )}
-            </div>
-          </div>
+            </div> */}
         </section>
       )}
       {/* Challenges */}

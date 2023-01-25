@@ -78,12 +78,12 @@ export default function AppHeader() {
           <Link href="/">
             <a className="flex gap-2 order-2 relative ml-[6px] font-display self-center items-center md:order-1 md:ml-0">
               {/* !change src */}
-              <Image src={'/assets/hp-logo.png'} width="30px" height="30px" />
+              <Image src={'/assets/hp-logo.png'} width="35px" height="30px" />
               <span className="text-[16px] font-black md:z-0 md:text-2xl">HackPortal</span>
             </a>
           </Link>
           {/* Smartphone nav */}
-          <div onClick={toggleMenu} className={'relative md:hidden'}>
+          <div onClick={toggleMenu} className={'relative md:hidden cursor-pointer'}>
             {mobileIcon ? <MenuIcon /> : <CloseIcon />}
             <ul
               className={`${
