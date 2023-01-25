@@ -25,7 +25,7 @@ export default function KeynoteSpeaker(props) {
   }, []);
 
   return (
-    <div className="group flex flex-col items-center sm:w-60 sm:h-80 w-40 h-60 rounded-xl shadow-xl relative transition duration-500 ease-in-out overflow-hidden bg-indigo-100">
+    <div className="group flex flex-col items-center sm:w-60 sm:h-70  rounded-xl shadow-xl relative transition duration-500 ease-in-out overflow-hidden bg-secondary text-white">
       <div className="rounded-t-sm">
         {props.imageLink !== undefined && imageLink !== undefined && (
           <Image
@@ -37,12 +37,12 @@ export default function KeynoteSpeaker(props) {
           />
         )}
       </div>
-      <div className="flex-col items-center justify-center sm:w-60 sm:h-80 w-40 h-60 absolute translate-y-60 group-hover:translate-y-0 transition duration-500 ease-in-out overflow-hidden">
-        <div className="rounded-b-sm bg-indigo-300  p-2 font-bold ">
-          <h1 className="text-lg "> {props.name}</h1>
-          {/* show description on hover by sliding up */}
-          <div className="opacity-0 group-hover:opacity-100 transition duration-500 ease-in-out  bg-indigo-300 sm:h-80  h-60">
-            <p className="text-xs">{props.description}</p>
+      <div className="flex-col items-center justify-center sm:w-60 sm:h-70 absolute translate-y-52 group-hover:translate-y-0 transition duration-500 ease-in-out overflow-hidden">
+        <div className="rounded-b-sm bg-primary p-2 font-semibold">
+          <h1 className="text-sm"> {props.name}</h1>
+          {/* show description on hover  by sliding up */}
+          <div className="opacity-0 group-hover:opacity-100 transition duration-500 ease-in-out bg-primary sm:h-70 h-60 font-normal overflow-y-scroll">
+            <p className="text-[13px]">{props.description}</p>
           </div>
         </div>
       </div>
