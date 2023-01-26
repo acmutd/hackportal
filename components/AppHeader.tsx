@@ -74,7 +74,7 @@ export default function AppHeader() {
     <>
       <div className="min-h-[4rem]"></div>
       <header className="top-0 fixed justify-between flex flex-row w-full bg-white items-center h-20 z-10 p-4 drop-shadow">
-        <div className="flex flex-row order-1 md:order-none   items-center">
+        <div className="flex flex-row order-1 md:order-none items-center">
           {/* Smartphone nav */}
           <div onClick={toggleMenu} className="md:hidden cursor-pointer text-complementary">
             {mobileIcon ? <MenuIcon /> : <CloseIcon />}
