@@ -74,31 +74,28 @@ export default function AppHeader() {
     <>
       <div className="min-h-[4rem]"></div>
       <header className="top-0 fixed justify-between flex flex-row w-full bg-white items-center h-20 z-10 p-4 drop-shadow">
-        <div className="flex flex-row order-1 md:order-none  h-full items-center">
+        <div className="flex flex-row order-1 md:order-none   items-center">
           {/* Smartphone nav */}
-          <div
-            onClick={toggleMenu}
-            className="relative md:hidden cursor-pointer text-complementary"
-          >
+          <div onClick={toggleMenu} className="md:hidden cursor-pointer text-complementary">
             {mobileIcon ? <MenuIcon /> : <CloseIcon />}
             <ul
               className={`${
                 showMenu ? 'translate-x-0' : '-translate-x-full'
-              } transform transition-all ease-out duration-300 flex w-6/12 h-screen flex-col bg-white fixed top-0 left-0 z-[-1] mt-[82px]`}
+              } transform transition-all ease-out duration-300 flex w-6/12 h-screen flex-col bg-white fixed top-0 left-0 z-[-1] mt-[80px] border-t-2 border-complementary/10`}
             >
               {dynamicNavItems
                 .filter(({ text }) => text !== 'Home')
                 .map((item) => (
                   <Link key={item.text} href={item.path}>
                     <a className="p-9 py-6 hover:bg-primaryDark hover:text-white text-complementary">
-                      <p className="text-3xl font-medium">{item.text}</p>
+                      <p className="text-xl font-medium">{item.text}</p>
                     </a>
                   </Link>
                 ))}
             </ul>
           </div>
           <Link href="/">
-            <a className="flex gap-2 relative ml-[6px] font-display self-center items-center md:ml-0">
+            <a className="flex gap-2 ml-[6px] font-display self-center items-center md:ml-0">
               {/* !change src */}
               <Image src={'/assets/hp-logo.png'} width="45px" height="35px" />
               <span className="text-[16px] font-semibold md:z-0 md:text-2xl text-primaryDark">
