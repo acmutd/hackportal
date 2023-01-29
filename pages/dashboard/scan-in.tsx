@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import DashboardHeader from '../../components/DashboardHeader';
+import DashboardHeader from '../../components/dashboardComponents/DashboardHeader';
 import { useAuthContext } from '../../lib/user/AuthContext';
-import QRCode from '../../components/QRCode';
-import QRCodeReader from '../../components/QRCodeReader';
+import QRCode from '../../components/dashboardComponents/QRCode';
+import QRCodeReader from '../../components/dashboardComponents/QRCodeReader';
 import Sidebar from '../../components/dashboardComponents/Sidebar';
 
 /**

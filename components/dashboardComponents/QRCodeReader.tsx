@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import jsQR from 'jsqr';
 import { Point } from 'jsqr/dist/locator';
-import LoadIcon from './LoadIcon';
+import LoadIcon from '../LoadIcon';
 
 export interface QRCodeReaderProps {
   callback?: (

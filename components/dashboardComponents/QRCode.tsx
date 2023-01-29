@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import LoadIcon from './LoadIcon';
+import LoadIcon from '../LoadIcon';
 import { toCanvas } from 'qrcode';
 
 export interface QRCodeProps {
