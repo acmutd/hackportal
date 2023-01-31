@@ -38,7 +38,7 @@ async function resolvePendingQuestionById(req: NextApiRequest, res: NextApiRespo
   const { headers } = req;
   const userToken = headers['authorization'];
 
-  const isAuthorized = await userIsAuthorized(userToken);
+  const isAuthorized = await userIsAuthorized(userToken, ['super_admin', 'admin']);
   if (!isAuthorized) {
     return res.status(403).json({
       msg: 'Request is not authorized to perform admin functionality.',

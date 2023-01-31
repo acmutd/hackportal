@@ -33,7 +33,7 @@ async function sendNotifications(announcement: any) {
       data: {
         ...announcement,
         baseUrl: process.env.BASE_URL,
-        iconUrl: "icons/icon-128x128.png", // !!!CHANGE
+        iconUrl: 'icons/icon-128x128.png', // !!!CHANGE
       },
       tokens: currentBatch,
     };
@@ -58,7 +58,7 @@ async function postAnnouncementToDB(req: NextApiRequest, res: NextApiResponse) {
   const { headers } = req;
 
   const userToken = headers['authorization'];
-  const isAuthorized = await userIsAuthorized(userToken);
+  const isAuthorized = await userIsAuthorized(userToken, ['admin', 'super_admin']);
 
   if (!isAuthorized) {
     return res.status(403).json({
