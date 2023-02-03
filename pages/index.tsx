@@ -431,7 +431,7 @@ export default function Home(props: {
               </h4>{' '}
               {/* !change */}
               <div className="flex flex-wrap justify-center p-4">
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                   {/* Member Cards */}
                   {members.map(
                     ({ name, description, linkedin, github, personalSite, fileName }, idx) => (
