@@ -25,7 +25,7 @@ export default function KeynoteSpeaker(props) {
   }, []);
 
   return (
-    <div className="group flex flex-col items-center sm:w-60 sm:h-72  rounded-xl shadow-xl relative transition duration-500 ease-in-out overflow-hidden bg-secondary text-white">
+    <div className="group flex flex-col items-center sm:w-60 sm:h-70  rounded-xl shadow-xl relative transition duration-500 ease-in-out overflow-hidden bg-secondary text-white">
       <div className="rounded-t-sm">
         {props.imageLink !== undefined && imageLink !== undefined && (
           <Image
@@ -41,8 +41,8 @@ export default function KeynoteSpeaker(props) {
         <div className="rounded-b-sm bg-primary p-2 font-semibold">
           <h1 className="text-sm"> {props.name}</h1>
           {/* show description on hover  by sliding up */}
-          <div className="opacity-0 group-hover:opacity-100 transition duration-500 ease-in-out bg-primary sm:h-72 h-60 font-normal overflow-y-scroll">
-            <p className="text-[13px] pb-3">{props.description}</p>
+          <div className="opacity-0 group-hover:opacity-100 transition duration-500 ease-in-out bg-primary sm:h-70 h-60 font-normal overflow-y-scroll">
+            <p className="text-[13px] pt-2 pb-10">{props.description}</p>
           </div>
         </div>
       </div>
