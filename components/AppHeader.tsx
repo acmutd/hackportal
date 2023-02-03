@@ -98,7 +98,7 @@ export default function AppHeader() {
             <a className="flex gap-2 ml-[6px] font-display self-center items-center md:ml-0">
               {/* !change src */}
               <Image src={'/assets/hp-logo.png'} width="45px" height="35px" />
-              <span className="text-[16px] font-semibold md:z-0 md:text-2xl text-primaryDark">
+              <span className="text-lg font-black md:z-0 md:text-3xl text-primaryDark">
                 HackPortal
               </span>
             </a>
