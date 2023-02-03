@@ -44,7 +44,7 @@ export default function FaqDisclosure({
               toggleDisclosure();
             }}
           >
-            <span>{question}</span>
+            <span className="text-left">{question}</span>
             <ChevronDownIcon
               className={`${
                 isOpen
@@ -66,7 +66,7 @@ export default function FaqDisclosure({
           leaveTo="transform scale-95 opacity-0"
         >
           <Disclosure.Panel
-            className={`my-2 py-2  p-2 text-complementary  ${
+            className={`my-2 py-2  p-2 text-complementary text-left  ${
               isOpen ? 'border-b-2 border-complementary transition duration-300 ease-in-out' : ''
             }`}
             static
