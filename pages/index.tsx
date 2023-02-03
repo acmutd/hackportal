@@ -338,10 +338,10 @@ export default function Home(props: {
       {challenges.length != 0 && (
         <section className="md:p-12  p-6">
           <div className="font-bold  md:text-4xl text-2xl my-4 text-complementary">Challenges</div>
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center w-full">
             {/* Challenge Orgs Selectors*/}
 
-            <div className="md:w-3/4 w-4/5">
+            <div className="w-full">
               <Swiper
                 navigation={true}
                 modules={[Navigation]}
@@ -354,25 +354,30 @@ export default function Home(props: {
                 breakpoints={{
                   // when window width is >= 320px
                   320: {
-                    slidesPerView: 1,
+                    slidesPerView: 2,
                     spaceBetween: 20,
                   },
                   // when window width is >= 480px
                   480: {
-                    slidesPerView: 1,
-                    spaceBetween: 30,
+                    slidesPerView: 2,
+                    spaceBetween: 20,
                   },
                   620: {
-                    slidesPerView: 2,
-                    spaceBetween: 30,
+                    slidesPerView: 3,
+                    spaceBetween: 20,
                   },
                   // when window width is >= 640px
                   840: {
                     slidesPerView: 3,
-                    spaceBetween: 40,
+                    spaceBetween: 20,
                   },
                   1024: {
                     slidesPerView: 3,
+                    spaceBetween: 20,
+                  },
+
+                  1280: {
+                    slidesPerView: 4,
                     spaceBetween: 20,
                   },
                 }}
@@ -396,8 +401,9 @@ export default function Home(props: {
                 ))}
               </Swiper>
             </div>
+
             {/* Challenges Description Cards */}
-            <div className="md:w-3/4 w-4/5 my-4 xl:pl-11 xl:pr-11 min-h-full">
+            <div className="my-4 w-full lg:w-11/12 xl:w-full xl:pl-11 xl:pr-11">
               {/* Card */}
               <HomeChallengeCard
                 title={challengeData.title}
