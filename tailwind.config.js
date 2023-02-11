@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['wavehaus'],
+        sans: ['Roboto', 'sans-serif'],
       },
       width: {
         '1/8': '12.5%',

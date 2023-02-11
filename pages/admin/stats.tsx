@@ -2,7 +2,6 @@ import { useAuthContext } from '../../lib/user/AuthContext';
 import Head from 'next/head';
 import AdminHeader from '../../components/AdminHeader';
 import AdminStatsCard from '../../components/AdminStatsCard';
-import StatsBarChart from '../../components/StatsBarChart';
 import { RequestHelper } from '../../lib/request-helper';
 import { useEffect, useState } from 'react';
 import LoadIcon from '../../components/LoadIcon';
@@ -11,8 +10,9 @@ import CheckIcon from '@mui/icons-material/Check';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import EngineeringIcon from '@mui/icons-material/Engineering';
-import StatsPieChart from '../../components/StatsPieChart';
 import { fieldToName } from '../../lib/stats/field';
+import NivoBarChart from '../../components/NivoBarChart';
+import NivoPieChart from '../../components/NivoPieChart';
 
 function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;
@@ -76,7 +76,7 @@ export default function AdminStatsPage() {
           .map(([key, value]) => {
             if (Object.keys(value).length <= 6)
               return (
-                <StatsPieChart
+                <NivoPieChart
                   key={key}
                   name={fieldToName[key]}
                   items={Object.entries(statsData[key] as Record<any, any>)
@@ -91,13 +91,13 @@ export default function AdminStatsPage() {
                       return aDate - bDate;
                     })
                     .map(([k, v]) => ({
-                      itemName: k,
-                      itemCount: v,
+                      id: k,
+                      value: v,
                     }))}
                 />
               );
             return (
-              <StatsBarChart
+              <NivoBarChart
                 key={key}
                 name={fieldToName[key]}
                 items={Object.entries(statsData[key] as Record<any, any>)
@@ -113,7 +113,7 @@ export default function AdminStatsPage() {
                   })
                   .map(([k, v]) => ({
                     itemName: k,
-                    itemCount: v,
+                    itemValue: v,
                   }))}
               />
             );
