@@ -1,4 +1,4 @@
-import { UserData } from '../pages/api/users';
+import { UserData } from '../../pages/api/users';
 
 interface UserListProps {
   hasSuperAdminPrivilege: boolean;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
 import { NotionAPI } from 'notion-client';
-import hackerpackSettings from './Components/hackerpack-settings.json';
-import HackerpackDisplay from './Components/HackerpackDisplay';
+import hackerpackSettings from '../../components/hackerpackComponents/hackerpack-settings.json';
+import HackerpackDisplay from '../../components/hackerpackComponents/HackerpackDisplay';
 
 /**
  * The hackerpack page.
