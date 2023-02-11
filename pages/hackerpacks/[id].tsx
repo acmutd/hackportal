@@ -2,8 +2,8 @@ import { GetServerSideProps } from 'next';
 import { NotionAPI } from 'notion-client';
 import { useRouter } from 'next/router';
 
-import hackerpackSettings from './Components/hackerpack-settings.json';
-import HackerpackDisplay from './Components/HackerpackDisplay';
+import hackerpackSettings from '../../components/hackerpackComponents/hackerpack-settings.json';
+import HackerpackDisplay from '../../components/hackerpackComponents/HackerpackDisplay';
 
 export default function NotionSubpage(props: { content: any; error: boolean }) {
   const router = useRouter();
