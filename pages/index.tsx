@@ -265,41 +265,44 @@ export default function Home(props: {
       {speakers.length != 0 && (
         <section className=" overflow-x-auto min-h-[24rem]">
           <div className="flex items-start justify-start font-bold md:p-12 p-6 md:text-4xl text-2xl my-4 text-complementary">
-            Key Note Speakers
+            Speakers
           </div>
 
           <Swiper
             navigation={true}
             modules={[Navigation]}
             className="mySwiper"
-            // spaceBetween={-100}
-            // centeredSlides={true}
             slidesPerView={1}
             spaceBetween={10}
             // Responsive breakpoints
             breakpoints={{
               // when window width is >= 320px
               320: {
-                slidesPerView: 1,
+                slidesPerView: 2,
                 spaceBetween: 20,
+                centeredSlides: true,
               },
               // when window width is >= 480px
               480: {
-                slidesPerView: 1,
+                slidesPerView: 2,
                 spaceBetween: 30,
+                centeredSlides: true,
               },
               620: {
                 slidesPerView: 2,
                 spaceBetween: 30,
+                navigation: true,
               },
               // when window width is >= 640px
               840: {
-                slidesPerView: 3,
+                slidesPerView: 2,
                 spaceBetween: 40,
+                navigation: true,
               },
               1024: {
                 slidesPerView: 3,
                 spaceBetween: 20,
+                navigation: true,
               },
             }}
           >
@@ -315,22 +318,6 @@ export default function Home(props: {
               </SwiperSlide>
             ))}
           </Swiper>
-
-          {/* row 2
-            <div className="flex md:ml-[7rem] ml-[5rem]">
-              {speakers.map(
-                ({ name, description, fileName }, idx) =>
-                  idx >= speakers.length / 2 && (
-                    <KeynoteSpeaker
-                      key={idx}
-                      name={name}
-                      description={description}
-                      cardColor={colorSchemes[idx % 3]}
-                      imageLink={fileName}
-                    />
-                  ),
-              )}
-            </div> */}
         </section>
       )}
       {/* Challenges */}
@@ -340,14 +327,11 @@ export default function Home(props: {
           <div className="font-bold  md:text-4xl text-2xl my-4 text-complementary">Challenges</div>
           <div className="flex flex-col justify-center items-center w-full">
             {/* Challenge Orgs Selectors*/}
-
             <div className="w-full">
               <Swiper
                 navigation={true}
                 modules={[Navigation]}
                 className="mySwiper"
-                // spaceBetween={-100}
-                // centeredSlides={true}
                 slidesPerView={1}
                 spaceBetween={10}
                 // Responsive breakpoints
@@ -356,11 +340,13 @@ export default function Home(props: {
                   320: {
                     slidesPerView: 2,
                     spaceBetween: 20,
+                    centeredSlides: true,
                   },
                   // when window width is >= 480px
                   480: {
                     slidesPerView: 2,
                     spaceBetween: 20,
+                    centeredSlides: true,
                   },
                   620: {
                     slidesPerView: 3,

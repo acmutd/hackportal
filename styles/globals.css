@@ -165,7 +165,7 @@ a.link {
 }
 
 .swiper-slide {
-    display: -webkit-box;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -180,23 +180,31 @@ a.link {
 }
 
 .swiper-button-prev {
-    color: red; 
+  color: red;
 }
 
 .swiper-button-next {
-    color: #000; 
+  color: #000;
 }
 
 .swiper-button-prev:after {
-    content: 'Prev';
+  content: 'Prev';
 }
 
 .swiper-button-next:after {
-    content: 'Next';
+  content: 'Next';
 }
 
-.swiper-button-prev:after, .swiper-button-next:after {
-    font-size: 1rem!important;
-    font-weight: 600;
-    color: #7B81FF;
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  display: block;
+  font-size: 1rem !important;
+  font-weight: 600;
+  color: #7b81ff;
+}
+@media screen and (max-width: 720px) {
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    display: none;
+  }
 }
