@@ -1,6 +1,6 @@
 import React from 'react';
-import { useUser } from '../../../lib/profile/user-data';
-import { useAuthContext } from '../../../lib/user/AuthContext';
+import { useUser } from '../../lib/profile/user-data';
+import { useAuthContext } from '../../lib/user/AuthContext';
 
 function Sidebar() {
   const { isSignedIn } = useAuthContext();
