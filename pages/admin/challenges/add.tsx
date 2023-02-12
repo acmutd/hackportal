@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import ChallengeForm from '../../../components/ChallengeForm';
+import ChallengeForm from '../../../components/adminComponents/challengeComponents/ChallengeForm';
 import { RequestHelper } from '../../../lib/request-helper';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import Link from 'next/link';

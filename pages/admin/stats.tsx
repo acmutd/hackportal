@@ -1,7 +1,7 @@
 import { useAuthContext } from '../../lib/user/AuthContext';
 import Head from 'next/head';
-import AdminHeader from '../../components/AdminHeader';
-import AdminStatsCard from '../../components/AdminStatsCard';
+import AdminHeader from '../../components/adminComponents/AdminHeader';
+import AdminStatsCard from '../../components/adminComponents/AdminStatsCard';
 import { RequestHelper } from '../../lib/request-helper';
 import { useEffect, useState } from 'react';
 import LoadIcon from '../../components/LoadIcon';
@@ -11,8 +11,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import { fieldToName } from '../../lib/stats/field';
-import NivoBarChart from '../../components/NivoBarChart';
-import NivoPieChart from '../../components/NivoPieChart';
+import NivoBarChart from '../../components/adminComponents/NivoBarChart';
+import NivoPieChart from '../../components/adminComponents/NivoPieChart';
 
 function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;

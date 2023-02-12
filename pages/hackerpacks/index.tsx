@@ -7,12 +7,12 @@ import remarkGfm from 'remark-gfm';
 import { NotionAPI } from 'notion-client';
 import { NotionRenderer } from 'react-notion-x';
 import GithubSlugger from 'github-slugger';
-import DocLink from './Components/DocLinks';
-import HackerpackSidebar from './Components/HackerpackSidebar';
-import MobileDropdownMenu from './Components/MobileDropdownMenu';
-import hackerpackSettings from './Components/hackerpack-settings.json';
-import sidebarContent from './Components/sidebar-content.json';
-import indexMarkdown from './Components/markdown/index.md';
+import DocLink from '../../components/hackerpackComponents/DocLinks';
+import HackerpackSidebar from '../../components/hackerpackComponents/HackerpackSidebar';
+import MobileDropdownMenu from '../../components/hackerpackComponents/MobileDropdownMenu';
+import hackerpackSettings from '../../components/hackerpackComponents/hackerpack-settings.json';
+import sidebarContent from '../../components/hackerpackComponents/sidebar-content.json';
+import indexMarkdown from '../../components/hackerpackComponents/markdown/index.md';
 
 // Tailwind rendering for markdown
 const markdownRendering = {

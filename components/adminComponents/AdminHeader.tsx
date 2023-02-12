@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import NavLink from './NavLink';
-import { useAuthContext } from '../lib/user/AuthContext';
+import NavLink from '../NavLink';
+import { useAuthContext } from '../../lib/user/AuthContext';
 import { useEffect } from 'react';
 
 function isAuthorized(user): boolean {

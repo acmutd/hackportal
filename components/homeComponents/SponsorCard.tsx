@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/storage';
-import LoadIcon from './LoadIcon';
+import LoadIcon from '../LoadIcon';
 import Image from 'next/image';
 
 interface SponsorCardProps {

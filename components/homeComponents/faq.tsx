@@ -2,9 +2,8 @@ import { ChevronDownIcon } from '@heroicons/react/solid';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
-import AboutHeader from './AboutHeader';
 import FaqDisclosure from './FaqDisclosure';
-import { RequestHelper } from '../lib/request-helper';
+import { RequestHelper } from '../../lib/request-helper';
 
 /**
  * The FAQ page.
