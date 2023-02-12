@@ -98,7 +98,6 @@ export default function Register() {
   };
 
   const handleResumeFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('test');
     if (e.target.files.length !== 1) return alert('Must submit one file');
 
     const file = e.target.files[0];
