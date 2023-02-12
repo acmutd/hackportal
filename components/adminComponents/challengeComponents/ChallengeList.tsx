@@ -1,5 +1,5 @@
 import React from 'react';
-import ChallengeCard from './ChallengeCard';
+import ChallengeCard from '../../dashboardComponents/ChallengeCard';
 import {
   DndContext,
   useSensors,

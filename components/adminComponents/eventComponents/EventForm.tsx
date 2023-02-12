@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import TextField from '@mui/material/TextField';
-import { DEFAULT_EVENT_FORM_DATA } from '../lib/data';
+import { DEFAULT_EVENT_FORM_DATA } from '../../../lib/data';
 
 interface EventFormProps {
   event?: ScheduleEvent;

@@ -1,17 +1,17 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
-import DashboardHeader from '../../components/DashboardHeader';
+import DashboardHeader from '../../components/dashboardComponents/DashboardHeader';
 import { useUser } from '../../lib/profile/user-data';
 import { useAuthContext } from '../../lib/user/AuthContext';
-import AnnouncementCard from './Components/AnnouncementCards';
-import Sidebar from './Components/Sidebar';
+import AnnouncementCard from '../../components/dashboardComponents/AnnouncementCards';
+import Sidebar from '../../components/dashboardComponents/Sidebar';
 import firebase from 'firebase';
 import 'firebase/messaging';
 import { GetServerSideProps } from 'next';
 import { RequestHelper } from '../../lib/request-helper';
 import { useFCMContext } from '../../lib/service-worker/FCMContext';
-import SpotlightCard from './Components/SpotlightCard';
-import ChallengeCard from './Components/ChallengeCard';
+import SpotlightCard from '../../components/dashboardComponents/SpotlightCard';
+import ChallengeCard from '../../components/dashboardComponents/ChallengeCard';
 
 import { Navigation, Pagination, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
