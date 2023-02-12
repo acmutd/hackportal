@@ -7,14 +7,18 @@ import { RequestHelper } from '../lib/request-helper';
 import firebase from 'firebase/app';
 import 'firebase/messaging';
 import 'firebase/storage';
-import KeynoteSpeaker from '../components/KeynoteSpeaker';
-import HomeChallengeCard from '../components/HomeChallengeCard';
-import MemberCards from '../components/MemberCards';
-import SponsorCard from '../components/SponsorCard';
-import FAQ from '../components/faq';
+import KeynoteSpeaker from '../components/homeComponents/KeynoteSpeaker';
+import HomeChallengeCard from '../components/homeComponents/HomeChallengeCard';
+import MemberCards from '../components/homeComponents/MemberCards';
+import SponsorCard from '../components/homeComponents/SponsorCard';
+import FAQ from '../components/homeComponents/faq';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 /**
  * The home page.
@@ -89,10 +93,12 @@ export default function Home(props: {
   useEffect(() => {
     // Initialize styles to first organization in list
     if (document.getElementById(`org${challengeIdx}`) !== null) {
-      document.getElementById(`org${challengeIdx}`).style.textDecoration = 'underline';
-      (
-        document.getElementById(`org${challengeIdx}`).firstElementChild as HTMLElement
-      ).style.display = 'block';
+      // document.getElementById(`org${challengeIdx}`).style.textDecoration = 'underline';
+      document.getElementById(`org${challengeIdx}`).style.backgroundColor =
+        'rgba(123, 129, 255, 0.5)';
+      // (
+      //   document.getElementById(`org${challengeIdx}`).firstElementChild as HTMLElement
+      // ).style.display = 'block';
     }
   });
 
@@ -129,12 +135,15 @@ export default function Home(props: {
   };
 
   const changeOrg = (challenge, newIdx) => {
-    document.getElementById(`org${challengeIdx}`).style.textDecoration = 'none';
-    (document.getElementById(`org${challengeIdx}`).firstElementChild as HTMLElement).style.display =
-      'none';
-    document.getElementById(`org${newIdx}`).style.textDecoration = 'underline';
-    (document.getElementById(`org${newIdx}`).firstElementChild as HTMLElement).style.display =
-      'block';
+    // document.getElementById(`org${challengeIdx}`).style.textDecoration = 'none';
+    document.getElementById(`org${challengeIdx}`).style.backgroundColor = '#F2F3FF';
+    // (document.getElementById(`org${challengeIdx}`).firstElementChild as HTMLElement).style.display =
+    //   'none';
+    // document.getElementById(`org${newIdx}`).style.textDecoration = 'underline';
+    document.getElementById(`org${newIdx}`).style.backgroundColor = 'rgba(123, 129, 255, 0.5)';
+
+    // (document.getElementById(`org${newIdx}`).firstElementChild as HTMLElement).style.display =
+    //   'block';
 
     setChallengeIdx(newIdx);
     setChallengeData({
@@ -170,30 +179,28 @@ export default function Home(props: {
         </div>
       )}
       {/* Hero section */}
-      <section className="min-h-screen p-4 bg-contain bg-hero-pattern">
+      <section className="min-h-screen p-4 bg-contain bg-white">
         <div
           style={{ minHeight: 480 }}
           className="max-w-4xl mx-auto flex flex-col justify-center items-center"
         >
-          <div
-            className="min-w-[280px] w-8/12 h-[240px] flex flex-col justify-center relative md:mb-28 md:min-w-full before:block before:absolute before:bottom-0 before:left-0 before:w-16 before:h-16 before:bg-transparent before:border-b-4 before:border-l-4 before:border-black
-          after:block after:absolute after:top-0 after:right-0 after:w-16 after:h-16 after:bg-transparent after:border-t-4 after:border-r-4 after:border-black"
-          >
-            <h1 className="text-center md:text-6xl text-3xl md:font-black font-bold">HackPortal</h1>{' '}
-            {/* !change */}
-            <p className="text-center my-4 md:font-bold md:text-3xl text-xl">
-              {' '}
-              {/* !change */}A Project by ACM Development and HackUTD
-            </p>
-          </div>
-          {/* TODO: Programmatically show these based on configured times/organizer preference */}
+          <h1 className="text-center md:text-8xl text-6xl font-bold bg-clip-text text-transparent text-primaryDark">
+            HackPortal
+          </h1>{' '}
+          {/* !change */}
+          <p className="text-center my-4 font-semibold md:text-xl text-md text-primaryDark opacity-80">
+            {' '}
+            {/* !change */}Powered by HackUTD and ACM Dev
+          </p>
         </div>
-        <div className="flex flex-col items-center md:flex-row md:justify-around px-4 md:space-y-0 space-y-3 > * + *">
+        {/* TODO: Programmatically show these based on configured times/organizer preference */}
+
+        <div className="flex flex-col items-center md:flex-row md:justify-around px-44 md:space-y-0 space-y-3 > *">
           {buttonDatas.map((button) => (
             <button
               key={button.text}
               onClick={() => router.push(button.path)}
-              className="max-w-[14rem] w-[14rem] md:max-w-full bg-indigo-300 py-4 rounded-xl h-10 flex items-center justify-center font-bold text-xl"
+              className="max-w-[14rem] w-[14rem] md:max-w-full bg-white py-4 rounded-xl h-10 flex items-center justify-center font-semibold text-xl text-primaryDark border-2 border-gray-300"
             >
               {button.text}
             </button>
@@ -224,7 +231,7 @@ export default function Home(props: {
                   index % 2 === 0 ? 'lg:ml-40 md:ml-20 ml-14' : 'md:mr-8 mr-24'
                 } text-center md:my-6 my-4`}
               >
-                <p className="font-bold text-2xl text-indigo-600 lg:text-5xl">{stat.data}</p>
+                <p className="font-bold text-2xl text-primaryDark lg:text-5xl">{stat.data}</p>
                 <p className="font-medium text-lg lg:text-3xl">{stat.object}</p>
               </div>
             ))}
@@ -232,7 +239,7 @@ export default function Home(props: {
         </div>
       </section>
       {/* About section */}
-      <section className="md:p-12 p-6">
+      <section className="md:p-12 p-6 text-complementary">
         <h1 className="md:text-4xl text-2xl font-bold my-4">About HackPortal</h1> {/* !change */}
         <div className="md:text-base text-sm">
           HackPortal is a platform for user-friendly hackathon event management. <br />
@@ -257,62 +264,132 @@ export default function Home(props: {
 
       {speakers.length != 0 && (
         <section className=" overflow-x-auto min-h-[24rem]">
-          <div className="flex items-start justify-start font-bold p-6 md:text-4xl text-2xl my-4">
-            Featuring Keynote Speakers
+          <div className="flex items-start justify-start font-bold md:p-12 p-6 md:text-4xl text-2xl my-4 text-complementary">
+            Speakers
           </div>
 
-          <div className="flex md:flex-row flex-col items-center justify-center font-bold p-6 md:text-4xl text-2xl my-4 md:gap-24 gap-12">
+          <Swiper
+            navigation={true}
+            modules={[Navigation]}
+            className="mySwiper"
+            slidesPerView={1}
+            spaceBetween={10}
+            // Responsive breakpoints
+            breakpoints={{
+              // when window width is >= 320px
+              320: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+                centeredSlides: true,
+              },
+              // when window width is >= 480px
+              480: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+                centeredSlides: true,
+              },
+              620: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+                navigation: true,
+              },
+              // when window width is >= 640px
+              840: {
+                slidesPerView: 2,
+                spaceBetween: 40,
+                navigation: true,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+                navigation: true,
+              },
+            }}
+          >
             {speakers.map(({ name, description, fileName }, idx) => (
-              <KeynoteSpeaker
-                key={idx}
-                name={name}
-                description={description}
-                cardColor={colorSchemes[idx % 3]}
-                imageLink={fileName}
-              />
+              <SwiperSlide key={idx}>
+                <KeynoteSpeaker
+                  // key={idx}
+                  name={name}
+                  description={description}
+                  cardColor={colorSchemes[idx % 3]}
+                  imageLink={fileName}
+                />
+              </SwiperSlide>
             ))}
-          </div>
-          {/* row 2
-            <div className="flex md:ml-[7rem] ml-[5rem]">
-              {speakers.map(
-                ({ name, description, fileName }, idx) =>
-                  idx >= speakers.length / 2 && (
-                    <KeynoteSpeaker
-                      key={idx}
-                      name={name}
-                      description={description}
-                      cardColor={colorSchemes[idx % 3]}
-                      imageLink={fileName}
-                    />
-                  ),
-              )}
-            </div> */}
+          </Swiper>
         </section>
       )}
       {/* Challenges */}
       {/* This section is hidden if there are no challenges */}
       {challenges.length != 0 && (
-        <section className="p-6 ">
-          <div className="font-bold p-6 md:text-4xl text-2xl my-4">Challenges</div>
-          <div className="flex">
+        <section className="md:p-12  p-6">
+          <div className="font-bold  md:text-4xl text-2xl my-4 text-complementary">Challenges</div>
+          <div className="flex flex-col justify-center items-center w-full">
             {/* Challenge Orgs Selectors*/}
-            <div className="md:w-1/4 w-1/5">
-              {challenges.map((challenge, idx) => (
-                <div
-                  id={`org${idx}`}
-                  className={`${idx} relative cursor-pointer text-center md:text-lg sm:text-sm text-xs md:py-6 py-4 my-4 bg-purple-200 rounded-sm`}
-                  key={idx}
-                  onClick={() => changeOrg(challenge, idx)}
-                >
-                  {/* change arrow color in global css to match parent selector */}
-                  <div className="arrow-right absolute top-1/2 right-0 -translate-y-1/2 translate-x-full hidden"></div>
-                  {challenge.organization}
-                </div>
-              ))}
-            </div>
-            {/* Challenges Description Cards */}
+            <div className="w-full">
+              <Swiper
+                navigation={true}
+                modules={[Navigation]}
+                className="mySwiper"
+                slidesPerView={1}
+                spaceBetween={10}
+                // Responsive breakpoints
+                breakpoints={{
+                  // when window width is >= 320px
+                  320: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                    centeredSlides: true,
+                  },
+                  // when window width is >= 480px
+                  480: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                    centeredSlides: true,
+                  },
+                  620: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                  },
+                  // when window width is >= 640px
+                  840: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                  },
+                  1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                  },
 
-            <div className="md:w-3/4 w-4/5 my-4 pl-6 min-h-full">
+                  1280: {
+                    slidesPerView: 4,
+                    spaceBetween: 20,
+                  },
+                }}
+              >
+                {challenges.map((challenge, idx) => (
+                  <SwiperSlide key={idx}>
+                    <div
+                      id={`org${idx}`}
+                      className={`${idx} font-bold text-primaryDark p-5 flex align-bottom flex-col items-start justify-end z-10 relative cursor-pointer text-center text-xl w-64 h-48  bg-secondary rounded-lg`}
+                      key={idx}
+                      onClick={() => changeOrg(challenge, idx)}
+                    >
+                      {/* change arrow color in global css to match parent selector */}
+                      {/* <div className="arrow-right absolute top-1/2 right-0 -translate-y-1/2 translate-x-full hidden"></div> */}
+                      {challenge.organization}
+                      <button className=" text-primaryDark rounded-lg mt-1 text-xs">
+                        Learn more
+                      </button>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+
+            {/* Challenges Description Cards */}
+            <div className="my-4 w-full lg:w-11/12 xl:w-full xl:pl-11 xl:pr-11">
               {/* Card */}
               <HomeChallengeCard
                 title={challengeData.title}
@@ -326,32 +403,36 @@ export default function Home(props: {
       )}
       {/* FAQ */}
       {props.answeredQuestion.length != 0 && (
-        <section>
+        <section className="md:p-12  p-6">
           <FAQ fetchedFaqs={props.answeredQuestion}></FAQ>
         </section>
       )}
       {members.length != 0 && (
-        <section>
+        <section className="md:p-12  p-6">
           {/* Team Members */}
           <div className="flex flex-col flex-grow bg-white">
             <div className="my-2">
-              <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Meet Our Team :)</h4>{' '}
+              <h4 className="font-bold p-6 md:text-4xl text-2xl my-4 text-complementary">
+                Meet the Team
+              </h4>{' '}
               {/* !change */}
-              <div className="flex flex-wrap justify-center md:px-2">
-                {/* Member Cards */}
-                {members.map(
-                  ({ name, description, linkedin, github, personalSite, fileName }, idx) => (
-                    <MemberCards
-                      key={idx}
-                      name={name}
-                      description={description}
-                      fileName={fileName}
-                      linkedin={linkedin}
-                      github={github}
-                      personalSite={personalSite}
-                    />
-                  ),
-                )}
+              <div className="flex flex-wrap justify-center p-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                  {/* Member Cards */}
+                  {members.map(
+                    ({ name, description, linkedin, github, personalSite, fileName }, idx) => (
+                      <MemberCards
+                        key={idx}
+                        name={name}
+                        description={description}
+                        fileName={fileName}
+                        linkedin={linkedin}
+                        github={github}
+                        personalSite={personalSite}
+                      />
+                    ),
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -359,14 +440,16 @@ export default function Home(props: {
       )}
       {/* Sponsors */}
       {sponsor.length != 0 && (
-        <section>
+        <section className="md:p-12 p-6">
           <div className="flex flex-col flex-grow bg-white">
-            <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">Sponsors</h4>
+            <h4 className="text-complementary font-bold md:text-4xl text-2xl my-4">Sponsors</h4>
             {/* Sponsor Card */}
             <section className="flex flex-wrap justify-center p-4">
-              {sponsor.map(({ link, reference }, idx) => (
-                <SponsorCard key={idx} link={link} reference={reference} />
-              ))}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                {sponsor.map(({ link, reference }, idx) => (
+                  <SponsorCard key={idx} link={link} reference={reference} />
+                ))}
+              </div>
             </section>
             <h2 className="my-2 text-center">
               {' '}
@@ -386,11 +469,51 @@ export default function Home(props: {
       )}
 
       {/* Footer */}
-      <section className="bg-gray-100 mt-16 px-6 py-8 md:text-base text-xs">
-        {/* Upper Content */}
-        <div className="my-2 relative">
+      <section className=" mt-16 px-6 py-8 md:text-base text-xs">
+        <hr className="my-4 bg-complementary" />
+        <div className="flex flex-col items-center justify-center gap-2 text-complementary text-center">
+          <div className="text-base md:text-lg">
+            {' '}
+            {/* !change */}
+            Checkout HackUTD&apos;s{' '}
+            <a
+              href="https://acmutd.co/"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="font-black hover:underline"
+            >
+              Organizer website
+            </a>
+          </div>
+          <div className="text-[0.6rem] md:text-sm">
+            Designed by <p className="font-black inline">HackUTD | </p>
+            {/* PLEASE DO NOT CHANGE <3 */}
+            HackPortal developed with &lt;3 by <p className="font-black inline">HackUTD</p> and{' '}
+            <p className="font-black inline">ACM Development</p>
+            {/* PLEASE DO NOT CHANGE <3 */}
+          </div>
+          <div className="flex flex-row justify-center items-center space-x-6">
+            {/* !change */}
+            <a
+              href="mailto:email@organization.com"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="hover:underline md:mr-8"
+            >
+              Contact Us
+            </a>
+            {/* !change */}
+            <a
+              href="https://github.com/acmutd/hackportal"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline  whitespace-nowrap"
+            >
+              Source Code
+            </a>
+          </div>
           {/* Social icons */} {/* !change */}
-          <div className="space-x-4 > * + *">
+          <div className="space-x-8 > * + *">
             <a href="https://twitter.com/hackutd" rel="noopener noreferrer" target="_blank">
               <TwitterIcon className="footerIcon" />
             </a>
@@ -403,51 +526,6 @@ export default function Home(props: {
             </a>
             <a href="https://www.facebook.com/hackutd/" rel="noopener noreferrer" target="_blank">
               <FacebookIcon className="footerIcon" />
-            </a>
-          </div>
-          {/* Text */}
-          <div className="absolute bottom-0 right-0">
-            {' '}
-            {/* !change */}
-            Checkout HackUTD&apos;s{' '}
-            <a
-              href="https://acmutd.co/"
-              rel="noopener noreferrer"
-              target="_blank"
-              className="font-black hover:underline"
-            >
-              organizer site
-            </a>
-          </div>
-        </div>
-        {/* Lower Content */}
-        <div className="flex justify-between border-t-[1px] py-2 border-black">
-          <div>
-            Designed by <p className="font-black inline">HackUTD</p> <br /> {/* !change */}
-            {/* PLEASE DO NOT CHANGE <3 */}
-            HackPortal developed with &lt;3 by <p className="font-black inline">HackUTD</p> and{' '}
-            <p className="font-black inline">ACM Development</p>
-            {/* PLEASE DO NOT CHANGE <3 */}
-          </div>
-
-          <div className="flex md:flex-row flex-col md:ml-0 ml-6">
-            {/* !change */}
-            <a
-              href="mailto:email@organization.com"
-              rel="noopener noreferrer"
-              target="_blank"
-              className="hover:underline md:mr-8 font-thin"
-            >
-              Contact Us
-            </a>
-            {/* !change */}
-            <a
-              href="https://github.com/acmutd/hackportal"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:underline font-thin whitespace-nowrap"
-            >
-              Source Code
             </a>
           </div>
         </div>

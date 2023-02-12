@@ -10,7 +10,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import schools from '../public/schools.json';
 import majors from '../public/majors.json';
 import { hackPortalConfig, formInitialValues } from '../hackportal.config';
-import DisplayQuestion from '../components/DisplayQuestion';
+import DisplayQuestion from '../components/registerComponents/DisplayQuestion';
 import { getFileExtension } from '../lib/util';
 
 /**

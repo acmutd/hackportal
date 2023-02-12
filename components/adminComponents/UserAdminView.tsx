@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { RequestHelper } from '../lib/request-helper';
-import { arrayFields, fieldToName, singleFields } from '../lib/stats/field';
-import { useAuthContext } from '../lib/user/AuthContext';
-import { UserData } from '../pages/api/users';
-import ErrorList from './ErrorList';
-import LoadIcon from './LoadIcon';
+import { RequestHelper } from '../../lib/request-helper';
+import { arrayFields, fieldToName, singleFields } from '../../lib/stats/field';
+import { useAuthContext } from '../../lib/user/AuthContext';
+import { UserData } from '../../pages/api/users';
+import ErrorList from '../ErrorList';
+import LoadIcon from '../LoadIcon';
 
 interface UserAdminViewProps {
   goBack: () => void;

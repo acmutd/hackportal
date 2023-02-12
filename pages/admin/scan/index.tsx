@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
-import AdminHeader from '../../../components/AdminHeader';
+import AdminHeader from '../../../components/adminComponents/AdminHeader';
 import ScanType from '../../../components/ScanType';
-import QRCodeReader from '../../../components/QRCodeReader';
+import QRCodeReader from '../../../components/dashboardComponents/QRCodeReader';
 import LoadIcon from '../../../components/LoadIcon';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import { isAuthorized } from '..';

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/storage';
-import LoadIcon from './LoadIcon';
+import LoadIcon from '../LoadIcon';
 import Image from 'next/image';
 
 interface SponsorCardProps {
@@ -40,7 +40,7 @@ export default function SponsorCard(props: SponsorCardProps) {
       {imgSrc !== undefined && (
         <div className="flex justify-center">
           <a href={props.link} target="_blank" className="" rel="noreferrer">
-            <Image src={imgSrc} width={300} height={200} layout="fixed" objectFit="contain" />
+            <Image src={imgSrc} width={250} height={150} layout="fixed" objectFit="contain" />
           </a>
           <br></br>
         </div>
