@@ -25,24 +25,24 @@ export default function KeynoteSpeaker(props) {
   }, []);
 
   return (
-    <div className="group flex flex-col items-center sm:w-60 sm:h-80 w-40 h-60 rounded-xl shadow-xl relative transition duration-500 ease-in-out overflow-hidden bg-indigo-100">
+    <div className="group flex flex-col items-center w-72 sm:w-72 sm:h-80  rounded-xl shadow-xl relative transition duration-500 ease-in-out overflow-hidden bg-secondary text-white">
       <div className="rounded-t-sm">
         {props.imageLink !== undefined && imageLink !== undefined && (
           <Image
             src={imageLink}
             // make sure width and height matches width and height of parent div
-            width={250}
-            height={250}
+            width={350}
+            height={350}
             alt=""
           />
         )}
       </div>
-      <div className="flex-col items-center justify-center sm:w-60 sm:h-80 w-40 h-60 absolute translate-y-60 group-hover:translate-y-0 transition duration-500 ease-in-out overflow-hidden">
-        <div className="rounded-b-sm bg-indigo-300  p-2 font-bold ">
-          <h1 className="text-lg "> {props.name}</h1>
-          {/* show description on hover by sliding up */}
-          <div className="opacity-0 group-hover:opacity-100 transition duration-500 ease-in-out  bg-indigo-300 sm:h-80  h-60">
-            <p className="text-xs">{props.description}</p>
+      <div className="flex-col items-center justify-center  sm:w-72 sm:h-80 absolute translate-y-48 sm:translate-y-64 group-hover:translate-y-0 transition duration-500 ease-in-out overflow-hidden">
+        <div className="rounded-b-sm bg-primary p-4 font-semibold">
+          <h1 className="text-base font-medium"> {props.name}</h1>
+          {/* show description on hover  by sliding up */}
+          <div className="opacity-0 group-hover:opacity-100 transition duration-500 ease-in-out bg-primary sm:h-72 h-80 font-normal overflow-y-scroll">
+            <p className="text-[13px] pt-2 pb-36 sm:pb-10">{props.description}</p>
           </div>
         </div>
       </div>
