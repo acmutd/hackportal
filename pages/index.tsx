@@ -471,7 +471,7 @@ export default function Home(props: {
       {/* Footer */}
       <section className=" mt-16 px-6 py-8 md:text-base text-xs">
         <hr className="my-4 bg-complementary" />
-        <div className="flex flex-col items-center justify-center gap-2 text-complementary">
+        <div className="flex flex-col items-center justify-center gap-2 text-complementary text-center">
           <div className="text-base md:text-lg">
             {' '}
             {/* !change */}
@@ -485,7 +485,7 @@ export default function Home(props: {
               Organizer website
             </a>
           </div>
-          <div className="text-[0.7rem] md:text-sm">
+          <div className="text-[0.6rem] md:text-sm">
             Designed by <p className="font-black inline">HackUTD | </p>
             {/* PLEASE DO NOT CHANGE <3 */}
             HackPortal developed with &lt;3 by <p className="font-black inline">HackUTD</p> and{' '}
