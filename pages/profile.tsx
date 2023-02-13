@@ -17,17 +17,31 @@ export default function ProfilePage() {
   const resumeRef = useRef(null);
 
   const handleResumeUpload = () => {
-    const resumeFile =
-      resumeRef.current.files.length !== 1 || !resumeRef.current.files[0].name.endsWith('.pdf')
-        ? null
-        : resumeRef.current.files[0];
-    if (!resumeFile) return alert('Accepted file types: pdf');
+    if (resumeRef.current.files.length !== 1) return alert('Must submit one file');
+
+    const fileExtension = getFileExtension(resumeRef.current.files[0].name);
+    const acceptedFileExtensions = [
+      '.pdf',
+      '.doc',
+      '.docx',
+      '.png',
+      '.jpg',
+      '.jpeg',
+      '.txt',
+      '.tex',
+      '.rtf',
+    ];
+
+    if (!acceptedFileExtensions.includes(fileExtension))
+      return alert(`Accepted file types: ${acceptedFileExtensions.join(' ')}`);
+
+    const resumeFile = resumeRef.current.files[0];
 
     setUploading(true);
 
     const formData = new FormData();
     formData.append('resume', resumeFile);
-    formData.append('fileName', `${user.id}${getFileExtension(resumeFile.name)}`);
+    formData.append('fileName', `${user.id}${fileExtension}`);
     fetch('/api/resume/upload', {
       method: 'post',
       body: formData,
@@ -107,6 +121,7 @@ export default function ProfilePage() {
                         type="file"
                         ref={resumeRef}
                         onChange={handleResumeUpload}
+                        accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
                       />
                       <label
                         id="resume_label"
