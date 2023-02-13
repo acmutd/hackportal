@@ -58,7 +58,7 @@ async function postAnnouncementToDB(req: NextApiRequest, res: NextApiResponse) {
   const { headers } = req;
 
   const userToken = headers['authorization'];
-  const isAuthorized = await userIsAuthorized(userToken, ['admin', 'super_admin']);
+  const isAuthorized = await userIsAuthorized(userToken, ['super_admin']);
 
   if (!isAuthorized) {
     return res.status(403).json({

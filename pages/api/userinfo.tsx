@@ -19,7 +19,7 @@ async function userIsAuthorized(token: string, queryId: string) {
       .get();
     if (snapshot.empty) return false;
     for (let userRole of snapshot.docs[0].data().user.permissions as string[]) {
-      if (userRole === 'super_admin') return true;
+      if (userRole === 'super_admin' || userRole === 'admin') return true;
     }
     return false;
   } catch (error) {
