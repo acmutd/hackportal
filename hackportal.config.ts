@@ -446,6 +446,7 @@ export type statRecordTypes = {
   gender: Record<string, number>;
   hackathonExperience: Record<number, number>;
   heardFrom: Record<string, number>;
+  timestamp: Record<string, number>;
 };
 
 //add the title for each field that will be displayed as chart titles in admin stats page
@@ -464,6 +465,7 @@ export const fieldNames = {
   scans: 'Swags', //not part of registration questions, used for scanner
   companies: 'Companies',
   dietary: 'Dietary',
+  timestamp: 'Registration Time',
 };
 
 //name fields that are checkbox questions belong here
