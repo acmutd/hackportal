@@ -2,10 +2,8 @@ import { ChevronDownIcon } from '@heroicons/react/solid';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
-import AboutHeader from '../AboutHeader';
 import FaqDisclosure from './FaqDisclosure';
 import { RequestHelper } from '../../lib/request-helper';
-import FaqExpandCloseButton from './FaqExpandCloseButton';
 
 /**
  * The FAQ page.
@@ -30,6 +28,13 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
    * Expand all FAQ disclosures
    *
    */
+  const expandAll = () => {
+    setDisclosureStatus(new Array(disclosuresStatus.length).fill(true));
+  };
+
+  const closeAll = () => {
+    setDisclosureStatus(new Array(disclosuresStatus.length).fill(false));
+  };
 
   if (loading) {
     return (
@@ -46,19 +51,34 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
         <meta name="description" content="HackPortal's Frequently Asked Questions" />
       </Head>
       {/* <AboutHeader active="/about/faq" /> */}
-      <div className="top-6 p-4 px-8">
+      <div className="top-6">
         <div className="flex flex-row justify-between items-center py-2">
-          <h4 className="font-bold p-6 md:text-4xl text-2xl my-4">FAQ</h4>
+          <h4 className="font-bold md:text-4xl text-2xl my-4 text-complementary">FAQ</h4>
           <div className="flex flex-row items-center gap-x-2">
-            <FaqExpandCloseButton
-              disclosuresStatus={disclosuresStatus}
-              setDisclosureStatus={setDisclosureStatus}
+            <button
+              onClick={() => {
+                if (disclosuresStatus.every((status) => status)) {
+                  closeAll();
+                } else {
+                  expandAll();
+                }
+              }}
+              className="font-bold"
+            >
+              {disclosuresStatus.every((status) => status) ? 'Close All' : 'Expand All'}
+            </button>
+            <ChevronDownIcon
+              className={`${
+                disclosuresStatus.every((status) => status)
+                  ? 'transform rotate-180 transition duration-500 ease-in-out'
+                  : 'transition duration-500 ease-in-out'
+              } w-5 h-5`}
             />
           </div>
         </div>
         {/* FAQ for lg-md */}
         {/* Uses different section for mobile because using 2 columns is buggy when expanding FAQs */}
-        <div className="md:flex hidden justify-between">
+        <div className="md:flex hidden justify-between p-6">
           <div className="w-[49%] my-3 space-y-4 > * + *">
             {faqs.map(
               ({ question, answer }, idx) =>

@@ -73,46 +73,51 @@ export default function AppHeader() {
   return (
     <>
       <div className="min-h-[4rem]"></div>
-      <header className="top-0 fixed justify-between flex flex-row w-full bg-indigo-100 items-center h-16 z-10 p-4">
-        <div className="flex justify-between items-center md:max-w-full md:justify-start md:w-9/12">
-          <Link href="/">
-            <a className="flex gap-2 order-2 relative ml-[6px] font-display self-center items-center md:order-1 md:ml-0">
-              {/* !change src */}
-              <Image src={'/assets/hp-logo.png'} width="35px" height="30px" />
-              <span className="text-[16px] font-black md:z-0 md:text-2xl">HackPortal</span>
-            </a>
-          </Link>
+      <header className="top-0 fixed justify-between flex flex-row w-full bg-white items-center h-20 z-10 p-4 drop-shadow">
+        <div className="flex flex-row order-1 md:order-none items-center">
           {/* Smartphone nav */}
-          <div onClick={toggleMenu} className={'relative md:hidden cursor-pointer'}>
+          <div onClick={toggleMenu} className="md:hidden cursor-pointer text-complementary">
             {mobileIcon ? <MenuIcon /> : <CloseIcon />}
             <ul
               className={`${
                 showMenu ? 'translate-x-0' : '-translate-x-full'
-              } transform transition-all ease-out duration-300 flex w-6/12 h-screen border-2 border-black flex-col bg-white fixed top-0 left-0 z-[-1] pt-16`}
+              } transform transition-all ease-out duration-300 flex w-6/12 h-screen flex-col bg-white fixed top-0 left-0 z-[-1] mt-[80px] border-t-2 border-complementary/10`}
             >
-              {dynamicNavItems.map((item) => (
-                <Link key={item.text} href={item.path}>
-                  <a className="border-b-2 first:border-t-2 border-black p-4 py-6 hover:bg-[#D8F8FF]">
-                    <p className="text-sm font-bold">{item.text}</p>
-                  </a>
-                </Link>
-              ))}
+              {dynamicNavItems
+                .filter(({ text }) => text !== 'Home')
+                .map((item) => (
+                  <Link key={item.text} href={item.path}>
+                    <a className="p-9 py-6 hover:bg-primaryDark hover:text-white text-complementary">
+                      <p className="text-xl font-medium">{item.text}</p>
+                    </a>
+                  </Link>
+                ))}
             </ul>
           </div>
-          {/* PC nav */}
-          <div className="hidden text-xs order-2 md:flex items-center md:text-left lg:ml-12">
-            {dynamicNavItems.map((item) => (
-              <Link key={item.text} href={item.path}>
-                <a>
-                  <p className="md:mx-4 text-sm font-bold">{item.text}</p>
-                </a>
-              </Link>
-            ))}
-          </div>
+          <Link href="/">
+            <a className="flex gap-2 ml-[6px] font-display self-center items-center md:ml-0">
+              {/* !change src */}
+              <Image src={'/assets/hp-logo.png'} width="45px" height="35px" />
+              <span className="text-lg font-black md:z-0 md:text-3xl text-primaryDark">
+                HackPortal
+              </span>
+            </a>
+          </Link>
         </div>
-        <div className="flex lg:mr-8">
+
+        {/* PC nav */}
+        <div className="hidden text-xs order-2 md:flex flex-center md:text-center lg:ml-12 text-complementary space-x-6 lg:space-x-12">
+          {dynamicNavItems.map((item) => (
+            <Link key={item.text} href={item.path}>
+              <a>
+                <p className="md:mx-4 text-sm font-bold">{item.text}</p>
+              </a>
+            </Link>
+          ))}
+        </div>
+        <div className="flex flex-row justify-center items-center order-2 md:order-3">
           <button
-            className="font-header font-bold bg-white rounded-full border-2 border-black text-sm px-8 py-1"
+            className="font-header font-bold bg-secondary rounded-full text-primaryDark text-sm px-10 py-1 hover:bg-primaryDark hover:text-secondary transition duration-300 ease-in-out"
             onClick={toggleDialog}
           >
             {!user || !isSignedIn ? 'Sign in' : hasProfile ? 'Profile' : 'Register'}
