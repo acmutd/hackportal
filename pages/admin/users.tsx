@@ -1,13 +1,13 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import AdminHeader from '../../components/AdminHeader';
-import FilterComponent from '../../components/FilterComponent';
-import UserList from '../../components/UserList';
+import AdminHeader from '../../components/adminComponents/AdminHeader';
+import FilterComponent from '../../components/adminComponents/FilterComponent';
+import UserList from '../../components/adminComponents/UserList';
 import { RequestHelper } from '../../lib/request-helper';
 import { UserData } from '../api/users';
 import { useAuthContext } from '../../lib/user/AuthContext';
-import UserAdminView from '../../components/UserAdminView';
+import UserAdminView from '../../components/adminComponents/UserAdminView';
 import { isAuthorized } from '.';
 
 type UserIdentifier = Omit<UserData, 'scans'>;
@@ -188,7 +188,6 @@ export default function UserPage() {
                 >
                   Alphabetically
                 </h4>
-                <h4 className="text-md text-center underline cursor-pointer">User Level</h4>
               </div>
             </div>
             <div className="w-full px-8">

@@ -10,7 +10,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import schools from '../public/schools.json';
 import majors from '../public/majors.json';
 import { hackPortalConfig, formInitialValues } from '../hackportal.config';
-import DisplayQuestion from '../components/DisplayQuestion';
+import DisplayQuestion from '../components/registerComponents/DisplayQuestion';
 import { getFileExtension } from '../lib/util';
 
 /**
@@ -95,6 +95,31 @@ export default function Register() {
       console.error(error);
       console.log('Request creation error');
     }
+  };
+
+  const handleResumeFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files.length !== 1) return alert('Must submit one file');
+
+    const file = e.target.files[0];
+
+    const fileExtension = getFileExtension(file.name);
+
+    const acceptedFileExtensions = [
+      '.pdf',
+      '.doc',
+      '.docx',
+      '.png',
+      '.jpg',
+      '.jpeg',
+      '.txt',
+      '.tex',
+      '.rtf',
+    ];
+
+    if (!acceptedFileExtensions.includes(fileExtension))
+      return alert(`Accepted file types: ${acceptedFileExtensions.join(' ')}`);
+
+    setResumeFile(file);
   };
 
   if (!user) {
@@ -280,7 +305,7 @@ export default function Register() {
                 Upload your resume:
                 <br />
                 <input
-                  onChange={(e) => setResumeFile(e.target.files[0])}
+                  onChange={(e) => handleResumeFileChange(e)}
                   name="resume"
                   type="file"
                   formEncType="multipart/form-data"
