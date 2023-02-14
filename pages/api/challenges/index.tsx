@@ -29,7 +29,7 @@ async function getChallenges(req: NextApiRequest, res: NextApiResponse) {
 async function updateChallengeDatabase(req: NextApiRequest, res: NextApiResponse) {
   const challengeData = JSON.parse(req.body);
   const userToken = req.headers['authorization'] as string;
-  const isAuthorized = await userIsAuthorized(userToken);
+  const isAuthorized = await userIsAuthorized(userToken, ['super_admin']);
   if (!isAuthorized) {
     return res.status(403).json({
       statusCode: 403,
@@ -56,7 +56,7 @@ async function updateChallengeDatabase(req: NextApiRequest, res: NextApiResponse
 async function deleteChallenge(req: NextApiRequest, res: NextApiResponse) {
   const challengeData = JSON.parse(req.body);
   const userToken = req.headers['authorization'] as string;
-  const isAuthorized = await userIsAuthorized(userToken);
+  const isAuthorized = await userIsAuthorized(userToken, ['super_admin']);
   if (!isAuthorized) {
     return res.status(403).json({
       statusCode: 403,

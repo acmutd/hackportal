@@ -57,6 +57,10 @@ export default function UserAdminView({
   }, []);
 
   const updateRole = async () => {
+    if (!user.permissions.includes('super_admin')) {
+      alert('You do not have permission to perform this functionality');
+      return;
+    }
     try {
       const { status, data } = await RequestHelper.post<
         {
@@ -127,36 +131,38 @@ export default function UserAdminView({
         Go back to User List
       </button>
       <div className="w-full my-5 p-4">
-        <div className="p-3 w-3/5 mx-auto">
-          <div className="text-center flex flex-row items-center gap-x-3 my-5">
-            <h1>Change the role of this user to: </h1>
-            <select
-              value={newRole}
-              onChange={(e) => {
-                setNewRole(e.target.value);
-              }}
-              name="new_role"
-              className="border-2 rounded-xl p-2"
-            >
-              <option value="" disabled>
-                Choose a role
-              </option>
-              <option value="super_admin">Super Admin</option>
-              <option value="admin">Admin</option>
-              <option value="hacker">Hacker</option>
-            </select>
+        {user.permissions.includes('super_admin') && (
+          <div className="p-3 w-3/5 mx-auto">
+            <div className="text-center flex flex-row items-center gap-x-3 my-5">
+              <h1>Change the role of this user to: </h1>
+              <select
+                value={newRole}
+                onChange={(e) => {
+                  setNewRole(e.target.value);
+                }}
+                name="new_role"
+                className="border-2 rounded-xl p-2"
+              >
+                <option value="" disabled>
+                  Choose a role
+                </option>
+                <option value="super_admin">Super Admin</option>
+                <option value="admin">Admin</option>
+                <option value="hacker">Hacker</option>
+              </select>
+            </div>
+            {newRole !== '' && (
+              <button
+                onClick={() => {
+                  updateRole();
+                }}
+                className="border-2 p-3 rounded-lg my-4"
+              >
+                Update Role
+              </button>
+            )}
           </div>
-          {newRole !== '' && (
-            <button
-              onClick={() => {
-                updateRole();
-              }}
-              className="border-2 p-3 rounded-lg my-4"
-            >
-              Update Role
-            </button>
-          )}
-        </div>
+        )}
         <div className="w-3/5 mx-auto border-2 p-6 rounded-xl flex flex-col gap-y-5">
           <div className="flex flex-col gap-y-2">
             <h1 className="text-center">Name</h1>
