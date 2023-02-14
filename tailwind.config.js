@@ -4,14 +4,6 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      colors: {
-        primary: '#7B81FF', //purple
-        primaryDark: '#05149C',
-        secondary: '#F2F3FF', //light purple
-        secondaryDark: '#BABFFF',
-        complementary: '#4C4950', //gray
-        complementaryDark: '#252427',
-      },
       fontFamily: {
         sans: ['Roboto', 'sans-serif'],
       },
@@ -47,12 +39,12 @@ module.exports = {
       },
       colors: {
         // !change
-        primary: '#F2F3FF',
-        primaryDark: '#C1C8FF',
-        secondary: '#D8F8FF', //turquoise
-        secondaryDark: '#B0F1FF',
-        complementary: '#FDECFF', //pink
-        complementaryDark: '#F8ACFF',
+        primary: '#7B81FF', //purple
+        primaryDark: '#05149C',
+        secondary: '#F2F3FF', //light purple
+        secondaryDark: '#BABFFF',
+        complementary: '#4C4950', //gray
+        complementaryDark: '#252427',
       },
     },
   },
