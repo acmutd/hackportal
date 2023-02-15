@@ -236,7 +236,7 @@ export default function AuthPage() {
                 <React.Fragment>
                   <div className="text-left">
                     <ArrowBackIcon
-                      className="cursor-pointer"
+                      className="cursor-pointer text-primaryDark"
                       onClick={() => {
                         setPasswordResetDialog(false);
                         setErrorMsg('');
