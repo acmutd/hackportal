@@ -11,7 +11,7 @@ const CHALLENGES = '/challenges';
 async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
   const reorderedChallenges: Challenge[] = req.body;
   const userToken = req.headers['authorization'] as string;
-  const isAuthorized = await userIsAuthorized(userToken);
+  const isAuthorized = await userIsAuthorized(userToken, ['super_admin']);
   if (!isAuthorized) {
     return res.status(403).json({
       statusCode: 403,

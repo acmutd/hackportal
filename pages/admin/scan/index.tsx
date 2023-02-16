@@ -103,6 +103,10 @@ export default function Admin() {
   };
 
   const updateScan = async () => {
+    if (!user.permissions.includes('super_admin')) {
+      alert('You do not have the required permission to use this functionality');
+      return;
+    }
     const updatedScanData = { ...currentEditScan };
     try {
       const { status, data } = await RequestHelper.post<any, any>(
@@ -132,6 +136,10 @@ export default function Admin() {
   };
 
   const createNewScan = async () => {
+    if (!user.permissions.includes('super_admin')) {
+      alert('You do not have the required permission to use this functionality');
+      return;
+    }
     try {
       const newScan = {
         ...newScanForm,
@@ -161,6 +169,10 @@ export default function Admin() {
   };
 
   const deleteScan = async () => {
+    if (!user.permissions.includes('super_admin')) {
+      alert('You do not have the required permission to use this functionality');
+      return;
+    }
     try {
       const { status, data } = await RequestHelper.post<any, any>(
         '/api/scan/delete',
@@ -457,27 +469,43 @@ export default function Admin() {
                       >
                         Start Scan
                       </button>
-                      <button
-                        className="font-bold bg-gray-300 hover:bg-gray-200 rounded-lg md:p-3 p-1 px-2"
-                        onClick={() => {
-                          setCurrentEditScan(currentScan);
-                          setEditScan(true);
-                        }}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="font-bold bg-red-300 hover:bg-red-200 rounded-lg md:p-3 p-1 px-2"
-                        onClick={() => {
-                          if (currentScan.isCheckIn) {
-                            alert('Check-in scan cannot be deleted');
-                            return;
-                          }
-                          setShowDeleteScanDialog(true);
-                        }}
-                      >
-                        Delete
-                      </button>
+                      {user.permissions.includes('super_admin') && (
+                        <>
+                          <button
+                            className="font-bold bg-gray-300 hover:bg-gray-200 rounded-lg md:p-3 p-1 px-2"
+                            onClick={() => {
+                              if (!user.permissions.includes('super_admin')) {
+                                alert(
+                                  'You do not have the required permission to use this functionality',
+                                );
+                                return;
+                              }
+                              setCurrentEditScan(currentScan);
+                              setEditScan(true);
+                            }}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="font-bold bg-red-300 hover:bg-red-200 rounded-lg md:p-3 p-1 px-2"
+                            onClick={() => {
+                              if (!user.permissions.includes('super_admin')) {
+                                alert(
+                                  'You do not have the required permission to use this functionality',
+                                );
+                                return;
+                              }
+                              if (currentScan.isCheckIn) {
+                                alert('Check-in scan cannot be deleted');
+                                return;
+                              }
+                              setShowDeleteScanDialog(true);
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </>
+                      )}
                       <button
                         className="font-bold bg-red-300 hover:bg-red-200 rounded-lg md:p-3 p-1 px-2"
                         onClick={() => {
@@ -493,18 +521,26 @@ export default function Admin() {
               </div>
             )}
 
-            {!currentScan && !editScan && !showDeleteScanDialog && !startScan && (
-              <div className="mx-auto my-5">
-                <button
-                  className="bg-green-300 p-3 rounded-lg font-bold hover:bg-green-200"
-                  onClick={() => {
-                    setShowNewScanForm(true);
-                  }}
-                >
-                  Add a new Scan
-                </button>
-              </div>
-            )}
+            {!currentScan &&
+              !editScan &&
+              !showDeleteScanDialog &&
+              !startScan &&
+              user.permissions.includes('super_admin') && (
+                <div className="mx-auto my-5">
+                  <button
+                    className="bg-green-300 p-3 rounded-lg font-bold hover:bg-green-200"
+                    onClick={() => {
+                      if (!user.permissions.includes('super_admin')) {
+                        alert('You do not have the required permission to use this functionality');
+                        return;
+                      }
+                      setShowNewScanForm(true);
+                    }}
+                  >
+                    Add a new Scan
+                  </button>
+                </div>
+              )}
           </div>
         </>
       )}

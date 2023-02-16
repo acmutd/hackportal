@@ -192,7 +192,9 @@ export default function UserPage() {
             </div>
             <div className="w-full px-8">
               <UserList
-                hasSuperAdminPrivilege={user.permissions.includes('super_admin')}
+                hasAdminPrivilege={
+                  user.permissions.includes('super_admin') || user.permissions.includes('admin')
+                }
                 users={filteredUsers}
                 onItemClick={(id) => {
                   setCurrentUser(id);
