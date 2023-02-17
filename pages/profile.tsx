@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useAuthContext } from '../lib/user/AuthContext';
+import LoadIcon from '../components/LoadIcon';
+import { getFileExtension } from '../lib/util';
 
 /**
  * A page that allows a user to modify app or profile settings and see their data.
@@ -11,6 +13,46 @@ import { useAuthContext } from '../lib/user/AuthContext';
 export default function ProfilePage() {
   const router = useRouter();
   const { isSignedIn, hasProfile, user, profile } = useAuthContext();
+  const [uploading, setUploading] = useState<boolean>(false);
+  const resumeRef = useRef(null);
+
+  const handleResumeUpload = () => {
+    if (resumeRef.current.files.length !== 1) return alert('Must submit one file');
+
+    const fileExtension = getFileExtension(resumeRef.current.files[0].name);
+    const acceptedFileExtensions = [
+      '.pdf',
+      '.doc',
+      '.docx',
+      '.png',
+      '.jpg',
+      '.jpeg',
+      '.txt',
+      '.tex',
+      '.rtf',
+    ];
+
+    if (!acceptedFileExtensions.includes(fileExtension))
+      return alert(`Accepted file types: ${acceptedFileExtensions.join(' ')}`);
+
+    const resumeFile = resumeRef.current.files[0];
+
+    setUploading(true);
+
+    const formData = new FormData();
+    formData.append('resume', resumeFile);
+    formData.append('fileName', `${user.id}${fileExtension}`);
+    fetch('/api/resume/upload', {
+      method: 'post',
+      body: formData,
+    }).then((res) => {
+      if (res.status !== 200) alert('Resume upload failed...');
+      else {
+        setUploading(false);
+        alert('Resume updated...');
+      }
+    });
+  };
 
   if (!isSignedIn) {
     return <div className="p-4 flex-grow text-center">Sign in to see your profile!</div>;
@@ -31,7 +73,7 @@ export default function ProfilePage() {
               className="bg-gray-300 w-full md:w-2/3 rounded-xl p-4 flex flex-col justify-around"
               style={{ minHeight: '500px' }}
             >
-              <h1 className="font-bold text-xl text-center">HackPortal</h1>
+              <h1 className="font-bold text-xl text-center">HackPortal</h1> {/* !change */}
               <div className="mx-auto">
                 {user.photoUrl && (
                   <Image
@@ -69,6 +111,29 @@ export default function ProfilePage() {
                 <div className="profile-view-stlvl flex flex-col gap-y-2">
                   <div className="font-bold text-xl">Level of Study</div>
                   <h1 className="font-bold">{profile.studyLevel}</h1>
+                </div>
+                <div>
+                  {!uploading ? (
+                    <>
+                      <input
+                        id="resume"
+                        style={{ display: 'none' }}
+                        type="file"
+                        ref={resumeRef}
+                        onChange={handleResumeUpload}
+                        accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
+                      />
+                      <label
+                        id="resume_label"
+                        className="transition rounded p-3 text-center whitespace-nowrap text-white w-min bg-gray-500 cursor-pointer font-black gap-y-2 hover:brightness-110"
+                        htmlFor="resume"
+                      >
+                        Update Resume
+                      </label>
+                    </>
+                  ) : (
+                    <LoadIcon width={16} height={16} />
+                  )}
                 </div>
               </div>
             </div>

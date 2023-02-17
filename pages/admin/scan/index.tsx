@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
-import AdminHeader from '../../../components/AdminHeader';
+import AdminHeader from '../../../components/adminComponents/AdminHeader';
 import ScanType from '../../../components/ScanType';
-import QRCodeReader from '../../../components/QRCodeReader';
+import QRCodeReader from '../../../components/dashboardComponents/QRCodeReader';
 import LoadIcon from '../../../components/LoadIcon';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import { isAuthorized } from '..';
@@ -103,6 +103,10 @@ export default function Admin() {
   };
 
   const updateScan = async () => {
+    if (!user.permissions.includes('super_admin')) {
+      alert('You do not have the required permission to use this functionality');
+      return;
+    }
     const updatedScanData = { ...currentEditScan };
     try {
       const { status, data } = await RequestHelper.post<any, any>(
@@ -132,6 +136,10 @@ export default function Admin() {
   };
 
   const createNewScan = async () => {
+    if (!user.permissions.includes('super_admin')) {
+      alert('You do not have the required permission to use this functionality');
+      return;
+    }
     try {
       const newScan = {
         ...newScanForm,
@@ -161,6 +169,10 @@ export default function Admin() {
   };
 
   const deleteScan = async () => {
+    if (!user.permissions.includes('super_admin')) {
+      alert('You do not have the required permission to use this functionality');
+      return;
+    }
     try {
       const { status, data } = await RequestHelper.post<any, any>(
         '/api/scan/delete',
@@ -325,7 +337,7 @@ export default function Admin() {
         <>
           <div className="flex flex-col justify-center top-6">
             <div className="text-2xl font-black text-center">Scan Types</div>
-            <div className="flex flex-row flex-wrap justify-center top-6">
+            <div className="flex md:flex-row md:flex-wrap md:justify-center overflow-x-auto mx-2">
               {scansFetched ? (
                 scanTypes.map((d, idx) => (
                   <ScanType
@@ -336,7 +348,9 @@ export default function Admin() {
                   />
                 ))
               ) : (
-                <LoadIcon width={150} height={150} />
+                <div className="bg-red-200 w-full flex justify-center">
+                  <LoadIcon width={150} height={150} />
+                </div>
               )}
             </div>
 
@@ -448,36 +462,52 @@ export default function Admin() {
                   ) : (
                     <div className="mx-auto flex flex-row gap-x-4">
                       <button
-                        className="font-bold bg-green-300 hover:bg-green-200 rounded-lg p-3"
+                        className="font-bold bg-green-300 hover:bg-green-200 rounded-lg md:p-3 p-1 px-2"
                         onClick={() => {
                           setStartScan(true);
                         }}
                       >
                         Start Scan
                       </button>
+                      {user.permissions.includes('super_admin') && (
+                        <>
+                          <button
+                            className="font-bold bg-gray-300 hover:bg-gray-200 rounded-lg md:p-3 p-1 px-2"
+                            onClick={() => {
+                              if (!user.permissions.includes('super_admin')) {
+                                alert(
+                                  'You do not have the required permission to use this functionality',
+                                );
+                                return;
+                              }
+                              setCurrentEditScan(currentScan);
+                              setEditScan(true);
+                            }}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="font-bold bg-red-300 hover:bg-red-200 rounded-lg md:p-3 p-1 px-2"
+                            onClick={() => {
+                              if (!user.permissions.includes('super_admin')) {
+                                alert(
+                                  'You do not have the required permission to use this functionality',
+                                );
+                                return;
+                              }
+                              if (currentScan.isCheckIn) {
+                                alert('Check-in scan cannot be deleted');
+                                return;
+                              }
+                              setShowDeleteScanDialog(true);
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </>
+                      )}
                       <button
-                        className="font-bold bg-gray-300 hover:bg-gray-200 rounded-lg p-3"
-                        onClick={() => {
-                          setCurrentEditScan(currentScan);
-                          setEditScan(true);
-                        }}
-                      >
-                        Edit Scan Info
-                      </button>
-                      <button
-                        className="font-bold bg-red-300 hover:bg-red-200 rounded-lg p-3"
-                        onClick={() => {
-                          if (currentScan.isCheckIn) {
-                            alert('Check-in scan cannot be deleted');
-                            return;
-                          }
-                          setShowDeleteScanDialog(true);
-                        }}
-                      >
-                        Delete this ScanType
-                      </button>
-                      <button
-                        className="font-bold bg-red-300 hover:bg-red-200 rounded-lg p-3"
+                        className="font-bold bg-red-300 hover:bg-red-200 rounded-lg md:p-3 p-1 px-2"
                         onClick={() => {
                           setCurrentScan(undefined);
                           setCurrentScanIdx(-1);
@@ -491,18 +521,26 @@ export default function Admin() {
               </div>
             )}
 
-            {!currentScan && !editScan && !showDeleteScanDialog && !startScan && (
-              <div className="mx-auto my-5">
-                <button
-                  className="bg-green-300 p-3 rounded-lg font-bold hover:bg-green-200"
-                  onClick={() => {
-                    setShowNewScanForm(true);
-                  }}
-                >
-                  Add a new Scan
-                </button>
-              </div>
-            )}
+            {!currentScan &&
+              !editScan &&
+              !showDeleteScanDialog &&
+              !startScan &&
+              user.permissions.includes('super_admin') && (
+                <div className="mx-auto my-5">
+                  <button
+                    className="bg-green-300 p-3 rounded-lg font-bold hover:bg-green-200"
+                    onClick={() => {
+                      if (!user.permissions.includes('super_admin')) {
+                        alert('You do not have the required permission to use this functionality');
+                        return;
+                      }
+                      setShowNewScanForm(true);
+                    }}
+                  >
+                    Add a new Scan
+                  </button>
+                </div>
+              )}
           </div>
         </>
       )}

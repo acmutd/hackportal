@@ -1,13 +1,12 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
-import AboutHeader from '../../components/AboutHeader';
-import AnsweredQuestion from '../../components/AnsweredQuestion';
+import AnsweredQuestion from '../../components/dashboardComponents/AnsweredQuestion';
 import ErrorList from '../../components/ErrorList';
-import PendingQuestion from '../../components/PendingQuestion';
+import PendingQuestion from '../../components/dashboardComponents/PendingQuestion';
 import { RequestHelper } from '../../lib/request-helper';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { QAReqBody } from '../api/questions';
-import DashboardHeader from '../../components/DashboardHeader';
+import DashboardHeader from '../../components/dashboardComponents/DashboardHeader';
 /**
  * The Question and Answers page.
  *
@@ -22,7 +21,7 @@ export default function QuestionsPage() {
   const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([]);
   const [pendingQuestions, setPendingQuestions] = useState<PendingQuestion[]>([]);
   const [answeredQuestionDisclosureStatus, setAnsweredDisclosureStatus] = useState<boolean[]>([]);
-  const { user } = useAuthContext();
+  const { user, isSignedIn, hasProfile } = useAuthContext();
 
   /**
    *
@@ -77,7 +76,7 @@ export default function QuestionsPage() {
    */
   const submitQuestion = async () => {
     if (user === null) {
-      addError('You must login to be able to ask question');
+      addError('You must log in to be able to ask question');
       return;
     }
     try {
@@ -145,13 +144,19 @@ export default function QuestionsPage() {
       </div>
     );
 
+  if (!isSignedIn)
+    return (
+      <div className="text-2xl font-black text-center">
+        Please sign-in to ask organizers questions
+      </div>
+    );
+
   return (
     <div className="flex flex-col flex-grow">
       <Head>
-        <title>HackPortal - Questions</title>
-        <meta name="description" content="HackPortal's Quesiton and Answer Page " />
+        <title>HackPortal - Questions</title> {/* !change */}
+        <meta name="description" content="HackPortal's Quesiton and Answer Page " /> {/* !change */}
       </Head>
-      <DashboardHeader />
       <ErrorList
         errors={errors}
         onClose={(idx: number) => {
@@ -160,6 +165,9 @@ export default function QuestionsPage() {
           setErrors(newErrorList);
         }}
       />
+      <div className="px-4">
+        <DashboardHeader />
+      </div>
       <div className="top-6 p-4 flex flex-col gap-y-3">
         <h4 className="font-bold text-3xl">Ask the organizers a question!</h4>
         <div>
@@ -186,7 +194,7 @@ export default function QuestionsPage() {
         </div>
 
         <div>
-          <h4 className="font-bold text-2xl">My Pending Question</h4>
+          <h4 className="font-bold text-2xl">My Pending Questions</h4>
           {user ? (
             pendingQuestions.map(({ question }, idx) => (
               <PendingQuestion key={idx} question={question} />
@@ -197,7 +205,7 @@ export default function QuestionsPage() {
         </div>
 
         <div className="my-4">
-          <h4 className="font-bold text-2xl">My Answered Question</h4>
+          <h4 className="font-bold text-2xl">My Answered Questions</h4>
           {user ? (
             answeredQuestions.map(({ question, answer }, idx) => (
               <AnsweredQuestion

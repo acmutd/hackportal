@@ -12,7 +12,16 @@ async function userIsAuthorized(token: string, queryId: string) {
   if (!token) return false;
   try {
     const payload = await auth().verifyIdToken(token);
-    return payload.uid === queryId;
+    if (payload.uid === queryId) return true;
+    const snapshot = await firestore()
+      .collection(REGISTRATION_COLLECTION)
+      .where('id', '==', payload.uid)
+      .get();
+    if (snapshot.empty) return false;
+    for (let userRole of snapshot.docs[0].data().user.permissions as string[]) {
+      if (userRole === 'super_admin' || userRole === 'admin') return true;
+    }
+    return false;
   } catch (error) {
     console.error(error);
     return false;
