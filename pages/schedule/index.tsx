@@ -209,7 +209,13 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
   useEffect(() => {
     // Split event description by newlines
     const descSplit = eventData.description.split('\n');
-    setEventDescription(descSplit.map((d, i) => <p key={i}>{d}</p>));
+    setEventDescription(
+      descSplit.map((d, i) => (
+        <p key={i} className="mb-2">
+          {d}
+        </p>
+      )),
+    );
   }, [eventData]);
 
   const grouping = [
