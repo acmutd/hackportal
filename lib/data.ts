@@ -5,11 +5,10 @@ export const buttonDatas = [
 ];
 
 export const navItems = [
+  { text: 'Home', path: '/' },
   { text: 'Dashboard', path: '/dashboard' },
-  { text: 'Sponsors', path: '/sponsors' },
   { text: 'Schedule', path: '/schedule' },
-  { text: 'About', path: '/about' },
-  { text: 'Admin', path: '/admin' },
+  { text: 'HackerPacks', path: '/hackerpacks' },
 ];
 
 export const stats = [
@@ -26,3 +25,16 @@ export const stats = [
     object: 'statistic 3',
   },
 ];
+
+export const DEFAULT_EVENT_FORM_DATA: ScheduleEvent = {
+  description: '',
+  title: '',
+  page: '',
+  type: '',
+  track: '',
+  location: '',
+  speakers: [],
+  startDate: new Date(),
+  endDate: new Date(),
+  Event: -1,
+};

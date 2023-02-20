@@ -5,6 +5,8 @@ type WithId<T> = T & {
   id: string;
 };
 
+type SortableObject<T> = T & { id: string };
+
 /**
  * A flag for the set of functionality that is enabled for an account.
  */
@@ -17,7 +19,7 @@ type Companies = 'SF' | 'AA' | 'C1' | 'EB' | 'FB';
  */
 type Person = {
   /**
-   * The uesr's first name.
+   * The user's first name.
    */
   firstName: string;
 
@@ -182,32 +184,9 @@ type KeynoteSpeaker = {
 type Challenge = {
   title: string;
   description: string;
-  prizes: [];
+  prizes?: string[];
   organization: string;
   rank: int;
-};
-
-/**
- *
- * Represent a keynote speaker in home page
- *
- * @param title title of event
- * @param speakers speakers of event
- * @param date date of event in format {(3 letter english month name) dd, yyyy}, e.g. Jan 10, 2022
- * @param location location/room of event
- * @param startTime start time of event in format h:mm (am/pm), e.g. 6:36 am, 10:13 pm
- * @param endTime start time of event in format h:mm (am/pm)
- * @param page page where more information can be found about event
- *
- */
-type SpotlightEvent = {
-  title: string;
-  speakers: [];
-  date: string;
-  location: string;
-  startTime: string;
-  endTime: string;
-  page: string;
 };
 
 /**
@@ -227,15 +206,84 @@ type Announcement = {
   timestamp?: string;
 };
 
+/**
+ *
+ * Represent an event
+ * @param title title of event
+ * @param speakers speakers of event
+ * @param type type of event (Tech talk, workshop, social, etc.)
+ * @param tracks what track the event is on (super-admin defined) ex: "General Event", "Technical Event", "Skills Event"
+ * @param startDate start date of event
+ * @param startTimestamp start timestamp of event
+ * @param endDate end date of event
+ * @param endTimestamp end timestamp of event
+ * @param Event event id number
+ * @param location location/room of event
+ * @param page page where more information can be found about event
+ * @param description description about event
+ *
+ */
+
 type ScheduleEvent = {
   title: string;
-  endDate: Date;
-  location: string;
+  speakers?: string[];
+  type?: string;
+  track: string;
   startDate: Date;
-  event: number;
+  startTimestamp?: any;
+  endDate: Date;
+  endTimestamp?: any;
+  Event: number;
+  location: string;
+  page: string;
+  description: string;
 };
 
 type Sponsor = {
   link: string;
   reference: string;
 };
+
+type GeneralStats = {
+  superAdminCount: number;
+  checkedInCount: number;
+  hackerCount: number;
+  adminCount: number;
+  scans: Record<string, number>;
+};
+
+/**
+ * Data object passed into the MobileDropdownMenu component
+ * that contains the sections and subsections to display, as well
+ * as the section to redirect to
+ */
+type SidebarSection = {
+  /** Display name of the section */
+  title: string;
+
+  /** Path to redirect to (eg. '#Workshops') */
+  href?: string;
+
+  /** List of subsections that will appear when clicked */
+  sections?: SidebarSubsection[];
+};
+
+/**
+ * Subsection object for the MobileDropdownSection;
+ * does NOT contain deeper nestings of sections
+ */
+type SidebarSubsection = {
+  /** Display name of the section */
+  title: string;
+
+  /** Path to redirect to (eg. '#Workshops') */
+  href?: string;
+};
+
+/**
+ * Typescript module decleration for markdown files
+ */
+declare module '*.md' {
+  const content: any;
+  export default content;
+}

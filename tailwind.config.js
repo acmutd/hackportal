@@ -4,8 +4,16 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      colors: {
+        primary: '#7B81FF', //purple
+        primaryDark: '#05149C',
+        secondary: '#F2F3FF', //light purple
+        secondaryDark: '#BABFFF',
+        complementary: '#4C4950', //gray
+        complementaryDark: '#252427',
+      },
       fontFamily: {
-        sans: ['wavehaus'],
+        sans: ['Roboto', 'sans-serif'],
       },
       width: {
         '1/8': '12.5%',
@@ -38,6 +46,9 @@ module.exports = {
         aqua: '#D8F8FF',
         darkAqua: '#B0F1FF',
       }),
+      backgroundImage: {
+        'hero-pattern': `url(${'/assets/bg2.jpeg'})`, // !change
+      },
     },
   },
   variants: {
@@ -45,5 +56,5 @@ module.exports = {
       display: ['group-hover'],
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };

@@ -8,6 +8,47 @@ initializeApi();
 const db = firestore();
 
 const REGISTRATION_COLLECTION = '/registrations';
+const SCANTYPES_COLLECTION = '/scan-types';
+
+// Used to dictate that user attempted to claim swag without checking in
+const ILLEGAL_SCAN_NAME = 'Illegal Scan';
+
+/**
+ *
+ * Check if a user has checked in into the event
+ *
+ * @param scans list of scantypes
+ * @return true if user has checked in, false otherwise
+ */
+async function userAlreadyCheckedIn(scans: string[]) {
+  if (scans.length === 0) return false;
+  const snapshot = await db.collection(SCANTYPES_COLLECTION).where('name', 'in', scans).get();
+  let ok = false;
+  snapshot.forEach((doc) => {
+    if (doc.data().isCheckIn) {
+      ok = true;
+    }
+  });
+  return ok;
+}
+
+/**
+ *
+ * Check if provided scan name corresponds to a check in scan-type
+ *
+ * @param scan name of scan
+ * @returns true if scan name corresponds to a check-in scan-type, false otherwise
+ */
+async function checkIfScanIsCheckIn(scan: string) {
+  const snapshot = await db.collection(SCANTYPES_COLLECTION).where('name', '==', scan).get();
+  let ok = false;
+  snapshot.forEach((doc) => {
+    if (doc.data().isCheckIn) {
+      ok = true;
+    }
+  });
+  return ok;
+}
 
 /**
  * Handles GET requests to /api/scantypes.
@@ -33,7 +74,7 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
   const userToken = (token as string) || (headers['authorization'] as string);
   // TODO: Extract from bearer token
   // Probably not safe
-  const isAuthorized = await userIsAuthorized(userToken);
+  const isAuthorized = await userIsAuthorized(userToken, ['admin', 'super_admin']);
   if (!isAuthorized) {
     return res.status(401).send({
       type: 'request-unauthorized',
@@ -46,6 +87,19 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
     if (!snapshot.exists)
       return res.status(404).json({ code: 'not found', message: "User doesn't exist..." });
     let scans = snapshot.data().scans ?? [];
+
+    const userCheckedIn = await userAlreadyCheckedIn(scans);
+    const scanIsCheckInEvent = await checkIfScanIsCheckIn(bodyData.scan);
+
+    if (!userCheckedIn && !scanIsCheckInEvent) {
+      scans.push(ILLEGAL_SCAN_NAME);
+      await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans });
+      return res.status(403).json({
+        code: 'not-checked-in',
+        message: 'User has not checked in',
+      });
+    }
+
     if (scans.includes(bodyData.scan)) return res.status(201).json({ code: 'duplicate' });
     scans.push(bodyData.scan);
     await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans });

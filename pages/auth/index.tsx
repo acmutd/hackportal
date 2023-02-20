@@ -1,10 +1,13 @@
+import React from 'react';
 import { useRouter } from 'next/router';
 import { useAuthContext } from '../../lib/user/AuthContext';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import firebase from 'firebase/app';
 import Link from 'next/link';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import GoogleIcon from '../../public/icons/googleicon.png';
+import Image from 'next/image';
 /**
  * A page that allows the user to sign in.
  *
@@ -17,6 +20,8 @@ export default function AuthPage() {
   const [errorMsg, setErrorMsg] = useState('');
   const [passwordResetDialog, setPasswordResetDialog] = useState(false);
   const [sendVerification, setSendVerification] = useState(false);
+  const [signInOption, setSignInOption] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
   const signIn = () => {
@@ -35,6 +40,31 @@ export default function AuthPage() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        setErrorMsg(errorMessage);
+      });
+  };
+
+  const signUp = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(currentEmail, currentPassword)
+      .then((userCredential) => {
+        // Signed in
+        var user = userCredential.user;
+        //send email verification
+        firebase
+          .auth()
+          .currentUser.sendEmailVerification()
+          .then(() => {
+            router.push('/auth');
+            alert(
+              'Account created! Check your email/spam folder to verify your account and log in.',
+            );
+          });
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
         setErrorMsg(errorMessage);
       });
   };
@@ -61,7 +91,7 @@ export default function AuthPage() {
         .currentUser.sendEmailVerification()
         .then(() => {
           router.push('/auth');
-          alert('Verification email sent, check your email to verify your account to log in');
+          alert('Verification email sent, check your email to verify your account and log in');
         });
     } catch (error) {
       alert(
@@ -70,258 +100,183 @@ export default function AuthPage() {
     }
   };
 
-  //toggle mask/unmask password in input field
-  const showPassword = (id) => {
-    var passwordInput = document.getElementById(id) as HTMLInputElement;
-    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
-  };
+  function handleSubmit() {
+    if (signInOption) {
+      signIn();
+    } else {
+      signUp();
+    }
+  }
 
   if (isSignedIn) {
     router.push('/profile');
   }
 
+  // Switches between sign in and create an account
+  const changeOption = (option) => {
+    document.getElementById(`signInOption`).style.textDecoration = option ? 'underline' : 'none';
+    document.getElementById(`signUpOption`).style.textDecoration = option ? 'none' : 'underline';
+
+    (document.getElementById(`signInSection`) as HTMLElement).style.display = option
+      ? 'block'
+      : 'none';
+    (document.getElementById(`signUpSection`) as HTMLElement).style.display = option
+      ? 'none'
+      : 'block';
+    setErrorMsg('');
+  };
+
   return (
     <>
-      {/* md-lg screens */}
-      <section className="min-h-screen h-screen md:flex hidden">
-        {/* Login */}
-        <div className="flex flex-col justify-center items-center h-full w-2/3 text-center bg-white p-4">
-          {!passwordResetDialog ? (
-            <div>
-              <h1 className="text-3xl font-black">Login to your account</h1>
-              <button
-                className="px-4 py-2 rounded-md shadow-md bg-white my-4 text-lg font-bold hover:shadow-lg hover:bg-gray-100"
-                onClick={() => signInWithGoogle()}
-              >
-                Sign in with Google
-              </button>
-              <div className="text-sm">or</div>
-              {/* Account credential input fields */}
-              <div className="w-[24rem]">
-                <form>
-                  <input
-                    className="w-full rounded-lg p-2 border-[1px] border-gray-500"
-                    value={currentEmail}
-                    onChange={(e) => setCurrentEmail(e.target.value)}
-                    style={{ backgroundColor: '#FFF' }}
-                    type="text"
-                    name="email"
-                    autoComplete="email"
-                    placeholder="Email"
-                  ></input>
-                  <input
-                    id="passwordInputLg"
-                    className="w-full rounded-lg p-2 my-2 border-[1px] border-gray-500"
-                    value={currentPassword}
-                    onChange={(e) => setCurrentPassword(e.target.value)}
-                    style={{ backgroundColor: '#FFF' }}
-                    type="password"
-                    name="password"
-                    autoComplete="current-password"
-                    placeholder="Password"
-                  ></input>
-                </form>
-              </div>
-              <div className="flex justify-between w-[24rem]">
-                <div
-                  className="hover:underline cursor-pointer text-left"
-                  onClick={() => {
-                    setPasswordResetDialog(true);
-                    setErrorMsg('');
-                    setSendVerification(false);
-                  }}
-                >
-                  Forgot password?
-                </div>
-                <div>
-                  <input
-                    className="mx-1"
-                    type="checkbox"
-                    onClick={() => showPassword('passwordInputLg')}
-                  />
-                  Show Password
-                </div>
-              </div>
-              <button
-                className="px-4 py-2 w-[24rem] rounded-md shadow-md bg-green-200 hover:shadow-lg hover:bg-green-300"
-                onClick={() => {
-                  signIn();
-                }}
-              >
-                Sign in
-              </button>
-              {/* Error and verification messages */}
-              <div className="mt-4 w-[24rem]">{errorMsg}</div>
-              {/* {sendVerification && (
-                <button className="underline" onClick={() => sendVerificationEmail()}>
-                  Resend verification
-                </button>
-              )} */}
+      <section className="bg-secondary min-h-screen">
+        <div className="p-4">
+          <Link href="/" passHref>
+            <div className="cursor-pointer items-center inline-flex text-primaryDark font-medium">
+              <ChevronLeftIcon />
+              return to event site
             </div>
-          ) : (
-            // Password reset section
-            <div>
-              <div className="w-[24rem] text-left">
-                <ArrowBackIcon
-                  className="cursor-pointer"
-                  onClick={() => {
-                    setPasswordResetDialog(false);
-                    setErrorMsg('');
-                  }}
-                />
-              </div>
-              <h1 className="text-3xl font-black">Reset Password</h1>
-              <div className="w-[24rem]">
-                <input
-                  className="w-full rounded-lg p-2 border-[1px] border-gray-500 mt-8 mb-4"
-                  value={currentEmail}
-                  onChange={(e) => setCurrentEmail(e.target.value)}
-                  style={{ backgroundColor: '#FFF' }}
-                  placeholder="Email"
-                ></input>
-                <button
-                  className="w-[24rem] px-4 py-2 rounded-md shadow-md bg-green-200 hover:shadow-lg hover:bg-green-300"
-                  onClick={() => {
-                    sendResetEmail();
-                    setErrorMsg('');
-                  }}
-                >
-                  Send Reset Email
-                </button>
-                <div className="text-left">{errorMsg}</div>
-              </div>
-            </div>
-          )}
-        </div>
-        {/* Create new account sidebar*/}
-        <div className="flex flex-col justify-center items-center h-full w-1/3 bg-green-200 text-center p-4">
-          <h1 className="text-3xl font-black">Don&#39;t have an account?</h1>
-          <p className="my-6">
-            Create an account to apply to the hackathon and access user specific functionalities!
-          </p>
-          <Link href="/auth/signup">
-            <a className="px-4 py-2 rounded-xl shadow-md bg-white hover:shadow-lg hover:bg-gray-100">
-              Sign up
-            </a>
           </Link>
         </div>
-      </section>
+        <div className="py-2 md:px-16 px-10 flex items-center justify-center flex-wrap">
+          <div className="xl:w-1/2 lg:w-2/3 w-5/6 my-4">
+            <section
+              id="signInSection"
+              className="bg-white 2xl:min-h-[30rem] min-h-[28rem] rounded-lg p-6"
+            >
+              {!passwordResetDialog ? (
+                <>
+                  <h1 className="md:text-3xl text-2xl font-black text-center text-primaryDark mt-4">
+                    {signInOption ? 'Sign in' : 'Create an account'}
+                  </h1>
+                  <div className="text-center text-complementary/60 mt-4 mb-12">
+                    {signInOption ? ' New to HackPortal?' : 'Already have an account?'}{' '}
+                    <span
+                      onClick={() =>
+                        signInOption ? setSignInOption(false) : setSignInOption(true)
+                      }
+                      className="text-primary cursor-pointer"
+                    >
+                      {signInOption ? 'Create an account' : 'Sign in'}
+                    </span>
+                  </div>
+                  <React.Fragment>
+                    <form onSubmit={handleSubmit} className="mt-4">
+                      <input
+                        className="w-full rounded-md border border-complementary/20 p-2 mb-4"
+                        value={currentEmail}
+                        onChange={(e) => setCurrentEmail(e.target.value)}
+                        type="text"
+                        name="email"
+                        autoComplete="email"
+                        placeholder="Email Address*"
+                      ></input>
+                      <input
+                        className="w-full rounded-md border border-complementary/20 p-2 mb-2"
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        type={showPassword ? 'text' : 'password'}
+                        name="password"
+                        autoComplete="current-password"
+                        placeholder="Password*"
+                      ></input>
+                      <div className="inline-flex md:flex justify-between md:flex-row flex-col-reverse">
+                        <div
+                          className="hover:underline cursor-pointer text-left text-primary"
+                          onClick={() => {
+                            setPasswordResetDialog(true);
+                            setErrorMsg('');
+                            setSendVerification(false);
+                          }}
+                        >
+                          Forgot password?
+                        </div>
+                        <div className="text-primaryDark text-base">
+                          <input
+                            className="mr-2 rounded-md text-primaryDark focus:ring-0 border border-primaryDark"
+                            type="checkbox"
+                            onClick={() => setShowPassword(!showPassword)}
+                          />
+                          {showPassword ? 'Hide password' : 'Show password'}
+                        </div>
+                        <input className="hidden" type="submit" value="Submit" />
+                      </div>
+                      <div className="flex justify-center mt-6 mb-4">
+                        <button
+                          type="button"
+                          className="rounded-full text-base w-full text-white bg-primaryDark hover:brightness-90 px-4 py-2"
+                          onClick={() => {
+                            handleSubmit();
+                          }}
+                        >
+                          {signInOption ? 'Sign in' : 'Create an account'}
+                        </button>
+                      </div>
+                    </form>
+                    {/* Error and verification messages */}
+                    <div className="text-center">{errorMsg}</div>
+                    {/* !change if needed */}
+                    {/* Uncomment to allow resend verification email option (users could spam) */}
+                    {/* {sendVerification && (
+                    <div className='flex justify-center'>
+                      <button className="underline" onClick={() => sendVerificationEmail()}>
+                        Resend verification
+                      </button>
+                    </div>
+                  )} */}
+                    <button
+                      className="mt-6 px-4 py-2 w-full rounded-full border border-complementary/20 text-complementary bg-white my-4 text-base font-bold text-center flex items-center justify-center"
+                      onClick={() => signInWithGoogle()}
+                    >
+                      <Image src={GoogleIcon} alt="GoogleIcon" width={25} height={25} />
+                      <p className="mx-2">Sign in with Google</p>
+                    </button>
+                  </React.Fragment>
+                </>
+              ) : (
+                <React.Fragment>
+                  <div className="text-left">
+                    <ArrowBackIcon
+                      className="cursor-pointer text-primaryDark"
+                      onClick={() => {
+                        setPasswordResetDialog(false);
+                        setErrorMsg('');
+                      }}
+                    />
+                  </div>
+                  <h1 className="md:text-3xl text-2xl font-black text-center text-primaryDark mt-4">
+                    Reset Password
+                  </h1>
+                  <div className="text-center text-complementary/60 mt-4 mb-12">
+                    Enter your email address and we&apos;ll send you a link to reset your password.
+                  </div>
 
-      {/* Small Screen */}
-      <section className="flex md:hidden min-h-screen h-screen justify-center bg-white">
-        <div className="flex flex-col items-center justify-center w-5/6 h-4/5 bg-blue-200 my-8 p-6">
-          {!passwordResetDialog ? (
-            <>
-              {/* Main Login Screen */}
-              <h1 className="text-2xl font-black text-center">HackPortal 1.0</h1>
-              <p className="text-sm text-center">
-                Log in to continue or create an account to register
-              </p>
-              <button
-                className="px-4 py-2 rounded-md shadow-md bg-white my-4 font-bold hover:shadow-lg hover:bg-gray-100"
-                onClick={() => signInWithGoogle()}
-              >
-                Sign in with Google
-              </button>
-              <div className="text-sm">or</div>
-              {/* Account credential input fields */}
-              <div className="w-5/6">
-                <form>
                   <input
-                    className="w-full rounded-lg p-2 border-[1px] border-gray-500"
+                    className="w-full rounded-md border border-complementary/20 p-2 mb-4"
                     value={currentEmail}
                     onChange={(e) => setCurrentEmail(e.target.value)}
-                    style={{ backgroundColor: '#FFF' }}
                     type="text"
                     name="email"
                     autoComplete="email"
-                    placeholder="Email"
+                    placeholder="Email Address*"
                   ></input>
-                  <input
-                    id="passwordInputSm"
-                    className="passwordInput w-full rounded-lg p-2 my-2 border-[1px] border-gray-500"
-                    value={currentPassword}
-                    onChange={(e) => setCurrentPassword(e.target.value)}
-                    style={{ backgroundColor: '#FFF' }}
-                    type="password"
-                    name="password"
-                    autoComplete="current-password"
-                    placeholder="Password"
-                  ></input>
-                </form>
-              </div>
-              <div>
-                <input
-                  className="mr-1"
-                  type="checkbox"
-                  onClick={() => showPassword('passwordInputSm')}
-                />
-                Show Password
-              </div>
-              <button
-                className="px-4 py-2 rounded-md shadow-md bg-white w-5/6 hover:shadow-lg hover:bg-gray-100"
-                onClick={() => signIn()}
-              >
-                Sign in
-              </button>
-              {/* Error and verification messages */}
-              <div className="text-sm">{errorMsg}</div>
-              {/* {sendVerification && (
-                <button className="underline text-sm" onClick={() => sendVerificationEmail()}>
-                  Resend verification
-                </button>
-              )} */}
-              {/* Account options */}
-              <div className="text-sm w-5/6 my-4">
-                <div
-                  className="cursor-pointer hover:underline"
-                  onClick={() => {
-                    setPasswordResetDialog(true);
-                    setErrorMsg('');
-                    setSendVerification(false);
-                  }}
-                >
-                  Forgot Password?
-                </div>
-                <Link href="/auth/signup">
-                  <a className="w-full hover:underline">Create an account</a>
-                </Link>
-              </div>
-            </>
-          ) : (
-            //Password reset section
-            <div>
-              <div className="w-full text-left my-4">
-                <ArrowBackIcon
-                  className="cursor-pointer"
-                  onClick={() => {
-                    setPasswordResetDialog(false);
-                    setErrorMsg('');
-                  }}
-                />
-              </div>
-              <h1 className="text-3xl font-black">Reset Password</h1>
-              <div className="w-full">
-                <input
-                  className="w-full rounded-lg p-2 border-[1px] border-gray-500 my-4"
-                  value={currentEmail}
-                  onChange={(e) => setCurrentEmail(e.target.value)}
-                  style={{ backgroundColor: '#FFF' }}
-                  placeholder="Email"
-                ></input>
-                <button
-                  className="px-4 py-2 rounded-md shadow-md bg-white hover:shadow-lg hover:bg-gray-100"
-                  onClick={() => {
-                    sendResetEmail();
-                    setErrorMsg('');
-                  }}
-                >
-                  Send Reset Email
-                </button>
-                <div className="text-left">{errorMsg}</div>
-              </div>
-            </div>
-          )}
+                  <div className="flex justify-center mt-6 mb-4">
+                    <button
+                      type="button"
+                      className="rounded-full text-base w-full text-white bg-primaryDark hover:brightness-90 px-4 py-2"
+                      onClick={() => {
+                        sendResetEmail();
+                        setErrorMsg('');
+                      }}
+                    >
+                      Send reset link
+                    </button>
+                  </div>
+                  {/* Error and verification messages */}
+                  <div className="text-left">{errorMsg}</div>
+                </React.Fragment>
+              )}
+            </section>
+          </div>
         </div>
       </section>
     </>

@@ -33,7 +33,7 @@ async function deleteScanType(req: NextApiRequest, res: NextApiResponse) {
     const { scanData } = req.body;
     if (scanData.isCheckIn) {
       return res.status(400).json({
-        msg: 'Check-in scan cannot be deleted',
+        msg: 'Check-in scan can not be deleted',
       });
     }
     const snapshot = await db
