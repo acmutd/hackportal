@@ -10,7 +10,7 @@ The hackerpack is where we place all the resources that could aid a hacker durin
 
 ## Customization Options
 
-We designed the hackerpack to be as easy as possible to customize! In the hackerpack directory (`pages/hackerpacks/Components`), you should see a `hackerpack-settings.json` file. This file contains the main toggleable options for editing the hackerpack. The format is as shown (with the example data):
+We designed the hackerpack to be as easy as possible to customize! In the hackerpack components directory (`components/hackerpackComponents`), you should see a `hackerpack-settings.json` file. This file contains the main toggleable options for editing the hackerpack. The format is as shown (with the example data):
 
 ```json
 {

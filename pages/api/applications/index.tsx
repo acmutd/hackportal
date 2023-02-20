@@ -49,7 +49,7 @@ async function handleGetApplications(req: NextApiRequest, res: NextApiResponse) 
   const userToken = (token as string) || (headers['authorization'] as string);
   // TODO: Extract from bearer token
   // Probably not safe
-  const isAuthorized = await userIsAuthorized(userToken);
+  const isAuthorized = await userIsAuthorized(userToken, ['super_admin', 'admin']);
 
   if (!isAuthorized) {
     return res.status(401).send({
