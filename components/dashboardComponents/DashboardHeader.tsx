@@ -41,16 +41,16 @@ export default function DashboardHeader() {
         </div>
       </header>
       <div className="my-4 md:hidden ">
-        <button className="accordion text-left p-2 text-sm bg-[#C1C8FF]">Dashboard Menu</button>
-        <div className="panel w-full bg-[#F2F3FF] text-sm">
+        <button className="accordion text-left p-2 text-sm bg-primaryDark">Dashboard Menu</button>
+        <div className="panel w-full bg-primary text-sm">
           <ul className="">
-            <li className="p-2 hover:bg-[#DCDEFF]">
+            <li className="p-2 hover:bg-primaryDark">
               <Link href="/dashboard">HackCenter</Link>
             </li>
-            <li className="p-2 hover:bg-[#DCDEFF]">
+            <li className="p-2 hover:bg-primaryDark">
               <Link href="/dashboard/scan-in">Scan-In</Link>
             </li>
-            <li className="p-2 hover:bg-[#DCDEFF]">
+            <li className="p-2 hover:bg-primaryDark">
               <Link href="/dashboard/questions">Ask a Question</Link>
             </li>
           </ul>

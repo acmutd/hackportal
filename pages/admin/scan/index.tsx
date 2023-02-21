@@ -348,7 +348,7 @@ export default function Admin() {
                   />
                 ))
               ) : (
-                <div className="bg-red-200 w-full flex justify-center">
+                <div className="w-full flex justify-center">
                   <LoadIcon width={150} height={150} />
                 </div>
               )}

@@ -112,20 +112,6 @@ export default function AuthPage() {
     router.push('/profile');
   }
 
-  // Switches between sign in and create an account
-  const changeOption = (option) => {
-    document.getElementById(`signInOption`).style.textDecoration = option ? 'underline' : 'none';
-    document.getElementById(`signUpOption`).style.textDecoration = option ? 'none' : 'underline';
-
-    (document.getElementById(`signInSection`) as HTMLElement).style.display = option
-      ? 'block'
-      : 'none';
-    (document.getElementById(`signUpSection`) as HTMLElement).style.display = option
-      ? 'none'
-      : 'block';
-    setErrorMsg('');
-  };
-
   return (
     <>
       <section className="bg-secondary min-h-screen">
