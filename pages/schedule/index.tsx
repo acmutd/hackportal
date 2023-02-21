@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GroupingState, IntegratedGrouping, ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -133,6 +133,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
     location: '',
     track: '',
   });
+  const [eventDescription, setEventDescription] = useState(null);
 
   // Scheduler configuration
   const Appointment = withStyles(styles)(
@@ -204,6 +205,18 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
       track: data.track,
     });
   };
+
+  useEffect(() => {
+    // Split event description by newlines
+    const descSplit = eventData.description.split('\n');
+    setEventDescription(
+      descSplit.map((d, i) => (
+        <p key={i} className="mb-2">
+          {d}
+        </p>
+      )),
+    );
+  }, [eventData]);
 
   const grouping = [
     {
@@ -316,7 +329,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
                   {<Description style={{ fontSize: 'medium', margin: '2px' }} />}
                   Description
                 </p>
-                <p>{eventData.description}</p>
+                <p>{eventDescription}</p>
               </div>
             </div>
           </section>
