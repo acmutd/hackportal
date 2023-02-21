@@ -16,7 +16,7 @@ export default function ProfilePage() {
   const [uploading, setUploading] = useState<boolean>(false);
   const resumeRef = useRef(null);
 
-  const handleResumeUpload = () => {
+  const handleResumeUpload = (profile) => {
     if (resumeRef.current.files.length !== 1) return alert('Must submit one file');
 
     const fileExtension = getFileExtension(resumeRef.current.files[0].name);
@@ -42,6 +42,9 @@ export default function ProfilePage() {
     const formData = new FormData();
     formData.append('resume', resumeFile);
     formData.append('fileName', `${user.id}${fileExtension}`);
+    formData.append('studyLevel', profile.studyLevel);
+    formData.append('major', profile.major);
+
     fetch('/api/resume/upload', {
       method: 'post',
       body: formData,
@@ -120,7 +123,7 @@ export default function ProfilePage() {
                         style={{ display: 'none' }}
                         type="file"
                         ref={resumeRef}
-                        onChange={handleResumeUpload}
+                        onChange={() => handleResumeUpload(profile)}
                         accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
                       />
                       <label
