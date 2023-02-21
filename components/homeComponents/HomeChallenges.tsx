@@ -16,6 +16,8 @@ export default function HomeChallenges(props: { challenges: Challenge[] }) {
     prizes: [],
   });
 
+  const [windowWidth, setWindowWidth] = useState(0);
+
   useEffect(() => {
     // Organize challenges in order by rank given in firebase
     const sortedChallenges = props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1));
@@ -50,6 +52,16 @@ export default function HomeChallenges(props: { challenges: Challenge[] }) {
     });
   };
 
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     challenges.length != 0 && (
       <section className="md:p-12  p-6">
@@ -58,7 +70,7 @@ export default function HomeChallenges(props: { challenges: Challenge[] }) {
           {/* Challenge Orgs Selectors*/}
           <div className="w-full">
             <Swiper
-              navigation={true}
+              navigation={windowWidth > 720 ? true : false}
               modules={[Navigation]}
               className="mySwiper"
               slidesPerView={1}
@@ -69,13 +81,11 @@ export default function HomeChallenges(props: { challenges: Challenge[] }) {
                 320: {
                   slidesPerView: 2,
                   spaceBetween: 20,
-                  centeredSlides: true,
                 },
                 // when window width is >= 480px
                 480: {
                   slidesPerView: 2,
                   spaceBetween: 20,
-                  centeredSlides: true,
                 },
                 620: {
                   slidesPerView: 3,
