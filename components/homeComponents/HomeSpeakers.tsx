@@ -8,21 +8,6 @@ import KeynoteSpeaker from './KeynoteSpeaker';
 export default function HomeSpeakers(props: { keynoteSpeakers: KeynoteSpeaker[] }) {
   const [speakers, setSpeakers] = useState<KeynoteSpeaker[]>([]);
 
-  const colorSchemes: ColorScheme[] = [
-    {
-      light: '#F2F3FF',
-      dark: '#C1C8FF',
-    },
-    {
-      light: '#D8F8FF',
-      dark: '#B0F1FF',
-    },
-    {
-      dark: '#FCD7FF',
-      light: '#FDECFF',
-    },
-  ];
-
   useEffect(() => {
     setSpeakers(props.keynoteSpeakers);
   }, []);
@@ -69,12 +54,7 @@ export default function HomeSpeakers(props: { keynoteSpeakers: KeynoteSpeaker[] 
         >
           {speakers.map(({ name, description, fileName }, idx) => (
             <SwiperSlide key={idx}>
-              <KeynoteSpeaker
-                name={name}
-                description={description}
-                cardColor={colorSchemes[idx % 3]}
-                imageLink={fileName}
-              />
+              <KeynoteSpeaker name={name} description={description} imageLink={fileName} />
             </SwiperSlide>
           ))}
         </Swiper>
