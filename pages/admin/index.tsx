@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -11,9 +12,12 @@ import { RequestHelper } from '../../lib/request-helper';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { QADocument } from '../api/questions';
 import { EditorState, convertToRaw, RawDraftContentState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { EditorProps } from 'react-draft-wysiwyg';
+const Editor = dynamic<EditorProps>(() => import('react-draft-wysiwyg').then((mod) => mod.Editor), {
+  ssr: false,
+});
 
 export function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;
@@ -171,7 +175,8 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
           <Editor
             editorState={editorState}
             onEditorStateChange={setEditorState}
-            wrapperClassName="w-full rounded-xl p-4"
+            editorClassName="w-full rounded-xl p-4"
+            editorStyle={{ backgroundColor: '#F2F3FF' }}
             toolbar={{
               image: { uploadEnabled: false },
             }}
