@@ -72,6 +72,16 @@ async function updateEventDatabase(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function deleteEvent(req: NextApiRequest, res: NextApiResponse) {
+  const userToken = req.headers['authorization'] as string;
+  const isAuthorized = await userIsAuthorized(userToken, ['super_admin']);
+
+  if (!isAuthorized) {
+    return res.status(403).json({
+      statusCode: 403,
+      msg: 'Request is not authorized to perform admin functionality',
+    });
+  }
+
   const eventData = JSON.parse(req.body);
   const eventDoc = await db.collection(SCHEDULE_EVENTS).where('Event', '==', eventData.Event).get();
   eventDoc.forEach(async (doc) => {
