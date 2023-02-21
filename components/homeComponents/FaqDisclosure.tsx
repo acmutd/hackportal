@@ -33,7 +33,9 @@ export default function FaqDisclosure({
     <Disclosure>
       <div className="transition duration-500 ease-in-out">
         <Disclosure.Button
-          className="p-2 text-black text-left rounded-md w-full bg-[#D0D5FF]"
+          className={`p-2 text-complementary font-medium text-left  w-full ${
+            isOpen ? '' : 'border-b-2 border-complementary transition duration-300 ease-in-out'
+          }`}
           as="div"
         >
           <button
@@ -42,14 +44,17 @@ export default function FaqDisclosure({
               toggleDisclosure();
             }}
           >
-            <span>{question}</span>
+            <span className="text-left">{question}</span>
             <ChevronDownIcon
-              className={`transition duration-500 ease-in-out ${
-                isOpen ? 'transform rotate-180' : ''
+              className={`${
+                isOpen
+                  ? 'transform rotate-180 transition duration-500 ease-in-out'
+                  : 'transition duration-500 ease-in-out'
               } w-5 h-5`}
             />
           </button>
         </Disclosure.Button>
+
         {/* {isOpen && ( */}
         <Transition
           show={isOpen}
@@ -60,7 +65,12 @@ export default function FaqDisclosure({
           leaveFrom="transform scale-100 opacity-100"
           leaveTo="transform scale-95 opacity-0"
         >
-          <Disclosure.Panel className="rounded-md my-2 py-2 bg-[#ECEEFF] p-2" static>
+          <Disclosure.Panel
+            className={`my-2 py-2  p-2 text-complementary text-left  ${
+              isOpen ? 'border-b-2 border-complementary transition duration-300 ease-in-out' : ''
+            }`}
+            static
+          >
             {answer}
           </Disclosure.Panel>
         </Transition>

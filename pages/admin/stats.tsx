@@ -1,7 +1,7 @@
 import { useAuthContext } from '../../lib/user/AuthContext';
 import Head from 'next/head';
-import AdminHeader from '../../components/AdminHeader';
-import AdminStatsCard from '../../components/AdminStatsCard';
+import AdminHeader from '../../components/adminComponents/AdminHeader';
+import AdminStatsCard from '../../components/adminComponents/AdminStatsCard';
 import { RequestHelper } from '../../lib/request-helper';
 import { useEffect, useState } from 'react';
 import LoadIcon from '../../components/LoadIcon';
@@ -11,8 +11,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import { fieldToName } from '../../lib/stats/field';
-import NivoBarChart from '../../components/NivoBarChart';
-import NivoPieChart from '../../components/NivoPieChart';
+import NivoBarChart from '../../components/adminComponents/NivoBarChart';
+import NivoPieChart from '../../components/adminComponents/NivoPieChart';
 
 function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;
@@ -26,7 +26,7 @@ export default function AdminStatsPage() {
 
   useEffect(() => {
     async function getData() {
-      const { data } = await RequestHelper.get<GeneralStats>('/api/stats', {
+      const { data } = await RequestHelper.get<GeneralStats & { timestamp: any }>('/api/stats', {
         headers: {
           Authorization: user.token,
         },
@@ -79,20 +79,42 @@ export default function AdminStatsPage() {
                 <NivoPieChart
                   key={key}
                   name={fieldToName[key]}
-                  items={Object.entries(statsData[key] as Record<any, any>).map(([k, v]) => ({
-                    id: k,
-                    value: v,
-                  }))}
+                  items={Object.entries(statsData[key] as Record<any, any>)
+                    .sort((a, b) => {
+                      const aMonth = parseInt(a[0].substring(0, a[0].indexOf('-')));
+                      const aDate = parseInt(a[0].substring(a[0].indexOf('-') + 1));
+
+                      const bMonth = parseInt(b[0].substring(0, b[0].indexOf('-')));
+                      const bDate = parseInt(b[0].substring(b[0].indexOf('-') + 1));
+
+                      if (aMonth != bMonth) return aMonth - bMonth;
+                      return aDate - bDate;
+                    })
+                    .map(([k, v]) => ({
+                      id: k,
+                      value: v,
+                    }))}
                 />
               );
             return (
               <NivoBarChart
                 key={key}
                 name={fieldToName[key]}
-                items={Object.entries(statsData[key] as Record<any, any>).map(([k, v]) => ({
-                  itemName: k,
-                  itemValue: v,
-                }))}
+                items={Object.entries(statsData[key] as Record<any, any>)
+                  .sort((a, b) => {
+                    const aMonth = parseInt(a[0].substring(0, a[0].indexOf('-')));
+                    const aDate = parseInt(a[0].substring(a[0].indexOf('-') + 1));
+
+                    const bMonth = parseInt(b[0].substring(0, b[0].indexOf('-')));
+                    const bDate = parseInt(b[0].substring(b[0].indexOf('-') + 1));
+
+                    if (aMonth != bMonth) return bMonth - aMonth;
+                    return bDate - aDate;
+                  })
+                  .map(([k, v]) => ({
+                    itemName: k,
+                    itemValue: v,
+                  }))}
               />
             );
           })}

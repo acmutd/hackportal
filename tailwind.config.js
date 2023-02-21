@@ -4,6 +4,14 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      colors: {
+        primary: '#7B81FF', //purple
+        primaryDark: '#05149C',
+        secondary: '#F2F3FF', //light purple
+        secondaryDark: '#BABFFF',
+        complementary: '#4C4950', //gray
+        complementaryDark: '#252427',
+      },
       fontFamily: {
         sans: ['Roboto', 'sans-serif'],
       },
@@ -48,5 +56,5 @@ module.exports = {
       display: ['group-hover'],
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };

@@ -2,11 +2,11 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import AdminHeader from '../../components/AdminHeader';
+import AdminHeader from '../../components/adminComponents/AdminHeader';
 import ErrorList from '../../components/ErrorList';
-import EventDetailLink from '../../components/EventDetailLink';
-import PendingQuestion from '../../components/PendingQuestion';
-import SuccessCard from '../../components/SuccessCard';
+import EventDetailLink from '../../components/adminComponents/eventComponents/EventDetailLink';
+import PendingQuestion from '../../components/dashboardComponents/PendingQuestion';
+import SuccessCard from '../../components/adminComponents/SuccessCard';
 import { RequestHelper } from '../../lib/request-helper';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { QADocument } from '../api/questions';
@@ -37,6 +37,10 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
   };
 
   const postAnnouncement = async () => {
+    if (!user.permissions.includes('super_admin')) {
+      alert('You do not have permission to perform this functionality');
+      return;
+    }
     try {
       await RequestHelper.post<Announcement, void>(
         '/api/announcements',
@@ -71,42 +75,44 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
         <meta name="description" content="HackPortal's Admin Page" />
       </Head>
       <AdminHeader />
-      <div className="p-6">
-        <ErrorList
-          errors={errors}
-          onClose={(idx: number) => {
-            const newErrorList = [...errors];
-            newErrorList.splice(idx, 1);
-            setErrors(newErrorList);
-          }}
-        />
-        {showSuccessMsg && (
-          <div className="my-2">
-            <SuccessCard msg="Announcement posted successfully" />
-          </div>
-        )}
-        <h1 className="font-bold text-xl">Post Announcement: </h1>
-        <textarea
-          value={announcement}
-          onChange={(e) => setAnnouncement(e.target.value)}
-          className="w-full rounded-xl p-4"
-          style={{ backgroundColor: '#F2F3FF' }}
-          placeholder="Type your announcement here"
-          rows={5}
-        ></textarea>
-        <div className="flex flex-row justify-end my-4">
-          <button
-            type="button"
-            className="py-2 px-5 rounded-lg font-bold"
-            style={{ backgroundColor: '#9CA6FF', color: 'black' }}
-            onClick={() => {
-              postAnnouncement();
+      {user.permissions.includes('super_admin') && (
+        <div className="p-6">
+          <ErrorList
+            errors={errors}
+            onClose={(idx: number) => {
+              const newErrorList = [...errors];
+              newErrorList.splice(idx, 1);
+              setErrors(newErrorList);
             }}
-          >
-            Post
-          </button>
+          />
+          {showSuccessMsg && (
+            <div className="my-2">
+              <SuccessCard msg="Announcement posted successfully" />
+            </div>
+          )}
+          <h1 className="font-bold text-xl">Post Announcement: </h1>
+          <textarea
+            value={announcement}
+            onChange={(e) => setAnnouncement(e.target.value)}
+            className="w-full rounded-xl p-4"
+            style={{ backgroundColor: '#F2F3FF' }}
+            placeholder="Type your announcement here"
+            rows={5}
+          ></textarea>
+          <div className="flex flex-row justify-end my-4">
+            <button
+              type="button"
+              className="py-2 px-5 rounded-lg font-bold"
+              style={{ backgroundColor: '#9CA6FF', color: 'black' }}
+              onClick={() => {
+                postAnnouncement();
+              }}
+            >
+              Post
+            </button>
+          </div>
         </div>
-      </div>
+      )}
       <div className="p-6">
         <h1 className="font-bold text-xl">Pending Questions: </h1>
         {questions.map((question, idx) => (

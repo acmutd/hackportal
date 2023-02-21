@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { isAuthorized } from '..';
 import ErrorList from '../../../components/ErrorList';
-import PendingQuestion from '../../../components/PendingQuestion';
+import PendingQuestion from '../../../components/dashboardComponents/PendingQuestion';
 import { RequestHelper } from '../../../lib/request-helper';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import { QADocument } from '../../api/questions';

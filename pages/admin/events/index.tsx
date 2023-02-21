@@ -1,8 +1,8 @@
 import { Transition, Dialog } from '@headlessui/react';
 import { GetServerSideProps } from 'next';
 import React, { Fragment } from 'react';
-import EventForm from '../../../components/EventForm';
-import EventList from '../../../components/EventList';
+import EventForm from '../../../components/adminComponents/eventComponents/EventForm';
+import EventList from '../../../components/adminComponents/eventComponents/EventList';
 import { RequestHelper } from '../../../lib/request-helper';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import Link from 'next/link';
@@ -38,6 +38,10 @@ export default function EventPage({ events_ }: EventPageProps) {
         },
         eventData,
       );
+      if (status === 403) {
+        alert('You do not have the permission to peform this functionality');
+        return;
+      }
       if (status >= 400) throw new Error(`${status} Error`);
       alert('Event info updated');
       setEvents(
@@ -56,7 +60,7 @@ export default function EventPage({ events_ }: EventPageProps) {
 
   const submitDeleteEventRequest = async () => {
     try {
-      await RequestHelper.delete<ScheduleEvent, unknown>(
+      const { status } = await RequestHelper.delete<ScheduleEvent, unknown>(
         '/api/schedule',
         {
           headers: {
@@ -65,6 +69,12 @@ export default function EventPage({ events_ }: EventPageProps) {
         },
         events[currentEventDeleteIndex],
       );
+      if (status === 403) {
+        alert('You do not have the permission to peform this functionality');
+        return;
+      }
+      if (status >= 400) throw new Error(`${status} Error`);
+
       alert('Event deleted successfully');
       setEvents(events.filter((_, idx) => idx !== currentEventDeleteIndex));
       setModalOpen(false);

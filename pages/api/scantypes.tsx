@@ -30,7 +30,7 @@ async function handleGetScanTypes(req: NextApiRequest, res: NextApiResponse) {
   const userToken = (token as string) || (headers['authorization'] as string);
   // TODO: Extract from bearer token
   // Probably not safe
-  const isAuthorized = await userIsAuthorized(userToken);
+  const isAuthorized = await userIsAuthorized(userToken, ['admin', 'super_admin']);
   if (!isAuthorized) {
     return res.status(401).send({
       type: 'request-unauthorized',

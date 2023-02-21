@@ -51,7 +51,7 @@ function PortalApp({ Component, pageProps }: AppProps) {
               <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
               <meta name="theme-color" content="#5D5FEF" />
             </Head>
-            <div className="min-h-screen flex flex-col bg-gray-50">
+            <div className="min-h-screen flex flex-col bg-white mt-5">
               <AppHeader />
               <Component {...pageProps} />
             </div>
