@@ -25,7 +25,7 @@ export default function KeynoteSpeaker(props) {
   }, []);
 
   return (
-    <div className="group flex flex-col items-center w-72 h-72 sm:h-80  rounded-xl shadow-xl relative transition duration-500 ease-in-out overflow-hidden bg-secondary text-white">
+   <div className="group flex flex-col items-center w-72 sm:w-72 sm:h-80 rounded-xl shadow-xl relative transition duration-500 ease-in-out overflow-hidden bg-secondary text-white">
       <div className="rounded-t-sm">
         {props.imageLink !== undefined && imageLink !== undefined && (
           <Image
