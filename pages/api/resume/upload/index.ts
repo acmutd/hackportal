@@ -38,10 +38,12 @@ handler.post(async (req, res) => {
       process.env.NEXT_PUBLIC_RESUME_UPLOAD_SERVICE_ACCOUNT,
       process.env.NEXT_PUBLIC_RESUME_UPLOAD_PASSWORD,
     );
-  const storage = firebase.storage();
 
-  const rootRef = firebase.storage().ref('resumes');
-  const fileRef = rootRef.child(req.body.fileName);
+  const storageRef = firebase.storage().ref();
+  const studyLevelRef = storageRef.child('resumes/' + req.body.studyLevel);
+  const majorRef = studyLevelRef.child(req.body.major);
+  const fileRef = majorRef.child(req.body.fileName);
+
   await fileRef.put(req.file.buffer);
   res.end();
 });
