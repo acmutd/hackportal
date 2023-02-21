@@ -10,6 +10,10 @@ import SuccessCard from '../../components/adminComponents/SuccessCard';
 import { RequestHelper } from '../../lib/request-helper';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { QADocument } from '../api/questions';
+import { EditorState, convertToRaw, RawDraftContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import draftToHtml from 'draftjs-to-html';
 
 export function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;
@@ -29,6 +33,7 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
   const { user, isSignedIn } = useAuthContext();
 
   const [announcement, setAnnouncement] = useState('');
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [errors, setErrors] = useState<string[]>([]);
   const [showSuccessMsg, setShowSuccessMsg] = useState(false);
 
@@ -61,6 +66,39 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
       setAnnouncement('');
     } catch (error) {
       addError('Failed to post announcement! Please try again later');
+      console.log(error);
+    }
+  };
+
+  const sendEmail = async () => {
+    if (!user.permissions.includes('super_admin')) {
+      alert('You do not have permission to perform this functionality');
+      return;
+    }
+    const rawContentState: RawDraftContentState = convertToRaw(editorState.getCurrentContent());
+    const formatted_text: string = draftToHtml(rawContentState);
+    try {
+      await RequestHelper.post<Email, void>(
+        '/api/email',
+        {
+          headers: {
+            Authorization: user.token,
+          },
+        },
+        {
+          subject: 'Test Email',
+          formatted_text,
+          user_types: ['attendee'],
+        },
+      );
+
+      setShowSuccessMsg(true);
+      setTimeout(() => {
+        setShowSuccessMsg(false);
+      }, 2000);
+      setEditorState(EditorState.createEmpty());
+    } catch (error) {
+      addError('Failed to send email! Please try again later');
       console.log(error);
     }
   };
@@ -113,6 +151,46 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
           </div>
         </div>
       )}
+
+      {user.permissions.includes('super_admin') && (
+        <div className="p-6">
+          <ErrorList
+            errors={errors}
+            onClose={(idx: number) => {
+              const newErrorList = [...errors];
+              newErrorList.splice(idx, 1);
+              setErrors(newErrorList);
+            }}
+          />
+          {showSuccessMsg && (
+            <div className="my-2">
+              <SuccessCard msg="Emails sent successfully" />
+            </div>
+          )}
+          <h1 className="font-bold text-xl">Send Email</h1>
+          <Editor
+            editorState={editorState}
+            onEditorStateChange={setEditorState}
+            wrapperClassName="w-full rounded-xl p-4"
+            toolbar={{
+              image: { uploadEnabled: false },
+            }}
+          />
+          <div className="flex flex-row justify-end my-4">
+            <button
+              type="button"
+              className="py-2 px-5 rounded-lg font-bold"
+              style={{ backgroundColor: '#9CA6FF', color: 'black' }}
+              onClick={() => {
+                sendEmail();
+              }}
+            >
+              Send
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="p-6">
         <h1 className="font-bold text-xl">Pending Questions: </h1>
         {questions.map((question, idx) => (

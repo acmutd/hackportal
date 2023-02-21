@@ -252,6 +252,12 @@ type GeneralStats = {
   scans: Record<string, number>;
 };
 
+type Email = {
+  subject: string;
+  formatted_text: string;
+  user_types: string[];
+};
+
 /**
  * Data object passed into the MobileDropdownMenu component
  * that contains the sections and subsections to display, as well
