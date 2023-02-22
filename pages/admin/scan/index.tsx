@@ -249,7 +249,7 @@ export default function Admin() {
           <div className="flex items-center justify-center min-h-screen">
             <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
 
-            <div className="rounded-2xl relative bg-white flex flex-col ljustify-between p-4 rounded max-w-sm mx-auto">
+            <div className="rounded-2xl relative bg-white flex flex-col ljustify-between p-4 max-w-sm mx-auto">
               <Dialog.Title>
                 Delete <span className="font-bold">{currentScan.name}</span>
               </Dialog.Title>
