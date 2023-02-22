@@ -111,7 +111,7 @@ export default function HomeChallenges(props: { challenges: Challenge[] }) {
                 <SwiperSlide key={idx}>
                   <div
                     id={`org${idx}`}
-                    className={`${idx} font-bold text-primaryDark p-5 flex align-bottom flex-col items-start justify-end z-10 relative cursor-pointer text-center text-xl w-64 h-48  bg-secondary rounded-lg`}
+                    className={`${idx} font-bold text-primaryDark p-5 flex align-bottom flex-col items-start justify-end z-10 relative cursor-pointer text-left text-xl w-64 h-48  bg-secondary rounded-lg`}
                     key={idx}
                     onClick={() => changeOrg(challenge, idx)}
                   >
