@@ -172,7 +172,7 @@ export default function QuestionsPage() {
         <h4 className="font-bold text-3xl">Ask the organizers a question!</h4>
         <div>
           <textarea
-            className="w-full rounded-xl p-4 bg-primary"
+            className="w-full rounded-xl p-4 bg-secondary"
             rows={5}
             value={currentQuestion}
             onChange={(e) => setCurrentQuestion(e.target.value)}
@@ -181,7 +181,7 @@ export default function QuestionsPage() {
           <div className="flex flex-row justify-end my-4">
             <button
               type="button"
-              className="p-2 rounded-lg bg-primaryDark text-black"
+              className="p-2 rounded-lg bg-primary text-secondary"
               onClick={() => {
                 submitQuestion();
               }}
