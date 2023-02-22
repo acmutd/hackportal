@@ -131,7 +131,7 @@ export default function UserPage() {
             <h1 className="font-bold text-lg">Search Users</h1>
             <input
               type="text"
-              className="rounded-lg px-2 py-1 w-2/5 bg-secondary"
+              className="rounded-lg px-2 py-1 grow sm:grow-0 sm:w-3/5 md:w-2/5 bg-secondary"
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
