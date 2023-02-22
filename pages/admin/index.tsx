@@ -41,6 +41,33 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
   const [errors, setErrors] = useState<string[]>([]);
   const [showSuccessMsg, setShowSuccessMsg] = useState(false);
 
+  const roleTypes = [
+    { type: 'hacker', name: 'Hacker' },
+    { type: 'mentor', name: 'Mentor' },
+    { type: 'admin', name: 'Event Administrator' },
+    { type: 'sponsor', name: 'Event Sponsor' },
+    { type: 'organizer', name: 'Event Organizer' },
+    { type: 'super_admin', name: 'Super Admin' },
+    { type: 'judge', name: 'Judge' },
+  ];
+  const [checkedState, setCheckedState] = useState(new Array(roleTypes.length).fill(false));
+  const updateChecked = (position) => {
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item,
+    );
+    setCheckedState(updatedCheckedState);
+  };
+
+  const getCheckedRoles = () => {
+    const checked_roles: string[] = [];
+    for (let i = 0; i < checkedState.length; i++) {
+      if (checkedState[i]) {
+        checked_roles.push(roleTypes[i].type);
+      }
+    }
+    return checked_roles;
+  };
+
   const addError = (errMsg: string) => {
     setErrors((prev) => [...prev, errMsg]);
   };
@@ -92,7 +119,7 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
         {
           subject: 'Test Email',
           formatted_text,
-          user_types: ['attendee'],
+          user_types: getCheckedRoles(),
         },
       );
 
@@ -181,6 +208,25 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
               image: { uploadEnabled: false },
             }}
           />
+          <div className="flex flex-row gap-x-2 items-center my-4">
+            <ul>
+              {roleTypes.map(({ type, name }, index) => {
+                return (
+                  <li key={index}>
+                    <input
+                      type="checkbox"
+                      id={`checkbox-${index}`}
+                      name={name}
+                      value={type}
+                      checked={checkedState[index]}
+                      onChange={() => updateChecked(index)}
+                    />
+                    <label htmlFor={`checkbox-${index}`}>{name}</label>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
           <div className="flex flex-row justify-end my-4">
             <button
               type="button"
