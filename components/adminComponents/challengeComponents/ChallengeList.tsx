@@ -55,7 +55,14 @@ export default function ChallengeList({
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={challenges} strategy={verticalListSortingStrategy}>
           {challenges.map(({ title, description, prizes }, idx) => (
-            <ChallengeCard key={idx} title={title} description={description} prizes={prizes} />
+            <ChallengeCard
+              key={idx}
+              title={title}
+              description={description}
+              prizes={prizes}
+              onChallengeDeleteClick={() => onChallengeDeleteClick(idx)}
+              onChallengeEditClick={() => onChallengeEditClick(idx)}
+            />
           ))}
         </SortableContext>
       </DndContext>
