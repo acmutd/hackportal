@@ -52,9 +52,14 @@ export default function HomeSpeakers(props: { keynoteSpeakers: KeynoteSpeaker[] 
             },
           }}
         >
-          {speakers.map(({ name, description, fileName }, idx) => (
+          {speakers.map(({ name, subtitle, description, fileName }, idx) => (
             <SwiperSlide key={idx}>
-              <KeynoteSpeaker name={name} description={description} imageLink={fileName} />
+              <KeynoteSpeaker
+                name={name}
+                subtitle={subtitle}
+                description={description}
+                imageLink={fileName}
+              />
             </SwiperSlide>
           ))}
         </Swiper>
