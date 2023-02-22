@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react';
 import { useAuthContext } from '../lib/user/AuthContext';
 import LoadIcon from '../components/LoadIcon';
 import { getFileExtension } from '../lib/util';
+import QRCode from '../components/dashboardComponents/QRCode';
 
 /**
  * A page that allows a user to modify app or profile settings and see their data.
@@ -78,15 +79,7 @@ export default function ProfilePage() {
             >
               <h1 className="font-bold text-xl text-center">HackPortal</h1> {/* !change */}
               <div className="mx-auto">
-                {user.photoUrl && (
-                  <Image
-                    className="rounded-full object-cover"
-                    src={user.photoUrl}
-                    height={180}
-                    width={180}
-                    alt="Your profile"
-                  />
-                )}
+                <QRCode data={'hack:' + user.id} loading={false} width={200} height={200} />
               </div>
               <div>
                 <h1 className="text-center font-bold text-xl">{`${profile.user.firstName} ${profile.user.lastName}`}</h1>
