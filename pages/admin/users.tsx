@@ -122,26 +122,26 @@ export default function UserPage() {
         <title>HackPortal - Admin</title> {/* !change */}
         <meta name="description" content="HackPortal's Admin Page" />
       </Head>
-      <section id="subheader" className="p-4">
+      <section id="subheader" className="p-2 md:p-4">
         <AdminHeader />
       </section>
       {currentUser === '' ? (
         <>
-          <div className="top-6 p-4 flex flex-row items-center gap-x-2">
+          <div className="top-6 p-2 md:p-4 flex flex-row items-center gap-x-2">
             <h1 className="font-bold text-lg">Search Users</h1>
             <input
               type="text"
-              className="rounded-lg px-2 py-1 w-2/5 bg-primary"
+              className="rounded-lg px-2 py-1 grow sm:grow-0 sm:w-3/5 md:w-2/5 bg-primary"
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
               }}
             />
           </div>
-          <div className="p-4 flex flex-row w-full">
-            <div className="w-full md:w-1/6 lg:w-1/12 flex flex-col gap-y-4">
-              <div>
-                <h1 className="text-md font-bold text-center">Filters</h1>
+          <div className="p-2 md:p-4 flex flex-col md:flex-row w-full">
+            <div className="w-full md:w-1/6 lg:w-1/12 flex flex-col md:gap-y-4">
+              <div className="flex md:inline items-center">
+                <h1 className="text-md font-bold">Filters</h1>
                 <FilterComponent
                   checked={filter['hacker']}
                   onCheck={() => {
@@ -178,10 +178,10 @@ export default function UserPage() {
                   title="Super Admin"
                 />
               </div>
-              <div className="my-4">
-                <h1 className="text-md font-bold text-center mb-4">Sort By:</h1>
+              <div className="md:my-4 flex md:inline">
+                <h1 className="text-md font-bold mb-4">Sort By:</h1>
                 <h4
-                  className="text-md text-center underline cursor-pointer"
+                  className="text-sm md:text-md underline cursor-pointer mx-4 md:mx-0"
                   onClick={() => {
                     sortByName();
                   }}
@@ -190,7 +190,7 @@ export default function UserPage() {
                 </h4>
               </div>
             </div>
-            <div className="w-full px-8">
+            <div className="w-full md:px-8">
               <UserList
                 hasAdminPrivilege={
                   user.permissions.includes('super_admin') || user.permissions.includes('admin')
