@@ -34,9 +34,9 @@ export default function AdminHeader() {
   };
 
   return (
-    <section className="p-4">
+    <section className="">
       <header className="top-0 sticky hidden md:flex flex-row justify-between p-2 md:p-4 items-center">
-        <div className="mx-auto md:flex justify-center text-xl font-header md:text-left">
+        <div className="mx-auto md:flex justify-center md:text-lg lg:text-xl font-header md:text-left">
           <NavLink href="/admin" exact={true} className="mx-4">
             Event Dashboard
           </NavLink>

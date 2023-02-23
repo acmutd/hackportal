@@ -167,6 +167,7 @@ type TeamMember = {
  */
 type KeynoteSpeaker = {
   name: string;
+  subtitle: string;
   description: string;
   fileName: string;
 };

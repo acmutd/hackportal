@@ -202,9 +202,3 @@ a.link {
   font-weight: 600;
   color: #7b81ff;
 }
-@media screen and (max-width: 720px) {
-  .swiper-button-prev:after,
-  .swiper-button-next:after {
-    display: none;
-  }
-}

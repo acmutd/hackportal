@@ -82,6 +82,9 @@ export default function Register() {
         const formData = new FormData();
         formData.append('resume', resumeFile);
         formData.append('fileName', `${user.id}${getFileExtension(resumeFile.name)}`);
+        formData.append('studyLevel', registrationData['studyLevel']);
+        formData.append('major', registrationData['major']);
+
         await fetch('/api/resume/upload', {
           method: 'post',
           body: formData,
@@ -259,6 +262,7 @@ export default function Register() {
             delete finalValues.lastName;
             delete finalValues.permissions;
             delete finalValues.preferredEmail;
+
             //submitting
             handleSubmit(values);
             setSubmitting(false);

@@ -46,11 +46,11 @@ function SpotlightCard(props: any) {
 
   return (
     <>
-      <div className="scrollItem flex flex-col justify-between min-w-3/4 h-[90%] bg-aqua rounded-lg p-3 my-4 mx-12">
+      <div className="scrollItem flex flex-col justify-between min-w-3/4 h-[90%] bg-secondary rounded-lg p-3 my-4 mx-12">
         <h1 className="lg:text-4xl text-xl font-black">{props.title}</h1>
         <h3 className="md:text-md text-sm font-black">{speakerString}</h3>
         {/* info section */}
-        <div className="flex flex-col justify-around w-full min-h-1/2 rounded-lg bg-darkAqua p-3">
+        <div className="flex flex-col justify-around w-full min-h-1/2 rounded-lg bg-secondary p-3">
           {/* top row info */}
           <div className="flex justify-around">
             <div className="flex items-center lg:text-lg sm:text-md text-xs">
