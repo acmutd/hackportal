@@ -161,7 +161,7 @@ export default function SchedulePage(props: { scheduleCard: ScheduleEvent[] }) {
     ),
   );
 
-  const changeEventData = (data: AppointmentModel) => {
+  const changeEventData = (data: ScheduleEvent) => {
     const startDate = new Date(data.startDate);
     const endDate = new Date(data.endDate);
 
@@ -173,12 +173,12 @@ export default function SchedulePage(props: { scheduleCard: ScheduleEvent[] }) {
     });
     const dayString = dateFormatter.format(startDate);
 
-    const speakersData = data.speakers?.filter((speaker: string[]) => speaker.length !== 0);
+    const speakersData = data.speakers?.filter((speaker) => speaker.length !== 0);
 
     // format list of speakers of event, leaving blank if no speakers
     const speakerFormatter = new Intl.ListFormat('default', { style: 'long', type: 'conjunction' });
     const speakerString =
-      speakersData?.length > 0 ? `Hosted by ${speakerFormatter.format(speakersData)}` : '';
+      speakersData?.length || 0 > 0 ? `Hosted by ${speakerFormatter.format(speakersData)}` : '';
     // format time range of event
     const timeFormatter = new Intl.DateTimeFormat('default', {
       hour: 'numeric',
