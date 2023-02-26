@@ -264,17 +264,9 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
                 <DateNavigator />
                 <TodayButton />
                 <GroupingState grouping={grouping} groupByDate={() => true} />
-                {
-                  // since tracks are computed from entries, only show grouping if there are any tracks
-                  uniqueTracks.size > 0 ? (
-                    <>
-                      <IntegratedGrouping />
-                      <GroupingPanel />
-                    </>
-                  ) : (
-                    <></>
-                  )
-                }
+                {/* since tracks are computed from entries, only show grouping if there are any tracks */}
+                {uniqueTracks.size > 0 ? <IntegratedGrouping /> : null}
+                {uniqueTracks.size > 0 ? <GroupingPanel /> : null}
               </Scheduler>
             </div>
           </Paper>
