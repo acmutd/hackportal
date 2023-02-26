@@ -318,7 +318,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
                   {<Description style={{ fontSize: 'medium', margin: '2px' }} />}
                   Description
                 </p>
-                <p>{eventDescription}</p>
+                <article>{eventDescription}</article>
               </div>
             </div>
           </section>
