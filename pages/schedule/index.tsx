@@ -283,42 +283,42 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
             {/* Shows card info if user has clicked on an event */}
             <div className={eventData.title === '' ? 'hidden' : 'inline'}>
               <div className="grid grid-cols-2 gap-y-2 md:my-8 my-6 md:text-lg text-sm">
-                <div className="">
-                  <p className="flex items-center font-semibold">
+                <div>
+                  <h2 className="flex items-center font-semibold">
                     {<CalendarIcon style={{ fontSize: 'medium', margin: '2px' }} />}
                     Date
-                  </p>
+                  </h2>
                   <p>{eventData.date}</p>
                 </div>
-                <div className="">
-                  <p className="flex items-center font-semibold">
+                <div>
+                  <h2 className="flex items-center font-semibold">
                     {<PinDrop style={{ fontSize: 'medium', margin: '2px' }} />}
                     Location
-                  </p>
+                  </h2>
                   <p>{eventData.location}</p>
                 </div>
-                <div className="">
-                  <p className="flex items-center font-semibold">
+                <div>
+                  <h2 className="flex items-center font-semibold">
                     {<ClockIcon style={{ fontSize: 'large', margin: '2px' }} />}
                     Time
-                  </p>
+                  </h2>
                   <p>{eventData.time}</p>
                 </div>
-                <div className="">
-                  <p className="flex items-center font-semibold">
+                <div>
+                  <h2 className="flex items-center font-semibold">
                     {<Backpack style={{ fontSize: 'medium', margin: '2px' }} />}
                     Page
-                  </p>
+                  </h2>
                   <p>{eventData.page}</p>
                 </div>
               </div>
 
               <div className="lg:text-base text-sm">
-                <p className="flex items-center font-semibold">
+                <h2 className="flex items-center font-semibold">
                   {<Description style={{ fontSize: 'medium', margin: '2px' }} />}
                   Description
-                </p>
-                <article>{eventDescription}</article>
+                </h2>
+                <div>{eventDescription}</div>
               </div>
             </div>
           </section>
