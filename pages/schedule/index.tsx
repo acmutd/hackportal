@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { GroupingState, IntegratedGrouping, ViewState } from '@devexpress/dx-react-scheduler';
+import {
+  AppointmentModel,
+  GroupingState,
+  IntegratedGrouping,
+  ViewState,
+} from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   DayView,
@@ -154,44 +159,30 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
     ),
   );
 
-  const changeEventData = (data) => {
-    const startDate = new firebase.firestore.Timestamp(data.startTimestamp._seconds, 0).toDate();
-    const endDate = new firebase.firestore.Timestamp(data.endTimestamp._seconds, 0).toDate();
-    //first match extracts day abbreviation
-    //second match extracts month abbreviation and the number day of the month
-    var dayString =
-      startDate.toString().match(/^[\w]{3}/)[0] +
-      ', ' +
-      startDate.toString().match(/^\w+ (\w{3} \d{1,2})/)[1];
+  const changeEventData = (data: AppointmentModel) => {
+    const startDate = new Date(data.startDate);
+    const endDate = new Date(data.endDate);
 
-    const speakersData = data.speakers
-      ? data.speakers.filter((speaker) => speaker.length !== 0)
-      : undefined;
+    // format date of event
+    const dateFormatter = new Intl.DateTimeFormat('default', {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+    });
+    const dayString = dateFormatter.format(startDate);
 
-    var speakerString = '';
-    if (speakersData !== undefined && speakersData !== null && speakersData.length !== 0) {
-      if (speakersData.length == 2) {
-        speakerString = `Hosted by ${speakersData[0]} & ${speakersData[1]}`;
-      } else if (speakersData.length == 1) {
-        speakerString = `Hosted by ${speakersData[0]}`;
-      } else {
-        speakerString = 'Hosted by ';
-        for (var i = 0; i < speakersData.length; i++) {
-          if (i === speakersData.length - 1) {
-            speakerString += 'and ' + speakersData[i];
-          } else {
-            speakerString += speakersData[i] + ', ';
-          }
-        }
-      }
-    }
-    var timeString = `${(startDate.getHours() + 24) % 12 || 12}:${
-      startDate.getMinutes() < 10 ? '0' : ''
-    }${startDate.getMinutes()} ${startDate.getHours() < 12 ? 'AM' : 'PM'} - ${
-      (endDate.getHours() + 24) % 12 || 12
-    }:${endDate.getMinutes() < 10 ? '0' : ''}${endDate.getMinutes()} ${
-      endDate.getHours() < 12 ? 'AM' : 'PM'
-    }`;
+    const speakersData = data.speakers?.filter((speaker: string[]) => speaker.length !== 0);
+
+    // format list of speakers of event, leaving blank if no speakers
+    const speakerFormatter = new Intl.ListFormat('default', { style: 'long', type: 'conjunction' });
+    const speakerString =
+      speakersData?.length > 0 ? `Hosted by ${speakerFormatter.format(speakersData)}` : '';
+    // format time range of event
+    const timeFormatter = new Intl.DateTimeFormat('default', {
+      hour: 'numeric',
+      minute: 'numeric',
+    });
+    const timeString = timeFormatter.formatRange(startDate, endDate);
 
     //setting new event data based on event clicked
     setEventData({
