@@ -276,9 +276,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
           <section>
             {eventData.title === '' ? (
               <div className="text-2xl">Click on an event for more info</div>
-            ) : (
-              <div />
-            )}
+            ) : null}
             <h1 className="md:text-4xl text-2xl font-bold">{eventData.title}</h1>
             <div className="md:text-lg text-sm mb-4">{eventData.speakers}</div>
 
