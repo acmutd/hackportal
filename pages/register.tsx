@@ -195,13 +195,16 @@ export default function Register() {
       </Head>
       <section className="pt-4 pl-4">
         <Link href="/" passHref>
-          <div className="cursor-pointer items-center inline-flex text-primaryDark font-semibold text-lg">
+          <div className="cursor-pointer items-center inline-flex text-primaryDark font-semibold sm:text-lg">
             <ChevronLeftIcon />
             return to event site
           </div>
         </Link>
       </section>
-      <section id="jumbotron" className="text-primaryDark text-4xl font-bold text-center mb-6">
+      <section
+        id="jumbotron"
+        className="text-primaryDark lg:text-4xl sm:text-3xl text-2xl font-bold text-center lg:mt-0 mt-6 mb-6"
+      >
         HackPortal Hacker Registration
       </section>
 
@@ -278,14 +281,14 @@ export default function Register() {
             <Form
               onKeyDown={onKeyDown}
               noValidate
-              className="registrationForm flex flex-col px-6 w-full text-lg"
+              className="registrationForm px-6 w-full sm:text-base text-sm"
             >
               {/* General Questions */}
               {registrationSection == 0 && (
-                <section className="bg-white lg:w-3/5 md:w-3/4 min-h-[35rem] mx-auto rounded-2xl py-10 px-8 mb-8 text-[#4C4950] text-base">
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
                   Please fill out the following fields. The application should take approximately 5
                   minutes.
-                  <h2 className="text-2xl font-semibold mt-5 mb-3">General</h2>
+                  <h2 className="sm:text-2xl text-xl font-semibold mt-5 sm:mb-3 mb-1">General</h2>
                   <div className="flex flex-col">
                     {generalQuestions.map((obj, idx) => (
                       <DisplayQuestion
@@ -301,10 +304,12 @@ export default function Register() {
 
               {/* School Questions */}
               {registrationSection == 1 && (
-                <section className="bg-white w-3/5 min-h-[35rem] mx-auto rounded-2xl py-10 px-8 mb-8 text-[#4C4950] text-base">
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
                   Please fill out the following fields. The application should take approximately 5
                   minutes.
-                  <h2 className="text-2xl font-semibold mt-5 mb-3">School Info</h2>
+                  <h2 className="sm:text-2xl text-xl font-semibold mt-5 sm:mb-3 mb-1">
+                    School Info
+                  </h2>
                   <div className="flex flex-col">
                     {schoolQuestions.map((obj, idx) => (
                       <DisplayQuestion
@@ -320,10 +325,12 @@ export default function Register() {
 
               {/* Hackathon Questions */}
               {registrationSection == 2 && (
-                <section className="bg-white w-3/5 min-h-[35rem] mx-auto rounded-2xl py-10 px-8 mb-8 text-[#4C4950] text-base">
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
                   Please fill out the following fields. The application should take approximately 5
                   minutes.
-                  <h2 className="text-2xl font-semibold mt-5 mb-3">Hackathon Experience</h2>
+                  <h2 className="sm:text-2xl text-xl font-semibold mt-5 sm:mb-3 mb-1">
+                    Hackathon Experience
+                  </h2>
                   <div className="flex flex-col">
                     {hackathonExperienceQuestions.map((obj, idx) => (
                       <DisplayQuestion
@@ -339,10 +346,12 @@ export default function Register() {
 
               {/* Event Questions */}
               {registrationSection == 3 && (
-                <section className="bg-white w-3/5 min-h-[35rem] mx-auto rounded-2xl py-10 px-8 mb-8 text-[#4C4950] text-base">
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
                   Please fill out the following fields. The application should take approximately 5
                   minutes.
-                  <h2 className="text-2xl font-semibold mt-5 mb-3">Event Info</h2>
+                  <h2 className="sm:text-2xl text-xl font-semibold mt-5 sm:mb-3 mb-1">
+                    Event Info
+                  </h2>
                   <div className="flex flex-col">
                     {eventInfoQuestions.map((obj, idx) => (
                       <DisplayQuestion
@@ -358,10 +367,12 @@ export default function Register() {
 
               {/* Sponsor Questions */}
               {registrationSection == 4 && (
-                <section className="bg-white w-3/5 min-h-[35rem] mx-auto rounded-2xl py-10 px-8 mb-8 text-[#4C4950] text-base">
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
                   Please fill out the following fields. The application should take approximately 5
                   minutes.
-                  <h2 className="text-2xl font-semibold mt-5 mb-3">Sponsor Info</h2>
+                  <h2 className="sm:text-2xl text-xl font-semibold mt-5 sm:mb-3 mb-1">
+                    Sponsor Info
+                  </h2>
                   <div className="flex flex-col">
                     {sponsorInfoQuestions.map((obj, idx) => (
                       <DisplayQuestion
@@ -404,6 +415,7 @@ export default function Register() {
           )}
         </Formik>
 
+        {/* Pagniation buttons */}
         <section
           className={`lg:block flex ${
             registrationSection == 0
@@ -411,11 +423,11 @@ export default function Register() {
               : registrationSection >= 4
               ? 'justify-start'
               : 'justify-between'
-          } lg:pb-0 pb-5 lg:px-0 px-5`}
+          } lg:pb-0 pb-8 lg:px-0 sm:px-8 px-6 text-primaryDark font-semibold text-primaryDark font-semibold lg:text-xl md:text-lg`}
         >
           {registrationSection > 0 && (
             <div
-              className="lg:fixed 2xl:bottom-8 2xl:left-8 bottom-6 left-6 inline text-primaryDark font-semibold cursor-pointer select-none"
+              className="lg:fixed 2xl:bottom-8 2xl:left-8 bottom-6 left-6 inline cursor-pointer select-none"
               onClick={() => {
                 setRegistrationSection(registrationSection - 1);
               }}
@@ -427,7 +439,7 @@ export default function Register() {
 
           {registrationSection < 4 && (
             <div
-              className="lg:fixed 2xl:bottom-8 2xl:left-8 bottom-6 right-6 inline text-primaryDark font-semibold cursor-pointer select-none"
+              className="lg:fixed 2xl:bottom-8 2xl:left-8 bottom-6 right-6 inline cursor-pointer select-none"
               onClick={() => {
                 setRegistrationSection(registrationSection + 1);
               }}
