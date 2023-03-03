@@ -71,7 +71,7 @@ export default function Register() {
     //setting user specific initial values
     formInitialValues['id'] = user?.id || '';
     formInitialValues['preferredEmail'] = user?.preferredEmail || '';
-    formInitialValues['firstName'] = user?.firstName || '';
+    formInitialValues['firstName'] = user?.firstName?.split(' ')[0] || '';
     formInitialValues['lastName'] = user?.lastName || '';
     formInitialValues['permissions'] = user?.permissions || ['hacker'];
   }, []);
@@ -439,7 +439,7 @@ export default function Register() {
 
           {registrationSection < 4 && (
             <div
-              className="lg:fixed 2xl:bottom-8 2xl:left-8 bottom-6 right-6 inline cursor-pointer select-none"
+              className="lg:fixed 2xl:bottom-8 2xl:right-8 bottom-6 right-6 inline cursor-pointer select-none"
               onClick={() => {
                 setRegistrationSection(registrationSection + 1);
               }}
