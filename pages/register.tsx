@@ -46,28 +46,6 @@ export default function Register() {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      //load json data into dropdown list for universities and majors
-      if (document.getElementById('schools') !== null) {
-        for (let school of schools) {
-          let option = document.createElement('option');
-          option.text = school['university'];
-          option.value = school['university'];
-          let select = document.getElementById('schools');
-          select.appendChild(option);
-        }
-      }
-
-      if (document.getElementById('majors') !== null) {
-        for (let major of majors) {
-          let option = document.createElement('option');
-          option.text = major['major'];
-          option.value = major['major'];
-          let select = document.getElementById('majors');
-          select.appendChild(option);
-        }
-      }
-    }, 0);
     //setting user specific initial values
     formInitialValues['id'] = user?.id || '';
     formInitialValues['preferredEmail'] = user?.preferredEmail || '';
@@ -75,6 +53,29 @@ export default function Register() {
     formInitialValues['lastName'] = user?.lastName || '';
     formInitialValues['permissions'] = user?.permissions || ['hacker'];
   }, []);
+
+  useEffect(() => {
+    //load json data into dropdown list for universities and majors
+    if (document.getElementById('schools') !== null) {
+      for (let school of schools) {
+        let option = document.createElement('option');
+        option.text = school['university'];
+        option.value = school['university'];
+        let select = document.getElementById('schools');
+        select.appendChild(option);
+      }
+    }
+
+    if (document.getElementById('majors') !== null) {
+      for (let major of majors) {
+        let option = document.createElement('option');
+        option.text = major['major'];
+        option.value = major['major'];
+        let select = document.getElementById('majors');
+        select.appendChild(option);
+      }
+    }
+  }, [registrationSection]);
 
   useEffect(() => {
     checkRedirect();
