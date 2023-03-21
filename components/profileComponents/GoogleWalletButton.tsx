@@ -25,8 +25,12 @@ export default function GoogleWalletButton({ user, profile }: GoogleWalletButton
       {
         uid: user.id,
         name: `${profile.user.firstName} ${profile.user.lastName}`,
-        studyLevel: profile.studyLevel,
-        color: profile.color,
+        studyLevel: profile.studyLevel
+          .toLowerCase()
+          .split(' ')
+          .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+          .join(' '),
+        color: profile.user.color,
       },
     );
 

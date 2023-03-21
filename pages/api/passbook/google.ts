@@ -59,11 +59,7 @@ async function createUserPass(req: NextApiRequest, res: NextApiResponse) {
       {
         id: 'studyLevel',
         header: 'STUDY LEVEL',
-        body: profileData.studyLevel
-          .toLowerCase()
-          .split(' ')
-          .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-          .join(' '),
+        body: profileData.studyLevel,
       },
       {
         id: 'color',

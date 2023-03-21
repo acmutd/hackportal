@@ -82,6 +82,7 @@ type Registration = {
     permissions: UserPermission[];
     firstName: string;
     lastName: string;
+    color: string;
     /**
      * The email used to contact the user.
      */
