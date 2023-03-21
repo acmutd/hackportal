@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuthContext } from '../lib/user/AuthContext';
 import LoadIcon from '../components/LoadIcon';
 import { getFileExtension } from '../lib/util';
 import QRCode from '../components/dashboardComponents/QRCode';
+import GoogleWalletButton from '../components/profileComponents/GoogleWalletButton';
 
 /**
  * A page that allows a user to modify app or profile settings and see their data.
@@ -80,6 +81,7 @@ export default function ProfilePage() {
               <h1 className="font-bold text-xl text-center">HackPortal</h1> {/* !change */}
               <div className="mx-auto">
                 <QRCode data={'hack:' + user.id} loading={false} width={200} height={200} />
+                <GoogleWalletButton user={user} profile={profile} />
               </div>
               <div>
                 <h1 className="text-center font-bold text-xl">{`${profile.user.firstName} ${profile.user.lastName}`}</h1>

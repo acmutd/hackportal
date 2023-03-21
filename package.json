@@ -41,6 +41,8 @@
     "firebase-admin": "^11.4.1",
     "formik": "^2.2.9",
     "github-slugger": "^1.4.0",
+    "google-auth-library": "^8.7.0",
+    "jsonwebtoken": "^9.0.0",
     "jsqr": "^1.4.0",
     "localforage": "^1.10.0",
     "multer": "^1.4.3",
