@@ -27,10 +27,7 @@ export default function UserAdminView({
           {users.map((user, idx) => (
             <div
               key={user.id}
-              className={`
-                                flex flex-row justify-between px-4 py-2 rounded-md 
-                                border-2 border-gray mb-3
-                            `}
+              className={`flex flex-row justify-between px-4 py-2 rounded-md border-2 border-gray mb-3`}
             >
               <div>{user.user.firstName}</div>
               <div>Accepted</div>

@@ -20,15 +20,8 @@ export default function AllUsersAdminView({
   onUserSelect,
 }: AllUsersAdminViewProps) {
   return (
-    <div
-      className={`
-            px-10 font-light md:font-semibold lg:font-bold text-sm md:text-base
-            h-full
-        `}
-    >
-      {/*
-                Top Bar with Status, Search, and Filters
-            */}
+    <div className={` px-10 font-light md:font-semibold lg:font-bold text-sm md:text-baseh-full`}>
+      {/* Top Bar with Status, Search, and Filters */}
       <div className="flex flex-row justify-between">
         <div className="flex flex-row w-3/4 max-w-6xl">
           {/* Search User */}
@@ -63,21 +56,14 @@ export default function AllUsersAdminView({
         </div>
       </div>
 
-      {/*
-                User Table List
-            */}
+      {/* User Table List */}
       <div
         className="rounded-lg border-2 border-gray mt-5 mb-10 overflow-y-scroll"
         style={{ height: 'calc(100% - 100px)' }}
       >
         {/* Header */}
         <div
-          className={`
-                        flex flex-row border-b-2 border-gray px-6 py-3 
-                        bg-white
-                        justify-between
-                        sticky top-0
-                     `}
+          className={`flex flex-row border-b-2 border-gray px-6 py-3 bg-white justify-between sticky top-0`}
         >
           <div className="w-2/12">Name</div>
           <div className="w-2/12">Status</div>
