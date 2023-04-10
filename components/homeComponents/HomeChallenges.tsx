@@ -140,7 +140,7 @@ export default function HomeChallenges(props: { challenges: Challenge[] }) {
               />
             )}
           </div>
-          <div className="block md:hidden translate-y-4">
+          <div className="block md:hidden translate-y-8">
             <div className="swiper-pagination"></div>
           </div>
         </div>
