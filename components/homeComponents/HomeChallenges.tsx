@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper';
+import { A11y, Navigation, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import HomeChallengeCard from './HomeChallengeCard';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 // This section is hidden if there are no challenges
 export default function HomeChallenges(props: { challenges: Challenge[] }) {
@@ -15,6 +19,7 @@ export default function HomeChallenges(props: { challenges: Challenge[] }) {
     description: '',
     prizes: [],
   });
+  const [showChallengeCard, setShowChallengeCard] = useState(false);
 
   const [windowWidth, setWindowWidth] = useState(0);
 
@@ -40,6 +45,7 @@ export default function HomeChallenges(props: { challenges: Challenge[] }) {
   }, []);
 
   const changeOrg = (challenge, newIdx) => {
+    setShowChallengeCard(true);
     document.getElementById(`org${challengeIdx}`).style.backgroundColor = '#F2F3FF';
     document.getElementById(`org${newIdx}`).style.backgroundColor = 'rgba(123, 129, 255, 0.5)';
 
@@ -64,77 +70,78 @@ export default function HomeChallenges(props: { challenges: Challenge[] }) {
 
   return (
     challenges.length != 0 && (
-      <section className="md:p-12  p-6">
-        <div className="font-bold  md:text-4xl text-2xl my-4 text-complementary">Challenges</div>
-        <div className="flex flex-col justify-center items-center w-full">
-          {/* Challenge Orgs Selectors*/}
-          <div className="w-full">
-            <Swiper
-              navigation={windowWidth > 720 ? true : false}
-              modules={[Navigation]}
-              className="mySwiper"
-              slidesPerView={1}
-              spaceBetween={10}
-              // Responsive breakpoints
-              breakpoints={{
-                // when window width is >= 320px
-                320: {
-                  slidesPerView: 2,
-                  spaceBetween: 20,
-                },
-                // when window width is >= 480px
-                480: {
-                  slidesPerView: 2,
-                  spaceBetween: 20,
-                },
-                620: {
-                  slidesPerView: 3,
-                  spaceBetween: 20,
-                },
-                // when window width is >= 640px
-                840: {
-                  slidesPerView: 3,
-                  spaceBetween: 20,
-                },
-                1024: {
-                  slidesPerView: 3,
-                  spaceBetween: 20,
-                },
-
-                1280: {
-                  slidesPerView: 4,
-                  spaceBetween: 20,
-                },
-              }}
-            >
-              {challenges.map((challenge, idx) => (
-                <SwiperSlide key={idx}>
+      <section className="md:py-12 py-6 xl:w-9/10 w-11/12 m-auto">
+        <div className="font-bold md:text-4xl text-2xl my-4 text-complementary">Challenges</div>
+        {/* Challenge Orgs Selectors*/}
+        <div className="relative mt-4 sm:w-[95%] w-[85%] mx-auto">
+          <Swiper
+            modules={[Navigation, A11y, Pagination]}
+            spaceBetween={10}
+            allowTouchMove={false}
+            // navigation
+            navigation={{
+              prevEl: '.swiper-button-prev',
+              nextEl: '.swiper-button-next',
+            }}
+            pagination={{
+              el: '.swiper-pagination',
+              type: 'bullets',
+            }}
+            // Responsive breakpoints
+            breakpoints={{
+              // when window width is >= 0px
+              0: {
+                slidesPerView: 2,
+              },
+              // when window width is >= 768px
+              768: {
+                spaceBetween: 30,
+                slidesPerView: 3,
+              },
+              // when window width is >= 1536px
+              1290: {
+                spaceBetween: 50,
+                slidesPerView: 4,
+              },
+            }}
+          >
+            {challenges.map((challenge, idx) => (
+              <SwiperSlide key={idx}>
+                <div className="w-full h-full items-center justify-center flex">
                   <div
                     id={`org${idx}`}
-                    className={`${idx} font-bold text-primaryDark p-5 flex align-bottom flex-col items-start justify-end z-10 relative cursor-pointer text-left text-xl w-64 h-48  bg-secondary rounded-lg`}
+                    className={`${idx} font-bold text-primaryDark p-5 flex align-bottom flex-col items-start justify-end z-10 relative cursor-pointer text-left text-xl w-[22rem] 2xl:w-full sm:h-[16rem] h-[14rem] bg-secondary rounded-lg`}
                     key={idx}
                     onClick={() => changeOrg(challenge, idx)}
                   >
-                    {/* change arrow color in global css to match parent selector */}
-                    {/* <div className="arrow-right absolute top-1/2 right-0 -translate-y-1/2 translate-x-full hidden"></div> */}
                     {challenge.organization}
                     <button className=" text-primaryDark rounded-lg mt-1 text-xs">
                       Learn more
                     </button>
                   </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <div className="-translate-x-12 -translate-y-32">
+            <div className="swiper-button-prev" />
           </div>
-
+          <div className="translate-x-12 -translate-y-32">
+            <div className="swiper-button-next" />
+          </div>
           {/* Challenges Description Cards */}
-          <div className="my-4 w-full lg:w-11/12 xl:w-full xl:pl-11 xl:pr-11">
-            <HomeChallengeCard
-              title={challengeData.title}
-              organization={challengeData.organization}
-              description={challengeData.description}
-              prizes={challengeData.prizes}
-            />
+          <div className="my-4">
+            {showChallengeCard && (
+              <HomeChallengeCard
+                title={challengeData.title}
+                organization={challengeData.organization}
+                description={challengeData.description}
+                prizes={challengeData.prizes}
+              />
+            )}
+          </div>
+          <div className="block md:hidden translate-y-8">
+            <div className="swiper-pagination"></div>
           </div>
         </div>
       </section>
