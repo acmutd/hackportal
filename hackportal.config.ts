@@ -1,3 +1,6 @@
+import schools from './public/schools.json';
+import majors from './public/majors.json';
+
 export const hackPortalConfig: HackPortalConfig = {
   //registration fields are separated by question topics (general, school, hackathon experience, etc. )
   //each question topic is separated by question types(textInput, numberInput, dropdown, etc. )
@@ -149,6 +152,10 @@ export const hackPortalConfig: HackPortalConfig = {
             name: 'university',
             required: true,
             datalist: 'schools',
+            options: schools.map(({ university }) => ({
+              title: university,
+              value: university,
+            })),
             initialValue: '',
           },
           {
@@ -158,6 +165,10 @@ export const hackPortalConfig: HackPortalConfig = {
             name: 'major',
             required: true,
             datalist: 'majors',
+            options: majors.map(({ major }) => ({
+              title: major,
+              value: major,
+            })),
             initialValue: '',
           },
         ],
@@ -534,6 +545,10 @@ interface NumberInputQuestion extends RegistrationQuestion {
 
 interface datalistQuestion extends RegistrationQuestion {
   datalist: string;
+  options: Array<{
+    title: string;
+    value: string;
+  }>;
 }
 
 interface textAreaQuestion extends RegistrationQuestion {
