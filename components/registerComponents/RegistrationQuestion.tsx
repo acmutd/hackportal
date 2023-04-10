@@ -113,6 +113,11 @@ function Question(props) {
         ></Field>
         <datalist id={props.question.datalist}>
           <option value="" disabled selected></option>
+          {props.question.options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.title}
+            </option>
+          ))}
         </datalist>
         <ErrorMessage
           name={props.question.name}
