@@ -394,8 +394,12 @@ export default function Register() {
                       type="file"
                       formEncType="multipart/form-data"
                       accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
+                      className="cursor-pointer w-full text-complementary border border-complementary/20 rounded-md file:md:p-2 file:p-1 file:bg-primaryDark file:text-white file:cursor-pointer file:h-full file:rounded-l-md file:border-none"
                     />
                     <br />
+                    <p className="text-xs text-complementary/50">
+                      Accepted file types: .pdf, .doc, .docx, .png, .jpeg, .txt, .tex, .rtf
+                    </p>
                   </div>
                   {/* Submit */}
                   <div className="mt-8 text-white">
