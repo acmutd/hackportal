@@ -2,15 +2,14 @@ import { ResponsivePie } from '@nivo/pie';
 
 interface NivoPieChartProps {
   name: string;
+  totalHackers: number;
   items: Array<{
     id: string;
     value: number;
   }>;
 }
 
-export default function NivoPieChart({ name, items }: NivoPieChartProps) {
-  const total = items.reduce((acc, curr) => acc + curr.value, 0);
-
+export default function NivoPieChart({ name, totalHackers, items }: NivoPieChartProps) {
   return (
     <div style={{ height: 650 }} className="w-full flex-grow border-2 my-2 rounded-2xl p-6">
       <h1 className="text-2xl font-bold text-center">{name}</h1>
@@ -32,7 +31,7 @@ export default function NivoPieChart({ name, items }: NivoPieChartProps) {
             <div className="bg-white p-4 rounded-md">
               <h1 className="text-black">
                 {datum.data.id} - <span className="font-bold">{datum.value}</span> (
-                {((datum.value * 100) / total).toFixed(2)}%)
+                {((datum.value * 100) / totalHackers).toFixed(2)}%)
               </h1>
             </div>
           );

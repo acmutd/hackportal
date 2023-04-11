@@ -105,6 +105,7 @@ export default function AdminStatsPage() {
                     id: k,
                     value: v,
                   }))}
+                  totalHackers={statsData.hackerCount}
                 />
               );
             return (
@@ -124,6 +125,8 @@ export default function AdminStatsPage() {
                     itemName: k,
                     [fieldToName[key]]: v,
                   }))}
+                totalCheckIns={statsData.checkedInCount}
+                totalHackers={statsData.hackerCount}
               />
             );
           })}
