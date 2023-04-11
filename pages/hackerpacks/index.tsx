@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GetStaticProps } from 'next';
 import { NotionAPI } from 'notion-client';
 import hackerpackSettings from '../../components/hackerpackComponents/hackerpack-settings.json';
 import HackerpackDisplay from '../../components/hackerpackComponents/HackerpackDisplay';
+import firebase from 'firebase/app';
+import 'firebase/analytics';
 
 /**
  * The hackerpack page.
@@ -11,6 +13,9 @@ import HackerpackDisplay from '../../components/hackerpackComponents/HackerpackD
  */
 export default function HackerPack(props: { content: any }) {
   // Find the root block because Notion IDs have hyphens
+  useEffect(() => {
+    firebase.analytics().logEvent('access_hackerpack');
+  }, []);
   const rootId =
     hackerpackSettings.mainContent === 'notion'
       ? Object.keys(props.content.block).find(

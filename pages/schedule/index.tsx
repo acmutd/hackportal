@@ -30,6 +30,7 @@ import ClockIcon from '@material-ui/icons/AccessTime';
 import Backpack from '@material-ui/icons/LocalMall';
 import Description from '@material-ui/icons/BorderColor';
 import firebase from 'firebase';
+import 'firebase/analytics';
 
 const styles = ({ palette }: Theme) =>
   createStyles({
@@ -127,6 +128,9 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(
 );
 
 export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
+  useEffect(() => {
+    firebase.analytics().logEvent('access_schedule_page');
+  }, []);
   // Hooks
   const [eventData, setEventData] = useState({
     title: '',

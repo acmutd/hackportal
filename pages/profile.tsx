@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import React, { useRef, useState } from 'react';
+import firebase from 'firebase/app';
+import 'firebase/analytics';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuthContext } from '../lib/user/AuthContext';
 import LoadIcon from '../components/LoadIcon';
 import { getFileExtension } from '../lib/util';
@@ -57,6 +59,9 @@ export default function ProfilePage() {
       }
     });
   };
+  useEffect(() => {
+    firebase.analytics().logEvent('access_profile_page');
+  }, []);
 
   if (!isSignedIn) {
     return <div className="p-4 flex-grow text-center">Sign in to see your profile!</div>;

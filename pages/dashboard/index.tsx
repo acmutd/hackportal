@@ -7,6 +7,7 @@ import AnnouncementCard from '../../components/dashboardComponents/AnnouncementC
 import Sidebar from '../../components/dashboardComponents/Sidebar';
 import firebase from 'firebase';
 import 'firebase/messaging';
+import 'firebase/analytics';
 import { GetServerSideProps } from 'next';
 import { RequestHelper } from '../../lib/request-helper';
 import { useFCMContext } from '../../lib/service-worker/FCMContext';
@@ -42,6 +43,7 @@ export default function Dashboard(props: {
   const [challenges, setChallenges] = useState<Challenge[]>([]);
 
   useEffect(() => {
+    firebase.analytics().logEvent('access_dashboard');
     setAnnouncements(props.announcements);
     // ordering challenges as speficied in firebase
     setChallenges(props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1)));

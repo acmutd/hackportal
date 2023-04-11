@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import firebase from 'firebase/app';
+import 'firebase/analytics';
 import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
 import { RequestHelper } from '../lib/request-helper';
@@ -11,6 +13,7 @@ import HomeChallenges from '../components/homeComponents/HomeChallenges';
 import HomeTeam from '../components/homeComponents/HomeTeam';
 import HomeSponsors from '../components/homeComponents/HomeSponsors';
 import HomeFooter from '../components/homeComponents/HomeFooter';
+import { useAuthContext } from '../lib/user/AuthContext';
 
 /**
  * The home page.
@@ -26,8 +29,10 @@ export default function Home(props: {
   sponsorCard: Sponsor[];
 }) {
   const [loading, setLoading] = useState(true);
+  const { user } = useAuthContext();
 
   useEffect(() => {
+    firebase.analytics().logEvent('access_home_page');
     // Wait for all components to render before showing page
     setLoading(false);
   }, []);

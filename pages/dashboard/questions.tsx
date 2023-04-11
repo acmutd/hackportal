@@ -7,6 +7,8 @@ import { RequestHelper } from '../../lib/request-helper';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { QAReqBody } from '../api/questions';
 import DashboardHeader from '../../components/dashboardComponents/DashboardHeader';
+import firebase from 'firebase/app';
+import 'firebase/analytics';
 /**
  * The Question and Answers page.
  *
@@ -22,6 +24,10 @@ export default function QuestionsPage() {
   const [pendingQuestions, setPendingQuestions] = useState<PendingQuestion[]>([]);
   const [answeredQuestionDisclosureStatus, setAnsweredDisclosureStatus] = useState<boolean[]>([]);
   const { user, isSignedIn, hasProfile } = useAuthContext();
+
+  useEffect(() => {
+    firebase.analytics().logEvent('access_ask_question_page');
+  }, []);
 
   /**
    *

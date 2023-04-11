@@ -6,6 +6,7 @@ import { useUser } from '../lib/profile/user-data';
 import { RequestHelper } from '../lib/request-helper';
 import { useAuthContext } from '../lib/user/AuthContext';
 import firebase from 'firebase/app';
+import 'firebase/analytics';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import schools from '../public/schools.json';
 import majors from '../public/majors.json';
@@ -43,6 +44,7 @@ export default function Register() {
 
   useEffect(() => {
     //setting user specific initial values
+    firebase.analytics().logEvent('access_register_page');
     formInitialValues['id'] = user?.id || '';
     formInitialValues['preferredEmail'] = user?.preferredEmail || '';
     formInitialValues['firstName'] = user?.firstName || '';
