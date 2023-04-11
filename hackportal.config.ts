@@ -511,7 +511,7 @@ export const fieldNames = {
   gender: 'Gender',
   hackathonExperience: 'Number of Hackathon attended',
   heardFrom: 'Heard of Hackathon from',
-  scans: 'Swags', //not part of registration questions, used for scanner
+  scans: 'Scans', //not part of registration questions, used for scanner
   dietary: 'Dietary',
   timestamp: 'Registration Time',
   color: 'Team Color Distribution',
