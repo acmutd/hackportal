@@ -1,104 +1,156 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { RequestHelper } from '../../lib/request-helper';
-import { arrayFields, fieldToName, singleFields } from '../../lib/stats/field';
-import { useAuthContext } from '../../lib/user/AuthContext';
 import { UserData } from '../../pages/api/users';
-import ErrorList from '../ErrorList';
-import LoadIcon from '../LoadIcon';
+import Pagination from './UserAdminPagination';
+
+interface UserIdentifier extends Omit<Registration, 'scans'> {
+  status: String;
+}
 
 interface UserAdminViewProps {
-  users: UserData[];
-  goBack: () => void;
+  users: UserIdentifier[];
   currentUserId: string;
-  updateCurrentUser: (value: Omit<UserData, 'scans'>) => void;
+  goBack: () => void;
+  // updateCurrentUser: (value: Omit<UserIdentifier, 'scans'>) => void;
+  onUserClick: (id: string) => void;
+  onAcceptReject: (status: string) => void;
 }
 
 export default function UserAdminView({
   users,
-  goBack,
   currentUserId,
-  updateCurrentUser,
+  goBack,
+  onUserClick,
+  onAcceptReject,
 }: UserAdminViewProps) {
+  let currentUserIndex = 0;
+  const currentUser = users.find((user, i) => {
+    if (user.id === currentUserId) {
+      currentUserIndex = i;
+      return true;
+    }
+    return false;
+  });
+
+  const user_info = [
+    ['Major', currentUser.major],
+    ['University', currentUser.university],
+    ['Current Level of Study', currentUser.studyLevel],
+    ['Number of Hackathons Attended', currentUser.hackathonExperience],
+    ['Software Experience', currentUser.softwareExperience],
+    ['Resume', currentUser.resume],
+  ];
+
+  // Pagination
+  const ref = useRef(null);
+
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [height, setHeight] = useState(60);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    const handleResize = () => setWindowHeight(window.innerHeight);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const h = Math.max(60, ref.current.offsetHeight);
+    setHeight(h);
+    setCurrentPage(Math.floor(currentUserIndex / Math.floor(h / 60) + 1));
+    console.log(h, currentUserIndex);
+  }, [windowHeight, currentUserIndex]);
+
+  const pageSize = Math.floor(height / 60);
+  const startIndex = (currentPage - 1) * pageSize;
+  // 208 px
   return (
-    <div className="px-10 flex flex-row justify-evenly h-full">
+    <div className="px-14 flex flex-row justify-between h-full">
       {/* User List */}
-      <div className="w-2/12 h-full">
-        <div className="overflow-y-hidden" style={{ height: 'calc(100% - 40px)' }}>
-          {users.map((user, idx) => (
+      <div className="w-52 h-full">
+        {/* Page */}
+        <div className="overflow-y-hidden" style={{ height: 'calc(100% - 40px)' }} ref={ref}>
+          {users.slice(startIndex, startIndex + pageSize).map((user) => (
             <div
               key={user.id}
-              className={`flex flex-row justify-between px-4 py-2 rounded-md border-2 border-gray mb-3`}
+              className={`
+                flex flex-row justify-between items-center px-4 py-2 rounded-md mb-3 h-12
+                border-2 ${user.id === currentUserId ? 'border-primary' : 'border-gray'}
+                cursor-pointer
+              `}
+              onClick={() => onUserClick(user.id)}
             >
-              <div>{user.user.firstName}</div>
-              <div>Accepted</div>
+              <div className="whitespace-nowrap overflow-hidden text-ellipsis max-w-[60%]">
+                {user.user.firstName}
+              </div>
+              <div>{user.status}</div>
             </div>
           ))}
         </div>
-        <div>1 2 3 4 5 6</div>
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalCount={users.length}
+          pageSize={pageSize}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
       </div>
 
       {/* User */}
-      <div className="rounded-lg border-2 border-gray w-9/12">
+      <div className="rounded-lg border-2 border-gray" style={{ width: 'calc(100% - 260px)' }}>
         {/* Header */}
-        <div className="border-b-2 border-gray">Left arrow Right arrow</div>
+        <div className="border-b-2 border-gray flex flex-row justify-between">
+          <div>left right arrow</div>
+          <div onClick={goBack}>Go Back</div>
+        </div>
 
         {/* User Info */}
-        <div className="px-10">
-          <h1>Zach</h1>
+        <div className="p-10">
+          <h1 className="font-bold text-4xl">
+            {pageSize}
+            {currentUser.user.firstName} {currentUser.user.lastName}
+          </h1>
 
           {/* User Status */}
-          <div>
+          <div className="mt-4">
             <div>
-              <h3>Application Status</h3>
-              <div className="flex flex-row justify-between">
-                <div>Pending</div>
+              <h3 className="font-bold">Application Status</h3>
+              <div className="flex flex-row justify-between items-center">
+                <p className="text-lg">{currentUser.status}</p>
 
                 <div className="flex flex-row">
-                  <button>Accept</button>
-                  <button>Reject</button>
+                  <button
+                    className="bg-green-200 text-lg"
+                    onClick={() => onAcceptReject('Accepted')}
+                  >
+                    Accept
+                  </button>
+                  <button className="bg-red-200 text-lg" onClick={() => onAcceptReject('Rejected')}>
+                    Reject
+                  </button>
                 </div>
               </div>
             </div>
 
+            <div className="my-6 w-full border-2 border-secondary rounded-md" />
+
             <div>
-              <h3>Role</h3>
+              <h3 className="font-bold">Role</h3>
               <div className="flex flex-row justify-between">
-                <div>Hacker</div>
-                <button>Edit</button>
+                <p>Hacker</p>
+                <button className="bg-secondary">Edit</button>
               </div>
             </div>
           </div>
 
           {/* Info */}
           <div>
-            <div>
-              <h2>Major</h2>
-              <div>Mathematics</div>
-            </div>
-            <div>
-              <h2>University</h2>
-              <div>The University of Texas at Dallas</div>
-            </div>
-            <div>
-              <h2>Current Level of Study</h2>
-              <div>Sophomore</div>
-            </div>
-            <div>
-              <h2>Number of Hackathons Attended</h2>
-              <div>3</div>
-            </div>
-            <div>
-              <h2>Types of Events Interested In</h2>
-              <div>Tech talks, technical workshops</div>
-            </div>
-            <div>
-              <h2>Other Comments</h2>
-              <div>Mathematics</div>
-            </div>
-            <div>
-              <h2>Resume</h2>
-              <div>Mathematics</div>
-            </div>
+            {user_info.map(([title, desc], id) => (
+              <div key={id} className="mt-5">
+                <h3 className="font-bold">{title}</h3>
+                <p>{desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

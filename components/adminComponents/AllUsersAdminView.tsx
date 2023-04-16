@@ -30,7 +30,7 @@ export default function AllUsersAdminView({
 }: AllUsersAdminViewProps) {
   return (
     <div
-      className={`h-full px-10 font-light md:font-semibold lg:font-bold text-sm md:text-baseh-full`}
+      className={`h-full px-14 font-light md:font-semibold lg:font-bold text-sm md:text-baseh-full`}
     >
       {/* Top Bar with Status, Search, and Filters */}
       <div className="flex flex-row justify-between">
