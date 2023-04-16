@@ -66,7 +66,7 @@ export default function Register() {
         await fetch('/api/resume/upload', {
           method: 'post',
           body: formData,
-        });
+        }).then;
       }
       await RequestHelper.post<Registration, any>('/api/applications', {}, registrationData);
       alert('Registered successfully');

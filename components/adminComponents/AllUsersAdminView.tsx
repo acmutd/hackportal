@@ -3,24 +3,35 @@ import { RequestHelper } from '../../lib/request-helper';
 import { arrayFields, fieldToName, singleFields } from '../../lib/stats/field';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { UserData } from '../../pages/api/users';
+import { HackerStatus } from '../../pages/api/acceptreject';
 import ErrorList from '../ErrorList';
 import LoadIcon from '../LoadIcon';
 import UserList from '../adminComponents/UserList';
 
+interface UserIdentifier extends Omit<Registration, 'scans'> {
+  status: String;
+}
+
 interface AllUsersAdminViewProps {
-  users: UserData[];
+  users: UserIdentifier[];
+  selectedUsers: String[];
 
   onUserClick: (id: string) => void;
   onUserSelect: (id: string) => void;
+  onAcceptReject: (status: string) => void;
 }
 
 export default function AllUsersAdminView({
   users,
+  selectedUsers,
   onUserClick,
   onUserSelect,
+  onAcceptReject,
 }: AllUsersAdminViewProps) {
   return (
-    <div className={` px-10 font-light md:font-semibold lg:font-bold text-sm md:text-baseh-full`}>
+    <div
+      className={`h-full px-10 font-light md:font-semibold lg:font-bold text-sm md:text-baseh-full`}
+    >
       {/* Top Bar with Status, Search, and Filters */}
       <div className="flex flex-row justify-between">
         <div className="flex flex-row w-3/4 max-w-6xl">
@@ -51,8 +62,12 @@ export default function AllUsersAdminView({
 
         {/* Accept Reject buttons */}
         <div className="flex flex-row w-1/4 justify-around max-w-sm">
-          <button>Accept</button>
-          <button>Reject</button>
+          <button className="bg-green-200" onClick={() => onAcceptReject('Accepted')}>
+            Accept
+          </button>
+          <button className="bg-red-200" onClick={() => onAcceptReject('Rejected')}>
+            Reject
+          </button>
         </div>
       </div>
 
@@ -75,6 +90,7 @@ export default function AllUsersAdminView({
         {/* User List */}
         <UserList
           users={users}
+          selectedUsers={selectedUsers}
           onUserClick={(id) => onUserClick(id)}
           onUserSelect={(id) => onUserSelect(id)}
         />

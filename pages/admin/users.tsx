@@ -5,13 +5,16 @@ import AdminHeader from '../../components/adminComponents/AdminHeader';
 import FilterComponent from '../../components/adminComponents/FilterComponent';
 import UserList from '../../components/adminComponents/UserList';
 import { RequestHelper } from '../../lib/request-helper';
-import { UserData } from '../api/users';
+// import { UserData } from '../api/users';
+import { HackerStatus } from '../api/acceptreject';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import UserAdminView from '../../components/adminComponents/UserAdminView';
 import { isAuthorized } from '.';
 import AllUsersAdminView from '../../components/adminComponents/AllUsersAdminView';
 
-type UserIdentifier = Omit<UserData, 'scans'>;
+interface UserIdentifier extends Omit<Registration, 'scans'> {
+  status: String;
+}
 
 /**
  *
@@ -26,6 +29,8 @@ export default function UserPage() {
   const [filteredUsers, setFilteredUsers] = useState<UserIdentifier[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentUser, setCurrentUser] = useState('');
+
+  const [selectedUsers, setSelectedUsers] = useState<String[]>([]);
 
   const { user } = useAuthContext();
 
@@ -43,14 +48,41 @@ export default function UserPage() {
     setLoading(true);
     if (!user) return;
 
-    const { data } = await RequestHelper.get<UserIdentifier[]>('/api/users', {
-      headers: {
-        Authorization: user.token,
-      },
-    });
+    const usersData = (
+      await RequestHelper.get<UserIdentifier[]>('/api/users', {
+        headers: {
+          Authorization: user.token,
+        },
+      })
+    )['data'];
 
-    setUsers(data);
-    setFilteredUsers([...data]);
+    const hackersStatus = (
+      await RequestHelper.get<HackerStatus[]>(`/api/acceptreject?adminId=${user.id}`, {
+        headers: {
+          Authorization: user.token,
+        },
+      })
+    )['data'];
+
+    const accepted = [],
+      rejected = [];
+
+    for (const hackerStatus of hackersStatus) {
+      if (hackerStatus.status === 'Accepted') accepted.push(hackerStatus.hackerId);
+      else if (hackerStatus.status === 'Rejected') rejected.push(hackerStatus.hackerId);
+      else throw 'Unknown status';
+    }
+
+    for (const userData of usersData) {
+      userData.status = accepted.includes(userData.id)
+        ? 'Accepted'
+        : rejected.includes(userData.id)
+        ? 'Rejected'
+        : 'Waiting';
+    }
+
+    setUsers(usersData);
+    setFilteredUsers([...usersData.filter((user) => user.user.permissions.includes('hacker'))]);
     setLoading(false);
   }
 
@@ -58,26 +90,26 @@ export default function UserPage() {
     fetchAllUsers();
   }, []);
 
-  useEffect(() => {
-    if (loading) return;
-    timer = setTimeout(() => {
-      if (searchQuery !== '') {
-        const newFiltered = users.filter(
-          ({ user }) =>
-            `${user.firstName} ${user.lastName}`
-              .toLowerCase()
-              .indexOf(searchQuery.toLowerCase()) !== -1,
-        );
-        setFilteredUsers(newFiltered);
-      } else {
-        setFilteredUsers([...users]);
-      }
-    }, 750);
+  // useEffect(() => {
+  //   if (loading) return;
+  //   timer = setTimeout(() => {
+  //     if (searchQuery !== '') {
+  //       const newFiltered = users.filter(
+  //         ({ user }) =>
+  //           `${user.firstName} ${user.lastName}`
+  //             .toLowerCase()
+  //             .indexOf(searchQuery.toLowerCase()) !== -1,
+  //       );
+  //       setFilteredUsers(newFiltered);
+  //     } else {
+  //       setFilteredUsers([...users]);
+  //     }
+  //   }, 750);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [searchQuery, loading, users]);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [searchQuery, loading, users]);
 
   const updateFilter = (name: string) => {
     const filterCriteria = {
@@ -106,6 +138,46 @@ export default function UserPage() {
     );
   };
 
+  const handleUserSelect = (id) => {
+    if (selectedUsers.includes(id)) {
+      setSelectedUsers([...selectedUsers.filter((v) => v != id)]);
+      return;
+    }
+    setSelectedUsers([...selectedUsers, id]);
+  };
+
+  const postHackersStatus = (status) => {
+    const hackerIds = selectedUsers.filter(
+      (id) => users.find((user) => user.id == id).status !== status,
+    );
+
+    if (hackerIds.length === 0) return;
+
+    fetch('/api/acceptreject', {
+      method: 'post',
+      body: JSON.stringify({
+        adminId: user.id,
+        hackerIds,
+        status,
+      }),
+    }).then((res) => {
+      if (res.status !== 200) {
+        alert('Hackers update failed...');
+        return;
+      }
+      const newUsers = [...users];
+      for (const user of newUsers) {
+        if (hackerIds.includes(user.id)) user.status = status;
+      }
+
+      setUsers(newUsers);
+
+      alert('Hackers update success');
+    });
+
+    setSelectedUsers([]);
+  };
+
   if (!user || !isAuthorized(user))
     return <div className="text-2xl font-black text-center">Unauthorized</div>;
 
@@ -118,7 +190,7 @@ export default function UserPage() {
   }
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow items-center">
       <Head>
         <title>HackPortal - Admin</title> {/* !change */}
         <meta name="description" content="HackPortal's Admin Page" />
@@ -126,23 +198,28 @@ export default function UserPage() {
       <section id="subheader" className="p-2 md:p-4">
         <AdminHeader />
       </section>
-      <div style={{ height: 'calc(100vh - 180px)' }}>
+      <div className="w-full max-w-screen-2xl" style={{ height: 'calc(100vh - 180px)' }}>
         {currentUser === '' ? (
           <AllUsersAdminView
             users={filteredUsers}
-            onUserClick={(id) => setCurrentUser(id)}
-            onUserSelect={(id) => {}}
+            selectedUsers={selectedUsers}
+            onUserClick={(id) => {
+              setSelectedUsers([id]);
+              setCurrentUser(id);
+            }}
+            onUserSelect={(id) => handleUserSelect(id)}
+            onAcceptReject={(status) => postHackersStatus(status)}
           />
         ) : (
           <UserAdminView
             users={filteredUsers}
             currentUserId={currentUser}
-            goBack={() => {
-              setCurrentUser('');
+            goBack={() => setCurrentUser('')}
+            onUserClick={(id) => {
+              setSelectedUsers([id]);
+              setCurrentUser(id);
             }}
-            updateCurrentUser={(value) => {
-              setUsers((prev) => prev.map((obj) => (obj.id === value.id ? { ...value } : obj)));
-            }}
+            onAcceptReject={(status) => postHackersStatus(status)}
           />
         )}
       </div>
