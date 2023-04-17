@@ -7,8 +7,6 @@ import { RequestHelper } from '../lib/request-helper';
 import { useAuthContext } from '../lib/user/AuthContext';
 import firebase from 'firebase/app';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import schools from '../public/schools.json';
-import majors from '../public/majors.json';
 import { hackPortalConfig, formInitialValues } from '../hackportal.config';
 import DisplayQuestion from '../components/registerComponents/DisplayQuestion';
 import { getFileExtension } from '../lib/util';
@@ -53,29 +51,6 @@ export default function Register() {
     formInitialValues['lastName'] = user?.lastName || '';
     formInitialValues['permissions'] = user?.permissions || ['hacker'];
   }, []);
-
-  useEffect(() => {
-    //load json data into dropdown list for universities and majors
-    if (document.getElementById('schools') !== null) {
-      for (let school of schools) {
-        let option = document.createElement('option');
-        option.text = school['university'];
-        option.value = school['university'];
-        let select = document.getElementById('schools');
-        select.appendChild(option);
-      }
-    }
-
-    if (document.getElementById('majors') !== null) {
-      for (let major of majors) {
-        let option = document.createElement('option');
-        option.text = major['major'];
-        option.value = major['major'];
-        let select = document.getElementById('majors');
-        select.appendChild(option);
-      }
-    }
-  }, [registrationSection]);
 
   useEffect(() => {
     checkRedirect();
@@ -287,9 +262,7 @@ export default function Register() {
               {/* General Questions */}
               {registrationSection == 0 && (
                 <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
-                  Please fill out the following fields. The application should take approximately 5
-                  minutes.
-                  <h2 className="sm:text-2xl text-xl font-semibold mt-5 sm:mb-3 mb-1">General</h2>
+                  <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">General</h2>
                   <div className="flex flex-col">
                     {generalQuestions.map((obj, idx) => (
                       <DisplayQuestion
@@ -306,11 +279,7 @@ export default function Register() {
               {/* School Questions */}
               {registrationSection == 1 && (
                 <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
-                  Please fill out the following fields. The application should take approximately 5
-                  minutes.
-                  <h2 className="sm:text-2xl text-xl font-semibold mt-5 sm:mb-3 mb-1">
-                    School Info
-                  </h2>
+                  <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">School Info</h2>
                   <div className="flex flex-col">
                     {schoolQuestions.map((obj, idx) => (
                       <DisplayQuestion
@@ -327,9 +296,7 @@ export default function Register() {
               {/* Hackathon Questions */}
               {registrationSection == 2 && (
                 <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
-                  Please fill out the following fields. The application should take approximately 5
-                  minutes.
-                  <h2 className="sm:text-2xl text-xl font-semibold mt-5 sm:mb-3 mb-1">
+                  <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">
                     Hackathon Experience
                   </h2>
                   <div className="flex flex-col">
@@ -348,11 +315,7 @@ export default function Register() {
               {/* Event Questions */}
               {registrationSection == 3 && (
                 <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
-                  Please fill out the following fields. The application should take approximately 5
-                  minutes.
-                  <h2 className="sm:text-2xl text-xl font-semibold mt-5 sm:mb-3 mb-1">
-                    Event Info
-                  </h2>
+                  <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">Event Info</h2>
                   <div className="flex flex-col">
                     {eventInfoQuestions.map((obj, idx) => (
                       <DisplayQuestion
@@ -369,11 +332,7 @@ export default function Register() {
               {/* Sponsor Questions */}
               {registrationSection == 4 && (
                 <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
-                  Please fill out the following fields. The application should take approximately 5
-                  minutes.
-                  <h2 className="sm:text-2xl text-xl font-semibold mt-5 sm:mb-3 mb-1">
-                    Sponsor Info
-                  </h2>
+                  <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">Sponsor Info</h2>
                   <div className="flex flex-col">
                     {sponsorInfoQuestions.map((obj, idx) => (
                       <DisplayQuestion
