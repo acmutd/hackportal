@@ -128,9 +128,6 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(
 );
 
 export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
-  useEffect(() => {
-    firebase.analytics().logEvent('access_schedule_page');
-  }, []);
   // Hooks
   const [eventData, setEventData] = useState({
     title: '',

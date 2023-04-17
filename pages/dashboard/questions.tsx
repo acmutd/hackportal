@@ -25,10 +25,6 @@ export default function QuestionsPage() {
   const [answeredQuestionDisclosureStatus, setAnsweredDisclosureStatus] = useState<boolean[]>([]);
   const { user, isSignedIn, hasProfile } = useAuthContext();
 
-  useEffect(() => {
-    firebase.analytics().logEvent('access_ask_question_page');
-  }, []);
-
   /**
    *
    * Fetch all answered questions that are asked by current user

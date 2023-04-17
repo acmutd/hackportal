@@ -32,7 +32,6 @@ export default function Home(props: {
   const { user } = useAuthContext();
 
   useEffect(() => {
-    firebase.analytics().logEvent('access_home_page');
     // Wait for all components to render before showing page
     setLoading(false);
   }, []);

@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { AppProps } from 'next/dist/shared/lib/router/router';
 import 'firebase/auth';
 import AppHeader from '../components/AppHeader';
-import { initFirebase } from '../lib/firebase-client';
+import { analytics } from '../lib/firebase-client';
 import { AuthProvider } from '../lib/user/AuthContext';
 import '../styles/globals.css';
 import '../styles/tailwind.css';
@@ -18,8 +18,8 @@ import 'react-notion-x/src/styles.css';
 import 'prismjs/themes/prism-tomorrow.css';
 // used for rendering equations
 import 'katex/dist/katex.min.css';
-
-initFirebase();
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 /**
  * A Wrapper for the HackPortal web app.
@@ -28,6 +28,22 @@ initFirebase();
  * will load into memory and never re-initialize unless the page refreshes.
  */
 function PortalApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      const logEvent = (url: string) => {
+        analytics().setCurrentScreen(url);
+        analytics().logEvent('screen_view');
+      };
+      router.events.on('routeChangeComplete', logEvent);
+      logEvent(window.location.pathname);
+      return () => {
+        router.events.off('routeChangeComplete', logEvent);
+      };
+    }
+  });
+
   return (
     <DndProvider backend={HTML5Backend}>
       <LocalizationProvider dateAdapter={AdapterDateFns}>

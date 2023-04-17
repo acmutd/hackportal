@@ -44,7 +44,6 @@ export default function Register() {
 
   useEffect(() => {
     //setting user specific initial values
-    firebase.analytics().logEvent('access_register_page');
     formInitialValues['id'] = user?.id || '';
     formInitialValues['preferredEmail'] = user?.preferredEmail || '';
     formInitialValues['firstName'] = user?.firstName || '';

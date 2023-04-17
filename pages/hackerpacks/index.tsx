@@ -13,9 +13,6 @@ import 'firebase/analytics';
  */
 export default function HackerPack(props: { content: any }) {
   // Find the root block because Notion IDs have hyphens
-  useEffect(() => {
-    firebase.analytics().logEvent('access_hackerpack');
-  }, []);
   const rootId =
     hackerpackSettings.mainContent === 'notion'
       ? Object.keys(props.content.block).find(
