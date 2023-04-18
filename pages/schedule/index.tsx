@@ -29,8 +29,6 @@ import PinDrop from '@material-ui/icons/PinDrop';
 import ClockIcon from '@material-ui/icons/AccessTime';
 import Backpack from '@material-ui/icons/LocalMall';
 import Description from '@material-ui/icons/BorderColor';
-import firebase from 'firebase';
-import 'firebase/analytics';
 
 const styles = ({ palette }: Theme) =>
   createStyles({

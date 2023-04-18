@@ -7,8 +7,6 @@ import { RequestHelper } from '../../lib/request-helper';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { QAReqBody } from '../api/questions';
 import DashboardHeader from '../../components/dashboardComponents/DashboardHeader';
-import firebase from 'firebase/app';
-import 'firebase/analytics';
 /**
  * The Question and Answers page.
  *

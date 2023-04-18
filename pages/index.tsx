@@ -1,6 +1,4 @@
 import Head from 'next/head';
-import firebase from 'firebase/app';
-import 'firebase/analytics';
 import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
 import { RequestHelper } from '../lib/request-helper';

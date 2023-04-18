@@ -3,8 +3,6 @@ import { GetStaticProps } from 'next';
 import { NotionAPI } from 'notion-client';
 import hackerpackSettings from '../../components/hackerpackComponents/hackerpack-settings.json';
 import HackerpackDisplay from '../../components/hackerpackComponents/HackerpackDisplay';
-import firebase from 'firebase/app';
-import 'firebase/analytics';
 
 /**
  * The hackerpack page.
