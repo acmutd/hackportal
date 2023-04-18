@@ -11,7 +11,6 @@ import HomeChallenges from '../components/homeComponents/HomeChallenges';
 import HomeTeam from '../components/homeComponents/HomeTeam';
 import HomeSponsors from '../components/homeComponents/HomeSponsors';
 import HomeFooter from '../components/homeComponents/HomeFooter';
-import { useAuthContext } from '../lib/user/AuthContext';
 
 /**
  * The home page.
@@ -27,7 +26,6 @@ export default function Home(props: {
   sponsorCard: Sponsor[];
 }) {
   const [loading, setLoading] = useState(true);
-  const { user } = useAuthContext();
 
   useEffect(() => {
     // Wait for all components to render before showing page

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { GetStaticProps } from 'next';
 import { NotionAPI } from 'notion-client';
 import hackerpackSettings from '../../components/hackerpackComponents/hackerpack-settings.json';

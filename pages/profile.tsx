@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useAuthContext } from '../lib/user/AuthContext';
 import LoadIcon from '../components/LoadIcon';
 import { getFileExtension } from '../lib/util';
