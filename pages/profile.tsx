@@ -69,11 +69,19 @@ export default function ProfilePage() {
 
   return (
     <div className="xl:px-36 lg:px-28 sm:px-16 px-10 md:py-16 py-12 ">
-      <div className="flex flex-col md:flex-row gap-x-16">
+      <div className="flex flex-col md:flex-row 2xl:gap-x-48 gap-x-20 2xl:justify-center">
         {/* QR Code */}
         <div className="">
           <div className="bg-secondary rounded-lg p-8 h-min w-min mx-auto">
-            <QRCode data={'hack:' + user.id} loading={false} width={200} height={200} />
+            {/* Dark represents dots, Light represents the background */}
+            <QRCode
+              data={'hack:' + user.id}
+              loading={false}
+              width={200}
+              height={200}
+              darkColor="#05149C"
+              lightColor="#0000"
+            />
           </div>
           <div className="text-[#4C4950] border-y-[1px] border-primaryDark py-4 md:my-8 my-6">
             <div className="font-bold md:text-2xl text-xl">Role</div>
@@ -81,7 +89,7 @@ export default function ProfilePage() {
           </div>
         </div>
         {/* Info */}
-        <div className="w-full text-[#4C4950]">
+        <div className="text-[#4C4950]">
           <h1 className="font-semibold md:text-5xl text-4xl">{`${profile.user.firstName} ${profile.user.lastName}`}</h1>
 
           <div className="font-bold md:text-2xl text-xl mt-6">Major</div>
@@ -95,6 +103,9 @@ export default function ProfilePage() {
 
           <div className="font-bold md:text-2xl text-xl mt-6">Number of Hackathons Attended</div>
           <h1 className="text-xl">{profile.hackathonExperience}</h1>
+
+          <div className="font-bold md:text-2xl text-xl mt-6">Preferred Email</div>
+          <h1 className="text-xl">{profile.user.preferredEmail}</h1>
 
           <div className="my-8">
             {!uploading ? (
