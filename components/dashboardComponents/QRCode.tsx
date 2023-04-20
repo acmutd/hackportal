@@ -23,7 +23,9 @@ export default function QRCode({ data, loading, width, height }: QRCodeProps) {
   useEffect(() => {
     if (!canvas.current) return console.error('Invalid QRCode canvas referenece...');
     if (!data || data === '') return console.warn('No QRCode data found, aborting display...');
-    toCanvas(canvas.current, data, { width });
+    toCanvas(canvas.current, data, { width, color: { dark: '#05149C', light: '#0000' } });
+    // Dark represents dots
+    // Light represents the background
   });
   return !loading ? <canvas ref={canvas} /> : <LoadIcon width={width} height={height} />;
 }
