@@ -35,19 +35,39 @@ export default function AdminHeader() {
 
   return (
     <section className="">
-      <header className="top-0 sticky hidden md:flex flex-row justify-between p-2 md:p-4 items-center">
-        <div className="mx-auto md:flex justify-center md:text-lg lg:text-xl font-header md:text-left">
-          <NavLink href="/admin" exact={true} className="mx-4">
+      <header className="hidden md:flex flex-row justify-center p-2 items-center">
+        <div className=" md:text-base lg:text-xl font-header md:text-left text-complementary font-bold border-b-2 py-2">
+          <NavLink
+            href="/admin"
+            exact={true}
+            activeOptions={'border-b-4 border-primaryDark text-complementaryDark'}
+            className="mr-4 py-2"
+          >
             Event Dashboard
           </NavLink>
-          <NavLink href="/admin/scan" exact={true} className="mx-4">
+          <NavLink
+            href="/admin/scan"
+            exact={true}
+            activeOptions={'border-b-4 border-primaryDark text-complementaryDark'}
+            className="mx-4 py-2"
+          >
             Scanner
           </NavLink>
-          <NavLink href="/admin/users" exact={true} className="mx-4">
+          <NavLink
+            href="/admin/users"
+            exact={true}
+            activeOptions={'border-b-4 border-primaryDark text-complementaryDark'}
+            className="mx-4 py-2"
+          >
             Users Dashboard
           </NavLink>
           {isAuthorized(user) && (
-            <NavLink href="/admin/stats" exact={true} className="mx-4">
+            <NavLink
+              href="/admin/stats"
+              exact={true}
+              activeOptions={'border-b-4 border-primaryDark text-complementaryDark'}
+              className="ml-4 py-2"
+            >
               Stats at a Glance
             </NavLink>
           )}

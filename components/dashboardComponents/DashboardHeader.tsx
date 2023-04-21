@@ -27,12 +27,22 @@ export default function DashboardHeader() {
 
   return (
     <section>
-      <header className="md:inline hidden justify-center py-2 md:p-4 items-center">
-        <div className="mx-auto flex flex-wrap justify-center lg:text-xl text-lg font-header text-center">
-          <NavLink href="/dashboard" exact={true} className="mx-4">
+      <header className="md:flex hidden justify-center my-6 items-center">
+        <div className="lg:text-3xl text-xl text-center text-complementary font-bold border-b-2 py-2">
+          <NavLink
+            href="/dashboard"
+            exact={true}
+            activeOptions={'border-b-4 border-primaryDark text-complementaryDark'}
+            className="xl:mr-6 mr-4 py-2"
+          >
             HackCenter
           </NavLink>
-          <NavLink href="/dashboard/questions" exact={true} className="mx-4">
+          <NavLink
+            href="/dashboard/questions"
+            exact={true}
+            activeOptions={'border-b-4 border-primaryDark text-complementaryDark'}
+            className="xl:ml-6 ml-4 py-2"
+          >
             Ask a Question
           </NavLink>
         </div>

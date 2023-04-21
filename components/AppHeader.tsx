@@ -8,6 +8,7 @@ import { useAuthContext } from '../lib/user/AuthContext';
 import { navItems } from '../lib/data';
 import firebase from 'firebase/app';
 import Image from 'next/image';
+import NavLink from './NavLink';
 
 /**
  * A global site header throughout the entire app.
@@ -73,7 +74,7 @@ export default function AppHeader() {
   return (
     <>
       <div className="min-h-[4rem]"></div>
-      <header className="top-0 fixed justify-between flex flex-row w-full bg-white items-center h-20 z-10 p-4 drop-shadow">
+      <header className="top-0 fixed justify-between flex flex-row w-full bg-white items-center h-20 z-10 lg:px-4 px-2 drop-shadow">
         <div className="flex flex-row order-1 md:order-none items-center">
           {/* Smartphone nav */}
           <div onClick={toggleMenu} className="md:hidden cursor-pointer text-complementary">
@@ -106,13 +107,19 @@ export default function AppHeader() {
         </div>
 
         {/* PC nav */}
-        <div className="hidden text-xs order-2 md:flex flex-center md:text-center lg:ml-12 text-complementary space-x-6 lg:space-x-12">
+        <div className="hidden order-2 md:flex items-center md:text-center lg:ml-12 text-complementary space-x-6 lg:space-x-12 h-full">
           {dynamicNavItems.map((item) => (
-            <Link key={item.text} href={item.path}>
-              <a>
-                <p className="md:mx-4 text-sm font-bold">{item.text}</p>
-              </a>
-            </Link>
+            <NavLink
+              key={item.text}
+              href={item.path}
+              exact={item.text == 'Home' ? true : false}
+              activeOptions={'2xl:border-b-[6px] border-b-4 border-primaryDark'}
+              className="h-full"
+            >
+              <div className="2xl:mx-4 lg:mx-2 md:mx-0 2xl:text-lg text-sm font-bold flex items-center h-full">
+                <p className="my-auto">{item.text}</p>
+              </div>
+            </NavLink>
           ))}
         </div>
         <div className="flex flex-row justify-center items-center order-2 md:order-3">
