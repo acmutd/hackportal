@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import NavLink from '../NavLink';
 import { useAuthContext } from '../../lib/user/AuthContext';
-import { useEffect } from 'react';
+import { useRef, useState } from 'react';
+import { ChevronRightIcon } from '@heroicons/react/solid';
 
 function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;
@@ -13,23 +14,18 @@ function isAuthorized(user): boolean {
  */
 export default function AdminHeader() {
   const { user } = useAuthContext();
+  const accordian = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    accordion();
-  }, []);
-
-  const accordion = () => {
-    var acc = document.getElementsByClassName('accordion');
-    for (let i = 0; i < acc.length; i++) {
-      acc[i].addEventListener('click', function () {
-        this.classList.toggle('menuactive');
-        var panel = this.nextElementSibling;
-        if (panel.style.maxHeight) {
-          panel.style.maxHeight = null;
-        } else {
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-        }
-      });
+  const triggerAccordion = () => {
+    let acc = accordian.current;
+    setIsOpen(!isOpen);
+    acc.classList.toggle('menuactive');
+    var panel = acc.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + 'px';
     }
   };
 
@@ -74,21 +70,36 @@ export default function AdminHeader() {
         </div>
       </header>
       <div className="my-4 md:hidden ">
-        <button className="accordion text-left p-2 text-sm bg-[#C1C8FF]">Admin Menu</button>
-        <div className="panel w-full bg-[#F2F3FF] text-sm">
+        <button
+          ref={accordian}
+          onClick={() => triggerAccordion()}
+          className="accordion text-left p-2 text-sm bg-primaryDark text-secondary flex justify-between relative"
+        >
+          <p>Admin Menu</p>
+          <ChevronRightIcon className={`${isOpen ? 'transform rotate-90' : ''} w-5 h-5`} />
+        </button>
+        <div className="panel w-full bg-secondaryDark text-primaryDark text-sm">
           <ul className="">
-            <li className="p-2 hover:bg-[#DCDEFF]">
-              <Link href="/admin">Event Dashboard</Link>
+            <li className="p-2 hover:bg-secondary cursor-pointer">
+              <Link href="/admin" passHref>
+                <div>Event Dashboard</div>
+              </Link>
+            </li>
+            <li className="p-2 hover:bg-secondary cursor-pointer">
+              <Link href="/admin/scan" passHref>
+                <div>Scanner</div>
+              </Link>
             </li>
             <li className="p-2 hover:bg-[#DCDEFF]">
-              <Link href="/admin/scan">Scanner</Link>
-            </li>
-            <li className="p-2 hover:bg-[#DCDEFF]">
-              <Link href="/admin/users">Users Dashboard</Link>
+              <Link href="/admin/users" passHref>
+                <div>Users Dashboard</div>
+              </Link>
             </li>
             {isAuthorized(user) && (
-              <li className="p-2 hover:bg-[#DCDEFF]">
-                <Link href="/admin/stats">Stats at a Glance</Link>
+              <li className="p-2 hover:bg-secondary cursor-pointer">
+                <Link href="/admin/stats" passHref>
+                  <div>Stats at a Glance</div>
+                </Link>
               </li>
             )}
           </ul>

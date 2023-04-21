@@ -152,7 +152,7 @@ export default function QuestionsPage() {
     );
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow 2xl:px-32 md:px-16 px-6">
       <Head>
         <title>HackPortal - Questions</title> {/* !change */}
         <meta name="description" content="HackPortal's Quesiton and Answer Page " /> {/* !change */}
@@ -165,14 +165,14 @@ export default function QuestionsPage() {
           setErrors(newErrorList);
         }}
       />
-      <div className="px-4">
+      <div className="">
         <DashboardHeader />
       </div>
-      <div className="top-6 p-4 flex flex-col gap-y-3">
-        <h4 className="font-bold text-3xl">Ask the organizers a question!</h4>
+      <div className="lg:mt-12 mt-8 flex flex-col gap-y-3">
+        <h4 className="font-bold text-3xl text-complementary">Ask the organizers a question!</h4>
         <div>
           <textarea
-            className="w-full rounded-xl p-4 bg-secondary"
+            className="w-full rounded-xl p-4 bg-secondary border-transparent focus:border-primaryDark caret-primaryDark"
             rows={5}
             value={currentQuestion}
             onChange={(e) => setCurrentQuestion(e.target.value)}
@@ -181,7 +181,7 @@ export default function QuestionsPage() {
           <div className="flex flex-row justify-end my-4">
             <button
               type="button"
-              className="p-2 rounded-lg bg-primary text-secondary"
+              className="p-2 rounded-lg hover:bg-secondary bg-primaryDark text-secondary hover:text-primaryDark border-[1px] border-transparent hover:border-primaryDark transition duration-300 ease-in-out"
               onClick={() => {
                 submitQuestion();
               }}
@@ -192,7 +192,7 @@ export default function QuestionsPage() {
         </div>
 
         <div>
-          <h4 className="font-bold text-2xl">My Pending Questions</h4>
+          <h4 className="font-bold text-2xl text-complementary">My Pending Questions</h4>
           {user ? (
             pendingQuestions.map(({ question }, idx) => (
               <PendingQuestion key={idx} question={question} />
@@ -203,7 +203,7 @@ export default function QuestionsPage() {
         </div>
 
         <div className="my-4">
-          <h4 className="font-bold text-2xl">My Answered Questions</h4>
+          <h4 className="font-bold text-2xl text-complementary">My Answered Questions</h4>
           {user ? (
             answeredQuestions.map(({ question, answer }, idx) => (
               <AnsweredQuestion

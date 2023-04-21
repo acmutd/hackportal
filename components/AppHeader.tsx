@@ -116,7 +116,7 @@ export default function AppHeader() {
               activeOptions={'2xl:border-b-[6px] border-b-4 border-primaryDark'}
               className="h-full"
             >
-              <div className="2xl:mx-4 lg:mx-2 md:mx-0 2xl:text-lg text-sm font-bold flex items-center h-full">
+              <div className="2xl:mx-4 lg:mx-2 md:mx-0 2xl:text-lg lg:text-base text-sm font-bold flex items-center h-full">
                 <p className="my-auto">{item.text}</p>
               </div>
             </NavLink>
@@ -124,7 +124,7 @@ export default function AppHeader() {
         </div>
         <div className="flex flex-row justify-center items-center order-2 md:order-3">
           <button
-            className="font-header font-bold bg-secondary rounded-full text-primaryDark text-sm px-10 py-1 hover:bg-primaryDark hover:text-secondary transition duration-300 ease-in-out"
+            className="font-header font-bold bg-secondary rounded-full text-primaryDark text-sm xl:px-10 md:px-6 px-10 py-1 hover:bg-primaryDark hover:text-secondary transition duration-300 ease-in-out"
             onClick={toggleDialog}
           >
             {!user || !isSignedIn ? 'Sign in' : hasProfile ? 'Profile' : 'Register'}

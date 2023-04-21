@@ -131,9 +131,6 @@ a.link {
 
 /* Dashboard mobile menu */
 .accordion {
-  cursor: pointer;
-  transition: 0.4s;
-  position: relative;
   width: 12rem;
   -webkit-transition: width 0.15s ease-in-out;
   -moz-transition: width 0.15s ease-in-out;
@@ -150,15 +147,6 @@ a.link {
   transition: max-height 0.2s ease-out;
 }
 
-.accordion:after {
-  content: '\02795';
-  font-size: 12px;
-  float: right;
-}
-
-.menuactive:after {
-  content: '\2796';
-}
 
 .footerIcon {
   transform: scale(1.5);
