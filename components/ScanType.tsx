@@ -15,7 +15,7 @@ export interface ScanTypeProps {
 export default function ScanType({ name, onClick }: ScanTypeProps) {
   return (
     <div
-      className="bg-secondaryDark md:p-4 p-2 rounded-xl cursor-pointer m-3 hover:brightness-[1.15] hover:border-black border-transparent border-2 box-border md:whitespace-normal whitespace-nowrap"
+      className="md:p-4 p-2 cursor-pointer m-3 bg-secondary rounded-lg text-primaryDark hover:bg-primaryDark hover:text-secondary transition duration-300 ease-in-out md:whitespace-normal whitespace-nowrap"
       onClick={onClick}
     >
       <div className="text-center md:text-lg font-bold">{name}</div>

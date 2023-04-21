@@ -248,7 +248,7 @@ export default function Admin() {
           <div className="flex items-center justify-center min-h-screen">
             <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
 
-            <div className="rounded-2xl relative bg-white flex flex-col ljustify-between p-4 max-w-sm mx-auto">
+            <div className="rounded-2xl relative bg-white flex flex-col justify-between p-4 max-w-sm mx-auto">
               <Dialog.Title>
                 Delete <span className="font-bold">{currentScan.name}</span>
               </Dialog.Title>
@@ -262,7 +262,7 @@ export default function Admin() {
 
               <div className="flex flex-row justify-end gap-x-2">
                 <button
-                  className="bg-red-400 rounded-lg p-3 hover:bg-red-300"
+                  className="rounded-lg p-3 text-red-800 bg-red-100 hover:bg-red-200 border border-red-400"
                   onClick={async () => {
                     await deleteScan();
                   }}
@@ -270,7 +270,7 @@ export default function Admin() {
                   Delete
                 </button>
                 <button
-                  className="bg-gray-300 rounded-lg p-3 hover:bg-gray-200"
+                  className="rounded-lg p-3 bg-gray-200 hover:bg-gray-300 border border-gray-500"
                   onClick={() => setShowDeleteScanDialog(false)}
                 >
                   Cancel
@@ -283,7 +283,7 @@ export default function Admin() {
       {showNewScanForm ? (
         <div className="px-6 py-4">
           <button
-            className="p-3 rounded-lg border-2 hover:bg-gray-200"
+            className="p-3 rounded-lg bg-gray-200 hover:bg-gray-300 border border-gray-500"
             onClick={() => {
               setShowNewScanForm(false);
             }}
@@ -293,7 +293,7 @@ export default function Admin() {
           <div className="text-2xl font-black text-center">Add New Scan</div>
           <div className="w-3/5 my-5 mx-auto">
             <input
-              className="p-3 rounded-lg w-full border-2"
+              className="p-3 rounded-lg w-full border-[1px] focus:border-primaryDark"
               type="text"
               name="name"
               value={newScanForm.name}
@@ -323,7 +323,7 @@ export default function Admin() {
           </div>
           <div className="flex justify-around">
             <button
-              className="mx-auto bg-green-300 p-3 rounded-lg font-bold hover:bg-green-200"
+              className="mx-auto p-3 rounded-lg font-bold bg-green-200 hover:bg-green-300 border border-green-800 text-green-900"
               onClick={async () => {
                 await createNewScan();
               }}
@@ -335,7 +335,6 @@ export default function Admin() {
       ) : (
         <>
           <div className="flex flex-col justify-center top-6">
-            <div className="text-2xl font-black text-center">Scan Types</div>
             <div className="flex md:flex-row md:flex-wrap md:justify-center overflow-x-auto mx-2">
               {scansFetched ? (
                 scanTypes.map((d, idx) => (
@@ -381,7 +380,7 @@ export default function Admin() {
                       {scanData ? (
                         <div className="flex m-auto items-center justify-center">
                           <div
-                            className="w-min-5 m-3 rounded-lg text-center text-lg font-black p-3 bg-green-300 cursor-pointer hover:brightness-125"
+                            className="w-min-5 m-3 rounded-lg text-center text-lg font-black p-3 cursor-pointer hover:bg-green-300 border border-green-800 text-green-900"
                             onClick={() => {
                               setScanData(undefined);
                             }}
@@ -389,7 +388,7 @@ export default function Admin() {
                             Next Scan
                           </div>
                           <div
-                            className="w-min-5 m-3 rounded-lg text-center text-lg font-black p-3 bg-green-300 cursor-pointer hover:brightness-125"
+                            className="w-min-5 m-3 rounded-lg text-center text-lg font-black p-3 cursor-pointer hover:bg-green-300 border border-green-800 text-green-900"
                             onClick={() => {
                               setScanData(undefined);
                               setCurrentScan(undefined);
@@ -408,7 +407,7 @@ export default function Admin() {
                       <div className="px-6 py-4">
                         <div className="w-3/5 my-5 mx-auto">
                           <input
-                            className="p-3 rounded-lg w-full border-2"
+                            className="p-3 rounded-lg w-full border-[1px] focus:border-primaryDark"
                             type="text"
                             name="name"
                             value={currentEditScan.name}
@@ -439,7 +438,7 @@ export default function Admin() {
                         <div className="flex justify-around">
                           <div className="flex flex-row gap-x-3">
                             <button
-                              className="bg-green-300 p-3 rounded-lg font-bold hover:bg-green-200"
+                              className="bg-green-200 hover:bg-green-300 border border-green-800 text-green-900 p-3 rounded-lg font-bold"
                               onClick={async () => {
                                 await updateScan();
                               }}
@@ -447,7 +446,7 @@ export default function Admin() {
                               Update Scan Info
                             </button>
                             <button
-                              className="font-bold p-3 rounded-lg bg-gray-300 hover:bg-gray-200"
+                              className="font-bold p-3 rounded-lg text-red-800 bg-red-100 hover:bg-red-200 border border-red-400"
                               onClick={() => {
                                 setEditScan(false);
                               }}
@@ -461,7 +460,7 @@ export default function Admin() {
                   ) : (
                     <div className="mx-auto flex flex-row gap-x-4">
                       <button
-                        className="font-bold bg-green-300 hover:bg-green-200 rounded-lg md:p-3 p-1 px-2"
+                        className="font-bold bg-green-200 hover:bg-green-300 border border-green-800 text-green-900 rounded-lg md:p-3 p-1 px-2"
                         onClick={() => {
                           setStartScan(true);
                         }}
@@ -471,7 +470,7 @@ export default function Admin() {
                       {user.permissions.includes('super_admin') && (
                         <>
                           <button
-                            className="font-bold bg-gray-300 hover:bg-gray-200 rounded-lg md:p-3 p-1 px-2"
+                            className="font-bold bg-gray-200 hover:bg-gray-300 border border-gray-500 rounded-lg md:p-3 p-1 px-2"
                             onClick={() => {
                               if (!user.permissions.includes('super_admin')) {
                                 alert(
@@ -486,7 +485,7 @@ export default function Admin() {
                             Edit
                           </button>
                           <button
-                            className="font-bold bg-red-300 hover:bg-red-200 rounded-lg md:p-3 p-1 px-2"
+                            className="font-bold text-red-800 bg-red-100 hover:bg-red-200 border border-red-400 rounded-lg md:p-3 p-1 px-2"
                             onClick={() => {
                               if (!user.permissions.includes('super_admin')) {
                                 alert(
@@ -506,7 +505,7 @@ export default function Admin() {
                         </>
                       )}
                       <button
-                        className="font-bold bg-red-300 hover:bg-red-200 rounded-lg md:p-3 p-1 px-2"
+                        className="font-bold text-red-800 bg-red-100 hover:bg-red-200 border border-red-400 rounded-lg md:p-3 p-1 px-2"
                         onClick={() => {
                           setCurrentScan(undefined);
                           setCurrentScanIdx(-1);
@@ -527,7 +526,7 @@ export default function Admin() {
               user.permissions.includes('super_admin') && (
                 <div className="mx-auto my-5">
                   <button
-                    className="bg-green-300 p-3 rounded-lg font-bold hover:bg-green-200"
+                    className="py-3 px-4 font-bold rounded-lg hover:bg-secondary bg-primaryDark text-secondary hover:text-primaryDark border-[1px] border-transparent hover:border-primaryDark transition duration-300 ease-in-out"
                     onClick={() => {
                       if (!user.permissions.includes('super_admin')) {
                         alert('You do not have the required permission to use this functionality');
