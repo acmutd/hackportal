@@ -236,8 +236,7 @@ export default function Admin() {
         <title>HackPortal - Admin</title>
         <meta name="description" content="HackPortal's Admin Page" />
       </Head>
-
-      <section id="subheader" className="p-4">
+      <section className="p-4">
         <AdminHeader />
       </section>
       {currentScan && (

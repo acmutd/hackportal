@@ -74,9 +74,11 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
         <title>HackPortal - Admin</title>
         <meta name="description" content="HackPortal's Admin Page" />
       </Head>
-      <AdminHeader />
+      <section className="p-4">
+        <AdminHeader />
+      </section>
       {user.permissions.includes('super_admin') && (
-        <div className="p-6">
+        <div className="2xl:px-32 md:px-16 px-6">
           <ErrorList
             errors={errors}
             onClose={(idx: number) => {
@@ -90,20 +92,20 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
               <SuccessCard msg="Announcement posted successfully" />
             </div>
           )}
-          <h1 className="font-bold text-xl">Post Announcement: </h1>
+          <h1 className="font-bold lg:text-3xl text-2xl text-complementary mb-4">
+            Post Announcement:{' '}
+          </h1>
           <textarea
             value={announcement}
             onChange={(e) => setAnnouncement(e.target.value)}
-            className="w-full rounded-xl p-4"
-            style={{ backgroundColor: '#F2F3FF' }}
+            className="w-full rounded-xl p-4 bg-secondary border-transparent focus:border-primaryDark caret-primaryDark"
             placeholder="Type your announcement here"
             rows={5}
           ></textarea>
           <div className="flex flex-row justify-end my-4">
             <button
               type="button"
-              className="py-2 px-5 rounded-lg font-bold"
-              style={{ backgroundColor: '#9CA6FF', color: 'black' }}
+              className="py-1 px-7 rounded-lg font-medium hover:bg-secondary bg-primaryDark text-secondary hover:text-primaryDark border-[1px] border-transparent hover:border-primaryDark transition duration-300 ease-in-out"
               onClick={() => {
                 postAnnouncement();
               }}
@@ -113,8 +115,8 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
           </div>
         </div>
       )}
-      <div className="p-6">
-        <h1 className="font-bold text-xl">Pending Questions: </h1>
+      <div className="2xl:px-32 md:px-16 px-6">
+        <h1 className="font-bold text-xl text-complementary">Pending Questions: </h1>
         {questions.map((question, idx) => (
           <Link key={idx} passHref href={`/admin/resolve/${question.id}`}>
             <a>
@@ -125,9 +127,9 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
       </div>
 
       {user.permissions[0] === 'super_admin' && (
-        <div className="p-6">
-          <h1 className="font-bold text-xl">Event Details: </h1>
-          <div className="p-4">
+        <div className="2xl:px-32 md:px-16 px-6 mt-8">
+          <h1 className="font-bold text-xl text-complementary">Event Details: </h1>
+          <div className="py-2">
             <EventDetailLink title="View Events" href="/admin/events" />
             <EventDetailLink title="View Challenges" href="/admin/challenges" />
           </div>

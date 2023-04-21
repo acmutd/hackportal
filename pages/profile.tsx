@@ -83,13 +83,13 @@ export default function ProfilePage() {
               lightColor="#0000"
             />
           </div>
-          <div className="text-[#4C4950] border-y-[1px] border-primaryDark py-4 md:my-8 my-6">
+          <div className="text-complementary border-y-[1px] border-primaryDark py-4 md:my-8 my-6">
             <div className="font-bold md:text-2xl text-xl">Role</div>
             <h1 className="md:text-xl text-lg">{profile.user.permissions[0]}</h1>
           </div>
         </div>
         {/* Info */}
-        <div className="text-[#4C4950]">
+        <div className="text-complementary">
           <h1 className="font-semibold md:text-5xl text-4xl">{`${profile.user.firstName} ${profile.user.lastName}`}</h1>
 
           <div className="font-bold md:text-2xl text-xl mt-6">Major</div>
