@@ -196,3 +196,9 @@ a.link {
   background-color: #4C4950 !important;
   opacity: 1;
 }
+
+#popup.show {
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+  transition-delay: 3s;
+}

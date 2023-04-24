@@ -24,7 +24,7 @@ export default function DashboardHeader() {
 
   return (
     <section>
-      <header className="md:flex hidden justify-center item-center">
+      <header className="md:flex hidden justify-center item-center mt-8">
         <div className="lg:text-3xl text-2xl text-center text-complementary font-bold border-b-2 py-2">
           <NavLink
             href="/dashboard"
@@ -44,7 +44,7 @@ export default function DashboardHeader() {
           </NavLink>
         </div>
       </header>
-      <div className="md:hidden">
+      <div className="md:hidden mt-6">
         <button
           ref={accordian}
           onClick={() => triggerAccordion()}

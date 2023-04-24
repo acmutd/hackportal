@@ -152,11 +152,12 @@ export default function QuestionsPage() {
     );
 
   return (
-    <div className="flex flex-col flex-grow 2xl:px-32 md:px-16 px-6">
+    <div className="2xl:px-32 md:px-16 px-6 flex flex-col flex-grow">
       <Head>
         <title>HackPortal - Questions</title> {/* !change */}
         <meta name="description" content="HackPortal's Quesiton and Answer Page " /> {/* !change */}
       </Head>
+      <DashboardHeader />
       <ErrorList
         errors={errors}
         onClose={(idx: number) => {
@@ -165,9 +166,6 @@ export default function QuestionsPage() {
           setErrors(newErrorList);
         }}
       />
-      <div className="">
-        <DashboardHeader />
-      </div>
       <div className="lg:mt-12 mt-8 flex flex-col gap-y-3">
         <h4 className="font-bold text-3xl text-complementary">Ask the organizers a question!</h4>
         <div>
