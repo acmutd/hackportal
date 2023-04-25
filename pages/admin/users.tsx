@@ -9,6 +9,9 @@ import { UserData } from '../api/users';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import UserAdminView from '../../components/adminComponents/UserAdminView';
 import { isAuthorized } from '.';
+import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 type UserIdentifier = Omit<UserData, 'scans'>;
 
@@ -21,11 +24,11 @@ type UserIdentifier = Omit<UserData, 'scans'>;
  */
 export default function UserPage() {
   const [loading, setLoading] = useState(true);
-  const [users, setUsers] = useState<UserIdentifier[]>([]);
-  const [filteredUsers, setFilteredUsers] = useState<UserIdentifier[]>([]);
+  const [users, setUsers] = useState<Registration[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<Registration[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentUser, setCurrentUser] = useState('');
-
+  const [ascending, setAscending] = useState(null);
   const { user } = useAuthContext();
 
   let timer: NodeJS.Timeout;
@@ -42,7 +45,7 @@ export default function UserPage() {
     setLoading(true);
     if (!user) return;
 
-    const { data } = await RequestHelper.get<UserIdentifier[]>('/api/users', {
+    const { data } = await RequestHelper.get<Registration[]>('/api/applications', {
       headers: {
         Authorization: user.token,
       },
@@ -59,7 +62,8 @@ export default function UserPage() {
 
   useEffect(() => {
     if (loading) return;
-    timer = setTimeout(() => {
+
+    let timer = setTimeout(() => {
       if (searchQuery !== '') {
         const newFiltered = users.filter(
           ({ user }) =>
@@ -72,6 +76,7 @@ export default function UserPage() {
         setFilteredUsers([...users]);
       }
     }, 750);
+    setAscending(null);
 
     return () => {
       clearTimeout(timer);
@@ -85,24 +90,31 @@ export default function UserPage() {
     };
     const newFilteredUser = users.filter(({ user }) => {
       for (let category of Object.keys(filterCriteria)) {
-        if (filterCriteria[category] && user.permissions.includes(category)) {
+        if (filterCriteria[category] && user.permissions.includes(category as UserPermission)) {
           return true;
         }
       }
       return false;
     });
+    setAscending(null);
     setFilteredUsers(newFilteredUser);
     setFilter(filterCriteria);
   };
 
   const sortByName = () => {
-    setFilteredUsers((prev) =>
-      [...prev].sort((a, b) => {
-        const nameA = a.user.firstName + ' ' + a.user.lastName;
-        const nameB = b.user.firstName + ' ' + b.user.lastName;
-        return nameA.localeCompare(nameB);
-      }),
-    );
+    if (!ascending) {
+      setFilteredUsers((prev) =>
+        [...prev].sort((a, b) => {
+          const nameA = a.user.firstName + ' ' + a.user.lastName;
+          const nameB = b.user.firstName + ' ' + b.user.lastName;
+          return nameA.localeCompare(nameB);
+        }),
+      );
+      setAscending(true);
+    } else {
+      setFilteredUsers((prev) => [...prev].reverse());
+      setAscending(false);
+    }
   };
 
   if (!user || !isAuthorized(user))
@@ -117,31 +129,33 @@ export default function UserPage() {
   }
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="2xl:px-32 md:px-8 px-4">
       <Head>
         <title>HackPortal - Admin</title> {/* !change */}
         <meta name="description" content="HackPortal's Admin Page" />
       </Head>
-      <section id="subheader" className="p-4">
+      <section id="subheader" className="my-4">
         <AdminHeader />
       </section>
       {currentUser === '' ? (
         <>
-          <div className="top-6 p-2 md:p-4 flex flex-row items-center gap-x-2">
-            <h1 className="font-bold text-lg">Search Users</h1>
+          <div className="flex flex-row items-center gap-x-2 mt-4 2xl:mt-8">
             <input
               type="text"
-              className="rounded-lg px-2 py-1 grow sm:grow-0 sm:w-3/5 md:w-2/5 bg-secondary"
+              className="rounded-lg px-2 py-1 grow sm:grow-0 sm:w-3/5 md:w-2/5 2xl:w-1/3 bg-secondary border-transparent focus:border-primaryDark caret-primaryDark"
+              placeholder="Search Users"
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
               }}
-            />
+            ></input>
           </div>
-          <div className="p-2 md:p-4 flex flex-col md:flex-row w-full">
-            <div className="w-full md:w-1/6 lg:w-1/12 flex flex-col md:gap-y-4">
-              <div className="flex md:inline items-center">
-                <h1 className="text-md font-bold">Filters</h1>
+
+          {/* Filters */}
+          <div className="lg:flex text-complementaryDark lg:gap-x-16 my-4">
+            <div className="flex items-center">
+              <h1 className="text-lg font-semibold md:mr-4">Filters:</h1>
+              <section className="flex gap-x-4">
                 <FilterComponent
                   checked={filter['hacker']}
                   onCheck={() => {
@@ -177,20 +191,31 @@ export default function UserPage() {
                   }}
                   title="Super Admin"
                 />
-              </div>
-              <div className="md:my-4 flex md:inline">
-                <h1 className="text-md font-bold mb-4">Sort By:</h1>
-                <h4
-                  className="text-sm md:text-md underline cursor-pointer mx-4 md:mx-0"
-                  onClick={() => {
-                    sortByName();
-                  }}
-                >
-                  Alphabetically
-                </h4>
-              </div>
+              </section>
             </div>
-            <div className="w-full md:px-8">
+          </div>
+
+          {/* User Table */}
+          <div className="border-2 border-complementary/20 rounded-md flex flex-col 2xl:h-[65vh] md:h-[60vh] h-[65vh]">
+            {/* Titles */}
+            <div className="flex text-complementary 2xl:text-2xl md:text-lg text-base font-bold border-b-2 border-complementary/20 p-3">
+              <div className="lg:basis-[29%] md:basis-[25%] basis-[23%] flex items-center gap-x-1">
+                Name
+                <button className="" onClick={() => sortByName()}>
+                  {ascending == null ? (
+                    <UnfoldMoreIcon />
+                  ) : ascending ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )}
+                </button>
+              </div>
+              <div className="lg:basis-[29%] md:basis-[33%] basis-[35%]">University</div>
+              <div className="lg:basis-[29%] md:basis-[29%] basis-[29%]">Major</div>
+              <div className="lg:basis-[13%] md:basis-[13%] basis-[13%]">Year</div>
+            </div>
+            <div className="h-full overflow-y-scroll">
               <UserList
                 hasAdminPrivilege={
                   user.permissions.includes('super_admin') || user.permissions.includes('admin')

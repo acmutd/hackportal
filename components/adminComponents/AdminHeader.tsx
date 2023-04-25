@@ -55,7 +55,7 @@ export default function AdminHeader() {
             activeOptions={'border-b-4 border-primaryDark text-complementaryDark'}
             className="mx-4 py-2"
           >
-            Users Dashboard
+            User Dashboard
           </NavLink>
           {isAuthorized(user) && (
             <NavLink
@@ -92,7 +92,7 @@ export default function AdminHeader() {
             </li>
             <li className="p-2 hover:bg-[#DCDEFF]">
               <Link href="/admin/users" passHref>
-                <div>Users Dashboard</div>
+                <div>User Dashboard</div>
               </Link>
             </li>
             {isAuthorized(user) && (

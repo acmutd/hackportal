@@ -84,27 +84,35 @@ export default function ProfilePage() {
             />
           </div>
           <div className="text-complementary border-y-[1px] border-primaryDark py-4 md:my-8 my-6">
-            <div className="font-bold md:text-2xl text-xl">Role</div>
+            <div className="font-bold md:text-2xl text-xl text-complementaryDark">Role</div>
             <h1 className="md:text-xl text-lg">{profile.user.permissions[0]}</h1>
           </div>
         </div>
         {/* Info */}
         <div className="text-complementary">
-          <h1 className="font-semibold md:text-5xl text-4xl">{`${profile.user.firstName} ${profile.user.lastName}`}</h1>
+          <h1 className="font-semibold md:text-5xl text-4xl text-complementaryDark">{`${profile.user.firstName} ${profile.user.lastName}`}</h1>
 
-          <div className="font-bold md:text-2xl text-xl mt-6">Major</div>
+          <div className="font-bold md:text-2xl text-xl mt-6 text-complementaryDark">Major</div>
           <h1 className="text-xl">{profile.major}</h1>
 
-          <div className="font-bold md:text-2xl text-xl mt-6">University</div>
+          <div className="font-bold md:text-2xl text-xl mt-6 text-complementaryDark">
+            University
+          </div>
           <h1 className="text-xl">{profile.university}</h1>
 
-          <div className="font-bold md:text-2xl text-xl mt-6">Level of Study</div>
+          <div className="font-bold md:text-2xl text-xl mt-6 text-complementaryDark">
+            Level of Study
+          </div>
           <h1 className="text-xl">{profile.studyLevel}</h1>
 
-          <div className="font-bold md:text-2xl text-xl mt-6">Number of Hackathons Attended</div>
+          <div className="font-bold md:text-2xl text-xl mt-6 text-complementaryDark">
+            Number of Hackathons Attended
+          </div>
           <h1 className="text-xl">{profile.hackathonExperience}</h1>
 
-          <div className="font-bold md:text-2xl text-xl mt-6">Preferred Email</div>
+          <div className="font-bold md:text-2xl text-xl mt-6 text-complementaryDark">
+            Preferred Email
+          </div>
           <h1 className="text-xl">{profile.user.preferredEmail}</h1>
 
           <div className="my-8">
