@@ -39,7 +39,7 @@ export default function AddEventPage() {
     return <div className="text-2xl font-black text-center">Unauthorized</div>;
 
   return (
-    <div className="p-3">
+    <div className="2xl:px-36 md:px-16 px-6">
       <div>
         <EventForm
           onSubmitClick={async (event) => {
@@ -48,7 +48,9 @@ export default function AddEventPage() {
           formAction="Add"
         />
         <Link href="/admin/events">
-          <button className="p-3 bg-gray-200 rounded-lg">Go Back</button>
+          <button className="font-bold bg-gray-200 hover:bg-gray-300 border border-gray-500 rounded-lg md:p-2 p-1 px-2">
+            Go Back
+          </button>
         </Link>
       </div>
     </div>

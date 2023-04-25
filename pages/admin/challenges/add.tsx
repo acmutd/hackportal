@@ -48,7 +48,9 @@ export default function AddChallengePage() {
           formAction="Add"
         />
         <Link href="/admin/challenges">
-          <button className="p-3 bg-gray-200 rounded-lg">Go Back</button>
+          <button className="font-bold bg-gray-200 hover:bg-gray-300 border border-gray-500 rounded-lg md:p-3 p-1 px-2">
+            Go Back
+          </button>
         </Link>
       </div>
     </div>

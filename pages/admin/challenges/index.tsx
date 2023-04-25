@@ -139,10 +139,14 @@ export default function ChallengePage({ challenges_ }: ChallengePageProps) {
           />
           <div className="p-3 flex gap-x-4">
             <Link href={`/admin/challenges/add?id=${nextChallengeIndex}`}>
-              <button className="p-3 bg-green-400 rounded-lg">Add New Challenge</button>
+              <button className="font-bold bg-green-200 hover:bg-green-300 border border-green-800 text-green-900 rounded-lg p-3">
+                Add New Challenge
+              </button>
             </Link>
             <Link href="/admin">
-              <button className="p-3 bg-gray-200 rounded-lg">Go Back</button>
+              <button className="p-3 font-bold bg-gray-200 hover:bg-gray-300 border border-gray-500 rounded-lg">
+                Go Back
+              </button>
             </Link>
             {orderChanged && (
               <button
