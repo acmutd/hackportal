@@ -88,7 +88,7 @@ export default function EventPage({ events_ }: EventPageProps) {
     return <div className="text-2xl font-black text-center">Unauthorized</div>;
 
   return (
-    <div className="2xl:px-36 md:px-16 px-6">
+    <div className="2xl:px-36 md:px-16">
       {currentEventEditIndex !== -1 ? (
         <div>
           <EventForm

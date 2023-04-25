@@ -122,7 +122,7 @@ export default function UserPage() {
         <title>HackPortal - Admin</title> {/* !change */}
         <meta name="description" content="HackPortal's Admin Page" />
       </Head>
-      <section id="subheader" className="p-2 md:p-4">
+      <section id="subheader" className="p-4">
         <AdminHeader />
       </section>
       {currentUser === '' ? (

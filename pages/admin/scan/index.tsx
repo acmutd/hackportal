@@ -334,8 +334,8 @@ export default function Admin() {
         </div>
       ) : (
         <>
-          <div className="flex flex-col justify-center top-6">
-            <div className="flex md:flex-row md:flex-wrap md:justify-center overflow-x-auto mx-2">
+          <div className="flex flex-col justify-center">
+            <div className="grid grid-cols-2 md:flex md:flex-wrap md:justify-center md:h-auto max-h-[26rem] max-w-full overflow-y-auto p-2">
               {scansFetched ? (
                 scanTypes.map((d, idx) => (
                   <ScanType
