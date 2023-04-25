@@ -66,7 +66,7 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
   };
 
   if (!isSignedIn || !isAuthorized(user))
-    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+    return <div className="text-2xl font-black text-center bg-blue-200">Unauthorized</div>;
 
   return (
     <div className="flex flex-col flex-grow">
