@@ -62,7 +62,7 @@
     "rehype-slug": "^5.0.1",
     "remark-gfm": "^3.0.1",
     "swiper": "^7.4.1",
-    "webpack": "^5.51.1"
+    "webpack": "^5.76.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
