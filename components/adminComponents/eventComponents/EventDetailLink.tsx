@@ -9,7 +9,7 @@ interface EventDetailLinkProps {
 export default function EventDetailLink({ title, href }: EventDetailLinkProps) {
   return (
     <Link href={href}>
-      <div className="border-b-2 border-primaryDark py-2 flex flex-row items-center gap-x-2">
+      <div className="border-b-[1px] border-primaryDark/50 py-2 flex flex-row items-center gap-x-2">
         <h1 className="sm:text-lg text-base font-bold hover:cursor-pointer text-primaryDark">
           {title}
         </h1>

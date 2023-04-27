@@ -68,8 +68,8 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="xl:px-36 lg:px-28 sm:px-16 px-10 md:py-16 py-12 ">
-      <div className="flex flex-col md:flex-row 2xl:gap-x-48 gap-x-20 2xl:justify-center">
+    <div className="xl:px-36 lg:px-28 sm:px-16 px-10 md:py-16 py-12 text-complementary">
+      <div className="flex flex-col md:flex-row 2xl:gap-x-32 gap-x-20 2xl:justify-center">
         {/* QR Code */}
         <div className="">
           <div className="bg-secondary rounded-lg p-8 h-min w-min mx-auto">
@@ -83,36 +83,30 @@ export default function ProfilePage() {
               lightColor="#0000"
             />
           </div>
-          <div className="text-complementary border-y-[1px] border-primaryDark py-4 md:my-8 my-6">
-            <div className="font-bold md:text-2xl text-xl text-complementaryDark">Role</div>
-            <h1 className="md:text-xl text-lg">{profile.user.permissions[0]}</h1>
+          <div className="border-y-[1.2px] border-primaryDark/20 py-4 md:my-8 my-6">
+            <div className="font-bold text-lg">Role</div>
+            <h1 className="text-xl">{profile.user.permissions[0]}</h1>
           </div>
         </div>
         {/* Info */}
-        <div className="text-complementary">
-          <h1 className="font-semibold md:text-5xl text-4xl text-complementaryDark">{`${profile.user.firstName} ${profile.user.lastName}`}</h1>
+        <div className="">
+          <h1 className="font-semibold md:text-5xl text-4xl">{`${profile.user.firstName} ${profile.user.lastName}`}</h1>
 
-          <div className="font-bold md:text-2xl text-xl mt-6 text-complementaryDark">Major</div>
+          <div className="font-semibold md:text-2xl text-xl mt-6 mb-1">Major</div>
           <h1 className="text-xl">{profile.major}</h1>
 
-          <div className="font-bold md:text-2xl text-xl mt-6 text-complementaryDark">
-            University
-          </div>
+          <div className="font-semibold md:text-2xl text-xl mt-6 mb-1">University</div>
           <h1 className="text-xl">{profile.university}</h1>
 
-          <div className="font-bold md:text-2xl text-xl mt-6 text-complementaryDark">
-            Level of Study
-          </div>
+          <div className="font-semibold md:text-2xl text-xl mt-6 mb-1">Level of Study</div>
           <h1 className="text-xl">{profile.studyLevel}</h1>
 
-          <div className="font-bold md:text-2xl text-xl mt-6 text-complementaryDark">
+          <div className="font-semibold md:text-2xl text-xl mt-6" mb-1>
             Number of Hackathons Attended
           </div>
           <h1 className="text-xl">{profile.hackathonExperience}</h1>
 
-          <div className="font-bold md:text-2xl text-xl mt-6 text-complementaryDark">
-            Preferred Email
-          </div>
+          <div className="font-semibold md:text-2xl text-xl mt-6 mb-1">Preferred Email</div>
           <h1 className="text-xl">{profile.user.preferredEmail}</h1>
 
           <div className="my-8">

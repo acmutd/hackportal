@@ -25,7 +25,7 @@ export default function DashboardHeader() {
   return (
     <section>
       <header className="md:flex hidden justify-center item-center mt-8">
-        <div className="lg:text-3xl text-2xl text-center text-complementary font-bold border-b-2 py-2">
+        <div className="lg:text-3xl text-2xl text-center text-complementary font-semibold border-b-2 py-2">
           <NavLink
             href="/dashboard"
             exact={true}
