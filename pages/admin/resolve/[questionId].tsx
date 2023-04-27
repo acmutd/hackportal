@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { isAuthorized } from '..';
@@ -7,6 +8,7 @@ import PendingQuestion from '../../../components/dashboardComponents/PendingQues
 import { RequestHelper } from '../../../lib/request-helper';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import { QADocument } from '../../api/questions';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 /**
  * Resolve question page.
@@ -58,6 +60,12 @@ export default function ResolveQuestionPage({
 
   return (
     <div className="py-6 2xl:px-32 md:px-16 px-6">
+      <Link href="/admin" passHref>
+        <div className="cursor-pointer items-center inline-flex text-primaryDark font-bold md:text-lg text-base">
+          <ChevronLeftIcon />
+          return to event dashboard
+        </div>
+      </Link>
       <ErrorList
         errors={errors}
         onClose={(idx: number) => {

@@ -6,6 +6,7 @@ import EventList from '../../../components/adminComponents/eventComponents/Event
 import { RequestHelper } from '../../../lib/request-helper';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import Link from 'next/link';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 interface EventPageProps {
   events_: ScheduleEvent[];
@@ -107,6 +108,14 @@ export default function EventPage({ events_ }: EventPageProps) {
         </div>
       ) : (
         <>
+          <div className="mt-4">
+            <Link href="/admin" passHref>
+              <div className="cursor-pointer items-center inline-flex text-primaryDark font-bold md:text-lg text-base">
+                <ChevronLeftIcon />
+                return to event dashboard
+              </div>
+            </Link>
+          </div>
           <EventList
             onEventEditClick={(eventIndex) => {
               setCurrentEventEditIndex(eventIndex);
@@ -117,15 +126,10 @@ export default function EventPage({ events_ }: EventPageProps) {
             }}
             events={events}
           />
-          <div className="p-3 flex gap-x-4">
+          <div className="p-3">
             <Link href={`/admin/events/add?id=${nextEventIndex}`}>
               <button className="font-bold bg-green-200 hover:bg-green-300 border border-green-800 text-green-900 rounded-lg md:p-3 p-1 px-2">
                 Add New Event
-              </button>
-            </Link>
-            <Link href="/admin">
-              <button className="font-bold bg-gray-200 hover:bg-gray-300 border border-gray-500 rounded-lg md:p-3 p-1 px-2">
-                Go Back
               </button>
             </Link>
           </div>

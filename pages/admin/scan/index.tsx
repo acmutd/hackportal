@@ -7,6 +7,7 @@ import LoadIcon from '../../../components/LoadIcon';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import { isAuthorized } from '..';
 import { RequestHelper } from '../../../lib/request-helper';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { Dialog } from '@headlessui/react';
 
 const successStrings = {
@@ -283,12 +284,13 @@ export default function Admin() {
       {showNewScanForm ? (
         <div className="px-6 py-4">
           <button
-            className="p-3 rounded-lg bg-gray-200 hover:bg-gray-300 border border-gray-500"
+            className="text-primaryDark font-bold md:text-lg text-base flex items-center"
             onClick={() => {
               setShowNewScanForm(false);
             }}
           >
-            Back to ScanTypes List
+            <ChevronLeftIcon />
+            Return to scanner
           </button>
           <div className="text-2xl font-black text-center">Add New Scan</div>
           <div className="w-3/5 my-5 mx-auto">
