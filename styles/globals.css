@@ -202,3 +202,9 @@ a.link {
   font-weight: 600;
   color: #7b81ff;
 }
+
+.swiper-pagination-bullet,
+.swiper-pagination-bullet-tracks {
+  background-color: #4C4950 !important;
+  opacity: 1;
+}
