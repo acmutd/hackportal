@@ -1,3 +1,4 @@
+import { Checkbox } from '@material-ui/core';
 import { UserData } from '../../pages/api/users';
 
 interface UserIdentifier extends Omit<Registration, 'scans'> {
@@ -21,18 +22,14 @@ export default function UserList({
   const userList = [];
 
   users.forEach((user, idx) => {
-    const bgColor = selectedUsers.includes(user.id)
-      ? 'bg-secondary hover:bg-secondary'
-      : idx % 2
-      ? 'bg-white'
-      : 'bg-gray-100';
+    const bgColor = idx % 2 ? 'bg-white' : 'bg-gray-100';
 
     userList.push(
       <div
         key={user.id}
         className={`
           flex flex-row justify-between px-6
-          cursor-pointer hover:bg-gray-200
+          cursor-pointer hover:bg-gray-200 items-center
           ${bgColor}
         `}
         onClick={() => onUserClick(user.id)}
@@ -45,13 +42,15 @@ export default function UserList({
           Year
         */}
         <div
-          className={`flex w-2/12 h-full py-3 pr-6`}
+          className={`flex w-2/12 h-full py-3 pr-6 items-center`}
           onClick={(e) => {
             e.stopPropagation();
             onUserSelect(user.id);
           }}
         >
-          <div>Square</div>
+          <div>
+            <Checkbox checked={user.selected}></Checkbox>
+          </div>
           <div className="whitespace-nowrap overflow-hidden text-ellipsis max-w-[70%]">
             {`${user.user.firstName} ${user.user.lastName}`}
           </div>

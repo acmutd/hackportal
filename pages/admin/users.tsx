@@ -14,6 +14,7 @@ import AllUsersAdminView from '../../components/adminComponents/AllUsersAdminVie
 
 interface UserIdentifier extends Omit<Registration, 'scans'> {
   status: string;
+  selected: boolean;
 }
 
 /**
@@ -79,6 +80,7 @@ export default function UserPage() {
         : rejected.includes(userData.id)
         ? 'Rejected'
         : 'Waiting';
+      userData.selected = false;
     }
 
     setUsers(usersData);
@@ -94,7 +96,6 @@ export default function UserPage() {
     if (loading) return;
     timer = setTimeout(() => {
       if (searchQuery !== '') {
-        console.log(searchQuery);
         const newFiltered = users.filter(
           ({ user }) =>
             `${user.firstName.trim()} ${user.lastName.trim()}`
@@ -139,7 +140,13 @@ export default function UserPage() {
     );
   };
 
-  const handleUserSelect = (id) => {
+  const handleUserSelect = (id: string) => {
+    setUsers((prev) =>
+      prev.map((user) => (user.id === id ? { ...user, selected: !user.selected } : user)),
+    );
+    setFilteredUsers((prev) =>
+      prev.map((user) => (user.id === id ? { ...user, selected: !user.selected } : user)),
+    );
     if (selectedUsers.includes(id)) {
       setSelectedUsers([...selectedUsers.filter((v) => v != id)]);
       return;
