@@ -1,12 +1,12 @@
 import { UserData } from '../../pages/api/users';
 
 interface UserIdentifier extends Omit<Registration, 'scans'> {
-  status: String;
+  status: string;
 }
 
 interface UserListProps {
   users: UserIdentifier[];
-  selectedUsers: String[];
+  selectedUsers: string[];
 
   onUserClick: (id: string) => void;
   onUserSelect: (id: string) => void;
