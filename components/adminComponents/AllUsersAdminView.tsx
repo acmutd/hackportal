@@ -9,16 +9,18 @@ import LoadIcon from '../LoadIcon';
 import UserList from '../adminComponents/UserList';
 
 interface UserIdentifier extends Omit<Registration, 'scans'> {
-  status: String;
+  status: string;
 }
 
 interface AllUsersAdminViewProps {
   users: UserIdentifier[];
-  selectedUsers: String[];
+  selectedUsers: string[];
+  searchQuery: string;
 
   onUserClick: (id: string) => void;
   onUserSelect: (id: string) => void;
   onAcceptReject: (status: string) => void;
+  onSearchQueryUpdate: (searchQuery: string) => void;
 }
 
 export default function AllUsersAdminView({
@@ -27,6 +29,8 @@ export default function AllUsersAdminView({
   onUserClick,
   onUserSelect,
   onAcceptReject,
+  searchQuery,
+  onSearchQueryUpdate,
 }: AllUsersAdminViewProps) {
   return (
     <div
@@ -41,10 +45,10 @@ export default function AllUsersAdminView({
               type="text"
               className="rounded-lg bg-secondary w-full border-none"
               placeholder="Search Users"
-              // value={searchQuery}
-              // onChange={(e) => {
-              //     setSearchQuery(e.target.value);
-              // }}
+              value={searchQuery}
+              onChange={(e) => {
+                onSearchQueryUpdate(e.target.value);
+              }}
             />
           </div>
 

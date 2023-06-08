@@ -13,7 +13,7 @@ import { isAuthorized } from '.';
 import AllUsersAdminView from '../../components/adminComponents/AllUsersAdminView';
 
 interface UserIdentifier extends Omit<Registration, 'scans'> {
-  status: String;
+  status: string;
 }
 
 /**
@@ -30,7 +30,7 @@ export default function UserPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentUser, setCurrentUser] = useState('');
 
-  const [selectedUsers, setSelectedUsers] = useState<String[]>([]);
+  const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
 
   const { user } = useAuthContext();
 
@@ -90,26 +90,27 @@ export default function UserPage() {
     fetchAllUsers();
   }, []);
 
-  // useEffect(() => {
-  //   if (loading) return;
-  //   timer = setTimeout(() => {
-  //     if (searchQuery !== '') {
-  //       const newFiltered = users.filter(
-  //         ({ user }) =>
-  //           `${user.firstName} ${user.lastName}`
-  //             .toLowerCase()
-  //             .indexOf(searchQuery.toLowerCase()) !== -1,
-  //       );
-  //       setFilteredUsers(newFiltered);
-  //     } else {
-  //       setFilteredUsers([...users]);
-  //     }
-  //   }, 750);
+  useEffect(() => {
+    if (loading) return;
+    timer = setTimeout(() => {
+      if (searchQuery !== '') {
+        console.log(searchQuery);
+        const newFiltered = users.filter(
+          ({ user }) =>
+            `${user.firstName.trim()} ${user.lastName.trim()}`
+              .toLowerCase()
+              .indexOf(searchQuery.toLowerCase()) !== -1,
+        );
+        setFilteredUsers(newFiltered);
+      } else {
+        setFilteredUsers([...users]);
+      }
+    }, 750);
 
-  //   return () => {
-  //     clearTimeout(timer);
-  //   };
-  // }, [searchQuery, loading, users]);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchQuery, loading, users]);
 
   const updateFilter = (name: string) => {
     const filterCriteria = {
@@ -117,7 +118,7 @@ export default function UserPage() {
       [name]: !filter[name],
     };
     const newFilteredUser = users.filter(({ user }) => {
-      for (let category of Object.keys(filterCriteria)) {
+      for (let category of Object.keys(filterCriteria) as UserPermission[]) {
         if (filterCriteria[category] && user.permissions.includes(category)) {
           return true;
         }
@@ -209,6 +210,10 @@ export default function UserPage() {
             }}
             onUserSelect={(id) => handleUserSelect(id)}
             onAcceptReject={(status) => postHackersStatus(status)}
+            searchQuery={searchQuery}
+            onSearchQueryUpdate={(searchQuery) => {
+              setSearchQuery(searchQuery);
+            }}
           />
         ) : (
           <UserAdminView
