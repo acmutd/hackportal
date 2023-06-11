@@ -12,11 +12,6 @@ import UserAdminView from '../../components/adminComponents/UserAdminView';
 import { isAuthorized } from '.';
 import AllUsersAdminView from '../../components/adminComponents/AllUsersAdminView';
 
-interface UserIdentifier extends Omit<Registration, 'scans'> {
-  status: string;
-  selected: boolean;
-}
-
 /**
  *
  * The User Dashboard of Admin Console. Shows all users that are registered in the system.

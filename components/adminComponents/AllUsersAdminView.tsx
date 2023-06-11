@@ -9,11 +9,6 @@ import LoadIcon from '../LoadIcon';
 import UserList from '../adminComponents/UserList';
 import { Tab } from '@headlessui/react';
 
-interface UserIdentifier extends Omit<Registration, 'scans'> {
-  status: string;
-  selected: boolean;
-}
-
 interface AllUsersAdminViewProps {
   users: UserIdentifier[];
   selectedUsers: string[];

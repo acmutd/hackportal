@@ -3,10 +3,6 @@ import { RequestHelper } from '../../lib/request-helper';
 import { UserData } from '../../pages/api/users';
 import Pagination from './UserAdminPagination';
 
-interface UserIdentifier extends Omit<Registration, 'scans'> {
-  status: string;
-}
-
 interface UserAdminViewProps {
   users: UserIdentifier[];
   currentUserId: string;

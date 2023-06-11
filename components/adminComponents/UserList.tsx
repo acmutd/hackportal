@@ -1,11 +1,6 @@
 import { Checkbox } from '@material-ui/core';
 import { UserData } from '../../pages/api/users';
 
-interface UserIdentifier extends Omit<Registration, 'scans'> {
-  status: string;
-  selected: boolean;
-}
-
 interface UserListProps {
   users: UserIdentifier[];
   selectedUsers: string[];

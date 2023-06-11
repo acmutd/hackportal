@@ -288,3 +288,8 @@ declare module '*.md' {
   const content: any;
   export default content;
 }
+
+type UserIdentifier = Omit<Registration, 'scans'> & {
+  status: string;
+  selected: boolean;
+};
