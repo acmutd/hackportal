@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { RequestHelper } from '../../lib/request-helper';
 import { UserData } from '../../pages/api/users';
 import Pagination from './UserAdminPagination';
+import { useAuthContext } from '../../lib/user/AuthContext';
 
 interface UserAdminViewProps {
   users: UserIdentifier[];
@@ -10,6 +11,7 @@ interface UserAdminViewProps {
   // updateCurrentUser: (value: Omit<UserIdentifier, 'scans'>) => void;
   onUserClick: (id: string) => void;
   onAcceptReject: (status: string) => void;
+  onUpdateRole: (newRole: UserPermission) => void;
 }
 
 export default function UserAdminView({
@@ -18,6 +20,7 @@ export default function UserAdminView({
   goBack,
   onUserClick,
   onAcceptReject,
+  onUpdateRole,
 }: UserAdminViewProps) {
   let currentUserIndex = 0;
   const currentUser = users.find((user, i) => {
@@ -43,6 +46,12 @@ export default function UserAdminView({
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [height, setHeight] = useState(60);
   const [currentPage, setCurrentPage] = useState(1);
+  const [newRole, setNewRole] = useState('');
+  const [errors, setErrors] = useState<string[]>([]);
+  const [isInEditMode, setIsInEditMode] = useState(false);
+
+  // Contains info of the user who is viewing the data
+  const { user: organizer } = useAuthContext();
 
   useEffect(() => {
     const handleResize = () => setWindowHeight(window.innerHeight);
@@ -56,6 +65,43 @@ export default function UserAdminView({
     setCurrentPage(Math.floor(currentUserIndex / Math.floor(h / 60) + 1));
     console.log(h, currentUserIndex);
   }, [windowHeight, currentUserIndex]);
+
+  const updateRole = async () => {
+    if (!organizer.permissions.includes('super_admin')) {
+      alert('You do not have permission to perform this functionality');
+      return;
+    }
+    try {
+      const { status, data } = await RequestHelper.post<
+        {
+          userId: string;
+          newRole: string;
+        },
+        any
+      >(
+        '/api/users/roles',
+        {
+          headers: {
+            Authorization: organizer.token,
+          },
+        },
+        {
+          userId: currentUser.id,
+          newRole,
+        },
+      );
+      if (!status || data.statusCode >= 400) {
+        setErrors([...errors, data.msg]);
+      } else {
+        alert(data.msg);
+        onUpdateRole(newRole as UserPermission);
+      }
+    } catch (error) {
+      console.error(error);
+      setErrors((prev) => [...prev, 'Unexpected error. Please try again later']);
+    }
+    // TODO: Make request to backend to update user roles
+  };
 
   const pageSize = Math.floor(height / 60);
   const startIndex = (currentPage - 1) * pageSize;
@@ -169,10 +215,65 @@ export default function UserAdminView({
               <div>
                 <h3 className="font-bold">Role</h3>
                 <div className="flex flex-row justify-between">
-                  <p>Hacker</p>
+                  {isInEditMode ? (
+                    <div className="flex flex-col">
+                      <h1>Change the role of this user to: </h1>
+                      <select
+                        value={newRole}
+                        onChange={(e) => {
+                          setNewRole(e.target.value);
+                        }}
+                        name="new_role"
+                        className="border-2 rounded-xl p-2"
+                      >
+                        <option value="" disabled>
+                          Choose a role
+                        </option>
+                        <option value="super_admin">Super Admin</option>
+                        <option value="admin">Admin</option>
+                        <option value="hacker">Hacker</option>
+                      </select>
+                    </div>
+                  ) : (
+                    <p>{currentUser.user.permissions[0]}</p>
+                  )}
                 </div>
               </div>
-              <button className="bg-secondary py-2 px-3 rounded-lg">Edit</button>
+              {organizer.permissions.includes('super_admin') &&
+                (isInEditMode ? (
+                  <div className="flex items-center gap-x-2">
+                    <button
+                      className="bg-secondary py-2 px-3 rounded-lg"
+                      onClick={async () => {
+                        try {
+                          await updateRole();
+                          setNewRole('');
+                          setIsInEditMode(false);
+                        } catch (error) {
+                          alert(error);
+                        }
+                      }}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="bg-secondary py-2 px-3 rounded-lg"
+                      onClick={() => {
+                        setNewRole('');
+                        setIsInEditMode(false);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setIsInEditMode((prev) => !prev)}
+                    className="bg-secondary py-2 px-3 rounded-lg"
+                  >
+                    Edit
+                  </button>
+                ))}
             </div>
           </div>
 

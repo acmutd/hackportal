@@ -227,6 +227,22 @@ export default function UserPage() {
               setCurrentUser(id);
             }}
             onAcceptReject={(status) => postHackersStatus(status)}
+            onUpdateRole={(newRole) => {
+              setUsers((users) =>
+                users.map((user) =>
+                  user.id !== currentUser
+                    ? { ...user }
+                    : { ...user, user: { ...user.user, permissions: [newRole] } },
+                ),
+              );
+              setFilteredUsers((users) =>
+                users.map((user) =>
+                  user.id !== currentUser
+                    ? { ...user }
+                    : { ...user, user: { ...user.user, permissions: [newRole] } },
+                ),
+              );
+            }}
           />
         )}
       </div>
