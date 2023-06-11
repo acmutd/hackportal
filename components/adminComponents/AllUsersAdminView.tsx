@@ -7,9 +7,11 @@ import { HackerStatus } from '../../pages/api/acceptreject';
 import ErrorList from '../ErrorList';
 import LoadIcon from '../LoadIcon';
 import UserList from '../adminComponents/UserList';
+import { Tab } from '@headlessui/react';
 
 interface UserIdentifier extends Omit<Registration, 'scans'> {
   status: string;
+  selected: boolean;
 }
 
 interface AllUsersAdminViewProps {
@@ -58,18 +60,47 @@ export default function AllUsersAdminView({
           </div>
 
           {/* Status (Close Registration / Live Registration) */}
-          <div className="flex flex-row justify-center items-center w-5/12">
+          {/* <div className="flex flex-row justify-center items-center w-5/12">
             <div>Close Registration</div>
             <div>Live Registration</div>
-          </div>
+          </div> */}
+          <Tab.Group
+            onChange={(idx) => {
+              // if idx == 1, then Live Registration
+              // if idx == 0, then Close Registration
+            }}
+          >
+            <Tab.List className="border-2 rounded-2xl">
+              <Tab
+                className={({ selected }) =>
+                  `rounded-2xl ${selected ? 'bg-blue-600 text-white' : ''} p-3`
+                }
+              >
+                Close Registration
+              </Tab>
+              <Tab
+                className={({ selected }) =>
+                  `rounded-2xl ${selected ? 'bg-blue-600 text-white' : ''} p-3`
+                }
+              >
+                Live Registration
+              </Tab>
+            </Tab.List>
+          </Tab.Group>
         </div>
 
         {/* Accept Reject buttons */}
         <div className="flex flex-row w-1/4 justify-around max-w-sm">
-          <button className="bg-green-200" onClick={() => onAcceptReject('Accepted')}>
+          <button
+            className="p-3 w-36 rounded-2xl bg-green-200"
+            onClick={() => onAcceptReject('Accepted')}
+          >
             Accept
           </button>
-          <button className="bg-red-200" onClick={() => onAcceptReject('Rejected')}>
+          <button
+            className="p-3 w-36 rounded-2xl bg-red-200"
+            onClick={() => onAcceptReject('Rejected')}
+          >
             Reject
           </button>
         </div>

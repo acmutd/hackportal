@@ -3,6 +3,7 @@ import { UserData } from '../../pages/api/users';
 
 interface UserIdentifier extends Omit<Registration, 'scans'> {
   status: string;
+  selected: boolean;
 }
 
 interface UserListProps {
@@ -45,11 +46,17 @@ export default function UserList({
           className={`flex w-2/12 h-full py-3 pr-6 items-center`}
           onClick={(e) => {
             e.stopPropagation();
-            onUserSelect(user.id);
+            // onUserSelect(user.id);
           }}
         >
           <div>
-            <Checkbox checked={user.selected}></Checkbox>
+            <Checkbox
+              onChange={(e) => {
+                e.stopPropagation();
+                onUserSelect(user.id);
+              }}
+              checked={user.selected}
+            ></Checkbox>
           </div>
           <div className="whitespace-nowrap overflow-hidden text-ellipsis max-w-[70%]">
             {`${user.user.firstName} ${user.user.lastName}`}

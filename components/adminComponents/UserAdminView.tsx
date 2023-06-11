@@ -97,17 +97,49 @@ export default function UserAdminView({
       </div>
 
       {/* User */}
-      <div className="rounded-lg border-2 border-gray" style={{ width: 'calc(100% - 260px)' }}>
+      <div className="rounded-lg border-2 border-gray p-3" style={{ width: 'calc(100% - 260px)' }}>
         {/* Header */}
-        <div className="border-b-2 border-gray flex flex-row justify-between">
-          <div>left right arrow</div>
-          <div onClick={goBack}>Go Back</div>
+        <div className="border-b-2 border-gray flex flex-row justify-between items-center py-1">
+          <div className="flex items-center gap-x-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </div>
+          <div onClick={goBack}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
         </div>
 
         {/* User Info */}
         <div className="p-10">
           <h1 className="font-bold text-4xl">
-            {pageSize}
             {currentUser.user.firstName} {currentUser.user.lastName}
           </h1>
 
@@ -118,14 +150,17 @@ export default function UserAdminView({
               <div className="flex flex-row justify-between items-center">
                 <p className="text-lg">{currentUser.status}</p>
 
-                <div className="flex flex-row">
+                <div className="flex flex-row gap-x-3">
                   <button
-                    className="bg-green-200 text-lg"
+                    className="bg-green-200 text-lg p-3 rounded-xl"
                     onClick={() => onAcceptReject('Accepted')}
                   >
                     Accept
                   </button>
-                  <button className="bg-red-200 text-lg" onClick={() => onAcceptReject('Rejected')}>
+                  <button
+                    className="bg-red-200 text-lg p-3 rounded-xl"
+                    onClick={() => onAcceptReject('Rejected')}
+                  >
                     Reject
                   </button>
                 </div>
@@ -134,12 +169,14 @@ export default function UserAdminView({
 
             <div className="my-6 w-full border-2 border-secondary rounded-md" />
 
-            <div>
-              <h3 className="font-bold">Role</h3>
-              <div className="flex flex-row justify-between">
-                <p>Hacker</p>
-                <button className="bg-secondary">Edit</button>
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-bold">Role</h3>
+                <div className="flex flex-row justify-between">
+                  <p>Hacker</p>
+                </div>
               </div>
+              <button className="bg-secondary py-2 px-3 rounded-lg">Edit</button>
             </div>
           </div>
 
