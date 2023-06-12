@@ -8,12 +8,14 @@ import ErrorList from '../ErrorList';
 import LoadIcon from '../LoadIcon';
 import UserList from '../adminComponents/UserList';
 import { Tab } from '@headlessui/react';
+import { RegistrationState } from '../../lib/util';
 
 interface AllUsersAdminViewProps {
   users: UserIdentifier[];
   selectedUsers: string[];
   searchQuery: string;
-
+  registrationState: RegistrationState;
+  onUpdateRegistrationState: (newState: RegistrationState) => void;
   onUserClick: (id: string) => void;
   onUserSelect: (id: string) => void;
   onAcceptReject: (status: string) => void;
@@ -28,6 +30,8 @@ export default function AllUsersAdminView({
   onAcceptReject,
   searchQuery,
   onSearchQueryUpdate,
+  registrationState,
+  onUpdateRegistrationState,
 }: AllUsersAdminViewProps) {
   return (
     <div
@@ -60,23 +64,26 @@ export default function AllUsersAdminView({
             <div>Live Registration</div>
           </div> */}
           <Tab.Group
+            selectedIndex={registrationState === RegistrationState.OPEN ? 1 : 0}
+            // manual
             onChange={(idx) => {
-              // if idx == 1, then Live Registration
-              // if idx == 0, then Close Registration
+              onUpdateRegistrationState(
+                idx === 0 ? RegistrationState.CLOSED : RegistrationState.OPEN,
+              );
             }}
           >
             <Tab.List className="border-2 rounded-2xl">
               <Tab
-                className={({ selected }) =>
-                  `rounded-2xl ${selected ? 'bg-blue-600 text-white' : ''} p-3`
-                }
+                className={`rounded-2xl ${
+                  registrationState === RegistrationState.CLOSED ? 'bg-blue-600 text-white' : ''
+                } p-3`}
               >
                 Close Registration
               </Tab>
               <Tab
-                className={({ selected }) =>
-                  `rounded-2xl ${selected ? 'bg-blue-600 text-white' : ''} p-3`
-                }
+                className={`rounded-2xl ${
+                  registrationState === RegistrationState.OPEN ? 'bg-blue-600 text-white' : ''
+                } p-3`}
               >
                 Live Registration
               </Tab>

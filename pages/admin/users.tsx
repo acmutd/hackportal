@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import AdminHeader from '../../components/adminComponents/AdminHeader';
 import FilterComponent from '../../components/adminComponents/FilterComponent';
 import UserList from '../../components/adminComponents/UserList';
@@ -11,6 +11,8 @@ import { useAuthContext } from '../../lib/user/AuthContext';
 import UserAdminView from '../../components/adminComponents/UserAdminView';
 import { isAuthorized } from '.';
 import AllUsersAdminView from '../../components/adminComponents/AllUsersAdminView';
+import { RegistrationState } from '../../lib/util';
+import { Dialog, Transition } from '@headlessui/react';
 
 /**
  *
@@ -25,6 +27,10 @@ export default function UserPage() {
   const [filteredUsers, setFilteredUsers] = useState<UserIdentifier[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentUser, setCurrentUser] = useState('');
+  const [registrationStatus, setRegistrationStatus] = useState(RegistrationState.UNINITIALIZED);
+  const [nextRegistrationStatus, setNextRegistrationStatus] = useState(
+    RegistrationState.UNINITIALIZED,
+  );
 
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
 
@@ -40,12 +46,21 @@ export default function UserPage() {
     super_admin: true,
   });
 
-  async function fetchAllUsers() {
+  async function fetchInitData() {
     setLoading(true);
+    setNextRegistrationStatus(RegistrationState.UNINITIALIZED);
     if (!user) return;
 
     const usersData = (
       await RequestHelper.get<UserIdentifier[]>('/api/users', {
+        headers: {
+          Authorization: user.token,
+        },
+      })
+    )['data'];
+
+    const allowRegistrationState = (
+      await RequestHelper.get<{ allowRegistrations: boolean }>('/api/registrations/status', {
         headers: {
           Authorization: user.token,
         },
@@ -60,6 +75,9 @@ export default function UserPage() {
       })
     )['data'];
 
+    setRegistrationStatus(
+      allowRegistrationState.allowRegistrations ? RegistrationState.OPEN : RegistrationState.CLOSED,
+    );
     const accepted = [],
       rejected = [];
 
@@ -84,7 +102,7 @@ export default function UserPage() {
   }
 
   useEffect(() => {
-    fetchAllUsers();
+    fetchInitData();
   }, []);
 
   useEffect(() => {
@@ -197,6 +215,100 @@ export default function UserPage() {
 
   return (
     <div className="flex flex-col flex-grow items-center">
+      <Transition
+        appear
+        show={
+          nextRegistrationStatus === RegistrationState.OPEN ||
+          nextRegistrationStatus === RegistrationState.CLOSED
+        }
+        as={Fragment}
+      >
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => setNextRegistrationStatus(RegistrationState.UNINITIALIZED)}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                    Update Registration Status
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                      {nextRegistrationStatus === RegistrationState.OPEN
+                        ? 'Are you sure you want to allow registration?'
+                        : 'Are you sure you want to disable registration?'}
+                    </p>
+                  </div>
+
+                  <div className="mt-4 flex gap-x-3">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={async () => {
+                        try {
+                          await RequestHelper.post<
+                            { allowRegistrations: boolean },
+                            { msg: string }
+                          >(
+                            '/api/registrations/toggle',
+                            {
+                              headers: {
+                                'Content-Type': 'application/json',
+                                Authorization: user.token,
+                              },
+                            },
+                            {
+                              allowRegistrations: nextRegistrationStatus === RegistrationState.OPEN,
+                            },
+                          );
+                          alert('Registration state updated successfully');
+                          setRegistrationStatus(nextRegistrationStatus);
+                        } catch (error) {
+                          alert(error);
+                        } finally {
+                          setNextRegistrationStatus(RegistrationState.UNINITIALIZED);
+                        }
+                      }}
+                    >
+                      Confirm
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={() => setNextRegistrationStatus(RegistrationState.UNINITIALIZED)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
       <Head>
         <title>HackPortal - Admin</title> {/* !change */}
         <meta name="description" content="HackPortal's Admin Page" />
@@ -213,12 +325,16 @@ export default function UserPage() {
               setSelectedUsers([id]);
               setCurrentUser(id);
             }}
+            onUpdateRegistrationState={(newState) => {
+              setNextRegistrationStatus(newState);
+            }}
             onUserSelect={(id) => handleUserSelect(id)}
             onAcceptReject={(status) => postHackersStatus(status)}
             searchQuery={searchQuery}
             onSearchQueryUpdate={(searchQuery) => {
               setSearchQuery(searchQuery);
             }}
+            registrationState={registrationStatus}
           />
         ) : (
           <UserAdminView
