@@ -51,14 +51,6 @@ export default function UserPage() {
     setNextRegistrationStatus(RegistrationState.UNINITIALIZED);
     if (!user) return;
 
-    const usersData = (
-      await RequestHelper.get<UserIdentifier[]>('/api/users', {
-        headers: {
-          Authorization: user.token,
-        },
-      })
-    )['data'];
-
     const allowRegistrationState = (
       await RequestHelper.get<{ allowRegistrations: boolean }>('/api/registrations/status', {
         headers: {
@@ -78,23 +70,24 @@ export default function UserPage() {
     setRegistrationStatus(
       allowRegistrationState.allowRegistrations ? RegistrationState.OPEN : RegistrationState.CLOSED,
     );
-    const accepted = [],
-      rejected = [];
+    const hackerStatusMapping: Map<string, string> = new Map();
+    hackersStatus.forEach((hackerStatus) =>
+      hackerStatusMapping.set(hackerStatus.hackerId, hackerStatus.status),
+    );
 
-    for (const hackerStatus of hackersStatus) {
-      if (hackerStatus.status === 'Accepted') accepted.push(hackerStatus.hackerId);
-      else if (hackerStatus.status === 'Rejected') rejected.push(hackerStatus.hackerId);
-      else throw 'Unknown status';
-    }
-
-    for (const userData of usersData) {
-      userData.status = accepted.includes(userData.id)
-        ? 'Accepted'
-        : rejected.includes(userData.id)
-        ? 'Rejected'
-        : 'Waiting';
-      userData.selected = false;
-    }
+    const usersData = (
+      await RequestHelper.get<UserIdentifier[]>('/api/users', {
+        headers: {
+          Authorization: user.token,
+        },
+      })
+    )['data'].map((userData) => ({
+      ...userData,
+      status: hackerStatusMapping.has(userData.id)
+        ? hackerStatusMapping.get(userData.id)
+        : 'Waiting',
+      selected: false,
+    }));
 
     setUsers(usersData);
     setFilteredUsers([...usersData.filter((user) => user.user.permissions.includes('hacker'))]);

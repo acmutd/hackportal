@@ -12,9 +12,9 @@ const db = firestore();
  *
  */
 export interface HackerStatus {
-  adminId: String;
-  hackerId: String;
-  status: String;
+  adminId: string;
+  hackerId: string;
+  status: string;
 }
 
 /**
