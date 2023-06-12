@@ -29,14 +29,14 @@ export interface HackerStatus {
 async function postHackerStatus(req: NextApiRequest, res: NextApiResponse) {
   const { headers } = req;
 
-  //   const userToken = headers['authorization'];
-  //   const isAuthorized = await userIsAuthorized(userToken, ['super_admin']);
+  const userToken = headers['authorization'];
+  const isAuthorized = await userIsAuthorized(userToken, ['super_admin']);
 
-  //   if (!isAuthorized) {
-  //     return res.status(403).json({
-  //       msg: 'Request is not authorized to perform admin functionality.',
-  //     });
-  //   }
+  if (!isAuthorized) {
+    return res.status(403).json({
+      msg: 'Request is not authorized to perform admin functionality.',
+    });
+  }
   const { adminId, hackerIds, status } = JSON.parse(req.body);
 
   const jobs = [];
@@ -89,14 +89,14 @@ async function getAllHackers(req: NextApiRequest, res: NextApiResponse) {
     query: { adminId },
   } = req;
 
-  //   const userToken = headers['authorization']
-  //   const isAuthorized = await userIsAuthorized(userToken, ['super_admin']);
+  const userToken = headers['authorization'];
+  const isAuthorized = await userIsAuthorized(userToken, ['super_admin']);
 
-  //   if (!isAuthorized) {
-  //     return res.status(403).json({
-  //       msg: 'Request is not authorized to perform admin functionality.',
-  //     });
-  //   }
+  if (!isAuthorized) {
+    return res.status(403).json({
+      msg: 'Request is not authorized to perform admin functionality.',
+    });
+  }
 
   const snapshot = await db.collection('acceptreject').where('adminId', '==', adminId).get();
 

@@ -163,6 +163,9 @@ export default function UserPage() {
         hackerIds,
         status,
       }),
+      headers: {
+        Authorization: user.token,
+      },
     }).then((res) => {
       if (res.status !== 200) {
         alert('Hackers update failed...');
