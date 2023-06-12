@@ -16,6 +16,7 @@ currentPage, pageSize, siblingCount
 
 */
 
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import { useMemo } from 'react';
 
 const DOTS = '...';
@@ -85,55 +86,35 @@ export default function Pagination({
   const lastPage = paginationRange[paginationRange.length - 1];
 
   return (
-    <div className="flex">
+    <div className="flex items-center justify-center space-x-1">
       <button
-        className="flex justify-center w-5"
+        className="flex flex-col item-center justify-center w-6 h-6 rounded-full border-2 border-complementary/25"
         disabled={currentPage <= 1}
         onClick={() => onPageChange(currentPage - 1)}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
+        <ChevronLeftIcon className="ml-0.5 w-4 h-4 text-complementary cursor-pointer" />
       </button>
 
       {paginationRange.map((pageNumber, i) => {
         return (
-          <div key={i} className="flex justify-center w-5">
+          <div
+            key={i}
+            className={`flex items-center justify-center w-6 h-6 rounded-full mx-1 cursor-pointer text-sm
+          ${pageNumber === currentPage ? 'bg-primaryDark text-white' : 'text-complementary'}
+          `}
+            onClick={() => onPageChange(pageNumber)}
+          >
             {pageNumber}
           </div>
         );
       })}
 
       <button
-        className="flex justify-center w-5"
+        className="flex flex-col item-center justify-center w-6 h-6 rounded-full border-2 border-complementary/25"
         disabled={currentPage >= lastPage}
         onClick={() => onPageChange(currentPage + 1)}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
+        <ChevronRightIcon className="ml-0.5 w-4 h-4 text-complementary cursor-pointer" />
       </button>
     </div>
   );

@@ -3,6 +3,7 @@ import { RequestHelper } from '../../lib/request-helper';
 import { UserData } from '../../pages/api/users';
 import Pagination from './UserAdminPagination';
 import { useAuthContext } from '../../lib/user/AuthContext';
+import { CheckIcon, ChevronLeftIcon, ChevronRightIcon, XIcon } from '@heroicons/react/solid';
 
 interface UserAdminViewProps {
   users: UserIdentifier[];
@@ -109,23 +110,37 @@ export default function UserAdminView({
   return (
     <div className="px-14 flex flex-row justify-between h-full">
       {/* User List */}
-      <div className="w-52 h-full">
+      <div className="w-72">
         {/* Page */}
-        <div className="overflow-y-hidden" style={{ height: 'calc(100% - 40px)' }} ref={ref}>
+        <div className="overflow-y-hidden h-[calc(100%-40px)]" ref={ref}>
           {users.slice(startIndex, startIndex + pageSize).map((user) => (
             <div
               key={user.id}
               className={`
-                flex flex-row justify-between items-center px-4 py-2 rounded-md mb-3 h-12
-                border-2 ${user.id === currentUserId ? 'border-primary' : 'border-gray'}
+                flex flex-row justify-between items-center w-full py-2 rounded-md mb-3 h-12 p-4
+                shadow-md ${
+                  user.id === currentUserId
+                    ? 'border-primaryDark border-[3px]'
+                    : 'border-complementary/25  border-[1px]'
+                }
                 cursor-pointer
               `}
               onClick={() => onUserClick(user.id)}
             >
-              <div className="whitespace-nowrap overflow-hidden text-ellipsis max-w-[60%]">
+              <div className="text-complementary text-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis max-w-[60%]">
                 {user.user.firstName}
               </div>
-              <div>{user.status}</div>
+              <div
+                className={`py-0.6 px-6 rounded-md  ${
+                  user.status === 'Accepted'
+                    ? 'text-[#409019] bg-[#84DF58]/25'
+                    : 'text-[#872852] bg-[#EA609C]/25'
+                } ${user.status === 'Rejected' ? 'text-[#872852] bg-[#EA609C]/25' : ''}
+                  ${user.status === 'Waiting' ? 'text-[#F59E0B] bg-[#FDE68A]/25' : ''}
+                  `}
+              >
+                {user.status}
+              </div>
             </div>
           ))}
         </div>
@@ -139,71 +154,59 @@ export default function UserAdminView({
       </div>
 
       {/* User */}
-      <div className="rounded-lg border-2 border-gray p-3" style={{ width: 'calc(100% - 260px)' }}>
+      <div className="rounded-lg border-2 border-gray p-3 h-full overflow-y-scroll w-[calc(100%-300px)]">
         {/* Header */}
-        <div className="border-b-2 border-gray flex flex-row justify-between items-center py-1">
+        <div className="border-b-2 border-gray flex flex-row justify-between items-center py-1 text-complementary">
           <div className="flex items-center gap-x-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-            </svg>
-
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
+            <ChevronLeftIcon
+              className="h-6 w-6 cursor-pointer"
+              onClick={() => onUserClick(users[currentUserIndex - 1]?.id || '')}
+            />
+            <ChevronRightIcon
+              className="h-6 w-6 cursor-pointer"
+              onClick={() => onUserClick(users[currentUserIndex + 1]?.id || '')}
+            />
           </div>
           <div onClick={goBack}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <XIcon className="h-6 w-6 cursor-pointer" />
           </div>
         </div>
 
         {/* User Info */}
-        <div className="p-10">
-          <h1 className="font-bold text-4xl">
+        <div className="p-10 text-complementary h-full">
+          <h1 className="font-bold text-5xl">
             {currentUser.user.firstName} {currentUser.user.lastName}
           </h1>
 
           {/* User Status */}
           <div className="mt-4">
             <div>
-              <h3 className="font-bold">Application Status</h3>
-              <div className="flex flex-row justify-between items-center">
-                <p className="text-lg">{currentUser.status}</p>
+              <h3 className="font-bold text-lg">Application Status</h3>
+              <div className="mt-4 flex flex-row justify-between items-center">
+                <p
+                  className={`ext-lg font-bold py-1 px-6 rounded-md ${
+                    currentUser.status === 'Accepted'
+                      ? 'text-[#409019] bg-[#84DF58]/25'
+                      : 'text-[#872852] bg-[#EA609C]/25'
+                  } ${currentUser.status === 'Rejected' ? 'text-[#872852] bg-[#EA609C]/25' : ''}
+                  ${currentUser.status === 'Waiting' ? 'text-[#F59E0B] bg-[#FDE68A]/25' : ''}
+                  `}
+                >
+                  {currentUser.status}
+                </p>
 
                 <div className="flex flex-row gap-x-3">
                   <button
-                    className="bg-green-200 text-lg p-3 rounded-xl"
-                    onClick={() => onAcceptReject('Accepted')}
-                  >
-                    Accept
-                  </button>
-                  <button
-                    className="bg-red-200 text-lg p-3 rounded-xl"
+                    className="flex flex-row bg-secondary text-primaryDark text-lg font-bold py-2 px-8 rounded-md"
                     onClick={() => onAcceptReject('Rejected')}
                   >
-                    Reject
+                    <XIcon className="w-6 h-6 mr-1 mt-0.5" /> Reject
+                  </button>
+                  <button
+                    className="flex flex-row bg-primaryDark text-secondary text-lg font-bold py-2 px-8 rounded-md"
+                    onClick={() => onAcceptReject('Accepted')}
+                  >
+                    <CheckIcon className="w-6 h-6 mr-1 mt-0.5" /> Accept
                   </button>
                 </div>
               </div>
@@ -243,7 +246,7 @@ export default function UserAdminView({
                 (isInEditMode ? (
                   <div className="flex items-center gap-x-2">
                     <button
-                      className="bg-secondary py-2 px-3 rounded-lg"
+                      className="bg-secondary text-primaryDark py-2 px-6 rounded-full"
                       onClick={async () => {
                         try {
                           await updateRole();
@@ -257,7 +260,7 @@ export default function UserAdminView({
                       Update
                     </button>
                     <button
-                      className="bg-secondary py-2 px-3 rounded-lg"
+                      className="bg-secondary text-primaryDark py-2 px-6 rounded-full"
                       onClick={() => {
                         setNewRole('');
                         setIsInEditMode(false);
@@ -269,7 +272,7 @@ export default function UserAdminView({
                 ) : (
                   <button
                     onClick={() => setIsInEditMode((prev) => !prev)}
-                    className="bg-secondary py-2 px-3 rounded-lg"
+                    className="bg-secondary text-primaryDark py-2 px-6 rounded-full"
                   >
                     Edit
                   </button>
