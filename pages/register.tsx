@@ -6,11 +6,12 @@ import { useUser } from '../lib/profile/user-data';
 import { RequestHelper } from '../lib/request-helper';
 import { useAuthContext } from '../lib/user/AuthContext';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import schools from '../public/schools.json';
-import majors from '../public/majors.json';
 import { hackPortalConfig, formInitialValues } from '../hackportal.config';
 import DisplayQuestion from '../components/registerComponents/DisplayQuestion';
 import { getFileExtension } from '../lib/util';
+import Link from 'next/link';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 /**
  * The registration page.
@@ -35,6 +36,7 @@ export default function Register() {
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(true);
   const [formValid, setFormValid] = useState(true);
+  const [registrationSection, setRegistrationSection] = useState(0);
   const checkRedirect = async () => {
     if (hasProfile) router.push('/profile');
     else setLoading(false);
@@ -44,7 +46,7 @@ export default function Register() {
     //setting user specific initial values
     formInitialValues['id'] = user?.id || '';
     formInitialValues['preferredEmail'] = user?.preferredEmail || '';
-    formInitialValues['firstName'] = user?.firstName || '';
+    formInitialValues['firstName'] = user?.firstName?.split(' ')[0] || '';
     formInitialValues['lastName'] = user?.lastName || '';
     formInitialValues['permissions'] = user?.permissions || ['hacker'];
   }, []);
@@ -160,26 +162,28 @@ export default function Register() {
   };
 
   return (
-    <div className="flex flex-col flex-grow bg-white">
+    <div className="flex flex-col flex-grow bg-secondary">
       <Head>
         <title>Hacker Registration</title>
         <meta name="description" content="Register for [HACKATHON NAME]" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <section id="jumbotron" className="p-2 px-6">
-        <div className="max-w-4xl py-6 mx-auto flex flex-col items-center">
-          <div className="registrationTitle text-4xl font-bold text-center">
-            Hacker Registration
+      <section className="pt-4 pl-4">
+        <Link href="/" passHref>
+          <div className="cursor-pointer items-center inline-flex text-primaryDark font-semibold sm:text-lg">
+            <ChevronLeftIcon />
+            return to event site
           </div>
-          <div className="text-1xl my-4 font-bold font-small text-center">
-            Please fill out the following fields. The application should take approximately 5
-            minutes.
-          </div>
-        </div>
+        </Link>
+      </section>
+      <section
+        id="jumbotron"
+        className="text-primaryDark lg:text-4xl sm:text-3xl text-2xl font-bold text-center lg:mt-0 mt-6 mb-6"
+      >
+        HackPortal Hacker Registration
       </section>
 
-      <section className="flex justify-center">
+      <section className="relative">
         <Formik
           initialValues={formInitialValues}
           //validation
@@ -252,65 +256,162 @@ export default function Register() {
             <Form
               onKeyDown={onKeyDown}
               noValidate
-              className="registrationForm flex flex-col max-w-4xl px-6 w-[56rem] text-lg"
+              className="registrationForm px-6 w-full sm:text-base text-sm"
             >
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">General</div>
-              {generalQuestions.map((obj, idx) => (
-                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-              ))}
+              {/* General Questions */}
+              {registrationSection == 0 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
+                  <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">General</h2>
+                  <div className="flex flex-col">
+                    {generalQuestions.map((obj, idx) => (
+                      <DisplayQuestion
+                        key={idx}
+                        obj={obj}
+                        values={values}
+                        onChange={handleChange}
+                      />
+                    ))}
+                  </div>
+                </section>
+              )}
 
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">School Info</div>
-              {schoolQuestions.map((obj, idx) => (
-                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-              ))}
+              {/* School Questions */}
+              {registrationSection == 1 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
+                  <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">School Info</h2>
+                  <div className="flex flex-col">
+                    {schoolQuestions.map((obj, idx) => (
+                      <DisplayQuestion
+                        key={idx}
+                        obj={obj}
+                        values={values}
+                        onChange={handleChange}
+                      />
+                    ))}
+                  </div>
+                </section>
+              )}
 
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">
-                Hackathon Experience
-              </div>
-              {hackathonExperienceQuestions.map((obj, idx) => (
-                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-              ))}
+              {/* Hackathon Questions */}
+              {registrationSection == 2 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
+                  <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">
+                    Hackathon Experience
+                  </h2>
+                  <div className="flex flex-col">
+                    {hackathonExperienceQuestions.map((obj, idx) => (
+                      <DisplayQuestion
+                        key={idx}
+                        obj={obj}
+                        values={values}
+                        onChange={handleChange}
+                      />
+                    ))}
+                  </div>
+                </section>
+              )}
 
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">Event Info</div>
-              {eventInfoQuestions.map((obj, idx) => (
-                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-              ))}
+              {/* Event Questions */}
+              {registrationSection == 3 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
+                  <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">Event Info</h2>
+                  <div className="flex flex-col">
+                    {eventInfoQuestions.map((obj, idx) => (
+                      <DisplayQuestion
+                        key={idx}
+                        obj={obj}
+                        values={values}
+                        onChange={handleChange}
+                      />
+                    ))}
+                  </div>
+                </section>
+              )}
 
-              <div className="text-2xl py-1 border-b-2 border-black mr-auto mt-8">Sponsor Info</div>
-              {sponsorInfoQuestions.map((obj, idx) => (
-                <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
-              ))}
-
-              {/* Resume Upload */}
-              <label className="mt-4">
-                Upload your resume:
-                <br />
-                <input
-                  onChange={(e) => handleResumeFileChange(e)}
-                  name="resume"
-                  type="file"
-                  formEncType="multipart/form-data"
-                  accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
-                />
-                <br />
-              </label>
-
-              {/* Submit */}
-              <div className="my-8">
-                <button
-                  type="submit"
-                  className="mr-auto cursor-pointer px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-300"
-                  onClick={() => setFormValid(!(!isValid || !dirty))}
-                >
-                  Submit
-                </button>
-                {!isValid && !formValid && (
-                  <div className="text-red-600">Error: The form has invalid fields</div>
-                )}
-              </div>
+              {/* Sponsor Questions */}
+              {registrationSection == 4 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
+                  <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">Sponsor Info</h2>
+                  <div className="flex flex-col">
+                    {sponsorInfoQuestions.map((obj, idx) => (
+                      <DisplayQuestion
+                        key={idx}
+                        obj={obj}
+                        values={values}
+                        onChange={handleChange}
+                      />
+                    ))}
+                  </div>
+                  {/* Resume Upload */}
+                  <div className=" mt-8">
+                    Upload your resume:
+                    <br />
+                    <input
+                      onChange={(e) => handleResumeFileChange(e)}
+                      name="resume"
+                      type="file"
+                      formEncType="multipart/form-data"
+                      accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
+                      className="cursor-pointer w-full text-complementary border border-complementary/20 rounded-md file:md:p-2 file:p-1 file:bg-primaryDark file:text-white file:cursor-pointer file:h-full file:rounded-l-md file:border-none"
+                    />
+                    <br />
+                    <p className="text-xs text-complementary/50">
+                      Accepted file types: .pdf, .doc, .docx, .png, .jpeg, .txt, .tex, .rtf
+                    </p>
+                  </div>
+                  {/* Submit */}
+                  <div className="mt-8 text-white">
+                    <button
+                      type="submit"
+                      className="mr-auto cursor-pointer px-4 py-2 rounded-lg bg-primaryDark hover:brightness-90"
+                      onClick={() => setFormValid(!(!isValid || !dirty))}
+                    >
+                      Submit
+                    </button>
+                    {!isValid && !formValid && (
+                      <div className="text-red-600">Error: The form has invalid fields</div>
+                    )}
+                  </div>
+                </section>
+              )}
             </Form>
           )}
         </Formik>
+
+        {/* Pagniation buttons */}
+        <section
+          className={`lg:block flex ${
+            registrationSection == 0
+              ? 'justify-end'
+              : registrationSection >= 4
+              ? 'justify-start'
+              : 'justify-between'
+          } lg:pb-0 pb-8 lg:px-0 sm:px-8 px-6 text-primaryDark font-semibold text-primaryDark font-semibold lg:text-xl md:text-lg`}
+        >
+          {registrationSection > 0 && (
+            <div
+              className="lg:fixed 2xl:bottom-8 2xl:left-8 bottom-6 left-6 inline cursor-pointer select-none"
+              onClick={() => {
+                setRegistrationSection(registrationSection - 1);
+              }}
+            >
+              <ChevronLeftIcon />
+              previous page
+            </div>
+          )}
+
+          {registrationSection < 4 && (
+            <div
+              className="lg:fixed 2xl:bottom-8 2xl:right-8 bottom-6 right-6 inline cursor-pointer select-none"
+              onClick={() => {
+                setRegistrationSection(registrationSection + 1);
+              }}
+            >
+              next page
+              <ChevronRightIcon />
+            </div>
+          )}
+        </section>
       </section>
     </div>
   );
