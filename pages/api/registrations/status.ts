@@ -7,16 +7,6 @@ initializeApi();
 const db = firestore();
 
 async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
-  const { headers } = req;
-  const userToken = headers['authorization'];
-  const isAuthorized = await userIsAuthorized(userToken, ['super_admin']);
-
-  if (!isAuthorized) {
-    return res.status(403).json({
-      msg: 'Request is not authorized to perform admin functionality.',
-    });
-  }
-
   const preferenceDoc = await db.collection('miscellaneous').doc('preferences').get();
   return res.status(200).json({
     allowRegistrations: preferenceDoc.data().allowRegistrations ?? false,

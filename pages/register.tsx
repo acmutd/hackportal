@@ -12,6 +12,11 @@ import majors from '../public/majors.json';
 import { hackPortalConfig, formInitialValues } from '../hackportal.config';
 import DisplayQuestion from '../components/registerComponents/DisplayQuestion';
 import { getFileExtension } from '../lib/util';
+import { GetServerSideProps } from 'next';
+
+interface RegisterPageProps {
+  allowedRegistrations: boolean;
+}
 
 /**
  * The registration page.
@@ -19,7 +24,7 @@ import { getFileExtension } from '../lib/util';
  * Registration: /
  */
 
-export default function Register() {
+export default function Register({ allowedRegistrations }: RegisterPageProps) {
   const router = useRouter();
 
   const {
@@ -37,6 +42,7 @@ export default function Register() {
   const [loading, setLoading] = useState(true);
   const [formValid, setFormValid] = useState(true);
   const checkRedirect = async () => {
+    if (!allowedRegistrations) return;
     if (hasProfile) router.push('/profile');
     else setLoading(false);
   };
@@ -102,6 +108,14 @@ export default function Register() {
 
     setResumeFile(file);
   };
+
+  if (!allowedRegistrations) {
+    return (
+      <h1 className="mx-auto text-2xl mt-4 font-bold">
+        Registrations is closed and no longer allowed
+      </h1>
+    );
+  }
 
   if (!user) {
     router.push('/');
@@ -316,3 +330,20 @@ export default function Register() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const protocol = context.req.headers.referer?.split('://')[0] || 'http';
+  const { data } = await RequestHelper.get<{ allowRegistrations: boolean }>(
+    `${protocol}://${context.req.headers.host}/api/registrations/status`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+  return {
+    props: {
+      allowedRegistrations: data.allowRegistrations,
+    },
+  };
+};
