@@ -1,14 +1,7 @@
-import { useEffect, useState } from 'react';
-import { RequestHelper } from '../../lib/request-helper';
-import { arrayFields, fieldToName, singleFields } from '../../lib/stats/field';
-import { useAuthContext } from '../../lib/user/AuthContext';
-import { UserData } from '../../pages/api/users';
-import { HackerStatus } from '../../pages/api/acceptreject';
-import ErrorList from '../ErrorList';
-import LoadIcon from '../LoadIcon';
 import UserList from '../adminComponents/UserList';
 import { Tab } from '@headlessui/react';
 import { RegistrationState } from '../../lib/util';
+import { CheckIcon, SearchIcon, XIcon } from '@heroicons/react/solid';
 
 interface AllUsersAdminViewProps {
   users: UserIdentifier[];
@@ -34,28 +27,24 @@ export default function AllUsersAdminView({
   onUpdateRegistrationState,
 }: AllUsersAdminViewProps) {
   return (
-    <div
-      className={`h-full px-14 font-light md:font-semibold lg:font-bold text-sm md:text-baseh-full`}
-    >
+    <div className={`h-full px-14  text-sm md:text-base`}>
       {/* Top Bar with Status, Search, and Filters */}
       <div className="flex flex-row justify-between">
-        <div className="flex flex-row w-3/4 max-w-6xl">
+        <div className="flex flex-col lg:flex-row  justify-between items-center w-full">
           {/* Search User */}
-          <div className="icon flex flex-row justify-center items-center w-5/12">
+          <div className="relative icon flex flex-row justify-center items-center w-full lg:w-1/2">
             <input
               type="text"
-              className="rounded-lg bg-secondary w-full border-none"
+              className="absolute rounded-lg bg-secondary w-full border-none text-complementary placeholder:text-complementary/70"
               placeholder="Search Users"
               value={searchQuery}
               onChange={(e) => {
                 onSearchQueryUpdate(e.target.value);
               }}
             />
-          </div>
-
-          {/* Edit Dates */}
-          <div className="flex flex-row justify-center items-center w-2/12">
-            <button>Edit Dates</button>
+            <div className="absolute right-4">
+              <SearchIcon className="w-6 h-6 text-complementary" />
+            </div>
           </div>
 
           {/* Status (Close Registration / Live Registration) */}
@@ -63,48 +52,56 @@ export default function AllUsersAdminView({
             <div>Close Registration</div>
             <div>Live Registration</div>
           </div> */}
-          <Tab.Group
-            selectedIndex={registrationState === RegistrationState.OPEN ? 1 : 0}
-            // manual
-            onChange={(idx) => {
-              onUpdateRegistrationState(
-                idx === 0 ? RegistrationState.CLOSED : RegistrationState.OPEN,
-              );
-            }}
-          >
-            <Tab.List className="border-2 rounded-2xl">
-              <Tab
-                className={`rounded-2xl ${
-                  registrationState === RegistrationState.CLOSED ? 'bg-blue-600 text-white' : ''
-                } p-3`}
-              >
-                Close Registration
-              </Tab>
-              <Tab
-                className={`rounded-2xl ${
-                  registrationState === RegistrationState.OPEN ? 'bg-blue-600 text-white' : ''
-                } p-3`}
-              >
-                Live Registration
-              </Tab>
-            </Tab.List>
-          </Tab.Group>
-        </div>
+          <div className="flex flex-col md:flex-row justify-center items-center w-full mt-8 lg:mt-0">
+            <Tab.Group
+              selectedIndex={registrationState === RegistrationState.OPEN ? 1 : 0}
+              // manual
+              onChange={(idx) => {
+                onUpdateRegistrationState(
+                  idx === 0 ? RegistrationState.CLOSED : RegistrationState.OPEN,
+                );
+              }}
+            >
+              <Tab.List className="flex flex-row justify-center items-center w-full">
+                <div className="bg-secondary rounded-full">
+                  <Tab
+                    className={`rounded-full ${
+                      registrationState === RegistrationState.CLOSED
+                        ? 'bg-primaryDark text-secondary'
+                        : 'bg-secondary text-primaryDark'
+                    } py-2 px-4`}
+                  >
+                    Close Registration
+                  </Tab>
+                  <Tab
+                    className={`rounded-full ${
+                      registrationState === RegistrationState.OPEN
+                        ? 'bg-primaryDark text-secondary'
+                        : 'bg-secondary text-primaryDark'
+                    } py-2 px-4`}
+                  >
+                    Live Registration
+                  </Tab>
+                </div>
+              </Tab.List>
+            </Tab.Group>
 
-        {/* Accept Reject buttons */}
-        <div className="flex flex-row w-1/4 justify-around max-w-sm">
-          <button
-            className="p-3 w-36 rounded-2xl bg-green-200"
-            onClick={() => onAcceptReject('Accepted')}
-          >
-            Accept
-          </button>
-          <button
-            className="p-3 w-36 rounded-2xl bg-red-200"
-            onClick={() => onAcceptReject('Rejected')}
-          >
-            Reject
-          </button>
+            {/* Accept Reject buttons */}
+            <div className="flex flex-row w-full justify-around max-w-xs mt-4 lg:mt-0">
+              <button
+                className="flex flex-row bg-[#EA609C]/25 text-[#872852] text-lg font-bold py-2 px-8 rounded-md"
+                onClick={() => onAcceptReject('Rejected')}
+              >
+                <XIcon className="w-6 h-6 mr-1 mt-0.5" /> Reject
+              </button>
+              <button
+                className="flex flex-row bg-[#84DF58]/25 text-[#409019] text-lg font-bold py-2 px-8 rounded-md"
+                onClick={() => onAcceptReject('Accepted')}
+              >
+                <CheckIcon className="w-6 h-6 mr-1 mt-0.5" /> Accept
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -117,11 +114,11 @@ export default function AllUsersAdminView({
         <div
           className={`flex flex-row border-b-2 border-gray px-6 py-3 bg-white justify-between sticky top-0`}
         >
-          <div className="w-2/12">Name</div>
-          <div className="w-2/12">Status</div>
-          <div className="w-4/12">University</div>
-          <div className="w-2/12">Major</div>
-          <div className="w-2/12">Year</div>
+          <div className="w-1/2 md:w-2/12">Name</div>
+          <div className="w-1/2 md:w-2/12">Status</div>
+          <div className="w-4/12  hidden md:block">University</div>
+          <div className="w-2/12 hidden md:block">Major</div>
+          <div className="w-2/12  hidden md:block">Year</div>
         </div>
 
         {/* User List */}

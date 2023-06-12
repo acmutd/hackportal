@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { RequestHelper } from '../../lib/request-helper';
-import { UserData } from '../../pages/api/users';
 import Pagination from './UserAdminPagination';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { CheckIcon, ChevronLeftIcon, ChevronRightIcon, XIcon } from '@heroicons/react/solid';
@@ -108,9 +107,9 @@ export default function UserAdminView({
   const startIndex = (currentPage - 1) * pageSize;
   // 208 px
   return (
-    <div className="px-14 flex flex-row justify-between h-full">
+    <div className="lg:px-14 flex flex-row justify-between h-full">
       {/* User List */}
-      <div className="w-72">
+      <div className="hidden md:block md:w-72">
         {/* Page */}
         <div className="overflow-y-hidden h-[calc(100%-40px)]" ref={ref}>
           {users.slice(startIndex, startIndex + pageSize).map((user) => (
@@ -132,9 +131,7 @@ export default function UserAdminView({
               </div>
               <div
                 className={`py-0.6 px-6 rounded-md  ${
-                  user.status === 'Accepted'
-                    ? 'text-[#409019] bg-[#84DF58]/25'
-                    : 'text-[#872852] bg-[#EA609C]/25'
+                  user.status === 'Accepted' ? 'text-[#409019] bg-[#84DF58]/25' : ''
                 } ${user.status === 'Rejected' ? 'text-[#872852] bg-[#EA609C]/25' : ''}
                   ${user.status === 'Waiting' ? 'text-[#F59E0B] bg-[#FDE68A]/25' : ''}
                   `}
@@ -154,10 +151,10 @@ export default function UserAdminView({
       </div>
 
       {/* User */}
-      <div className="rounded-lg border-2 border-gray p-3 h-full overflow-y-scroll w-[calc(100%-300px)]">
+      <div className="rounded-lg border-2 border-gray h-full overflow-y-scroll w-full md:w-[calc(100%-300px)]">
         {/* Header */}
-        <div className="border-b-2 border-gray flex flex-row justify-between items-center py-1 text-complementary">
-          <div className="flex items-center gap-x-2">
+        <div className="sticky top-0 bg-white shadow-md flex flex-row justify-between items-center py-1 text-complementary">
+          <div className="flex items-center gap-x-2 p-3">
             <ChevronLeftIcon
               className="h-6 w-6 cursor-pointer"
               onClick={() => onUserClick(users[currentUserIndex - 1]?.id || '')}
@@ -167,7 +164,7 @@ export default function UserAdminView({
               onClick={() => onUserClick(users[currentUserIndex + 1]?.id || '')}
             />
           </div>
-          <div onClick={goBack}>
+          <div onClick={goBack} className="p-3">
             <XIcon className="h-6 w-6 cursor-pointer" />
           </div>
         </div>
@@ -182,12 +179,10 @@ export default function UserAdminView({
           <div className="mt-4">
             <div>
               <h3 className="font-bold text-lg">Application Status</h3>
-              <div className="mt-4 flex flex-row justify-between items-center">
+              <div className="mt-4 flex flex-col lg:flex-row justify-between items-start">
                 <p
-                  className={`ext-lg font-bold py-1 px-6 rounded-md ${
-                    currentUser.status === 'Accepted'
-                      ? 'text-[#409019] bg-[#84DF58]/25'
-                      : 'text-[#872852] bg-[#EA609C]/25'
+                  className={`text-lg font-bold py-1 px-6 rounded-md ${
+                    currentUser.status === 'Accepted' ? 'text-[#409019] bg-[#84DF58]/25' : ''
                   } ${currentUser.status === 'Rejected' ? 'text-[#872852] bg-[#EA609C]/25' : ''}
                   ${currentUser.status === 'Waiting' ? 'text-[#F59E0B] bg-[#FDE68A]/25' : ''}
                   `}
@@ -195,7 +190,7 @@ export default function UserAdminView({
                   {currentUser.status}
                 </p>
 
-                <div className="flex flex-row gap-x-3">
+                <div className="flex flex-row justify-between gap-x-3 items-center mt-4 lg:mt-0">
                   <button
                     className="flex flex-row bg-secondary text-primaryDark text-lg font-bold py-2 px-8 rounded-md"
                     onClick={() => onAcceptReject('Rejected')}
