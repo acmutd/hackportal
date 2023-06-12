@@ -120,15 +120,6 @@ a.link {
   right: 4rem;
 }
 
-.registrationTitle:after {
-  content: '';
-  display: block;
-  margin: 0 auto;
-  width: 75%;
-  padding-top: 15px;
-  border-bottom: 2px solid black;
-}
-
 /* Dashboard mobile menu */
 .accordion {
   width: 12rem;
