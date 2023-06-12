@@ -5,12 +5,11 @@ import { useAuthContext } from '../../lib/user/AuthContext';
 import { UserData } from '../../pages/api/users';
 import ErrorList from '../ErrorList';
 import LoadIcon from '../LoadIcon';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 interface UserAdminViewProps {
   goBack: () => void;
   currentUserId: string;
-  updateCurrentUser: (value: Registration) => void;
+  updateCurrentUser: (value: Omit<UserData, 'scans'>) => void;
 }
 
 interface UserProfile extends Omit<Registration, 'user'> {
@@ -32,7 +31,6 @@ export default function UserAdminView({
   const [newRole, setNewRole] = useState('');
   const { user } = useAuthContext();
   const [errors, setErrors] = useState<string[]>([]);
-  const [edit, setEdit] = useState(false);
 
   const [currentUser, setCurrentUser] = useState<UserProfile>();
 
@@ -60,8 +58,6 @@ export default function UserAdminView({
 
   const updateRole = async () => {
     if (!user.permissions.includes('super_admin')) {
-      setEdit(false);
-      setNewRole('');
       alert('You do not have permission to perform this functionality');
       return;
     }
@@ -92,7 +88,7 @@ export default function UserAdminView({
           ...currentUser,
           user: {
             ...currentUser.user,
-            permissions: [newRole as UserPermission],
+            permissions: [newRole],
           },
         });
         setCurrentUser({
@@ -102,8 +98,6 @@ export default function UserAdminView({
             permissions: [newRole],
           },
         });
-        setEdit(false);
-        setNewRole('');
       }
     } catch (error) {
       console.error(error);
@@ -117,7 +111,7 @@ export default function UserAdminView({
   }
 
   return (
-    <div className="">
+    <div className="p-4">
       {errors.length > 0 && (
         <ErrorList
           errors={errors}
@@ -129,70 +123,73 @@ export default function UserAdminView({
         />
       )}
       <button
-        className="text-primaryDark font-bold flex items-center 2xl:text-xl md:text-lg text-base"
+        className="border-2 rounded-lg p-3 bg-gray-200"
         onClick={() => {
           goBack();
         }}
       >
-        <ChevronLeftIcon />
-        Return to Users
+        Go back to User List
       </button>
-      <div className="w-full my-5">
-        {/* User Info Card */}
-        <div className="xl:w-3/5 md:w-4/5 w-full mx-auto border-[3px] border-complementary/[.1] lg:py-16 sm:py-12 py-8 lg:px-20 sm:px-16 px-10 rounded-xl text-complementary">
-          <div className="border-b-2 pb-4 mb-5">
-            <h1 className="font-semibold text-5xl">
+      <div className="w-full my-5 p-4">
+        {user.permissions.includes('super_admin') && (
+          <div className="p-3 w-3/5 mx-auto">
+            <div className="text-center flex flex-row items-center gap-x-3 my-5">
+              <h1>Change the role of this user to: </h1>
+              <select
+                value={newRole}
+                onChange={(e) => {
+                  setNewRole(e.target.value);
+                }}
+                name="new_role"
+                className="border-2 rounded-xl p-2"
+              >
+                <option value="" disabled>
+                  Choose a role
+                </option>
+                <option value="super_admin">Super Admin</option>
+                <option value="admin">Admin</option>
+                <option value="hacker">Hacker</option>
+              </select>
+            </div>
+            {newRole !== '' && (
+              <button
+                onClick={() => {
+                  updateRole();
+                }}
+                className="border-2 p-3 rounded-lg my-4"
+              >
+                Update Role
+              </button>
+            )}
+          </div>
+        )}
+        <div className="w-3/5 mx-auto border-2 p-6 rounded-xl flex flex-col gap-y-5">
+          <div className="flex flex-col gap-y-2">
+            <h1 className="text-center">Name</h1>
+            <h1 className="font-bold text-center">
               {currentUser.user.firstName + ' ' + currentUser.user.lastName}
             </h1>
           </div>
-          <div className="md:text-xl text-lg mb-5 flex justify-between items-center">
-            <div>
-              <h1 className="font-semibold ">Role</h1>
-              {!edit ? (
-                <h1 className="">{currentUser.user.permissions[0]}</h1>
-              ) : (
-                <select
-                  value={newRole}
-                  onChange={(e) => {
-                    setNewRole(e.target.value);
-                  }}
-                  name="new_role"
-                  className="border-2 rounded-md focus:border-primaryDark pl-1 py-1"
-                >
-                  <option value="" disabled>
-                    Choose a role
-                  </option>
-                  <option value="super_admin">Super Admin</option>
-                  <option value="admin">Admin</option>
-                  <option value="hacker">Hacker</option>
-                </select>
-              )}
-            </div>
-            <button
-              onClick={() => {
-                newRole == '' ? setEdit(true) : updateRole();
-              }}
-              className="h-min py-1 px-6 2xl:text-lg text-base bg-secondary rounded-full text-primaryDark hover:bg-primaryDark hover:text-secondary transition duration-300 ease-in-out"
-            >
-              {newRole == '' ? 'Edit' : 'Update'}
-            </button>
+          <div className="flex flex-col gap-y-2">
+            <h1 className="text-center">Role</h1>
+            <h1 className="font-bold text-center">{currentUser.user.permissions[0]}</h1>
           </div>
           {singleFields.map((field) => {
             if (!currentUser.hasOwnProperty(field)) return <></>;
             return (
-              <div key={field} className="md:text-xl text-lg mb-5">
-                <h1 className="font-semibold ">{fieldToName[field]}</h1>
-                <h1 className="">{currentUser[field]}</h1>
+              <div key={field} className="flex flex-col gap-y-2">
+                <h1 className="text-center">{fieldToName[field]}</h1>
+                <h1 className="font-bold text-center">{currentUser[field]}</h1>
               </div>
             );
           })}
           {arrayFields.map((field) => {
             if (!currentUser.hasOwnProperty(field) || currentUser[field].length === 0) return <></>;
             return (
-              <div key={field} className="md:text-xl text-lg mb-5">
-                <h1 className="font-semibold ">{fieldToName[field]}</h1>
+              <div key={field} className="flex flex-col gap-y-2">
+                <h1 className="text-center">{fieldToName[field]}</h1>
                 {currentUser[field].map((item: string) => (
-                  <h1 key={item} className="">
+                  <h1 key={item} className="font-bold text-center">
                     {item}
                   </h1>
                 ))}
