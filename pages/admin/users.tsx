@@ -160,7 +160,7 @@ export default function UserPage() {
     setSelectedUsers([...selectedUsers, id]);
   };
 
-  const postHackersStatus = (status) => {
+  const postHackersStatus = (status: string) => {
     const hackerIds = selectedUsers.filter(
       (id) => users.find((user) => user.id == id).status !== status,
     );
@@ -177,22 +177,34 @@ export default function UserPage() {
       headers: {
         Authorization: user.token,
       },
-    }).then((res) => {
-      if (res.status !== 200) {
-        alert('Hackers update failed...');
-        return;
-      }
-      const newUsers = [...users];
-      for (const user of newUsers) {
-        if (hackerIds.includes(user.id)) user.status = status;
-      }
-
-      setUsers(newUsers);
-
-      alert('Hackers update success');
-    });
-
-    setSelectedUsers([]);
+    })
+      .then((res) => {
+        if (res.status !== 200) {
+          alert('Hackers update failed...');
+        } else {
+          setUsers((prev) =>
+            prev.map((user) => ({
+              ...user,
+              status: hackerIds.includes(user.id) ? status : user.status,
+              selected: false,
+            })),
+          );
+          setFilteredUsers((prev) =>
+            prev.map((user) => ({
+              ...user,
+              selected: false,
+              status: hackerIds.includes(user.id) ? status : user.status,
+            })),
+          );
+          alert('Hackers update success');
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      })
+      .finally(() => {
+        setSelectedUsers([]);
+      });
   };
 
   if (!user || !isAuthorized(user))
