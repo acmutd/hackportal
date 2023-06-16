@@ -45,7 +45,10 @@ handler.post(async (req, res) => {
   const fileRef = majorRef.child(req.body.fileName);
 
   await fileRef.put(req.file.buffer);
-  res.end();
+  const fileUrl = await fileRef.getDownloadURL();
+  res.status(200).json({
+    url: fileUrl,
+  });
 });
 
 export const config = {

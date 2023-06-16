@@ -3,6 +3,7 @@ import { RequestHelper } from '../../lib/request-helper';
 import Pagination from './UserAdminPagination';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { CheckIcon, ChevronLeftIcon, ChevronRightIcon, XIcon } from '@heroicons/react/solid';
+import Link from 'next/link';
 
 interface UserAdminViewProps {
   users: UserIdentifier[];
@@ -37,7 +38,18 @@ export default function UserAdminView({
     ['Current Level of Study', currentUser.studyLevel],
     ['Number of Hackathons Attended', currentUser.hackathonExperience],
     ['Software Experience', currentUser.softwareExperience],
-    ['Resume', currentUser.resume],
+    [
+      'Resume',
+      currentUser.resume === '' ? (
+        'No resume found'
+      ) : (
+        <Link passHref href={currentUser.resume} className="border-2 p-3 hover:bg-gray-200">
+          <a target="_blank" rel="noopener noreferrer">
+            Click here to download resume
+          </a>
+        </Link>
+      ),
+    ],
   ];
 
   // Pagination

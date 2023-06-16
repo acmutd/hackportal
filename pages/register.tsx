@@ -63,6 +63,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
   }, [user]);
 
   const handleSubmit = async (registrationData) => {
+    let resumeUrl: string = '';
     try {
       if (resumeFile) {
         const formData = new FormData();
@@ -71,12 +72,17 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
         formData.append('studyLevel', registrationData['studyLevel']);
         formData.append('major', registrationData['major']);
 
-        await fetch('/api/resume/upload', {
+        const res = await fetch('/api/resume/upload', {
           method: 'post',
           body: formData,
-        }).then;
+        });
+        resumeUrl = (await res.json()).url;
       }
-      await RequestHelper.post<Registration, any>('/api/applications', {}, registrationData);
+      await RequestHelper.post<Registration, any>(
+        '/api/applications',
+        {},
+        { ...registrationData, resume: resumeUrl },
+      );
       alert('Registered successfully');
       updateProfile(registrationData);
       router.push('/profile');
