@@ -23,10 +23,3 @@ if (!firebase.apps.length) {
 const analytics = firebase.analytics;
 
 export { firebase, analytics };
-// export function initFirebase() {
-//   if (firebase.apps.length > 0) {
-//     return;
-//   }
-
-//   firebase.initializeApp(firebaseConfig);
-// }
