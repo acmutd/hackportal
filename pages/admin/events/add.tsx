@@ -3,6 +3,7 @@ import EventForm from '../../../components/adminComponents/eventComponents/Event
 import { RequestHelper } from '../../../lib/request-helper';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import Link from 'next/link';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;
@@ -39,7 +40,15 @@ export default function AddEventPage() {
     return <div className="text-2xl font-black text-center">Unauthorized</div>;
 
   return (
-    <div className="p-3">
+    <div className="2xl:px-36 md:px-16 px-6">
+      <div className="mt-4">
+        <Link href="/admin/events" passHref>
+          <div className="cursor-pointer items-center inline-flex text-primaryDark font-bold md:text-lg text-base">
+            <ChevronLeftIcon />
+            Return to events
+          </div>
+        </Link>
+      </div>
       <div>
         <EventForm
           onSubmitClick={async (event) => {
@@ -47,9 +56,6 @@ export default function AddEventPage() {
           }}
           formAction="Add"
         />
-        <Link href="/admin/events">
-          <button className="p-3 bg-gray-200 rounded-lg">Go Back</button>
-        </Link>
       </div>
     </div>
   );

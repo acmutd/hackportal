@@ -68,73 +68,71 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="p-8 w-full">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold">User Profile</h1>
-        <section className="w-full py-5">
-          <div className="flex flex-col md:flex-row gap-x-10">
-            <div
-              className="bg-gray-300 w-full md:w-2/3 rounded-xl p-4 flex flex-col justify-around"
-              style={{ minHeight: '500px' }}
-            >
-              <h1 className="font-bold text-xl text-center">HackPortal</h1> {/* !change */}
-              <div className="mx-auto">
-                <QRCode data={'hack:' + user.id} loading={false} width={200} height={200} />
-              </div>
-              <div>
-                <h1 className="text-center font-bold text-xl">{`${profile.user.firstName} ${profile.user.lastName}`}</h1>
-                <p className="text-center">{profile.user.permissions[0]}</p>
-              </div>
-            </div>
-            <div className="w-full my-5">
-              <div className="profile-view">
-                <div className="profile-view-name flex flex-col gap-y-2">
-                  <div className="font-bold text-xl">Name</div>
-                  <h1 className="font-bold">{`${profile.user.firstName} ${profile.user.lastName}`}</h1>
-                </div>
-                <div className="profile-view-role flex flex-col gap-y-2">
-                  <div className="font-bold text-xl">Role</div>
-                  <h1 className="font-bold">{profile.user.permissions[0]}</h1>
-                </div>
-                <div className="profile-view-univ flex flex-col gap-y-2">
-                  <div className="font-bold text-xl">University</div>
-                  <h1 className="font-bold">{profile.university}</h1>
-                </div>
-                <div className="profile-view-major flex flex-col gap-y-2">
-                  <div className="font-bold text-xl">Major</div>
-                  <h1 className="font-bold">{profile.major}</h1>
-                </div>
-                <div className="profile-view-stlvl flex flex-col gap-y-2">
-                  <div className="font-bold text-xl">Level of Study</div>
-                  <h1 className="font-bold">{profile.studyLevel}</h1>
-                </div>
-                <div>
-                  {!uploading ? (
-                    <>
-                      <input
-                        id="resume"
-                        style={{ display: 'none' }}
-                        type="file"
-                        ref={resumeRef}
-                        onChange={() => handleResumeUpload(profile)}
-                        accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
-                      />
-                      <label
-                        id="resume_label"
-                        className="transition rounded p-3 text-center whitespace-nowrap text-white w-min bg-gray-500 cursor-pointer font-black gap-y-2 hover:brightness-110"
-                        htmlFor="resume"
-                      >
-                        Update Resume
-                      </label>
-                    </>
-                  ) : (
-                    <LoadIcon width={16} height={16} />
-                  )}
-                </div>
-              </div>
-            </div>
+    <div className="xl:px-36 lg:px-28 sm:px-16 px-10 md:py-16 py-12 text-complementary">
+      <div className="flex flex-col md:flex-row 2xl:gap-x-32 gap-x-20 2xl:justify-center">
+        {/* QR Code */}
+        <div className="">
+          <div className="bg-secondary rounded-lg p-8 h-min w-min mx-auto">
+            {/* Dark represents dots, Light represents the background */}
+            <QRCode
+              data={'hack:' + user.id}
+              loading={false}
+              width={200}
+              height={200}
+              darkColor="#05149C"
+              lightColor="#0000"
+            />
           </div>
-        </section>
+          <div className="border-y-[1.2px] border-primaryDark/20 py-4 md:my-8 my-6">
+            <div className="font-bold text-lg">Role</div>
+            <h1 className="text-xl">{profile.user.permissions[0]}</h1>
+          </div>
+        </div>
+        {/* Info */}
+        <div className="">
+          <h1 className="font-semibold md:text-5xl text-4xl">{`${profile.user.firstName} ${profile.user.lastName}`}</h1>
+
+          <div className="font-semibold md:text-2xl text-xl mt-6 mb-1">Major</div>
+          <h1 className="text-xl">{profile.major}</h1>
+
+          <div className="font-semibold md:text-2xl text-xl mt-6 mb-1">University</div>
+          <h1 className="text-xl">{profile.university}</h1>
+
+          <div className="font-semibold md:text-2xl text-xl mt-6 mb-1">Level of Study</div>
+          <h1 className="text-xl">{profile.studyLevel}</h1>
+
+          <div className="font-semibold md:text-2xl text-xl mt-6" mb-1>
+            Number of Hackathons Attended
+          </div>
+          <h1 className="text-xl">{profile.hackathonExperience}</h1>
+
+          <div className="font-semibold md:text-2xl text-xl mt-6 mb-1">Preferred Email</div>
+          <h1 className="text-xl">{profile.user.preferredEmail}</h1>
+
+          <div className="my-8">
+            {!uploading ? (
+              <>
+                <input
+                  id="resume"
+                  style={{ display: 'none' }}
+                  type="file"
+                  ref={resumeRef}
+                  onChange={() => handleResumeUpload(profile)}
+                  accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
+                />
+                <label
+                  id="resume_label"
+                  className="transition rounded p-3 text-center whitespace-nowrap text-white w-min bg-gray-500 cursor-pointer font-black gap-y-2 hover:brightness-110"
+                  htmlFor="resume"
+                >
+                  Update Resume
+                </label>
+              </>
+            ) : (
+              <LoadIcon width={16} height={16} />
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

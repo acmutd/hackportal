@@ -75,7 +75,7 @@ export default function ChallengeForm({
                 prizes: prev.prizes.filter((sp, i) => i !== idx),
               }))
             }
-            className="bg-red-400 rounded-lg p-2 w-1/4"
+            className="font-bold text-red-800 bg-red-100 hover:bg-red-200 border border-red-400 rounded-lg p-2 w-1/4"
           >
             Delete Prizes
           </button>
@@ -88,7 +88,7 @@ export default function ChallengeForm({
             prizes: prev.prizes ? [...prev.prizes, ''] : [''],
           }))
         }
-        className="p-3 bg-green-400 rounded-lg"
+        className="font-bold bg-blue-200 hover:bg-blue-300 border border-blue-800 text-blue-900 rounded-lg p-3"
       >
         Add Prizes
       </button>
@@ -103,7 +103,7 @@ export default function ChallengeForm({
             setDisableSubmit(false);
           }
         }}
-        className="p-3 bg-green-400 rounded-lg"
+        className="font-bold bg-green-200 hover:bg-green-300 border border-green-800 text-green-900 rounded-lg p-3"
       >
         {formAction === 'Edit' ? 'Save Changes' : 'Add Event'}
       </button>

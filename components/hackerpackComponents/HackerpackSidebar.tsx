@@ -22,8 +22,8 @@ export default function HackerpackSidebar({ content }: { content: SidebarSection
         className="hidden md:flex justify-center h-screen fixed top-16 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-xs md:text-xs lg:text-sm overflow-auto"
       >
         <section id="options" className="relative px-6 py-4">
-          <div className="font-bold mb-3">HackerPack</div>
-          <ul className="pb-32">
+          <div className="font-bold mb-3 mt-4">HackerPack</div>
+          <ul className="">
             {/* Maps the sidebar-content.json file to a nested list */}
             {content.map((mainSection) => (
               <li key={mainSection.title}>
@@ -42,13 +42,13 @@ export default function HackerpackSidebar({ content }: { content: SidebarSection
           </ul>
         </section>
         {/* User greeting for bottom of sidebar */}
-        <div className="fixed bottom-0 border-t-2 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-center py-3 bg-white">
+        {/* <div className="fixed bottom-0 border-t-2 border-r-2 border-gray-600 w-1/4 md:w-1/6 2xl:w-1/8 text-center py-3 bg-white">
           <div>
             Welcome,{' '}
             {!user || !isSignedIn ? 'hacker' : user.firstName !== '' ? user.firstName : 'hacker'}
           </div>
           <div className="text-indigo-500">{role}</div>
-        </div>
+        </div> */}
       </section>
     </>
   );
