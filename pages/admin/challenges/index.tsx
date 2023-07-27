@@ -7,6 +7,7 @@ import { useAuthContext } from '../../../lib/user/AuthContext';
 import Link from 'next/link';
 import ChallengeList from '../../../components/adminComponents/challengeComponents/ChallengeList';
 import { arrayMove } from '@dnd-kit/sortable';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 interface ChallengePageProps {
   challenges_: Challenge[];
@@ -124,6 +125,14 @@ export default function ChallengePage({ challenges_ }: ChallengePageProps) {
         </div>
       ) : (
         <>
+          <div className="mt-4">
+            <Link href="/admin" passHref>
+              <div className="cursor-pointer items-center inline-flex text-primaryDark font-bold md:text-lg text-base">
+                <ChevronLeftIcon />
+                return to event dashboard
+              </div>
+            </Link>
+          </div>
           <ChallengeList
             onChallengeEditClick={(challengeIndex) => {
               setCurrentChallengeEditIndex(challengeIndex);
@@ -139,10 +148,9 @@ export default function ChallengePage({ challenges_ }: ChallengePageProps) {
           />
           <div className="p-3 flex gap-x-4">
             <Link href={`/admin/challenges/add?id=${nextChallengeIndex}`}>
-              <button className="p-3 bg-green-400 rounded-lg">Add New Challenge</button>
-            </Link>
-            <Link href="/admin">
-              <button className="p-3 bg-gray-200 rounded-lg">Go Back</button>
+              <button className="font-bold bg-green-200 hover:bg-green-300 border border-green-800 text-green-900 rounded-lg p-3">
+                Add New Challenge
+              </button>
             </Link>
             {orderChanged && (
               <button

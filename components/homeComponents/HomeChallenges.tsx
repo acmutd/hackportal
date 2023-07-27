@@ -12,7 +12,7 @@ import 'swiper/css/scrollbar';
 // This section is hidden if there are no challenges
 export default function HomeChallenges(props: { challenges: Challenge[] }) {
   const [challenges, setChallenges] = useState<Challenge[]>([]);
-  const [challengeIdx, setChallengeIdx] = useState(0);
+  const [challengeIdx, setChallengeIdx] = useState(null);
   const [challengeData, setChallengeData] = useState({
     title: '',
     organization: '',
@@ -36,18 +36,10 @@ export default function HomeChallenges(props: { challenges: Challenge[] }) {
         prizes: sortedChallenges[0].prizes,
       });
     }
-
-    // Initialize styles to first organization in list
-    if (document.getElementById(`org${challengeIdx}`) !== null) {
-      document.getElementById(`org${challengeIdx}`).style.backgroundColor =
-        'rgba(123, 129, 255, 0.5)';
-    }
   }, []);
 
   const changeOrg = (challenge, newIdx) => {
     setShowChallengeCard(true);
-    document.getElementById(`org${challengeIdx}`).style.backgroundColor = '#F2F3FF';
-    document.getElementById(`org${newIdx}`).style.backgroundColor = 'rgba(123, 129, 255, 0.5)';
 
     setChallengeIdx(newIdx);
     setChallengeData({
@@ -110,7 +102,9 @@ export default function HomeChallenges(props: { challenges: Challenge[] }) {
                 <div className="w-full h-full items-center justify-center flex">
                   <div
                     id={`org${idx}`}
-                    className={`${idx} font-bold text-primaryDark p-5 flex align-bottom flex-col items-start justify-end z-10 relative cursor-pointer text-left text-xl w-[22rem] 2xl:w-full sm:h-[16rem] h-[14rem] bg-secondary rounded-lg`}
+                    className={`${idx} font-bold text-primaryDark p-5 flex align-bottom flex-col items-start justify-end z-10 relative cursor-pointer text-left text-xl w-[22rem] 2xl:w-full sm:h-[16rem] h-[14rem] ${
+                      idx == challengeIdx ? 'bg-primary/50' : 'bg-secondary'
+                    } rounded-lg`}
                     key={idx}
                     onClick={() => changeOrg(challenge, idx)}
                   >

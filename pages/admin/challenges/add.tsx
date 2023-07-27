@@ -3,6 +3,7 @@ import ChallengeForm from '../../../components/adminComponents/challengeComponen
 import { RequestHelper } from '../../../lib/request-helper';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import Link from 'next/link';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;
@@ -40,6 +41,14 @@ export default function AddChallengePage() {
 
   return (
     <div className="p-3">
+      <div className="mt-4">
+        <Link href="/admin/challenges" passHref>
+          <div className="cursor-pointer items-center inline-flex text-primaryDark font-bold md:text-lg text-base">
+            <ChevronLeftIcon />
+            Return to challenges
+          </div>
+        </Link>
+      </div>
       <div>
         <ChallengeForm
           onSubmitClick={async (challenge) => {
@@ -47,9 +56,6 @@ export default function AddChallengePage() {
           }}
           formAction="Add"
         />
-        <Link href="/admin/challenges">
-          <button className="p-3 bg-gray-200 rounded-lg">Go Back</button>
-        </Link>
       </div>
     </div>
   );

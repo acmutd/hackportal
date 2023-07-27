@@ -94,12 +94,10 @@ export default function Dashboard(props: {
           <meta name="description" content="HackPortal's Dashboard" />
         </Head>
 
-        <Sidebar />
-
-        <section id="mainContent" className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 bg-white">
+        <section id="mainContent" className="2xl:px-32 md:px-16 px-6 bg-white">
           <DashboardHeader />
           {/* Spotlight & Announcements */}
-          <div className="flex flex-wrap my-16">
+          <div className="flex flex-wrap md:my-16 my-10">
             {/* Spotlight Events */}
             {/* Hides spotlight if no events are going on */}
             {eventCount > 0 && (

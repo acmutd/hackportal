@@ -29,7 +29,7 @@ export default function FilterComponent({ title, checked, onCheck }: FilterCompo
   ));
 
   return (
-    <div className="flex flex-row items-center text-sm md:text-base md:gap-x-2">
+    <div className="flex items-center text-sm md:text-base">
       <CustomCheckbox />
       <h4>{title}</h4>
     </div>

@@ -10,6 +10,11 @@ const db = firestore();
 const APPLICATIONS_COLLECTION = '/registrations';
 const MISC_COLLECTION = '/miscellaneous';
 
+async function checkRegistrationAllowed() {
+  const preferenceDoc = await db.collection('miscellaneous').doc('preferences').get();
+  return preferenceDoc.data().allowRegistrations ?? false;
+}
+
 async function updateAllUsersDoc(userId: string, profile: any) {
   const docRef = db.collection(MISC_COLLECTION).doc('allusers');
   const userData = await docRef.get();
@@ -85,6 +90,12 @@ async function handleGetApplications(req: NextApiRequest, res: NextApiResponse) 
  * @param res The HTTP response
  */
 async function handlePostApplications(req: NextApiRequest, res: NextApiResponse) {
+  const registrationAllowed = await checkRegistrationAllowed();
+  if (!registrationAllowed) {
+    return res.status(403).json({
+      msg: 'Registration is no longer allowed',
+    });
+  }
   const {} = req.query;
   const applicationBody = req.body;
 
