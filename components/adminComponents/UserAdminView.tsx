@@ -1,63 +1,85 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { RequestHelper } from '../../lib/request-helper';
-import { arrayFields, fieldToName, singleFields } from '../../lib/stats/field';
+import Pagination from './UserAdminPagination';
 import { useAuthContext } from '../../lib/user/AuthContext';
-import { UserData } from '../../pages/api/users';
-import ErrorList from '../ErrorList';
-import LoadIcon from '../LoadIcon';
+import { CheckIcon, ChevronLeftIcon, ChevronRightIcon, XIcon } from '@heroicons/react/solid';
+import Link from 'next/link';
 
 interface UserAdminViewProps {
-  goBack: () => void;
+  users: UserIdentifier[];
   currentUserId: string;
-  updateCurrentUser: (value: Omit<UserData, 'scans'>) => void;
-}
-
-interface UserProfile extends Omit<Registration, 'user'> {
-  user: {
-    id: string;
-    firstName: string;
-    lastName: string;
-    permissions: string[];
-    preferredEmail: string;
-  };
+  goBack: () => void;
+  // updateCurrentUser: (value: Omit<UserIdentifier, 'scans'>) => void;
+  onUserClick: (id: string) => void;
+  onAcceptReject: (status: string) => void;
+  onUpdateRole: (newRole: UserPermission) => void;
 }
 
 export default function UserAdminView({
-  goBack,
+  users,
   currentUserId,
-  updateCurrentUser,
+  goBack,
+  onUserClick,
+  onAcceptReject,
+  onUpdateRole,
 }: UserAdminViewProps) {
-  const [loading, setLoading] = useState(true);
-  const [newRole, setNewRole] = useState('');
-  const { user } = useAuthContext();
-  const [errors, setErrors] = useState<string[]>([]);
+  let currentUserIndex = 0;
+  const currentUser = users.find((user, i) => {
+    if (user.id === currentUserId) {
+      currentUserIndex = i;
+      return true;
+    }
+    return false;
+  });
 
-  const [currentUser, setCurrentUser] = useState<UserProfile>();
+  const user_info = [
+    ['Major', currentUser.major],
+    ['University', currentUser.university],
+    ['Current Level of Study', currentUser.studyLevel],
+    ['Number of Hackathons Attended', currentUser.hackathonExperience],
+    ['Software Experience', currentUser.softwareExperience],
+    [
+      'Resume',
+      currentUser.resume === '' ? (
+        'No resume found'
+      ) : (
+        <Link passHref href={currentUser.resume} className="border-2 p-3 hover:bg-gray-200">
+          <a target="_blank" rel="noopener noreferrer">
+            Click here to download resume
+          </a>
+        </Link>
+      ),
+    ],
+  ];
+
+  // Pagination
+  const ref = useRef(null);
+
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [height, setHeight] = useState(60);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [newRole, setNewRole] = useState('');
+  const [errors, setErrors] = useState<string[]>([]);
+  const [isInEditMode, setIsInEditMode] = useState(false);
+
+  // Contains info of the user who is viewing the data
+  const { user: organizer } = useAuthContext();
 
   useEffect(() => {
-    async function getUserData() {
-      try {
-        const { status, data } = await RequestHelper.get<UserProfile>(
-          `/api/userinfo?id=${currentUserId}`,
-          {
-            headers: {
-              Authorization: user.token!,
-            },
-          },
-        );
-        setCurrentUser(data);
-      } catch (error) {
-        console.error(error);
-        setErrors((prev) => [...prev, 'Unexpected error. Please try again later']);
-      } finally {
-        setLoading(false);
-      }
-    }
-    getUserData();
+    const handleResize = () => setWindowHeight(window.innerHeight);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    const h = Math.max(60, ref.current.offsetHeight);
+    setHeight(h);
+    setCurrentPage(Math.floor(currentUserIndex / Math.floor(h / 60) + 1));
+    console.log(h, currentUserIndex);
+  }, [windowHeight, currentUserIndex]);
+
   const updateRole = async () => {
-    if (!user.permissions.includes('super_admin')) {
+    if (!organizer.permissions.includes('super_admin')) {
       alert('You do not have permission to perform this functionality');
       return;
     }
@@ -72,7 +94,7 @@ export default function UserAdminView({
         '/api/users/roles',
         {
           headers: {
-            Authorization: user.token,
+            Authorization: organizer.token,
           },
         },
         {
@@ -84,20 +106,7 @@ export default function UserAdminView({
         setErrors([...errors, data.msg]);
       } else {
         alert(data.msg);
-        updateCurrentUser({
-          ...currentUser,
-          user: {
-            ...currentUser.user,
-            permissions: [newRole],
-          },
-        });
-        setCurrentUser({
-          ...currentUser,
-          user: {
-            ...currentUser.user,
-            permissions: [newRole],
-          },
-        });
+        onUpdateRole(newRole as UserPermission);
       }
     } catch (error) {
       console.error(error);
@@ -106,96 +115,187 @@ export default function UserAdminView({
     // TODO: Make request to backend to update user roles
   };
 
-  if (loading) {
-    return <LoadIcon height={200} width={200} />;
-  }
-
+  const pageSize = Math.floor(height / 60);
+  const startIndex = (currentPage - 1) * pageSize;
+  // 208 px
   return (
-    <div className="p-4">
-      {errors.length > 0 && (
-        <ErrorList
-          errors={errors}
-          onClose={(idx: number) => {
-            const newErrorList = [...errors];
-            newErrorList.splice(idx, 1);
-            setErrors(newErrorList);
-          }}
-        />
-      )}
-      <button
-        className="border-2 rounded-lg p-3 bg-gray-200"
-        onClick={() => {
-          goBack();
-        }}
-      >
-        Go back to User List
-      </button>
-      <div className="w-full my-5 p-4">
-        {user.permissions.includes('super_admin') && (
-          <div className="p-3 w-3/5 mx-auto">
-            <div className="text-center flex flex-row items-center gap-x-3 my-5">
-              <h1>Change the role of this user to: </h1>
-              <select
-                value={newRole}
-                onChange={(e) => {
-                  setNewRole(e.target.value);
-                }}
-                name="new_role"
-                className="border-2 rounded-xl p-2"
+    <div className="lg:px-14 flex flex-row justify-between h-full">
+      {/* User List */}
+      <div className="hidden md:block md:w-72">
+        {/* Page */}
+        <div className="overflow-y-hidden h-[calc(100%-40px)]" ref={ref}>
+          {users.slice(startIndex, startIndex + pageSize).map((user) => (
+            <div
+              key={user.id}
+              className={`
+                flex flex-row justify-between items-center w-full py-2 rounded-md mb-3 h-12 p-4
+                shadow-md ${
+                  user.id === currentUserId
+                    ? 'border-primaryDark border-[3px]'
+                    : 'border-complementary/25  border-[1px]'
+                }
+                cursor-pointer
+              `}
+              onClick={() => onUserClick(user.id)}
+            >
+              <div className="text-complementary text-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis max-w-[60%]">
+                {user.user.firstName}
+              </div>
+              <div
+                className={`py-0.6 px-6 rounded-md  ${
+                  user.status === 'Accepted' ? 'text-[#409019] bg-[#84DF58]/25' : ''
+                } ${user.status === 'Rejected' ? 'text-[#872852] bg-[#EA609C]/25' : ''}
+                  ${user.status === 'Waiting' ? 'text-[#F59E0B] bg-[#FDE68A]/25' : ''}
+                  `}
               >
-                <option value="" disabled>
-                  Choose a role
-                </option>
-                <option value="super_admin">Super Admin</option>
-                <option value="admin">Admin</option>
-                <option value="hacker">Hacker</option>
-              </select>
+                {user.status}
+              </div>
             </div>
-            {newRole !== '' && (
-              <button
-                onClick={() => {
-                  updateRole();
-                }}
-                className="border-2 p-3 rounded-lg my-4"
-              >
-                Update Role
-              </button>
-            )}
+          ))}
+        </div>
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalCount={users.length}
+          pageSize={pageSize}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
+      </div>
+
+      {/* User */}
+      <div className="rounded-lg border-2 border-gray h-full overflow-y-scroll w-full md:w-[calc(100%-300px)]">
+        {/* Header */}
+        <div className="sticky top-0 bg-white shadow-md flex flex-row justify-between items-center py-1 text-complementary">
+          <div className="flex items-center gap-x-2 p-3">
+            <ChevronLeftIcon
+              className="h-6 w-6 cursor-pointer"
+              onClick={() => onUserClick(users[currentUserIndex - 1]?.id || '')}
+            />
+            <ChevronRightIcon
+              className="h-6 w-6 cursor-pointer"
+              onClick={() => onUserClick(users[currentUserIndex + 1]?.id || '')}
+            />
           </div>
-        )}
-        <div className="w-3/5 mx-auto border-2 p-6 rounded-xl flex flex-col gap-y-5">
-          <div className="flex flex-col gap-y-2">
-            <h1 className="text-center">Name</h1>
-            <h1 className="font-bold text-center">
-              {currentUser.user.firstName + ' ' + currentUser.user.lastName}
-            </h1>
+          <div onClick={goBack} className="p-3">
+            <XIcon className="h-6 w-6 cursor-pointer" />
           </div>
-          <div className="flex flex-col gap-y-2">
-            <h1 className="text-center">Role</h1>
-            <h1 className="font-bold text-center">{currentUser.user.permissions[0]}</h1>
-          </div>
-          {singleFields.map((field) => {
-            if (!currentUser.hasOwnProperty(field)) return <></>;
-            return (
-              <div key={field} className="flex flex-col gap-y-2">
-                <h1 className="text-center">{fieldToName[field]}</h1>
-                <h1 className="font-bold text-center">{currentUser[field]}</h1>
+        </div>
+
+        {/* User Info */}
+        <div className="p-10 text-complementary h-full">
+          <h1 className="font-bold text-5xl">
+            {currentUser.user.firstName} {currentUser.user.lastName}
+          </h1>
+
+          {/* User Status */}
+          <div className="mt-4">
+            <div>
+              <h3 className="font-bold text-lg">Application Status</h3>
+              <div className="mt-4 flex flex-col lg:flex-row justify-between items-start">
+                <p
+                  className={`text-lg font-bold py-1 px-6 rounded-md ${
+                    currentUser.status === 'Accepted' ? 'text-[#409019] bg-[#84DF58]/25' : ''
+                  } ${currentUser.status === 'Rejected' ? 'text-[#872852] bg-[#EA609C]/25' : ''}
+                  ${currentUser.status === 'Waiting' ? 'text-[#F59E0B] bg-[#FDE68A]/25' : ''}
+                  `}
+                >
+                  {currentUser.status}
+                </p>
+
+                <div className="flex flex-row justify-between gap-x-3 items-center mt-4 lg:mt-0">
+                  <button
+                    className="flex flex-row bg-secondary text-primaryDark text-lg font-bold py-2 px-8 rounded-md"
+                    onClick={() => onAcceptReject('Rejected')}
+                  >
+                    <XIcon className="w-6 h-6 mr-1 mt-0.5" /> Reject
+                  </button>
+                  <button
+                    className="flex flex-row bg-primaryDark text-secondary text-lg font-bold py-2 px-8 rounded-md"
+                    onClick={() => onAcceptReject('Accepted')}
+                  >
+                    <CheckIcon className="w-6 h-6 mr-1 mt-0.5" /> Accept
+                  </button>
+                </div>
               </div>
-            );
-          })}
-          {arrayFields.map((field) => {
-            if (!currentUser.hasOwnProperty(field) || currentUser[field].length === 0) return <></>;
-            return (
-              <div key={field} className="flex flex-col gap-y-2">
-                <h1 className="text-center">{fieldToName[field]}</h1>
-                {currentUser[field].map((item: string) => (
-                  <h1 key={item} className="font-bold text-center">
-                    {item}
-                  </h1>
+            </div>
+
+            <div className="my-6 w-full border-2 border-secondary rounded-md" />
+
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-bold">Role</h3>
+                <div className="flex flex-row justify-between">
+                  {isInEditMode ? (
+                    <div className="flex flex-col">
+                      <h1>Change the role of this user to: </h1>
+                      <select
+                        value={newRole}
+                        onChange={(e) => {
+                          setNewRole(e.target.value);
+                        }}
+                        name="new_role"
+                        className="border-2 rounded-xl p-2"
+                      >
+                        <option value="" disabled>
+                          Choose a role
+                        </option>
+                        <option value="super_admin">Super Admin</option>
+                        <option value="admin">Admin</option>
+                        <option value="hacker">Hacker</option>
+                      </select>
+                    </div>
+                  ) : (
+                    <p>{currentUser.user.permissions[0]}</p>
+                  )}
+                </div>
+              </div>
+              {organizer.permissions.includes('super_admin') &&
+                (isInEditMode ? (
+                  <div className="flex items-center gap-x-2">
+                    <button
+                      className="bg-secondary text-primaryDark py-2 px-6 rounded-full"
+                      onClick={async () => {
+                        try {
+                          await updateRole();
+                          setNewRole('');
+                          setIsInEditMode(false);
+                        } catch (error) {
+                          alert(error);
+                        }
+                      }}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="bg-secondary text-primaryDark py-2 px-6 rounded-full"
+                      onClick={() => {
+                        setNewRole('');
+                        setIsInEditMode(false);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setIsInEditMode((prev) => !prev)}
+                    className="bg-secondary text-primaryDark py-2 px-6 rounded-full"
+                  >
+                    Edit
+                  </button>
                 ))}
+            </div>
+          </div>
+
+          {/* Info */}
+          <div>
+            {user_info.map(([title, desc], id) => (
+              <div key={id} className="mt-5">
+                <h3 className="font-bold">{title}</h3>
+                <p>{desc}</p>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
     </div>

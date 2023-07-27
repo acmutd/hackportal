@@ -13,6 +13,11 @@ import { getFileExtension } from '../lib/util';
 import Link from 'next/link';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { GetServerSideProps } from 'next';
+
+interface RegisterPageProps {
+  allowedRegistrations: boolean;
+}
 
 /**
  * The registration page.
@@ -20,7 +25,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
  * Registration: /
  */
 
-export default function Register() {
+export default function Register({ allowedRegistrations }: RegisterPageProps) {
   const router = useRouter();
 
   const {
@@ -39,6 +44,7 @@ export default function Register() {
   const [formValid, setFormValid] = useState(true);
   const [registrationSection, setRegistrationSection] = useState(0);
   const checkRedirect = async () => {
+    if (!allowedRegistrations) return;
     if (hasProfile) router.push('/profile');
     else setLoading(false);
   };
@@ -57,6 +63,7 @@ export default function Register() {
   }, [user]);
 
   const handleSubmit = async (registrationData) => {
+    let resumeUrl: string = '';
     try {
       if (resumeFile) {
         const formData = new FormData();
@@ -65,12 +72,17 @@ export default function Register() {
         formData.append('studyLevel', registrationData['studyLevel']);
         formData.append('major', registrationData['major']);
 
-        await fetch('/api/resume/upload', {
+        const res = await fetch('/api/resume/upload', {
           method: 'post',
           body: formData,
         });
+        resumeUrl = (await res.json()).url;
       }
-      await RequestHelper.post<Registration, any>('/api/applications', {}, registrationData);
+      await RequestHelper.post<Registration, any>(
+        '/api/applications',
+        {},
+        { ...registrationData, resume: resumeUrl },
+      );
       alert('Registered successfully');
       updateProfile(registrationData);
       router.push('/profile');
@@ -104,6 +116,14 @@ export default function Register() {
 
     setResumeFile(file);
   };
+
+  if (!allowedRegistrations) {
+    return (
+      <h1 className="mx-auto text-2xl mt-4 font-bold">
+        Registrations is closed and no longer allowed
+      </h1>
+    );
+  }
 
   if (!user) {
     router.push('/');
@@ -417,3 +437,20 @@ export default function Register() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const protocol = context.req.headers.referer?.split('://')[0] || 'http';
+  const { data } = await RequestHelper.get<{ allowRegistrations: boolean }>(
+    `${protocol}://${context.req.headers.host}/api/registrations/status`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+  return {
+    props: {
+      allowedRegistrations: data.allowRegistrations,
+    },
+  };
+};

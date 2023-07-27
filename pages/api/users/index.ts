@@ -51,8 +51,35 @@ async function getAllUsers(req: NextApiRequest, res: NextApiResponse) {
   return res.json(doc.data().users);
 }
 
+/**
+ *
+ * API endpoint to fetch all users from the database
+ *
+ * @param req HTTP request object
+ * @param res HTTP response object
+ *
+ *
+ */
+async function getAllRegistrations(req: NextApiRequest, res: NextApiResponse) {
+  const { headers } = req;
+
+  const userToken = headers['authorization'];
+  const isAuthorized = await userIsAuthorized(userToken);
+
+  if (!isAuthorized) {
+    return res.status(403).json({
+      msg: 'Request is not authorized to perform admin functionality.',
+    });
+  }
+
+  const collectionRef = await db.collection(USERS_COLLECTION).get();
+  const data = collectionRef.docs.map((doc) => doc.data());
+
+  return res.json(data);
+}
+
 function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
-  return getAllUsers(req, res);
+  return getAllRegistrations(req, res);
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
