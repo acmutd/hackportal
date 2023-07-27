@@ -5,7 +5,6 @@ import LoadIcon from '../components/LoadIcon';
 import { useUser } from '../lib/profile/user-data';
 import { RequestHelper } from '../lib/request-helper';
 import { useAuthContext } from '../lib/user/AuthContext';
-import firebase from 'firebase/app';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { hackPortalConfig, formInitialValues } from '../hackportal.config';
 import DisplayQuestion from '../components/registerComponents/DisplayQuestion';

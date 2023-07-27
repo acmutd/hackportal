@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+import 'firebase/analytics';
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -15,10 +16,10 @@ export const firebaseConfig = {
  *
  * See the contributor docs for more info.
  */
-export function initFirebase() {
-  if (firebase.apps.length > 0) {
-    return;
-  }
-
+if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
+
+const analytics = firebase.analytics;
+
+export { firebase, analytics };
