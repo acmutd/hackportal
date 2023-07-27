@@ -106,7 +106,7 @@ export default function EventForm({ event, onSubmitClick, formAction }: EventFor
             speakers: [...prev.speakers, ''],
           }))
         }
-        className="p-3 bg-blue-400 rounded-lg"
+        className="font-bold bg-blue-200 hover:bg-blue-300 border border-blue-800 text-blue-900 rounded-lg p-3"
       >
         Add Speaker
       </button>
@@ -121,7 +121,7 @@ export default function EventForm({ event, onSubmitClick, formAction }: EventFor
             setDisableSubmit(false);
           }
         }}
-        className="p-3 bg-green-400 rounded-lg"
+        className="font-bold bg-green-200 hover:bg-green-300 border border-green-800 text-green-900 rounded-lg p-3"
       >
         {formAction} Event
       </button>

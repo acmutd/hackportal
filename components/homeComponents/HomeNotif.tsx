@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/messaging';
 
 export default function HomeNotif() {
   const [notif, setNotif] = useState(true);
+  const popup = useRef(null);
 
   useEffect(() => {
-    // Set amount of time notification prompt gets displayed before fading out
     setNotif(checkNotif());
-    setTimeout(fadeOutEffect, 3000);
+    triggerPopup();
   }, []);
 
   const checkNotif = () => {
@@ -25,31 +25,26 @@ export default function HomeNotif() {
     return false;
   };
 
-  // Fade out notification prompt
-  const fadeOutEffect = () => {
-    var fadeTarget = document.getElementById('popup');
-
-    if (fadeTarget !== undefined && fadeTarget !== null) {
-      var fadeEffect = setInterval(() => {
-        if (!fadeTarget.style.opacity) {
-          fadeTarget.style.opacity = '1';
-        }
-        if (parseFloat(fadeTarget.style.opacity) > 0) {
-          fadeTarget.style.opacity = (parseFloat(fadeTarget.style.opacity) - 0.1).toString();
-        } else {
-          clearInterval(fadeEffect);
-        }
-      }, 100);
-    }
+  const triggerPopup = () => {
+    popup.current.classList.add('show');
+    setTimeout(() => setNotif(false), 4000);
   };
 
   return (
     notif && (
       <div
         id="popup"
-        className="fixed z-50 md:translate-x-0 translate-x-1/2 w-[22rem] rounded-md px-4 py-2 top-16 md:right-6 right-1/2 bg-red-200 md:text-base text-sm"
+        ref={popup}
+        className="fixed z-50 md:translate-x-0 translate-x-1/2 flex md:w-[22rem] w-[20rem] rounded-b-md px-4 py-2 top-20 md:right-6 right-1/2 md:text-base text-sm border-t-8 border-primaryDark bg-secondary"
       >
-        Turn on push notifications to recieve announcements!
+        <svg
+          className="fill-current md:h-6 h-5 md:w-6 w-5 text-primaryDark mr-4"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+        >
+          <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+        </svg>
+        Turn on push notifications to receive announcements!
       </div>
     )
   );

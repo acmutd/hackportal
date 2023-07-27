@@ -6,6 +6,7 @@ import EventList from '../../../components/adminComponents/eventComponents/Event
 import { RequestHelper } from '../../../lib/request-helper';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import Link from 'next/link';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 interface EventPageProps {
   events_: ScheduleEvent[];
@@ -88,7 +89,7 @@ export default function EventPage({ events_ }: EventPageProps) {
     return <div className="text-2xl font-black text-center">Unauthorized</div>;
 
   return (
-    <div className="p-3">
+    <div className="2xl:px-36 md:px-16">
       {currentEventEditIndex !== -1 ? (
         <div>
           <EventForm
@@ -100,13 +101,21 @@ export default function EventPage({ events_ }: EventPageProps) {
           />
           <button
             onClick={() => setCurrentEventEditIndex(-1)}
-            className="p-3 bg-gray-200 rounded-lg"
+            className="font-bold bg-gray-200 hover:bg-gray-300 border border-gray-500 rounded-lg md:p-3 p-1 px-2"
           >
             Go Back
           </button>
         </div>
       ) : (
         <>
+          <div className="mt-4">
+            <Link href="/admin" passHref>
+              <div className="cursor-pointer items-center inline-flex text-primaryDark font-bold md:text-lg text-base">
+                <ChevronLeftIcon />
+                return to event dashboard
+              </div>
+            </Link>
+          </div>
           <EventList
             onEventEditClick={(eventIndex) => {
               setCurrentEventEditIndex(eventIndex);
@@ -117,12 +126,11 @@ export default function EventPage({ events_ }: EventPageProps) {
             }}
             events={events}
           />
-          <div className="p-3 flex gap-x-4">
+          <div className="p-3">
             <Link href={`/admin/events/add?id=${nextEventIndex}`}>
-              <button className="p-3 bg-green-400 rounded-lg">Add New Event</button>
-            </Link>
-            <Link href="/admin">
-              <button className="p-3 bg-gray-200 rounded-lg">Go Back</button>
+              <button className="font-bold bg-green-200 hover:bg-green-300 border border-green-800 text-green-900 rounded-lg md:p-3 p-1 px-2">
+                Add New Event
+              </button>
             </Link>
           </div>
         </>
@@ -173,7 +181,7 @@ export default function EventPage({ events_ }: EventPageProps) {
                     <div className="mt-4">
                       <button
                         type="button"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        className="inline-flex justify-center rounded-md px-4 py-2 text-sm font-medium text-red-800 bg-red-100 hover:bg-red-200 border border-red-400"
                         onClick={async () => {
                           await submitDeleteEventRequest();
                         }}

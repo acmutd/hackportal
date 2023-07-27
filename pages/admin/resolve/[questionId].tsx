@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { isAuthorized } from '..';
@@ -7,6 +8,7 @@ import PendingQuestion from '../../../components/dashboardComponents/PendingQues
 import { RequestHelper } from '../../../lib/request-helper';
 import { useAuthContext } from '../../../lib/user/AuthContext';
 import { QADocument } from '../../api/questions';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 /**
  * Resolve question page.
@@ -57,7 +59,13 @@ export default function ResolveQuestionPage({
     return <div className="text-2xl font-black text-center">Unauthorized</div>;
 
   return (
-    <div className="p-6">
+    <div className="py-6 2xl:px-32 md:px-16 px-6">
+      <Link href="/admin" passHref>
+        <div className="cursor-pointer items-center inline-flex text-primaryDark font-bold md:text-lg text-base">
+          <ChevronLeftIcon />
+          return to event dashboard
+        </div>
+      </Link>
       <ErrorList
         errors={errors}
         onClose={(idx: number) => {
@@ -68,18 +76,16 @@ export default function ResolveQuestionPage({
       />
       <PendingQuestion question={question.question} />
       <textarea
-        className="w-full rounded-xl p-4"
+        className="w-full rounded-xl p-4 bg-secondary border-transparent focus:border-primaryDark caret-primaryDark"
         rows={5}
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
-        style={{ backgroundColor: '#F2F3FF' }}
         placeholder="Type your answer here"
       ></textarea>
       <div className="flex flex-row justify-end my-4">
         <button
           type="button"
-          className="p-2 rounded-lg"
-          style={{ backgroundColor: '#9CA6FF', color: 'black' }}
+          className="p-2 rounded-lg font-medium hover:bg-secondary bg-primaryDark text-secondary hover:text-primaryDark border-[1px] border-transparent hover:border-primaryDark transition duration-300 ease-in-out"
           onClick={() => {
             submitAnswer();
           }}
