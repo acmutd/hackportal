@@ -33,25 +33,25 @@ export default function FaqDisclosure({
     <Disclosure>
       <div className="transition duration-500 ease-in-out">
         <Disclosure.Button
-          className={`p-2 text-complementary font-medium text-left  w-full ${
-            isOpen ? '' : 'border-b-2 border-complementary transition duration-300 ease-in-out'
+          className={`font-medium w-full ${
+            isOpen ? '' : 'border-b-2 border-[#111A31] transition duration-300 ease-in-out'
           }`}
           as="div"
         >
           <button
-            className="w-full flex flex-row justify-between items-center"
+            className=" w-[120%] -translate-x-[10%] my-4"
             onClick={() => {
               toggleDisclosure();
             }}
           >
-            <span className="text-left">{question}</span>
-            <ChevronDownIcon
+            <div className="text-center text-2xl">{question}</div>
+            {/* <ChevronDownIcon
               className={`${
                 isOpen
                   ? 'transform rotate-180 transition duration-500 ease-in-out'
                   : 'transition duration-500 ease-in-out'
               } w-5 h-5`}
-            />
+            /> */}
           </button>
         </Disclosure.Button>
 
@@ -66,12 +66,12 @@ export default function FaqDisclosure({
           leaveTo="transform scale-95 opacity-0"
         >
           <Disclosure.Panel
-            className={`my-2 py-2  p-2 text-complementary text-left  ${
-              isOpen ? 'border-b-2 border-complementary transition duration-300 ease-in-out' : ''
+            className={`text-center ${
+              isOpen ? 'border-b-2 border-[#111A31] transition duration-300 ease-in-out' : ''
             }`}
             static
           >
-            {answer}
+            <div className="w-[120%] -translate-x-[10%] mb-4">{answer}</div>
           </Disclosure.Panel>
         </Transition>
         {/* )} */}

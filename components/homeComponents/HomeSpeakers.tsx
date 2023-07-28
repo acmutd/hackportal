@@ -14,9 +14,9 @@ export default function HomeSpeakers(props: { keynoteSpeakers: KeynoteSpeaker[] 
 
   return (
     speakers.length != 0 && (
-      <section className=" overflow-x-auto min-h-[24rem]">
-        <div className="flex items-start justify-start font-bold md:p-12 p-6 md:text-4xl text-2xl my-4 text-complementary">
-          Speakers
+      <section className=" overflow-x-auto min-h-[24rem] my-16 text-[#111A31] w-4/5 mx-auto">
+        <div className="text-center font-bold md:text-4xl text-2xl my-4 mb-8">
+          FEATURING TALKS FROM
         </div>
 
         <Swiper

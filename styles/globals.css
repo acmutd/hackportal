@@ -7,26 +7,27 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'Krona One', sans-serif;
 }
 
 @font-face {
-  font-family: 'wavehaus';
-  src: url('/fonts/Wavehaus-66Book.ttf') format('truetype');
+  font-family: 'hoefler-text';
+  src: url('/fonts/hoefler-text.ttf') format('truetype');
   font-display: auto;
 }
 
-.MuiTypography-root {
-  font-family: 'wavehaus' !important;
-  src: url('/fonts/Wavehaus-66Book.ttf') format('truetype') !important;
-  font-display: auto !important;
-  font-weight: 600 !important;
+.hoefler-text {
+  font-family: 'hoefler-text';
 }
 
-.Target-root {
-  font-family: 'wavehaus' !important;
-  src: url('/fonts/Wavehaus-66Book.ttf') format('truetype') !important;
-  font-display: auto !important;
+@font-face {
+  font-family: 'excelsior-script';
+  src: url('/fonts/ExcelsiorScript.otf') format('truetype');
+  font-display: auto;
+}
+
+.excelsior-script {
+  font-family: 'excelsior-script';
 }
 
 a.link {
@@ -36,10 +37,6 @@ a.link {
   justify-content: center;
   display: flex-center;
   @apply px-4;
-}
-
-.element {
-  font-family: 'wavehaus';
 }
 
 .profile-view {
@@ -192,4 +189,39 @@ a.link {
   opacity: 0;
   transition: opacity 0.5s ease-in;
   transition-delay: 3s;
+}
+
+.appheader-bg {
+  background-image: url("../public/assets/appheader_bg.png");
+}
+
+.gold-text-gradient {
+  background: -webkit-linear-gradient(180deg, #F6CC82, #BD8A31);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.appheader-dash {
+  background-image: url("../public/assets/appheader-dash.png");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-repeat: repeat-y;
+
+}
+
+.hero-bg {
+  background-image: url("../public/assets/hero-bg.png");
+}
+
+.about-bg {
+  background-image: url("../public/assets/about-bg.png");
+
+}
+.slowbounce {
+  animation: slowbounce 3s ease infinite;
+}
+@keyframes slowbounce {
+	0%, 10%, 25%, 50%, 100% {transform: translateY(0);}
+	20% {transform: translateY(-6px);}
+	30% {transform: translateY(-3px);}
 }

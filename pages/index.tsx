@@ -7,10 +7,11 @@ import HomeNotif from '../components/homeComponents/HomeNotif';
 import HomeVideoStats from '../components/homeComponents/HomeVideoStats';
 import HomeAbout from '../components/homeComponents/HomeAbout';
 import HomeSpeakers from '../components/homeComponents/HomeSpeakers';
-import HomeChallenges from '../components/homeComponents/HomeChallenges';
-import HomeTeam from '../components/homeComponents/HomeTeam';
+// import HomeChallenges from '../components/homeComponents/HomeChallenges';
+// import HomeTeam from '../components/homeComponents/HomeTeam';
 import HomeSponsors from '../components/homeComponents/HomeSponsors';
 import HomeFooter from '../components/homeComponents/HomeFooter';
+import HomeFaq from '../components/homeComponents/HomeFaq';
 
 /**
  * The home page.
@@ -50,13 +51,18 @@ export default function Home(props: {
 
       <HomeNotif />
       <HomeHero />
-      <HomeVideoStats />
-      <HomeAbout />
-      <HomeSpeakers keynoteSpeakers={props.keynoteSpeakers} />
-      <HomeChallenges challenges={props.challenges} />
-      <HomeTeam members={props.fetchedMembers} />
-      <HomeSponsors sponsorCard={props.sponsorCard} />
-      <HomeFooter />
+      <div className="about-bg">
+        <HomeAbout />
+        <HomeVideoStats />
+        <HomeSpeakers keynoteSpeakers={props.keynoteSpeakers} />
+        <HomeFaq answeredQuestion={props.answeredQuestion} />
+        {/* <HomeChallenges challenges={props.challenges} /> */}
+        {/* <HomeTeam members={props.fetchedMembers} /> */}
+      </div>
+      <div className="hero-bg">
+        <HomeSponsors sponsorCard={props.sponsorCard} />
+        <HomeFooter />
+      </div>
     </>
   );
 }

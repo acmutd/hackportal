@@ -18,10 +18,13 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
   const [disclosuresStatus, setDisclosureStatus] = useState<boolean[]>();
 
   useEffect(() => {
-    setFaqs(fetchedFaqs);
     setDisclosureStatus(fetchedFaqs.map(() => false));
     setLoading(false);
   }, [fetchedFaqs]);
+
+  useEffect(() => {
+    setFaqs(fetchedFaqs.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
+  }, []);
 
   /**
    *
@@ -45,94 +48,54 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
   }
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="text-[#111A31]">
       <Head>
         <title>HackPortal</title>
         <meta name="description" content="HackPortal's Frequently Asked Questions" />
       </Head>
       {/* <AboutHeader active="/about/faq" /> */}
-      <div className="top-6">
-        <div className="flex flex-row justify-between items-center py-2">
-          <h4 className="font-bold md:text-4xl text-2xl my-4 text-complementary">FAQ</h4>
-          <div className="flex flex-row items-center gap-x-2">
-            <button
-              onClick={() => {
-                if (disclosuresStatus.every((status) => status)) {
-                  closeAll();
-                } else {
-                  expandAll();
-                }
+      <h4 className="md:text-8xl text-2xl text-center excelsior-script">
+        Frequently Asked Questions
+      </h4>
+      <div className="border-y-2 p-[1px] border-[#111A31] w-3/5 mx-auto -mt-3"></div>
+      <div className="flex flex-row justify-end items-center py-2 w-3/5 mx-auto">
+        <div className="flex flex-row items-center gap-x-2">
+          <button
+            onClick={() => {
+              if (disclosuresStatus.every((status) => status)) {
+                closeAll();
+              } else {
+                expandAll();
+              }
+            }}
+            className="font-bold"
+          >
+            {disclosuresStatus.every((status) => status) ? 'Close All' : 'Expand All'}
+          </button>
+          <ChevronDownIcon
+            className={`${
+              disclosuresStatus.every((status) => status)
+                ? 'transform rotate-180 transition duration-500 ease-in-out'
+                : 'transition duration-500 ease-in-out'
+            } w-5 h-5`}
+          />
+        </div>
+      </div>
+      <div className="w-1/3 mx-auto">
+        <div className="w-full my-3">
+          {faqs.map(({ question, answer }, idx) => (
+            <FaqDisclosure
+              key={idx}
+              question={question}
+              answer={answer}
+              isOpen={disclosuresStatus[idx]}
+              toggleDisclosure={() => {
+                const currDisclosure = [...disclosuresStatus];
+                currDisclosure[idx] = !currDisclosure[idx];
+                setDisclosureStatus(currDisclosure);
               }}
-              className="font-bold"
-            >
-              {disclosuresStatus.every((status) => status) ? 'Close All' : 'Expand All'}
-            </button>
-            <ChevronDownIcon
-              className={`${
-                disclosuresStatus.every((status) => status)
-                  ? 'transform rotate-180 transition duration-500 ease-in-out'
-                  : 'transition duration-500 ease-in-out'
-              } w-5 h-5`}
             />
-          </div>
-        </div>
-        {/* FAQ for lg-md */}
-        {/* Uses different section for mobile because using 2 columns is buggy when expanding FAQs */}
-        <div className="md:flex hidden justify-between p-6">
-          <div className="w-[49%] my-3 space-y-4 > * + *">
-            {faqs.map(
-              ({ question, answer }, idx) =>
-                idx % 2 == 0 && (
-                  <FaqDisclosure
-                    key={idx}
-                    question={question}
-                    answer={answer}
-                    isOpen={disclosuresStatus[idx]}
-                    toggleDisclosure={() => {
-                      const currDisclosure = [...disclosuresStatus];
-                      currDisclosure[idx] = !currDisclosure[idx];
-                      setDisclosureStatus(currDisclosure);
-                    }}
-                  />
-                ),
-            )}
-          </div>
-          <div className="w-[49%] my-3 space-y-4 > * + *">
-            {faqs.map(
-              ({ question, answer }, idx) =>
-                idx % 2 != 0 && (
-                  <FaqDisclosure
-                    key={idx}
-                    question={question}
-                    answer={answer}
-                    isOpen={disclosuresStatus[idx]}
-                    toggleDisclosure={() => {
-                      const currDisclosure = [...disclosuresStatus];
-                      currDisclosure[idx] = !currDisclosure[idx];
-                      setDisclosureStatus(currDisclosure);
-                    }}
-                  />
-                ),
-            )}
-          </div>
-        </div>
-        {/* FAQ for mobile */}
-        <div className="md:hidden">
-          <div className="w-full my-3 space-y-4 > * + *">
-            {faqs.map(({ question, answer }, idx) => (
-              <FaqDisclosure
-                key={idx}
-                question={question}
-                answer={answer}
-                isOpen={disclosuresStatus[idx]}
-                toggleDisclosure={() => {
-                  const currDisclosure = [...disclosuresStatus];
-                  currDisclosure[idx] = !currDisclosure[idx];
-                  setDisclosureStatus(currDisclosure);
-                }}
-              />
-            ))}
-          </div>
+          ))}
         </div>
       </div>
     </div>

@@ -1,34 +1,26 @@
-import { stats } from '../../lib/data';
+import Image from 'next/image';
 
 export default function HomeVideoStats() {
   return (
-    <section className="z-0 relative md:h-[560px] py-[3rem] bg-white">
-      <div className="flex flex-col justify-center items-center md:flex-row">
-        {/* Video */}
-        {/* !change */}
-        <iframe
-          className="video border-0"
-          width="700"
-          height="400"
-          src="https://www.youtube.com/embed/niFBblrblqo"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-
-        {/* Stats */}
-        <div>
-          {stats.map((stat, index) => (
-            <div
-              key={stat.data}
-              className={`${
-                index % 2 === 0 ? 'lg:ml-40 md:ml-20 ml-14' : 'md:mr-8 mr-24'
-              } text-center md:my-6 my-4`}
-            >
-              <p className="font-bold text-2xl text-primaryDark lg:text-5xl">{stat.data}</p>
-              <p className="font-medium text-lg lg:text-3xl">{stat.object}</p>
+    <section className="z-0 relative">
+      <div className="w-4/5 border-2 border-[#111A31] mx-auto p-1">
+        <div className="border-2 border-[#111A31] flex items-stretch">
+          {/* Video */}
+          {/* !change */}
+          <iframe
+            className="video border-0"
+            width="800"
+            height="450"
+            src="https://www.youtube.com/embed/f6-Kwfi-CQM"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+          <div className="border-2 grow flex items-center justify-center">
+            <div className="w-[17rem] h-[17rem] relative">
+              <Image src="/assets/Logo-Dark.png" alt="ecsw" layout="fill" object-fit="fill"></Image>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
