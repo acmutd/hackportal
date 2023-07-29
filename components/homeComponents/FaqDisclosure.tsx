@@ -39,12 +39,14 @@ export default function FaqDisclosure({
           as="div"
         >
           <button
-            className=" w-[120%] -translate-x-[10%] my-4"
+            className="lg:w-[130%] lg:-translate-x-[12%] md:w-[140%] md:-translate-x-[15%] w-[140%] -translate-x-[15%] md:my-4 my-2"
             onClick={() => {
               toggleDisclosure();
             }}
           >
-            <div className="text-center text-2xl">{question}</div>
+            <div className="text-center lg:text-2xl md:text-xl sm:text-base text-sm">
+              {question}
+            </div>
             {/* <ChevronDownIcon
               className={`${
                 isOpen
@@ -71,7 +73,9 @@ export default function FaqDisclosure({
             }`}
             static
           >
-            <div className="w-[120%] -translate-x-[10%] mb-4">{answer}</div>
+            <div className="lg:w-[130%] lg:-translate-x-[12%] md:w-[140%] md:-translate-x-[15%] w-[140%] -translate-x-[15%] md:mb-4 mb-2 md:text-base sm:text-sm text-xs">
+              {answer}
+            </div>
           </Disclosure.Panel>
         </Transition>
         {/* )} */}

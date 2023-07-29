@@ -73,23 +73,23 @@ export default function AppHeader() {
 
   return (
     <>
-      <div className="min-h-[7rem]"></div>
+      <div className="md:min-h-[7rem] min-h-[5rem]"></div>
       <header className="top-0 fixed w-full z-10">
         <header className=" justify-between flex flex-row w-full appheader-bg items-center h-20 lg:px-4 px-2 drop-shadow">
-          <div className="flex flex-row order-1 md:order-none items-center sm:w-[9rem] w-[7rem]">
+          <div className="flex flex-row order-1 md:order-none items-center sm:w-[11rem] w-[7rem]">
             {/* Smartphone nav */}
             <div onClick={toggleMenu} className="md:hidden cursor-pointer text-[#BD8A31]">
               {mobileIcon ? <MenuIcon /> : <CloseIcon />}
               <ul
                 className={`${
                   showMenu ? 'translate-x-0' : '-translate-x-full'
-                } transform transition-all ease-out duration-300 flex w-6/12 h-screen flex-col bg-white fixed top-0 left-0 z-[-1] mt-[80px] border-t-2 border-complementary/10`}
+                } transform transition-all ease-out duration-300 flex w-6/12 h-screen flex-col about-bg fixed top-0 left-0 z-[-1] mt-[5rem] shadow-md shadow-[#111A31]`}
               >
                 {dynamicNavItems
                   .filter(({ text }) => text !== 'Home')
                   .map((item) => (
                     <Link key={item.text} href={item.path}>
-                      <a className="p-9 py-6 hover:bg-primaryDark hover:text-white text-complementary">
+                      <a className="p-9 py-6 hover:bg-[#111A31] hover:text-white text-[#111A31]">
                         <p className="text-xl font-medium">{item.text}</p>
                       </a>
                     </Link>
@@ -103,13 +103,13 @@ export default function AppHeader() {
               </a>
             </Link>
           </div>
-          <div className="order-2 gold-text-gradient md:block font-bold text-center text-xl">
+          <div className="order-2 gold-text-gradient md:block font-bold text-center md:text-xl text-lg">
             <div>HackUTD X:</div>
             <div>Golden Hour</div>
           </div>
-          <div className="flex flex-row justify-center items-center order-2 md:order-3 sm:w-[9rem] w-[7rem]">
+          <div className="flex flex-row justify-center items-center order-2 md:order-3 sm:w-[11rem] w-[7rem]">
             <button
-              className="font-header font-bold border-2 rounded-full border-[#BD8A31] text-[#F6CC82] text-sm xl:px-10 md:px-6 sm:px-10 px-6 py-1 hover:border-[#F6CC82] hover:text-[#F6CC82] transition duration-300 ease-in-out"
+              className="font-header font-bold border-2 rounded-full border-[#BD8A31] text-[#F6CC82] md:text-sm text-xs xl:px-10 md:px-6 sm:px-10 px-5 py-1 hover:border-[#F6CC82] hover:text-[#F6CC82] transition duration-300 ease-in-out"
               onClick={toggleDialog}
             >
               {!user || !isSignedIn ? 'Sign in' : hasProfile ? 'Profile' : 'Register'}

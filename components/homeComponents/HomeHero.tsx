@@ -3,6 +3,7 @@ import { buttonDatas } from '../../lib/data';
 import Image from 'next/image';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function HomeHero() {
   const router = useRouter();
@@ -51,13 +52,13 @@ export default function HomeHero() {
   };
 
   return (
-    <section className="min-h-screen p-4 bg-contain hero-bg mt-[-7rem] pt-[7rem] flex flex-col justify-between">
+    <section className="min-h-screen p-4 bg-contain hero-bg md:mt-[-7rem] mt-[-5rem] pt-[7rem] flex flex-col justify-between">
       <div>
-        <div className="mx-auto w-[48rem] h-[19rem] relative mt-16">
+        <div className="mx-auto 2xl:w-[80rem] 2xl:h-[36rem] lg:w-[48rem] lg:h-[19rem] md:w-[40rem] md:h-[15rem] sm:w-[35rem] sm:h-[12rem] w-[25rem] h-[9rem] relative md:mt-16 mt-28">
           <Image src="/assets/hero-ecsw.png" alt="ecsw" layout="fill" object-fit="fill"></Image>
         </div>
         {!eventStarted ? (
-          <p className=" flex relative text-white mx-auto flex justify-center text-sm mt-3">
+          <p className=" flex relative text-white mx-auto flex justify-center 2xl:text-lg md:text-sm text-xs mt-3">
             TIME UNTIL EVENT |
             <div className="mx-2">
               <div>{countdownTime.countdownDays}</div>
@@ -76,9 +77,11 @@ export default function HomeHero() {
             </div>
           </p>
         ) : (
-          <p className="text-white text-sm text-center mt-3">THE EVENT HAS STARTED!</p>
+          <p className="text-white 2xl:text-lg md:text-sm text-xs text-center mt-3">
+            THE EVENT HAS STARTED!
+          </p>
         )}
-        <div className="text-white text-center text-sm">NOVEMBER 4 - 5</div>
+        <div className="text-white text-center 2xl:text-lg md:text-sm text-xs">NOVEMBER 4 - 5</div>
         {/* <div className="flex flex-col items-center md:flex-row md:justify-around px-44 md:space-y-0 space-y-3 > *">
           {buttonDatas.map((button) => (
             <button
@@ -90,10 +93,12 @@ export default function HomeHero() {
             </button>
           ))}
         </div> */}
-        <div className="w-full flex justify-center mt-12">
-          <button className="text-2xl py-3 px-6 rounded-full bg-gradient-to-l from-[#F6CC82] to-[#BD8A31] text-[#202c54]">
-            REGISTER
-          </button>
+        <div className="w-full flex justify-center 2xl:mt-24 mt-12">
+          <Link href="/register" passHref>
+            <button className="md:text-2xl text-lg py-3 px-6 rounded-full bg-gradient-to-l from-[#F6CC82] to-[#BD8A31] text-[#202c54]">
+              REGISTER
+            </button>
+          </Link>
         </div>
       </div>
       <div className="flex flex-col items-center justify-center">

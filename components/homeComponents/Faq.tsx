@@ -54,10 +54,10 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
         <meta name="description" content="HackPortal's Frequently Asked Questions" />
       </Head>
       {/* <AboutHeader active="/about/faq" /> */}
-      <h4 className="md:text-8xl text-2xl text-center excelsior-script">
+      <h4 className="lg:text-8xl md:text-7xl sm:text-6xl text-5xl text-center excelsior-script">
         Frequently Asked Questions
       </h4>
-      <div className="border-y-2 p-[1px] border-[#111A31] w-3/5 mx-auto -mt-3"></div>
+      <div className="border-y-2 p-[1px] border-[#111A31] xl:w-3/5 sm:w-4/5 w-5/6 mx-auto lg:-mt-3 sm:-mt-2 -mt-1"></div>
       <div className="flex flex-row justify-end items-center py-2 w-3/5 mx-auto">
         <div className="flex flex-row items-center gap-x-2">
           <button
@@ -68,7 +68,7 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
                 expandAll();
               }
             }}
-            className="font-bold"
+            className="font-bold md:text-base text-sm"
           >
             {disclosuresStatus.every((status) => status) ? 'Close All' : 'Expand All'}
           </button>
@@ -81,7 +81,7 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
           />
         </div>
       </div>
-      <div className="w-1/3 mx-auto">
+      <div className="2xl:2-2/5 lg:w-1/3 md:w-2/5 w-3/5 mx-auto">
         <div className="w-full my-3">
           {faqs.map(({ question, answer }, idx) => (
             <FaqDisclosure

@@ -77,31 +77,11 @@ a.link {
     column-count: 1;
   }
 
-  /* Home page video scaling */
-  .video {
-    zoom: 0.7 !important;
-    -moz-transform: scale(0.7) !important;
-    -o-transform: scale(0.7) !important;
-    -webkit-transform: scale(0.7) !important;
-  }
-
   .footerIcon {
     transform: scale(1) !important;
   }
 }
 
-@media (max-width: 1024px) {
-  /* Home page video scaling */
-  .video {
-    zoom: 0.85;
-    -moz-transform: scale(0.85);
-    -moz-transform-origin: top center;
-    -o-transform: scale(0.85);
-    -o-transform-origin: top center;
-    -webkit-transform: scale(0.85);
-    -webkit-transform-origin: top center;
-  }
-}
 
 /* For challenge selection in home page */
 .arrow-right {
@@ -156,11 +136,11 @@ a.link {
 }
 
 .swiper-button-prev {
-  color: red;
+  color: #111A31 !important;
 }
 
 .swiper-button-next {
-  color: #000;
+  color: #111A31 !important;
 }
 
 .swiper-button-prev:after {
@@ -176,7 +156,7 @@ a.link {
   display: block;
   font-size: 1rem !important;
   font-weight: 600;
-  color: #7b81ff;
+  color: #111A31;
 }
 
 .swiper-pagination-bullet,
@@ -204,8 +184,7 @@ a.link {
 .appheader-dash {
   background-image: url("../public/assets/appheader-dash.png");
   background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-repeat: repeat-y;
+  background-size: 100% 100%;
 
 }
 

@@ -60,7 +60,7 @@ export default function Home(props: {
         {/* <HomeTeam members={props.fetchedMembers} /> */}
       </div>
       <div className="hero-bg">
-        <HomeSponsors sponsorCard={props.sponsorCard} />
+        {/* <HomeSponsors sponsorCard={props.sponsorCard} /> */}
         <HomeFooter />
       </div>
     </>

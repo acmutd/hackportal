@@ -40,9 +40,9 @@ export default function KeynoteSpeaker(props) {
           )}
         </div>
         <div className="flex-col items-center justify-center w-full h-72 sm:h-80 absolute translate-y-56 sm:translate-y-64 group-hover:translate-y-0 transition duration-500 ease-in-out overflow-hidden">
-          <div className="about-bg p-2 font-semibold text-center">
-            <h1 className="text-lg font-medium">{props.name}</h1>
-            <h1 className="text-xs font-normal">{props.subtitle}</h1>
+          <div className="about-bg p-2 text-center hoefler-text">
+            <h1 className="text-base">{props.name}</h1>
+            <h1 className="text-base">{props.subtitle}</h1>
             {/* show description on hover by sliding up */}
             <div className="opacity-0 group-hover:opacity-100 transition duration-500 ease-in-out about-bg sm:h-72 h-80 font-normal overflow-y-scroll">
               <p className="text-[13px] pt-2 pb-24 sm:pb-10">{props.description}</p>
