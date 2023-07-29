@@ -152,7 +152,7 @@ export default function QuestionsPage() {
     );
 
   return (
-    <div className="2xl:px-32 md:px-16 px-6 flex flex-col flex-grow">
+    <div className="2xl:px-32 md:px-16 px-6 flex flex-col flex-grow bg-[url('/assets/hero-bg.png')]">
       <Head>
         <title>HackPortal - Questions</title> {/* !change */}
         <meta name="description" content="HackPortal's Quesiton and Answer Page " /> {/* !change */}
@@ -167,7 +167,7 @@ export default function QuestionsPage() {
         }}
       />
       <div className="lg:mt-12 mt-8 flex flex-col gap-y-3">
-        <h4 className="font-bold text-3xl text-complementary">Ask the organizers a question!</h4>
+        <h4 className="font-bold text-3xl text-[#FFFCF9]">Ask the organizers a question!</h4>
         <div>
           <textarea
             className="w-full rounded-xl p-4 bg-secondary border-transparent focus:border-primaryDark caret-primaryDark"
@@ -190,7 +190,7 @@ export default function QuestionsPage() {
         </div>
 
         <div>
-          <h4 className="font-bold text-2xl text-complementary">My Pending Questions</h4>
+          <h4 className="font-bold text-2xl text-[#FFFCF9]">My Pending Questions</h4>
           {user ? (
             pendingQuestions.map(({ question }, idx) => (
               <PendingQuestion key={idx} question={question} />
@@ -201,7 +201,7 @@ export default function QuestionsPage() {
         </div>
 
         <div className="my-4">
-          <h4 className="font-bold text-2xl text-complementary">My Answered Questions</h4>
+          <h4 className="font-bold text-2xl text-[#FFFCF9]">My Answered Questions</h4>
           {user ? (
             answeredQuestions.map(({ question, answer }, idx) => (
               <AnsweredQuestion
@@ -209,7 +209,7 @@ export default function QuestionsPage() {
                 question={question}
                 answer={answer}
                 colorCode={colorSchemes[idx % 3].light}
-                iconColorCode={colorSchemes[idx % 3].dark}
+                iconColorCode={'#F6CC82'}
                 isOpen={answeredQuestionDisclosureStatus[idx]}
                 toggleDisclosure={() => {
                   let currStatus = [...answeredQuestionDisclosureStatus];

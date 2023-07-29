@@ -183,7 +183,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
   };
 
   return (
-    <div className="flex flex-col flex-grow bg-[url('/assets/hero-bg.png')] mt-[-2rem] md:mt-0">
+    <div className="flex flex-col flex-grow bg-[url('/assets/hero-bg.png')] md:mt-[-0.5rem]">
       <Head>
         <title>Hacker Registration</title>
         <meta name="description" content="Register for [HACKATHON NAME]" />

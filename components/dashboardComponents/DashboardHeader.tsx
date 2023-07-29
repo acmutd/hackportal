@@ -25,11 +25,11 @@ export default function DashboardHeader() {
   return (
     <section>
       <header className="md:flex hidden justify-center item-center mt-8">
-        <div className="lg:text-3xl text-2xl text-center text-complementary font-semibold border-b-2 py-2">
+        <div className="lg:text-3xl text-2xl text-center text-white font-semibold border-b-2 py-2">
           <NavLink
             href="/dashboard"
             exact={true}
-            activeOptions={'border-b-4 border-primaryDark text-complementaryDark'}
+            activeOptions={'border-b-4 border-[#F6D498] text-[#F6D498]'}
             className="xl:mr-6 mr-4 py-2"
           >
             HackCenter
@@ -37,7 +37,7 @@ export default function DashboardHeader() {
           <NavLink
             href="/dashboard/questions"
             exact={true}
-            activeOptions={'border-b-4 border-primaryDark text-complementaryDark'}
+            activeOptions={'border-b-4 border-[#F6D498] text-[#F6D498]'}
             className="xl:ml-6 ml-4 py-2"
           >
             Ask a Question

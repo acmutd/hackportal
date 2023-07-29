@@ -73,9 +73,9 @@ export default function AppHeader() {
 
   return (
     <>
-      <div className="md:min-h-[7rem] min-h-[5rem]"></div>
+      <div className="h-[8rem] h-[5rem]"></div>
       <header className="top-0 fixed w-full z-10">
-        <header className=" justify-between flex flex-row w-full appheader-bg items-center h-20 lg:px-4 px-2 drop-shadow">
+        <header className=" justify-between flex flex-row w-full appheader-bg items-center max-h-[5rem] h-20 lg:px-4 px-2 drop-shadow">
           <div className="flex flex-row order-1 md:order-none items-center sm:w-[11rem] w-[7rem]">
             {/* Smartphone nav */}
             <div onClick={toggleMenu} className="md:hidden cursor-pointer text-[#BD8A31]">
@@ -118,7 +118,7 @@ export default function AppHeader() {
           {showProfileDialog && <ProfileDialog onDismiss={dismissDialog} />}
         </header>
         {/* PC nav */}
-        <div className="appheader-dash hidden order-2 md:flex justify-center items-center md:text-center space-x-6 lg:space-x-12 text-white w-full p-2 h-[3rem]">
+        <div className="appheader-dash hidden order-2 md:flex justify-center items-center md:text-center space-x-6 lg:space-x-12 text-white w-full p-2 min-h-[3rem] max-h-[3rem] ">
           {dynamicNavItems.map((item) => (
             <NavLink
               key={item.text}
@@ -127,8 +127,8 @@ export default function AppHeader() {
               activeOptions={'border-b-2 border-[#F6D498]'}
               className="h-full"
             >
-              <div className="2xl:mx-4 lg:mx-2 md:mx-0 2xl:text-lg lg:text-sm text-sm flex items-center h-full">
-                <p className="my-auto">{item.text}</p>
+              <div className="2xl:mx-4 lg:mx-2 md:mx-0 2xl:text-lg lg:text-sm text-sm flex items-center">
+                <p className="">{item.text}</p>
               </div>
             </NavLink>
           ))}

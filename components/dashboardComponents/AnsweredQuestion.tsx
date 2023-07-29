@@ -49,8 +49,8 @@ export default function AnsweredQuestion({
                   }}
                 >
                   <div
-                    className="rounded-lg py-2 px-3 flex flex-row justify-between"
-                    style={{ backgroundColor: colorCode }}
+                    className="rounded-lg py-2 px-3 flex flex-row justify-between text-[#111A31]"
+                    style={{ backgroundColor: '#FFFCF9' }}
                   >
                     <h1 className="text-left font-semibold">{question}</h1>
                     <ChevronUpIcon className={`${isOpen ? 'transform rotate-180' : ''} w-5 h-5`} />
@@ -59,7 +59,7 @@ export default function AnsweredQuestion({
               </Disclosure.Button>
             </div>
             {isOpen && (
-              <Disclosure.Panel className="py-2 px-6" static>
+              <Disclosure.Panel className="py-2 px-6 text-white" static>
                 {answer}
               </Disclosure.Panel>
             )}

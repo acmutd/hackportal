@@ -52,7 +52,7 @@ export default function HomeHero() {
   };
 
   return (
-    <section className="min-h-screen p-4 bg-contain hero-bg md:mt-[-7rem] mt-[-5rem] pt-[7rem] flex flex-col justify-between">
+    <section className="min-h-screen p-4 bg-contain hero-bg md:mt-[-8rem] mt-[-5rem] pt-[7rem] flex flex-col justify-between">
       <div>
         <div className="mx-auto 2xl:w-[80rem] 2xl:h-[36rem] lg:w-[48rem] lg:h-[19rem] md:w-[40rem] md:h-[15rem] sm:w-[35rem] sm:h-[12rem] w-[25rem] h-[9rem] relative md:mt-16 mt-28">
           <Image src="/assets/hero-ecsw.png" alt="ecsw" layout="fill" object-fit="fill"></Image>

@@ -83,18 +83,20 @@ export default function Dashboard(props: {
 
   if (!isSignedIn)
     return (
-      <div className="text-2xl font-black text-center">Please sign-in to view your dashboard</div>
+      <div className="bg-[url('/assets/hero-bg.png')] h-screen text-2xl text-primary text-center pt-4">
+        Please sign-in to view your dashboard
+      </div>
     );
 
   return (
     <>
-      <div className="flex flex-wrap flex-grow">
+      <div className="flex flex-wrap flex-grow bg-[url('/assets/hero-bg.png')]">
         <Head>
           <title>HackPortal - Dashboard</title> {/* !change */}
           <meta name="description" content="HackPortal's Dashboard" />
         </Head>
 
-        <section id="mainContent" className="2xl:px-32 md:px-16 px-6 bg-white">
+        <section id="mainContent" className="2xl:px-32 md:px-16 px-6">
           <DashboardHeader />
           {/* Spotlight & Announcements */}
           <div className="flex flex-wrap md:my-16 my-10">
@@ -102,7 +104,9 @@ export default function Dashboard(props: {
             {/* Hides spotlight if no events are going on */}
             {eventCount > 0 && (
               <div className="lg:w-3/5 w-full h-96">
-                <h1 className="md:text-3xl text-xl font-black">Spotlight</h1>
+                <h1 className="md:text-5xl text-2xl text-[#FFFCF9] font-black mb-4 hoefler-text">
+                  Spotlight
+                </h1>
                 <div>{eventCountString}</div>
                 <Swiper
                   modules={[Navigation, Pagination, A11y]}
@@ -136,7 +140,9 @@ export default function Dashboard(props: {
             )}
             {/* Announcements */}
             <div className={`${eventCount > 0 ? 'lg:w-2/5' : 'lg:w-full'} w-full h-96`}>
-              <h1 className="md:text-3xl text-xl font-black">Announcements</h1>
+              <h1 className="md:text-5xl text-2xl font-black text-[#FFFCF9] mb-4 hoefler-text">
+                Announcements
+              </h1>
               <div id="announcement-items" className="overflow-y-scroll h-9/10">
                 {announcements.map((announcement, idx) => {
                   const dateObj = new Date(announcement.timestamp!);
@@ -156,10 +162,13 @@ export default function Dashboard(props: {
           </div>
 
           {/* Challenges */}
-          <div className="flex flex-col items-center my-8">
-            <h1 className="md:text-3xl text-xl font-black">Challenges</h1>
+          <h1 className="md:text-5xl text-2xl font-black text-[#FFFCF9] hoefler-text mb-4 2xl:mt-28 md:mt-20">
+            Challenges
+          </h1>
+
+          <div className="flex flex-col items-center">
             {/* Cards */}
-            <div className="challengeGrid my-8">
+            <div className="challengeGrid">
               {challenges.map(({ title, description, prizes }, idx) => (
                 <ChallengeCard key={idx} title={title} description={description} prizes={prizes} />
               ))}
