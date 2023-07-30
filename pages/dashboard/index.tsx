@@ -83,7 +83,7 @@ export default function Dashboard(props: {
 
   if (!isSignedIn)
     return (
-      <div className="bg-[url('/assets/hero-bg.png')] h-screen text-2xl text-primary text-center pt-4">
+      <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
         Please sign-in to view your dashboard
       </div>
     );

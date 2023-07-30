@@ -183,8 +183,7 @@ a.link {
 
 .appheader-dash {
   background-image: url("../public/assets/appheader-dash.png");
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% 105%;
 }
 
 .hero-bg {
