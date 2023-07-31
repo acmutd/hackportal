@@ -94,19 +94,19 @@ export default function HomeHero() {
           ))}
         </div> */}
         <div className="flex flex-col justify-center mt-4">
-          <p className="text-white text-center 2xl:text-lg md:text-sm text-xs mb-3">
+          <p className="gold-text-gradient text-center 2xl:text-xl md:text-base text-sm mb-3">
             Registration opens soon!
           </p>
-          <Link href="/register" passHref>
+          {/* <Link href="/register" passHref>
             <button
               className="md:text-2xl text-lg py-3 px-4 rounded-full bg-gradient-to-l from-[#F6CC82] to-[#BD8A31] text-[#202c54] opacity-50"
               disabled={true}
             >
               REGISTER
             </button>
-          </Link>
+          </Link> */}
         </div>
-        <div className="absolute flex flex-col items-center justify-center bottom-3 md:bottom-6 w-full">
+        <div className="absolute flex flex-col items-center justify-center bottom-10 w-full">
           <div className="text-white text-sm">THE LARGEST HACKATHON IN TEXAS</div>
           <div className="text-white w-6 h-6 slowbounce">
             <ChevronDownIcon />
