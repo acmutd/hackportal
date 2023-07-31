@@ -8,7 +8,7 @@ export default function HomeVideoStats() {
           {/* Video */}
           {/* !change */}
           <iframe
-            className="video border-0 2xl:w-[800px] 2xl:h-[450px] xl:w-[720px] xl:h-[405px] md:w-[592px] md:h-[333px] sm:w-[544px] sm:h-[306px] w-[384px] h-[216px]"
+            className="video border-0 2xl:w-[800px] 2xl:h-[450px] xl:w-[720px] xl:h-[405px] md:w-[592px] md:h-[333px] sm:w-[544px] sm:h-[306px] w-[360px] h-[216px]"
             // width="800"
             // height="450"
             src="https://www.youtube.com/embed/f6-Kwfi-CQM"

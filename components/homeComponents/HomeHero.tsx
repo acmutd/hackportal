@@ -52,13 +52,13 @@ export default function HomeHero() {
   };
 
   return (
-    <section className="min-h-screen p-4 bg-contain hero-bg md:mt-[-8rem] mt-[-5rem] pt-[7rem] flex flex-col justify-between">
-      <div>
-        <div className="mx-auto 2xl:w-[80rem] 2xl:h-[36rem] lg:w-[48rem] lg:h-[19rem] md:w-[40rem] md:h-[15rem] sm:w-[35rem] sm:h-[12rem] w-[25rem] h-[9rem] relative md:mt-16 mt-28">
-          <Image src="/assets/hero-ecsw.png" alt="ecsw" layout="fill" object-fit="fill"></Image>
+    <section className="min-h-screen p-4 bg-contain hero-bg md:mt-[-8rem] mt-[-8rem] pt-[7rem] flex flex-col justify-center">
+      <div className="flex flex-col justify-center items-center w-full h-full">
+        <div className="mx-auto 2xl:w-[75rem] 2xl:h-[33rem] lg:w-[48rem] lg:h-[19rem] md:w-[40rem] md:h-[15rem] sm:w-[35rem] sm:h-[12rem] w-[22rem] h-[9rem] relative md:mt-0 mt-28">
+          <Image src="/assets/hero-ecsw.svg" alt="ecsw" layout="fill" object-fit="fill"></Image>
         </div>
         {!eventStarted ? (
-          <p className=" flex relative text-white mx-auto flex justify-center 2xl:text-lg md:text-sm text-xs mt-3">
+          <p className=" relative text-white mx-auto flex justify-center 2xl:text-lg md:text-sm text-xs mt-3">
             TIME UNTIL EVENT |
             <div className="mx-2">
               <div>{countdownTime.countdownDays}</div>
@@ -93,18 +93,24 @@ export default function HomeHero() {
             </button>
           ))}
         </div> */}
-        <div className="w-full flex justify-center 2xl:mt-24 mt-12">
+        <div className="flex flex-col justify-center mt-4">
+          <p className="text-white text-center 2xl:text-lg md:text-sm text-xs mb-3">
+            Registration opens soon!
+          </p>
           <Link href="/register" passHref>
-            <button className="md:text-2xl text-lg py-3 px-6 rounded-full bg-gradient-to-l from-[#F6CC82] to-[#BD8A31] text-[#202c54]">
+            <button
+              className="md:text-2xl text-lg py-3 px-4 rounded-full bg-gradient-to-l from-[#F6CC82] to-[#BD8A31] text-[#202c54] opacity-50"
+              disabled={true}
+            >
               REGISTER
             </button>
           </Link>
         </div>
-      </div>
-      <div className="flex flex-col items-center justify-center">
-        <div className="text-white text-xs">THE LARGEST HACKATHON IN TEXAS</div>
-        <div className="text-white w-6 h-6 slowbounce">
-          <ChevronDownIcon />
+        <div className="absolute flex flex-col items-center justify-center bottom-3 md:bottom-6 w-full">
+          <div className="text-white text-sm">THE LARGEST HACKATHON IN TEXAS</div>
+          <div className="text-white w-6 h-6 slowbounce">
+            <ChevronDownIcon />
+          </div>
         </div>
       </div>
     </section>
