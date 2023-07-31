@@ -73,7 +73,7 @@ export default function AppHeader() {
 
   return (
     <>
-      <div className="h-[8rem] h-[5rem]"></div>
+      <div className="md:h-[8rem] h-[5rem]"></div>
       <header className="top-0 fixed w-full z-10">
         <header className=" justify-between flex flex-row w-full appheader-bg items-center max-h-[5rem] h-20 lg:px-4 px-2 drop-shadow">
           <div className="flex flex-row order-1 md:order-none items-center sm:w-[11rem] w-[7rem]">

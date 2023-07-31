@@ -114,8 +114,8 @@ export default function AuthPage() {
 
   return (
     <>
-      <section className="bg-[url('/assets/hero-bg.png')]  min-h-screen md:-mt-[5rem] md:-mt-[8rem]">
-        <div className="p-4 md:mt-[5rem]">
+      <section className="bg-[url('/assets/hero-bg.png')]  min-h-screen -mt-[5rem] md:-mt-[8rem]">
+        <div className="p-4 md:mt-[8rem] mt-[5rem]">
           <Link href="/" passHref>
             <div className="cursor-pointer items-center inline-flex text-primary font-medium">
               <ChevronLeftIcon />
