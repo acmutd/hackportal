@@ -51,7 +51,7 @@ export default function Home(props: {
 
       <HomeNotif />
       <HomeHero />
-      <div className="bg-[url('/assets/about-bg.png')]">
+      <div className="about-bg">
         <HomeAbout />
         <HomeVideoStats />
         <HomeSpeakers keynoteSpeakers={props.keynoteSpeakers} />
@@ -59,7 +59,7 @@ export default function Home(props: {
         {/* <HomeChallenges challenges={props.challenges} /> */}
         {/* <HomeTeam members={props.fetchedMembers} /> */}
       </div>
-      <div className="bg-[url('/assets/hero-bg.png')]">
+      <div className="hero-bg">
         {/* <HomeSponsors sponsorCard={props.sponsorCard} /> */}
         <HomeFooter />
       </div>
