@@ -119,7 +119,7 @@ export default function AppHeader() {
           {showProfileDialog && <ProfileDialog onDismiss={dismissDialog} />}
         </header>
         {/* PC nav */}
-        <div className="bg-[url('/assets/appheader-dash.png')] bg-no-repeat bg-cover hidden order-2 md:flex justify-center items-center md:text-center space-x-6 lg:space-x-12 text-white w-full p-2 min-h-[3rem] max-h-[3rem] ">
+        <div className="bg-[url('/assets/appheader-dash.png')] bg-no-repeat bg-[length:100%_105%] hidden order-2 md:flex justify-center items-center md:text-center space-x-6 lg:space-x-12 text-white w-full p-2 min-h-[3rem] max-h-[3rem]">
           {dynamicNavItems.map((item) => (
             <NavLink
               key={item.text}
