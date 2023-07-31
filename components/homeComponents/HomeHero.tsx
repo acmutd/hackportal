@@ -106,7 +106,7 @@ export default function HomeHero() {
             </button>
           </Link> */}
         </div>
-        <div className="absolute flex flex-col items-center justify-center bottom-5 w-full">
+        <div className="absolute flex flex-col items-center justify-center bottom-3 w-full">
           <div className="text-white sm:text-sm text-xs">THE LARGEST HACKATHON IN TEXAS</div>
           <div className="text-white w-6 h-6 slowbounce">
             <ChevronDownIcon />

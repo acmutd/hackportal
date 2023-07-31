@@ -127,6 +127,11 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(
 );
 
 export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
+  return (
+    <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
+      More info coming soon!
+    </div>
+  );
   // Hooks
   const [eventData, setEventData] = useState({
     title: '',
