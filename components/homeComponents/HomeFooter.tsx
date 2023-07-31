@@ -3,7 +3,6 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Image from 'next/image';
-import { SiDiscord } from 'react-icons/si';
 
 export default function HomeFooter() {
   return (
