@@ -89,7 +89,7 @@ export default function AppHeader() {
                   .filter(({ text }) => text !== 'Home')
                   .map((item) => (
                     <Link key={item.text} href={item.path}>
-                      <a className="p-9 py-6 hover:bg-[#111A31] hover:text-white text-[#111A31]">
+                      <a className="px-4 py-6 hover:bg-[#111A31] hover:text-white text-[#111A31]">
                         <p className="text-xl font-medium">{item.text}</p>
                       </a>
                     </Link>

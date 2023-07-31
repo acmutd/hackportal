@@ -58,7 +58,7 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
         Frequently Asked Questions
       </h4>
       <div className="border-y-2 p-[1px] border-[#111A31] xl:w-3/5 sm:w-4/5 w-5/6 mx-auto lg:-mt-3 sm:-mt-2 -mt-1"></div>
-      <div className="flex flex-row justify-end items-center py-2 w-3/5 mx-auto">
+      <div className="flex flex-row justify-end items-center py-2 xl:w-3/5 sm:w-4/5 w-5/6 mx-auto">
         <div className="flex flex-row items-center gap-x-2">
           <button
             onClick={() => {
