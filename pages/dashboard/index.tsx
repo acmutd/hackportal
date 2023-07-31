@@ -83,14 +83,14 @@ export default function Dashboard(props: {
 
   if (!isSignedIn)
     return (
-      <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
+      <div className="bg-[url('/assets/bg-[url('/assets/hero-bg.png')].png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
         Please sign-in to view your dashboard
       </div>
     );
 
   return (
     <>
-      <div className="flex flex-wrap flex-grow bg-[url('/assets/hero-bg.png')]">
+      <div className="flex flex-wrap flex-grow bg-[url('/assets/bg-[url('/assets/hero-bg.png')].png')]">
         <Head>
           <title>HackPortal - Dashboard</title> {/* !change */}
           <meta name="description" content="HackPortal's Dashboard" />
