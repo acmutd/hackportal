@@ -51,7 +51,7 @@ export default function Home(props: {
 
       <HomeNotif />
       <HomeHero />
-      <div className="bg-[url('/assets/about-bg.png')]">
+      <div className="bg-[url('/assets/about-bg.jpeg')] overflow-hidden">
         <HomeAbout />
         <HomeVideoStats />
         <HomeSpeakers keynoteSpeakers={props.keynoteSpeakers} />

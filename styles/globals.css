@@ -169,13 +169,28 @@ a.link {
   transition-delay: 3s;
 }
 
+.appheader-bg {
+  background-image: url('../public/assets/appheader_bg.png');
+}
+
 .gold-text-gradient {
   background: -webkit-linear-gradient(180deg, #f6cc82, #bd8a31);
-  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+.appheader-dash {
+  background-image: url('../public/assets/appheader-dash.png');
+  background-size: 100% 105%;
+}
+
+.hero-bg {
+  background-image: url('../public/assets/hero-bg.png');
+}
+
+.about-bg {
+  background-image: url('../public/assets/about-bg.jpeg');
+}
 .slowbounce {
   animation: slowbounce 3s ease infinite;
 }
