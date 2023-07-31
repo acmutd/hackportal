@@ -33,25 +33,27 @@ export default function FaqDisclosure({
     <Disclosure>
       <div className="transition duration-500 ease-in-out">
         <Disclosure.Button
-          className={`p-2 text-complementary font-medium text-left  w-full ${
-            isOpen ? '' : 'border-b-2 border-complementary transition duration-300 ease-in-out'
+          className={`font-medium w-full ${
+            isOpen ? '' : 'border-b-2 border-[#111A31] transition duration-300 ease-in-out'
           }`}
           as="div"
         >
           <button
-            className="w-full flex flex-row justify-between items-center"
+            className="lg:w-[130%] lg:-translate-x-[12%] md:w-[140%] md:-translate-x-[15%] w-[140%] -translate-x-[15%] md:my-4 my-2"
             onClick={() => {
               toggleDisclosure();
             }}
           >
-            <span className="text-left">{question}</span>
-            <ChevronDownIcon
+            <div className="text-center lg:text-2xl md:text-xl sm:text-base text-sm">
+              {question}
+            </div>
+            {/* <ChevronDownIcon
               className={`${
                 isOpen
                   ? 'transform rotate-180 transition duration-500 ease-in-out'
                   : 'transition duration-500 ease-in-out'
               } w-5 h-5`}
-            />
+            /> */}
           </button>
         </Disclosure.Button>
 
@@ -66,12 +68,14 @@ export default function FaqDisclosure({
           leaveTo="transform scale-95 opacity-0"
         >
           <Disclosure.Panel
-            className={`my-2 py-2  p-2 text-complementary text-left  ${
-              isOpen ? 'border-b-2 border-complementary transition duration-300 ease-in-out' : ''
+            className={`text-center ${
+              isOpen ? 'border-b-2 border-[#111A31] transition duration-300 ease-in-out' : ''
             }`}
             static
           >
-            {answer}
+            <div className="lg:w-[130%] lg:-translate-x-[12%] md:w-[140%] md:-translate-x-[15%] w-[140%] -translate-x-[15%] md:mb-4 mb-2 md:text-base sm:text-sm text-xs">
+              {answer}
+            </div>
           </Disclosure.Panel>
         </Transition>
         {/* )} */}

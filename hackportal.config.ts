@@ -255,7 +255,7 @@ export const hackPortalConfig: HackPortalConfig = {
           },
           {
             //Heard from question
-            question: 'Where did you hear about HackPortal?',
+            question: 'Where did you hear about HackUTD?',
             required: true,
             id: 'heardFrom',
             name: 'heardFrom',

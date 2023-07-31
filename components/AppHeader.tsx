@@ -73,64 +73,67 @@ export default function AppHeader() {
 
   return (
     <>
-      <div className="min-h-[5rem]"></div>
-      <header className="top-0 fixed justify-between flex flex-row w-full bg-white items-center h-20 z-10 lg:px-4 px-2 drop-shadow">
-        <div className="flex flex-row order-1 md:order-none items-center">
-          {/* Smartphone nav */}
-          <div onClick={toggleMenu} className="md:hidden cursor-pointer text-complementary">
-            {mobileIcon ? <MenuIcon /> : <CloseIcon />}
-            <ul
-              className={`${
-                showMenu ? 'translate-x-0' : '-translate-x-full'
-              } transform transition-all ease-out duration-300 flex w-6/12 h-screen flex-col bg-white fixed top-0 left-0 z-[-1] mt-[80px] border-t-2 border-complementary/10`}
-            >
-              {dynamicNavItems
-                .filter(({ text }) => text !== 'Home')
-                .map((item) => (
-                  <Link key={item.text} href={item.path}>
-                    <a className="p-9 py-6 hover:bg-primaryDark hover:text-white text-complementary">
-                      <p className="text-xl font-medium">{item.text}</p>
-                    </a>
-                  </Link>
-                ))}
-            </ul>
+      <div className="md:h-[8rem] h-[5rem]"></div>
+      <header className="top-0 fixed w-full z-10">
+        <header className=" justify-between flex flex-row w-full appheader-bg items-center max-h-[5rem] h-20 lg:px-4 px-2 drop-shadow">
+          <div className="flex flex-row order-1 md:order-none items-center sm:w-[11rem] w-[7rem]">
+            {/* Smartphone nav */}
+            <div onClick={toggleMenu} className="md:hidden cursor-pointer text-[#BD8A31]">
+              {mobileIcon ? <MenuIcon /> : <CloseIcon />}
+              <ul
+                className={`${
+                  showMenu ? 'translate-x-0' : '-translate-x-full'
+                } transform transition-all ease-out duration-300 flex w-6/12 h-screen flex-col about-bg fixed top-0 left-0 z-[-1] mt-[5rem] shadow-md shadow-[#111A31]`}
+              >
+                {dynamicNavItems
+                  .filter(({ text }) => text !== 'Home')
+                  .map((item) => (
+                    <Link key={item.text} href={item.path}>
+                      <a className="p-9 py-6 hover:bg-[#111A31] hover:text-white text-[#111A31]">
+                        <p className="text-xl font-medium">{item.text}</p>
+                      </a>
+                    </Link>
+                  ))}
+              </ul>
+            </div>
+            <Link href="/">
+              <a className="flex gap-2 ml-[6px] font-display self-center items-center md:ml-0">
+                {/* !change src */}
+                <Image src={'/assets/Logo-Gold.png'} width="55px" height="55px" />
+              </a>
+            </Link>
           </div>
-          <Link href="/">
-            <a className="flex gap-2 ml-[6px] font-display self-center items-center md:ml-0">
-              {/* !change src */}
-              <Image src={'/assets/hp-logo.png'} width="45px" height="35px" />
-              <span className="text-lg font-black md:z-0 md:text-3xl text-primaryDark">
-                HackPortal
-              </span>
-            </a>
-          </Link>
-        </div>
-
+          <div className="order-2 gold-text-gradient md:block font-bold text-center md:text-xl text-sm">
+            <div>HackUTD X:</div>
+            <div>Golden Hour</div>
+          </div>
+          <div className="flex flex-row justify-center items-center order-2 md:order-3 sm:w-[11rem] w-[7rem]">
+            <button
+              className="opacity-50 font-header font-bold border-2 rounded-full border-[#BD8A31] text-[#F6CC82] md:text-sm text-xs xl:px-10 md:px-6 sm:px-10 px-5 py-1 hover:border-[#F6CC82] hover:text-[#F6CC82] transition duration-300 ease-in-out"
+              onClick={toggleDialog}
+              disabled={true}
+            >
+              {!user || !isSignedIn ? 'Sign in' : hasProfile ? 'Profile' : 'Register'}
+            </button>
+          </div>
+          {showProfileDialog && <ProfileDialog onDismiss={dismissDialog} />}
+        </header>
         {/* PC nav */}
-        <div className="hidden order-2 md:flex items-center md:text-center lg:ml-12 text-complementary space-x-6 lg:space-x-12 h-full">
+        <div className="appheader-dash hidden order-2 md:flex justify-center items-center md:text-center space-x-6 lg:space-x-12 text-white w-full p-2 min-h-[3rem] max-h-[3rem] ">
           {dynamicNavItems.map((item) => (
             <NavLink
               key={item.text}
               href={item.path}
               exact={item.text == 'Home' ? true : false}
-              activeOptions={'2xl:border-b-[6px] border-b-4 border-primaryDark'}
+              activeOptions={'border-b-2 border-[#F6D498]'}
               className="h-full"
             >
-              <div className="2xl:mx-4 lg:mx-2 md:mx-0 2xl:text-lg lg:text-base text-sm font-bold flex items-center h-full">
-                <p className="my-auto">{item.text}</p>
+              <div className="2xl:mx-4 lg:mx-2 md:mx-0 2xl:text-lg lg:text-sm text-sm flex items-center">
+                <p className="">{item.text}</p>
               </div>
             </NavLink>
           ))}
         </div>
-        <div className="flex flex-row justify-center items-center order-2 md:order-3">
-          <button
-            className="font-header font-bold bg-secondary rounded-full text-primaryDark text-sm xl:px-10 md:px-6 px-10 py-1 hover:bg-primaryDark hover:text-secondary transition duration-300 ease-in-out"
-            onClick={toggleDialog}
-          >
-            {!user || !isSignedIn ? 'Sign in' : hasProfile ? 'Profile' : 'Register'}
-          </button>
-        </div>
-        {showProfileDialog && <ProfileDialog onDismiss={dismissDialog} />}
       </header>
     </>
   );
