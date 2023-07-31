@@ -103,14 +103,15 @@ export default function AppHeader() {
               </a>
             </Link>
           </div>
-          <div className="order-2 gold-text-gradient md:block font-bold text-center md:text-xl text-lg">
+          <div className="order-2 gold-text-gradient md:block font-bold text-center md:text-xl text-sm">
             <div>HackUTD X:</div>
             <div>Golden Hour</div>
           </div>
           <div className="flex flex-row justify-center items-center order-2 md:order-3 sm:w-[11rem] w-[7rem]">
             <button
-              className="font-header font-bold border-2 rounded-full border-[#BD8A31] text-[#F6CC82] md:text-sm text-xs xl:px-10 md:px-6 sm:px-10 px-5 py-1 hover:border-[#F6CC82] hover:text-[#F6CC82] transition duration-300 ease-in-out"
+              className="opacity-50 font-header font-bold border-2 rounded-full border-[#BD8A31] text-[#F6CC82] md:text-sm text-xs xl:px-10 md:px-6 sm:px-10 px-5 py-1 hover:border-[#F6CC82] hover:text-[#F6CC82] transition duration-300 ease-in-out"
               onClick={toggleDialog}
+              disabled={true}
             >
               {!user || !isSignedIn ? 'Sign in' : hasProfile ? 'Profile' : 'Register'}
             </button>
