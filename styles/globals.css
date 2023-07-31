@@ -82,7 +82,6 @@ a.link {
   }
 }
 
-
 /* For challenge selection in home page */
 .arrow-right {
   border-top: 10px solid transparent;
@@ -115,7 +114,6 @@ a.link {
   transition: max-height 0.2s ease-out;
 }
 
-
 .footerIcon {
   transform: scale(1.5);
 }
@@ -136,11 +134,11 @@ a.link {
 }
 
 .swiper-button-prev {
-  color: #111A31 !important;
+  color: #111a31 !important;
 }
 
 .swiper-button-next {
-  color: #111A31 !important;
+  color: #111a31 !important;
 }
 
 .swiper-button-prev:after {
@@ -156,12 +154,12 @@ a.link {
   display: block;
   font-size: 1rem !important;
   font-weight: 600;
-  color: #111A31;
+  color: #111a31;
 }
 
 .swiper-pagination-bullet,
 .swiper-pagination-bullet-tracks {
-  background-color: #4C4950 !important;
+  background-color: #4c4950 !important;
   opacity: 1;
 }
 
@@ -172,33 +170,42 @@ a.link {
 }
 
 .appheader-bg {
-  background-image: url("../public/assets/appheader_bg.png");
+  background-image: url('../public/assets/appheader_bg.png');
 }
 
 .gold-text-gradient {
-  background: -webkit-linear-gradient(180deg, #F6CC82, #BD8A31);
+  background: -webkit-linear-gradient(180deg, #f6cc82, #bd8a31);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .appheader-dash {
-  background-image: url("../public/assets/appheader-dash.png");
+  background-image: url('../public/assets/appheader-dash.png');
   background-size: 100% 105%;
 }
 
 .hero-bg {
-  background-image: url("../public/assets/hero-bg.png");
+  background-image: url('../public/assets/hero-bg.png');
 }
 
 .about-bg {
-  background-image: url("../public/assets/about-bg.png");
-
+  background-image: url('../public/assets/about-bg.jpeg');
 }
 .slowbounce {
   animation: slowbounce 3s ease infinite;
 }
 @keyframes slowbounce {
-	0%, 10%, 25%, 50%, 100% {transform: translateY(0);}
-	20% {transform: translateY(-6px);}
-	30% {transform: translateY(-3px);}
+  0%,
+  10%,
+  25%,
+  50%,
+  100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-6px);
+  }
+  30% {
+    transform: translateY(-3px);
+  }
 }
