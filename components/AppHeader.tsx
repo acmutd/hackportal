@@ -75,7 +75,7 @@ export default function AppHeader() {
     <>
       <div className="md:h-[8rem] h-[5rem]"></div>
       <header className="top-0 fixed w-full z-10">
-        <header className=" justify-between flex flex-row w-full appheader-bg items-center max-h-[5rem] h-20 lg:px-4 px-2 drop-shadow">
+        <header className=" justify-between flex flex-row w-full bg-[url('/assets/appheader_bg.png')] bg-no-repeat bg-cover items-center max-h-[5rem] h-20 lg:px-4 px-2 drop-shadow">
           <div className="flex flex-row order-1 md:order-none items-center sm:w-[11rem] w-[7rem]">
             {/* Smartphone nav */}
             <div onClick={toggleMenu} className="md:hidden cursor-pointer text-[#BD8A31]">
@@ -83,7 +83,7 @@ export default function AppHeader() {
               <ul
                 className={`${
                   showMenu ? 'translate-x-0' : '-translate-x-full'
-                } transform transition-all ease-out duration-300 flex w-6/12 h-screen flex-col about-bg fixed top-0 left-0 z-[-1] mt-[5rem] shadow-md shadow-[#111A31]`}
+                } transform transition-all ease-out duration-300 flex w-6/12 h-screen flex-col bg-[url('/assets/about-bg.png')] fixed top-0 left-0 z-[-1] mt-[5rem] shadow-md shadow-[#111A31]`}
               >
                 {dynamicNavItems
                   .filter(({ text }) => text !== 'Home')
@@ -119,7 +119,7 @@ export default function AppHeader() {
           {showProfileDialog && <ProfileDialog onDismiss={dismissDialog} />}
         </header>
         {/* PC nav */}
-        <div className="appheader-dash hidden order-2 md:flex justify-center items-center md:text-center space-x-6 lg:space-x-12 text-white w-full p-2 min-h-[3rem] max-h-[3rem] ">
+        <div className="bg-[url('/assets/appheader-dash.png')] bg-no-repeat bg-cover hidden order-2 md:flex justify-center items-center md:text-center space-x-6 lg:space-x-12 text-white w-full p-2 min-h-[3rem] max-h-[3rem] ">
           {dynamicNavItems.map((item) => (
             <NavLink
               key={item.text}
