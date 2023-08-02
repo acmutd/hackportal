@@ -14,7 +14,10 @@ export default function EventList({
   return (
     <div className="p-5">
       {events.map((event, idx) => (
-        <div key={idx} className="flex items-center justify-between p-3 border-2 my-4 rounded-xl">
+        <div
+          key={idx}
+          className="flex items-center justify-between p-3 border-2 my-4 rounded-xl bg-secondary"
+        >
           <h1 className="md:text-lg text-base">{event.title}</h1>
           <div className="flex gap-4">
             <button

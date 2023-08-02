@@ -10,7 +10,10 @@ interface NivoPieChartProps {
 
 export default function NivoPieChart({ name, items }: NivoPieChartProps) {
   return (
-    <div style={{ height: 650 }} className="w-full flex-grow border-2 my-2 rounded-2xl p-6">
+    <div
+      style={{ height: 650 }}
+      className="w-full flex-grow border-2 my-2 rounded-2xl p-6 text-primary"
+    >
       <h1 className="text-2xl font-bold text-center">{name}</h1>
       <ResponsivePie
         data={items}
@@ -21,7 +24,7 @@ export default function NivoPieChart({ name, items }: NivoPieChartProps) {
         activeOuterRadiusOffset={8}
         borderWidth={1}
         arcLinkLabelsSkipAngle={10}
-        arcLinkLabelsTextColor="#333333"
+        arcLinkLabelsTextColor="#fff"
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: 'color' }}
         arcLabelsSkipAngle={10}
@@ -48,7 +51,7 @@ export default function NivoPieChart({ name, items }: NivoPieChartProps) {
               {
                 on: 'hover',
                 style: {
-                  itemTextColor: '#000',
+                  itemTextColor: '#fff',
                 },
               },
             ],

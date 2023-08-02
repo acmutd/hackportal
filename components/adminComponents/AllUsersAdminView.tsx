@@ -89,13 +89,13 @@ export default function AllUsersAdminView({
             {/* Accept Reject buttons */}
             <div className="flex flex-row w-full justify-around max-w-xs mt-4 lg:mt-0">
               <button
-                className="flex flex-row bg-[#EA609C]/25 text-[#872852] text-lg font-bold py-2 px-8 rounded-md"
+                className="flex flex-row bg-[#EA609C]/75 text-[#872852] text-lg font-bold py-2 px-8 rounded-md"
                 onClick={() => onAcceptReject('Rejected')}
               >
                 <XIcon className="w-6 h-6 mr-1 mt-0.5" /> Reject
               </button>
               <button
-                className="flex flex-row bg-[#84DF58]/25 text-[#409019] text-lg font-bold py-2 px-8 rounded-md"
+                className="flex flex-row bg-[#84DF58]/75 text-[#409019] text-lg font-bold py-2 px-8 rounded-md"
                 onClick={() => onAcceptReject('Accepted')}
               >
                 <CheckIcon className="w-6 h-6 mr-1 mt-0.5" /> Accept

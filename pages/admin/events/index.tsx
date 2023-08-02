@@ -86,10 +86,14 @@ export default function EventPage({ events_ }: EventPageProps) {
     }
   };
   if (!isSignedIn || !isAuthorized(user))
-    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+    return (
+      <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
+        Unauthorized
+      </div>
+    );
 
   return (
-    <div className="2xl:px-36 md:px-16">
+    <div className="2xl:px-36 md:px-16 bg-[url('/assets/hero-bg.png')] py-8">
       {currentEventEditIndex !== -1 ? (
         <div>
           <EventForm
