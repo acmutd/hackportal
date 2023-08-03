@@ -209,3 +209,24 @@ a.link {
     transform: translateY(-3px);
   }
 }
+
+.MuiInputLabel-root {
+  color: white !important;
+}
+
+.MuiOutlinedInput-root {
+  color: white !important;
+  border-color: white !important;
+}
+
+.MuiIconButton-root {
+  color: white !important;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+}
+
+.MuiOutlinedInput-input {
+  border-color: white !important;
+}

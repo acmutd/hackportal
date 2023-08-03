@@ -44,7 +44,7 @@ export default function UserAdminView({
         'No resume found'
       ) : (
         <Link passHref href={currentUser.resume} className="border-2 p-3 hover:bg-gray-200">
-          <a target="_blank" rel="noopener noreferrer">
+          <a target="_blank" rel="noopener noreferrer" className="hover:underline">
             Click here to download resume
           </a>
         </Link>

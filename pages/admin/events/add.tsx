@@ -44,10 +44,10 @@ export default function AddEventPage() {
     );
 
   return (
-    <div className="2xl:px-36 md:px-16 px-6">
+    <div className="2xl:px-36 md:px-16 px-6 bg-[url('/assets/hero-bg.png')]">
       <div className="mt-4">
         <Link href="/admin/events" passHref>
-          <div className="cursor-pointer items-center inline-flex text-primaryDark font-bold md:text-lg text-base">
+          <div className="cursor-pointer items-center inline-flex text-primaryDark font-bold md:text-lg text-base my-6">
             <ChevronLeftIcon />
             Return to events
           </div>

@@ -56,10 +56,14 @@ export default function ResolveQuestionPage({
   };
 
   if (!user || !isAuthorized(user))
-    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+    return (
+      <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
+        Unauthorized
+      </div>
+    );
 
   return (
-    <div className="py-6 2xl:px-32 md:px-16 px-6">
+    <div className="py-6 2xl:px-32 md:px-16 px-6 bg-[url('/assets/hero-bg.png')] flex flex-col grow">
       <Link href="/admin" passHref>
         <div className="cursor-pointer items-center inline-flex text-primaryDark font-bold md:text-lg text-base">
           <ChevronLeftIcon />
