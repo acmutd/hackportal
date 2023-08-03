@@ -44,8 +44,8 @@ export default function Home(props: {
   return (
     <>
       <Head>
-        <title>HackPortal</title> {/* !change */}
-        <meta name="description" content="A default HackPortal instance" /> {/* !change */}
+        <title>HackUTD X</title> {/* !change */}
+        <meta name="description" content="A default HackUTD X instance" /> {/* !change */}
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

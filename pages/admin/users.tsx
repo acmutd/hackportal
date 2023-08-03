@@ -315,8 +315,8 @@ export default function UserPage() {
         </Dialog>
       </Transition>
       <Head>
-        <title>HackPortal - Admin</title> {/* !change */}
-        <meta name="description" content="HackPortal's Admin Page" />
+        <title>HackUTD X - Admin</title> {/* !change */}
+        <meta name="description" content="HackUTD X's Admin Page" />
       </Head>
       <section id="subheader" className="p-2 md:p-4">
         <AdminHeader />
