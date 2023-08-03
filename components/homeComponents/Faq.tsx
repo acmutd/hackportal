@@ -4,6 +4,7 @@ import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
 import FaqDisclosure from './FaqDisclosure';
 import { RequestHelper } from '../../lib/request-helper';
+import Link from 'next/link';
 
 /**
  * The FAQ page.
@@ -83,11 +84,28 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
       </div>
       <div className="2xl:2-2/5 lg:w-1/3 md:w-2/5 w-3/5 mx-auto">
         <div className="w-full my-3">
-          {faqs.map(({ question, answer }, idx) => (
+          {faqs.map(({ question, answer, rank }, idx) => (
             <FaqDisclosure
               key={idx}
               question={question}
-              answer={answer}
+              answer={
+                rank === 8 ? (
+                  <span>
+                    Your project must be built entirely over the course of the weekend. No previous
+                    projects or code may be used. Have fun! Your behavior at this event is subject
+                    to the{' '}
+                    <Link href="http://hackp.ac/coc">
+                      <span className="underline text-primaryDark cursor-pointer">
+                        {' '}
+                        MLH Code of Conduct
+                      </span>
+                    </Link>{' '}
+                    as well as any applicable UT Dallas guidelines.
+                  </span>
+                ) : (
+                  answer
+                )
+              }
               isOpen={disclosuresStatus[idx]}
               toggleDisclosure={() => {
                 const currDisclosure = [...disclosuresStatus];
