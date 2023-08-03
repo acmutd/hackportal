@@ -98,8 +98,8 @@ export default function Dashboard(props: {
     <>
       <div className="flex flex-wrap flex-grow bg-[url('/assets/hero-bg.png')]">
         <Head>
-          <title>HackPortal - Dashboard</title> {/* !change */}
-          <meta name="description" content="HackPortal's Dashboard" />
+          <title>HackUTD X - Dashboard</title> {/* !change */}
+          <meta name="description" content="HackUTD X's Dashboard" />
         </Head>
 
         <section id="mainContent" className="2xl:px-32 md:px-16 px-6">

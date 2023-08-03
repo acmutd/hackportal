@@ -50,8 +50,8 @@ export default function FaqPage({ fetchedFaqs }: { fetchedFaqs: AnsweredQuestion
   return (
     <div className="text-[#111A31]">
       <Head>
-        <title>HackPortal</title>
-        <meta name="description" content="HackPortal's Frequently Asked Questions" />
+        <title>HackUTD X</title>
+        <meta name="description" content="HackUTD X's Frequently Asked Questions" />
       </Head>
       {/* <AboutHeader active="/about/faq" /> */}
       <h4 className="lg:text-8xl md:text-7xl sm:text-6xl text-5xl text-center excelsior-script">

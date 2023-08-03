@@ -48,8 +48,8 @@ export default function AdminStatsPage() {
   return (
     <div className="flex flex-col flex-grow">
       <Head>
-        <title>HackPortal - Admin</title>
-        <meta name="description" content="HackPortal's Admin Page" />
+        <title>HackUTD X - Admin</title>
+        <meta name="description" content="HackUTD X's Admin Page" />
       </Head>
       <AdminHeader />
       <div className="w-full xl:w-3/5 mx-auto p-6 flex flex-col gap-y-6">
