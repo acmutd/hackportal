@@ -208,18 +208,22 @@ export default function UserPage() {
   };
 
   if (!user || !isAuthorized(user))
-    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+    return (
+      <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
+        Unauthorized
+      </div>
+    );
 
   if (loading) {
     return (
-      <div>
+      <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
         <h1>Loading...</h1>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col flex-grow items-center">
+    <div className="flex flex-col flex-grow items-center bg-[url('/assets/hero-bg.png')]">
       <Transition
         appear
         show={

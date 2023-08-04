@@ -32,11 +32,11 @@ export default function AdminHeader() {
   return (
     <section className="">
       <header className="hidden md:flex flex-row justify-center p-2 items-center">
-        <div className=" md:text-base lg:text-xl font-header md:text-left text-complementary font-semibold border-b-2 py-2">
+        <div className=" md:text-base lg:text-xl font-header md:text-left text-[#FFFCF9] font-semibold border-b-2 py-2">
           <NavLink
             href="/admin"
             exact={true}
-            activeOptions={'border-b-4 border-primaryDark text-complementaryDark'}
+            activeOptions={'border-b-4 border-[#F6D498] text-[#F6D498]'}
             className="mr-4 py-2"
           >
             Event Dashboard
@@ -44,7 +44,7 @@ export default function AdminHeader() {
           <NavLink
             href="/admin/scan"
             exact={true}
-            activeOptions={'border-b-4 border-primaryDark text-complementaryDark'}
+            activeOptions={'border-b-4 border-[#F6D498] text-[#F6D498]'}
             className="mx-4 py-2"
           >
             Scanner
@@ -52,7 +52,7 @@ export default function AdminHeader() {
           <NavLink
             href="/admin/users"
             exact={true}
-            activeOptions={'border-b-4 border-primaryDark text-complementaryDark'}
+            activeOptions={'border-b-4 border-[#F6D498] text-[#F6D498]'}
             className="mx-4 py-2"
           >
             User Dashboard
@@ -61,7 +61,7 @@ export default function AdminHeader() {
             <NavLink
               href="/admin/stats"
               exact={true}
-              activeOptions={'border-b-4 border-primaryDark text-complementaryDark'}
+              activeOptions={'border-b-4 border-[#F6D498] text-[#F6D498]'}
               className="ml-4 py-2"
             >
               Stats at a Glance

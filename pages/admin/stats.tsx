@@ -38,7 +38,11 @@ export default function AdminStatsPage() {
   }, []);
 
   if (!isSignedIn || !isAuthorized(user)) {
-    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+    return (
+      <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
+        Unauthorized
+      </div>
+    );
   }
 
   if (loading) {
@@ -46,7 +50,7 @@ export default function AdminStatsPage() {
   }
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow bg-[url('/assets/hero-bg.png')]">
       <Head>
         <title>HackUTD X - Admin</title>
         <meta name="description" content="HackUTD X's Admin Page" />

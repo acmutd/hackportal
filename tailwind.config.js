@@ -7,7 +7,7 @@ module.exports = {
       colors: {
         primary: '#F6CC82', //purple
         primaryDark: '#BD8A31',
-        secondary: '#fff', //light purple
+        secondary: '#FFFCF9', //light purple
         secondaryDark: '#111A31',
         complementary: '#4C4950', //gray
         complementaryDark: '#252427',

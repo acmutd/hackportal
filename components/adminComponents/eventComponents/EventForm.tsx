@@ -16,7 +16,7 @@ export default function EventForm({ event, onSubmitClick, formAction }: EventFor
   );
 
   return (
-    <div className="my-3 flex flex-col gap-y-4">
+    <div className="mb-6 flex flex-col gap-y-4">
       <input
         value={eventForm.title}
         onChange={(e) => setEventForm((prev) => ({ ...prev, title: e.target.value }))}
@@ -71,6 +71,9 @@ export default function EventForm({ event, onSubmitClick, formAction }: EventFor
       />
       <DateTimePicker
         label="Enter start date"
+        PopperProps={{
+          sx: { '&.MuiPickersPopper-root': { color: '#fff' } },
+        }}
         value={eventForm.startDate}
         onChange={(newValue) => setEventForm((prev) => ({ ...prev, startDate: newValue }))}
         renderInput={(params) => <TextField {...params} />}

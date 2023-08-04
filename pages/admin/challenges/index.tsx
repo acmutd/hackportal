@@ -98,12 +98,16 @@ export default function ChallengePage({ challenges_ }: ChallengePageProps) {
     }
   };
   if (!isSignedIn || !isAuthorized(user))
-    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+    return (
+      <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
+        Unauthorized
+      </div>
+    );
 
   const orderChanged = challenges.filter((obj, idx) => obj.rank !== idx).length !== 0;
 
   return (
-    <div className="p-3">
+    <div className="p-3 bg-[url('/assets/hero-bg.png')] flex flex-col grow">
       {currentChallengeEditIndex !== -1 ? (
         <div>
           <ChallengeForm

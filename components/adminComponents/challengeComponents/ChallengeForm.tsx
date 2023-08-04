@@ -105,7 +105,7 @@ export default function ChallengeForm({
         }}
         className="font-bold bg-green-200 hover:bg-green-300 border border-green-800 text-green-900 rounded-lg p-3"
       >
-        {formAction === 'Edit' ? 'Save Changes' : 'Add Event'}
+        {formAction === 'Edit' ? 'Save Changes' : 'Add Challenge'}
       </button>
     </div>
   );

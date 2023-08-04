@@ -37,10 +37,14 @@ export default function AddChallengePage() {
   };
 
   if (!isSignedIn || !isAuthorized(user))
-    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+    return (
+      <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
+        Unauthorized
+      </div>
+    );
 
   return (
-    <div className="p-3">
+    <div className="p-3 bg-[url('/assets/hero-bg.png')] flex flex-col grow">
       <div className="mt-4">
         <Link href="/admin/challenges" passHref>
           <div className="cursor-pointer items-center inline-flex text-primaryDark font-bold md:text-lg text-base">

@@ -44,7 +44,7 @@ export default function UserAdminView({
         'No resume found'
       ) : (
         <Link passHref href={currentUser.resume} className="border-2 p-3 hover:bg-gray-200">
-          <a target="_blank" rel="noopener noreferrer">
+          <a target="_blank" rel="noopener noreferrer" className="hover:underline">
             Click here to download resume
           </a>
         </Link>
@@ -119,7 +119,7 @@ export default function UserAdminView({
   const startIndex = (currentPage - 1) * pageSize;
   // 208 px
   return (
-    <div className="lg:px-14 flex flex-row justify-between h-full">
+    <div className="lg:px-14 flex flex-row justify-between h-full pb-8">
       {/* User List */}
       <div className="hidden md:block md:w-72">
         {/* Page */}
@@ -128,17 +128,17 @@ export default function UserAdminView({
             <div
               key={user.id}
               className={`
-                flex flex-row justify-between items-center w-full py-2 rounded-md mb-3 h-12 p-4
+                flex flex-row justify-between items-center w-full py-2 rounded-md mb-3 h-12 p-4 bg-secondary
                 shadow-md ${
                   user.id === currentUserId
-                    ? 'border-primaryDark border-[3px]'
+                    ? 'border-primaryDark border-[3px] bg-primary'
                     : 'border-complementary/25  border-[1px]'
                 }
                 cursor-pointer
               `}
               onClick={() => onUserClick(user.id)}
             >
-              <div className="text-complementary text-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis max-w-[60%]">
+              <div className="text-secondaryDark text-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis max-w-[60%]">
                 {user.user.firstName}
               </div>
               <div
@@ -163,9 +163,9 @@ export default function UserAdminView({
       </div>
 
       {/* User */}
-      <div className="rounded-lg border-2 border-gray h-full overflow-y-scroll w-full md:w-[calc(100%-300px)]">
+      <div className="rounded-lg border-2 border-gray h-full overflow-y-scroll w-full md:w-[calc(100%-300px)] bg-secondary">
         {/* Header */}
-        <div className="sticky top-0 bg-white shadow-md flex flex-row justify-between items-center py-1 text-complementary">
+        <div className="sticky top-0 bg-secondaryDark shadow-md flex flex-row justify-between items-center py-1 text-secondary">
           <div className="flex items-center gap-x-2 p-3">
             <ChevronLeftIcon
               className="h-6 w-6 cursor-pointer"
@@ -182,7 +182,7 @@ export default function UserAdminView({
         </div>
 
         {/* User Info */}
-        <div className="p-10 text-complementary h-full">
+        <div className="p-10 text-secondaryDark h-full">
           <h1 className="font-bold text-5xl">
             {currentUser.user.firstName} {currentUser.user.lastName}
           </h1>
@@ -204,7 +204,7 @@ export default function UserAdminView({
 
                 <div className="flex flex-row justify-between gap-x-3 items-center mt-4 lg:mt-0">
                   <button
-                    className="flex flex-row bg-secondary text-primaryDark text-lg font-bold py-2 px-8 rounded-md"
+                    className="flex flex-row bg-secondary text-primaryDark text-lg font-bold py-2 px-8 rounded-md border-2 border-primaryDark"
                     onClick={() => onAcceptReject('Rejected')}
                   >
                     <XIcon className="w-6 h-6 mr-1 mt-0.5" /> Reject
@@ -219,7 +219,7 @@ export default function UserAdminView({
               </div>
             </div>
 
-            <div className="my-6 w-full border-2 border-secondary rounded-md" />
+            <div className="my-6 w-full border-2 border-secondaryDark rounded-md" />
 
             <div className="flex items-center justify-between">
               <div>
@@ -253,7 +253,7 @@ export default function UserAdminView({
                 (isInEditMode ? (
                   <div className="flex items-center gap-x-2">
                     <button
-                      className="bg-secondary text-primaryDark py-2 px-6 rounded-full"
+                      className="bg-secondary text-primaryDark py-2 px-6 rounded-full border-2 border-primaryDark"
                       onClick={async () => {
                         try {
                           await updateRole();
@@ -267,7 +267,7 @@ export default function UserAdminView({
                       Update
                     </button>
                     <button
-                      className="bg-secondary text-primaryDark py-2 px-6 rounded-full"
+                      className="bg-secondary text-primaryDark py-2 px-6 rounded-full border-2 border-primaryDark"
                       onClick={() => {
                         setNewRole('');
                         setIsInEditMode(false);
@@ -279,7 +279,7 @@ export default function UserAdminView({
                 ) : (
                   <button
                     onClick={() => setIsInEditMode((prev) => !prev)}
-                    className="bg-secondary text-primaryDark py-2 px-6 rounded-full"
+                    className="bg-secondary text-primaryDark py-2 px-6 rounded-full border-2 border-primaryDark"
                   >
                     Edit
                   </button>
@@ -288,7 +288,7 @@ export default function UserAdminView({
           </div>
 
           {/* Info */}
-          <div>
+          <div className="pb-8">
             {user_info.map(([title, desc], id) => (
               <div key={id} className="mt-5">
                 <h3 className="font-bold">{title}</h3>

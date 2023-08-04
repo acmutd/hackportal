@@ -37,13 +37,17 @@ export default function AddEventPage() {
   };
 
   if (!isSignedIn || !isAuthorized(user))
-    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+    return (
+      <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
+        Unauthorized
+      </div>
+    );
 
   return (
-    <div className="2xl:px-36 md:px-16 px-6">
+    <div className="2xl:px-36 md:px-16 px-6 bg-[url('/assets/hero-bg.png')]">
       <div className="mt-4">
         <Link href="/admin/events" passHref>
-          <div className="cursor-pointer items-center inline-flex text-primaryDark font-bold md:text-lg text-base">
+          <div className="cursor-pointer items-center inline-flex text-primaryDark font-bold md:text-lg text-base my-6">
             <ChevronLeftIcon />
             Return to events
           </div>
