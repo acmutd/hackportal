@@ -99,17 +99,17 @@ export default function AppHeader() {
             <Link href="/">
               <a className="flex gap-2 ml-[6px] font-display self-center items-center md:ml-0">
                 {/* !change src */}
-                <Image src={'/assets/Logo-Gold.png'} width="55px" height="55px" />
+                <Image src={'/assets/Logo-Dark.png'} width={60} height={60} className="w-10 h-10" />
               </a>
             </Link>
           </div>
-          <div className="order-2 gold-text-gradient md:block font-bold text-center md:text-xl text-sm">
+          <div className="order-2 gold-text-gradient md:block font-bold text-center md:text-xl text-sm uppercase">
             <div>HackUTD X:</div>
             <div>Golden Hour</div>
           </div>
           <div className="flex flex-row justify-center items-center order-2 md:order-3 sm:w-[11rem] w-[7rem]">
             <button
-              className="opacity-50 font-header font-bold border-2 rounded-full border-[#BD8A31] text-[#F6CC82] md:text-sm text-xs xl:px-10 md:px-6 sm:px-10 px-5 py-1 hover:border-[#F6CC82] hover:text-[#F6CC82] transition duration-300 ease-in-out"
+              className="opacity-50 font-header font-bold border-2 rounded-full border-[#BD8A31] text-[#F6CC82] md:text-sm text-xs uppercase xl:px-10 md:px-6 sm:px-10 px-5 py-2 hover:border-[#F6CC82] hover:text-[#F6CC82] transition duration-300 ease-in-out"
               onClick={toggleDialog}
               disabled={true}
             >
