@@ -64,7 +64,13 @@ async function handleUserInfo(req: NextApiRequest, res: NextApiResponse) {
     const snapshot = await db.collection(REGISTRATION_COLLECTION).doc(userID).get();
     if (!snapshot.exists)
       return res.status(404).json({ code: 'not found', message: "User doesn't exist..." });
-    res.status(200).json(snapshot.data());
+
+    const statusSnapshot = await db.collection('acceptreject').get();
+    const statusData = statusSnapshot.docs.map((doc) => doc.data());
+    //look for hackId in acceptreject collection
+    const statusValue = statusData.find((doc) => doc.hackerId === userID);
+    const status = statusValue?.status ? statusValue?.status : 'Waiting';
+    return res.status(200).json({ ...snapshot.data(), status: status });
   } catch (error) {
     console.error('Error when fetching applications', error);
     res.status(500).json({

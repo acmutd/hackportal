@@ -57,7 +57,7 @@ function PortalApp({ Component, pageProps }: AppProps) {
               ></link>
               <meta name="theme-color" content="#5D5FEF" />
             </Head>
-            <div className="min-h-screen flex flex-col bg-white">
+            <div className="min-h-screen flex flex-col bg-[url('/assets/hero-bg.png')] ">
               <AppHeader />
               <Component {...pageProps} />
             </div>
