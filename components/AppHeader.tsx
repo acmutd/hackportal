@@ -136,7 +136,7 @@ export default function AppHeader() {
         </div>
         <a
           id="mlh-trust-badge"
-          className="absolute right-2 md:right-4 lg:right-6 top-0 mt-[5rem] md:mt-[8rem] z-10 w-[5rem] h-[6rem] md:w-[6rem] md:h-[7rem] lg:w-[8rem] lg:h-[9rem] 2xl:w-[10rem] 2xl:h-[11rem]"
+          className="absolute right-2 md:right-4 lg:right-6 top-0 mt-[5rem] md:mt-[8rem] -z-0 w-[5rem] h-[6rem] md:w-[6rem] md:h-[7rem] lg:w-[8rem] lg:h-[9rem] 2xl:w-[10rem] 2xl:h-[11rem]"
           href="https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2023-season&utm_content=white"
           target="_blank"
           rel="noreferrer"
