@@ -112,11 +112,11 @@ export default function AuthPage() {
     router.push('/profile');
   }
 
-  // return (
-  //   <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
-  //     Registration will open soon!
-  //   </div>
-  // );
+  return (
+    <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
+      Registration will open soon!
+    </div>
+  );
 
   return (
     <>
