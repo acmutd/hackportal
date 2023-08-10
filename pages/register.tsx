@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import LoadIcon from '../components/LoadIcon';
 import { useUser } from '../lib/profile/user-data';
 import { RequestHelper } from '../lib/request-helper';
@@ -35,6 +35,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
       hackathonExperienceQuestions,
       eventInfoQuestions,
       sponsorInfoQuestions,
+      oneLastThing,
     },
   } = hackPortalConfig;
 
@@ -43,6 +44,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
   const [loading, setLoading] = useState(true);
   const [formValid, setFormValid] = useState(true);
   const [registrationSection, setRegistrationSection] = useState(0);
+  const genderQuestion = useRef<HTMLDivElement>(null);
   const checkRedirect = async () => {
     if (!allowedRegistrations) return;
     if (hasProfile) router.push('/profile');
@@ -166,12 +168,6 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
           if (!values[inputObj.name]) errors[inputObj.name] = 'Required';
         }
       }
-    if (obj.datalistQuestions)
-      for (let inputObj of obj.datalistQuestions) {
-        if (inputObj.required) {
-          if (!values[inputObj.name]) errors[inputObj.name] = 'Required';
-        }
-      }
     if (obj.textAreaQuestions)
       for (let inputObj of obj.textAreaQuestions) {
         if (inputObj.required) {
@@ -228,6 +224,9 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             for (let obj of sponsorInfoQuestions) {
               errors = setErrors(obj, values, errors);
             }
+            for (let obj of oneLastThing) {
+              errors = setErrors(obj, values, errors);
+            }
 
             //additional custom error validation
             if (
@@ -245,6 +244,17 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
               values.hackathonExperience > 100
             ) {
               errors.hackathonExperience = 'Not a valid number';
+            }
+            if (values.CoC.length == 0) {
+              errors.CoC = 'Code of Conduct not accepted';
+            }
+            if (values.policy.length == 0) {
+              errors.policy = 'Policy not accepted';
+            }
+            if (values.gender == 'Prefer to self-describe') {
+              if (genderQuestion.current) genderQuestion.current.style.display = 'block';
+            } else {
+              if (genderQuestion.current) genderQuestion.current.style.display = 'none';
             }
 
             return errors;
@@ -292,6 +302,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                         obj={obj}
                         values={values}
                         onChange={handleChange}
+                        ref={genderQuestion}
                       />
                     ))}
                   </div>
@@ -382,18 +393,36 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                       Accepted file types: .pdf, .doc, .docx, .png, .jpeg, .txt, .tex, .rtf
                     </p>
                   </div>
+                </section>
+              )}
+              {/* One Last Thing Questions */}
+              {registrationSection == 5 && (
+                <section className="bg-[url('/assets/login-bg.png')] bg-cover bg-no-repeat lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-secondaryDark">
+                  <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">One Last Thing</h2>
+                  <div className="flex flex-col font-secondary text-lg">
+                    {oneLastThing.map((obj, idx) => (
+                      <DisplayQuestion
+                        key={idx}
+                        obj={obj}
+                        values={values}
+                        onChange={handleChange}
+                      />
+                    ))}
+                  </div>
                   {/* Submit */}
                   <div className="mt-8 text-primaryDark w-full flex flex-row justify-end items-end">
-                    <button
-                      type="submit"
-                      className="cursor-pointer px-8 py-2 rounded-full bg-transparent border-2 border-primaryDark text-primaryDarkhover:brightness-90"
-                      onClick={() => setFormValid(!(!isValid || !dirty))}
-                    >
-                      Submit
-                    </button>
-                    {!isValid && !formValid && (
-                      <div className="text-red-600">Error: The form has invalid fields</div>
-                    )}
+                    <div className="flex flex-col items-end">
+                      <button
+                        type="submit"
+                        className="cursor-pointer px-8 py-2 rounded-full bg-transparent border-2 border-primaryDark text-primaryDark hover:brightness-90"
+                        onClick={() => setFormValid(!(!isValid || !dirty))}
+                      >
+                        Submit
+                      </button>
+                      {!isValid && !formValid && (
+                        <div className="text-red-600">Error: The form has invalid fields</div>
+                      )}
+                    </div>
                   </div>
                 </section>
               )}
@@ -406,7 +435,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
           className={`lg:block flex ${
             registrationSection == 0
               ? 'justify-end'
-              : registrationSection >= 4
+              : registrationSection >= 5
               ? 'justify-start'
               : 'justify-between'
           } lg:pb-0 pb-8 lg:px-0 sm:px-8 px-6 text-primary font-semibold lg:text-xl md:text-lg uppercase`}
@@ -423,7 +452,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             </div>
           )}
 
-          {registrationSection < 4 && (
+          {registrationSection < 5 && (
             <div
               className="lg:fixed 2xl:bottom-8 2xl:right-8 bottom-6 right-6 inline cursor-pointer select-none"
               onClick={() => {

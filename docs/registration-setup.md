@@ -30,7 +30,7 @@ The registrationFields object is separated with 5 question topics: general, scho
 <br/>
 
 ## Question Types
-The config allows for several types of questions: text input, number input, checkbox, dropdown, text area, and datalist.
+The config allows for several types of questions: text input, number input, checkbox, dropdown, text area.
 Question types are represented as arrays of specific questions and are held within an object.
 
 ### Sample question types with questions
@@ -135,40 +135,6 @@ textAreaQuestions:
 - required
 - initialValue
 - placeholder: "" //placeholder text when nothing is entered
-
-datalist:
-- question
-- id
-- name
-- required
-- datalist: "" //name of list to pull from
-- initialValue
-
-*Datalist require more code change within ***register.tsx***  
-**Two datalists are given and already computed for you, just add under any question topic
-```
-    {
-        datalistQuestions: [
-            {
-                question:
-                'Which university do you attend?',
-                id: 'university',
-                name: 'university',
-                required: true,
-                datalist: 'schools',
-                initialValue: '',
-            },
-            {
-                question: 'What is your major?',
-                id: 'major',
-                name: 'major',
-                required: true,
-                datalist: 'majors',
-                initialValue: '',
-            },
-        ],
-    }
-```
 
 ## Sample of Registration Field Object with questions
 ```

@@ -47,7 +47,6 @@ function parseSection(section) {
             parseSingleValueQuestion(curr.textInputQuestions),
             true,
           ),
-          parseSingleValueQuestion(curr.datalistQuestions),
           true,
         ),
         parseSingleValueQuestion(curr.textAreaQuestions),

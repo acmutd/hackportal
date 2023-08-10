@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect, Fragment } from 'react';
+import React, { useEffect, useState, useLayoutEffect, Fragment, useRef, forwardRef } from 'react';
 import { Field, ErrorMessage } from 'formik';
 
 /**
@@ -6,24 +6,48 @@ import { Field, ErrorMessage } from 'formik';
  *
  *
  */
-function Question(props) {
+
+interface RegistrationQuestionProps {
+  question;
+  type: string;
+  value?;
+  onChange?;
+}
+
+const RegistrationQuestion = forwardRef(function Question(props: RegistrationQuestionProps, ref) {
   if (props.type === 'text') {
     return (
-      <Fragment>
-        <label htmlFor={props.question.id} className="mt-4">
-          {props.question.required ? '*' : ''}
-          {props.question.question}
-        </label>
-        <Field
-          id={props.question.id}
-          name={props.question.name}
-          className="border border-complementary/20 rounded-md md:p-2 p-1"
-        />
-        <ErrorMessage
-          name={props.question.name}
-          render={(msg) => <div className="text-red-600">{msg}</div>}
-        />
-      </Fragment>
+      <>
+        {props.question.id == 'selfdescribe' ? (
+          <div ref={ref as React.RefObject<HTMLDivElement>} className="hidden">
+            <label htmlFor={props.question.id} className="mt-4 block">
+              {props.question.required ? '*' : ''}
+              {props.question.question}
+            </label>
+            <Field
+              id={props.question.id}
+              name={props.question.name}
+              className="border border-complementary/20 rounded-md md:p-2 p-1"
+            />
+          </div>
+        ) : (
+          <Fragment>
+            <label htmlFor={props.question.id} className="mt-4">
+              {props.question.required ? '*' : ''}
+              {props.question.question}
+            </label>
+            <Field
+              id={props.question.id}
+              name={props.question.name}
+              className="border border-complementary/20 rounded-md md:p-2 p-1"
+            />
+            <ErrorMessage
+              name={props.question.name}
+              render={(msg) => <div className="text-red-600">{msg}</div>}
+            />
+          </Fragment>
+        )}
+      </>
     );
   } else if (props.type === 'number') {
     return (
@@ -96,35 +120,6 @@ function Question(props) {
         />
       </Fragment>
     );
-  } else if (props.type === 'datalist') {
-    return (
-      <Fragment>
-        <label htmlFor={props.question.name} className="mt-4">
-          {props.question.required ? '*' : ''}
-          {props.question.question}
-        </label>
-        <Field
-          type="text"
-          id={props.question.id}
-          name={props.question.name}
-          list={props.question.datalist}
-          className="border border-complementary/20 rounded-md md:p-2 p-1"
-          autoComplete="off"
-        ></Field>
-        <datalist id={props.question.datalist}>
-          <option value="" disabled selected></option>
-          {props.question.options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.title}
-            </option>
-          ))}
-        </datalist>
-        <ErrorMessage
-          name={props.question.name}
-          render={(msg) => <div className="text-red-600">{msg}</div>}
-        />
-      </Fragment>
-    );
   } else if (props.type === 'textArea') {
     return (
       <Fragment>
@@ -145,6 +140,6 @@ function Question(props) {
       </Fragment>
     );
   }
-}
+});
 
-export default Question;
+export default RegistrationQuestion;
