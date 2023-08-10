@@ -52,6 +52,8 @@ export default function UserAdminView({
     ],
   ];
 
+  console.log(currentUser);
+
   // Pagination
   const ref = useRef(null);
 
@@ -289,6 +291,10 @@ export default function UserAdminView({
 
           {/* Info */}
           <div className="pb-8">
+            <div className="mt-5">
+              <h3 className="font-bold">Group</h3>
+              <p>{currentUser.user.group}</p>
+            </div>
             {user_info.map(([title, desc], id) => (
               <div key={id} className="mt-5">
                 <h3 className="font-bold">{title}</h3>

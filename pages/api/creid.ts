@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import initializeApi from '../../lib/admin/init';
 import { firestore } from 'firebase-admin';
+import { computeHash, determineColorByTeamIdx } from '../../lib/stats/group';
 
 initializeApi();
 const db = firestore();
@@ -13,13 +14,24 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
   }
   const snapshot = await db.collection('/registrations').get();
   const users = [];
-  snapshot.forEach((doc) => {
+  snapshot.forEach(async (doc) => {
+    const docId = doc.id;
+    const docData = doc.data();
+
     users.push({
-      id: doc.data().id,
+      id: docData.id,
       user: {
-        firstName: doc.data().user.firstName,
-        lastName: doc.data().user.lastName,
-        permissions: doc.data().user.permissions,
+        firstName: docData.user.firstName,
+        lastName: docData.user.lastName,
+        permissions: docData.user.permissions,
+      },
+    });
+
+    await doc.ref.update({
+      ...docData,
+      user: {
+        ...docData.user,
+        group: determineColorByTeamIdx(computeHash(docId)),
       },
     });
   });
