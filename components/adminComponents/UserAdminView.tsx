@@ -52,8 +52,6 @@ export default function UserAdminView({
     ],
   ];
 
-  console.log(currentUser);
-
   // Pagination
   const ref = useRef(null);
 
