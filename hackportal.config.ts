@@ -7,6 +7,7 @@ export const hackPortalConfig: HackPortalConfig = {
   //  which hold all the questions of that type
   //add extra questions types(even ones already used) to question topics and add more questions under each question type
   //questions are displayed on page in order
+  groupNames: ['Champagne', 'Polo', 'Estate', 'Pearl'],
   registrationFields: {
     //Question Topic
     generalQuestions: [
@@ -458,6 +459,7 @@ export type statRecordTypes = {
   hackathonExperience: Record<number, number>;
   heardFrom: Record<string, number>;
   timestamp: Record<string, number>;
+  group: Record<string, number>;
 };
 
 //add the title for each field that will be displayed as chart titles in admin stats page
@@ -477,6 +479,7 @@ export const fieldNames = {
   companies: 'Companies',
   dietary: 'Dietary',
   timestamp: 'Registration Time',
+  group: 'Group Distribution',
 };
 
 //name fields that are checkbox questions belong here
@@ -504,6 +507,7 @@ export interface HackPortalConfig {
     eventInfoQuestions: QuestionTypes[];
     sponsorInfoQuestions: QuestionTypes[];
   };
+  groupNames: string[];
 }
 
 interface QuestionTypes {

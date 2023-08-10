@@ -82,6 +82,7 @@ export default function ProfilePage() {
               darkColor="#F6CC82"
               lightColor="#0000"
             />
+            <p className="text-center text-sm mt-2">{profile.user.group}</p>
           </div>
           <div className="border-y-4 border-primary py-4 md:my-8 my-6 font-secondary space-y-2">
             <div className="flex flex-col items-start justify-start gap-y-1">
