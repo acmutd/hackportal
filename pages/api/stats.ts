@@ -35,6 +35,7 @@ async function getStatsData() {
     adminCount: 0,
     scans: {},
     timestamp: {},
+    group: {},
     ...statRecords,
   };
 
@@ -48,6 +49,12 @@ async function getStatsData() {
       generalStats.timestamp[stringDate] = 0;
     }
     generalStats.timestamp[stringDate]++;
+
+    const userTeam = doc.data().user.color;
+    if (!generalStats.group.hasOwnProperty(userTeam)) {
+      generalStats.group[userTeam] = 0;
+    }
+    generalStats.group[userTeam]++;
 
     for (let arrayField of arrayFields) {
       if (!userData[arrayField]) continue;

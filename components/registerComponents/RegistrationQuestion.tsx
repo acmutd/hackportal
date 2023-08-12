@@ -102,10 +102,56 @@ const RegistrationQuestion = forwardRef(function Question(props: RegistrationQue
   } else if (props.type === 'checkbox') {
     return (
       <Fragment>
-        <label htmlFor={props.question.name} className="mt-4">
-          {props.question.required ? '*' : ''}
-          {props.question.question}
-        </label>
+        {props.question.name == 'CoC' ? (
+          <label className="mt-4">
+            *I have read and agree to the&thinsp;
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
+              className="underline"
+            >
+              MLH Code of Conduct
+            </a>
+          </label>
+        ) : props.question.name == 'shareApp' ? (
+          <label className="mt-4">
+            *I authorize you to share my application/registration information with Major League
+            Hacking for event administration, ranking, and MLH administration in-line with
+            the&thinsp;
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://mlh.io/privacy"
+              className="underline"
+            >
+              MLH Privacy Policy
+            </a>
+            . I further agree to the terms of both the MLH Contest&thinsp;
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
+              className="underline"
+            >
+              Terms and Conditions
+            </a>
+            &thinsp;and the&thinsp;
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://mlh.io/privacy"
+              className="underline"
+            >
+              MLH Privacy Policy
+            </a>
+          </label>
+        ) : (
+          <label htmlFor={props.question.name} className="mt-4">
+            {props.question.required ? '*' : ''}
+            {props.question.question}
+          </label>
+        )}
         <div role="group" aria-labelledby="checkbox-group" className="flex flex-col">
           {props.question.options.map((option) => (
             <label key={option.value}>

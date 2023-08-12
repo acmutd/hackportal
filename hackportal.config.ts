@@ -8,6 +8,7 @@ export const hackPortalConfig: HackPortalConfig = {
   //  which hold all the questions of that type
   //add extra questions types(even ones already used) to question topics and add more questions under each question type
   //questions are displayed on page in order
+  groupNames: ['Champagne', 'Polo', 'Estate', 'Pearl'],
   registrationFields: {
     //Question Topic
     generalQuestions: [
@@ -94,7 +95,7 @@ export const hackPortalConfig: HackPortalConfig = {
           {
             question: 'Self-Describe',
             id: 'selfdescribe',
-            name: 'selfdescribe',
+            name: 'genderSelfDescribe',
             required: false,
             initialValue: '',
           },
@@ -210,24 +211,40 @@ export const hackPortalConfig: HackPortalConfig = {
             initialValue: '',
             options: [
               {
-                title: 'Freshman',
-                value: 'freshman',
+                title: 'Undergraduate University(2 year)',
+                value: 'Undergraduate(2 year)',
               },
               {
-                title: 'Sophomore',
-                value: 'sophomore',
+                title: 'Undergraduate University(3+ year)',
+                value: 'Undergraduate(3+ year)',
               },
               {
-                title: 'Junior',
-                value: 'junior',
+                title: 'Graduate University (Masters, Professional, Doctoral, etc)',
+                value: 'Graduate',
               },
               {
-                title: 'Senior',
-                value: 'senior',
+                title: 'Code School / Bootcamp',
+                value: 'Code School / Bootcamp',
               },
               {
-                title: 'Graduate Student',
-                value: 'grad',
+                title: 'Other Vocational / Trade Program or Apprenticeship',
+                value: 'Vocational/Trade',
+              },
+              {
+                title: 'Post Doctorate',
+                value: 'Post Doctorate',
+              },
+              {
+                title: 'Other',
+                value: 'Other',
+              },
+              {
+                title: "I'm not currently a student",
+                value: 'NotaStudent',
+              },
+              {
+                title: 'Prefer not to answer',
+                value: 'NoAnswer',
               },
             ],
           },
@@ -400,6 +417,37 @@ export const hackPortalConfig: HackPortalConfig = {
         ],
       },
     ],
+    shortAnswerQuestions: [
+      {
+        textAreaQuestions: [
+          {
+            question: 'Why do you want to attend hackutd?',
+            id: 'motivation',
+            name: 'motivation',
+            required: true,
+            initialValue: '',
+            placeholder: '',
+          },
+          {
+            question:
+              "Tell us about a project you've made in the past or a potential idea you have for a future project",
+            id: 'projectExample',
+            name: 'projectExample',
+            required: true,
+            initialValue: '',
+            placeholder: '',
+          },
+          {
+            question: 'What are you looking forward to at HackUTD X?',
+            id: 'excitedFor',
+            name: 'excitedFor',
+            required: true,
+            initialValue: '',
+            placeholder: '',
+          },
+        ],
+      },
+    ],
     //Question Topic
     sponsorInfoQuestions: [
       {
@@ -463,22 +511,8 @@ export const hackPortalConfig: HackPortalConfig = {
           },
           {
             question:
-              'I further agree to the terms of both the MLH Contest Terms and Conditions and the MLH Privacy Policy',
+              'I authorize you to share my application/registration information with Major League Hacking for event administration, ranking, and MLH administration in-line with the MLH Privacy Policy (https://mlh.io/privacy). I further agree to the terms of both the MLH Contest Terms and Conditions (https://github.com/MLH/mlh-policies/blob/main/contest-terms.md) and the MLH Privacy Policy (https://mlh.io/privacy)',
             required: true,
-            id: 'policy',
-            name: 'policy',
-            initialValue: [],
-            options: [
-              {
-                title: 'Agree',
-                value: 'Agree',
-              },
-            ],
-          },
-          {
-            question:
-              'I authorize you to share my application/registration information with Major League Hacking for event administration, ranking, and MLH administration in-line with the MLH Privacy Policy',
-            required: false,
             id: 'shareApp',
             name: 'shareApp',
             initialValue: [],
@@ -525,6 +559,7 @@ export type statRecordTypes = {
   hackathonExperience: Record<number, number>;
   heardFrom: Record<string, number>;
   timestamp: Record<string, number>;
+  group: Record<string, number>;
 };
 
 //add the title for each field that will be displayed as chart titles in admin stats page
@@ -544,7 +579,7 @@ export const fieldNames = {
   scans: 'Scans', //not part of registration questions, used for scanner
   dietary: 'Dietary',
   timestamp: 'Registration Time',
-  color: 'Team Color Distribution',
+  group: 'Group Distribution',
 };
 
 //name fields that are checkbox questions belong here
@@ -571,9 +606,11 @@ export interface HackPortalConfig {
     schoolQuestions: QuestionTypes[];
     hackathonExperienceQuestions: QuestionTypes[];
     eventInfoQuestions: QuestionTypes[];
+    shortAnswerQuestions: QuestionTypes[];
     sponsorInfoQuestions: QuestionTypes[];
     oneLastThing: QuestionTypes[];
   };
+  groupNames: string[];
 }
 
 interface QuestionTypes {

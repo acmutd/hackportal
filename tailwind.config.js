@@ -7,7 +7,7 @@ module.exports = {
       colors: {
         primary: '#F6CC82', //purple
         primaryDark: '#BD8A31',
-        secondary: '#fff', //light purple
+        secondary: '#FFFCF9', //light purple
         secondaryDark: '#111A31',
         complementary: '#4C4950', //gray
         complementaryDark: '#252427',
@@ -50,6 +50,21 @@ module.exports = {
       }),
       backgroundImage: {
         'hero-pattern': `url(${'/assets/bg2.jpeg'})`, // !change
+      },
+      animation: {
+        text: 'text 2s ease infinite',
+      },
+      keyframes: {
+        text: {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center',
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center',
+          },
+        },
       },
     },
   },

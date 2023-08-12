@@ -40,12 +40,12 @@ export default function HomeFooter() {
           </a>
           {/* !change */}
           <a
-            href="https://github.com/acmutd/hackportal"
+            href="http://hackp.ac/coc"
             target="_blank"
             rel="noreferrer"
             className="hover:underline  whitespace-nowrap"
           >
-            Source Code
+            Code of Conduct
           </a>
         </div>
         {/* Social icons */} {/* !change */}

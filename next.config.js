@@ -10,7 +10,7 @@ const withPWA = require('next-pwa')({
 (module.exports = withPWA({
   reactStrictMode: true,
   images: {
-    domains: ['lh3.googleusercontent.com', 'firebasestorage.googleapis.com'],
+    domains: ['lh3.googleusercontent.com', 'firebasestorage.googleapis.com', 's3.amazonaws.com'],
   },
 
   webpack(config, options) {

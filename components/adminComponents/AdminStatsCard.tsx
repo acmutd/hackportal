@@ -9,7 +9,7 @@ interface AdminStatsCardProps {
 
 export default function AdminStatsCard({ title, value, icon }: AdminStatsCardProps) {
   return (
-    <div className="border-2 p-5 flex flex-col rounded-xl">
+    <div className="border-2 p-5 flex flex-col rounded-xl text-secondary">
       <div className="flex items-center gap-x-6">
         {icon}
         <div className="flex flex-col">

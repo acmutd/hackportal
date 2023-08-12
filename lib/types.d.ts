@@ -82,6 +82,7 @@ type Registration = {
     permissions: UserPermission[];
     firstName: string;
     lastName: string;
+    group: string;
     /**
      * The email used to contact the user.
      */
@@ -108,6 +109,7 @@ type Registration = {
   website?: string;
   resume?: string;
   companies: Companies[];
+  status: string;
   //claims: []; //Array of Strings will be used to id any claims (lunch, merch, etc.) made by user
 };
 

@@ -1,3 +1,4 @@
+import { LineAxisOutlined } from '@mui/icons-material';
 import { ResponsiveBar } from '@nivo/bar';
 
 interface NivoBarChartProps {
@@ -14,8 +15,33 @@ export default function NivoBarChart({ name, items }: NivoBarChartProps) {
     itemName,
     [name]: itemValue,
   }));
+
+  const theme = {
+    axis: {
+      tickColor: '#fff',
+      ticks: {
+        line: {
+          stroke: '#fff',
+        },
+        text: {
+          fill: '#fff',
+        },
+      },
+      legend: {
+        text: {
+          fill: '#fff',
+        },
+      },
+    },
+    grid: {
+      line: {
+        stroke: '#fff',
+      },
+    },
+  };
+
   return (
-    <div style={{ height: 650 }} className="border-2 my-2 rounded-2xl md:p-6">
+    <div style={{ height: 650 }} className="border-2 my-2 rounded-2xl md:p-6 text-primary">
       <h1 className="text-2xl font-bold text-center">{name}</h1>
       <ResponsiveBar
         data={items_}
@@ -31,6 +57,7 @@ export default function NivoBarChart({ name, items }: NivoBarChartProps) {
         enableLabel={false}
         axisTop={null}
         axisRight={null}
+        theme={theme}
         axisLeft={{
           tickSize: 5,
           tickPadding: 5,

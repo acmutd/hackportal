@@ -229,13 +229,17 @@ export default function Admin() {
   });
 
   if (!isSignedIn || !isAuthorized(user))
-    return <div className="text-2xl font-black text-center">Unauthorized</div>;
+    return (
+      <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
+        Unauthorized
+      </div>
+    );
 
   return (
-    <div className="relative flex flex-col flex-grow">
+    <div className="relative flex flex-col flex-grow bg-[url('/assets/hero-bg.png')]">
       <Head>
-        <title>HackPortal - Admin</title>
-        <meta name="description" content="HackPortal's Admin Page" />
+        <title>HackUTD X - Admin</title>
+        <meta name="description" content="HackUTD X's Admin Page" />
       </Head>
       <section className="p-4">
         <AdminHeader />
@@ -292,7 +296,7 @@ export default function Admin() {
             <ChevronLeftIcon />
             Return to scanner
           </button>
-          <div className="text-2xl font-black text-center">Add New Scan</div>
+          <div className="text-2xl font-black text-center text-secondary">Add New Scan</div>
           <div className="w-3/5 my-5 mx-auto">
             <input
               className="p-3 rounded-lg w-full border-[1px] focus:border-primaryDark"
@@ -320,7 +324,7 @@ export default function Admin() {
                   }));
                 }}
               />
-              <h1>Is this for check-in event?</h1>
+              <h1 className="text-secondary">Is this for check-in event?</h1>
             </div>
           </div>
           <div className="flex justify-around">
@@ -357,7 +361,7 @@ export default function Admin() {
             {currentScan && (
               <div className="my-6">
                 <div className="flex flex-col gap-y-4">
-                  <div className="text-center text-xl font-black">
+                  <div className="text-center text-xl font-black text-secondary">
                     {currentScan ? currentScan.name : ''}
                   </div>
                   {startScan ? (
@@ -434,7 +438,7 @@ export default function Admin() {
                                 }));
                               }}
                             />
-                            <h1>Is this for check-in event?</h1>
+                            <h1 className="text-secondary">Is this for check-in event?</h1>
                           </div>
                         </div>
                         <div className="flex justify-around">

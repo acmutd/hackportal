@@ -92,7 +92,7 @@ export default function Pagination({
         disabled={currentPage <= 1}
         onClick={() => onPageChange(currentPage - 1)}
       >
-        <ChevronLeftIcon className="ml-0.5 w-4 h-4 text-complementary cursor-pointer" />
+        <ChevronLeftIcon className="ml-0.5 w-4 h-4 text-secondary cursor-pointer" />
       </button>
 
       {paginationRange.map((pageNumber, i) => {
@@ -100,7 +100,7 @@ export default function Pagination({
           <div
             key={i}
             className={`flex items-center justify-center w-6 h-6 rounded-full mx-1 cursor-pointer text-sm
-          ${pageNumber === currentPage ? 'bg-primaryDark text-white' : 'text-complementary'}
+          ${pageNumber === currentPage ? 'bg-primaryDark text-white' : 'text-secondary'}
           `}
             onClick={() => onPageChange(pageNumber)}
           >
@@ -114,7 +114,7 @@ export default function Pagination({
         disabled={currentPage >= lastPage}
         onClick={() => onPageChange(currentPage + 1)}
       >
-        <ChevronRightIcon className="ml-0.5 w-4 h-4 text-complementary cursor-pointer" />
+        <ChevronRightIcon className="ml-0.5 w-4 h-4 text-secondary cursor-pointer" />
       </button>
     </div>
   );

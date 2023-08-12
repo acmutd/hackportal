@@ -34,6 +34,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
       schoolQuestions,
       hackathonExperienceQuestions,
       eventInfoQuestions,
+      shortAnswerQuestions,
       sponsorInfoQuestions,
       oneLastThing,
     },
@@ -221,6 +222,9 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             for (let obj of eventInfoQuestions) {
               errors = setErrors(obj, values, errors);
             }
+            for (let obj of shortAnswerQuestions) {
+              errors = setErrors(obj, values, errors);
+            }
             for (let obj of sponsorInfoQuestions) {
               errors = setErrors(obj, values, errors);
             }
@@ -248,8 +252,11 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             if (values.CoC.length == 0) {
               errors.CoC = 'Code of Conduct not accepted';
             }
-            if (values.policy.length == 0) {
-              errors.policy = 'Policy not accepted';
+            if (values.shareApp.length == 0) {
+              errors.shareApp = 'Policy not accepted';
+            }
+            if (values.motivation == '') {
+              errors.motivation == 'Required';
             }
             if (values.gender == 'Prefer to self-describe') {
               if (genderQuestion.current) genderQuestion.current.style.display = 'block';
@@ -362,8 +369,27 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                 </section>
               )}
 
-              {/* Sponsor Questions */}
+              {/* Short Answer Questions */}
               {registrationSection == 4 && (
+                <section className="bg-[url('/assets/login-bg.png')] bg-cover bg-no-repeat lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-secondaryDark">
+                  <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">
+                    Short Answer Questions
+                  </h2>
+                  <div className="flex flex-col font-secondary text-lg">
+                    {shortAnswerQuestions.map((obj, idx) => (
+                      <DisplayQuestion
+                        key={idx}
+                        obj={obj}
+                        values={values}
+                        onChange={handleChange}
+                      />
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {/* Sponsor Questions */}
+              {registrationSection == 5 && (
                 <section className="bg-[url('/assets/login-bg.png')] bg-cover bg-no-repeat lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-secondaryDark">
                   <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">Sponsor Info</h2>
                   <div className="flex flex-col font-secondary text-lg">
@@ -396,7 +422,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                 </section>
               )}
               {/* One Last Thing Questions */}
-              {registrationSection == 5 && (
+              {registrationSection == 6 && (
                 <section className="bg-[url('/assets/login-bg.png')] bg-cover bg-no-repeat lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-secondaryDark">
                   <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">One Last Thing</h2>
                   <div className="flex flex-col font-secondary text-lg">
@@ -435,7 +461,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
           className={`lg:block flex ${
             registrationSection == 0
               ? 'justify-end'
-              : registrationSection >= 5
+              : registrationSection >= 6
               ? 'justify-start'
               : 'justify-between'
           } lg:pb-0 pb-8 lg:px-0 sm:px-8 px-6 text-primary font-semibold lg:text-xl md:text-lg uppercase`}
@@ -452,7 +478,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             </div>
           )}
 
-          {registrationSection < 5 && (
+          {registrationSection < 6 && (
             <div
               className="lg:fixed 2xl:bottom-8 2xl:right-8 bottom-6 right-6 inline cursor-pointer select-none"
               onClick={() => {
