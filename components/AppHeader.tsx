@@ -103,7 +103,7 @@ export default function AppHeader() {
               </a>
             </Link>
           </div>
-          <div className="order-2 gold-text-gradient md:block font-bold text-center md:text-xl text-sm uppercase">
+          <div className="order-2 animate-text bg-gradient-to-r from-primaryDark to-primary bg-clip-text text-transparent md:block font-bold text-center md:text-xl text-sm uppercase">
             <div>HackUTD X:</div>
             <div>Golden Hour</div>
           </div>

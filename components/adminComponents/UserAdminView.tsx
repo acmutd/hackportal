@@ -38,6 +38,9 @@ export default function UserAdminView({
     ['Current Level of Study', currentUser.studyLevel],
     ['Number of Hackathons Attended', currentUser.hackathonExperience],
     ['Software Experience', currentUser.softwareExperience],
+    ['Why do you want to attend hackutd?', currentUser.motivation],
+    ['Project / Idea', currentUser.projectExample],
+    ['What are you looking forward to at HackUTD X?', currentUser.excitedFor],
     [
       'Resume',
       currentUser.resume === '' ? (
@@ -128,17 +131,17 @@ export default function UserAdminView({
             <div
               key={user.id}
               className={`
-                flex flex-row justify-between items-center w-full py-2 rounded-md mb-3 h-12 p-4 bg-secondary
+                flex flex-row justify-between items-center w-full py-2 rounded-md mb-3 h-12 p-4 bg-secondaryDark
                 shadow-md ${
                   user.id === currentUserId
                     ? 'border-primaryDark border-[3px] bg-primary'
-                    : 'border-complementary/25  border-[1px]'
+                    : 'border-primary/50  border-[1px]'
                 }
                 cursor-pointer
               `}
               onClick={() => onUserClick(user.id)}
             >
-              <div className="text-secondaryDark text-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis max-w-[60%]">
+              <div className="text-primary text-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis max-w-[60%]">
                 {user.user.firstName}
               </div>
               <div
@@ -163,9 +166,9 @@ export default function UserAdminView({
       </div>
 
       {/* User */}
-      <div className="rounded-lg border-2 border-gray h-full overflow-y-scroll w-full md:w-[calc(100%-300px)] bg-secondary">
+      <div className="rounded-lg border-2 border-primary h-full overflow-y-scroll w-full md:w-[calc(100%-300px)] bg-secondaryDark/75">
         {/* Header */}
-        <div className="sticky top-0 bg-secondaryDark shadow-md flex flex-row justify-between items-center py-1 text-secondary">
+        <div className="sticky top-0 bg-primaryDark shadow-md flex flex-row justify-between items-center py-1 text-secondary">
           <div className="flex items-center gap-x-2 p-3">
             <ChevronLeftIcon
               className="h-6 w-6 cursor-pointer"
@@ -182,7 +185,7 @@ export default function UserAdminView({
         </div>
 
         {/* User Info */}
-        <div className="p-10 text-secondaryDark h-full">
+        <div className="p-10 animate-text bg-gradient-to-r from-primaryDark to-primary bg-clip-text text-transparent h-full">
           <h1 className="font-bold text-5xl">
             {currentUser.user.firstName} {currentUser.user.lastName}
           </h1>
@@ -190,7 +193,7 @@ export default function UserAdminView({
           {/* User Status */}
           <div className="mt-4">
             <div>
-              <h3 className="font-bold text-lg">Application Status</h3>
+              <h3 className="font-bold text-lg text-primary">Application Status</h3>
               <div className="mt-4 flex flex-col lg:flex-row justify-between items-start">
                 <p
                   className={`text-lg font-bold py-1 px-6 rounded-md ${
@@ -223,7 +226,7 @@ export default function UserAdminView({
 
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-bold">Role</h3>
+                <h3 className="font-bold text-primary">Role</h3>
                 <div className="flex flex-row justify-between">
                   {isInEditMode ? (
                     <div className="flex flex-col">
@@ -245,7 +248,7 @@ export default function UserAdminView({
                       </select>
                     </div>
                   ) : (
-                    <p>{currentUser.user.permissions[0]}</p>
+                    <p className="text-secondary">{currentUser.user.permissions[0]}</p>
                   )}
                 </div>
               </div>
@@ -290,13 +293,13 @@ export default function UserAdminView({
           {/* Info */}
           <div className="pb-8">
             <div className="mt-5">
-              <h3 className="font-bold">Group</h3>
-              <p>{currentUser.user.group}</p>
+              <h3 className="font-bold text-primary">Group</h3>
+              <p className="text-secondary">{currentUser.user.group}</p>
             </div>
             {user_info.map(([title, desc], id) => (
               <div key={id} className="mt-5">
-                <h3 className="font-bold">{title}</h3>
-                <p>{desc}</p>
+                <h3 className="font-bold text-primary">{title}</h3>
+                <p className="text-secondary">{desc}</p>
               </div>
             ))}
           </div>
