@@ -55,7 +55,7 @@ function PortalApp({ Component, pageProps }: AppProps) {
                 href="https://fonts.googleapis.com/css2?family=Krona+One&display=swap"
                 rel="stylesheet"
               ></link>
-              <meta name="theme-color" content="#5D5FEF" />
+              <meta name="theme-color" content="#BD8A31" />
             </Head>
             <div className="min-h-screen flex flex-col bg-[url('/assets/hero-bg.png')] ">
               <AppHeader />
