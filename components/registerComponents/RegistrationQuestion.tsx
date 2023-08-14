@@ -8,10 +8,10 @@ import { Field, ErrorMessage } from 'formik';
  */
 
 interface RegistrationQuestionProps {
-  question;
+  question: QuestionObject;
   type: string;
-  value?;
-  onChange?;
+  value?: number;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const RegistrationQuestion = forwardRef(function Question(props: RegistrationQuestionProps, ref) {

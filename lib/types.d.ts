@@ -300,3 +300,53 @@ type UserIdentifier = Omit<Registration, 'scans'> & {
   status: string;
   selected: boolean;
 };
+
+type RegistrationValues = {
+  CoC: Array;
+  accomodations: string;
+  age: number;
+  country: string;
+  dietary: Array;
+  emailMLH: Array;
+  ethnicity: String;
+  excitedFor: String;
+  firstName: String;
+  gender: String;
+  genderSelfDescribe: String;
+  github: String;
+  hackathonExperience: number;
+  heardFrom: String;
+  id: String;
+  lastName: String;
+  linkedin: String;
+  major: String;
+  motivation: String;
+  permissions: Array;
+  preferredEmail: String;
+  projectExample: String;
+  race: String;
+  shareApp: Array;
+  size: String;
+  softwareExperience: String;
+  song: String;
+  studyLevel: String;
+  university: String;
+  website: String;
+};
+
+type QuestionObject = {
+  id: string;
+  question: string;
+  name: string;
+  required: boolean;
+  min?: string;
+  max?: string;
+  pattern?: string;
+  placeholder?: string;
+  options?: Array<Option>;
+};
+
+type Option = {
+  value: string;
+  title: string;
+};

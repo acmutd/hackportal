@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useLayoutEffect, Fragment, forwardRef } from 'react';
-import { Field, ErrorMessage } from 'formik';
+import React, { Fragment, forwardRef } from 'react';
 import RegistrationQuestion from './RegistrationQuestion';
+import { QuestionTypes } from '../../hackportal.config';
 
 /**
  *Display registration questions Component
@@ -9,9 +9,9 @@ import RegistrationQuestion from './RegistrationQuestion';
  */
 interface DisplayQuestionProps {
   key: number;
-  obj;
-  values;
-  onChange;
+  obj: QuestionTypes;
+  values: RegistrationValues;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const DisplayQuestion = forwardRef(function Question(props: DisplayQuestionProps, ref) {

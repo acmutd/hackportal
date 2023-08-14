@@ -613,7 +613,7 @@ export interface HackPortalConfig {
   groupNames: string[];
 }
 
-interface QuestionTypes {
+export interface QuestionTypes {
   checkboxQuestions?: CheckboxQuestion[];
   dropdownQuestions?: DropdownQuestion[];
   textInputQuestions?: RegistrationQuestion[];
