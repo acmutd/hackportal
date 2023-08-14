@@ -61,7 +61,7 @@ export default function UserList({
               onUserClick(user.id);
             }}
           >
-            {`${user.user.firstName} ${user.user.lastName}`}
+            {`${user.user.firstName} ${user.user.lastName.charAt(0)}.`}
           </div>
         </div>
         <div className="w-1/2 md:w-2/12 h-full py-3 pr-6 whitespace-nowrap overflow-hidden text-ellipsis max-w-[100%]">
