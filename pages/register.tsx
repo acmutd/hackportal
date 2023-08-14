@@ -129,7 +129,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
   }
 
   if (!user) {
-    router.push('/');
+    router.push('/auth');
   }
 
   if (loading) {
