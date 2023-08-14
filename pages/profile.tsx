@@ -17,7 +17,7 @@ export default function ProfilePage() {
   const [uploading, setUploading] = useState<boolean>(false);
   const resumeRef = useRef(null);
 
-  const handleResumeUpload = (profile) => {
+  const handleResumeUpload = async (profile) => {
     if (resumeRef.current.files.length !== 1) return alert('Must submit one file');
 
     const fileExtension = getFileExtension(resumeRef.current.files[0].name);
@@ -46,16 +46,15 @@ export default function ProfilePage() {
     formData.append('studyLevel', profile.studyLevel);
     formData.append('major', profile.major);
 
-    fetch('/api/resume/upload', {
+    const res = await fetch('/api/resume/upload', {
       method: 'post',
       body: formData,
-    }).then((res) => {
-      if (res.status !== 200) alert('Resume upload failed...');
-      else {
-        setUploading(false);
-        alert('Resume updated...');
-      }
     });
+    if (res.status !== 200) alert('Resume upload failed...');
+    else {
+      setUploading(false);
+      alert('Resume updated...');
+    }
   };
 
   if (!isSignedIn) {
@@ -126,7 +125,7 @@ export default function ProfilePage() {
           </div>
           <h1 className="text-xl font-secondary">{profile.user.preferredEmail}</h1>
 
-          {/* <div className="my-8">
+          <div className="my-8">
             {!uploading ? (
               <>
                 <input
@@ -134,7 +133,9 @@ export default function ProfilePage() {
                   style={{ display: 'none' }}
                   type="file"
                   ref={resumeRef}
-                  onChange={() => handleResumeUpload(profile)}
+                  onChange={async () => {
+                    await handleResumeUpload(profile);
+                  }}
                   accept=".pdf, .doc, .docx, image/png, image/jpeg, .txt, .tex, .rtf"
                 />
                 <label
@@ -148,7 +149,7 @@ export default function ProfilePage() {
             ) : (
               <LoadIcon width={16} height={16} />
             )}
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

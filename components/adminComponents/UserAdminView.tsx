@@ -43,7 +43,7 @@ export default function UserAdminView({
     ['What are you looking forward to at HackUTD X?', currentUser.excitedFor],
     [
       'Resume',
-      currentUser.resume === '' ? (
+      currentUser.resume === '' || currentUser.resume === undefined ? (
         'No resume found'
       ) : (
         <Link passHref href={currentUser.resume} className="border-2 p-3 hover:bg-gray-200">
@@ -237,7 +237,7 @@ export default function UserAdminView({
                           setNewRole(e.target.value);
                         }}
                         name="new_role"
-                        className="text-primaryDark rounded-xl p-2"
+                        className="border-2 rounded-xl p-2"
                       >
                         <option value="" disabled>
                           Choose a role
