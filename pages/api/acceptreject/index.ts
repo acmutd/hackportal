@@ -90,7 +90,7 @@ async function getAllHackers(req: NextApiRequest, res: NextApiResponse) {
   } = req;
 
   const userToken = headers['authorization'];
-  const isAuthorized = await userIsAuthorized(userToken, ['super_admin, admin']);
+  const isAuthorized = await userIsAuthorized(userToken, ['super_admin']);
 
   if (!isAuthorized) {
     return res.status(403).json({
