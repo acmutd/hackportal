@@ -84,7 +84,7 @@ const RegistrationQuestion = forwardRef(function Question(props: RegistrationQue
           as="select"
           name={props.question.name}
           id={props.question.id}
-          className="border border-complementary/20 rounded-md md:pl-2 md:py-2 pl-1 py-1 w-min text-sm sm:text-base"
+          className="border border-complementary/20 rounded-md md:pl-2 md:py-2 pl-1 py-1 w-min max-w-full text-sm sm:text-base"
         >
           <option value="" disabled selected></option>
           {props.question.options.map((option) => (

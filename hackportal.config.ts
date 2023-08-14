@@ -321,6 +321,14 @@ export const hackPortalConfig: HackPortalConfig = {
                 value: 'Friend',
               },
               {
+                title: 'MLH Website',
+                value: 'MLH Website',
+              },
+              {
+                title: 'Campus Poster',
+                value: 'Campus Poster',
+              },
+              {
                 title: 'Other',
                 value: 'Other',
               },
@@ -421,7 +429,7 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         textAreaQuestions: [
           {
-            question: 'Why do you want to attend hackutd?',
+            question: 'Why do you want to attend HackUTD?',
             id: 'motivation',
             name: 'motivation',
             required: true,
