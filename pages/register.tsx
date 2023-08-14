@@ -403,7 +403,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                     ))}
                   </div>
                   {/* Resume Upload */}
-                  <div className="font-secondary text-lg mt-8">
+                  {/* <div className="font-secondary text-lg mt-8">
                     Upload your resume:
                     <br />
                     <input
@@ -418,7 +418,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                     <p className="text-xs text-complementary/50">
                       Accepted file types: .pdf, .doc, .docx, .png, .jpeg, .txt, .tex, .rtf
                     </p>
-                  </div>
+                  </div> */}
                 </section>
               )}
               {/* One Last Thing Questions */}
