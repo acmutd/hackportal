@@ -85,15 +85,13 @@ export default function AppHeader() {
                   showMenu ? 'translate-x-0' : '-translate-x-full'
                 } transform transition-all ease-out duration-300 flex w-6/12 h-screen flex-col bg-[url('/assets/about-bg.jpeg')] fixed top-0 left-0 z-[-1] mt-[5rem] shadow-md shadow-[#111A31]`}
               >
-                {dynamicNavItems
-                  .filter(({ text }) => text !== 'Home')
-                  .map((item) => (
-                    <Link key={item.text} href={item.path}>
-                      <a className="px-4 py-6 hover:bg-[#111A31] hover:text-white text-[#111A31]">
-                        <p className="text-xl font-medium">{item.text}</p>
-                      </a>
-                    </Link>
-                  ))}
+                {dynamicNavItems.map((item) => (
+                  <Link key={item.text} href={item.path}>
+                    <a className="px-4 py-6 hover:bg-[#111A31] hover:text-white text-[#111A31]">
+                      <p className="text-xl font-medium">{item.text}</p>
+                    </a>
+                  </Link>
+                ))}
               </ul>
             </div>
             <Link href="/">
