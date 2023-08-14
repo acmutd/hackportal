@@ -421,7 +421,7 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         textAreaQuestions: [
           {
-            question: 'Why do you want to attend hackutd?',
+            question: 'Why do you want to attend HackUTD?',
             id: 'motivation',
             name: 'motivation',
             required: true,
