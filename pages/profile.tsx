@@ -126,7 +126,7 @@ export default function ProfilePage() {
           </div>
           <h1 className="text-xl font-secondary">{profile.user.preferredEmail}</h1>
 
-          <div className="my-8">
+          {/* <div className="my-8">
             {!uploading ? (
               <>
                 <input
@@ -148,7 +148,7 @@ export default function ProfilePage() {
             ) : (
               <LoadIcon width={16} height={16} />
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
