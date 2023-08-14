@@ -1,5 +1,6 @@
 [
   { "university" : "The University of Texas at Dallas" },
+  { "university": "Other"},
   { "university" : "American University, Washington, D.C." },
   { "university" : "Amherst College" },
   { "university" : "Arizona State University" },
