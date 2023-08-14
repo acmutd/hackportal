@@ -94,17 +94,11 @@ export default function HomeHero() {
           ))}
         </div> */}
         <div className="flex flex-col justify-center mt-4">
-          <p className="gold-text-gradient text-center 2xl:text-xl md:text-base text-sm mb-3">
-            Registration opens soon!
-          </p>
-          {/* <Link href="/register" passHref>
-            <button
-              className="md:text-2xl text-lg py-3 px-4 rounded-full bg-gradient-to-l from-[#F6CC82] to-[#BD8A31] text-[#202c54] opacity-50"
-              disabled={true}
-            >
+          <Link href="/register" passHref>
+            <button className="md:text-2xl text-lg py-3 px-4 rounded-full bg-gradient-to-l from-[#F6CC82] to-[#BD8A31] text-[#202c54]">
               REGISTER
             </button>
-          </Link> */}
+          </Link>
         </div>
         <div className="absolute flex flex-col items-center justify-center bottom-3 w-full">
           <div className="text-white sm:text-sm text-xs">THE LARGEST HACKATHON IN TEXAS</div>

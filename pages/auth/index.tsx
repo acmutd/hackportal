@@ -113,12 +113,6 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
-      Registration will open soon!
-    </div>
-  );
-
-  return (
     <>
       <section className="bg-[url('/assets/hero-bg.png')]  min-h-screen -mt-[5rem] md:-mt-[8rem]">
         <div className="p-4 md:mt-[8rem] mt-[5rem]">
