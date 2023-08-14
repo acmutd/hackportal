@@ -54,7 +54,11 @@ export default function HomeHero() {
   return (
     <section className="min-h-screen p-4 bg-contain bg-[url('/assets/hero-bg.png')]  md:mt-[-8rem] mt-[-5rem] md:pt-[7rem] pt-[10rem] flex flex-col md:justify-center">
       <div className="flex flex-col justify-center items-center w-full h-full">
-        <div className="mx-auto 2xl:w-[75rem] 2xl:h-[33rem] lg:w-[48rem] lg:h-[19rem] md:w-[40rem] md:h-[15rem] sm:w-[35rem] sm:h-[12rem] w-[22rem] h-[9rem] relative md:mt-0 mt-28">
+        <h1 className="animate-text bg-gradient-to-r from-primaryDark to-primary bg-clip-text text-transparent text-4xl md:text-6xl font-bold text-center mt-8 block md:hidden">
+          HackUTD X: <br />
+          Golden Hour
+        </h1>
+        <div className="mx-auto 2xl:w-[75rem] 2xl:h-[33rem] lg:w-[48rem] lg:h-[19rem] md:w-[40rem] md:h-[15rem] sm:w-[35rem] sm:h-[12rem] w-[22rem] h-[9rem] relative md:mt-0 mt-20">
           <Image src="/assets/hero-ecsw.svg" alt="ecsw" layout="fill" object-fit="fill"></Image>
         </div>
         {!eventStarted ? (
@@ -100,7 +104,7 @@ export default function HomeHero() {
             </button>
           </Link>
         </div>
-        <div className="absolute flex flex-col items-center justify-center bottom-3 w-full">
+        <div className="absolute flex flex-col items-center justify-center bottom-6 w-full">
           <div className="text-white sm:text-sm text-xs">THE LARGEST HACKATHON IN TEXAS</div>
           <div className="text-white w-6 h-6 slowbounce">
             <ChevronDownIcon />
