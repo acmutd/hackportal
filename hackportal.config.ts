@@ -321,6 +321,14 @@ export const hackPortalConfig: HackPortalConfig = {
                 value: 'Friend',
               },
               {
+                title: 'MLH Website',
+                value: 'MLH Website',
+              },
+              {
+                title: 'Campus Poster',
+                value: 'Campus Poster',
+              },
+              {
                 title: 'Other',
                 value: 'Other',
               },

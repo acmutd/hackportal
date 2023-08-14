@@ -237,7 +237,7 @@ export default function UserAdminView({
                           setNewRole(e.target.value);
                         }}
                         name="new_role"
-                        className="border-2 rounded-xl p-2"
+                        className="text-primaryDark rounded-xl p-2"
                       >
                         <option value="" disabled>
                           Choose a role

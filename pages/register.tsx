@@ -268,7 +268,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
           }}
           onSubmit={async (values, { setSubmitting }) => {
             await new Promise((r) => setTimeout(r, 500));
-            let finalValues: any = values;
+            let finalValues: any = Object.assign({}, values);
             //add user object
             const userValues: any = {
               id: values.id,
@@ -285,7 +285,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             delete finalValues.preferredEmail;
 
             //submitting
-            handleSubmit(values);
+            handleSubmit(finalValues);
             setSubmitting(false);
             // alert(JSON.stringify(values, null, 2)); //Displays form results on submit for testing purposes
           }}
