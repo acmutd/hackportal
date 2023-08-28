@@ -329,6 +329,10 @@ export const hackPortalConfig: HackPortalConfig = {
                 value: 'Campus Poster',
               },
               {
+                title: 'Pinnacle',
+                value: 'Pinnacle',
+              },
+              {
                 title: 'Other',
                 value: 'Other',
               },

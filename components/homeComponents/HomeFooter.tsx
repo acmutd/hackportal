@@ -13,7 +13,7 @@ export default function HomeFooter() {
           {/* !change */}
           Checkout HackUTD&apos;s{' '}
           <a
-            href="https://acmutd.co/"
+            href="https://hackutd.co"
             rel="noopener noreferrer"
             target="_blank"
             className="font-black hover:underline"
