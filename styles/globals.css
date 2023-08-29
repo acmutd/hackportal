@@ -230,3 +230,13 @@ a.link {
 .MuiOutlinedInput-input {
   border-color: white !important;
 }
+
+.scrollbar-white::-webkit-scrollbar{
+    background:rgba(255, 0, 0, 0);
+    width: 6px;
+}
+
+.scrollbar-white::-webkit-scrollbar-thumb{
+    background:white;
+    border-radius: 9999px;
+}

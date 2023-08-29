@@ -33,6 +33,12 @@ export default function Dashboard(props: {
   scheduleEvents: ScheduleEvent[];
   challenges: Challenge[];
 }) {
+  return (
+    <div className="flex flex-col flex-grow text-2xl text-primary text-center pt-4">
+      More info coming soon!
+    </div>
+  );
+
   const { isSignedIn, hasProfile } = useAuthContext();
   const user = useUser();
   const role = user.permissions?.length > 0 ? user.permissions[0] : '';
@@ -74,19 +80,6 @@ export default function Dashboard(props: {
     }
   };
 
-  var eventCountString;
-  if (eventCount === 1) {
-    eventCountString = 'There is 1 event is happening right now!';
-  } else {
-    eventCountString = `There are ${eventCount} events are happening right now!`;
-  }
-
-  return (
-    <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
-      More info coming soon!
-    </div>
-  );
-
   if (!isSignedIn)
     return (
       <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
@@ -105,51 +98,41 @@ export default function Dashboard(props: {
         <section id="mainContent" className="2xl:px-32 md:px-16 px-6">
           <DashboardHeader />
           {/* Spotlight & Announcements */}
-          <div className="flex flex-wrap md:my-16 my-10">
+          <div className="flex flex-wrap justify-between  md:my-16 my-10 hoefler-text">
             {/* Spotlight Events */}
             {/* Hides spotlight if no events are going on */}
             {eventCount > 0 && (
-              <div className="lg:w-3/5 w-full h-96">
-                <h1 className="md:text-5xl text-2xl text-[#FFFCF9] font-black mb-4 hoefler-text">
-                  Spotlight
+              <div className="lg:w-7/12 w-full h-96">
+                <h1 className="xl:text-5xl lg:text-4xl text-3xl text-[#FFFCF9] font-black mb-4">
+                  Happening Now &#40;{eventCount} event{eventCount === 1 ? '' : 's'}&#41;
                 </h1>
-                <div>{eventCountString}</div>
-                <Swiper
-                  modules={[Navigation, Pagination, A11y]}
-                  spaceBetween={50}
-                  slidesPerView={1}
-                  navigation
-                  loop={false}
-                  pagination={{ clickable: true }}
-                >
+                <div className="overflow-y-scroll h-9/10 scrollbar-white">
                   {props.scheduleEvents.map(
                     ({ title, speakers, startTimestamp, endTimestamp, location, page }, idx) =>
                       validTimeDate(startTimestamp, endTimestamp) && (
-                        <SwiperSlide key={idx}>
-                          <div className="h-[19rem] w-full">
-                            {/* Customize Spotlight card design for carousel in  SpotlightCard component file*/}
-                            <SpotlightCard
-                              title={title}
-                              speakers={speakers}
-                              startDate={startTimestamp}
-                              location={location}
-                              endDate={endTimestamp}
-                              page={page}
-                            />
-                          </div>
-                        </SwiperSlide>
+                        <div className="">
+                          {/* Customize Spotlight card design for carousel in  SpotlightCard component file*/}
+                          <SpotlightCard
+                            title={title}
+                            speakers={speakers}
+                            startDate={startTimestamp}
+                            location={location}
+                            endDate={endTimestamp}
+                            page={page}
+                          />
+                        </div>
                       ),
                   )}
-                </Swiper>
+                </div>
                 <div />
               </div>
             )}
             {/* Announcements */}
             <div className={`${eventCount > 0 ? 'lg:w-2/5' : 'lg:w-full'} w-full h-96`}>
-              <h1 className="md:text-5xl text-2xl font-black text-[#FFFCF9] mb-4 hoefler-text">
+              <h1 className="xl:text-5xl lg:text-4xl text-3xl font-black text-[#FFFCF9] mb-4">
                 Announcements
               </h1>
-              <div id="announcement-items" className="overflow-y-scroll h-9/10">
+              <div id="announcement-items" className="overflow-y-scroll h-9/10 scrollbar-white">
                 {announcements.map((announcement, idx) => {
                   const dateObj = new Date(announcement.timestamp!);
                   const hour = dateObj.getHours(),
@@ -168,7 +151,7 @@ export default function Dashboard(props: {
           </div>
 
           {/* Challenges */}
-          <h1 className="md:text-5xl text-2xl font-black text-[#FFFCF9] hoefler-text mb-4 2xl:mt-28 md:mt-20">
+          <h1 className="md:text-5xl text-3xl font-black text-[#FFFCF9] hoefler-text mb-4 2xl:mt-28 md:mt-20">
             Challenges
           </h1>
 
