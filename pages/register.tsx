@@ -40,7 +40,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
     },
   } = hackPortalConfig;
 
-  const { user, hasProfile, updateProfile } = useAuthContext();
+  const { user, hasProfile, updateProfile, profile } = useAuthContext();
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(true);
   const [formValid, setFormValid] = useState(true);
@@ -48,12 +48,31 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
   const genderQuestion = useRef<HTMLDivElement>(null);
   const checkRedirect = async () => {
     if (!allowedRegistrations) return;
-    if (hasProfile) router.push('/profile');
+    // Allow someone to go to the registration page to edit it.
+    //if (hasProfile) router.push('/profile');
     else setLoading(false);
   };
 
+  // Lots of high-iq code don't worry about it
+  const populateQuestions = () => {
+    if (!hasProfile) return
+    const categories = [generalQuestions, schoolQuestions, hackathonExperienceQuestions, eventInfoQuestions, shortAnswerQuestions, sponsorInfoQuestions, oneLastThing]
+    categories.forEach((category) => {
+      category.forEach((questionSet) => {
+        const questionTypes = [questionSet.checkboxQuestions, questionSet.dropdownQuestions, questionSet.numberInputQuestions, questionSet.textAreaQuestions, questionSet.textInputQuestions]
+        questionTypes.forEach((t) => {
+          if (t) t.forEach((q) => {
+            if (profile[q.id]) formInitialValues[q.id] = profile[q.id]
+          })
+        })
+      })
+    })
+  }
+
   useEffect(() => {
     //setting user specific initial values
+    // Do this first so that the initial values don't get overridden
+    populateQuestions()
     formInitialValues['id'] = user?.id || '';
     formInitialValues['preferredEmail'] = user?.preferredEmail || '';
     formInitialValues['firstName'] = user?.firstName?.split(' ')[0] || '';
