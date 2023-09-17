@@ -50,7 +50,7 @@ async function getStatsData() {
     }
     generalStats.timestamp[stringDate]++;
 
-    const userTeam = doc.data().user.color;
+    const userTeam = doc.data().user.group;
     if (!generalStats.group.hasOwnProperty(userTeam)) {
       generalStats.group[userTeam] = 0;
     }
