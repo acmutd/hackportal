@@ -55,24 +55,39 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
 
   // Lots of high-iq code don't worry about it
   const populateQuestions = () => {
-    if (!hasProfile) return
-    const categories = [generalQuestions, schoolQuestions, hackathonExperienceQuestions, eventInfoQuestions, shortAnswerQuestions, sponsorInfoQuestions, oneLastThing]
+    if (!hasProfile) return;
+    const categories = [
+      generalQuestions,
+      schoolQuestions,
+      hackathonExperienceQuestions,
+      eventInfoQuestions,
+      shortAnswerQuestions,
+      sponsorInfoQuestions,
+      oneLastThing,
+    ];
     categories.forEach((category) => {
       category.forEach((questionSet) => {
-        const questionTypes = [questionSet.checkboxQuestions, questionSet.dropdownQuestions, questionSet.numberInputQuestions, questionSet.textAreaQuestions, questionSet.textInputQuestions]
+        const questionTypes = [
+          questionSet.checkboxQuestions,
+          questionSet.dropdownQuestions,
+          questionSet.numberInputQuestions,
+          questionSet.textAreaQuestions,
+          questionSet.textInputQuestions,
+        ];
         questionTypes.forEach((t) => {
-          if (t) t.forEach((q) => {
-            if (profile[q.id]) formInitialValues[q.id] = profile[q.id]
-          })
-        })
-      })
-    })
-  }
+          if (t)
+            t.forEach((q) => {
+              if (profile[q.id]) formInitialValues[q.id] = profile[q.id];
+            });
+        });
+      });
+    });
+  };
 
   useEffect(() => {
     //setting user specific initial values
     // Do this first so that the initial values don't get overridden
-    populateQuestions()
+    populateQuestions();
     formInitialValues['id'] = user?.id || '';
     formInitialValues['preferredEmail'] = user?.preferredEmail || '';
     formInitialValues['firstName'] = user?.firstName?.split(' ')[0] || '';
