@@ -120,12 +120,6 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
     .where('user.id', '==', body.user.id)
     .get();
 
-  if (!snapshot.empty) {
-    return res.status(400).json({
-      msg: 'Profile already exists',
-    });
-  }
-
   await db.collection(APPLICATIONS_COLLECTION).doc(body.user.id).set(body);
   await updateAllUsersDoc(body.user.id, body);
   res.status(200).json({
