@@ -5,13 +5,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#F6CC82', //purple
-        primaryDark: '#BD8A31',
-        secondary: '#FFFCF9', //light purple
-        secondaryDark: '#111A31',
+        primary: '#F6CC82', //gold
+        primaryDark: '#BD8A31', //dark gold
+        secondary: '#FFFCF9', //white
+        secondaryDark: '#111A31', //dark blue
         complementary: '#4C4950', //gray
         complementaryDark: '#252427',
-        tertiary: '#9A4343', //cream
+        tertiary: '#9A4343', //red
       },
       fontFamily: {
         sans: ['Roboto', 'sans-serif'],
