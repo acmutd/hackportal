@@ -15,10 +15,10 @@ export interface ScanTypeProps {
 export default function ScanType({ name, onClick }: ScanTypeProps) {
   return (
     <div
-      className="md:p-4 p-2 cursor-pointer m-3 bg-secondary rounded-lg text-primaryDark hover:bg-primaryDark hover:text-secondary transition duration-300 ease-in-out h-min"
+      className="cursor-pointer w-full bg-secondaryDark py-4 flex justify-start rounded-lg"
       onClick={onClick}
     >
-      <div className="text-center md:text-lg font-bold">{name}</div>
+      <div className="w-full text-center md:text-lg font-bold text-primary">{name}</div>
     </div>
   );
 }
