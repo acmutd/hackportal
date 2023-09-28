@@ -4,16 +4,16 @@ import Image from 'next/image';
 
 export default function HomeSponsors() {
   return (
-    <section className="md:w-4/5 w-11/12 mx-auto">
-      <div className="flex justify-center mt-10 md:mb-5">
-        <h4 className="text-center gold-text-gradient font-bold md:text-4xl text-2xl my-4">
+    <section className="2xl:w-2/3 md:w-4/5 w-11/12 mx-auto 2xl:mb-24 md:mb-12">
+      <div className="flex justify-center 2xl:mt-20 mt-10 2xl:mb-0 md:mb-5">
+        <h4 className="text-center gold-text-gradient font-bold 2xl:text-5xl md:text-4xl text-2xl my-4">
           THANK YOU TO
           <br />
           OUR SPONSORS
         </h4>
       </div>
       {/* Sponsor Cards */}
-      <section className="flex flex-wrap justify-center items-center space-y-6 > * + * p-4 md:space-x-6 > * + * sm:space-x-3 > * + *">
+      <section className="flex flex-wrap justify-center items-center space-y-6 > * + * p-4 2xl:space-x-12 > * + * md:space-x-6 > * + * sm:space-x-3 > * + *">
         <a
           href={'https://careers.toyota.com/us/en'}
           target="_blank"
