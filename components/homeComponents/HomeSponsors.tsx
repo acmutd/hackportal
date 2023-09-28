@@ -79,18 +79,18 @@ export default function HomeSponsors() {
             objectFit="contain"
           />
         </a>
-        <div className="relative w-[24rem] h-20">
-          <Image
-            src={'/assets/sponsorLogos/CoreLogic.png'}
-            alt="CoreLogic"
-            layout="fill"
-            objectFit="contain"
-          />
-        </div>
         <div className="relative w-[16rem] h-32">
           <Image
             src={'/assets/sponsorLogos/PRHI.png'}
             alt="PHRI"
+            layout="fill"
+            objectFit="contain"
+          />
+        </div>
+        <div className="relative w-[24rem] h-20">
+          <Image
+            src={'/assets/sponsorLogos/CoreLogic.png'}
+            alt="CoreLogic"
             layout="fill"
             objectFit="contain"
           />
