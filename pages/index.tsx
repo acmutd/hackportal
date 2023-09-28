@@ -24,7 +24,6 @@ export default function Home(props: {
   challenges: Challenge[];
   answeredQuestion: AnsweredQuestion[];
   fetchedMembers: TeamMember[];
-  sponsorCard: Sponsor[];
 }) {
   const [loading, setLoading] = useState(true);
 
@@ -60,7 +59,7 @@ export default function Home(props: {
         {/* <HomeTeam members={props.fetchedMembers} /> */}
       </div>
       <div className="bg-[url('/assets/hero-bg.png')]">
-        {/* <HomeSponsors sponsorCard={props.sponsorCard} /> */}
+        <HomeSponsors />
         <HomeFooter />
       </div>
     </>
@@ -85,17 +84,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/members`,
     {},
   );
-  const { data: sponsorData } = await RequestHelper.get<Sponsor[]>(
-    `${protocol}://${context.req.headers.host}/api/sponsor`,
-    {},
-  );
   return {
     props: {
       keynoteSpeakers: keynoteData,
       challenges: challengeData,
       answeredQuestion: answeredQuestion,
       fetchedMembers: memberData,
-      sponsorCard: sponsorData,
     },
   };
 };
