@@ -128,7 +128,7 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(
   },
 );
 
-export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
+export default function SchedulePage(props: { scheduleCard: ScheduleEvent[] }) {
   // Hooks
   const [eventData, setEventData] = useState({
     title: '',
