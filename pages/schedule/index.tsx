@@ -30,6 +30,8 @@ import ClockIcon from '@material-ui/icons/AccessTime';
 import Backpack from '@material-ui/icons/LocalMall';
 import Description from '@material-ui/icons/BorderColor';
 import firebase from 'firebase';
+import styles_ from './Schedule.module.css';
+import Calendar from '../../components/scheduleComponents/Calendar';
 
 const styles = ({ palette }: Theme) =>
   createStyles({
@@ -250,26 +252,7 @@ export default function Calendar(props: { scheduleCard: ScheduleEvent[] }) {
       <div className="flex flex-wrap lg:justify-between px-6 h-[75vh]">
         {/* Calendar */}
         <div className="overflow-y-auto overflow-x-hidden lg:w-[62%] w-full h-full border-2 border-black rounded-md">
-          <Paper>
-            <div className="flex flex-row">
-              <Scheduler data={props.scheduleCard}>
-                <ViewState defaultCurrentDate={defaultCurrentDate} />
-                <DayView startDayHour={8} endDayHour={24} intervalCount={1} />
-                <Appointments
-                  appointmentComponent={Appointment}
-                  appointmentContentComponent={AppointmentContent}
-                />
-                <Resources data={resources} mainResourceName={'track'} />
-                <Toolbar />
-                <DateNavigator />
-                <TodayButton />
-                <GroupingState grouping={grouping} groupByDate={() => true} />
-                {/* since tracks are computed from entries, only show grouping if there are any tracks */}
-                {uniqueTracks.size > 0 ? <IntegratedGrouping /> : null}
-                {uniqueTracks.size > 0 ? <GroupingPanel /> : null}
-              </Scheduler>
-            </div>
-          </Paper>
+          <Calendar events={scheduleEvents} tracks={Array.from(uniqueTracks)} />
         </div>
 
         {/* Event info card */}
