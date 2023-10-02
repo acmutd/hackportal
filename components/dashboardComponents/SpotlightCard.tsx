@@ -46,37 +46,29 @@ function SpotlightCard(props: any) {
 
   return (
     <>
-      <div className="scrollItem flex flex-col justify-between min-w-3/4 h-[90%] bg-secondary rounded-lg p-3 my-4 mx-12">
-        <h1 className="lg:text-4xl text-xl font-black">{props.title}</h1>
-        <h3 className="md:text-md text-sm font-black">{speakerString}</h3>
+      <div className="scrollItem flex flex-col justify-between h-[90%] bg-[url('/assets/about-bg.jpeg')] text-complementaryDark rounded-lg lg:p-6 p-3 mb-4 lg:mr-3">
+        <div className="mb-8">
+          <h1 className="lg:text-4xl text-2xl font-black">{props.title}</h1>
+          <h3 className="md:text-xl text-lg font-black">{speakerString}</h3>
+        </div>
         {/* info section */}
-        <div className="flex flex-col justify-around w-full min-h-1/2 rounded-lg bg-secondary p-3">
-          {/* top row info */}
-          <div className="flex justify-around">
-            <div className="flex items-center lg:text-lg sm:text-md text-xs">
-              {<CalendarIcon style={{ fontSize: 'medium', margin: '2px' }} />}
-              <p>{dayString}</p>
-            </div>
-            <div className="flex items-center lg:text-lg sm:text-md text-xs">
-              {<PinDrop style={{ fontSize: 'medium', margin: '2px' }} />}
-              <p>{props.location}</p>
-            </div>
+        <div className="flex justify-between">
+          <div className="flex items-center lg:text-xl sm:text-lg text-base">
+            {<CalendarIcon style={{ fontSize: 'large', margin: '2px' }} />}
+            <p>{dayString}</p>
           </div>
-          {/* botton row info */}
-          <div className="flex justify-around">
-            <div className="flex items-center lg:text-lg sm:text-md text-xs">
-              {<ClockIcon style={{ fontSize: 'large', margin: '2px' }} />}
-              <p>
-                {(startDate.getHours() + 24) % 12 || 12}:{startDate.getMinutes() < 10 ? '0' : ''}
-                {startDate.getMinutes()} {startDate.getHours() < 12 ? 'AM' : 'PM'} -{' '}
-                {(endDate.getHours() + 24) % 12 || 12}:{endDate.getMinutes() < 10 ? '0' : ''}
-                {endDate.getMinutes()} {endDate.getHours() < 12 ? 'AM' : 'PM'}
-              </p>
-            </div>
-            <div className="flex items-center lg:text-lg sm:text-md text-xs">
-              {<Backpack style={{ fontSize: 'medium', margin: '2px' }} />}
-              <p>{props.page}</p>
-            </div>
+          <div className="flex items-center lg:text-xl sm:text-lg text-base">
+            {<ClockIcon style={{ fontSize: 'large', margin: '2px' }} />}
+            <p>
+              {(startDate.getHours() + 24) % 12 || 12}:{startDate.getMinutes() < 10 ? '0' : ''}
+              {startDate.getMinutes()} {startDate.getHours() < 12 ? 'AM' : 'PM'} -{' '}
+              {(endDate.getHours() + 24) % 12 || 12}:{endDate.getMinutes() < 10 ? '0' : ''}
+              {endDate.getMinutes()} {endDate.getHours() < 12 ? 'AM' : 'PM'}
+            </p>
+          </div>
+          <div className="flex items-center lg:text-xl sm:text-lg text-base">
+            {<PinDrop style={{ fontSize: 'large', margin: '2px' }} />}
+            <p>{props.location}</p>
           </div>
         </div>
       </div>

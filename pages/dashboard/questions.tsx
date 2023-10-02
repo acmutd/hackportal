@@ -139,7 +139,7 @@ export default function QuestionsPage() {
 
   if (loading)
     return (
-      <div>
+      <div className="mx-auto text-secondary text-3xl mt-4">
         <h1>Loading...</h1>
       </div>
     );
