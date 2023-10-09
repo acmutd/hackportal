@@ -28,7 +28,7 @@ export default function HomeSponsors() {
           />
         </a>
         <a
-          href={'Leap.FidelityCareers.com'}
+          href={'https://leap.fidelitycareers.com'}
           target="_blank"
           className="relative w-[22rem] h-20 "
           rel="noreferrer"
