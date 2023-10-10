@@ -1,68 +1,19 @@
 import { CSSProperties, useMemo, useState } from 'react';
 
 function Toolbar({ date, setDate }) {
-  const today = new Intl.RelativeTimeFormat(undefined, { numeric: 'auto' })
-    .format(0, 'day')
-    .toLocaleUpperCase();
+  const dateFormatter = new Intl.DateTimeFormat("default", {weekday: "long", month: "short", day: "numeric"})
   /// increment a date by a number of days
-  const incrementDate = (offset: number) =>
-    setDate(new Date(date.setDate(date.getDate() + offset)));
-  /// format a date as YYYY-MM-DD for the input field
-  const dateValue = useMemo(() => date.toISOString().split('T', 1)[0], [date]); // YYYY-MM-DD
+  const incrementDate = () =>
+    setDate(new Date(date.setDate(date.getDate() + 1)));
 
   return (
-    <div className="p-2 md:px-5 min-h-16 flex flex-row justify-between items-center w-full max-w-sm text-blue-700">
-      <button
-        className="py-2 px-3 border rounded border-blue-400"
-        onClick={() => setDate(new Date())}
-      >
-        {today}
-      </button>
-      {/* TODO: use icons rather than characters for this */}
-      <button
-        className="text-3xl"
-        onClick={() => {
-          incrementDate(-1);
-          console.log(date);
-        }}
-      >
-        &lsaquo;
-      </button>
-      <button className="text-3xl" onClick={() => incrementDate(+1)}>
-        &rsaquo;
-      </button>
-      <input
-        className="rounded"
-        value={dateValue}
-        onChange={(e) => {
-          setDate(e.target.valueAsDate);
-          console.log(e.target.valueAsDate);
-        }}
-        type="date"
-      />
-    </div>
-  );
-}
-
-function DateLine({ date }) {
-  const isToday = useMemo(
-    () => date.setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0),
-    [date],
-  );
-
-  return (
-    <div className="py-2 px-4">
-      {/* text should be blue if current day is selected */}
-      <div className={isToday ? 'text-blue-700' : ''}>
-        <div>
-          {/* day of week */}
-          {date.toLocaleDateString(undefined, { weekday: 'short' })}
-        </div>
-        <div className="text-4xl pl-3">
-          {/* day of month */}
-          {date.toLocaleDateString(undefined, { day: 'numeric' })}
-        </div>
-      </div>
+    <div className="p-2 md:px-5 min-h-16 text-white">
+       <span className="uppercase text-xl py-2 mx-3 border-b-4 border-primary">
+           {dateFormatter.format(date)}
+       </span>
+        <button onClick={incrementDate}>
+           &lsaquo;
+        </button>
     </div>
   );
 }
@@ -78,7 +29,7 @@ function CalendarGrid({
   events: ScheduleEvent[];
 }) {
   const minutesInDay = 60 * 24;
-  const labeledSections = useMemo(() => minutesInDay / increment, [increment]);
+  const labeledSections = useMemo(() => minutesInDay / increment, [minutesInDay, increment]);
 
   // create events as list of divs
   const Events = useMemo(
@@ -187,7 +138,6 @@ export default function Calendar(props: { events: ScheduleEvent[]; tracks: strin
       <Toolbar date={date} setDate={setDate} />
       <div>
         <div>
-          <DateLine date={date} />
           <CalendarGrid increment={30} tracks={props.tracks} events={daysEvents} />
         </div>
       </div>

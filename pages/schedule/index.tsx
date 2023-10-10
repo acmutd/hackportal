@@ -248,10 +248,9 @@ export default function SchedulePage(props: { scheduleCard: ScheduleEvent[] }) {
 
   return (
     <>
-      <div className="text-6xl font-black p-6">Schedule</div>
       <div className="flex flex-wrap lg:justify-between px-6 h-[75vh]">
         {/* Calendar */}
-        <div className="overflow-y-auto overflow-x-hidden lg:w-[62%] w-full h-full border-2 border-black rounded-md">
+        <div className="overflow-y-auto overflow-x-hidden lg:w-[62%] w-full h-full">
           <Calendar events={scheduleEvents} tracks={Array.from(uniqueTracks)} />
         </div>
 
