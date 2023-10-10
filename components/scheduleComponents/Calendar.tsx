@@ -83,10 +83,11 @@ function CalendarGrid({
   // label every track with the correct header, placed above the first cell in the track
   const TrackLabels = useMemo(() => tracks.map((track, i) => (<div
     style={{
-      gridRow: 1,
+      gridRowStart: 1,
+      gridRowEnd: increment + 1,
       gridColumn: i + 1 + 1,
     } as CSSProperties}
-    className="text-center text-slate-500"
+    className="text-slate-500 border-x flex flex-col justify-center items-center border-b"
   >
     {track}
   </div>)), [tracks, increment]);
@@ -101,11 +102,11 @@ function CalendarGrid({
             style={
               {
                 gridRowStart: i * increment + increment + 1,
-                gridRowEnd: i * increment + increment * 2,
+                gridRowEnd: i * increment + increment * 2 + 1,
                 gridColumn: 1,
               } as CSSProperties
             }
-            className="text-right px-1 text-slate-500"
+            className="text-right px-1 text-slate-500 flex flex-col justify-center items-center border-y"
           >
             {time.toLocaleTimeString(undefined, {hour: 'numeric', minute: 'numeric'})}
           </div>
@@ -117,7 +118,9 @@ function CalendarGrid({
   return (
     <div>
       <div
-        className="w-full overflow-x-auto grid gap-0 grid-auto-cols grid-cols-[max-content] grid-rows-[repeat(calc(60_*_24),_1.6px)]">
+        className="w-full overflow-x-auto grid gap-0 grid-auto-cols grid-cols-[max-content]"
+        style={{gridTemplateRows: `repeat(${minutesInDay + increment}, 1.6px)`} as CSSProperties}
+      >
         {/* event cells */}
         {Events}
         {/* background cells */}
