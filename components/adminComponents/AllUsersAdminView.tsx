@@ -1,7 +1,8 @@
 import UserList from '../adminComponents/UserList';
-import { Tab } from '@headlessui/react';
+import { Menu, Tab } from '@headlessui/react';
 import { RegistrationState } from '../../lib/util';
-import { CheckIcon, SearchIcon, XIcon } from '@heroicons/react/solid';
+import { CheckIcon, FilterIcon, SearchIcon, XIcon } from '@heroicons/react/solid';
+import FilterComponent from './FilterComponent';
 
 interface AllUsersAdminViewProps {
   users: UserIdentifier[];
@@ -13,8 +14,20 @@ interface AllUsersAdminViewProps {
   onUserSelect: (id: string) => void;
   onAcceptReject: (status: string) => void;
   onSearchQueryUpdate: (searchQuery: string) => void;
+  filterChecked: FilterProps;
+  onFilterChecked: (filter: string) => void;
 }
 
+interface FilterProps {
+  hacker: boolean;
+  sponsor: boolean;
+  organizer: boolean;
+  admin: boolean;
+  super_admin: boolean;
+  accepted: boolean;
+  rejected: boolean;
+  waiting: boolean;
+}
 export default function AllUsersAdminView({
   users,
   selectedUsers,
@@ -25,6 +38,8 @@ export default function AllUsersAdminView({
   onSearchQueryUpdate,
   registrationState,
   onUpdateRegistrationState,
+  filterChecked,
+  onFilterChecked,
 }: AllUsersAdminViewProps) {
   return (
     <div className={`mt-8 md:mt-0 h-full px-14  text-sm md:text-base`}>
@@ -35,14 +50,71 @@ export default function AllUsersAdminView({
           <div className="relative icon flex flex-row justify-center items-center w-full lg:w-1/2">
             <input
               type="text"
-              className="absolute rounded-lg bg-primaryDark w-full border-none text-white placeholder:text-white/70"
+              className="absolute rounded-lg bg-primaryDark md:w-full border-none text-white placeholder:text-white/70"
               placeholder="Search Users"
               value={searchQuery}
               onChange={(e) => {
                 onSearchQueryUpdate(e.target.value);
               }}
             />
-            <div className="absolute right-4">
+            <div className="absolute flex space-x-2 right-4">
+              <Menu>
+                <Menu.Button>
+                  <FilterIcon
+                    className={`w-6 h-6
+                  ${
+                    (filterChecked.hacker || filterChecked.admin || filterChecked.super_admin) &&
+                    (filterChecked.accepted || filterChecked.rejected || filterChecked.waiting)
+                      ? 'text-secondaryDark'
+                      : 'text-secondary'
+                  }`}
+                  />
+                </Menu.Button>
+                <Menu.Items className="absolute border border-primary z-10 left-0 mt-10 w-56 origin-top-right divide-y divide-primaryDark rounded-md bg-secondaryDark">
+                  <Menu.Item>
+                    <FilterComponent
+                      title="Hacker"
+                      checked={filterChecked.hacker}
+                      onCheck={() => onFilterChecked('hacker')}
+                    />
+                  </Menu.Item>
+                  <Menu.Item>
+                    <FilterComponent
+                      title="Admin"
+                      checked={filterChecked.admin}
+                      onCheck={() => onFilterChecked('admin')}
+                    />
+                  </Menu.Item>
+                  <Menu.Item>
+                    <FilterComponent
+                      title="Super Admin"
+                      checked={filterChecked.super_admin}
+                      onCheck={() => onFilterChecked('super_admin')}
+                    />
+                  </Menu.Item>
+                  <Menu.Item>
+                    <FilterComponent
+                      title="Accepted"
+                      checked={filterChecked.accepted}
+                      onCheck={() => onFilterChecked('accepted')}
+                    />
+                  </Menu.Item>
+                  <Menu.Item>
+                    <FilterComponent
+                      title="Rejected"
+                      checked={filterChecked.rejected}
+                      onCheck={() => onFilterChecked('rejected')}
+                    />
+                  </Menu.Item>
+                  <Menu.Item>
+                    <FilterComponent
+                      title="Waiting"
+                      checked={filterChecked.waiting}
+                      onCheck={() => onFilterChecked('waiting')}
+                    />
+                  </Menu.Item>
+                </Menu.Items>
+              </Menu>
               <SearchIcon className="w-6 h-6 text-white" />
             </div>
           </div>

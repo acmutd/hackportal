@@ -44,6 +44,9 @@ export default function UserPage() {
     organizer: true,
     admin: true,
     super_admin: true,
+    accepted: true,
+    rejected: true,
+    waiting: true,
   });
 
   async function fetchInitData() {
@@ -113,7 +116,6 @@ export default function UserPage() {
         setFilteredUsers([...users]);
       }
     }, 750);
-
     return () => {
       clearTimeout(timer);
     };
@@ -124,14 +126,15 @@ export default function UserPage() {
       ...filter,
       [name]: !filter[name],
     };
-    const newFilteredUser = users.filter(({ user }) => {
-      for (let category of Object.keys(filterCriteria) as UserPermission[]) {
-        if (filterCriteria[category] && user.permissions.includes(category)) {
-          return true;
-        }
+    const newFilteredUser = users.filter(({ user, status }) => {
+      if (
+        filterCriteria[user.permissions[0].toLowerCase()] & filterCriteria[status.toLowerCase()]
+      ) {
+        return true;
       }
       return false;
     });
+
     setFilteredUsers(newFilteredUser);
     setFilter(filterCriteria);
   };
@@ -344,6 +347,8 @@ export default function UserPage() {
               setSearchQuery(searchQuery);
             }}
             registrationState={registrationStatus}
+            filterChecked={filter}
+            onFilterChecked={(name) => updateFilter(name)}
           />
         ) : (
           <UserAdminView
