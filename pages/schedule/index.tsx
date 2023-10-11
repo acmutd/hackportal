@@ -156,7 +156,7 @@ export default function SchedulePage(props: { scheduleCard: ScheduleEvent[] }) {
           [classes.appointment]: true,
         })}
         data={data}
-        onClick={() => changeEventData(data)}
+        onClick={() => changeEventData(data as unknown as ScheduleEvent)}
       />
     ),
   );
