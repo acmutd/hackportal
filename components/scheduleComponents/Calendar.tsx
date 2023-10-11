@@ -1,26 +1,35 @@
-import {CSSProperties, useMemo, useState} from 'react';
+import { CSSProperties, useMemo, useState } from 'react';
 
-function Toolbar({date, setDate}) {
-  /// increment a date by a number of days
-  const incrementDate = () =>
-    setDate(new Date(date.setDate(date.getDate() + 1)));
+const HACK_DAY_1 = new Date('Nov 4, 2023');
+const HACK_DAY_2 = new Date('Nov 5, 2023');
 
+function Toolbar({ date, setDate }) {
   return (
     <div className="p-2 md:px-5 min-h-16 text-white">
-       <span className="uppercase text-xl py-2 mx-3 border-b-4 border-primary">
-           {date.toLocaleDateString(undefined, {weekday: "long", month: "short", day: "numeric"})}
-       </span>
-      <button onClick={incrementDate}>
-        &lsaquo;
-      </button>
+      <span className="inline-block w-[4px]">
+        {date === HACK_DAY_2 && <button onClick={() => setDate(HACK_DAY_1)}>&rsaquo;</button>}
+      </span>
+      <span className="inline-block uppercase text-xl md:text-2xl md:py-2 md:mx-2 my-3 md:my-5 border-b-4 border-primary">
+        {' '}
+        {date.toLocaleDateString(undefined, {
+          weekday: 'long',
+          month: 'short',
+          day: 'numeric',
+        })}{' '}
+      </span>
+      <span className="inline-block w-[4px]">
+        {date === HACK_DAY_1 && <button onClick={() => setDate(HACK_DAY_2)}>&lsaquo;</button>}
+      </span>
     </div>
   );
 }
 
 // TODO: support start/end time
 function CalendarGrid({
-                        increment, tracks, events,
-                      }: {
+  increment,
+  tracks,
+  events,
+}: {
   increment: number;
   tracks: string[];
   events: ScheduleEvent[];
@@ -44,7 +53,7 @@ function CalendarGrid({
         return (
           <div
             key={event.Event}
-            style={{gridRowStart: rowStart, gridRowEnd: rowEnd, gridColumn: col} as CSSProperties}
+            style={{ gridRowStart: rowStart, gridRowEnd: rowEnd, gridColumn: col } as CSSProperties}
             className="bg-blue-200 rounded-md p-2 z-10"
           >
             <div>{event.title}</div>
@@ -58,7 +67,8 @@ function CalendarGrid({
 
   // create cells as list of divs
   const Cells = useMemo(
-    () => Array.from({length: labeledSections * tracks.length}, (_, i) => {
+    () =>
+      Array.from({ length: labeledSections * tracks.length }, (_, i) => {
         // compute row and column from index number of cell
         const row = Math.floor(i / tracks.length);
         const col = i % tracks.length;
@@ -73,7 +83,7 @@ function CalendarGrid({
                 gridColumn: col + 1 + 1,
               } as CSSProperties
             }
-            className="border hover:bg-gray-100"
+            className="border-t border-l"
           />
         );
       }),
@@ -81,20 +91,29 @@ function CalendarGrid({
   );
 
   // label every track with the correct header, placed above the first cell in the track
-  const TrackLabels = useMemo(() => tracks.map((track, i) => (<div
-    style={{
-      gridRowStart: 1,
-      gridRowEnd: increment + 1,
-      gridColumn: i + 1 + 1,
-    } as CSSProperties}
-    className="text-slate-500 border-x flex flex-col justify-center items-center border-b"
-  >
-    {track}
-  </div>)), [tracks, increment]);
+  const TrackLabels = useMemo(
+    () =>
+      tracks.map((track, i) => (
+        <div
+          style={
+            {
+              gridRowStart: 1,
+              gridRowEnd: increment + 1,
+              gridColumn: i + 1 + 1,
+            } as CSSProperties
+          }
+          className="text-secondary text-2xl md:text-4xl border-l flex flex-col justify-center items-center"
+        >
+          {track}
+        </div>
+      )),
+    [tracks, increment],
+  );
 
   // label every increment with the correct time
   const Labels = useMemo(
-    () => Array.from({length: labeledSections}, (_, i) => {
+    () =>
+      Array.from({ length: labeledSections }, (_, i) => {
         const time = new Date();
         time.setHours(0, i * increment, 0, 0);
         return (
@@ -106,9 +125,13 @@ function CalendarGrid({
                 gridColumn: 1,
               } as CSSProperties
             }
-            className="text-right px-1 text-slate-500 flex flex-col justify-center items-center border-y"
+            className="text-xl text-right px-1 text-secondary lowercase flex flex-col justify-center items-center border-t"
           >
-            {time.toLocaleTimeString(undefined, {hour: 'numeric', minute: 'numeric'})}
+            {time.toLocaleTimeString('default', {
+              hour: 'numeric',
+              minute: 'numeric',
+              hour12: true,
+            })}
           </div>
         );
       }),
@@ -118,8 +141,8 @@ function CalendarGrid({
   return (
     <div>
       <div
-        className="w-full overflow-x-auto grid gap-0 grid-auto-cols grid-cols-[max-content]"
-        style={{gridTemplateRows: `repeat(${minutesInDay + increment}, 1.6px)`} as CSSProperties}
+        className="w-full overflow-x-auto grid gap-0 grid-auto-cols grid-cols-[max-content] font-secondary"
+        style={{ gridTemplateRows: `repeat(${minutesInDay + increment}, 1.6px)` } as CSSProperties}
       >
         {/* event cells */}
         {Events}
@@ -135,7 +158,7 @@ function CalendarGrid({
 }
 
 export default function Calendar(props: { events: ScheduleEvent[]; tracks: string[] }) {
-  const [date, setDate] = useState(new Date()); // default to today's date
+  const [date, setDate] = useState(HACK_DAY_1); // default to the first day
   // only show days that start or end on the current day
   const daysEvents = useMemo(
     () =>
@@ -148,10 +171,10 @@ export default function Calendar(props: { events: ScheduleEvent[]; tracks: strin
   );
   return (
     <div>
-      <Toolbar date={date} setDate={setDate}/>
+      <Toolbar date={date} setDate={setDate} />
       <div>
         <div>
-          <CalendarGrid increment={30} tracks={props.tracks} events={daysEvents}/>
+          <CalendarGrid increment={30} tracks={props.tracks} events={daysEvents} />
         </div>
       </div>
     </div>
