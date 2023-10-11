@@ -87,7 +87,7 @@ function CalendarGrid({
           />
         );
       }),
-    [increment, tracks],
+    [labeledSections, increment, tracks],
   );
 
   // label every track with the correct header, placed above the first cell in the track
@@ -95,6 +95,7 @@ function CalendarGrid({
     () =>
       tracks.map((track, i) => (
         <div
+          key={i}
           style={
             {
               gridRowStart: 1,
