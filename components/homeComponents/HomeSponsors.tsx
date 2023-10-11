@@ -15,6 +15,19 @@ export default function HomeSponsors() {
       {/* Sponsor Cards */}
       <section className="flex flex-wrap justify-center items-center space-y-6 > * + * p-4 2xl:space-x-12 > * + * md:space-x-6 > * + * sm:space-x-3 > * + *">
         <a
+          href={'https://www.goldmansachs.com/careers/our-firm/engineering/index.html'}
+          target="_blank"
+          className="relative w-40 h-40 md:mt-6  md:mx-0 mx-8"
+          rel="noreferrer"
+        >
+          <Image
+            src={'/assets/sponsorLogos/GoldmanSachs.png'}
+            alt="GoldmanSachs"
+            layout="fill"
+            objectFit="contain"
+          />
+        </a>
+        <a
           href={'https://careers.toyota.com/us/en'}
           target="_blank"
           className="relative w-52 h-32"
