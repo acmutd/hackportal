@@ -41,7 +41,7 @@ async function postHackerStatus(req: NextApiRequest, res: NextApiResponse) {
 
   const jobs = [];
   for (const hackerId of hackerIds) {
-    const docRef = db.collection('acceptreject').doc(`${adminId}-${hackerId}`);
+    const docRef = db.collection('acceptreject').doc(`${hackerId}`);
 
     jobs.push([
       hackerId,
