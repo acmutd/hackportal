@@ -217,41 +217,27 @@ export default function SchedulePage(props: { scheduleCard: ScheduleEvent[] }) {
     },
   ];
 
-  const trackColor = (track: string) => {
-    if (track === 'General') return teal;
-    if (track === 'Technical') return red;
-    if (track === 'Social') return indigo;
-    if (track === 'Sponsor') return orange;
-    if (track === 'Workshop') return blue;
-    else return teal;
+  const trackBackground = (track: string) => {
+    // FIXME: these need to match exactly. is this how events will be created>
+    if (track === 'Events & Sponsers') return 'linear-gradient(180deg, #F6D498 0%, #D3A85B 100%)';
+    if (track === 'Workshops & Tech Talks')
+      return 'linear-gradient(180deg, #FFF1E4 0%, #FFB1A0 100%)';
+    if (track === 'Socials') return 'linear-gradient(180deg, #EEE 0%, #B9B9B9 100%)';
+    else return 'linear-gradient(180deg, #F6D498 0%, #D3A85B 100%)';
   };
 
   const scheduleEvents = props.scheduleCard;
-  const tracks = scheduleEvents.map((event) => event.track);
-  const uniqueTracks = new Set(tracks);
-
-  const resources = [
-    {
-      fieldName: 'track',
-      title: 'track',
-      instances: Array.from(
-        new Set(
-          Array.from(uniqueTracks).map((track) => ({
-            id: track,
-            text: track,
-            color: trackColor(track),
-          })),
-        ),
-      ),
-    },
-  ];
+  const tracks = Array.from(new Set(scheduleEvents.map((event) => event.track))).map((track) => ({
+    track: track,
+    background: trackBackground(track),
+  }));
 
   return (
     <>
       <div className="flex flex-wrap lg:justify-between px-6 h-[75vh]">
         {/* Calendar */}
         <div className="overflow-y-auto overflow-x-hidden lg:w-[62%] w-full h-full">
-          <Calendar events={scheduleEvents} tracks={Array.from(uniqueTracks)} />
+          <Calendar events={scheduleEvents} tracks={tracks} />
         </div>
 
         {/* Event info card */}

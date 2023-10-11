@@ -26,12 +26,17 @@ function Toolbar({ date, setDate }) {
 
 // TODO: support start/end time
 function CalendarGrid({
+  offset,
   increment,
   tracks,
   events,
 }: {
+  offset: number;
   increment: number;
-  tracks: string[];
+  tracks: {
+    track: string;
+    background: string;
+  }[];
   events: ScheduleEvent[];
 }) {
   const minutesInDay = 60 * 24;
@@ -41,22 +46,33 @@ function CalendarGrid({
   const Events = useMemo(
     () =>
       events.map((event) => {
-        const start = new Date(event.startDate).getMinutes();
-        const end = new Date(event.endDate).getMinutes();
+        // convert to Date (just in case; idempotent)
+        const startDate = new Date(event.startDate);
+        const endDate = new Date(event.endDate);
+        // get offset from 00:00 in minutes
+        const start = startDate.getHours() * 60 + startDate.getMinutes();
+        const end = endDate.getHours() * 60 + endDate.getMinutes();
         // compute row start from start time (or go to the start of the schedule if the event starts on the previous day)
-        const rowStart = start < end ? start + 1 + 1 : 0;
+        const rowStart = start < end ? increment + start + 1 + 1 : 0;
         // compute row end from end time (or go to the end of the schedule if the event ends on the next day)
-        const rowEnd = start < end ? end + 1 : -1;
+        const rowEnd = start < end ? increment + end + 1 : -1;
         // compute column from track
-        const col = tracks.indexOf(event.track) + 1 + 1;
+        const col = tracks.map((track) => track.track).indexOf(event.track) + 1 + 1;
 
         return (
           <div
             key={event.Event}
-            style={{ gridRowStart: rowStart, gridRowEnd: rowEnd, gridColumn: col } as CSSProperties}
-            className="bg-blue-200 rounded-md p-2 z-10"
+            style={
+              {
+                gridRowStart: rowStart,
+                gridRowEnd: rowEnd,
+                gridColumn: col,
+                background: tracks.find((track) => track.track === event.track).background,
+              } as CSSProperties
+            }
+            className="rounded-md p-2 z-10"
           >
-            <div>{event.title}</div>
+            <div className="text-2xl">{event.title}</div>
             {event.type ? <div>Type: {event.type}</div> : null}
             <div>Location: {event.location}</div>
           </div>
@@ -105,7 +121,7 @@ function CalendarGrid({
           }
           className="text-secondary text-2xl md:text-4xl border-l flex flex-col justify-center items-center"
         >
-          {track}
+          {track.track}
         </div>
       )),
     [tracks, increment],
@@ -158,7 +174,10 @@ function CalendarGrid({
   );
 }
 
-export default function Calendar(props: { events: ScheduleEvent[]; tracks: string[] }) {
+export default function Calendar(props: {
+  events: ScheduleEvent[];
+  tracks: { track: string; background: string }[];
+}) {
   const [date, setDate] = useState(HACK_DAY_1); // default to the first day
   // only show days that start or end on the current day
   const daysEvents = useMemo(
@@ -175,7 +194,7 @@ export default function Calendar(props: { events: ScheduleEvent[]; tracks: strin
       <Toolbar date={date} setDate={setDate} />
       <div>
         <div>
-          <CalendarGrid increment={30} tracks={props.tracks} events={daysEvents} />
+          <CalendarGrid offset={0} increment={30} tracks={props.tracks} events={daysEvents} />
         </div>
       </div>
     </div>
