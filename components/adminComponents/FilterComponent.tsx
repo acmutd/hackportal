@@ -1,6 +1,4 @@
-import Checkbox from '@material-ui/core/Checkbox';
-import { blue } from '@material-ui/core/colors';
-import { withStyles } from '@material-ui/core/styles';
+import React, { ForwardedRef } from 'react';
 
 interface FilterComponentProps {
   title: string;
@@ -8,30 +6,24 @@ interface FilterComponentProps {
   onCheck: () => void;
 }
 
-export default function FilterComponent({ title, checked, onCheck }: FilterComponentProps) {
-  const CustomCheckbox = withStyles({
-    root: {
-      color: blue[400],
-      '&$checked': {
-        color: blue[600],
-      },
-    },
-    checked: {},
-  })((props) => (
-    <Checkbox
-      checked={checked}
-      onChange={() => {
-        onCheck();
-      }}
-      color="default"
-      {...props}
-    />
-  ));
+const FilterComponent = React.forwardRef(
+  (props: FilterComponentProps, ref: ForwardedRef<HTMLDivElement>) => {
+    const { title, checked, onCheck } = props;
 
-  return (
-    <div className="flex items-center text-sm md:text-base">
-      <CustomCheckbox />
-      <h4>{title}</h4>
-    </div>
-  );
-}
+    return (
+      <div className="flex items-center text-sm md:text-base px-3 py-2" ref={ref}>
+        <input
+          type="checkbox"
+          className="mr-2 rounded-md text-primaryDark focus:ring-0 border border-primary"
+          checked={checked}
+          onChange={onCheck}
+        />
+        <h4 className="ml-2 text-primary">{title}</h4>
+      </div>
+    );
+  },
+);
+
+FilterComponent.displayName = 'FilterComponent';
+
+export default FilterComponent;
