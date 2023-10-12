@@ -1,4 +1,6 @@
 import { CSSProperties, useMemo, useState } from 'react';
+import { IntlBase } from '@syncfusion/ej2-base';
+import days = IntlBase.days;
 
 const HACK_DAY_1 = new Date('Nov 4, 2023');
 const HACK_DAY_2 = new Date('Nov 5, 2023');
@@ -66,7 +68,16 @@ function CalendarGrid({
   events: ScheduleEvent[];
 }) {
   const minutesInDay = 60 * 24;
-  const labeledSections = useMemo(() => minutesInDay / increment, [minutesInDay, increment]);
+  // start at hardcoded chosen time rather than 12:00 AM
+  const startTime = new Date(2023, 1, 1, 9, 0);
+  console.log(startTime);
+  const startMin = startTime.getHours() * 60 + startTime.getMinutes();
+  console.log(startMin);
+  // number of sections labeled by time
+  const labeledSections = useMemo(
+    () => (minutesInDay - startMin) / increment,
+    [minutesInDay, startMin, increment],
+  );
 
   // create events as list of divs
   const Events = useMemo(
@@ -75,9 +86,9 @@ function CalendarGrid({
         // convert to Date (just in case; idempotent)
         const startDate = new Date(event.startDate);
         const endDate = new Date(event.endDate);
-        // get offset from 00:00 in minutes
-        const start = startDate.getHours() * 60 + startDate.getMinutes();
-        const end = endDate.getHours() * 60 + endDate.getMinutes();
+        // get offset from start time in minutes
+        const start = Math.max(startDate.getHours() * 60 + startDate.getMinutes() - startMin, 0);
+        const end = Math.max(endDate.getHours() * 60 + endDate.getMinutes() - startMin, 0);
         // compute row start from start time (or go to the start of the schedule if the event starts on the previous day)
         const rowStart = start < end ? increment + start + 1 + 1 : 0;
         // compute row end from end time (or go to the end of the schedule if the event ends on the next day)
@@ -201,7 +212,7 @@ function CalendarGrid({
     () =>
       Array.from({ length: labeledSections }, (_, i) => {
         const time = new Date();
-        time.setHours(0, i * increment, 0, 0);
+        time.setHours(0, i * increment + startMin, 0, 0);
         return (
           <div
             style={
@@ -227,8 +238,12 @@ function CalendarGrid({
   return (
     <div>
       <div
-        className="w-full overflow-x-auto grid gap-0 grid-auto-cols grid-cols-[max-content] font-secondary"
-        style={{ gridTemplateRows: `repeat(${minutesInDay + increment}, 1.6px)` } as CSSProperties}
+        className="w-full overflow-x-auto grid gap-0 grid-cols-[max-content,minmax(100px,1fr)] font-secondary"
+        style={
+          {
+            gridTemplateRows: `repeat(${minutesInDay - startMin + increment}, 1.6px)`,
+          } as CSSProperties
+        }
       >
         {/* event cells */}
         {Events}
@@ -258,12 +273,17 @@ export default function Calendar(props: {
       ),
     [date, props.events],
   );
+  // only show tracks that have events for the current day
+  const relevantTracks = useMemo(
+    () => props.tracks.filter(({ track }) => daysEvents.map((e) => e.track).includes(track)),
+    [props.tracks, daysEvents],
+  );
   return (
     <div>
       <Toolbar date={date} setDate={setDate} />
       <div>
         <div>
-          <CalendarGrid offset={0} increment={30} tracks={props.tracks} events={daysEvents} />
+          <CalendarGrid offset={0} increment={30} tracks={relevantTracks} events={daysEvents} />
         </div>
       </div>
     </div>

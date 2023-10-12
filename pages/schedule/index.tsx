@@ -219,7 +219,7 @@ export default function SchedulePage(props: { scheduleCard: ScheduleEvent[] }) {
 
   const trackBackground = (track: string) => {
     // FIXME: these need to match exactly. is this how events will be created>
-    if (track === 'Events & Sponsers') return 'linear-gradient(180deg, #F6D498 0%, #D3A85B 100%)';
+    if (track === 'Events & Sponsors') return 'linear-gradient(180deg, #F6D498 0%, #D3A85B 100%)';
     if (track === 'Workshops & Tech Talks')
       return 'linear-gradient(180deg, #FFF1E4 0%, #FFB1A0 100%)';
     if (track === 'Socials') return 'linear-gradient(180deg, #EEE 0%, #B9B9B9 100%)';
