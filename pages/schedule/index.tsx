@@ -24,7 +24,6 @@ import { WithStyles } from '@material-ui/styles';
 import classNames from 'clsx';
 import { GetServerSideProps } from 'next';
 import { RequestHelper } from '../../lib/request-helper';
-import CalendarIcon from '@material-ui/icons/CalendarToday';
 import PinDrop from '@material-ui/icons/PinDrop';
 import ClockIcon from '@material-ui/icons/AccessTime';
 import Backpack from '@material-ui/icons/LocalMall';
@@ -32,6 +31,7 @@ import Description from '@material-ui/icons/BorderColor';
 import firebase from 'firebase';
 import styles_ from './Schedule.module.css';
 import Calendar from '../../components/scheduleComponents/Calendar';
+import { CalendarIcon } from '@heroicons/react/outline';
 
 const styles = ({ palette }: Theme) =>
   createStyles({
@@ -237,7 +237,7 @@ export default function SchedulePage(props: { scheduleCard: ScheduleEvent[] }) {
       <div className="flex flex-wrap lg:justify-between px-6 h-[75vh]">
         {/* Calendar */}
         <div className="overflow-y-auto overflow-x-hidden lg:w-[62%] w-full h-full">
-          <Calendar events={scheduleEvents} tracks={tracks} />
+          <Calendar events={scheduleEvents} tracks={tracks} onEventClick={changeEventData} />
         </div>
 
         {/* Event info card */}
@@ -256,7 +256,7 @@ export default function SchedulePage(props: { scheduleCard: ScheduleEvent[] }) {
               <div className="grid grid-cols-2 gap-y-2 md:my-8 my-6 md:text-lg text-sm">
                 <div className="">
                   <p className="flex items-center font-semibold">
-                    {<CalendarIcon style={{ fontSize: 'medium', margin: '2px' }} />}
+                    <CalendarIcon />
                     Date
                   </p>
                   <p>{eventData.date}</p>

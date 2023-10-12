@@ -5,6 +5,8 @@ import days = IntlBase.days;
 const HACK_DAY_1 = new Date('Nov 4, 2023');
 const HACK_DAY_2 = new Date('Nov 5, 2023');
 
+const EVENT_TZ = 'America/Chicago';
+
 function Toolbar({ date, setDate }) {
   return (
     <div className="p-2 md:px-5 md:pb-2 md:mx-2 mb-3 md:mb-5 min-h-16 w-max text-white text-lg md:text-2xl flex flex-row justify-start items-center">
@@ -58,6 +60,7 @@ function CalendarGrid({
   increment,
   tracks,
   events,
+  onEventClick,
 }: {
   offset: number;
   increment: number;
@@ -66,6 +69,7 @@ function CalendarGrid({
     background: string;
   }[];
   events: ScheduleEvent[];
+  onEventClick: (e: ScheduleEvent) => void;
 }) {
   const minutesInDay = 60 * 24;
   // start at hardcoded chosen time rather than 12:00 AM
@@ -99,6 +103,7 @@ function CalendarGrid({
         const durationFormatter = new Intl.DateTimeFormat('default', {
           hour: 'numeric',
           minute: 'numeric',
+          timeZone: EVENT_TZ,
         });
         return (
           <div
@@ -112,6 +117,7 @@ function CalendarGrid({
               } as CSSProperties
             }
             className="rounded-md p-2 z-10"
+            onClick={() => onEventClick(event)}
           >
             <div className="text-2xl">{event.title}</div>
             {event.type && (
@@ -261,6 +267,7 @@ function CalendarGrid({
 export default function Calendar(props: {
   events: ScheduleEvent[];
   tracks: { track: string; background: string }[];
+  onEventClick: (e: ScheduleEvent) => void;
 }) {
   const [date, setDate] = useState(HACK_DAY_1); // default to the first day
   // only show days that start or end on the current day
@@ -283,7 +290,13 @@ export default function Calendar(props: {
       <Toolbar date={date} setDate={setDate} />
       <div>
         <div>
-          <CalendarGrid offset={0} increment={30} tracks={relevantTracks} events={daysEvents} />
+          <CalendarGrid
+            offset={0}
+            increment={30}
+            tracks={relevantTracks}
+            events={daysEvents}
+            onEventClick={props.onEventClick}
+          />
         </div>
       </div>
     </div>
