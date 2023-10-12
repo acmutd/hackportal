@@ -5,11 +5,24 @@ const HACK_DAY_2 = new Date('Nov 5, 2023');
 
 function Toolbar({ date, setDate }) {
   return (
-    <div className="p-2 md:px-5 min-h-16 text-white">
-      <span className="inline-block w-[4px]">
-        {date === HACK_DAY_2 && <button onClick={() => setDate(HACK_DAY_1)}>&rsaquo;</button>}
-      </span>
-      <span className="inline-block uppercase text-xl md:text-2xl md:py-2 md:mx-2 my-3 md:my-5 border-b-4 border-primary">
+    <div className="p-2 md:px-5 md:pb-2 md:mx-2 mb-3 md:mb-5 min-h-16 w-max text-white text-lg md:text-2xl flex flex-row justify-start items-center">
+      <div className="inline-block">
+        {date === HACK_DAY_2 && (
+          <button onClick={() => setDate(HACK_DAY_1)}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={4}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+        )}
+      </div>
+      <span className="inline-block uppercase border-b-4 border-primary">
         {' '}
         {date.toLocaleDateString(undefined, {
           weekday: 'long',
@@ -17,9 +30,22 @@ function Toolbar({ date, setDate }) {
           day: 'numeric',
         })}{' '}
       </span>
-      <span className="inline-block w-[4px]">
-        {date === HACK_DAY_1 && <button onClick={() => setDate(HACK_DAY_2)}>&lsaquo;</button>}
-      </span>
+      <div className="inline-block">
+        {date === HACK_DAY_1 && (
+          <button onClick={() => setDate(HACK_DAY_2)}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={4}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        )}
+      </div>
     </div>
   );
 }
@@ -59,6 +85,10 @@ function CalendarGrid({
         // compute column from track
         const col = tracks.map((track) => track.track).indexOf(event.track) + 1 + 1;
 
+        const durationFormatter = new Intl.DateTimeFormat('default', {
+          hour: 'numeric',
+          minute: 'numeric',
+        });
         return (
           <div
             key={event.Event}
@@ -73,8 +103,47 @@ function CalendarGrid({
             className="rounded-md p-2 z-10"
           >
             <div className="text-2xl">{event.title}</div>
-            {event.type ? <div>Type: {event.type}</div> : null}
-            <div>Location: {event.location}</div>
+            {event.type && (
+              <div className="lowercase">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6 m-1 inline-block"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span>{durationFormatter.formatRange(startDate, endDate)}</span>
+              </div>
+            )}
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6 m-1 inline-block"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+                />
+              </svg>
+              <span>{event.location}</span>
+            </div>
           </div>
         );
       }),
