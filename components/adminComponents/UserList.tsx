@@ -1,3 +1,5 @@
+import { useAuthContext } from '../../lib/user/AuthContext';
+
 interface UserListProps {
   users: UserIdentifier[];
   selectedUsers: string[];
@@ -13,6 +15,7 @@ export default function UserList({
   onUserSelect,
 }: UserListProps) {
   const userList = [];
+  const { user: organizer } = useAuthContext();
 
   users.forEach((user, idx) => {
     const bgColor = idx % 2 ? 'bg-secondaryDark/50' : 'bg-secondaryDark';
@@ -36,34 +39,36 @@ export default function UserList({
           Major
           Year
         */}
-        <div
-          className={`flex w-1/2 md:w-2/12 h-full py-3 pr-6 items-center text-white text-base`}
-          onClick={(e) => {
-            e.stopPropagation();
-            // onUserSelect(user.id);
-          }}
-        >
-          <div>
-            <input
-              onChange={(e) => {
-                e.stopPropagation();
-                onUserSelect(user.id);
-              }}
-              checked={user.selected}
-              type="checkbox"
-              className="w-4 h-4 mr-2 rounded-sm border-[1px] border-white bg-transparent text-primaryDark"
-            />
-          </div>
+        {organizer.permissions[0] === 'super_admin' && (
           <div
-            className="whitespace-nowrap overflow-hidden text-ellipsis max-w-[70%]"
+            className={`flex w-1/2 md:w-2/12 h-full py-3 pr-6 items-center text-white text-base`}
             onClick={(e) => {
               e.stopPropagation();
-              onUserClick(user.id);
+              // onUserSelect(user.id);
             }}
           >
-            {`${user.user.firstName} ${user.user.lastName.charAt(0)}.`}
+            <div>
+              <input
+                onChange={(e) => {
+                  e.stopPropagation();
+                  onUserSelect(user.id);
+                }}
+                checked={user.selected}
+                type="checkbox"
+                className="w-4 h-4 mr-2 rounded-sm border-[1px] border-white bg-transparent text-primaryDark"
+              />
+            </div>
+            <div
+              className="whitespace-nowrap overflow-hidden text-ellipsis max-w-[70%]"
+              onClick={(e) => {
+                e.stopPropagation();
+                onUserClick(user.id);
+              }}
+            >
+              {`${user.user.firstName} ${user.user.lastName.charAt(0)}.`}
+            </div>
           </div>
-        </div>
+        )}
         <div className="w-1/2 md:w-2/12 h-full py-3 pr-6 whitespace-nowrap overflow-hidden text-ellipsis max-w-[100%]">
           <span
             className={` py-1 px-6 rounded-md ${
