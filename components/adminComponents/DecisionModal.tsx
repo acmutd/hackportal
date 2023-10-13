@@ -67,8 +67,8 @@ function DecisionModal({
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-primaryDark px-4 py-2 text-sm font-medium text-secondary hover:bg-primaryDark/70 hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                      onClick={async () => {
-                        await updateApplicationDecisions();
+                      onClick={() => {
+                        updateApplicationDecisions();
                         onClose();
                       }}
                     >
