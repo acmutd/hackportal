@@ -5,13 +5,15 @@ import { useAuthContext } from '../lib/user/AuthContext';
 import LoadIcon from '../components/LoadIcon';
 import { getFileExtension } from '../lib/util';
 import QRCode from '../components/dashboardComponents/QRCode';
+import { GetServerSideProps } from 'next';
+import { RequestHelper } from '../lib/request-helper';
 
 /**
  * A page that allows a user to modify app or profile settings and see their data.
  *
  * Route: /profile
  */
-export default function ProfilePage() {
+export default function ProfilePage({ applicationDecisions }) {
   const router = useRouter();
   const { isSignedIn, hasProfile, user, profile } = useAuthContext();
   const [uploading, setUploading] = useState<boolean>(false);
@@ -84,12 +86,14 @@ export default function ProfilePage() {
             <p className="text-center text-sm mt-2">{profile.user.group}</p>
           </div>
           <div className="border-y-4 border-primary py-4 md:my-8 my-6 font-secondary space-y-2">
-            <div className="flex flex-col items-start justify-start gap-y-1">
-              <h1 className="font-bold text-2xl">Application Status</h1>
-              <p className="text-xl  animate-text bg-gradient-to-r from-primaryDark to-primary bg-clip-text text-transparent">
-                {profile.status}
-              </p>
-            </div>
+            {applicationDecisions && (
+              <div className="flex flex-col items-start justify-start gap-y-1">
+                <h1 className="font-bold text-2xl">Application Status</h1>
+                <p className="text-xl  animate-text bg-gradient-to-r from-primaryDark to-primary bg-clip-text text-transparent">
+                  {profile.status}
+                </p>
+              </div>
+            )}
             <div className="flex flex-col items-start justify-start gap-y-1">
               <h1 className="font-bold text-xl">Role</h1>
               <p className="text-lg gold-text-gradient">{user.permissions[0]}</p>
@@ -164,3 +168,20 @@ export default function ProfilePage() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const protocol = context.req.headers.referer?.split('://')[0] || 'http';
+  const { data } = await RequestHelper.get<{ applicationDecisions: boolean }>(
+    `${protocol}://${context.req.headers.host}/api/acceptreject/decisions`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+  return {
+    props: {
+      applicationDecisions: data.applicationDecisions,
+    },
+  };
+};

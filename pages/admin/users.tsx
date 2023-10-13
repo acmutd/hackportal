@@ -31,6 +31,7 @@ export default function UserPage() {
   const [nextRegistrationStatus, setNextRegistrationStatus] = useState(
     RegistrationState.UNINITIALIZED,
   );
+  const [applicationDecisionsState, setApplicationDecisionsState] = useState(false);
 
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
 
@@ -62,6 +63,14 @@ export default function UserPage() {
       })
     )['data'];
 
+    const applicationDecisionsState = (
+      await RequestHelper.get<{ applicationDecisions: boolean }>('/api/acceptreject/decisions', {
+        headers: {
+          Authorization: user.token,
+        },
+      })
+    )['data'];
+
     const hackersStatus = (
       await RequestHelper.get<HackerStatus[]>(`/api/acceptreject?adminId=${user.id}`, {
         headers: {
@@ -73,6 +82,7 @@ export default function UserPage() {
     setRegistrationStatus(
       allowRegistrationState.allowRegistrations ? RegistrationState.OPEN : RegistrationState.CLOSED,
     );
+    setApplicationDecisionsState(applicationDecisionsState.applicationDecisions);
     const hackerStatusMapping: Map<string, string> = new Map();
     hackersStatus.forEach((hackerStatus) =>
       hackerStatusMapping.set(hackerStatus.hackerId, hackerStatus.status),
@@ -210,6 +220,27 @@ export default function UserPage() {
       });
   };
 
+  const updateApplicationDecisions = async () => {
+    try {
+      await RequestHelper.post<{ applicationDecisions: boolean }, { msg: string }>(
+        '/api/acceptreject/decisions',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: user.token,
+          },
+        },
+        {
+          applicationDecisions: !applicationDecisionsState,
+        },
+      );
+      alert('Application decisions updated successfully');
+      setApplicationDecisionsState(!applicationDecisionsState);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   if (!user || !isAuthorized(user))
     return (
       <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
@@ -226,7 +257,7 @@ export default function UserPage() {
   }
 
   return (
-    <div className="flex flex-col flex-grow items-center bg-[url('/assets/hero-bg.png')]">
+    <div className="flex flex-col flex-grow items-center bg-[url('/assets/hero-bg.png')] h-screen">
       <Transition
         appear
         show={
@@ -263,12 +294,12 @@ export default function UserPage() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl  bg-secondaryDark p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-primary">
                     Update Registration Status
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-secondary">
                       {nextRegistrationStatus === RegistrationState.OPEN
                         ? 'Are you sure you want to allow registration?'
                         : 'Are you sure you want to disable registration?'}
@@ -278,7 +309,7 @@ export default function UserPage() {
                   <div className="mt-4 flex gap-x-3">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-primaryDark px-4 py-2 text-sm font-medium text-secondary hover:bg-primaryDark/70 hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                       onClick={async () => {
                         try {
                           await RequestHelper.post<
@@ -309,7 +340,7 @@ export default function UserPage() {
                     </button>
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-tertiary px-4 py-2 text-sm font-medium text-secondary hover:bg-tertiary/70 hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                       onClick={() => setNextRegistrationStatus(RegistrationState.UNINITIALIZED)}
                     >
                       Cancel
@@ -348,7 +379,9 @@ export default function UserPage() {
             }}
             registrationState={registrationStatus}
             filterChecked={filter}
-            onFilterChecked={(name) => updateFilter(name)}
+            onFilterChecked={(filter) => updateFilter(filter)}
+            applicationDecisions={applicationDecisionsState}
+            updateApplicationDecisions={() => updateApplicationDecisions()}
           />
         ) : (
           <UserAdminView

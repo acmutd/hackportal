@@ -3,6 +3,8 @@ import { Menu, Tab } from '@headlessui/react';
 import { RegistrationState } from '../../lib/util';
 import { CheckIcon, FilterIcon, SearchIcon, XIcon } from '@heroicons/react/solid';
 import FilterComponent from './FilterComponent';
+import { useState } from 'react';
+import DecisionModal from './DecisionModal';
 
 interface AllUsersAdminViewProps {
   users: UserIdentifier[];
@@ -16,6 +18,8 @@ interface AllUsersAdminViewProps {
   onSearchQueryUpdate: (searchQuery: string) => void;
   filterChecked: FilterProps;
   onFilterChecked: (filter: string) => void;
+  applicationDecisions: boolean;
+  updateApplicationDecisions: () => void;
 }
 
 interface FilterProps {
@@ -40,11 +44,31 @@ export default function AllUsersAdminView({
   onUpdateRegistrationState,
   filterChecked,
   onFilterChecked,
+  applicationDecisions,
+  updateApplicationDecisions,
 }: AllUsersAdminViewProps) {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className={`mt-8 md:mt-0 h-full px-14  text-sm md:text-base`}>
+      <DecisionModal
+        open={open}
+        applicationDecisions={applicationDecisions}
+        updateApplicationDecisions={updateApplicationDecisions}
+        onClose={() => setOpen(false)}
+      />
       {/* Top Bar with Status, Search, and Filters */}
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-col justify-between">
+        <div className="flex flex-col md:flex-row justify-end mb-8 lg:mb-2  space-y-2 md:space-y-0 md:space-x-2">
+          <button
+            className="flex rounded-md text-primary text-sm md:text-base px-3 py-2 cursor-pointer bg-secondaryDark"
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            {applicationDecisions ? 'Disable Decisions' : 'Enable Decisions'}
+          </button>
+        </div>
         <div className="flex flex-col xl:flex-row  justify-between items-center w-full">
           {/* Search User */}
           <div className="relative icon flex flex-row justify-center items-center w-full lg:w-1/2">
