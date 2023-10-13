@@ -125,6 +125,13 @@ export default function UserPage() {
       } else {
         setFilteredUsers([...users]);
       }
+      // if user permission is admin, filter to hackers only
+      if (user && user.permissions[0] === 'admin') {
+        setFilteredUsers([...users.filter((user) => user.user.permissions.includes('hacker'))]);
+        filter.hacker = true;
+        filter.admin = false;
+        filter.super_admin = false;
+      }
     }, 750);
     return () => {
       clearTimeout(timer);
