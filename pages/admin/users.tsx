@@ -247,6 +247,7 @@ export default function UserPage() {
       alert('Application decisions updated successfully');
       setApplicationDecisionsState(!applicationDecisionsState);
     } catch (error) {
+      console.log(error);
       alert(error);
     }
   };
