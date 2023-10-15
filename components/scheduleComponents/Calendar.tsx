@@ -56,13 +56,11 @@ function Toolbar({ date, setDate }) {
 
 // TODO: support start/end time
 function CalendarGrid({
-  offset,
   increment,
   tracks,
   events,
   onEventClick,
 }: {
-  offset: number;
   increment: number;
   tracks: {
     track: string;
@@ -291,7 +289,6 @@ export default function Calendar(props: {
       <div>
         <div>
           <CalendarGrid
-            offset={0}
             increment={30}
             tracks={relevantTracks}
             events={daysEvents}
