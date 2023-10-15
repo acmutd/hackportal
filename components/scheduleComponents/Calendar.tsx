@@ -1,6 +1,4 @@
 import { CSSProperties, useMemo, useState } from 'react';
-import { IntlBase } from '@syncfusion/ej2-base';
-import days = IntlBase.days;
 
 const HACK_DAY_1 = new Date('Nov 4, 2023');
 const HACK_DAY_2 = new Date('Nov 5, 2023');
@@ -72,9 +70,7 @@ function CalendarGrid({
   const minutesInDay = 60 * 24;
   // start at hardcoded chosen time rather than 12:00 AM
   const startTime = new Date(2023, 1, 1, 9, 0);
-  console.log(startTime);
   const startMin = startTime.getHours() * 60 + startTime.getMinutes();
-  console.log(startMin);
   // number of sections labeled by time
   const labeledSections = useMemo(
     () => (minutesInDay - startMin) / increment,
@@ -84,7 +80,7 @@ function CalendarGrid({
   // create events as list of divs
   const Events = useMemo(
     () =>
-      events.map((event) => {
+      events.map((event, i) => {
         // convert to Date (just in case; idempotent)
         const startDate = new Date(event.startDate);
         const endDate = new Date(event.endDate);
@@ -97,6 +93,41 @@ function CalendarGrid({
         const rowEnd = start < end ? increment + end + 1 : -1;
         // compute column from track
         const col = tracks.map((track) => track.track).indexOf(event.track) + 1 + 1;
+
+        // if the event overlaps with another event, give it a margin to show the event behind it.
+        const overlapping = events
+          .slice(0, i)
+          .filter(
+            (e) =>
+              e.track === event.track &&
+              new Date(e.startDate) < startDate &&
+              startDate < new Date(e.endDate),
+          ).length;
+        // if the event overlaps with the first hour of an event, give it even more margin (so that it doesn't cover the text)
+        const textOverlapping = events.slice(0, i).filter((e) => {
+          const startPlusOneHour = new Date(e.startDate);
+          startPlusOneHour.setHours(startPlusOneHour.getHours() + 1);
+          return (
+            e.track === event.track &&
+            new Date(e.startDate) < startDate &&
+            startDate < startPlusOneHour
+          );
+        }).length;
+        const marginPerOverlap = '10%';
+        const marginPerTextOverlap = '50%';
+        const marginLeft = `calc(${marginPerOverlap} * (${overlapping} - ${textOverlapping}) + ${marginPerTextOverlap} * ${textOverlapping})`;
+        // finally, if some future event overlaps the text of this event, give this even a little margin on the right
+        const textOverlappingRight = events.slice(i + 1).filter((e) => {
+          const startPlusOneHour = new Date(startDate);
+          startPlusOneHour.setHours(startPlusOneHour.getHours() + 1);
+          return (
+            e.track === event.track &&
+            startDate < new Date(e.startDate) &&
+            new Date(e.startDate) < startPlusOneHour
+          );
+        }).length;
+        const marginPerTextOverlapRight = '10%';
+        const marginRight = `calc(${marginPerTextOverlapRight} * ${textOverlappingRight})`;
 
         const durationFormatter = new Intl.DateTimeFormat('default', {
           hour: 'numeric',
@@ -112,9 +143,11 @@ function CalendarGrid({
                 gridRowEnd: rowEnd,
                 gridColumn: col,
                 background: tracks.find((track) => track.track === event.track).background,
+                marginLeft: marginLeft,
+                marginRight: marginRight,
               } as CSSProperties
             }
-            className="rounded-md p-2 z-10"
+            className="rounded-md p-2 z-10 shadow"
             onClick={() => onEventClick(event)}
           >
             <div className="text-2xl">{event.title}</div>
@@ -242,7 +275,7 @@ function CalendarGrid({
   return (
     <div>
       <div
-        className="w-full overflow-x-auto grid gap-0 grid-cols-[max-content,minmax(100px,1fr)] font-secondary"
+        className="w-full overflow-x-auto grid gap-0 grid-cols-[max-content,minmax(218px,1fr)] font-secondary"
         style={
           {
             gridTemplateRows: `repeat(${minutesInDay - startMin + increment}, 1.6px)`,
