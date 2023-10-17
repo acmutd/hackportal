@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/discord",
+      "destination": "https://discord.com/invite/TZq3Uv48Bf",
+      "statusCode": 301
+    }
+  ]
+}
