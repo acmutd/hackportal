@@ -17,7 +17,7 @@ const successStrings = {
   alreadyClaimed: 'User has already claimed...',
   unexpectedError: 'Unexpected error...',
   notCheckedIn: "User hasn't checked in!",
-  invalidFormat: 'Invalid hacker tag format...',
+  invalidFormat: 'Invalid hacker tag format...'
 };
 
 function getSuccessColor(success: string) {
@@ -94,12 +94,15 @@ export default function Admin() {
     })
       .then(async (result) => {
         setScanData(data);
+        const resData = await result.json()
         if (result.status === 404) {
           return setSuccess(successStrings.invalidUser);
         } else if (result.status === 201) {
           return setSuccess(successStrings.alreadyClaimed);
         } else if (result.status === 403) {
           return setSuccess(successStrings.notCheckedIn);
+        } else if (result.status === 418) {
+          return setSuccess(resData.message);
         } else if (result.status !== 200) {
           return setSuccess(successStrings.unexpectedError);
         }
@@ -382,10 +385,10 @@ export default function Admin() {
                 <div className="flex flex-row items-center gap-x-2 my-4">
                   <input
                     type="checkbox"
-                    id="isCheckin"
-                    name="isCheckin"
+                    id="isSwag"
+                    name="isSwag"
                     className="mr-2 rounded-md text-secondaryDark focus:ring-0 border border-primary"
-                    checked={newScanForm.isCheckIn}
+                    checked={newScanForm.isSwag}
                     onChange={(e) => {
                       setNewScanForm((prev) => ({
                         ...prev,
@@ -532,8 +535,8 @@ export default function Admin() {
                             <div className="flex flex-row items-center gap-x-2 my-4">
                               <input
                                 type="checkbox"
-                                id="isCheckin"
-                                name="isCheckin"
+                                id="isSwag"
+                                name="isSwag"
                                 className="mr-2 rounded-md text-secondaryDark focus:ring-0 border border-primary"
                                 checked={currentEditScan.isSwag}
                                 onChange={(e) => {
