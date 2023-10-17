@@ -69,6 +69,7 @@ export default function Admin() {
 
   const handleScanClick = (data, idx) => {
     setCurrentScan(data);
+    console.log(data)
     setCurrentScanIdx(idx);
   };
 
@@ -507,7 +508,7 @@ export default function Admin() {
                             </div>
                             <div className="flex flex-row items-center gap-x-2 my-4">
                               <h1 className="flex-grow text-secondary">How many points should this award/cost?</h1>
-                              <input type="number" id="netPoints" name="netPoints" className="p-3 rounded-lg border focus:border-primaryDark bg-secondaryDark text-primary" onKeyPress={(e) => !/^(\-|[0-9])/.test(e.key) && e.preventDefault()} onChange={(e) => setCurrentEditScan((prev) => ({
+                              <input type="number" id="netPoints" name="netPoints" className="p-3 rounded-lg border focus:border-primaryDark bg-secondaryDark text-primary" onKeyPress={(e) => !/^(\-|[0-9])/.test(e.key)} value={currentEditScan.netPoints} onChange={(e) => setCurrentEditScan((prev) => ({
                                 ...prev,
                                 netPoints: parseInt(e.target.value)
                               }))} />
@@ -518,7 +519,7 @@ export default function Admin() {
                                 id="isCheckin"
                                 name="isCheckin"
                                 className="mr-2 rounded-md text-secondaryDark focus:ring-0 border border-primary"
-                                checked={newScanForm.isCheckIn}
+                                checked={currentEditScan.isCheckIn}
                                 onChange={(e) => {
                                   setCurrentEditScan((prev) => ({
                                     ...prev,
@@ -534,7 +535,7 @@ export default function Admin() {
                                 id="isCheckin"
                                 name="isCheckin"
                                 className="mr-2 rounded-md text-secondaryDark focus:ring-0 border border-primary"
-                                checked={newScanForm.isCheckIn}
+                                checked={currentEditScan.isSwag}
                                 onChange={(e) => {
                                   setCurrentEditScan((prev) => ({
                                     ...prev,
