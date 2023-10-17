@@ -101,8 +101,10 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
     }
 
     if (scans.includes(bodyData.scan)) return res.status(201).json({ code: 'duplicate' });
-    scans.push(bodyData.scan);
-    await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans });
+    const points = (snapshot.data().points ?? 0) + bodyData.points
+    if (!bodyData.isSwag) scans.push(bodyData.scan);
+    else if (points < 0) return res.status(403).json({ code: 'insufficient-points', message: `User does not have sufficient points: ${snapshot.data().points ?? 0}` })
+    await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans, points });
     res.status(200).json({});
   } catch (error) {
     console.error('Error when fetching applications', error);
