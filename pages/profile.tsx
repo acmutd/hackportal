@@ -103,6 +103,11 @@ export default function ProfilePage({ applicationDecisions }) {
                 <h1 className="font-bold text-xl">Points</h1>
                 <p className="text-lg gold-text-gradient font-black mx-auto">{user.points}</p>
               </div>
+            <div className="flex flex-col items-start justify-start gap-y-1">
+              <h1 className="font-bold text-2xl">Application Status</h1>
+              <p className="text-xl  animate-text bg-gradient-to-r from-primaryDark to-primary bg-clip-text text-transparent">
+                {applicationDecisions ? profile.status : 'Under Review'}
+              </p>
             </div>
           </div>
           <button
