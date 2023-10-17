@@ -59,6 +59,7 @@ export default function Admin() {
     isCheckIn: false,
     netPoints: 0,
     isSwag: false,
+    isReclaimable: false,
   });
   const [startScan, setStartScan] = useState(false);
 
@@ -69,7 +70,6 @@ export default function Admin() {
 
   const handleScanClick = (data, idx) => {
     setCurrentScan(data);
-    console.log(data)
     setCurrentScanIdx(idx);
   };
 
@@ -89,7 +89,8 @@ export default function Admin() {
         id: data.replaceAll('hack:', ''),
         scan: currentScan.name,
         isSwag: currentScan.isSwag,
-        netPoints: currentScan.netPoints
+        netPoints: currentScan.netPoints,
+        isReclaimable: currentScan.isReclaimable
       }),
     })
       .then(async (result) => {
@@ -180,6 +181,7 @@ export default function Admin() {
           isCheckIn: false,
           netPoints: 0,
           isSwag: false,
+          isReclaimable: false,
         });
       }
     } catch (error) {
@@ -398,6 +400,22 @@ export default function Admin() {
                   />
                   <h1 className="text-secondary">Is this for swag?</h1>
                 </div>
+                <div className="flex flex-row items-center gap-x-2 my-4">
+                  <input
+                    type="checkbox"
+                    id="isReclaimable"
+                    name="isReclaimable"
+                    className="mr-2 rounded-md text-secondaryDark focus:ring-0 border border-primary"
+                    checked={newScanForm.isReclaimable}
+                    onChange={(e) => {
+                      setNewScanForm((prev) => ({
+                        ...prev,
+                        isSwag: e.target.checked,
+                      }));
+                    }}
+                  />
+                  <h1 className="text-secondary">Is this for swag?</h1>
+                </div>
               </div>
               <div className="flex justify-end mt-8">
                 <div className="flex flex-row gap-x-3">
@@ -543,6 +561,22 @@ export default function Admin() {
                                   setCurrentEditScan((prev) => ({
                                     ...prev,
                                     isSwag: e.target.checked,
+                                  }));
+                                }}
+                              />
+                              <h1 className="text-secondary">Is this for swag?</h1>
+                            </div>
+                            <div className="flex flex-row items-center gap-x-2 my-4">
+                              <input
+                                type="checkbox"
+                                id="isReclaimable"
+                                name="isReclaimable"
+                                className="mr-2 rounded-md text-secondaryDark focus:ring-0 border border-primary"
+                                checked={currentEditScan.isSwag}
+                                onChange={(e) => {
+                                  setCurrentEditScan((prev) => ({
+                                    ...prev,
+                                    isReclaimable: e.target.checked,
                                   }));
                                 }}
                               />

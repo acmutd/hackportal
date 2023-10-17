@@ -43,9 +43,10 @@ async function handleGetScanTypes(req: NextApiRequest, res: NextApiResponse) {
     const scantypes = []
     for (let snap of snapshot.docs) {
       const snapData = snap.data()
-      if (snapData.netPoints === undefined || snapData.isSwag == undefined) {
+      if (snapData.netPoints === undefined || snapData.isSwag == undefined || snapData.isReclaimable) {
         snapData.netPoints = snapData.netPoints ?? 0
         snapData.isSwag = snapData.isSwag ?? false
+        snapData.isReclaimable = snapData.isReclaimable ?? false
         await db.collection(SCAN_TYPE_COLLECTION).doc(snap.id).set(snapData)
       }
       // TODO: Verify the application is accurate and report if something is off
