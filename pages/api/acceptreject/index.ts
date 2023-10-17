@@ -30,7 +30,7 @@ async function postHackerStatus(req: NextApiRequest, res: NextApiResponse) {
   const { headers } = req;
 
   const userToken = headers['authorization'];
-  const isAuthorized = await userIsAuthorized(userToken, ['super_admin']);
+  const isAuthorized = await userIsAuthorized(userToken, ['super_admin', 'admin']);
 
   if (!isAuthorized) {
     return res.status(403).json({
@@ -41,7 +41,7 @@ async function postHackerStatus(req: NextApiRequest, res: NextApiResponse) {
 
   const jobs = [];
   for (const hackerId of hackerIds) {
-    const docRef = db.collection('acceptreject').doc(`${adminId}-${hackerId}`);
+    const docRef = db.collection('acceptreject').doc(`${hackerId}`);
 
     jobs.push([
       hackerId,
@@ -90,7 +90,7 @@ async function getAllHackers(req: NextApiRequest, res: NextApiResponse) {
   } = req;
 
   const userToken = headers['authorization'];
-  const isAuthorized = await userIsAuthorized(userToken, ['super_admin']);
+  const isAuthorized = await userIsAuthorized(userToken, ['super_admin', 'admin']);
 
   if (!isAuthorized) {
     return res.status(403).json({
@@ -98,7 +98,7 @@ async function getAllHackers(req: NextApiRequest, res: NextApiResponse) {
     });
   }
 
-  const snapshot = await db.collection('acceptreject').where('adminId', '==', adminId).get();
+  const snapshot = await db.collection('acceptreject').get();
 
   let hackers = [];
   snapshot.forEach((doc) => {
