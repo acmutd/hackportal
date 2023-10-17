@@ -70,7 +70,7 @@ export default function QRCodeReader({ callback, width, height }: QRCodeReaderPr
         video.srcObject = stream;
         video.play();
         requestAnimationFrame(tick);
-      });
+      }).catch((err) => console.error(err));
   return (
     <div className="flex items-center justify-center">
       {videoReady && !paused ? <canvas ref={canvas} /> : <LoadIcon width={width} height={height} />}
