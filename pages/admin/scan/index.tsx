@@ -410,11 +410,11 @@ export default function Admin() {
                     onChange={(e) => {
                       setNewScanForm((prev) => ({
                         ...prev,
-                        isSwag: e.target.checked,
+                        isReclaimable: e.target.checked,
                       }));
                     }}
                   />
-                  <h1 className="text-secondary">Is this for swag?</h1>
+                  <h1 className="text-secondary">Is this reclaimable?</h1>
                 </div>
               </div>
               <div className="flex justify-end mt-8">
@@ -572,7 +572,7 @@ export default function Admin() {
                                 id="isReclaimable"
                                 name="isReclaimable"
                                 className="mr-2 rounded-md text-secondaryDark focus:ring-0 border border-primary"
-                                checked={currentEditScan.isSwag}
+                                checked={currentEditScan.isReclaimable}
                                 onChange={(e) => {
                                   setCurrentEditScan((prev) => ({
                                     ...prev,
@@ -580,7 +580,7 @@ export default function Admin() {
                                   }));
                                 }}
                               />
-                              <h1 className="text-secondary">Is this for swag?</h1>
+                              <h1 className="text-secondary">Is this reclaimable?</h1>
                             </div>
                             <div className="flex justify-end mt-8">
                               <div className="flex flex-row gap-x-3">
