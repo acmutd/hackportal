@@ -94,9 +94,15 @@ export default function ProfilePage({ applicationDecisions }) {
                 </p>
               </div>
             )}
-            <div className="flex flex-col items-start justify-start gap-y-1">
-              <h1 className="font-bold text-xl">Role</h1>
-              <p className="text-lg gold-text-gradient">{user.permissions[0]}</p>
+            <div className="flex flex-row w-full">
+              <div className="flex flex-col items-start justify-start gap-y-1">
+                <h1 className="font-bold text-xl">Role</h1>
+                <p className="text-lg gold-text-gradient">{user.permissions[0]}</p>
+              </div>
+              <div className="flex flex-col items-start justify-start gap-y-1 ml-8">
+                <h1 className="font-bold text-xl">Points</h1>
+                <p className="text-lg gold-text-gradient font-black mx-auto">{user.points}</p>
+              </div>
             </div>
           </div>
           <button

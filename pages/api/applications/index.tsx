@@ -98,7 +98,6 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
     });
   }
   const {} = req.query;
-  const applicationBody = req.body;
 
   let body: Registration;
   try {

@@ -93,6 +93,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
     formInitialValues['firstName'] = user?.firstName?.split(' ')[0] || '';
     formInitialValues['lastName'] = user?.lastName || '';
     formInitialValues['permissions'] = user?.permissions || ['hacker'];
+    formInitialValues['points'] = user?.points || 0
   }, []);
 
   useEffect(() => {
