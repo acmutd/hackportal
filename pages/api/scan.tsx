@@ -104,7 +104,10 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
     const points = (snapshot.data().points ?? 0) + bodyData.netPoints
     if (!bodyData.isReclaimable) scans.push(bodyData.scan);
     else if (points < 0) return res.status(418).json({ code: 'insufficient-points', message: `User does not have sufficient points: ${snapshot.data().points ?? 0}` })
-    await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans, points });
+    await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans, user: {
+      ...snapshot.data().user,
+      points
+    } });
     res.status(200).json({});
   } catch (error) {
     console.error('Error when fetching applications', error);
