@@ -132,6 +132,7 @@ export default function Admin() {
           },
         },
         {
+          oldScanName: currentScan.name,
           scanData: updatedScanData,
         },
       );
