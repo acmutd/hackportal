@@ -81,6 +81,12 @@ export default function UserAdminView({
     setHeight(h);
     setCurrentPage(Math.floor(currentUserIndex / Math.floor(h / 60) + 1));
     console.log(h, currentUserIndex);
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        goBack();
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
   }, [windowHeight, currentUserIndex]);
 
   const updateRole = async () => {
