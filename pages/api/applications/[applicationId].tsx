@@ -51,13 +51,19 @@ async function handleGetApplication(req: NextApiRequest, res: NextApiResponse) {
     const application = await db.collection(APPLICATIONS_COLLECTION).doc(userID);
     const data = await application.get();
     if (!data.exists) {
-      res.status(404).json({
+      return res.status(404).json({
         code: 'not-found',
         message: 'Application ID invalid, or the user is not registered.',
       });
-    } else {
-      res.status(200).json(data.data());
     }
+    const userData = data.data()
+    // User doesnt have the "points" field, add it rq
+    if (userData.user.points === undefined) {
+      userData.user.points = 0
+      await application.set(userData)
+    }
+
+    res.status(200).json(userData);
   } catch (error) {
     console.error('Error when fetching applications', error);
     res.status(500).json({

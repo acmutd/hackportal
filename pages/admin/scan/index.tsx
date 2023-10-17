@@ -17,7 +17,7 @@ const successStrings = {
   alreadyClaimed: 'User has already claimed...',
   unexpectedError: 'Unexpected error...',
   notCheckedIn: "User hasn't checked in!",
-  invalidFormat: 'Invalid hacker tag format...',
+  invalidFormat: 'Invalid hacker tag format...'
 };
 
 function getSuccessColor(success: string) {
@@ -41,6 +41,9 @@ export default function Admin() {
   // Flag whether scan-fetching process is completed
   const [scansFetched, setScansFetched] = useState(false);
 
+  // Flag whether the current scan types to display are normal or swag
+  const [currentScanType, setCurrentScanType] = useState<"normal" | "swag">("normal")
+
   // Current scan
   const [currentScan, setCurrentScan] = useState(undefined);
   const [currentScanIdx, setCurrentScanIdx] = useState(-1);
@@ -54,6 +57,9 @@ export default function Admin() {
   const [newScanForm, setNewScanForm] = useState({
     name: '',
     isCheckIn: false,
+    netPoints: 0,
+    isSwag: false,
+    isReclaimable: false,
   });
   const [startScan, setStartScan] = useState(false);
 
@@ -82,16 +88,22 @@ export default function Admin() {
       body: JSON.stringify({
         id: data.replaceAll('hack:', ''),
         scan: currentScan.name,
+        isSwag: currentScan.isSwag,
+        netPoints: currentScan.netPoints,
+        isReclaimable: currentScan.isReclaimable
       }),
     })
       .then(async (result) => {
         setScanData(data);
+        const resData = await result.json()
         if (result.status === 404) {
           return setSuccess(successStrings.invalidUser);
         } else if (result.status === 201) {
           return setSuccess(successStrings.alreadyClaimed);
         } else if (result.status === 403) {
           return setSuccess(successStrings.notCheckedIn);
+        } else if (result.status === 418) {
+          return setSuccess(resData.message);
         } else if (result.status !== 200) {
           return setSuccess(successStrings.unexpectedError);
         }
@@ -120,6 +132,7 @@ export default function Admin() {
           },
         },
         {
+          oldScanName: currentScan.name,
           scanData: updatedScanData,
         },
       );
@@ -167,6 +180,9 @@ export default function Admin() {
         setNewScanForm({
           name: '',
           isCheckIn: false,
+          netPoints: 0,
+          isSwag: false,
+          isReclaimable: false,
         });
       }
     } catch (error) {
@@ -240,6 +256,14 @@ export default function Admin() {
       </div>
     );
 
+  
+  const normalScans = []
+  const swagScans = []
+  if (scanTypes) scanTypes.forEach((scan) => {
+    if (scan.isSwag) swagScans.push(scan)
+    else normalScans.push(scan)
+  })
+  const currentScans = currentScanType === "normal" ? normalScans : swagScans
   return (
     <div className="relative flex flex-col flex-grow bg-[url('/assets/hero-bg.png')]">
       <Head>
@@ -257,9 +281,15 @@ export default function Admin() {
             !showDeleteScanDialog &&
             !startScan &&
             user.permissions.includes('super_admin') && (
-              <div className="mx-auto my-5 w-full flex justify-end">
+              <div className="mx-auto my-5 w-full flex">
+                {["Normal", "Swag"].map((t) => <button key={t}
+                  className="py-4 px-4 mr-8 flex font-bold rounded-2xl hover:bg-secondary bg-primaryDark text-secondary hover:text-primaryDark border-[1px] border-transparent hover:border-primaryDark transition duration-300 ease-in-out"
+                  onClick={() => {setCurrentScanType(t.toLowerCase() as "normal" | "swag")}}
+                >
+                  <div className="hidden md:inline-block">{t}</div>
+                </button>)}
                 <button
-                  className="py-4 px-4 flex font-bold rounded-full hover:bg-secondary bg-primaryDark text-secondary hover:text-primaryDark border-[1px] border-transparent hover:border-primaryDark transition duration-300 ease-in-out"
+                  className="py-4 px-4 flex ml-auto font-bold rounded-full hover:bg-secondary bg-primaryDark text-secondary hover:text-primaryDark border-[1px] border-transparent hover:border-primaryDark transition duration-300 ease-in-out"
                   onClick={() => {
                     if (!user.permissions.includes('super_admin')) {
                       alert('You do not have the required permission to use this functionality');
@@ -332,7 +362,14 @@ export default function Admin() {
                   }}
                   placeholder="Enter name of scantype"
                 />
-                <div className="flex flex-row gap-x-2 items-center my-4">
+                <div className="flex flex-row items-center gap-x-2 my-4">
+                  <h1 className="flex-grow text-secondary">How many points should this award/cost?</h1>
+                  <input type="number" id="netPoints" name="netPoints" className="p-3 rounded-lg border focus:border-primaryDark bg-secondaryDark text-primary" onKeyPress={(e) => !/^(\-|[0-9])/.test(e.key) && e.preventDefault()} onChange={(e) => setNewScanForm((prev) => ({
+                    ...prev,
+                    netPoints: parseInt(e.target.value)
+                  }))} />
+                </div>
+                <div className="flex flex-row items-center gap-x-2 my-4">
                   <input
                     type="checkbox"
                     id="isCheckin"
@@ -347,6 +384,38 @@ export default function Admin() {
                     }}
                   />
                   <h1 className="text-secondary">Is this for check-in event?</h1>
+                </div>
+                <div className="flex flex-row items-center gap-x-2 my-4">
+                  <input
+                    type="checkbox"
+                    id="isSwag"
+                    name="isSwag"
+                    className="mr-2 rounded-md text-secondaryDark focus:ring-0 border border-primary"
+                    checked={newScanForm.isSwag}
+                    onChange={(e) => {
+                      setNewScanForm((prev) => ({
+                        ...prev,
+                        isSwag: e.target.checked,
+                      }));
+                    }}
+                  />
+                  <h1 className="text-secondary">Is this for swag?</h1>
+                </div>
+                <div className="flex flex-row items-center gap-x-2 my-4">
+                  <input
+                    type="checkbox"
+                    id="isReclaimable"
+                    name="isReclaimable"
+                    className="mr-2 rounded-md text-secondaryDark focus:ring-0 border border-primary"
+                    checked={newScanForm.isReclaimable}
+                    onChange={(e) => {
+                      setNewScanForm((prev) => ({
+                        ...prev,
+                        isReclaimable: e.target.checked,
+                      }));
+                    }}
+                  />
+                  <h1 className="text-secondary">Is this reclaimable?</h1>
                 </div>
               </div>
               <div className="flex justify-end mt-8">
@@ -376,7 +445,7 @@ export default function Admin() {
                 <div className="flex flex-col gap-3 w-full justify-center max-w-[57.5rem]">
                   {scansFetched &&
                     currentScan === undefined &&
-                    scanTypes.map((d, idx) => (
+                    (currentScans).map((d, idx) => (
                       <ScanType
                         key={d.name}
                         data={d}
@@ -384,7 +453,6 @@ export default function Admin() {
                         onClick={() => handleScanClick(d, idx)}
                       />
                     ))}
-
                   {!scansFetched && (
                     <div className="w-full flex justify-center">
                       <LoadIcon width={150} height={150} />
@@ -459,22 +527,61 @@ export default function Admin() {
                                 }}
                                 placeholder="Enter name of scantype"
                               />
-                              <div className="flex flex-row gap-x-2 items-center my-4">
-                                <input
-                                  type="checkbox"
-                                  id="isCheckin"
-                                  name="isCheckin"
-                                  className="mr-2 rounded-md text-secondaryDark focus:ring-0 border border-primary"
-                                  checked={currentEditScan.isCheckIn}
-                                  onChange={(e) => {
-                                    setCurrentEditScan((prev) => ({
-                                      ...prev,
-                                      isCheckIn: e.target.checked,
-                                    }));
-                                  }}
-                                />
-                                <h1 className="text-secondary">Is this for check-in event?</h1>
-                              </div>
+                            </div>
+                            <div className="flex flex-row items-center gap-x-2 my-4">
+                              <h1 className="flex-grow text-secondary">How many points should this award/cost?</h1>
+                              <input type="number" id="netPoints" name="netPoints" className="p-3 rounded-lg border focus:border-primaryDark bg-secondaryDark text-primary" onKeyPress={(e) => !/^(\-|[0-9])/.test(e.key)} value={currentEditScan.netPoints} onChange={(e) => setCurrentEditScan((prev) => ({
+                                ...prev,
+                                netPoints: parseInt(e.target.value)
+                              }))} />
+                            </div>
+                            <div className="flex flex-row items-center gap-x-2 my-4">
+                              <input
+                                type="checkbox"
+                                id="isCheckin"
+                                name="isCheckin"
+                                className="mr-2 rounded-md text-secondaryDark focus:ring-0 border border-primary"
+                                checked={currentEditScan.isCheckIn}
+                                onChange={(e) => {
+                                  setCurrentEditScan((prev) => ({
+                                    ...prev,
+                                    isCheckIn: e.target.checked,
+                                  }));
+                                }}
+                              />
+                              <h1 className="text-secondary">Is this for check-in event?</h1>
+                            </div>
+                            <div className="flex flex-row items-center gap-x-2 my-4">
+                              <input
+                                type="checkbox"
+                                id="isSwag"
+                                name="isSwag"
+                                className="mr-2 rounded-md text-secondaryDark focus:ring-0 border border-primary"
+                                checked={currentEditScan.isSwag}
+                                onChange={(e) => {
+                                  setCurrentEditScan((prev) => ({
+                                    ...prev,
+                                    isSwag: e.target.checked,
+                                  }));
+                                }}
+                              />
+                              <h1 className="text-secondary">Is this for swag?</h1>
+                            </div>
+                            <div className="flex flex-row items-center gap-x-2 my-4">
+                              <input
+                                type="checkbox"
+                                id="isReclaimable"
+                                name="isReclaimable"
+                                className="mr-2 rounded-md text-secondaryDark focus:ring-0 border border-primary"
+                                checked={currentEditScan.isReclaimable}
+                                onChange={(e) => {
+                                  setCurrentEditScan((prev) => ({
+                                    ...prev,
+                                    isReclaimable: e.target.checked,
+                                  }));
+                                }}
+                              />
+                              <h1 className="text-secondary">Is this reclaimable?</h1>
                             </div>
                             <div className="flex justify-end mt-8">
                               <div className="flex flex-row gap-x-3">

@@ -8,9 +8,10 @@ const db = firestore();
 const SCANTYPES_COLLECTION = '/scan-types';
 const REGISTRATION_COLLECTION = '/registrations';
 
-async function checkIfNameAlreadyExists(name: string) {
+async function checkIfNameAlreadyExists(oldName: string, name: string) {
   const snapshot = await db.collection(SCANTYPES_COLLECTION).where('name', '==', name).get();
-  return !snapshot.empty;
+  if (oldName === name) return snapshot.docs.length > 1
+  return snapshot.docs.length >= 1;
 }
 
 async function checkIfCheckInAlreadyExists() {
@@ -41,7 +42,7 @@ async function updateUserDoc(oldScanName: string, newScanName: string) {
 }
 
 async function updateScanType(req: NextApiRequest, res: NextApiResponse) {
-  const { scanData } = req.body;
+  const { oldScanName, scanData } = req.body;
   scanData.name = scanData.name.trim();
   try {
     const snapshot = await db
@@ -54,7 +55,7 @@ async function updateScanType(req: NextApiRequest, res: NextApiResponse) {
       });
     }
 
-    if (await checkIfNameAlreadyExists(scanData.name)) {
+    if (await checkIfNameAlreadyExists(oldScanName, scanData.name)) {
       return res.status(400).json({
         msg: 'Scantype already exists',
       });

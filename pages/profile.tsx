@@ -73,29 +73,42 @@ export default function ProfilePage({ applicationDecisions }) {
       <div className="flex flex-col md:flex-row 2xl:gap-x-32 gap-x-20 2xl:justify-center">
         {/* QR Code */}
         <div className="">
-          <div className="bg-secondaryDark rounded-lg p-8 h-min w-min mx-auto">
+          <div className="bg-black rounded-lg p-8 h-min w-min mx-auto">
             {/* Dark represents dots, Light represents the background */}
             <QRCode
               data={'hack:' + user.id}
               loading={false}
               width={200}
               height={200}
-              darkColor="#F6CC82"
-              lightColor="#0000"
+              darkColor="#000"//"#F6CC82"
+              lightColor="#FFF"//"#0000"
             />
             <p className="text-center text-sm mt-2">{profile.user.group}</p>
           </div>
           <div className="border-y-4 border-primary py-4 md:my-8 my-6 font-secondary space-y-2">
+            {applicationDecisions && (
+              <div className="flex flex-col items-start justify-start gap-y-1">
+                <h1 className="font-bold text-2xl">Application Status</h1>
+                <p className="text-xl  animate-text bg-gradient-to-r from-primaryDark to-primary bg-clip-text text-transparent">
+                  {profile.status}
+                </p>
+              </div>
+            )}
+            <div className="flex flex-row w-full">
+              <div className="flex flex-col items-start justify-start gap-y-1">
+                <h1 className="font-bold text-xl">Role</h1>
+                <p className="text-lg gold-text-gradient">{user.permissions[0]}</p>
+              </div>
+              <div className="flex flex-col items-start justify-start gap-y-1 ml-8">
+                <h1 className="font-bold text-xl">Points</h1>
+                <p className="text-lg gold-text-gradient font-black mx-auto">{user.points}</p>
+              </div>
+            </div>
             <div className="flex flex-col items-start justify-start gap-y-1">
               <h1 className="font-bold text-2xl">Application Status</h1>
               <p className="text-xl  animate-text bg-gradient-to-r from-primaryDark to-primary bg-clip-text text-transparent">
                 {applicationDecisions ? profile.status : 'Under Review'}
               </p>
-            </div>
-
-            <div className="flex flex-col items-start justify-start gap-y-1">
-              <h1 className="font-bold text-xl">Role</h1>
-              <p className="text-lg gold-text-gradient">{user.permissions[0]}</p>
             </div>
           </div>
           <button

@@ -100,9 +100,14 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
       });
     }
 
-    if (scans.includes(bodyData.scan)) return res.status(201).json({ code: 'duplicate' });
-    scans.push(bodyData.scan);
-    await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans });
+    if (scans.includes(bodyData.scan) && !bodyData.isReclaimable) return res.status(201).json({ code: 'duplicate' });
+    const points = (snapshot.data().user.points ?? 0) + bodyData.netPoints
+    if (!bodyData.isReclaimable) scans.push(bodyData.scan);
+    else if (points < 0) return res.status(418).json({ code: 'insufficient-points', message: `User does not have sufficient points: ${snapshot.data().user.points ?? 0}` })
+    await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans, user: {
+      ...snapshot.data().user,
+      points
+    } });
     res.status(200).json({});
   } catch (error) {
     console.error('Error when fetching applications', error);

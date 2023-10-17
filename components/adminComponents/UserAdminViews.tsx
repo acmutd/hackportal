@@ -19,6 +19,7 @@ interface UserProfile extends Omit<Registration, 'user'> {
     lastName: string;
     permissions: string[];
     preferredEmail: string;
+    points: number;
   };
 }
 
