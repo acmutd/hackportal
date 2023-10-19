@@ -93,6 +93,34 @@ export default function HomeSponsors() {
           />
         </a>
         <a
+          href={'https://www.fanniemae.com/careers'}
+          target="_blank"
+          className="relative w-80  h-32"
+          rel="noreferrer"
+        >
+          <Image
+            src={'/assets/sponsorLogos/FannieMae.png'}
+            alt="FannieMae"
+            layout="fill"
+            objectFit="contain"
+          />
+        </a>
+        <a
+          href={
+            'https://careers.jpmorgan.com/us/en/students/programs?search=&tags=location__Americas__UnitedStatesofAmerica'
+          }
+          target="_blank"
+          className="relative w-60 h-32"
+          rel="noreferrer"
+        >
+          <Image
+            src={'/assets/sponsorLogos/JPMC.png'}
+            alt="JPMC"
+            layout="fill"
+            objectFit="contain"
+          />
+        </a>
+        <a
           href={'https://geico.wd1.myworkdayjobs.com/External'}
           target="_blank"
           className="relative w-80 h-28"
@@ -134,7 +162,7 @@ export default function HomeSponsors() {
       </section>
       <div className="flex justify-center 2xl:mt-20 md:mt-10 2xl:mb-0 md:mb-5">
         <h4 className="text-center gold-text-gradient font-bold 2xl:text-4xl md:text-3xl text-2xl my-4">
-          Special thanks to
+          SPECIAL THANKS TO
         </h4>
       </div>
       <section className="flex flex-wrap justify-center items-center sm:space-y-0 > * + * space-y-6 > * + * p-4 2xl:space-x-12 > * + * md:space-x-6 > * + * sm:space-x-3 > * + *">
