@@ -40,17 +40,21 @@ async function handleGetScanTypes(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     const snapshot = await db.collection(SCAN_TYPE_COLLECTION).get();
-    const scantypes = []
+    const scantypes = [];
     for (let snap of snapshot.docs) {
-      const snapData = snap.data()
-      if (snapData.netPoints === undefined || snapData.isSwag == undefined || snapData.isReclaimable) {
-        snapData.netPoints = snapData.netPoints ?? 0
-        snapData.isSwag = snapData.isSwag ?? false
-        snapData.isReclaimable = snapData.isReclaimable ?? false
-        await db.collection(SCAN_TYPE_COLLECTION).doc(snap.id).set(snapData)
+      const snapData = snap.data();
+      if (
+        snapData.netPoints === undefined ||
+        snapData.isSwag == undefined ||
+        snapData.isReclaimable
+      ) {
+        snapData.netPoints = snapData.netPoints ?? 0;
+        snapData.isSwag = snapData.isSwag ?? false;
+        snapData.isReclaimable = snapData.isReclaimable ?? false;
+        await db.collection(SCAN_TYPE_COLLECTION).doc(snap.id).set(snapData);
       }
       // TODO: Verify the application is accurate and report if something is off
-      scantypes.push(snapData)
+      scantypes.push(snapData);
     }
     scantypes.sort((a, b) => a.precedence - b.precedence);
     res.status(200).json(scantypes);

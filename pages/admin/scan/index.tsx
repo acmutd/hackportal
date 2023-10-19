@@ -17,7 +17,7 @@ const successStrings = {
   alreadyClaimed: 'User has already claimed...',
   unexpectedError: 'Unexpected error...',
   notCheckedIn: "User hasn't checked in!",
-  invalidFormat: 'Invalid hacker tag format...'
+  invalidFormat: 'Invalid hacker tag format...',
 };
 
 function getSuccessColor(success: string) {
@@ -42,7 +42,7 @@ export default function Admin() {
   const [scansFetched, setScansFetched] = useState(false);
 
   // Flag whether the current scan types to display are normal or swag
-  const [currentScanType, setCurrentScanType] = useState<"normal" | "swag">("normal")
+  const [currentScanType, setCurrentScanType] = useState<'normal' | 'swag'>('normal');
 
   // Current scan
   const [currentScan, setCurrentScan] = useState(undefined);
@@ -90,12 +90,12 @@ export default function Admin() {
         scan: currentScan.name,
         isSwag: currentScan.isSwag,
         netPoints: currentScan.netPoints,
-        isReclaimable: currentScan.isReclaimable
+        isReclaimable: currentScan.isReclaimable,
       }),
     })
       .then(async (result) => {
         setScanData(data);
-        const resData = await result.json()
+        const resData = await result.json();
         if (result.status === 404) {
           return setSuccess(successStrings.invalidUser);
         } else if (result.status === 201) {
@@ -256,14 +256,14 @@ export default function Admin() {
       </div>
     );
 
-  
-  const normalScans = []
-  const swagScans = []
-  if (scanTypes) scanTypes.forEach((scan) => {
-    if (scan.isSwag) swagScans.push(scan)
-    else normalScans.push(scan)
-  })
-  const currentScans = currentScanType === "normal" ? normalScans : swagScans
+  const normalScans = [];
+  const swagScans = [];
+  if (scanTypes)
+    scanTypes.forEach((scan) => {
+      if (scan.isSwag) swagScans.push(scan);
+      else normalScans.push(scan);
+    });
+  const currentScans = currentScanType === 'normal' ? normalScans : swagScans;
   return (
     <div className="relative flex flex-col flex-grow bg-[url('/assets/hero-bg.png')]">
       <Head>
@@ -282,12 +282,17 @@ export default function Admin() {
             !startScan &&
             user.permissions.includes('super_admin') && (
               <div className="mx-auto my-5 w-full flex">
-                {["Normal", "Swag"].map((t) => <button key={t}
-                  className="py-4 px-4 mr-8 flex font-bold rounded-2xl hover:bg-secondary bg-primaryDark text-secondary hover:text-primaryDark border-[1px] border-transparent hover:border-primaryDark transition duration-300 ease-in-out"
-                  onClick={() => {setCurrentScanType(t.toLowerCase() as "normal" | "swag")}}
-                >
-                  <div className="hidden md:inline-block">{t}</div>
-                </button>)}
+                {['Normal', 'Swag'].map((t) => (
+                  <button
+                    key={t}
+                    className="py-4 px-4 mr-8 flex font-bold rounded-2xl hover:bg-secondary bg-primaryDark text-secondary hover:text-primaryDark border-[1px] border-transparent hover:border-primaryDark transition duration-300 ease-in-out"
+                    onClick={() => {
+                      setCurrentScanType(t.toLowerCase() as 'normal' | 'swag');
+                    }}
+                  >
+                    <div className="hidden md:inline-block">{t}</div>
+                  </button>
+                ))}
                 <button
                   className="py-4 px-4 flex ml-auto font-bold rounded-full hover:bg-secondary bg-primaryDark text-secondary hover:text-primaryDark border-[1px] border-transparent hover:border-primaryDark transition duration-300 ease-in-out"
                   onClick={() => {
@@ -363,11 +368,22 @@ export default function Admin() {
                   placeholder="Enter name of scantype"
                 />
                 <div className="flex flex-row items-center gap-x-2 my-4">
-                  <h1 className="flex-grow text-secondary">How many points should this award/cost?</h1>
-                  <input type="number" id="netPoints" name="netPoints" className="p-3 rounded-lg border focus:border-primaryDark bg-secondaryDark text-primary" onKeyPress={(e) => !/^(\-|[0-9])/.test(e.key) && e.preventDefault()} onChange={(e) => setNewScanForm((prev) => ({
-                    ...prev,
-                    netPoints: parseInt(e.target.value)
-                  }))} />
+                  <h1 className="flex-grow text-secondary">
+                    How many points should this award/cost?
+                  </h1>
+                  <input
+                    type="number"
+                    id="netPoints"
+                    name="netPoints"
+                    className="p-3 rounded-lg border focus:border-primaryDark bg-secondaryDark text-primary"
+                    onKeyPress={(e) => !/^(\-|[0-9])/.test(e.key) && e.preventDefault()}
+                    onChange={(e) =>
+                      setNewScanForm((prev) => ({
+                        ...prev,
+                        netPoints: parseInt(e.target.value),
+                      }))
+                    }
+                  />
                 </div>
                 <div className="flex flex-row items-center gap-x-2 my-4">
                   <input
@@ -445,7 +461,7 @@ export default function Admin() {
                 <div className="flex flex-col gap-3 w-full justify-center max-w-[57.5rem]">
                   {scansFetched &&
                     currentScan === undefined &&
-                    (currentScans).map((d, idx) => (
+                    currentScans.map((d, idx) => (
                       <ScanType
                         key={d.name}
                         data={d}
@@ -529,11 +545,23 @@ export default function Admin() {
                               />
                             </div>
                             <div className="flex flex-row items-center gap-x-2 my-4">
-                              <h1 className="flex-grow text-secondary">How many points should this award/cost?</h1>
-                              <input type="number" id="netPoints" name="netPoints" className="p-3 rounded-lg border focus:border-primaryDark bg-secondaryDark text-primary" onKeyPress={(e) => !/^(\-|[0-9])/.test(e.key)} value={currentEditScan.netPoints} onChange={(e) => setCurrentEditScan((prev) => ({
-                                ...prev,
-                                netPoints: parseInt(e.target.value)
-                              }))} />
+                              <h1 className="flex-grow text-secondary">
+                                How many points should this award/cost?
+                              </h1>
+                              <input
+                                type="number"
+                                id="netPoints"
+                                name="netPoints"
+                                className="p-3 rounded-lg border focus:border-primaryDark bg-secondaryDark text-primary"
+                                onKeyPress={(e) => !/^(\-|[0-9])/.test(e.key)}
+                                value={currentEditScan.netPoints}
+                                onChange={(e) =>
+                                  setCurrentEditScan((prev) => ({
+                                    ...prev,
+                                    netPoints: parseInt(e.target.value),
+                                  }))
+                                }
+                              />
                             </div>
                             <div className="flex flex-row items-center gap-x-2 my-4">
                               <input

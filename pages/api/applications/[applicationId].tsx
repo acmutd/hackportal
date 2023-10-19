@@ -56,11 +56,11 @@ async function handleGetApplication(req: NextApiRequest, res: NextApiResponse) {
         message: 'Application ID invalid, or the user is not registered.',
       });
     }
-    const userData = data.data()
+    const userData = data.data();
     // User doesnt have the "points" field, add it rq
     if (userData.user.points === undefined) {
-      userData.user.points = 0
-      await application.set(userData)
+      userData.user.points = 0;
+      await application.set(userData);
     }
 
     res.status(200).json(userData);

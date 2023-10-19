@@ -80,8 +80,8 @@ export default function ProfilePage({ applicationDecisions }) {
               loading={false}
               width={200}
               height={200}
-              darkColor="#000"//"#F6CC82"
-              lightColor="#FFF"//"#0000"
+              darkColor="#000" //"#F6CC82"
+              lightColor="#FFF" //"#0000"
             />
             <p className="text-center text-sm mt-2">{profile.user.group}</p>
           </div>

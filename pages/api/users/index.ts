@@ -22,7 +22,7 @@ export interface UserData {
     firstName: string;
     lastName: string;
     permissions: string[];
-    points: number
+    points: number;
   };
 }
 

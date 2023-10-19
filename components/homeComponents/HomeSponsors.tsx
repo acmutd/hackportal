@@ -164,6 +164,19 @@ export default function HomeSponsors() {
             objectFit="contain"
           />
         </a>
+        <a
+          href={'https://mule.to/p4zk'}
+          target="_blank"
+          className="relative w-72 h-32"
+          rel="noreferrer"
+        >
+          <Image
+            src={'/assets/sponsorLogos/mule.svg'}
+            alt="StickerMule"
+            layout="fill"
+            objectFit="contain"
+          />
+        </a>
       </section>
     </section>
   );

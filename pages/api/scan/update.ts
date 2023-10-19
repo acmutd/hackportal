@@ -10,7 +10,7 @@ const REGISTRATION_COLLECTION = '/registrations';
 
 async function checkIfNameAlreadyExists(oldName: string, name: string) {
   const snapshot = await db.collection(SCANTYPES_COLLECTION).where('name', '==', name).get();
-  if (oldName === name) return snapshot.docs.length > 1
+  if (oldName === name) return snapshot.docs.length > 1;
   return snapshot.docs.length >= 1;
 }
 

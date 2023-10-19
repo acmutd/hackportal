@@ -64,12 +64,12 @@ async function handleUserInfo(req: NextApiRequest, res: NextApiResponse) {
     const snapshot = await db.collection(REGISTRATION_COLLECTION).doc(userID).get();
     if (!snapshot.exists)
       return res.status(404).json({ code: 'not found', message: "User doesn't exist..." });
-    
-    const userData = snapshot.data()
+
+    const userData = snapshot.data();
     // User doesn't have "points" field, add it rq
     if (userData.user.points === undefined) {
-      userData.user.points = 0
-      await db.collection(REGISTRATION_COLLECTION).doc(userID).set(userData)
+      userData.user.points = 0;
+      await db.collection(REGISTRATION_COLLECTION).doc(userID).set(userData);
     }
 
     const statusSnapshot = await db.collection('acceptreject').get();
