@@ -111,15 +111,6 @@ export default function ProfilePage({ applicationDecisions }) {
               </p>
             </div>
           </div>
-          <button
-            type="button"
-            className="py-1 px-7 rounded-lg font-medium hover:bg-[#FFFCF9] bg-primaryDark text-secondary hover:text-primaryDark border-[1px] border-transparent hover:border-primaryDark transition duration-300 ease-in-out"
-            onClick={() => {
-              router.push('/register');
-            }}
-          >
-            Edit Application
-          </button>
         </div>
         {/* Info */}
         <div className="">
