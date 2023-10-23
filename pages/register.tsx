@@ -157,9 +157,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
 
   if (!allowedRegistrations) {
     return (
-      <h1 className="mx-auto text-2xl mt-4 font-bold">
-        Registrations is closed and no longer allowed
-      </h1>
+      <h1 className="mx-auto text-2xl mt-4 font-bold text-primary">Registrations are closed</h1>
     );
   }
 
