@@ -148,7 +148,7 @@ export default function UserPage() {
     };
     const newFilteredUser = users.filter(({ user, status }) => {
       if (
-        filterCriteria[user.permissions[0].toLowerCase()] & filterCriteria[status.toLowerCase()]
+        filterCriteria[user.permissions[0].toLowerCase()] && filterCriteria[status.toLowerCase()]
       ) {
         return true;
       }
