@@ -119,6 +119,7 @@ export default function UserPage() {
         : 'Waiting',
       selected: false,
     }));
+    usersData.sort(() => Math.random() - Math.random())
 
     setUsers(usersData);
     setFilteredUsers([...usersData.filter((user) => user.user.permissions.includes('hacker'))]);
