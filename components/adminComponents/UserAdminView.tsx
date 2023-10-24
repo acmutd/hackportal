@@ -26,13 +26,16 @@ export default function UserAdminView({
   onUpdateRole,
 }: UserAdminViewProps) {
   let currentUserIndex = 0;
-  const currentUser = allUsers.find((user, i) => {
+  let currentUser = users.find((user, i) => {
     if (user.id === currentUserId) {
       currentUserIndex = i;
       return true;
     }
     return false;
   });
+  if (!currentUser) {
+    currentUser = allUsers.find((user, i) => user.id === currentUserId)
+  }
 
   // Contains info of the user who is viewing the data
   const { user: organizer } = useAuthContext();
