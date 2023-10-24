@@ -397,6 +397,7 @@ export default function UserPage() {
           />
         ) : (
           <UserAdminView
+            allUsers={users}
             users={filteredUsers}
             currentUserId={currentUser}
             goBack={() => setCurrentUser('')}

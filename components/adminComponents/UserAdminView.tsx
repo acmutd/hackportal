@@ -6,6 +6,7 @@ import { CheckIcon, ChevronLeftIcon, ChevronRightIcon, XIcon } from '@heroicons/
 import Link from 'next/link';
 
 interface UserAdminViewProps {
+  allUsers: UserIdentifier[];
   users: UserIdentifier[];
   currentUserId: string;
   goBack: () => void;
@@ -16,6 +17,7 @@ interface UserAdminViewProps {
 }
 
 export default function UserAdminView({
+  allUsers,
   users,
   currentUserId,
   goBack,
@@ -24,7 +26,7 @@ export default function UserAdminView({
   onUpdateRole,
 }: UserAdminViewProps) {
   let currentUserIndex = 0;
-  const currentUser = users.find((user, i) => {
+  const currentUser = allUsers.find((user, i) => {
     if (user.id === currentUserId) {
       currentUserIndex = i;
       return true;
