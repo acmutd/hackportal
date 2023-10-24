@@ -14,6 +14,17 @@ import AllUsersAdminView from '../../components/adminComponents/AllUsersAdminVie
 import { RegistrationState } from '../../lib/util';
 import { Dialog, Transition } from '@headlessui/react';
 
+type FilterCriteria = {
+  hacker: boolean
+  sponsor: boolean
+  organizer: boolean
+  admin: boolean
+  super_admin: boolean
+  accepted: boolean
+  rejected: boolean
+  waiting: boolean
+}
+
 /**
  *
  * The User Dashboard of Admin Console. Shows all users that are registered in the system.
@@ -39,7 +50,7 @@ export default function UserPage() {
 
   let timer: NodeJS.Timeout;
 
-  const [filter, setFilter] = useState({
+  const [filter, setFilter] = useState<FilterCriteria>({
     hacker: true,
     sponsor: true,
     organizer: true,
@@ -49,6 +60,13 @@ export default function UserPage() {
     rejected: true,
     waiting: true,
   });
+
+  // Filters users based on a given filter criteria (typically the updated filter criteria)
+  const filterUsersOnCriteria = (users: UserIdentifier[], filterCriteria: FilterCriteria, searchQuery: string): UserIdentifier[] => {
+    return users.filter(({ user, status }) => filterCriteria[user.permissions[0].toLowerCase()] && filterCriteria[status.toLowerCase()] && (searchQuery !== '' ? `${user.firstName.trim()} ${user.lastName.trim()}`
+    .toLowerCase()
+    .indexOf(searchQuery.toLowerCase()) !== -1 : true))
+  }
 
   async function fetchInitData() {
     setLoading(true);
@@ -114,17 +132,7 @@ export default function UserPage() {
   useEffect(() => {
     if (loading) return;
     timer = setTimeout(() => {
-      if (searchQuery !== '') {
-        const newFiltered = users.filter(
-          ({ user }) =>
-            `${user.firstName.trim()} ${user.lastName.trim()}`
-              .toLowerCase()
-              .indexOf(searchQuery.toLowerCase()) !== -1,
-        );
-        setFilteredUsers(newFiltered);
-      } else {
-        setFilteredUsers([...users]);
-      }
+      setFilteredUsers(filterUsersOnCriteria(users, filter, searchQuery))
       // if user permission is admin, filter to hackers only
       if (user.permissions.includes('admin')) {
         setFilteredUsers([...users.filter((user) => user.user.permissions.includes('hacker'))]);
@@ -146,16 +154,8 @@ export default function UserPage() {
       ...filter,
       [name]: !filter[name],
     };
-    const newFilteredUser = users.filter(({ user, status }) => {
-      if (
-        filterCriteria[user.permissions[0].toLowerCase()] && filterCriteria[status.toLowerCase()]
-      ) {
-        return true;
-      }
-      return false;
-    });
 
-    setFilteredUsers(newFilteredUser);
+    setFilteredUsers(filterUsersOnCriteria(users, filterCriteria, searchQuery));
     setFilter(filterCriteria);
   };
 
