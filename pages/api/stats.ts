@@ -110,9 +110,9 @@ async function getStatsData(userId: string) {
 }
 
 async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
-  const { headers } = req;
+  const { headers, query: { id } } = req;
   const userToken = headers['authorization'];
-  const isAuthorized = await userIsAuthorized(userToken, ['super_admin']);
+  const isAuthorized = await userIsAuthorized(userToken, ["super_admin", 'admin']);
 
   if (!isAuthorized) {
     return res.status(403).json({
@@ -121,7 +121,7 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
   }
 
   // Start getting data here
-  const statsData = await getStatsData(userToken);
+  const statsData = await getStatsData(id as string);
   return res.json(statsData);
 }
 
