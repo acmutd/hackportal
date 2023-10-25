@@ -265,6 +265,7 @@ type GeneralStats = {
   adminCount: number;
   acceptedCount: number;
   rejectedCount: number;
+  reviewedCount: number;
   scans: Record<string, number>;
 };
 

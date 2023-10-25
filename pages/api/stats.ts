@@ -21,7 +21,7 @@ async function getCheckInEventName() {
   return checkInEventName;
 }
 
-async function getStatsData() {
+async function getStatsData(userId: string) {
   const checkInEventName = await getCheckInEventName();
   // const swagData: Record<string, number> = {};
   const statRecords: any = {};
@@ -36,6 +36,7 @@ async function getStatsData() {
     adminCount: 0,
     rejectedCount: 0,
     acceptedCount: 0,
+    reviewedCount: 0,
     scans: {},
     timestamp: {},
     group: {},
@@ -100,7 +101,9 @@ async function getStatsData() {
   decisionsSnapshot.forEach((doc) => {
     const data = doc.data();
     const decision = data.status ?? ""
+    const whoReviewed = data.adminId ?? ""
     if (decision) generalStats[`${decision.toLowerCase()}Count`] += 1
+    if (whoReviewed === userId) generalStats.reviewedCount += 1
   })
 
   return generalStats;
@@ -118,7 +121,7 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
   }
 
   // Start getting data here
-  const statsData = await getStatsData();
+  const statsData = await getStatsData(userToken);
   return res.json(statsData);
 }
 
