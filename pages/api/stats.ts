@@ -9,6 +9,7 @@ initializeApi();
 const db = firestore();
 
 const USERS_COLLECTION = '/registrations';
+const DECISIONS_COLLECTION = "/acceptreject"
 const SCANTYPES_COLLECTION = '/scan-types';
 
 async function getCheckInEventName() {
@@ -33,6 +34,8 @@ async function getStatsData() {
     checkedInCount: 0,
     hackerCount: 0,
     adminCount: 0,
+    rejectedCount: 0,
+    acceptedCount: 0,
     scans: {},
     timestamp: {},
     group: {},
@@ -60,7 +63,7 @@ async function getStatsData() {
       if (!userData[arrayField]) continue;
       userData[arrayField].forEach((data: string) => {
         if (arrayField === 'scans' && data === checkInEventName) generalStats.checkedInCount++;
-        else {
+        else if (generalStats[arrayField]) {
           if (!generalStats[arrayField].hasOwnProperty(data)) generalStats[arrayField][data] = 0;
           generalStats[arrayField][data]++;
         }
@@ -92,6 +95,13 @@ async function getStatsData() {
       }
     }
   });
+
+  const decisionsSnapshot = await db.collection(DECISIONS_COLLECTION).get();
+  decisionsSnapshot.forEach((doc) => {
+    const data = doc.data();
+    const decision = data.status ?? ""
+    if (decision) generalStats[`${decision.toLowerCase()}Count`] += 1
+  })
 
   return generalStats;
 }
