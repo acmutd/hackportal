@@ -263,6 +263,8 @@ type GeneralStats = {
   checkedInCount: number;
   hackerCount: number;
   adminCount: number;
+  acceptedCount: number;
+  rejectedCount: number;
   scans: Record<string, number>;
 };
 

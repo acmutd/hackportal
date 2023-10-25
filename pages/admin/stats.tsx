@@ -13,6 +13,7 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import { fieldToName } from '../../lib/stats/field';
 import NivoBarChart from '../../components/adminComponents/NivoBarChart';
 import NivoPieChart from '../../components/adminComponents/NivoPieChart';
+import { Cancel, SettingsInputCompositeRounded, StopCircleOutlined } from '@mui/icons-material';
 
 function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;
@@ -74,6 +75,10 @@ export default function AdminStatsPage() {
             title="Super Admin"
             value={statsData.superAdminCount}
           />
+        </div>
+        <div className="flex-col gap-y-3 w-full md:flex-row flex justify-around gap-x-6">
+          <AdminStatsCard className="flex-grow" icon={<CheckIcon className="text-green-500" />} title="Accepted Hackers" value={statsData.acceptedCount} />
+          <AdminStatsCard className="flex-grow" icon={<Cancel className="text-red-500" />} title="Rejected Hackers" value={statsData.rejectedCount} />
         </div>
         {Object.entries(statsData)
           .filter(([k, v]) => typeof v === 'object')
