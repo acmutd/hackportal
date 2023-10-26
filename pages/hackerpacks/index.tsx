@@ -20,7 +20,7 @@ export default function HackerPack(props: { content: any }) {
 
   return (
     <div className="bg-[url('/assets/hero-bg.png')] flex flex-col flex-grow text-2xl text-primary text-center pt-4">
-      More info coming soon!
+      Why you looking here?
     </div>
   );
 

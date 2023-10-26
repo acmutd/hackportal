@@ -8,7 +8,6 @@ export const navItems = [
   { text: 'Home', path: '/' },
   { text: 'Dashboard', path: '/dashboard' },
   { text: 'Schedule', path: '/schedule' },
-  { text: 'HackerPack', path: '/hackerpacks' },
 ];
 
 export const stats = [
