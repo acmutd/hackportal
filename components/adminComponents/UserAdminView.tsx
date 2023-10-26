@@ -85,7 +85,6 @@ export default function UserAdminView({
     const h = Math.max(60, ref.current.offsetHeight);
     setHeight(h);
     setCurrentPage(Math.floor(currentUserIndex / Math.floor(h / 60) + 1));
-    console.log(h, currentUserIndex);
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         goBack();

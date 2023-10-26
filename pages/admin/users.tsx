@@ -133,7 +133,6 @@ export default function UserPage() {
   useEffect(() => {
     if (loading) return;
     timer = setTimeout(() => {
-      setFilteredUsers(filterUsersOnCriteria(users, filter, searchQuery))
       // if user permission is admin, filter to hackers only
       if (user.permissions.includes('admin')) {
         setFilteredUsers([...users.filter((user) => user.user.permissions.includes('hacker'))]);
@@ -144,6 +143,7 @@ export default function UserPage() {
           super_admin: false,
         });
       }
+      setFilteredUsers(filterUsersOnCriteria(users, filter, searchQuery))
     }, 750);
     return () => {
       clearTimeout(timer);
@@ -213,13 +213,7 @@ export default function UserPage() {
               selected: false,
             })),
           );
-          setFilteredUsers((prev) =>
-            prev.map((user) => ({
-              ...user,
-              selected: false,
-              status: hackerIds.includes(user.id) ? status : user.status,
-            })),
-          );
+          setFilteredUsers(filterUsersOnCriteria(users, filter, searchQuery));
           alert('Hackers update success');
         }
       })

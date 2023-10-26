@@ -78,7 +78,6 @@ export default function Pagination({
     siblingCount,
     currentPage,
   });
-  console.log(totalCount, pageSize, siblingCount, currentPage, paginationRange);
   if (currentPage === 0 || paginationRange.length < 2) {
     return null;
   }
