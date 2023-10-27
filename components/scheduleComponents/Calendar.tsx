@@ -69,7 +69,9 @@ function CalendarGrid({
   events: ScheduleEvent[];
   onEventClick: (e: ScheduleEvent) => void;
 }) {
-  const minutesInDay = 60 * 24;
+  // const minutesInDay = 60 * 24;
+  // account for daylight savings time
+  const minutesInDay = date === HACK_DAY_1 ? 60 * 24 : 60 * 24 + 60; // i hate everything
   // start at hardcoded chosen time rather than 12:00 AM
   const startTime = date === HACK_DAY_1 ? new Date(2023, 1, 1, 9, 0) : new Date(2023, 1, 1, 0, 0);
   const startMin = startTime.getHours() * 60 + startTime.getMinutes();
@@ -252,6 +254,10 @@ function CalendarGrid({
       Array.from({ length: labeledSections }, (_, i) => {
         const time = new Date(date);
         time.setHours(0, i * increment + startMin, 0, 0);
+        // account for daylight savings time
+        if (date === HACK_DAY_2 && time.getHours() > 1) {
+          time.setHours(time.getHours() - 1);
+        }
         return (
           <div
             style={
