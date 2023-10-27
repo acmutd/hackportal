@@ -181,7 +181,7 @@ function CalendarGrid({
                 <span>{durationFormatter.formatRange(startDate, endDate)}</span>
               </div>
             )}
-            {rowEnd - rowStart > increment && event.location && (
+            {event.location && (
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
