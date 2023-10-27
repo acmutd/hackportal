@@ -9,10 +9,10 @@ import { CalendarIcon, ClockIcon, PencilAltIcon } from '@heroicons/react/outline
 
 const trackBackground = (track: string) => {
   // FIXME: these need to match exactly. is this how events will be created>
-  if (track === 'Events & Sponsors') return 'linear-gradient(180deg, #F6D498 0%, #D3A85B 100%)';
-  if (track === 'Workshops & Tech Talks')
+  if (track === 'General') return 'linear-gradient(180deg, #F6D498 0%, #D3A85B 100%)';
+  if (track === 'Club' || track == 'Company')
     return 'linear-gradient(180deg, #FFF1E4 0%, #FFB1A0 100%)';
-  if (track === 'Socials') return 'linear-gradient(180deg, #EEE 0%, #B9B9B9 100%)';
+  if (track === 'Social') return 'linear-gradient(180deg, #EEE 0%, #B9B9B9 100%)';
   else return 'linear-gradient(180deg, #F6D498 0%, #D3A85B 100%)';
 };
 
@@ -93,6 +93,10 @@ export default function SchedulePage(props: { scheduleCard: ScheduleEvent[] }) {
     track: track,
     background: trackBackground(track),
   }));
+  // sort tracks to bring general to the front. other than that, we don't care.
+  tracks.sort((x, y) => {
+    return x.track === 'General' ? -1 : y.track === 'General' ? 1 : 0;
+  });
 
   return (
     <>
