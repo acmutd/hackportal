@@ -158,12 +158,12 @@ function CalendarGrid({
                 marginRight: marginRight,
               } as CSSProperties
             }
-            className="rounded-md p-2 z-10 shadow"
+            className="rounded-md p-2 z-[9] shadow"
             onClick={() => onEventClick(event)}
           >
-            <div className="text-xl">{event.title}</div>
+            <div className="sm:text-xl">{event.title}</div>
             {rowEnd - rowStart > increment && (
-              <div className="lowercase">
+              <div className="lowercase text-xs sm:text-sm">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -182,7 +182,7 @@ function CalendarGrid({
               </div>
             )}
             {event.location && (
-              <div>
+              <div className="text-xs sm:text-sm">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
