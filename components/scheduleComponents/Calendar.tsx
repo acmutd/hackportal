@@ -161,7 +161,7 @@ function CalendarGrid({
             className="rounded-md p-2 z-[9] shadow"
             onClick={() => onEventClick(event)}
           >
-            <div className="sm:text-xl">{event.title}</div>
+            <div>{event.title}</div>
             {rowEnd - rowStart > increment && (
               <div className="lowercase text-xs sm:text-sm">
                 <svg
@@ -182,7 +182,7 @@ function CalendarGrid({
               </div>
             )}
             {event.location && (
-              <div className="text-xs sm:text-sm">
+              <div className="text-sm">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
