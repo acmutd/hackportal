@@ -54,11 +54,13 @@ function Toolbar({ date, setDate }) {
 
 // TODO: support start/end time
 function CalendarGrid({
+  date,
   increment,
   tracks,
   events,
   onEventClick,
 }: {
+  date: Date;
   increment: number;
   tracks: {
     track: string;
@@ -69,7 +71,7 @@ function CalendarGrid({
 }) {
   const minutesInDay = 60 * 24;
   // start at hardcoded chosen time rather than 12:00 AM
-  const startTime = new Date(2023, 1, 1, 9, 0);
+  const startTime = date === HACK_DAY_1 ? new Date(2023, 1, 1, 9, 0) : new Date(2023, 1, 1, 0, 0);
   const startMin = startTime.getHours() * 60 + startTime.getMinutes();
   // number of sections labeled by time
   const labeledSections = useMemo(
@@ -150,7 +152,7 @@ function CalendarGrid({
             className="rounded-md p-2 z-10 shadow"
             onClick={() => onEventClick(event)}
           >
-            <div className="text-2xl">{event.title}</div>
+            <div className="text-xl">{event.title}</div>
             {event.type && (
               <div className="lowercase">
                 <svg
@@ -248,7 +250,7 @@ function CalendarGrid({
   const Labels = useMemo(
     () =>
       Array.from({ length: labeledSections }, (_, i) => {
-        const time = new Date();
+        const time = new Date(date);
         time.setHours(0, i * increment + startMin, 0, 0);
         return (
           <div
@@ -278,7 +280,7 @@ function CalendarGrid({
         className="w-full overflow-x-auto grid gap-0 grid-cols-[max-content,minmax(218px,1fr)] font-secondary"
         style={
           {
-            gridTemplateRows: `repeat(${minutesInDay - startMin + increment}, 1.6px)`,
+            gridTemplateRows: `repeat(${minutesInDay - startMin + increment}, 2px)`,
           } as CSSProperties
         }
       >
@@ -322,6 +324,7 @@ export default function Calendar(props: {
       <div>
         <div>
           <CalendarGrid
+            date={date}
             increment={30}
             tracks={relevantTracks}
             events={daysEvents}
