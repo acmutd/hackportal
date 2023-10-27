@@ -88,6 +88,13 @@ function CalendarGrid({
         // convert to Date (just in case; idempotent)
         const startDate = new Date(event.startDate);
         const endDate = new Date(event.endDate);
+        // account for daylight savings time
+        if (date === HACK_DAY_2 && startDate.getHours() > 1) {
+          startDate.setHours(startDate.getHours() - 1);
+        }
+        if (date === HACK_DAY_2 && endDate.getHours() > 1) {
+          endDate.setHours(endDate.getHours() - 1);
+        }
         // get offset from start time in minutes
         const start = Math.max(startDate.getHours() * 60 + startDate.getMinutes() - startMin, 0);
         const end = Math.max(endDate.getHours() * 60 + endDate.getMinutes() - startMin, 0);
@@ -155,8 +162,29 @@ function CalendarGrid({
             onClick={() => onEventClick(event)}
           >
             <div className="text-xl">{event.title}</div>
-            {event.type && (
-              <div className="lowercase">
+            {rowEnd - rowStart > increment && (
+              <div className="flex flex-col flex-wrap h-full">
+                <div className="lowercase">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6 m-1 inline-block"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>{durationFormatter.formatRange(startDate, endDate)}</span>
+                </div>
+              </div>
+            )}
+            {rowEnd - rowStart > increment && event.location && (
+              <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -168,34 +196,17 @@ function CalendarGrid({
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                    d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
                   />
                 </svg>
-                <span>{durationFormatter.formatRange(startDate, endDate)}</span>
+                <span>{event.location}</span>
               </div>
             )}
-            <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6 m-1 inline-block"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-                />
-              </svg>
-              <span>{event.location}</span>
-            </div>
           </div>
         );
       }),
@@ -283,7 +294,7 @@ function CalendarGrid({
   return (
     <div>
       <div
-        className="w-full overflow-x-auto grid gap-0 grid-cols-[max-content,minmax(218px,1fr)] font-secondary"
+        className="w-full overflow-x-auto grid gap-0 auto-cols-[1fr] grid-cols-[max-content] font-secondary"
         style={
           {
             gridTemplateRows: `repeat(${minutesInDay - startMin + increment}, 2px)`,
