@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import DashboardHeader from '../../components/dashboardComponents/DashboardHeader';
 import { useUser } from '../../lib/profile/user-data';
 import { useAuthContext } from '../../lib/user/AuthContext';
@@ -11,6 +12,7 @@ import { GetServerSideProps } from 'next';
 import { RequestHelper } from '../../lib/request-helper';
 import { useFCMContext } from '../../lib/service-worker/FCMContext';
 import SpotlightCard from '../../components/dashboardComponents/SpotlightCard';
+import HackerPackCard from '../../components/dashboardComponents/HackerPackCard';
 
 /**
  * The dashboard / hack center.
@@ -135,6 +137,24 @@ export default function Dashboard(props: {
                   );
                 })}
               </div>
+            </div>
+          </div>
+          {/* HackerPack Section */}
+          <div className="hoefler-text lg:mt-28 mt-20 mb-16">
+            <h1 className="xl:text-5xl lg:text-4xl text-3xl font-black text-[#FFFCF9]">
+              HackerPacks
+            </h1>
+            <div className="mb-4 mt-2 text-secondary md:text-lg sm:text-base text-xs">
+              HackerPacks contain all the information you&rsquo;ll need regarding specific parts
+              before or during the event. Click on any of the hackerpacks below for more
+              information.
+            </div>
+            <div className="grid 2xl:grid-cols-5 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+              <HackerPackCard
+                name="Travel"
+                link="https://hackutd.notion.site/Travel-Hackerpack-e4dd9f55947b46a89bd95fd6dd4e08a7?pvs=25"
+                redirect="/hackerpacks/travel"
+              />
             </div>
           </div>
         </section>

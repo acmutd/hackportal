@@ -10,7 +10,7 @@ interface AdminStatsCardProps extends HTMLProps<HTMLDivElement> {
 
 export default function AdminStatsCard({ title, value, icon, className }: AdminStatsCardProps) {
   return (
-    <div className={`border-2 p-5 flex flex-col rounded-xl text-secondary ${className ?? ""}`}>
+    <div className={`border-2 p-5 flex flex-col rounded-xl text-secondary ${className ?? ''}`}>
       <div className="flex items-center gap-x-6">
         {icon}
         <div className="flex flex-col">

@@ -34,7 +34,7 @@ export default function UserAdminView({
     return false;
   });
   if (!currentUser) {
-    currentUser = allUsers.find((user, i) => user.id === currentUserId)
+    currentUser = allUsers.find((user, i) => user.id === currentUserId);
   }
 
   // Contains info of the user who is viewing the data

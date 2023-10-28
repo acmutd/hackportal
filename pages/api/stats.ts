@@ -9,7 +9,7 @@ initializeApi();
 const db = firestore();
 
 const USERS_COLLECTION = '/registrations';
-const DECISIONS_COLLECTION = "/acceptreject"
+const DECISIONS_COLLECTION = '/acceptreject';
 const SCANTYPES_COLLECTION = '/scan-types';
 
 async function getCheckInEventName() {
@@ -100,19 +100,22 @@ async function getStatsData(userId: string) {
   const decisionsSnapshot = await db.collection(DECISIONS_COLLECTION).get();
   decisionsSnapshot.forEach((doc) => {
     const data = doc.data();
-    const decision = data.status ?? ""
-    const whoReviewed = data.adminId ?? ""
-    if (decision) generalStats[`${decision.toLowerCase()}Count`] += 1
-    if (whoReviewed === userId) generalStats.reviewedCount += 1
-  })
+    const decision = data.status ?? '';
+    const whoReviewed = data.adminId ?? '';
+    if (decision) generalStats[`${decision.toLowerCase()}Count`] += 1;
+    if (whoReviewed === userId) generalStats.reviewedCount += 1;
+  });
 
   return generalStats;
 }
 
 async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
-  const { headers, query: { id } } = req;
+  const {
+    headers,
+    query: { id },
+  } = req;
   const userToken = headers['authorization'];
-  const isAuthorized = await userIsAuthorized(userToken, ["super_admin", 'admin']);
+  const isAuthorized = await userIsAuthorized(userToken, ['super_admin', 'admin']);
 
   if (!isAuthorized) {
     return res.status(403).json({
