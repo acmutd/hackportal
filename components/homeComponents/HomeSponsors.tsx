@@ -43,7 +43,7 @@ export default function HomeSponsors() {
         <a
           href={'https://leap.fidelitycareers.com'}
           target="_blank"
-          className="relative w-[22rem] h-20 "
+          className="relative w-[22rem] h-20"
           rel="noreferrer"
         >
           <Image
@@ -62,6 +62,19 @@ export default function HomeSponsors() {
           <Image
             src={'/assets/sponsorLogos/StateFarm.png'}
             alt="StateFarm"
+            layout="fill"
+            objectFit="contain"
+          />
+        </a>
+        <a
+          href={'https://www.eogresources.com/culture/'}
+          target="_blank"
+          className="relative w-40 h-48"
+          rel="noreferrer"
+        >
+          <Image
+            src={'/assets/sponsorLogos/EOGResources.png'}
+            alt="EOGResources"
             layout="fill"
             objectFit="contain"
           />
