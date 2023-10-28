@@ -88,57 +88,59 @@ export default function Dashboard(props: {
         <section id="mainContent" className="2xl:px-32 md:px-16 px-6 w-full">
           <DashboardHeader />
           {/* Spotlight & Announcements */}
-          <div className="flex flex-wrap justify-between  md:my-16 my-10 hoefler-text">
-            {/* Spotlight Events */}
-            {/* Hides spotlight if no events are going on */}
-            {eventCount > 0 && (
-              <div className="lg:w-7/12 w-full h-96">
-                <h1 className="xl:text-5xl lg:text-4xl text-3xl text-[#FFFCF9] font-black mb-4">
-                  Happening Now &#40;{eventCount} event{eventCount === 1 ? '' : 's'}&#41;
-                </h1>
-                <div className="overflow-y-scroll h-9/10 scrollbar-white">
-                  {props.scheduleEvents.map(
-                    ({ title, speakers, startTimestamp, endTimestamp, location, page }, idx) =>
-                      validTimeDate(startTimestamp, endTimestamp) && (
-                        <div className="">
-                          {/* Customize Spotlight card design for carousel in  SpotlightCard component file*/}
-                          <SpotlightCard
-                            title={title}
-                            speakers={speakers}
-                            startDate={startTimestamp}
-                            location={location}
-                            endDate={endTimestamp}
-                            page={page}
-                          />
-                        </div>
-                      ),
-                  )}
+          {(eventCount > 0 || announcements.length > 0) && (
+            <div className="flex flex-wrap justify-between  md:my-16 my-10 hoefler-text">
+              {/* Spotlight Events */}
+              {/* Hides spotlight if no events are going on */}
+              {eventCount > 0 && (
+                <div className="lg:w-7/12 w-full h-96">
+                  <h1 className="xl:text-5xl lg:text-4xl text-3xl text-[#FFFCF9] font-black mb-4">
+                    Happening Now &#40;{eventCount} event{eventCount === 1 ? '' : 's'}&#41;
+                  </h1>
+                  <div className="overflow-y-scroll h-9/10 scrollbar-white">
+                    {props.scheduleEvents.map(
+                      ({ title, speakers, startTimestamp, endTimestamp, location, page }, idx) =>
+                        validTimeDate(startTimestamp, endTimestamp) && (
+                          <div className="">
+                            {/* Customize Spotlight card design for carousel in  SpotlightCard component file*/}
+                            <SpotlightCard
+                              title={title}
+                              speakers={speakers}
+                              startDate={startTimestamp}
+                              location={location}
+                              endDate={endTimestamp}
+                              page={page}
+                            />
+                          </div>
+                        ),
+                    )}
+                  </div>
+                  <div />
                 </div>
-                <div />
-              </div>
-            )}
-            {/* Announcements */}
-            <div className={`${eventCount > 0 ? 'lg:w-2/5' : 'lg:w-full'} w-full h-96`}>
-              <h1 className="xl:text-5xl lg:text-4xl text-3xl font-black text-[#FFFCF9] mb-4">
-                Announcements
-              </h1>
-              <div id="announcement-items" className="overflow-y-scroll h-9/10 scrollbar-white">
-                {announcements.map((announcement, idx) => {
-                  const dateObj = new Date(announcement.timestamp!);
-                  const hour = dateObj.getHours(),
-                    minutes = dateObj.getMinutes();
+              )}
+              {/* Announcements */}
+              <div className={`${eventCount > 0 ? 'lg:w-2/5' : 'lg:w-full'} w-full h-96`}>
+                <h1 className="xl:text-5xl lg:text-4xl text-3xl font-black text-[#FFFCF9] mb-4">
+                  Announcements
+                </h1>
+                <div id="announcement-items" className="overflow-y-scroll h-9/10 scrollbar-white">
+                  {announcements.map((announcement, idx) => {
+                    const dateObj = new Date(announcement.timestamp!);
+                    const hour = dateObj.getHours(),
+                      minutes = dateObj.getMinutes();
 
-                  const time = `${hour < 10 ? '0' : ''}${hour}:${
-                    minutes < 10 ? '0' : ''
-                  }${minutes}`;
+                    const time = `${hour < 10 ? '0' : ''}${hour}:${
+                      minutes < 10 ? '0' : ''
+                    }${minutes}`;
 
-                  return (
-                    <AnnouncementCard key={idx} text={announcement.announcement} time={time} />
-                  );
-                })}
+                    return (
+                      <AnnouncementCard key={idx} text={announcement.announcement} time={time} />
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
+          )}
           {/* HackerPack Section */}
           <div className="hoefler-text lg:mt-28 mt-20 mb-16">
             <h1 className="xl:text-5xl lg:text-4xl text-3xl font-black text-[#FFFCF9]">
