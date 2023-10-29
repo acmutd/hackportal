@@ -282,7 +282,9 @@ export default function Admin() {
             !startScan &&
             user.permissions.includes('super_admin') && (
               <div className="mx-auto my-5 w-full flex">
-                {[/*'Normal', 'Swag'*/].map((t) => (
+                {[
+                  /*'Normal', 'Swag'*/
+                ].map((t) => (
                   <button
                     key={t}
                     className="py-4 px-4 mr-8 flex font-bold rounded-2xl hover:bg-secondary bg-primaryDark text-secondary hover:text-primaryDark border-[1px] border-transparent hover:border-primaryDark transition duration-300 ease-in-out"

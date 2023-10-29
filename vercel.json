@@ -4,6 +4,26 @@
       "source": "/discord",
       "destination": "https://discord.com/invite/TZq3Uv48Bf",
       "statusCode": 301
+    },
+    {
+      "source": "/hackerpacks/general",
+      "destination": "https://hackutd.notion.site/Hackerpack-39b7dc396a3847749cf25303101022db?pvs=4",
+      "statusCode": 301
+    },
+    {
+      "source": "/hackerpacks/mentor",
+      "destination": "https://hackutd.notion.site/Mentor-Hackerpack-2208c0f98102462290c0f750c570ef67?pvs=25",
+      "statusCode": 301
+    },
+    {
+      "source": "/hackerpacks/travel",
+      "destination": "https://hackutd.notion.site/Travel-Hackerpack-e4dd9f55947b46a89bd95fd6dd4e08a7?pvs=25",
+      "statusCode": 301
+    },
+    {
+      "source": "/hackerpacks/volunteer",
+      "destination": "https://hackutd.notion.site/Volunteer-Hackerpack-aa360ba37d4c4b3aa71713c06df94c0d?pvs=25",
+      "statusCode": 301
     }
   ]
 }

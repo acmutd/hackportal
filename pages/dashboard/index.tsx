@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import DashboardHeader from '../../components/dashboardComponents/DashboardHeader';
 import { useUser } from '../../lib/profile/user-data';
 import { useAuthContext } from '../../lib/user/AuthContext';
@@ -11,14 +12,7 @@ import { GetServerSideProps } from 'next';
 import { RequestHelper } from '../../lib/request-helper';
 import { useFCMContext } from '../../lib/service-worker/FCMContext';
 import SpotlightCard from '../../components/dashboardComponents/SpotlightCard';
-import ChallengeCard from '../../components/dashboardComponents/ChallengeCard';
-
-import { Navigation, Pagination, A11y } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
+import HackerPackCard from '../../components/dashboardComponents/HackerPackCard';
 
 /**
  * The dashboard / hack center.
@@ -31,13 +25,12 @@ import 'swiper/css/scrollbar';
 export default function Dashboard(props: {
   announcements: Announcement[];
   scheduleEvents: ScheduleEvent[];
-  challenges: Challenge[];
 }) {
-  return (
-    <div className="flex flex-col flex-grow text-2xl text-primary text-center pt-4">
-      More info coming soon!
-    </div>
-  );
+  // return (
+  //   <div className="flex flex-col flex-grow text-2xl text-primary text-center pt-4">
+  //     More info coming soon!
+  //   </div>
+  // );
 
   const { isSignedIn, hasProfile } = useAuthContext();
   const user = useUser();
@@ -45,12 +38,9 @@ export default function Dashboard(props: {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [dateTime, setdateTime] = useState(new Date());
   const [eventCount, setEventCount] = useState(0);
-  const [challenges, setChallenges] = useState<Challenge[]>([]);
 
   useEffect(() => {
     setAnnouncements(props.announcements);
-    // ordering challenges as speficied in firebase
-    setChallenges(props.challenges.sort((a, b) => (a.rank > b.rank ? 1 : -1)));
     if (firebase.messaging.isSupported()) {
       firebase.messaging().onMessage((payload) => {
         setAnnouncements((prev) => [
@@ -95,72 +85,78 @@ export default function Dashboard(props: {
           <meta name="description" content="HackUTD X's Dashboard" />
         </Head>
 
-        <section id="mainContent" className="2xl:px-32 md:px-16 px-6">
+        <section id="mainContent" className="2xl:px-32 md:px-16 px-6 w-full">
           <DashboardHeader />
           {/* Spotlight & Announcements */}
-          <div className="flex flex-wrap justify-between  md:my-16 my-10 hoefler-text">
-            {/* Spotlight Events */}
-            {/* Hides spotlight if no events are going on */}
-            {eventCount > 0 && (
-              <div className="lg:w-7/12 w-full h-96">
-                <h1 className="xl:text-5xl lg:text-4xl text-3xl text-[#FFFCF9] font-black mb-4">
-                  Happening Now &#40;{eventCount} event{eventCount === 1 ? '' : 's'}&#41;
-                </h1>
-                <div className="overflow-y-scroll h-9/10 scrollbar-white">
-                  {props.scheduleEvents.map(
-                    ({ title, speakers, startTimestamp, endTimestamp, location, page }, idx) =>
-                      validTimeDate(startTimestamp, endTimestamp) && (
-                        <div className="">
-                          {/* Customize Spotlight card design for carousel in  SpotlightCard component file*/}
-                          <SpotlightCard
-                            title={title}
-                            speakers={speakers}
-                            startDate={startTimestamp}
-                            location={location}
-                            endDate={endTimestamp}
-                            page={page}
-                          />
-                        </div>
-                      ),
-                  )}
+          {(eventCount > 0 || announcements.length > 0) && (
+            <div className="flex flex-wrap justify-between  md:my-16 my-10 hoefler-text">
+              {/* Spotlight Events */}
+              {/* Hides spotlight if no events are going on */}
+              {eventCount > 0 && (
+                <div className="lg:w-7/12 w-full h-96">
+                  <h1 className="xl:text-5xl lg:text-4xl text-3xl text-[#FFFCF9] font-black mb-4">
+                    Happening Now &#40;{eventCount} event{eventCount === 1 ? '' : 's'}&#41;
+                  </h1>
+                  <div className="overflow-y-scroll h-9/10 scrollbar-white">
+                    {props.scheduleEvents.map(
+                      ({ title, speakers, startTimestamp, endTimestamp, location, page }, idx) =>
+                        validTimeDate(startTimestamp, endTimestamp) && (
+                          <div className="">
+                            {/* Customize Spotlight card design for carousel in  SpotlightCard component file*/}
+                            <SpotlightCard
+                              title={title}
+                              speakers={speakers}
+                              startDate={startTimestamp}
+                              location={location}
+                              endDate={endTimestamp}
+                              page={page}
+                            />
+                          </div>
+                        ),
+                    )}
+                  </div>
+                  <div />
                 </div>
-                <div />
-              </div>
-            )}
-            {/* Announcements */}
-            <div className={`${eventCount > 0 ? 'lg:w-2/5' : 'lg:w-full'} w-full h-96`}>
-              <h1 className="xl:text-5xl lg:text-4xl text-3xl font-black text-[#FFFCF9] mb-4">
-                Announcements
-              </h1>
-              <div id="announcement-items" className="overflow-y-scroll h-9/10 scrollbar-white">
-                {announcements.map((announcement, idx) => {
-                  const dateObj = new Date(announcement.timestamp!);
-                  const hour = dateObj.getHours(),
-                    minutes = dateObj.getMinutes();
+              )}
+              {/* Announcements */}
+              <div className={`${eventCount > 0 ? 'lg:w-2/5' : 'lg:w-full'} w-full h-96`}>
+                <h1 className="xl:text-5xl lg:text-4xl text-3xl font-black text-[#FFFCF9] mb-4">
+                  Announcements
+                </h1>
+                <div id="announcement-items" className="overflow-y-scroll h-9/10 scrollbar-white">
+                  {announcements.map((announcement, idx) => {
+                    const dateObj = new Date(announcement.timestamp!);
+                    const hour = dateObj.getHours(),
+                      minutes = dateObj.getMinutes();
 
-                  const time = `${hour < 10 ? '0' : ''}${hour}:${
-                    minutes < 10 ? '0' : ''
-                  }${minutes}`;
+                    const time = `${hour < 10 ? '0' : ''}${hour}:${
+                      minutes < 10 ? '0' : ''
+                    }${minutes}`;
 
-                  return (
-                    <AnnouncementCard key={idx} text={announcement.announcement} time={time} />
-                  );
-                })}
+                    return (
+                      <AnnouncementCard key={idx} text={announcement.announcement} time={time} />
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* Challenges */}
-          <h1 className="md:text-5xl text-3xl font-black text-[#FFFCF9] hoefler-text mb-4 2xl:mt-28 md:mt-20">
-            Challenges
-          </h1>
-
-          <div className="flex flex-col items-center">
-            {/* Cards */}
-            <div className="challengeGrid">
-              {challenges.map(({ title, description, prizes }, idx) => (
-                <ChallengeCard key={idx} title={title} description={description} prizes={prizes} />
-              ))}
+          )}
+          {/* HackerPack Section */}
+          <div className="hoefler-text lg:mt-28 mt-20 mb-16">
+            <h1 className="xl:text-5xl lg:text-4xl text-3xl font-black text-[#FFFCF9]">
+              HackerPacks
+            </h1>
+            <div className="mb-4 mt-2 text-secondary md:text-lg sm:text-base text-xs">
+              HackerPacks contain all the information you&rsquo;ll need regarding specific parts
+              before or during the event. Click on any of the hackerpacks below for more
+              information.
+            </div>
+            <div className="grid 2xl:grid-cols-5 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+              <HackerPackCard
+                name="Travel"
+                link="https://hackutd.notion.site/Travel-Hackerpack-e4dd9f55947b46a89bd95fd6dd4e08a7?pvs=25"
+                redirect="/hackerpacks/travel"
+              />
             </div>
           </div>
         </section>
@@ -179,16 +175,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/schedule/`,
     {},
   );
-  const { data: challengeData } = await RequestHelper.get<Challenge[]>(
-    `${protocol}://${context.req.headers.host}/api/challenges/`,
-    {},
-  );
 
   return {
     props: {
       announcements: announcementData,
       scheduleEvents: eventData,
-      challenges: challengeData,
     },
   };
 };

@@ -18,7 +18,10 @@ import { InfoCircleOutlined } from '@ant-design/icons';
 
 function isAuthorized(user): boolean {
   if (!user || !user.permissions) return false;
-  return (user.permissions as string[]).includes('admin') || (user.permissions as string[]).includes("super_admin")
+  return (
+    (user.permissions as string[]).includes('admin') ||
+    (user.permissions as string[]).includes('super_admin')
+  );
 }
 
 export default function AdminStatsPage() {
@@ -28,12 +31,14 @@ export default function AdminStatsPage() {
 
   useEffect(() => {
     async function getData() {
-      const { data } = await RequestHelper.get<GeneralStats & { timestamp: any }>(`/api/stats?id=${user.id}`, {
-        headers: {
-          Authorization: user.token,
+      const { data } = await RequestHelper.get<GeneralStats & { timestamp: any }>(
+        `/api/stats?id=${user.id}`,
+        {
+          headers: {
+            Authorization: user.token,
+          },
         },
-
-      });
+      );
       setStatsData(data);
       setLoading(false);
     }
@@ -79,9 +84,24 @@ export default function AdminStatsPage() {
           />
         </div>
         <div className="flex-col gap-y-3 w-full md:flex-row flex justify-around gap-x-6">
-          <AdminStatsCard className="flex-grow" icon={<CheckIcon className="text-green-500" />} title="Accepted Hackers" value={statsData.acceptedCount} />
-          <AdminStatsCard className="flex-grow" icon={<Cancel className="text-red-500" />} title="Rejected Hackers" value={statsData.rejectedCount} />
-          <AdminStatsCard className="flex-grow" icon={<InfoCircleOutlined className="text-purple-500" />} title="Applications You've Reviewed" value={statsData.reviewedCount} />
+          <AdminStatsCard
+            className="flex-grow"
+            icon={<CheckIcon className="text-green-500" />}
+            title="Accepted Hackers"
+            value={statsData.acceptedCount}
+          />
+          <AdminStatsCard
+            className="flex-grow"
+            icon={<Cancel className="text-red-500" />}
+            title="Rejected Hackers"
+            value={statsData.rejectedCount}
+          />
+          <AdminStatsCard
+            className="flex-grow"
+            icon={<InfoCircleOutlined className="text-purple-500" />}
+            title="Applications You've Reviewed"
+            value={statsData.reviewedCount}
+          />
         </div>
         {Object.entries(statsData)
           .filter(([k, v]) => typeof v === 'object')

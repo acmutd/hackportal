@@ -15,15 +15,15 @@ import { RegistrationState } from '../../lib/util';
 import { Dialog, Transition } from '@headlessui/react';
 
 type FilterCriteria = {
-  hacker: boolean
-  sponsor: boolean
-  organizer: boolean
-  admin: boolean
-  super_admin: boolean
-  accepted: boolean
-  rejected: boolean
-  waiting: boolean
-}
+  hacker: boolean;
+  sponsor: boolean;
+  organizer: boolean;
+  admin: boolean;
+  super_admin: boolean;
+  accepted: boolean;
+  rejected: boolean;
+  waiting: boolean;
+};
 
 /**
  *
@@ -62,11 +62,22 @@ export default function UserPage() {
   });
 
   // Filters users based on a given filter criteria (typically the updated filter criteria)
-  const filterUsersOnCriteria = (users: UserIdentifier[], filterCriteria: FilterCriteria, searchQuery: string): UserIdentifier[] => {
-    return users.filter(({ user, status }) => filterCriteria[user.permissions[0].toLowerCase()] && filterCriteria[status.toLowerCase()] && (searchQuery !== '' ? `${user.firstName.trim()} ${user.lastName.trim()}`
-    .toLowerCase()
-    .indexOf(searchQuery.toLowerCase()) !== -1 : true))
-  }
+  const filterUsersOnCriteria = (
+    users: UserIdentifier[],
+    filterCriteria: FilterCriteria,
+    searchQuery: string,
+  ): UserIdentifier[] => {
+    return users.filter(
+      ({ user, status }) =>
+        filterCriteria[user.permissions[0].toLowerCase()] &&
+        filterCriteria[status.toLowerCase()] &&
+        (searchQuery !== ''
+          ? `${user.firstName.trim()} ${user.lastName.trim()}`
+              .toLowerCase()
+              .indexOf(searchQuery.toLowerCase()) !== -1
+          : true),
+    );
+  };
 
   async function fetchInitData() {
     setLoading(true);
@@ -119,7 +130,7 @@ export default function UserPage() {
         : 'Waiting',
       selected: false,
     }));
-    usersData.sort(() => Math.random() - Math.random())
+    usersData.sort(() => Math.random() - Math.random());
 
     setUsers(usersData);
     setFilteredUsers([...usersData.filter((user) => user.user.permissions.includes('hacker'))]);
@@ -143,7 +154,7 @@ export default function UserPage() {
           super_admin: false,
         });
       }
-      setFilteredUsers(filterUsersOnCriteria(users, filter, searchQuery))
+      setFilteredUsers(filterUsersOnCriteria(users, filter, searchQuery));
     }, 750);
     return () => {
       clearTimeout(timer);
