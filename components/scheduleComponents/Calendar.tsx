@@ -180,7 +180,7 @@ function CalendarGrid({
               </div>
             )}
             {event.location && (
-              <div className="text-sm">
+              <div className="text-xs sm:text-sm">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
