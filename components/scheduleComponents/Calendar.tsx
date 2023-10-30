@@ -290,7 +290,7 @@ function CalendarGrid({
   return (
     <div>
       <div
-        className="w-full overflow-x-auto grid gap-0 auto-cols-[1fr] grid-cols-[max-content] font-secondary"
+        className="w-full overflow-x-auto grid gap-0 auto-cols-[minmax(220px,1fr)] grid-cols-[max-content] font-secondary"
         style={
           {
             gridTemplateRows: `repeat(${minutesInDay - startMin + increment}, 2px)`,
