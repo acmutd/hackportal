@@ -89,15 +89,13 @@ function CalendarGrid({
         const startDate = new Date(event.startDate);
         const endDate = new Date(event.endDate);
         // account for daylight savings time
-        if (date === HACK_DAY_2 && startDate.getHours() > 1) {
-          startDate.setHours(startDate.getHours() + 1);
-        }
-        if (date === HACK_DAY_2 && endDate.getHours() > 1) {
-          endDate.setHours(endDate.getHours() + 1);
-        }
+        const startHour =
+          startDate.getHours() + (date === HACK_DAY_2 && startDate.getHours() > 1 ? 1 : 0);
+        const endHour =
+          endDate.getHours() + (date === HACK_DAY_2 && endDate.getHours() > 1 ? 1 : 0);
         // get offset from start time in minutes
-        const start = Math.max(startDate.getHours() * 60 + startDate.getMinutes() - startMin, 0);
-        const end = Math.max(endDate.getHours() * 60 + endDate.getMinutes() - startMin, 0);
+        const start = Math.max(startHour * 60 + startDate.getMinutes() - startMin, 0);
+        const end = Math.max(endHour * 60 + endDate.getMinutes() - startMin, 0);
         // compute row start from start time (or go to the start of the schedule if the event starts on the previous day)
         const rowStart = start < end ? increment + start + 1 + 1 : 0;
         // compute row end from end time (or go to the end of the schedule if the event ends on the next day)
