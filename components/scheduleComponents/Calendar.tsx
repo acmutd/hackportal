@@ -90,10 +90,10 @@ function CalendarGrid({
         const endDate = new Date(event.endDate);
         // account for daylight savings time
         if (date === HACK_DAY_2 && startDate.getHours() > 1) {
-          startDate.setHours(startDate.getHours() - 1);
+          startDate.setHours(startDate.getHours() + 1);
         }
         if (date === HACK_DAY_2 && endDate.getHours() > 1) {
-          endDate.setHours(endDate.getHours() - 1);
+          endDate.setHours(endDate.getHours() + 1);
         }
         // get offset from start time in minutes
         const start = Math.max(startDate.getHours() * 60 + startDate.getMinutes() - startMin, 0);
