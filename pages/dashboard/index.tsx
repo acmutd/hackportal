@@ -87,6 +87,25 @@ export default function Dashboard(props: {
 
         <section id="mainContent" className="2xl:px-32 md:px-16 px-6 w-full">
           <DashboardHeader />
+          {/* HackerPack Section */}
+          <div className="hoefler-text lg:mt-28 mt-20 mb-16">
+            <h1 className="xl:text-5xl lg:text-4xl text-3xl font-black text-[#FFFCF9]">
+              HackerPacks
+            </h1>
+            <div className="mb-4 mt-2 text-secondary md:text-lg sm:text-base text-xs">
+              HackerPacks contain all the information you&rsquo;ll need regarding specific parts
+              before or during the event. Click on any of the hackerpacks below for more
+              information.
+            </div>
+            <div className="grid 2xl:grid-cols-5 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+              <HackerPackCard name="General" link="https://hackutd.notion.site/Hackerpack-39b7dc396a3847749cf25303101022db" redirect="/hackerpacks/general" />
+              <HackerPackCard
+                name="Travel"
+                link="https://hackutd.notion.site/Travel-Hackerpack-e4dd9f55947b46a89bd95fd6dd4e08a7?pvs=25"
+                redirect="/hackerpacks/travel"
+              />
+            </div>
+          </div>
           {/* Spotlight & Announcements */}
           {(eventCount > 0 || announcements.length > 0) && (
             <div className="flex flex-wrap justify-between  md:my-16 my-10 hoefler-text">
@@ -141,24 +160,6 @@ export default function Dashboard(props: {
               </div>
             </div>
           )}
-          {/* HackerPack Section */}
-          <div className="hoefler-text lg:mt-28 mt-20 mb-16">
-            <h1 className="xl:text-5xl lg:text-4xl text-3xl font-black text-[#FFFCF9]">
-              HackerPacks
-            </h1>
-            <div className="mb-4 mt-2 text-secondary md:text-lg sm:text-base text-xs">
-              HackerPacks contain all the information you&rsquo;ll need regarding specific parts
-              before or during the event. Click on any of the hackerpacks below for more
-              information.
-            </div>
-            <div className="grid 2xl:grid-cols-5 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
-              <HackerPackCard
-                name="Travel"
-                link="https://hackutd.notion.site/Travel-Hackerpack-e4dd9f55947b46a89bd95fd6dd4e08a7?pvs=25"
-                redirect="/hackerpacks/travel"
-              />
-            </div>
-          </div>
         </section>
       </div>
     </>
