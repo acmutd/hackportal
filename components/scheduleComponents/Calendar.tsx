@@ -73,7 +73,7 @@ function CalendarGrid({
   // account for daylight savings time
   const minutesInDay = date === HACK_DAY_1 ? 60 * 24 : 60 * 24 + 60; // i hate everything
   // start at hardcoded chosen time rather than 12:00 AM
-  const startTime = date === HACK_DAY_1 ? new Date(2023, 1, 1, 9, 0) : new Date(2023, 1, 1, 0, 0);
+  const startTime = date === HACK_DAY_1 ? new Date(2023, 1, 1, 7, 0) : new Date(2023, 1, 1, 0, 0);
   const startMin = startTime.getHours() * 60 + startTime.getMinutes();
   // number of sections labeled by time
   const labeledSections = useMemo(
