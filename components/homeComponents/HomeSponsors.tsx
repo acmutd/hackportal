@@ -218,6 +218,45 @@ export default function HomeSponsors() {
             objectFit="contain"
           />
         </a>
+        <a
+          href={'https://nordvpn.com/'}
+          target="_blank"
+          className="relative w-48 h-48"
+          rel="noreferrer"
+        >
+          <Image
+            src={'/assets/sponsorLogos/NordVPN.png'}
+            alt="NordVPN"
+            layout="fill"
+            objectFit="contain"
+          />
+        </a>
+        <a
+          href={'https://nordpass.com/'}
+          target="_blank"
+          className="relative w-48 h-48"
+          rel="noreferrer"
+        >
+          <Image
+            src={'/assets/sponsorLogos/NordPass.png'}
+            alt="NordPass"
+            layout="fill"
+            objectFit="contain"
+          />
+        </a>
+        <a
+          href={'https://incogni.com/ '}
+          target="_blank"
+          className="relative w-80  h-32"
+          rel="noreferrer"
+        >
+          <Image
+            src={'/assets/sponsorLogos/Incogni.png'}
+            alt="Incogni"
+            layout="fill"
+            objectFit="contain"
+          />
+        </a>
       </section>
     </section>
   );
