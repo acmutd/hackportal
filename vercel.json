@@ -29,6 +29,11 @@
       "source": "/hackerpacks/volunteer",
       "destination": "https://hackutd.notion.site/Volunteer-Hackerpack-aa360ba37d4c4b3aa71713c06df94c0d?pvs=25",
       "statusCode": 301
+    },
+    {
+      "source": "/hackerpacks",
+      "destination": "https://hackutd.notion.site/Hackerpack-39b7dc396a3847749cf25303101022db",
+      "statusCode": 301
     }
   ]
 }
