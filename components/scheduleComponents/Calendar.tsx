@@ -157,7 +157,7 @@ function CalendarGrid({
                 marginRight: marginRight,
               } as CSSProperties
             }
-            className="rounded-md p-2 z-[9] shadow"
+            className="rounded-md p-2 z-[9] shadow overflow-auto"
             onClick={() => onEventClick(event)}
           >
             <div>{event.title}</div>
