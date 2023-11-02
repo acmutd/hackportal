@@ -160,6 +160,19 @@ export default function HomeSponsors() {
           />
         </a>
         <a
+          href={'http://axxess.com/'}
+          target="_blank"
+          className="relative w-72  h-32"
+          rel="noreferrer"
+        >
+          <Image
+            src={'/assets/sponsorLogos/Axxess.jpg'}
+            alt="Axxess"
+            layout="fill"
+            objectFit="contain"
+          />
+        </a>
+        <a
           href={'https://www.corelogic.com/culture/'}
           target="_blank"
           className="relative w-[24rem] h-20"
@@ -245,9 +258,9 @@ export default function HomeSponsors() {
           />
         </a>
         <a
-          href={'https://incogni.com/ '}
+          href={'https://incogni.com/'}
           target="_blank"
-          className="relative w-80  h-32"
+          className="relative w-64  h-32"
           rel="noreferrer"
         >
           <Image
