@@ -109,8 +109,8 @@ function CalendarGrid({
           .filter(
             (e) =>
               e.track === event.track &&
-              new Date(e.startDate) < startDate &&
-              startDate < new Date(e.endDate),
+              new Date(e.startDate) <= startDate &&
+              startDate <= new Date(e.endDate),
           ).length;
         // if the event overlaps with the first hour of an event, give it even more margin (so that it doesn't cover the text)
         const textOverlapping = events.slice(0, i).filter((e) => {
@@ -118,11 +118,11 @@ function CalendarGrid({
           startPlusOneHour.setHours(startPlusOneHour.getHours() + 1);
           return (
             e.track === event.track &&
-            new Date(e.startDate) < startDate &&
-            startDate < startPlusOneHour
+            new Date(e.startDate) <= startDate &&
+            startDate <= startPlusOneHour
           );
         }).length;
-        const marginPerOverlap = '10%';
+        const marginPerOverlap = '8%';
         const marginPerTextOverlap = '50%';
         const marginLeft = `calc(${marginPerOverlap} * (${overlapping} - ${textOverlapping}) + ${marginPerTextOverlap} * ${textOverlapping})`;
         // finally, if some future event overlaps the text of this event, give this even a little margin on the right
