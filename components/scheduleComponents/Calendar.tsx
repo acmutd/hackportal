@@ -97,7 +97,8 @@ function CalendarGrid({
         const start = Math.max(startHour * 60 + startDate.getMinutes() - startMin, 0);
         const end = Math.max(endHour * 60 + endDate.getMinutes() - startMin, 0);
         // compute row start from start time (or go to the start of the schedule if the event starts on the previous day)
-        const rowStart = start > end && date === HACK_DAY_2 ? 0 : increment + start + 1 + 1;
+        const rowStart =
+          start > end && date === HACK_DAY_2 ? increment + 1 : increment + start + 1 + 1;
         // compute row end from end time (or go to the end of the schedule if the event ends on the next day)
         const rowEnd = start > end && date === HACK_DAY_1 ? -1 : increment + end + 1;
         // compute column from track
@@ -206,7 +207,7 @@ function CalendarGrid({
           </div>
         );
       }),
-    [tracks, events],
+    [events, date, startMin, increment, tracks, onEventClick],
   );
 
   // create cells as list of divs
