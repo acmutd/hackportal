@@ -283,7 +283,7 @@ export default function Admin() {
             user.permissions.includes('super_admin') && (
               <div className="mx-auto my-5 w-full flex">
                 {[
-                  /*'Normal', 'Swag'*/
+                  'Normal', 'Swag'
                 ].map((t) => (
                   <button
                     key={t}
@@ -463,7 +463,7 @@ export default function Admin() {
                 <div className="flex flex-col gap-3 w-full justify-center max-w-[57.5rem]">
                   {scansFetched &&
                     currentScan === undefined &&
-                    scanTypes.map((d, idx) => (
+                    currentScans.map((d, idx) => (
                       <ScanType
                         key={d.name}
                         data={d}
