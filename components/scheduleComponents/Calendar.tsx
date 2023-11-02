@@ -132,8 +132,8 @@ function CalendarGrid({
           startPlusOneHour.setHours(startPlusOneHour.getHours() + 1);
           return (
             e.track === event.track &&
-            startDate < new Date(e.startDate) &&
-            new Date(e.startDate) < startPlusOneHour
+            startDate <= new Date(e.startDate) &&
+            new Date(e.startDate) <= startPlusOneHour
           );
         }).length;
         const marginPerTextOverlapRight = '10%';
