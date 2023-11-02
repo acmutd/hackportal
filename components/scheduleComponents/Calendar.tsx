@@ -294,7 +294,7 @@ function CalendarGrid({
         className="w-full overflow-x-auto overflow-y-hidden grid gap-0 auto-cols-[minmax(220px,1fr)] grid-cols-[max-content] font-secondary"
         style={
           {
-            gridTemplateRows: `repeat(${minutesInDay - startMin + increment}, 2px)`,
+            gridTemplateRows: `repeat(${minutesInDay - startMin + increment}, 2.45px)`,
           } as CSSProperties
         }
       >
