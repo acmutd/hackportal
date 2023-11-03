@@ -19,7 +19,7 @@ export default function ScanType({ name, onClick, data }: ScanTypeProps) {
       onClick={onClick}
     >
       <div className="w-full text-center md:text-lg font-bold text-primary">
-        {name} ({data.netPoints})
+        {name} {data.netPoints !== 0 ? `(${data.netPoints})` : ''}
       </div>
     </div>
   );
