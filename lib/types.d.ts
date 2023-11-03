@@ -68,6 +68,11 @@ type User = Person & {
    * User points
    */
   points: number;
+
+  /**
+   * User eligibility for blankets
+   */
+  blanketEligible: boolean;
 };
 
 /**

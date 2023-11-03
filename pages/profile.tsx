@@ -95,6 +95,10 @@ export default function ProfilePage({ applicationDecisions }) {
                 <h1 className="font-bold text-xl">Points</h1>
                 <p className="text-lg gold-text-gradient font-black mx-auto">{user.points}</p>
               </div>
+              {/*<div className="flex flex-col items-start justify-start gap-y-1 ml-8">
+                <h1 className="font-bold text-xl">Special Prize</h1>
+                <p className="text-lg gold-text-gradient font-black mx-auto">{user.blanketEligible ? "Eligible" : "Not Eligible"}</p>
+              </div>*/}
             </div>
             <div className="flex flex-col items-start justify-start gap-y-1">
               <h1 className="font-bold text-2xl">Application Status</h1>

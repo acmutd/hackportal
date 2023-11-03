@@ -92,6 +92,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       permissions: ['hacker'],
       university: '',
       points: 0,
+      blanketEligible: false
     });
     const query = new URL(`http://localhost:3000/api/userinfo`);
     query.searchParams.append('id', uid);
@@ -115,6 +116,7 @@ function AuthProvider({ children }: React.PropsWithChildren<Record<string, any>>
       permissions,
       university: userData.university,
       points: userData.user.points,
+      blanketEligible: userData.blanketEligible
     }));
     setProfile(userData);
     setLoading(false);

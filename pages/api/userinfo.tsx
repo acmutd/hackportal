@@ -72,12 +72,14 @@ async function handleUserInfo(req: NextApiRequest, res: NextApiResponse) {
       await db.collection(REGISTRATION_COLLECTION).doc(userID).set(userData);
     }
 
+    const leaderboard = await db.collection("/miscellaneous").doc("leaderboard").get()
+    const pointCutoff = leaderboard.data().pointCutoff
     const statusSnapshot = await db.collection('acceptreject').get();
     const statusData = statusSnapshot.docs.map((doc) => doc.data());
     //look for hackId in acceptreject collection
     const statusValue = statusData.find((doc) => doc.hackerId === userID);
     const status = statusValue?.status ? statusValue?.status : 'Waiting';
-    return res.status(200).json({ ...userData, status: status });
+    return res.status(200).json({ ...userData, status: status, blanketEligible: userData.user.points >= pointCutoff });
   } catch (error) {
     console.error('Error when fetching applications', error);
     res.status(500).json({
