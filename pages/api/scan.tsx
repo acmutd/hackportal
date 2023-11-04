@@ -9,6 +9,7 @@ const db = firestore();
 
 const REGISTRATION_COLLECTION = '/registrations';
 const SCANTYPES_COLLECTION = '/scan-types';
+const ACCEPT_REJECT_COLLECTION = '/acceptreject';
 
 // Used to dictate that user attempted to claim swag without checking in
 const ILLEGAL_SCAN_NAME = 'Illegal Scan';
@@ -50,6 +51,18 @@ async function checkIfScanIsCheckIn(scan: string) {
   return ok;
 }
 
+async function checkIfUserIsRejected(userId: string) {
+  const snapshot = await db
+    .collection(ACCEPT_REJECT_COLLECTION)
+    .where('hackerId', '==', userId)
+    .get();
+  let ok = false;
+  snapshot.forEach((doc) => {
+    if (doc.data().status === 'Rejected') ok = true;
+  });
+  return ok;
+}
+
 /**
  * Handles GET requests to /api/scantypes.
  *
@@ -61,7 +74,7 @@ async function checkIfScanIsCheckIn(scan: string) {
 async function handleScan(req: NextApiRequest, res: NextApiResponse) {
   // TODO: Handle user authorization
   const {
-    query: { token },
+    query: { token, override },
     body,
     headers,
   } = req;
@@ -86,6 +99,15 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
     const snapshot = await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).get();
     if (!snapshot.exists)
       return res.status(404).json({ code: 'not found', message: "User doesn't exist..." });
+    if (override !== 'true') {
+      const userIsRejected = await checkIfUserIsRejected(snapshot.data().id);
+      if (userIsRejected) {
+        return res.status(403).json({
+          code: 'rejected-user',
+          message: 'User is rejected',
+        });
+      }
+    }
     let scans = snapshot.data().scans ?? [];
 
     const userCheckedIn = await userAlreadyCheckedIn(scans);

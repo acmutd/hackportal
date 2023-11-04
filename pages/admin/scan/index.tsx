@@ -18,6 +18,7 @@ const successStrings = {
   unexpectedError: 'Unexpected error...',
   notCheckedIn: "User hasn't checked in!",
   invalidFormat: 'Invalid hacker tag format...',
+  rejectedUser: 'User is rejected...',
 };
 
 function getSuccessColor(success: string) {
@@ -54,6 +55,7 @@ export default function Admin() {
 
   // CRUD scantypes and use scan
   const [showNewScanForm, setShowNewScanForm] = useState(false);
+  const [showScanOverrideDialog, setShowScanOverrideDialog] = useState(false);
   const [newScanForm, setNewScanForm] = useState({
     name: '',
     isCheckIn: false,
@@ -71,6 +73,43 @@ export default function Admin() {
   const handleScanClick = (data, idx) => {
     setCurrentScan(data);
     setCurrentScanIdx(idx);
+  };
+
+  const handleScanOverride = async () => {
+    const query = new URL(`http://localhost:3000/api/scan`);
+    query.searchParams.append('id', scanData.replaceAll('hack:', ''));
+    query.searchParams.append('override', 'true');
+    fetch(query.toString().replaceAll('http://localhost:3000', ''), {
+      mode: 'cors',
+      headers: { Authorization: user.token },
+      method: 'POST',
+      body: JSON.stringify({
+        id: scanData.replaceAll('hack:', ''),
+        scan: currentScan.name,
+        isSwag: currentScan.isSwag,
+        netPoints: currentScan.netPoints,
+        isReclaimable: currentScan.isReclaimable,
+      }),
+    })
+      .then(async (result) => {
+        const resData = await result.json();
+        if (result.status === 404) {
+          return setSuccess(successStrings.invalidUser);
+        } else if (result.status === 201) {
+          return setSuccess(successStrings.alreadyClaimed);
+        } else if (result.status === 403) {
+          return setSuccess(successStrings.notCheckedIn);
+        } else if (result.status === 418) {
+          return setSuccess(resData.message);
+        } else if (result.status !== 200) {
+          return setSuccess(successStrings.unexpectedError);
+        }
+        setSuccess(successStrings.claimed);
+      })
+      .catch((err) => {
+        console.log(err);
+        setSuccess('Unexpected error...');
+      });
   };
 
   const handleScan = async (data: string) => {
@@ -101,7 +140,13 @@ export default function Admin() {
         } else if (result.status === 201) {
           return setSuccess(successStrings.alreadyClaimed);
         } else if (result.status === 403) {
-          return setSuccess(successStrings.notCheckedIn);
+          if (resData.code === 'rejected-user') {
+            // do something
+            setShowScanOverrideDialog(true);
+            return setSuccess(successStrings.rejectedUser);
+          } else {
+            return setSuccess(successStrings.notCheckedIn);
+          }
         } else if (result.status === 418) {
           return setSuccess(resData.message);
         } else if (result.status !== 200) {
@@ -311,46 +356,92 @@ export default function Admin() {
               </div>
             )}
           {currentScan && (
-            <Dialog
-              open={showDeleteScanDialog}
-              onClose={() => setShowDeleteScanDialog(false)}
-              className="fixed z-10 inset-0 overflow-y-auto"
-            >
-              <div className="flex items-center justify-center min-h-screen p-2">
-                <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+            <>
+              <Dialog
+                open={showScanOverrideDialog}
+                onClose={() => setShowScanOverrideDialog(false)}
+                className="fixed z-10 inset-0 overflow-y-auto"
+              >
+                <div className="flex items-center justify-center min-h-screen p-2">
+                  <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
 
-                <div className="rounded-2xl relative bg-primaryDark text-secondary flex flex-col justify-between p-4 max-w-sm mx-auto">
-                  <Dialog.Title>
-                    Delete <span className="font-bold">{currentScan.name}</span>
-                  </Dialog.Title>
+                  <div className="rounded-2xl relative bg-primaryDark text-secondary flex flex-col justify-between p-4 max-w-sm mx-auto">
+                    <Dialog.Title>Override scan in</Dialog.Title>
 
-                  <div className="my-7 flex flex-col gap-y-4">
-                    <Dialog.Description>
-                      This is permanently delete{' '}
-                      <span className="font-bold">{currentScan.name}</span>
-                    </Dialog.Description>
-                    <p>Are you sure you want to delete this scan? This action cannot be undone.</p>
-                  </div>
+                    <div className="my-7 flex flex-col gap-y-4">
+                      <Dialog.Description>
+                        {/* This is permanently delete{' '}
+                        <span className="font-bold">{currentScan.name}</span> */}
+                        The scan did not go through because user is rejected from the application
+                        process.
+                      </Dialog.Description>
+                      <p>Are you sure you want to override this decision?</p>
+                    </div>
 
-                  <div className="flex flex-row justify-end gap-x-2">
-                    <button
-                      className="rounded-lg p-3 bg-tertiary text-secondary"
-                      onClick={async () => {
-                        await deleteScan();
-                      }}
-                    >
-                      Delete
-                    </button>
-                    <button
-                      className="rounded-lg p-3 bg-tertiary saturate-50 text-secondary"
-                      onClick={() => setShowDeleteScanDialog(false)}
-                    >
-                      Cancel
-                    </button>
+                    <div className="flex flex-row justify-end gap-x-2">
+                      <button
+                        className="rounded-lg p-3 bg-tertiary text-secondary"
+                        onClick={async () => {
+                          setShowScanOverrideDialog(false);
+                          await handleScanOverride();
+                        }}
+                      >
+                        Override
+                      </button>
+                      <button
+                        className="rounded-lg p-3 bg-tertiary saturate-50 text-secondary"
+                        onClick={() => setShowScanOverrideDialog(false)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Dialog>
+              </Dialog>
+
+              <Dialog
+                open={showDeleteScanDialog}
+                onClose={() => setShowDeleteScanDialog(false)}
+                className="fixed z-10 inset-0 overflow-y-auto"
+              >
+                <div className="flex items-center justify-center min-h-screen p-2">
+                  <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+
+                  <div className="rounded-2xl relative bg-primaryDark text-secondary flex flex-col justify-between p-4 max-w-sm mx-auto">
+                    <Dialog.Title>
+                      Delete <span className="font-bold">{currentScan.name}</span>
+                    </Dialog.Title>
+
+                    <div className="my-7 flex flex-col gap-y-4">
+                      <Dialog.Description>
+                        This is permanently delete{' '}
+                        <span className="font-bold">{currentScan.name}</span>
+                      </Dialog.Description>
+                      <p>
+                        Are you sure you want to delete this scan? This action cannot be undone.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-row justify-end gap-x-2">
+                      <button
+                        className="rounded-lg p-3 bg-tertiary text-secondary"
+                        onClick={async () => {
+                          await deleteScan();
+                        }}
+                      >
+                        Delete
+                      </button>
+                      <button
+                        className="rounded-lg p-3 bg-tertiary saturate-50 text-secondary"
+                        onClick={() => setShowDeleteScanDialog(false)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </Dialog>
+            </>
           )}
           {showNewScanForm ? (
             <div className="px-6 py-4">
