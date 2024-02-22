@@ -92,7 +92,10 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
     const scanIsCheckInEvent = await checkIfScanIsCheckIn(bodyData.scan);
 
     if (!userCheckedIn && !scanIsCheckInEvent) {
-      scans.push(ILLEGAL_SCAN_NAME);
+      scans.push({
+        name: ILLEGAL_SCAN_NAME,
+        timestamp: new Date().toISOString(),
+      });
       await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans });
       return res.status(403).json({
         code: 'not-checked-in',
@@ -101,7 +104,10 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
     }
 
     if (scans.includes(bodyData.scan)) return res.status(201).json({ code: 'duplicate' });
-    scans.push(bodyData.scan);
+    scans.push({
+      name: bodyData.scan,
+      timeStamp: new Date().toISOString(),
+    });
     await db.collection(REGISTRATION_COLLECTION).doc(bodyData.id).update({ scans });
     res.status(200).json({});
   } catch (error) {
