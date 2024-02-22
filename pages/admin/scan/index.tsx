@@ -18,6 +18,16 @@ const successStrings = {
   invalidFormat: 'Invalid hacker tag format...',
 };
 
+interface UserProfile extends Omit<Registration, 'user'> {
+  user: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    permissions: string[];
+    preferredEmail: string;
+  };
+}
+
 function getSuccessColor(success: string) {
   if (success === successStrings.claimed) {
     return '#5fde05';
@@ -60,6 +70,8 @@ export default function Admin() {
 
   const [showDeleteScanDialog, setShowDeleteScanDialog] = useState(false);
 
+  const [scannedUserInfo, setScannedUserInfo] = useState(undefined);
+
   const handleScanClick = (data, idx) => {
     setCurrentScan(data);
     setCurrentScanIdx(idx);
@@ -84,6 +96,13 @@ export default function Admin() {
     })
       .then(async (result) => {
         setScanData(data);
+        const userId = data.split(':')[1];
+        const userPayload = await RequestHelper.get<UserProfile>(`/api/userinfo?id=${userId}`, {
+          headers: {
+            Authorization: user.token!,
+          },
+        });
+        setScannedUserInfo(userPayload.data);
         if (result.status === 404) {
           return setSuccess(successStrings.invalidUser);
         } else if (result.status === 201) {
@@ -373,7 +392,15 @@ export default function Admin() {
                           className="text-center text-3xl font-black"
                           style={{ color: getSuccessColor(success) }}
                         >
-                          {success ?? 'Unexpected error!'}
+                          {scannedUserInfo && (
+                            <>
+                              <p>
+                                Name: {scannedUserInfo.user.firstName}{' '}
+                                {scannedUserInfo.user.lastName}
+                              </p>
+                            </>
+                          )}
+                          <p>{success ?? 'Unexpected error!'}</p>
                         </div>
                       ) : (
                         <div />
