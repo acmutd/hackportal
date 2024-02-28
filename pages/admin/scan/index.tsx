@@ -400,7 +400,6 @@ export default function Admin() {
                               </p>
                             </>
                           )}
-                          <p>{success ?? 'Unexpected error!'}</p>
                         </div>
                       ) : (
                         <div />
