@@ -7,14 +7,14 @@ import { useRouter } from 'next/router';
 
 export default function HomeHero() {
   return (
-    <section className="min-h-screen bg-contain bg-white flex flex-col-reverse md:flex-col">
+    <section className="min-h-screen flex flex-col-reverse md:flex-col bg-[url('/assets/fullBG.png')] bg-cover bg-center">
       {/* App header */}
       <AppHeader2_Wrapper />
 
       <div className="flex h-screen w-full relative">
-        <div className="w-full h-full absolute top-0 left-0 z-0">
+        {/* <div className="w-full h-full absolute top-0 left-0 z-0">
           <BackgroundCircles />
-        </div>
+        </div> */}
 
         <div className="relative z-10 shrink-0 w-full flex">
           {/* MLH sticker */}
@@ -27,22 +27,18 @@ export default function HomeHero() {
               className="w-full h-full object-cover"
             />
           </div>
-
           {/* Big welcome */}
-          <div className="w-full flex flex-col gap-2 justify-center items-center bg-[rgba(255,255,255,0.75)] backdrop-blur-[60px]">
+          {/* <div className="w-full flex flex-col gap-4 justify-center items-center text-center">
             <p className="font-nunito text-[#262626] text-xl md:text-3xl">Welcome To</p>
-            <h1 className="font-fredokaOne text-4xl md:text-6xl lg:text-8xl font-bold text-[#05149C]">
-              HACKPORTAL
-            </h1>
-          </div>
+          </div> */}
         </div>
       </div>
 
       {/* Bottom banner */}
-      <div className="font-dmSans w-full flex justify-center bg-[#7B81FF] text-white h-[1.75rem] text-nowrap overflow-hidden">
+      <div className="font-dmSans w-full flex justify-center bg-[#683201] text-white h-[1.75rem] text-nowrap overflow-hidden">
         <p className="text-lg">
-          SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE
-          TEXT • SAMPLE TEXT • SAMPLE TEXT
+          ℧ • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT •
+          SAMPLE TEXT • SAMPLE TEXT • ℧
         </p>
       </div>
     </section>

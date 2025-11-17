@@ -128,10 +128,10 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
     );
   }
 
-  // disable this for testing
-  if (!user) {
-    router.push('/');
-  }
+  // // disable this for testing
+  // if (!user) {
+  //   router.push('/');
+  // }
 
   if (loading) {
     return <LoadIcon width={200} height={200} />;

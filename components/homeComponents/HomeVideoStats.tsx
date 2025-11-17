@@ -2,7 +2,7 @@ import { stats } from '../../lib/data';
 
 export default function HomeVideoStats() {
   return (
-    <section className="z-0 relative md:h-[560px] py-[3rem] bg-white">
+    <section className="section-bg z-0 relative md:h-[560px] py-[3rem]">
       <div className="flex flex-col justify-center items-center md:flex-row">
         {/* Video */}
         {/* !change */}

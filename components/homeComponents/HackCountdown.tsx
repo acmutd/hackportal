@@ -37,7 +37,7 @@ const HackCountdown: React.FC<CountdownProps> = ({ targetDate }) => {
   });
 
   return (
-    <div className={styles.countdownContainer}>
+    <div className={`${styles.countdownContainer} section-bg`}>
       <div className={styles.timeSection}>
         {Object.entries(timeLeft).map(([unit, value]) => {
           const digits = value.toString().padStart(2, '0').split('');
@@ -55,10 +55,10 @@ const HackCountdown: React.FC<CountdownProps> = ({ targetDate }) => {
           );
         })}
       </div>
-      <div className={styles.notifySection}>
+      {/* <div className={styles.notifySection}>
         <p>We will let you know when we are launching</p>
         <button className={styles.button}>Notify Me</button>
-      </div>
+      </div> */}
     </div>
   );
 };

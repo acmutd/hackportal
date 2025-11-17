@@ -5,8 +5,6 @@
     flex-direction: column;
     font-family: Arial, sans-serif;
     color: #2e0480;
-    background: #ffffff url("data:image/svg+xml,%3Csvg width%3D%2250vw%22 height%3D%22353px%22 viewBox%3D%220 0 100vw 706px%22 fill%3D%22none%22 xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cdefs%3E%3Cfilter id%3D%22blurStrong%22%3E%3CfeGaussianBlur stdDeviation%3D%2220%22/%3E%3C/filter%3E%3C/defs%3E%3Cellipse cx%3D%2286.5vw%22 cy%3D%22260px%22 rx%3D%22180px%22 ry%3D%22180px%22 fill%3D%22%234A3AFF%22 opacity%3D%220.1%22 filter%3D%22url(%23blurStrong)%22/%3E%3Cellipse cx%3D%2299vw%22 cy%3D%22250px%22 rx%3D%22160px%22 ry%3D%22160px%22 fill%3D%22%232D5BFF%22 opacity%3D%220.1%22 filter%3D%22url(%23blurStrong)%22/%3E%3C/svg%3E") no-repeat bottom right;
-    
     padding: 2vw;
     position: relative;
     overflow: hidden;
@@ -31,32 +29,32 @@
   }
   
   .digitBox {
-    background: linear-gradient(to bottom, rgba(156, 166, 255, .4), rgba(255, 255, 255, 0.1));
+    background-color: rgba(221, 163, 94, 0.6); /* 0.6 = 60% opacity */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+    border-radius: 40px;
     margin: 0 1vw;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 10vw;
     height: 15vw;
-    border: .5px solid #05149C;
+    /* border: .5px solid #000000; */
   }
   
   .digit {
     font-family: "DS-Digital", monospace;
     font-size: 10vw;
     font-weight: 400;
-    color: #05149C;
+    color: #683201;
   }
   
   .label {
     text-transform: uppercase;
-    font-family: Poppins;
+    font-family: Arial;
     font-weight: 400;
     font-size: 4vw;
     line-height: 5vw;
-    color: #05149C;
+    color: #683201;
     margin-top: 1vw;
   }
   
