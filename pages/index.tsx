@@ -57,7 +57,6 @@ export default function Home(props: {
       <HomeNotif />
       <HomeHero2 />
       <HomeAbout />
-      <HomeHero />
       <HomeVideoStats />
       <HackCountdown />
       <HomeSchedule scheduleCard={props.scheduleCard} dateCard={props.dateCard} />
