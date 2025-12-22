@@ -24,10 +24,10 @@ const HomeAbout = () => {
       cursor: 'pointer',
     },
     labelBoxOne: {
-      fontWeight: 500,
+      fontWeight: 700,
       fontSize: 'calc(10px + 2vw)',
-      fontFamily: 'Fredoka',
-      color: '#05149C',
+      fontFamily: "'Alfa Slab One', cursive",
+      color: '#5C2E12',
       marginBottom: '-10px',
     },
     customShapeTwo: {
@@ -47,10 +47,10 @@ const HomeAbout = () => {
       cursor: 'pointer',
     },
     labelBoxTwo: {
-      fontWeight: 500,
+      fontWeight: 700,
       fontSize: 'calc(10px + 2vw)',
-      fontFamily: 'Fredoka',
-      color: '#05149C',
+      fontFamily: "'Alfa Slab One', cursive",
+      color: '#5C2E12',
       marginBottom: '-10px',
     },
     customShapeThree: {
@@ -70,10 +70,10 @@ const HomeAbout = () => {
       cursor: 'pointer',
     },
     labelBoxThree: {
-      fontWeight: 500,
+      fontWeight: 700,
       fontSize: 'calc(10px + 2vw)',
-      fontFamily: 'Fredoka',
-      color: '#05149C',
+      fontFamily: "'Alfa Slab One', cursive",
+      color: '#5C2E12',
       marginBottom: '-10px',
     },
     customShapeFour: {
@@ -94,8 +94,8 @@ const HomeAbout = () => {
     },
     statisticText: {
       fontSize: 'calc(16px + 0.25vw)',
-      color: '#000',
-      fontFamily: 'DM Sans',
+      color: '#5C2E12',
+      fontFamily: "'Alfa Slab One', cursive",
     },
   };
 
@@ -106,31 +106,37 @@ const HomeAbout = () => {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      background:
-        '#FFFFFF url("data:image/svg+xml,%3Csvg width%3D%22100vw%22 height%3D%22706px%22 viewBox%3D%220 0 100vw 706px%22 fill%3D%22none%22 xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cdefs%3E%3Cfilter id%3D%22blurStrong%22%3E%3CfeGaussianBlur stdDeviation%3D%2220%22/%3E%3C/filter%3E%3C/defs%3E%3Cellipse cx%3D%2295vw%22 cy%3D%2280px%22 rx%3D%22180px%22 ry%3D%22180px%22 fill%3D%22%234A3AFF%22 opacity%3D%220.1%22 filter%3D%22url(%23blurStrong)%22/%3E%3Cellipse cx%3D%2290vw%22 cy%3D%220px%22 rx%3D%22195px%22 ry%3D%22180px%22 fill%3D%22%23962DFF%22 opacity%3D%220.1%22 filter%3D%22url(%23blurStrong)%22/%3E%3Cellipse cx%3D%2210vw%22 cy%3D%22606px%22 rx%3D%22130px%22 ry%3D%22130px%22 fill%3D%22%234A3AFF%22 opacity%3D%220.1%22 filter%3D%22url(%23blurStrong)%22/%3E%3Cellipse cx%3D%225vw%22 cy%3D%22556px%22 rx%3D%22110px%22 ry%3D%22110px%22 fill%3D%22%23962DFF%22 opacity%3D%220.1%22 filter%3D%22url(%23blurStrong)%22/%3E%3Cellipse cx%3D%220vw%22 cy%3D%22506px%22 rx%3D%2290px%22 ry%3D%2290px%22 fill%3D%22%232D5BFF%22 opacity%3D%220.1%22 filter%3D%22url(%23blurStrong)%22/%3E%3C/svg%3E") no-repeat top right',
       color: '#FFFFFF',
       fontFamily: 'Arial, sans-serif',
       textAlign: 'center',
       width: '100vw',
       height: '120vh',
       overflow: 'hidden',
-      paddingTop: '2vh',
+      padding: '6rem 4rem',
     },
     header: {
-      fontFamily: 'Fredoka, sans-serif',
-      fontWeight: 600,
-      fontSize: 'calc(24px + 2vw)',
-      color: '#05149C',
+      fontFamily: "'Alfa Slab One', cursive",
+      fontWeight: 700,
+      fontSize: 'calc(26px + 2.5vw)',
+      color: '#FFFFFF',
       padding: '1vh 0',
+      textShadow: '0 6px 18px rgba(0,0,0,0.7)',
+      zIndex: 1,
+      position: 'relative',
     },
     description: {
-      fontFamily: 'DM Sans, sans-serif',
+      fontFamily: "'Alfa Slab One', cursive",
       fontWeight: 400,
-      fontSize: '16px',
-      color: '#000000',
-      width: '90%',
+      fontSize: 'calc(12px + 0.8vw)',
+      color: '#FFFFFF',
+      width: '75%',
       margin: '1vh 0',
+      lineHeight: '1.6',
+      textShadow: '0 6px 18px rgba(0,0,0,0.7)',
+      zIndex: 1,
+      position: 'relative',
     },
+
     statsContainer: {
       position: 'relative',
       width: '100%',
@@ -151,7 +157,8 @@ const HomeAbout = () => {
   };
 
   return (
-    <div style={styles.container}>
+    <div className="section-bg bg-2" style={styles.container}>
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
       <style>
         {`
           @media (max-width: 600px) {
@@ -189,47 +196,17 @@ const HomeAbout = () => {
         `}
       </style>
       <h1 className="header" style={styles.header}>
-        About HackPortal
+        About NTHS Hack
       </h1>
       <p className="description" style={styles.description}>
-        Hackathons are 24-hour gatherings where students collaborate <br /> to create innovative
-        projects, forge new connections, and compete for prizes.
+        The Association of Computing Machinery (ACM) at the University of Texas at Dallas will be
+        hosting the third iteration of our hackathon experience! This two day long event will be an
+        intense competition of self expression and creativity through technology, where students
+        will get the chance to showcase their web development skills. High school students across
+        North Texas with varying technical backgrounds will come together, form teams, and build
+        unique solutions from scratch. This beginner-friendly hackathon is an extraordinary
+        opportunity for you to win prizes, compete, and jumpstart your journey in technology!
       </p>
-      <div className="statsContainer" style={styles.statsContainer}>
-        <div className="statsItem">
-          <div
-            className="customShape customShapeFour"
-            style={{ ...customShapesStyles.customShapeFour }}
-          ></div>
-        </div>
-        <div className="statsItem">
-          <div
-            className="customShape customShapeOne"
-            style={{ ...customShapesStyles.customShapeOne }}
-          >
-            <div style={customShapesStyles.labelBoxOne}>Incredible</div>
-            <div style={customShapesStyles.statisticText}>Statistic 1</div>
-          </div>
-        </div>
-        <div className="statsItem">
-          <div
-            className="customShape customShapeTwo"
-            style={{ ...customShapesStyles.customShapeTwo }}
-          >
-            <div style={customShapesStyles.labelBoxTwo}>Shocking</div>
-            <div style={customShapesStyles.statisticText}>Statistic 2</div>
-          </div>
-        </div>
-        <div className="statsItem">
-          <div
-            className="customShape customShapeThree"
-            style={{ ...customShapesStyles.customShapeThree }}
-          >
-            <div style={customShapesStyles.labelBoxThree}>Big</div>
-            <div style={customShapesStyles.statisticText}>Statistic 3</div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

@@ -15,6 +15,7 @@ import HomeHero2 from '../components/homeComponents/HomeHero2';
 import HomeSchedule from '../components/homeComponents/HomeSchedule';
 import HomeFaq from '../components/homeComponents/HomeFaq';
 import HomePrizes from '../components/homeComponents/HomePrizes';
+import HomeHero from '@/components/homeComponents/HomeHero';
 
 /**
  * The home page.
@@ -55,9 +56,10 @@ export default function Home(props: {
       </Head>
       <HomeNotif />
       <HomeHero2 />
+      <HomeAbout />
+      <HomeHero />
       <HomeVideoStats />
       <HackCountdown />
-      <HomeAbout />
       <HomeSchedule scheduleCard={props.scheduleCard} dateCard={props.dateCard} />
       <HomeSpeakers keynoteSpeakers={props.keynoteSpeakers} />
       <HomeChallenges challenges={props.challenges} />

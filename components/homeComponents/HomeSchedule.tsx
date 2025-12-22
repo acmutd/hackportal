@@ -4,20 +4,20 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 /* Calendar */
 export default function HomeSchedule(props: { scheduleCard: ScheduleEvent[]; dateCard: Dates }) {
-  /* Event Colors */
+  /* Event Colors (updated to match design) */
   const eventColors = {
-    All: 'border-gray-500 text-gray-500',
-    Required: 'border-[#FC012E] text-[#FC012E]',
-    Food: 'border-[#56E100] text-[#56E100]',
-    Social: 'border-[#FFB900] text-[#FFB900]',
-    Sponsor: 'border-[#008CF1] text-[#008CF1]',
-    Workshop: 'border-[#5200FF] text-[#5200FF]',
-    'All-Filter': 'border-gray-500 bg-gray-500 text-white',
-    'Required-Filter': 'border-[#FC012E] bg-[#FC012E] text-white',
-    'Food-Filter': 'border-[#56E100] bg-[#56E100] text-white',
-    'Social-Filter': 'border-[#FFB900] bg-[#FFB900] text-white',
-    'Sponsor-Filter': 'border-[#008CF1] bg-[#008CF1] text-white',
-    'Workshop-Filter': 'border-[#5200FF] bg-[#5200FF] text-white',
+    All: 'text-white',
+    Required: 'bg-[#D97706] text-white',
+    Food: 'text-[#56E100]',
+    Social: 'text-[#FF9A2E]',
+    Sponsor: 'text-white',
+    Workshop: 'text-[#A64D00]',
+    'All-Filter': 'bg-[#6b2f00] text-white',
+    'Required-Filter': 'bg-[#D97706] text-white',
+    'Food-Filter': 'bg-[#56E100] text-white',
+    'Social-Filter': 'bg-[#FF9A2E] text-white',
+    'Sponsor-Filter': 'bg-[#6b2f00] text-white',
+    'Workshop-Filter': 'bg-[#A64D00] text-white',
   };
 
   /* Dates Values */
@@ -138,62 +138,67 @@ export default function HomeSchedule(props: { scheduleCard: ScheduleEvent[]; dat
   const day2Events = getDailyEvents(day2StartDateAndTime, eventEndDateAndTime);
 
   return (
-    <div id="schedule-section" className="bg-[#F2F3FF]">
-      <div className="text-center text-5xl font-bold text-[#05149C] p-4 font-fredoka">
-        What to Expect?
-      </div>
+    <div
+      id="schedule-section"
+      className="bg-[#F2F3FF] schedule-alfa min-h-[90vh] md:min-h-[100vh] lg:min-h-[120vh] py-20 md:py-32 mb-24"
+    >
+      <div className="text-center text-5xl font-bold text-[#05149C] p-4">What to Expect?</div>
 
       {/* Filter */}
       <div className="md:flex justify-center items-center mx-8">
-        <div className="bg-white border-2 border-blue-900 rounded-3xl px-8 my-4 border-opacity-40">
-          <div className="text-center py-1 text-xl font-bold text-[#05149C] font-poppins">
-            Filters
-          </div>
-          <div className="flex flex-wrap justify-center mb-2 font-poppins">
+        <div className="bg-[#6b2f00] rounded-3xl px-8 py-3 my-4 inline-block shadow-lg">
+          <div className="text-center py-1 text-xl font-bold text-[#3a1e0f]">Filters</div>
+          <div className="flex flex-wrap justify-center mb-2">
             <div
               onClick={() => changeFilter('All')}
-              className={`text-sm cursor-pointer mx-1 px-2 h-8 py-1 border-2 rounded-xl border-gray-500 mb-1
-              ${filter === 'All' ? eventColors['All-Filter'] : eventColors['All']}`}
+              className={`text-sm cursor-pointer mx-1 px-4 h-8 py-1 rounded-full mb-1 transition-all duration-150 ${
+                filter === 'All' ? eventColors['All-Filter'] : eventColors['All']
+              }`}
             >
               All
             </div>
 
             <div
               onClick={() => changeFilter('Required')}
-              className={`text-sm cursor-pointer mx-1 px-2 h-8 py-1 border-2 rounded-xl
-              ${filter === 'Required' ? eventColors['Required-Filter'] : eventColors['Required']}`}
+              className={`text-sm cursor-pointer mx-1 px-4 h-8 py-1 rounded-full mb-1 transition-all duration-150 ${
+                filter === 'Required' ? eventColors['Required-Filter'] : eventColors['Required']
+              }`}
             >
               Required
             </div>
 
             <div
               onClick={() => changeFilter('Sponsor')}
-              className={`text-sm cursor-pointer mx-1 px-2 h-8 py-1 border-2 rounded-xl
-              ${filter === 'Sponsor' ? eventColors['Sponsor-Filter'] : eventColors['Sponsor']}`}
+              className={`text-sm cursor-pointer mx-1 px-4 h-8 py-1 rounded-full mb-1 transition-all duration-150 ${
+                filter === 'Sponsor' ? eventColors['Sponsor-Filter'] : eventColors['Sponsor']
+              }`}
             >
               Sponsor
             </div>
 
             <div
               onClick={() => changeFilter('Food')}
-              className={`text-sm cursor-pointer	mx-1 px-2 h-8 py-1 border-2 rounded-xl
-              ${filter === 'Food' ? eventColors['Food-Filter'] : eventColors['Food']}`}
+              className={`text-sm cursor-pointer mx-1 px-4 h-8 py-1 rounded-full mb-1 transition-all duration-150 ${
+                filter === 'Food' ? eventColors['Food-Filter'] : eventColors['Food']
+              }`}
             >
               Food
             </div>
 
             <div
               onClick={() => changeFilter('Workshop')}
-              className={`text-sm cursor-pointer mx-1 px-2 h-8 py-1 border-2 rounded-xl
-              ${filter === 'Workshop' ? eventColors['Workshop-Filter'] : eventColors['Workshop']}`}
+              className={`text-sm cursor-pointer mx-1 px-4 h-8 py-1 rounded-full mb-1 transition-all duration-150 ${
+                filter === 'Workshop' ? eventColors['Workshop-Filter'] : eventColors['Workshop']
+              }`}
             >
               Workshop
             </div>
 
             <div
               onClick={() => changeFilter('Social')}
-              className={`text-sm cursor-pointer mx-1 px-2 h-8 py-1 border-2 rounded-xl
-              ${filter === 'Social' ? eventColors['Social-Filter'] : eventColors['Social']}`}
+              className={`text-sm cursor-pointer mx-1 px-4 h-8 py-1 rounded-full mb-1 transition-all duration-150 ${
+                filter === 'Social' ? eventColors['Social-Filter'] : eventColors['Social']
+              }`}
             >
               Social
             </div>
@@ -204,16 +209,14 @@ export default function HomeSchedule(props: { scheduleCard: ScheduleEvent[]; dat
       {/* Calendar */}
       <div className="md:flex p-1 overflow-y-auto overflow-x-hidden mx-auto lg:w-[80%] w-full h-full">
         <div className="w-full lg:w-1/2 px-4 md:px-0">
-          <div className="text-3xl font-black py-6 text-[#05149C] font-fredoka">
-            Day 1: Saturday
-          </div>
+          <div className="text-3xl font-black py-6 text-[#5C2E12]">Day 1: Saturday</div>
           <div className="bg-white mb-8 mx-2 p-2 border-2 rounded-2xl border-[#05149C] border-opacity-20">
             {day1Events}
           </div>
         </div>
 
         <div className="w-full lg:w-1/2 md:ml-6 px-4 md:px-0">
-          <div className="text-3xl font-black py-6 text-[#05149C] font-fredoka">Day 2: Sunday</div>
+          <div className="text-3xl font-black py-6 text-[#5C2E12]">Day 2: Sunday</div>
           <div className="bg-white mb-8 mx-2 p-2 border-2 rounded-2xl border-[#05149C] border-opacity-20">
             {day2Events}
           </div>

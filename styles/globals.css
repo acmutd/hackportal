@@ -7,6 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -17,6 +18,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: sans-serif;
+  overflow-x: hidden;
 
 }
 
@@ -57,6 +59,11 @@ a.link {
 
 .element {
   font-family: 'wavehaus';
+}
+
+/* Alfa Slab One font for navbar */
+.alfa-slab-font {
+  font-family: 'Alfa Slab One', cursive;
 }
 
 /* Fredoka font class for specific elements */
@@ -224,4 +231,111 @@ a.link {
   background-position: top center; 
   background-size: contain;        
 }
+
+/* Hero background */
+.bg-1 {
+  background-image: url('/assets/bg-1.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+
+/* Secondary background used for next section */
+.bg-2 {
+  background-image: url('/assets/bg-2.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+
+/* Background for spacer section */
+.bg-3 {
+  background-image: url('/assets/bg-3.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain; /* prevent zooming */
+  background-color: #7a3a00;
+}
+
+/* Spacer sizing: smaller responsive heights to avoid excessive scaling */
+.stats-path {
+  height: 360px; /* phones */
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .stats-path {
+    height: 480px; /* tablets */
+  }
+}
+
+@media (min-width: 1200px) {
+  .stats-path {
+    height: 720px; /* desktop */
+  }
+}
+
+/* Large screens - keep contain to avoid zooming */
+@media (min-width: 1920px) {
+  .bg-3 {
+    background-size: contain;
+    background-position: center center;
+  }
+} 
+
+/* Stats background */
+.bg-4 {
+  background-image: url('/assets/bg-4.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+} 
+
+/* Force Alfa Slab One for all text inside schedule section */
+.schedule-alfa * {
+  font-family: 'Alfa Slab One', cursive !important;
+  -webkit-font-smoothing: antialiased;
+  color: #5C2E12 !important; /* default brown text color */
+}
+
+
+/* Stats heading to match the reference image (Alfa Slab One) */
+.stats-title {
+  font-family: 'Alfa Slab One', cursive;
+  color: #FF9A2E; /* bright orange */
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  -webkit-text-stroke: 1.5px #7a3a00; /* thin dark outline */
+  text-shadow: 0 2px 0 #8c3d00, 0 6px 12px rgba(0,0,0,0.35); /* softened drop shadow */
+  position: relative;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
+}
+@media (min-width: 768px) {
+  .stats-title {
+    -webkit-text-stroke: 1px #7a3a00;
+  }
+}
+@media (min-width: 1024px) {
+  .stats-title {
+    -webkit-text-stroke: 1px #7a3a00;
+  }
+}
+/* subtle top bevel highlight to mimic embossed look */
+.stats-title::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 4px 0 rgba(255,255,255,0.06);
+}
+.stats-subtitle {
+  font-family: 'Alfa Slab One', cursive;
+  color: #8c3d00;
+  -webkit-text-stroke: 0.8px #6a2f00;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.28);
+}
+
 
