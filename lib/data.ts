@@ -17,10 +17,6 @@ export const stats = [
     object: '',
   },
   {
-    data: '24 Hours',
-    object: '',
-  },
-  {
     data: '$2,500 in Prizes',
     object: '',
   },

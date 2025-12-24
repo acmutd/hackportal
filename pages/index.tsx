@@ -62,8 +62,8 @@ export default function Home(props: {
       <HomeSchedule scheduleCard={props.scheduleCard} dateCard={props.dateCard} />
       {/*<HomeSpeakers keynoteSpeakers={props.keynoteSpeakers} />*/}
       <HomeChallenges challenges={props.challenges} />
-      <HomePrizes prizes={props.prizeData} />
-      <HomeTeam members={props.fetchedMembers} />
+      {/*<HomePrizes prizes={props.prizeData} />*/}
+      {/*<HomeTeam members={props.fetchedMembers} />*/}
       <HomeFaq answeredQuestion={props.answeredQuestion} />
       <HomeSponsors sponsorCard={props.sponsorCard} />
       <HomeFooter />

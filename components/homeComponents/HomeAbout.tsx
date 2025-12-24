@@ -29,7 +29,7 @@ const HomeAbout = () => {
 
     header: {
       fontFamily: "'Alfa Slab One', cursive",
-      fontWeight: 300,
+      fontWeight: 250,
       fontSize: 'clamp(28px, 4vw, 68px)',
       margin: 0,
       // move ONLY the header upward (relative to paragraph)
