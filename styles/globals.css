@@ -252,9 +252,17 @@ a.link {
 .bg-3 {
   background-image: url('/assets/bg-3.png');
   background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain; /* prevent zooming */
-  background-color: #7a3a00;
+  background-position: top center;
+  background-size: cover;
+}
+
+.bg-5 {
+  background-image: url('/assets/bg-5.png');
+  background-repeat: no-repeat;
+
+  /* THIS fixes the zoom */
+background-size: contain;
+  
 }
 
 /* Spacer sizing: smaller responsive heights to avoid excessive scaling */
