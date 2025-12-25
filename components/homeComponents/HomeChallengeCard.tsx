@@ -15,7 +15,7 @@ export default function HomeChallengesCard(props: { challenge: Challenge; blockT
             {props.challenge.title.toUpperCase()}
           </h1>
           {/* Company Name */}
-          <h1 className="font-nunito text-xl text-[#05149C] font-bold my-4">
+          <h1 className="font-nunito text-xl text-[#ffffff] font-bold my-4">
             {props.challenge.organization}
           </h1>
           {/* Description */}

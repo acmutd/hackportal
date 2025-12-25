@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import MLH_Sticker from '../../public/assets/mlh-sticker.png';
 import BackgroundCircles from '../BackgroundCircles';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import AppHeader2_Wrapper from '../AppHeader2/wrapper';
@@ -7,43 +5,28 @@ import { useRouter } from 'next/router';
 
 export default function HomeHero() {
   return (
-    <section className="min-h-screen bg-contain bg-white flex flex-col-reverse md:flex-col">
+    <section className="min-h-screen flex flex-col-reverse md:flex-col section-bg bg-1 bg-cover bg-center overflow-x-hidden">
       {/* App header */}
       <AppHeader2_Wrapper />
 
       <div className="flex h-screen w-full relative">
-        <div className="w-full h-full absolute top-0 left-0 z-0">
+        {/* <div className="w-full h-full absolute top-0 left-0 z-0">
           <BackgroundCircles />
-        </div>
+        </div> */}
 
         <div className="relative z-10 shrink-0 w-full flex">
-          {/* MLH sticker */}
-          <div className="absolute top-0 right-4 z-20">
-            <Image
-              src={MLH_Sticker.src}
-              height={MLH_Sticker.height}
-              width={MLH_Sticker.width}
-              alt="MLH sticker"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
           {/* Big welcome */}
-          <div className="w-full flex flex-col gap-2 justify-center items-center bg-[rgba(255,255,255,0.75)] backdrop-blur-[60px]">
-            <p className="font-nunito text-[#262626] text-xl md:text-3xl">Welcome To</p>
-            <h1 className="font-fredokaOne text-4xl md:text-6xl lg:text-8xl font-bold text-[#05149C]">
-              HACKPORTAL
-            </h1>
+          <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none px-4">
+            <div className="text-center transform -translate-y-16 md:-translate-y-28">
+              <h1 className="rye-font text-white text-5xl md:text-7xl lg:text-7xl font-bold drop-shadow-2xl leading-tight">
+                NTHS Hackathon 2026
+              </h1>
+              <p className="rye-font text-white text-lg md:text-2xl opacity-95 drop-shadow-lg mt-2">
+                March 5th-6th
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Bottom banner */}
-      <div className="font-dmSans w-full flex justify-center bg-[#7B81FF] text-white h-[1.75rem] text-nowrap overflow-hidden">
-        <p className="text-lg">
-          SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE
-          TEXT • SAMPLE TEXT • SAMPLE TEXT
-        </p>
       </div>
     </section>
   );

@@ -140,35 +140,16 @@ export const hackPortalConfig: HackPortalConfig = {
         ],
       },
     ],
-    //Question Topic
+    // Question Topic
     schoolQuestions: [
       {
-        datalistQuestions: [
+        textInputQuestions: [
           {
-            //University question
-            question:
-              'This event is for college students worldwide. Which university do you attend?',
-            id: 'university',
-            name: 'university',
+            // High school question
+            question: 'What is your high school?',
+            id: 'school',
+            name: 'school',
             required: true,
-            datalist: 'schools',
-            options: schools.map(({ university }) => ({
-              title: university,
-              value: university,
-            })),
-            initialValue: '',
-          },
-          {
-            //Major question
-            question: 'All majors are welcome at this event. What is your major?',
-            id: 'major',
-            name: 'major',
-            required: true,
-            datalist: 'majors',
-            options: majors.map(({ major }) => ({
-              title: major,
-              value: major,
-            })),
             initialValue: '',
           },
         ],
@@ -176,38 +157,45 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         dropdownQuestions: [
           {
-            //Grade question
-            question: 'Current level of study',
+            question: 'District',
             required: true,
-            id: 'studyLevel',
-            name: 'studyLevel',
+            id: 'district',
+            name: 'district',
             initialValue: '',
             options: [
-              {
-                title: 'Freshman',
-                value: 'freshman',
-              },
-              {
-                title: 'Sophomore',
-                value: 'sophomore',
-              },
-              {
-                title: 'Junior',
-                value: 'junior',
-              },
-              {
-                title: 'Senior',
-                value: 'senior',
-              },
-              {
-                title: 'Graduate Student',
-                value: 'grad',
-              },
+              { value: 'allen', title: 'Allen ISD' },
+              { value: 'coppell', title: 'Coppell ISD' },
+              { value: 'dallas', title: 'Dallas ISD' },
+              { value: 'frisco', title: 'Frisco ISD' },
+              { value: 'garland', title: 'Garland ISD' },
+              { value: 'highland park', title: 'Highland Park ISD' },
+              { value: 'irving', title: 'Irving ISD' },
+              { value: 'lewisville', title: 'Lewisville ISD' },
+              { value: 'lovejoy', title: 'Lovejoy ISD' },
+              { value: 'mckinney', title: 'McKinney ISD' },
+              { value: 'plano', title: 'Plano ISD' },
+              { value: 'richardson', title: 'Richardson ISD' },
+              { value: 'other', title: 'Other' },
+            ],
+          },
+          {
+            // Grade question
+            question: 'Current grade',
+            required: true,
+            id: 'grade',
+            name: 'grade',
+            initialValue: '',
+            options: [
+              { title: 'Freshman', value: '9th' },
+              { title: 'Sophomore', value: '10th' },
+              { title: 'Junior', value: '11th' },
+              { title: 'Senior', value: '12th' },
             ],
           },
         ],
       },
     ],
+
     //Question Topic
     hackathonExperienceQuestions: [
       {
@@ -605,7 +593,7 @@ const setInitialValues = (obj) => {
 export const formInitialValues = getInitialValues();
 
 export const config = {
-  targetDate: '2024-11-04T00:00:00Z',
+  targetDate: '2026-03-09T00:00:00',
 };
 
 //extracting statRecords for general stats

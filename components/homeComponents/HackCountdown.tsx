@@ -13,31 +13,34 @@ const HackCountdown: React.FC<CountdownProps> = ({ targetDate }) => {
       days: 0,
       hours: 0,
       minutes: 0,
+      seconds: 0,
     };
 
     if (difference > 0) {
       timeLeft = {
         days: Math.floor(difference / (1000 * 60 * 60 * 24)),
         hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
+        minutes: Math.floor((difference / (1000 * 60)) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
       };
     }
-
     return timeLeft;
   };
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const interval = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
 
-    return () => clearTimeout(timer);
-  });
+    return () => clearInterval(interval);
+  }, [targetDate]);
 
   return (
-    <div className={styles.countdownContainer}>
+    <div className={`${styles.countdownContainer} bg-5`}>
+      <h1 className={styles.header}>Countdown</h1>
+
       <div className={styles.timeSection}>
         {Object.entries(timeLeft).map(([unit, value]) => {
           const digits = value.toString().padStart(2, '0').split('');
@@ -55,10 +58,10 @@ const HackCountdown: React.FC<CountdownProps> = ({ targetDate }) => {
           );
         })}
       </div>
-      <div className={styles.notifySection}>
+      {/* <div className={styles.notifySection}>
         <p>We will let you know when we are launching</p>
         <button className={styles.button}>Notify Me</button>
-      </div>
+      </div> */}
     </div>
   );
 };

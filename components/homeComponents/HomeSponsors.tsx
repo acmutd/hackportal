@@ -10,15 +10,11 @@ export default function HomeSponsors(props: { sponsorCard: Sponsor[] }) {
 
   return (
     sponsor.length != 0 && (
-      <section className="md:p-12 p-6">
-        <div className="flex flex-col flex-grow bg-white">
+      <section className="bg-9 md:p-40">
+        <div className="flex flex-col flex-grow">
           <h4
             // change this after updating tailwind font
-            style={{
-              fontFamily: 'Fredoka',
-              fontWeight: '600',
-            }}
-            className="text-complementary font-bold md:text-4xl text-2xl my-4 text-center"
+            className="header-sponsors"
           >
             Our Sponsors
           </h4>
