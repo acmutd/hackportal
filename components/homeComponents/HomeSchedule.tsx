@@ -140,13 +140,13 @@ export default function HomeSchedule(props: { scheduleCard: ScheduleEvent[]; dat
   return (
     <div
       id="schedule-section"
-      className="bg-[#F2F3FF] schedule-alfa min-h-[90vh] md:min-h-[100vh] lg:min-h-[120vh] py-20 md:py-32 mb-24"
+      className="bg-7 schedule-alfa min-h-[90vh] md:min-h-[100vh] lg:min-h-[120vh] py-20 md:py-32 mb-24"
     >
-      <div className="text-center text-5xl font-bold text-[#05149C] p-4">What to Expect?</div>
+      <div className="text-center text-5xl font-bold p-4">What to Expect?</div>
 
       {/* Filter */}
       <div className="md:flex justify-center items-center mx-8">
-        <div className="bg-[#6b2f00] rounded-3xl px-8 py-3 my-4 inline-block shadow-lg">
+        <div className="bg-[#8d572f] rounded-3xl px-8 py-3 my-4 inline-block shadow-lg">
           <div className="text-center py-1 text-xl font-bold text-[#3a1e0f]">Filters</div>
           <div className="flex flex-wrap justify-center mb-2">
             <div

@@ -228,8 +228,9 @@ a.link {
 .section-bg {
   background-image: url('/assets/bg.png');
   background-repeat: repeat-x; 
-  background-position: top center; 
-  background-size: contain;        
+  background-position: center; 
+  background-size: cover; 
+         
 }
 
 /* Hero background */
@@ -263,6 +264,53 @@ a.link {
   /* THIS fixes the zoom */
 background-size: contain;
   
+}
+
+.bg-6 {
+  background-image: url('/assets/bg-6.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+
+.bg-7 {
+  background-image: url('/assets/bg-7.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+.bg-8 {
+    background-image: url('/assets/bg-8.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+
+.bg-9 {
+    background-image: url('/assets/bg-7.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+
+.header-sponsors {
+  position: absolute;
+
+  /* 👇 MOVE THESE */
+  left: 450px;
+
+  font-family: "Alfa Slab One", cursive;
+  font-weight: 400;
+  font-size: clamp(28px, 4vw, 68px);
+
+  letter-spacing: 2px;
+  text-align: center;
+
+  color: #ffffff;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+
+  margin: 0;
+  z-index: 4;
 }
 
 /* Spacer sizing: smaller responsive heights to avoid excessive scaling */
