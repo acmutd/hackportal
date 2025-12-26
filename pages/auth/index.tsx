@@ -1,7 +1,8 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { useState } from 'react';
+import { useEffect } from 'react';
 import firebase from 'firebase/compat/app';
 import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -16,7 +17,7 @@ import PasswordInput from '../../components/authComponents/PasswordInput';
  * Route: /auth
  */
 export default function AuthPage() {
-  const { isSignedIn, signInWithGoogle, updateUser } = useAuthContext();
+  const { isSignedIn, hasProfile, signInWithGoogle, updateUser } = useAuthContext();
   const [currentEmail, setCurrentEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -110,9 +111,11 @@ export default function AuthPage() {
     }
   }
 
-  if (isSignedIn) {
-    router.push('/profile');
-  }
+  useEffect(() => {
+    if (isSignedIn) {
+      router.push(hasProfile ? '/profile' : '/register');
+    }
+  }, [isSignedIn, hasProfile, router]);
 
   return (
     <>

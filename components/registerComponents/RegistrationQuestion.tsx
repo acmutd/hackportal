@@ -18,6 +18,7 @@ function Question(props) {
           name={props.question.name}
           variant="outlined"
           type="text"
+          value={props.value ?? ''}
           onChange={props.onChange}
           sx={{
             fieldset: { borderColor: '#79747E' },
@@ -46,6 +47,7 @@ function Question(props) {
           name={props.question.name}
           variant="outlined"
           type="number"
+          value={props.value ?? ''}
           sx={{
             fieldset: { borderColor: '#79747E' },
           }}
@@ -78,9 +80,13 @@ function Question(props) {
           required={props.question.required}
           label={props.question.question}
           name={props.question.name}
+          value={props.value ?? ''}
+          onChange={props.onChange}
           className="!mt-4"
         >
-          <MenuItem selected disabled value="" />
+          <MenuItem disabled value="">
+            Select...
+          </MenuItem>
           {props.question.options.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.title}
@@ -130,7 +136,7 @@ function Question(props) {
           autoComplete="off"
         ></Field>
         <datalist id={props.question.datalist}>
-          <option value="" disabled selected></option>
+          <option value="" disabled></option>
           {props.question.options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.title}

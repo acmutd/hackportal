@@ -134,12 +134,19 @@ export default function AppHeader2_Core() {
         )}
 
         <div className="p-2 text-white cursor-pointer">
-          {!hasProfile && (
+          {/* if not signed in send to auth */}
+          {!user && (
+            <Link href="/auth">
+              <div className="py-3 px-5 rounded-[30px] bg-[#5D5A88] font-bold">Apply</div>
+            </Link>
+          )}
+          {/* if signed in but no profile go to register */}
+          {user && !hasProfile && (
             <Link href="/register">
               <div className="py-3 px-5 rounded-[30px] bg-[#5D5A88] font-bold">Apply</div>
             </Link>
           )}
-          {hasProfile && (
+          {user && hasProfile && (
             <Link href="/profile">
               <div className="py-3 px-5 rounded-[30px] bg-[#5D5A88] font-bold">Profile</div>
             </Link>

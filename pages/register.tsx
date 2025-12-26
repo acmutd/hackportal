@@ -42,14 +42,35 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
   const { user, hasProfile, updateProfile } = useAuthContext();
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   // update this to false for testing
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [formValid, setFormValid] = useState(true);
   const [registrationSection, setRegistrationSection] = useState(0);
-  const checkRedirect = async () => {
-    if (!allowedRegistrations) return;
-    if (hasProfile) router.push('/profile');
-    else setLoading(false);
-  };
+
+  useEffect(() => {
+    // wait for auth to resolve
+    if (user === undefined) return;
+
+    // not signed in → must authenticate first
+    if (user === null) {
+      router.replace('/auth');
+      return;
+    }
+
+    // already registered → profile
+    if (hasProfile) {
+      router.replace('/profile');
+      return;
+    }
+
+    // signed in & no profile → allow form
+    setLoading(false);
+  }, [user, hasProfile, router]);
+
+  // const checkRedirect = async () => {
+  //   if (!allowedRegistrations) return;
+  //   if (hasProfile) router.push('/profile');
+  //   else setLoading(false);
+  // };
 
   useEffect(() => {
     //setting user specific initial values
@@ -58,12 +79,12 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
     formInitialValues['firstName'] = user?.firstName?.split(' ')[0] || '';
     formInitialValues['lastName'] = user?.lastName || '';
     formInitialValues['permissions'] = user?.permissions || ['hacker'];
-  }, []);
-
-  // disbale this for testing
-  useEffect(() => {
-    checkRedirect();
   }, [user]);
+
+  // // disbale this for testing
+  // useEffect(() => {
+  //   checkRedirect();
+  // }, [user]);
 
   const handleSubmit = async (registrationData) => {
     let resumeUrl: string = '';
@@ -230,6 +251,9 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
               //regex matches characters before @, characters after @, and 2 or more characters after . (domain)
               errors.preferredEmail = 'Invalid email address';
             }
+            if (values.phone && !/^\d{3}-\d{3}-\d{4}$/.test(values.phone)) {
+              errors.phone = 'Phone number must be in XXX-XXX-XXXX format';
+            }
             if ((values.age && values.age < 1) || values.age > 100) {
               errors.age = 'Not a valid age';
             }
@@ -244,16 +268,16 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
           }}
           onSubmit={async (values, { setSubmitting }) => {
             await new Promise((r) => setTimeout(r, 500));
-            let finalValues: any = values;
+            let finalValues: any = { ...values };
             //add user object
             const userValues: any = {
-              id: values.id,
-              firstName: values.firstName,
-              lastName: values.lastName,
-              preferredEmail: values.preferredEmail,
-              permissions: values.permissions,
+              id: user?.id,
+              firstName: user?.firstName?.split(' ')[0] || values.firstName,
+              lastName: user?.lastName || values.lastName,
+              preferredEmail: user?.preferredEmail || values.preferredEmail,
+              permissions: user?.permissions || values.permissions,
             };
-            finalValues['user'] = userValues;
+            finalValues.user = userValues;
             //delete unnecessary values
             delete finalValues.firstName;
             delete finalValues.lastName;
@@ -261,7 +285,8 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             delete finalValues.preferredEmail;
 
             //submitting
-            handleSubmit(values);
+            console.log('SUBMIT USER ID:', finalValues.user?.id); // debugging
+            await handleSubmit(finalValues);
             setSubmitting(false);
             // alert(JSON.stringify(values, null, 2)); //Displays form results on submit for testing purposes
           }}
@@ -364,11 +389,24 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                       );
                     })}
                   </div>
+                  {/* Submit */}
+                  <div className="text-white absolute mt-4">
+                    <button
+                      type="submit"
+                      className="mr-auto cursor-pointer px-4 py-2 rounded-lg bg-primaryDark hover:brightness-90"
+                      onClick={() => setFormValid(!(!isValid || !dirty))}
+                    >
+                      Submit
+                    </button>
+                    {!isValid && !formValid && (
+                      <div className="text-red-600">Error: The form has invalid fields</div>
+                    )}
+                  </div>
                 </section>
               )}
 
               {/* Sponsor Questions */}
-              {registrationSection == 4 && (
+              {false && registrationSection == 4 && (
                 <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950] relative">
                   <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">Sponsor Info</h2>
                   <div className="flex flex-col">
@@ -398,19 +436,6 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                       Accepted file types: .pdf, .doc, .docx, .png, .jpeg, .txt, .tex, .rtf
                     </p>
                   </div>
-                  {/* Submit */}
-                  <div className="text-white absolute right-4">
-                    <button
-                      type="submit"
-                      className="mr-auto cursor-pointer px-4 py-2 rounded-lg bg-primaryDark hover:brightness-90"
-                      onClick={() => setFormValid(!(!isValid || !dirty))}
-                    >
-                      Submit
-                    </button>
-                    {!isValid && !formValid && (
-                      <div className="text-red-600">Error: The form has invalid fields</div>
-                    )}
-                  </div>
                 </section>
               )}
             </Form>
@@ -426,7 +451,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
           className={`lg:block ${
             registrationSection == 0
               ? 'justify-end'
-              : registrationSection >= 4
+              : registrationSection >= 3
               ? 'justify-start'
               : 'justify-between'
           } lg:pb-4 pb-8 lg:px-4 sm:px-8 px-6 text-primaryDark font-semibold text-primaryDark font-semibold text-md`}
@@ -450,7 +475,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
           )}
 
           <div className="flex justify-center items-center" style={{ gridArea: '1 / 2 / 2 / 3' }}>
-            {Array.from({ length: 5 }).map((_, i) => (
+            {Array.from({ length: 4 }).map((_, i) => (
               <div
                 key={i}
                 style={{ backgroundColor: registrationSection == i ? '#4C4950' : '#9F9EA7' }}
@@ -459,7 +484,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             ))}
           </div>
 
-          {registrationSection < 4 && (
+          {registrationSection < 3 && (
             <div
               className="flex justify-end "
               style={{ gridArea: '1 / 3 / 2 / 4' }}

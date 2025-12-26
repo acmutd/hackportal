@@ -7,22 +7,43 @@ initializeApi();
 
 const db = firestore();
 
-const APPLICATIONS_COLLECTION = '/registrations';
-const MISC_COLLECTION = '/miscellaneous';
+const APPLICATIONS_COLLECTION = 'registrations';
+const MISC_COLLECTION = 'miscellaneous';
 
 async function checkRegistrationAllowed() {
   const preferenceDoc = await db.collection('miscellaneous').doc('preferences').get();
   return preferenceDoc.data().allowRegistrations ?? false;
 }
 
+// async function updateAllUsersDoc(userId: string, profile: any) {
+//   const docRef = db.collection(MISC_COLLECTION).doc('allusers');
+//   const userData = await docRef.get();
+//   await docRef.set({
+//     users: [
+//       ...userData.data().users,
+//       {
+//         id: profile.user.id,
+//         user: {
+//           firstName: profile.user.firstName,
+//           lastName: profile.user.lastName,
+//           permissions: profile.user.permissions,
+//         },
+//       },
+//     ],
+//   });
+// }
+
 async function updateAllUsersDoc(userId: string, profile: any) {
   const docRef = db.collection(MISC_COLLECTION).doc('allusers');
   const userData = await docRef.get();
+
+  const existingUsers = userData.exists ? userData.data()?.users ?? [] : [];
+
   await docRef.set({
     users: [
-      ...userData.data().users,
+      ...existingUsers,
       {
-        id: profile.id,
+        id: profile.user.id, // IMPORTANT: use profile.user.id
         user: {
           firstName: profile.user.firstName,
           lastName: profile.user.lastName,
@@ -102,6 +123,9 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
   let body: Registration;
   try {
     body = JSON.parse(req.body);
+    if (!body?.user?.id) {
+      return res.status(400).json({ msg: 'Missing body.user.id' });
+    }
   } catch (error) {
     console.error('Could not parse request JSON body');
     return res.status(400).json({
