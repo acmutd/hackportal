@@ -1,134 +1,109 @@
 .countdownContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    font-family: Arial, sans-serif;
-    color: #2e0480;
-    padding: 2vw;
-    position: relative;
-    overflow: hidden;
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  flex-shrink: 0;
+
+  /* keep padding for safety but DON'T use padding-top to position */
+  padding: 80px;
+
+  display: block; /* stop flex from fighting your layout */
+}
+
+/* Place COUNTDOWN text exactly where you want */
+.header {
+  position: absolute;
+
+  /* 👇 MOVE THESE */
+  top: 450px;   /* bigger = move DOWN */
+  left: 550px;  /* smaller = move LEFT */
+
+  font-family: "Alfa Slab One", cursive;
+  font-weight: 400;
+  font-size: clamp(28px, 4vw, 68px);
+
+  letter-spacing: 2px;
+  text-align: center;
+
+  color: #ffffff;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+
+  margin: 0;
+  z-index: 4;
+}
+
+
+/* Place the timer as a block under the scroll */
+.timeSection {
+  position: absolute;
+
+  /* tweak these to move timer */
+  left: 410px;
+  top: 640px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 40px;
+
+  /* shrink the whole timer */
+  transform: scale(0.38);
+  transform-origin: top left;
+
+  z-index: 3;
+}
+
+/* Digit card */
+.digitBox {
+  background-color: rgba(247, 184, 108, 0.6);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 160px;
+  height: 220px;
+
+  margin: 10px;
+}
+
+/* Digit text */
+.digit {
+  font-family: "DS-Digital", monospace;
+  font-size: 140px;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1;
+}
+
+/* Unit label */
+.label {
+  font-family: "'Alfa Slab One', cursive";
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 52px;
+  color: #ffffff;
+  margin-top: 18px;
+  letter-spacing: 2px;
+}
+
+/* ---- Responsive scaling (keep whole 1920x1080 canvas scaled) ---- */
+@media (max-width: 1920px) {
+  .countdownContainer {
+    transform: scale(calc(100vw / 1920));
+    transform-origin: top center;
+    height: calc(1080px * (100vw / 1920));
   }
-  
-  .timeSection {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5vw;
+}
+
+@media (max-height: 1080px) {
+  .countdownContainer {
+    transform: scale(calc(100vh / 1080));
+    transform-origin: top center;
+    width: calc(1920px * (100vh / 1080));
   }
-  
-  .notifySection {
-    margin-top: 2vw;
-    text-align: center;
-    font-family: Poppins;
-    font-weight: 400;
-    font-size: 2.5vw;
-    line-height: 3.5vw;
-    color: #000000;
-    width: 90%;
-  }
-  
-  .digitBox {
-    background-color: rgba(221, 163, 94, 0.6); /* 0.6 = 60% opacity */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 40px;
-    margin: 0 1vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10vw;
-    height: 15vw;
-    /* border: .5px solid #000000; */
-  }
-  
-  .digit {
-    font-family: "DS-Digital", monospace;
-    font-size: 10vw;
-    font-weight: 400;
-    color: #683201;
-  }
-  
-  .label {
-    text-transform: uppercase;
-    font-family: Arial;
-    font-weight: 400;
-    font-size: 4vw;
-    line-height: 5vw;
-    color: #683201;
-    margin-top: 1vw;
-  }
-  
-  .button {
-    text-decoration: none;
-    position: relative;
-    border: none;
-    font-size: 18px;
-    font-family: inherit;
-    cursor: pointer;
-    color: #fff;
-    width: 150px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    background: linear-gradient(90deg, #d4a6ff, #80baff);
-    background-size: 300%;
-    border-radius: 30px;
-    z-index: 1;
-    transition: background 1s, width 0.3s, height 0.3s;
-    margin-top: 2vw;
-    user-select: none;
-    outline: none;
-  }
-  
-  .button:hover {
-    animation: ani 8s linear infinite;
-    border: none;
-  }
-  
-  .button::before {
-    content: "";
-    position: absolute;
-    top: -0.5vw;
-    left: -0.5vw;
-    right: -0.5vw;
-    bottom: -0.5vw;
-    z-index: -1;
-    background: linear-gradient(90deg, #d4a6ff, #80baff);
-    background-size: 400%;
-    border-radius: 35px;
-    transition: 1s;
-  }
-  
-  .button:hover::before {
-    filter: blur(2vw);
-  }
-  
-  .button:focus {
-    outline: none;
-  }
-  
-  @keyframes ani {
-    0% {
-      background-position: 0%;
-    }
-    100% {
-      background-position: 400%;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .button {
-      width: 120px;
-      height: 35px;
-      line-height: 35px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .button {
-      width: 100px;
-      height: 30px;
-      line-height: 30px;
-    }
-  }
-  
+}

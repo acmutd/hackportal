@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import MLH_Sticker from '../../public/assets/mlh-sticker.png';
 import BackgroundCircles from '../BackgroundCircles';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import AppHeader2_Wrapper from '../AppHeader2/wrapper';
@@ -7,7 +5,7 @@ import { useRouter } from 'next/router';
 
 export default function HomeHero() {
   return (
-    <section className="min-h-screen flex flex-col-reverse md:flex-col bg-[url('/assets/fullBG.png')] bg-cover bg-center">
+    <section className="min-h-screen flex flex-col-reverse md:flex-col section-bg bg-1 bg-cover bg-center overflow-x-hidden">
       {/* App header */}
       <AppHeader2_Wrapper />
 
@@ -17,29 +15,18 @@ export default function HomeHero() {
         </div> */}
 
         <div className="relative z-10 shrink-0 w-full flex">
-          {/* MLH sticker */}
-          <div className="absolute top-0 right-4 z-20">
-            <Image
-              src={MLH_Sticker.src}
-              height={MLH_Sticker.height}
-              width={MLH_Sticker.width}
-              alt="MLH sticker"
-              className="w-full h-full object-cover"
-            />
-          </div>
           {/* Big welcome */}
-          {/* <div className="w-full flex flex-col gap-4 justify-center items-center text-center">
-            <p className="font-nunito text-[#262626] text-xl md:text-3xl">Welcome To</p>
-          </div> */}
+          <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none px-4">
+            <div className="text-center transform -translate-y-16 md:-translate-y-28">
+              <h1 className="rye-font text-white text-5xl md:text-7xl lg:text-7xl font-bold drop-shadow-2xl leading-tight">
+                NTHS Hackathon 2026
+              </h1>
+              <p className="rye-font text-white text-lg md:text-2xl opacity-95 drop-shadow-lg mt-2">
+                March 5th-6th
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-
-      {/* Bottom banner */}
-      <div className="font-dmSans w-full flex justify-center bg-[#683201] text-white h-[1.75rem] text-nowrap overflow-hidden">
-        <p className="text-lg">
-          ℧ • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT •
-          SAMPLE TEXT • SAMPLE TEXT • ℧
-        </p>
       </div>
     </section>
   );
