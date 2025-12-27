@@ -5,12 +5,16 @@ import HomeChallengesCard from './HomeChallengeCard';
 export default function HomeChallengesComponent(props: { challenges: Challenge[] }) {
   return (
     props.challenges.length !== 0 && (
-      <section className="bg-8 schedule-alfa min-h-[90vh] md:min-h-[100vh] lg:min-h-[120vh] py-20 md:py-32 mb-24">
-        <div className="flex items-center">
-          <span className="header-sponsors">Challenge Tracks</span>
-        </div>
-        <div className="w-full mb-2">
-          <div className="md:w-2/5 w-full mx-auto p-4 text-balance"></div>
+      <section className="schedule-alfa pt-10 md:pt-14 pb-20 md:pb-28">
+        <div
+          className="text-center p-4 white-text"
+          style={{
+            fontFamily: "'Alfa Slab One', cursive",
+            fontWeight: 250,
+            fontSize: 'clamp(28px, 4vw, 68px)',
+          }}
+        >
+          Challenge Tracks
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:p-10 items-center gap-x-6 mt-6 mx-auto">
           {props.challenges.map((challenge, idx) => (

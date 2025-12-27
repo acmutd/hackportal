@@ -138,11 +138,17 @@ export default function HomeSchedule(props: { scheduleCard: ScheduleEvent[]; dat
   const day2Events = getDailyEvents(day2StartDateAndTime, eventEndDateAndTime);
 
   return (
-    <div
-      id="schedule-section"
-      className="bg-7 schedule-alfa min-h-[90vh] md:min-h-[100vh] lg:min-h-[120vh] py-20 md:py-32 mb-24"
-    >
-      <div className="text-center text-5xl font-bold p-4">What to Expect?</div>
+    <div id="schedule-section" className="schedule-alfa py-16 md:py-24">
+      <div
+        className="text-center p-4 white-text"
+        style={{
+          fontFamily: "'Alfa Slab One', cursive",
+          fontWeight: 250,
+          fontSize: 'clamp(28px, 4vw, 68px)',
+        }}
+      >
+        What to Expect?
+      </div>
 
       {/* Filter */}
       <div className="md:flex justify-center items-center mx-8">
@@ -209,14 +215,32 @@ export default function HomeSchedule(props: { scheduleCard: ScheduleEvent[]; dat
       {/* Calendar */}
       <div className="md:flex p-1 overflow-y-auto overflow-x-hidden mx-auto lg:w-[80%] w-full h-full">
         <div className="w-full lg:w-1/2 px-4 md:px-0">
-          <div className="text-3xl font-black py-6 text-[#5C2E12]">Day 1: Saturday</div>
+          <div
+            className="py-6 white-text"
+            style={{
+              fontFamily: "'Alfa Slab One', cursive",
+              fontWeight: 250,
+              fontSize: 'clamp(20px, 3vw, 48px)',
+            }}
+          >
+            Day 1: Saturday
+          </div>
           <div className="bg-white mb-8 mx-2 p-2 border-2 rounded-2xl border-[#05149C] border-opacity-20">
             {day1Events}
           </div>
         </div>
 
         <div className="w-full lg:w-1/2 md:ml-6 px-4 md:px-0">
-          <div className="text-3xl font-black py-6 text-[#5C2E12]">Day 2: Sunday</div>
+          <div
+            className="py-6 white-text"
+            style={{
+              fontFamily: "'Alfa Slab One', cursive",
+              fontWeight: 250,
+              fontSize: 'clamp(20px, 3vw, 48px)',
+            }}
+          >
+            Day 2: Sunday
+          </div>
           <div className="bg-white mb-8 mx-2 p-2 border-2 rounded-2xl border-[#05149C] border-opacity-20">
             {day2Events}
           </div>

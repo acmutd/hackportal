@@ -10,8 +10,8 @@ export default function HomeSponsors(props: { sponsorCard: Sponsor[] }) {
 
   return (
     sponsor.length != 0 && (
-      <section className="bg-9 md:p-40">
-        <div className="flex flex-col flex-grow">
+      <section className="md:p-40">
+        <div className="flex flex-col flex-grow relative">
           <h4
             // change this after updating tailwind font
             className="header-sponsors"

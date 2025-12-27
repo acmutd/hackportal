@@ -9,7 +9,7 @@ export default function HomeFooter() {
         // TODO: need to update box shadow, current box shadow is a bit off from the design
         boxShadow: 'rgba(0, 0, 0, 0.18) 20px -2px 20px',
       }}
-      className=" mt-16 md:text-base text-xs relative"
+      className="bg-9 mt-16 md:text-base text-xs relative"
     >
       <div className="flex">
         <Blob width={400} className="absolute hidden left-0 top-0 lg:block" />
@@ -53,7 +53,7 @@ export default function HomeFooter() {
             {/* subscribe button */}
             <button
               className="rounded-lg text-white px-6 py-2 my-4"
-              style={{ backgroundColor: '#7B81FF' }}
+              style={{ backgroundColor: '#8B5A2B' }}
             >
               Subscribe
             </button>
@@ -62,7 +62,7 @@ export default function HomeFooter() {
       </div>
       <div
         // hardcoded background color for now, but will upgrade to tailwind later
-        style={{ height: '37px', width: '100%', backgroundColor: '#7B81FF' }}
+        style={{ height: '37px', width: '100%', backgroundColor: '#8B5A2B' }}
         className="absolute bottom-0 flex items-center justify-center"
       >
         <h2 className="text-center text-white">All Copyrights are reserved by HackUTD</h2>
@@ -86,7 +86,7 @@ const Blob: React.FC<SVGProps<SVGSVGElement>> = (props) => {
         fillRule="evenodd"
         clipRule="evenodd"
         d="M38.9788 597.017C129.555 628.73 243.207 655.052 315.874 585.996C387.307 518.112 331.301 394.497 355.612 296.116C385.101 176.784 513.977 73.4295 470.3 -38.9127C425.588 -153.916 283.623 -190.831 166.515 -190.256C63.0498 -189.748 -30.1812 -121.127 -98.5997 -36.1217C-153.192 31.7049 -151.839 124.432 -157.987 212.914C-163.26 288.808 -164.756 363.637 -130.957 429.549C-92.3463 504.843 -37.3878 570.279 38.9788 597.017Z"
-        fill="#7B81FF"
+        fill="#8B5A2B"
       />
     </svg>
   );
