@@ -30,9 +30,16 @@ export const hackPortalConfig: HackPortalConfig = {
           },
           {
             //don't remove; for user account info
-            question: 'Email',
+            question: 'School Email',
             id: 'email',
             name: 'preferredEmail',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Phone Number (XXX-XXX-XXXX)',
+            id: 'phone',
+            name: 'phone',
             required: true,
             initialValue: '',
           },
@@ -153,8 +160,6 @@ export const hackPortalConfig: HackPortalConfig = {
             initialValue: '',
           },
         ],
-      },
-      {
         dropdownQuestions: [
           {
             question: 'District',
@@ -186,11 +191,51 @@ export const hackPortalConfig: HackPortalConfig = {
             name: 'grade',
             initialValue: '',
             options: [
-              { title: 'Freshman', value: '9th' },
-              { title: 'Sophomore', value: '10th' },
-              { title: 'Junior', value: '11th' },
-              { title: 'Senior', value: '12th' },
+              { title: '9', value: '9th' },
+              { title: '10', value: '10th' },
+              { title: '11', value: '11th' },
+              { title: '12', value: '12th' },
             ],
+          },
+        ],
+      },
+      {
+        dropdownQuestions: [
+          {
+            question: 'Do you have a team already?',
+            required: true,
+            id: 'hasTeam',
+            name: 'hasTeam',
+            initialValue: '',
+            options: [
+              { title: 'Yes', value: 'yes' },
+              { title: 'No, not yet', value: 'no_not_yet' },
+            ],
+          },
+        ],
+      },
+      {
+        textInputQuestions: [
+          {
+            question: 'If yes, Team Member #1 (First Name, Last Name)',
+            id: 'teamMember1',
+            name: 'teamMember1',
+            required: false,
+            initialValue: '',
+          },
+          {
+            question: 'If yes, Team Member #2 (First Name, Last Name)',
+            id: 'teamMember2',
+            name: 'teamMember2',
+            required: false,
+            initialValue: '',
+          },
+          {
+            question: 'If yes, Team Member #3 (First Name, Last Name)',
+            id: 'teamMember3',
+            name: 'teamMember3',
+            required: false,
+            initialValue: '',
           },
         ],
       },
@@ -241,36 +286,36 @@ export const hackPortalConfig: HackPortalConfig = {
               },
             ],
           },
-          {
-            //Heard from question
-            question: 'Where did you hear about HackPortal?',
-            required: true,
-            id: 'heardFrom',
-            name: 'heardFrom',
-            initialValue: '',
-            options: [
-              {
-                title: 'Instagram',
-                value: 'Instagram',
-              },
-              {
-                title: 'Twitter',
-                value: 'Twitter',
-              },
-              {
-                title: 'Event Site',
-                value: 'Event Site',
-              },
-              {
-                title: 'Friend',
-                value: 'Friend',
-              },
-              {
-                title: 'Other',
-                value: 'Other',
-              },
-            ],
-          },
+          // {
+          //   //Heard from question
+          //   question: 'Where did you hear about HackPortal?',
+          //   required: true,
+          //   id: 'heardFrom',
+          //   name: 'heardFrom',
+          //   initialValue: '',
+          //   options: [
+          //     {
+          //       title: 'Instagram',
+          //       value: 'Instagram',
+          //     },
+          //     {
+          //       title: 'Twitter',
+          //       value: 'Twitter',
+          //     },
+          //     {
+          //       title: 'Event Site',
+          //       value: 'Event Site',
+          //     },
+          //     {
+          //       title: 'Friend',
+          //       value: 'Friend',
+          //     },
+          //     {
+          //       title: 'Other',
+          //       value: 'Other',
+          //     },
+          //   ],
+          // },
         ],
       },
     ],
@@ -325,12 +370,12 @@ export const hackPortalConfig: HackPortalConfig = {
                 value: 'Vegetarian',
               },
               {
-                title: 'Nuts',
-                value: 'Nuts',
+                title: 'Halal',
+                value: 'Halal',
               },
               {
-                title: 'Fish',
-                value: 'Fish',
+                title: 'Nuts',
+                value: 'Nuts',
               },
               {
                 title: 'Wheat',
@@ -364,68 +409,68 @@ export const hackPortalConfig: HackPortalConfig = {
     ],
     //Question Topic
     sponsorInfoQuestions: [
-      {
-        textInputQuestions: [
-          {
-            //Github question
-            question: 'Github:',
-            id: 'github',
-            name: 'github',
-            required: false,
-            initialValue: '',
-          },
-          {
-            //LinkedIn question
-            question: 'LinkedIn:',
-            id: 'linkedin',
-            name: 'linkedin',
-            required: false,
-            initialValue: '',
-          },
-          {
-            //Website question
-            question: 'Personal Website:',
-            id: 'website',
-            name: 'website',
-            required: false,
-            initialValue: '',
-          },
-        ],
-      },
-      {
-        checkboxQuestions: [
-          {
-            //Companies question
-            question: 'Companies to send my resume to:',
-            required: false,
-            id: 'companies',
-            name: 'companies',
-            initialValue: [],
-            options: [
-              {
-                title: 'State Farm',
-                value: 'State Farm',
-              },
-              {
-                title: 'American Airlines',
-                value: 'American Airlines',
-              },
-              {
-                title: 'Capital One',
-                value: 'Capital One',
-              },
-              {
-                title: 'Ebay',
-                value: 'Ebay',
-              },
-              {
-                title: 'Facebook',
-                value: 'Facebook',
-              },
-            ],
-          },
-        ],
-      },
+      // {
+      //   textInputQuestions: [
+      //     {
+      //       //Github question
+      //       question: 'Github:',
+      //       id: 'github',
+      //       name: 'github',
+      //       required: false,
+      //       initialValue: '',
+      //     },
+      //     {
+      //       //LinkedIn question
+      //       question: 'LinkedIn:',
+      //       id: 'linkedin',
+      //       name: 'linkedin',
+      //       required: false,
+      //       initialValue: '',
+      //     },
+      //     {
+      //       //Website question
+      //       question: 'Personal Website:',
+      //       id: 'website',
+      //       name: 'website',
+      //       required: false,
+      //       initialValue: '',
+      //     },
+      //   ],
+      // },
+      // {
+      //   checkboxQuestions: [
+      //     {
+      //       //Companies question
+      //       question: 'Companies to send my resume to:',
+      //       required: false,
+      //       id: 'companies',
+      //       name: 'companies',
+      //       initialValue: [],
+      //       options: [
+      //         {
+      //           title: 'State Farm',
+      //           value: 'State Farm',
+      //         },
+      //         {
+      //           title: 'American Airlines',
+      //           value: 'American Airlines',
+      //         },
+      //         {
+      //           title: 'Capital One',
+      //           value: 'Capital One',
+      //         },
+      //         {
+      //           title: 'Ebay',
+      //           value: 'Ebay',
+      //         },
+      //         {
+      //           title: 'Facebook',
+      //           value: 'Facebook',
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // },
     ],
   },
 };
@@ -456,8 +501,9 @@ export const fieldNames = {
   race: 'Race',
   size: 'Shirt Size',
   softwareExperience: 'Software Experience',
-  studyLevel: 'Study Level',
-  university: 'University',
+  grade: 'grade',
+  school: 'School',
+  district: 'District',
   gender: 'Gender',
   hackathonExperience: 'Number of Hackathon attended',
   heardFrom: 'Heard of Hackathon from',
@@ -476,8 +522,9 @@ export const singleField = [
   'race',
   'size',
   'softwareExperience',
-  'studyLevel',
-  'university',
+  'grade',
+  'school',
+  'district',
   'gender',
   'hackathonExperience',
   'heardFrom',

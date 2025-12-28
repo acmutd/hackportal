@@ -75,21 +75,21 @@ export default function ProfilePage() {
       <div className="flex flex-col md:flex-row 2xl:gap-x-14 gap-x-12 2xl:justify-center">
         {/* QR Code */}
         <div className="">
-          <div className="bg-secondary rounded-lg p-8 h-min w-min mx-auto">
+          <div className="bg-[#F7B86C]/20 rounded-lg p-8 h-min w-min mx-auto">
             {/* Dark represents dots, Light represents the background */}
             <QRCode
               data={'hack:' + user.id}
               loading={false}
               width={200}
               height={200}
-              darkColor="#05149C"
+              darkColor="#000000f6"
               lightColor="#0000"
             />
-            <div className="text-center text-[#170F49] text-md font-semibold">
+            <div className="text-center text-[#5C2E12] text-md font-semibold">
               {profile.user.group ? profile.user.group : 'Group TBD'}
             </div>
           </div>
-          <div className="border-y-[1.2px] border-primaryDark/20 py-4 md:my-8 my-6">
+          <div className="border-y-[1.2px] border-[#5C2E12]/20 py-4 md:my-8 my-6">
             <div className="font-fredoka font-semibold text-lg">Application Status</div>
             <h1
               className={`font-fredoka text-xl font-semibold ${
@@ -97,7 +97,7 @@ export default function ProfilePage() {
                   ? 'text-[#5DC55B]'
                   : profile.user.status === 'Rejected'
                   ? 'text-[#DE3163]'
-                  : 'text-[#5C67C9]'
+                  : 'text-[#5C2E12]'
               }`}
             >
               {profile.user.status ? profile.user.status : 'Pending'}
@@ -105,7 +105,7 @@ export default function ProfilePage() {
           </div>
 
           <div className="flex gap-x-4">
-            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#9CA6FF]">
+            {/* <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#9CA6FF]">
               <a href={profile.linkedin} target="_blank" rel="noreferrer">
                 <LinkedInIcon style={{ fontSize: 29, color: 'white' }} />
               </a>
@@ -119,10 +119,10 @@ export default function ProfilePage() {
               <a href={profile.website} target="_blank" rel="noreferrer">
                 <LanguageIcon style={{ fontSize: 29, color: 'white' }} />
               </a>
-            </div>
+            </div> */}
 
             <div className="my-2">
-              {!uploading ? (
+              {/* {!uploading ? (
                 <>
                   <input
                     id="resume"
@@ -142,55 +142,55 @@ export default function ProfilePage() {
                 </>
               ) : (
                 <LoadIcon width={16} height={16} />
-              )}
+              )} */}
             </div>
           </div>
         </div>
 
         {/* Info */}
         <div className="w-full">
-          <h1 className="font-fredoka font-semibold text-5xl md:mt-0 mt-10 text-[#170F49]">{`${profile.user.firstName} ${profile.user.lastName}`}</h1>
+          <h1 className="font-fredoka font-semibold text-5xl md:mt-0 mt-10 text-[#683201]">{`${profile.user.firstName} ${profile.user.lastName}`}</h1>
 
           <div className="md:flex items-center md:gap-x-10 mt-4">
             <div className="md:w-1/2">
-              <div className="font-fredoka font-semibold md:text-2xl text-lg mt-6 mb-1 text-[#170F49]">
-                University
+              <div className="font-fredoka font-semibold md:text-2xl text-lg mt-6 mb-1 text-[#683201]">
+                School
               </div>
               <h1 className="px-3 py-1 text-lg border border-3 border-[#C4C4C4] rounded-2xl text-[#4C4950]">
-                {profile.university}
+                {profile.school}
               </h1>
 
-              <div className="font-fredoka font-semibold md:text-2xl text-lg mt-6 mb-1 text-[#170F49]">
-                Major
+              <div className="font-fredoka font-semibold md:text-2xl text-lg mt-6 mb-1 text-[#683201]">
+                School District
               </div>
               <h1 className="px-3 py-1 text-lg border border-3 border-[#C4C4C4] rounded-2xl text-[#4C4950]">
-                {profile.major}
+                {profile.district}
               </h1>
 
-              <div className="font-fredoka font-semibold md:text-2xl text-lg mt-6 mb-1 text-[#170F49]">
-                Level of Study
+              <div className="font-fredoka font-semibold md:text-2xl text-lg mt-6 mb-1 text-[#683201]">
+                Grade
               </div>
               <h1 className="px-3 py-1 text-lg border border-3 border-[#C4C4C4] rounded-2xl text-[#4C4950]">
-                {profile.studyLevel}
+                {profile.grade}
               </h1>
             </div>
 
             <div className="md:w-1/2">
-              <div className="font-fredoka font-semibold md:text-2xl text-lg mt-6 mb-1 text-[#170F49]">
+              <div className="font-fredoka font-semibold md:text-2xl text-lg mt-6 mb-1 text-[#683201]">
                 Role
               </div>
               <h1 className="px-3 py-1 text-lg border border-3 border-[#C4C4C4] rounded-2xl text-[#4C4950]">
                 {profile.user.permissions[0]}
               </h1>
 
-              <div className="font-fredoka font-semibold md:text-2xl text-lg mt-6 mb-1 text-[#170F49]">
+              <div className="font-fredoka font-semibold md:text-2xl text-lg mt-6 mb-1 text-[#683201]">
                 Number of Hackathons Attended
               </div>
               <h1 className="px-3 py-1 text-lg border border-3 border-[#C4C4C4] rounded-2xl text-[#4C4950]">
                 {profile.hackathonExperience}
               </h1>
 
-              <div className="font-fredoka font-semibold md:text-2xl text-lg mt-6 mb-1 text-[#170F49]">
+              <div className="font-fredoka font-semibold md:text-2xl text-lg mt-6 mb-1 text-[#683201]">
                 Preferred Email
               </div>
               <h1 className="px-3 py-1 text-lg border border-3 border-[#C4C4C4] rounded-2xl text-[#4C4950]">

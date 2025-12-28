@@ -96,9 +96,9 @@ type Registration = {
   gender: string;
   race: string;
   ethnicity: string;
-  university: string;
-  major: string;
-  studyLevel: string;
+  school: string;
+  district: string;
+  grade: string;
   hackathonExperience: number;
   softwareExperience: string;
   heardFrom: string;
