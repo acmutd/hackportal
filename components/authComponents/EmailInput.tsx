@@ -12,7 +12,7 @@ const EmailInput: React.FC<InputProps> = (props) => {
       role="input"
       aria-required="true"
       className={`poppins-semibold text-complementaryLight border-b-2 mb-8 ${
-        isFocused ? 'border-b-primaryDark' : ''
+        isFocused ? 'border-b-[#5C2E12]' : ''
       }`}
     >
       <label htmlFor="email" className="block text-md font-medium">

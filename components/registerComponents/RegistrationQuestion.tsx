@@ -7,6 +7,16 @@ import { MenuItem, TextField } from '@mui/material';
  *
  *
  */
+const muiFieldSx = {
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': { borderColor: '#5C2E12' }, // default
+    '&:hover fieldset': { borderColor: '#683201' }, // hover
+    '&.Mui-focused fieldset': { borderColor: '#683201' }, // focus (kills purple)
+  },
+  '& .MuiInputLabel-root': { color: '#5C2E12' }, // label default
+  '& .MuiInputLabel-root.Mui-focused': { color: '#683201' }, // label focus
+};
+
 function Question(props) {
   if (props.type === 'text') {
     return (
@@ -20,9 +30,7 @@ function Question(props) {
           type="text"
           value={props.value ?? ''}
           onChange={props.onChange}
-          sx={{
-            fieldset: { borderColor: '#79747E' },
-          }}
+          sx={muiFieldSx}
           InputProps={{
             classes: {
               notchedOutline: '!border-red',
@@ -48,9 +56,7 @@ function Question(props) {
           variant="outlined"
           type="number"
           value={props.value ?? ''}
-          sx={{
-            fieldset: { borderColor: '#79747E' },
-          }}
+          sx={muiFieldSx}
           onChange={props.onChange}
           InputProps={{
             inputProps: {
@@ -81,6 +87,7 @@ function Question(props) {
           label={props.question.question}
           name={props.question.name}
           value={props.value ?? ''}
+          sx={muiFieldSx}
           onChange={props.onChange}
           className="!mt-4"
         >
@@ -109,7 +116,13 @@ function Question(props) {
         <div role="group" aria-labelledby="checkbox-group" className="flex flex-col">
           {props.question.options.map((option) => (
             <label key={option.value}>
-              <Field type="checkbox" name={props.question.name} value={option.value} />
+              <Field
+                type="checkbox"
+                name={props.question.name}
+                value={option.value}
+                className="mr-2 h-4 w-4 focus:ring-2 focus:ring-[#683201]/30"
+                style={{ color: '#683201' }}
+              />
               &nbsp;{option.title}
             </label>
           ))}

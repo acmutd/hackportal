@@ -208,15 +208,15 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
   };
 
   return (
-    <div className="flex flex-col flex-grow bg-secondary">
+    <div className="flex flex-col flex-grow bg-[#F7B86C]/20">
       <Head>
         <title>Hacker Registration</title>
-        <meta name="description" content="Register for [HACKATHON NAME]" />
+        <meta name="description" content="Register for NTHS 2026" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section className="pl-4 relative mb-4">
         <Link href="/" passHref>
-          <ChevronLeftIcon className="absolute top-4 z-10" fontSize={'large'} color={'primary'} />
+          <ChevronLeftIcon className="absolute top-4 z-10 text-[#683201]" fontSize={'large'} />
         </Link>
       </section>
 
@@ -303,7 +303,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
               {registrationSection == 0 && (
                 <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-4 py-6 px-8 mb-8 text-[#4C4950]">
                   <header>
-                    <h1 className="text-primaryDark lg:text-4xl sm:text-3xl text-2xl font-bold text-center lg:mt-0 mt-4 mb-4 poppins-bold">
+                    <h1 className="text-[#683201] lg:text-4xl sm:text-3xl text-2xl font-bold text-center lg:mt-0 mt-4 mb-4 poppins-bold">
                       Hacker Registration
                     </h1>
                     <div style={{ color: '#A6A4A8' }} className="poppins-regular text-center mb-6">
@@ -393,7 +393,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                   <div className="text-white absolute mt-4">
                     <button
                       type="submit"
-                      className="mr-auto cursor-pointer px-4 py-2 rounded-lg bg-primaryDark hover:brightness-90"
+                      className="mr-auto cursor-pointer px-4 py-2 rounded-lg bg-[#683201] hover:brightness-90"
                       onClick={() => setFormValid(!(!isValid || !dirty))}
                     >
                       Submit
@@ -466,7 +466,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             >
               <div
                 style={{ width: 'fit-content' }}
-                className="cursor-pointer select-none bg-primaryDark text-white rounded-md p-3"
+                className="cursor-pointer select-none bg-[#683201] text-white rounded-md p-3"
               >
                 <ChevronLeftIcon />
                 prev page
@@ -492,7 +492,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                 setRegistrationSection(registrationSection + 1);
               }}
             >
-              <div className="cursor-pointer select-none bg-primaryDark text-white rounded-md p-3">
+              <div className="cursor-pointer select-none bg-[#683201] text-white rounded-md p-3">
                 next page
                 <ChevronRightIcon />
               </div>
