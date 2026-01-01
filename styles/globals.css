@@ -251,6 +251,7 @@ a.link {
 
 /* Background for spacer section */
 .bg-3 {
+  background-color: #3d2e29;
   background-image: url('/assets/bg-3.png');
   background-repeat: no-repeat;
   background-position: top center;
@@ -258,6 +259,7 @@ a.link {
 }
 
 .bg-5 {
+  background-color: #231208;
   background-image: url('/assets/bg-5.png');
   background-repeat: no-repeat;
 
@@ -275,14 +277,19 @@ background-size: contain;
 
 /* Unified gradient background wrapping schedule to sponsors */
 .bg-unified-gradient {
-  background-image: linear-gradient(
-    135deg,
-    #2d1508 0%,
-    #8c3f1f 20%,
-    #fe9a2e 40%,
-    #b8865f 60%,
-    #b57d48 80%,
-    #f5e6d3 100%
+  background: linear-gradient(
+    to bottom,
+    #231208 0%,
+    #231208 10%,
+    #301a11 20%,
+    #3d2e29 30%,
+    #5c3b33 40%,
+    #7a4433 50%,
+    #994d33 60%,
+    #b85e3a 70%,
+    #cc6633 80%,
+    #e67a1a 90%,
+    #ff9933 100%
   );
   background-repeat: no-repeat;
   background-position: center;
@@ -331,8 +338,8 @@ background-size: contain;
   position: absolute;
 
   /* 👇 MOVE THESE */
-  left: 450px;
-  transform: translateY(-210px); /* Move upwards without overflow issues */
+  left: 50%;
+  transform: translateX(-50%) translateY(-210px); /* Center horizontally and move upwards */
 
   font-family: "Alfa Slab One", cursive;
   font-weight: 400;
