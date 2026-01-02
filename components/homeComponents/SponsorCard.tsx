@@ -38,18 +38,19 @@ export default function SponsorCard(props: SponsorCardProps) {
   return (
     <>
       {imgSrc !== undefined && (
-        <div className="flex justify-center">
-          <a href={props.link} target="_blank" className="" rel="noreferrer">
-            <Image
-              alt={`Sponsor Image ${props.reference}`}
-              src={imgSrc}
-              width={200}
-              height={100}
-              layout="fixed"
-              objectFit="contain"
-            />
+        <div className="flex justify-center sponsor-card transition-all duration-300">
+          <a href={props.link} target="_blank" className="block m-4" rel="noreferrer">
+            <div className="bg-white rounded-xl p-6 w-[280px] h-[160px] flex items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-300">
+              <Image
+                alt={`Sponsor Image ${props.reference}`}
+                src={imgSrc}
+                width={240}
+                height={120}
+                layout="fixed"
+                objectFit="contain"
+              />
+            </div>
           </a>
-          <br></br>
         </div>
       )}
     </>

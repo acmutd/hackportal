@@ -56,16 +56,19 @@ export default function Home(props: {
       </Head>
       {/* <HomeNotif /> */}
       <HomeHero2 />
-      <HomeAbout />
+      {/* <HomeAbout />*/}
       <HomeVideoStats />
       <HackCountdown />
-      <HomeSchedule scheduleCard={props.scheduleCard} dateCard={props.dateCard} />
-      {/*<HomeSpeakers keynoteSpeakers={props.keynoteSpeakers} />*/}
-      <HomeChallenges challenges={props.challenges} />
-      {/*<HomePrizes prizes={props.prizeData} />*/}
-      {/*<HomeTeam members={props.fetchedMembers} />*/}
-      <HomeFaq answeredQuestion={props.answeredQuestion} />
-      <HomeSponsors sponsorCard={props.sponsorCard} />
+      {/* Unified gradient background wrapper */}
+      <div className="bg-unified-gradient">
+        <HomeSchedule scheduleCard={props.scheduleCard} dateCard={props.dateCard} />
+        {/*<HomeSpeakers keynoteSpeakers={props.keynoteSpeakers} />*/}
+        <HomeChallenges challenges={props.challenges} />
+        {/*<HomePrizes prizes={props.prizeData} />*/}
+        {/*<HomeTeam members={props.fetchedMembers} />*/}
+        <HomeFaq answeredQuestion={props.answeredQuestion} />
+        <HomeSponsors sponsorCard={props.sponsorCard} />
+      </div>
       <HomeFooter />
     </>
   );
