@@ -441,4 +441,12 @@ background-size: contain;
   text-shadow: 0 2px 0 rgba(0,0,0,0.28);
 }
 
+/* Sponsor card hover effect - dim others when hovering */
+.sponsor-grid:has(.sponsor-card:hover) .sponsor-card:not(:hover) {
+  opacity: 0.5;
+  filter: brightness(0.7);
+}
 
+.sponsor-card {
+  transition: all 0.3s ease;
+}
