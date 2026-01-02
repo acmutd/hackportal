@@ -56,7 +56,7 @@ export default function Home(props: {
       </Head>
       <HomeNotif />
       <HomeHero2 />
-      <HomeAbout />
+      {/* <HomeAbout />*/}
       <HomeVideoStats />
       <HackCountdown />
       {/* Unified gradient background wrapper */}

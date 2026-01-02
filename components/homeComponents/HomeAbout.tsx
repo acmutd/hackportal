@@ -10,6 +10,8 @@ const HomeAbout = () => {
       overflow: 'hidden',
       // IMPORTANT: remove big padding that pushes text around
       padding: 0,
+      marginTop: '-10vh',
+      backgroundColor: 'transparent',
     },
 
     // THIS is the "inside the billboard" box

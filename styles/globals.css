@@ -234,11 +234,57 @@ a.link {
 }
 
 /* Hero background */
-.bg-1 {
-  background-image: url('/assets/bg-1.png');
+.bg-sky {
+  background-image: url('/assets/sky.png');
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
+}
+
+@keyframes skyDrift {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-30px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.parallax-sky {
+  position: absolute;
+  bottom: -170px;
+  left: 0;
+  width: 110%;
+  height: 120%;
+  background-image: url('/assets/sky.png');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100% auto;
+  z-index: 1;
+  animation: skyDrift 25s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+}
+
+.parallax-foreground {
+  position: absolute;
+  bottom: 600px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/foreground.png');
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: contain;
+  z-index: 2;
 }
 
 /* Secondary background used for next section */
