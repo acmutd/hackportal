@@ -259,7 +259,7 @@ a.link {
 }
 
 .bg-5 {
-  background-color: #231208;
+  background-color: #2B0800;
   background-image: url('/assets/bg-5.png');
   background-repeat: no-repeat;
 
@@ -271,7 +271,7 @@ background-size: contain;
 .bg-6 {
   background-image: url('/assets/bg-6.png');
   background-repeat: no-repeat;
-  background-position: top center;
+  background-position: center -300px;
   background-size: cover;
 }
 
@@ -279,17 +279,12 @@ background-size: contain;
 .bg-unified-gradient {
   background: linear-gradient(
     to bottom,
-    #231208 0%,
-    #231208 10%,
-    #301a11 20%,
-    #3d2e29 30%,
-    #5c3b33 40%,
-    #7a4433 50%,
-    #994d33 60%,
-    #b85e3a 70%,
-    #cc6633 80%,
-    #e67a1a 90%,
-    #ff9933 100%
+    #2B0800 0%,
+    #2B0800 10%,
+    #702D11 30%,
+    #A74A1B 50%,
+    #CA6F30 70%,
+    #FDD7B1 100%
   );
   background-repeat: no-repeat;
   background-position: center;
