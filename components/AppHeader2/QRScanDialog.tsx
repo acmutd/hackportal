@@ -4,6 +4,7 @@ import { useAuthContext } from '@/lib/user/AuthContext';
 import { RequestHelper } from '@/lib/request-helper';
 import QRCodeReaderV2 from './QRCodeReaderV2';
 import QrScanner from 'qr-scanner';
+import QRCodeReader from '../dashboardComponents/QRCodeReader';
 
 interface QRScanDialogProps {
   scan: {
@@ -24,6 +25,7 @@ const successStrings = {
   unexpectedError: 'Unexpected error...',
   notCheckedIn: "User hasn't checked in!",
   invalidFormat: 'Invalid hacker tag format...',
+  lateCheckinIneligible: 'User is not eligible for late check-in...',
 };
 
 interface UserProfile extends Omit<Registration, 'user'> {
@@ -46,18 +48,21 @@ function getSuccessColor(success: string) {
 export default function QRScanDialog({ scan, onModalClose }: QRScanDialogProps) {
   const [scanData, setScanData] = useState(undefined);
   const [success, setSuccess] = useState(undefined);
+  const [userScanned, setUserScanned] = useState(false);
   const { user } = useAuthContext();
   const [scannedUserInfo, setScannedUserInfo] = useState(undefined);
 
   const handleScan = async (data: string) => {
+    if (userScanned) return;
     if (!data.startsWith('hack:')) {
       setScanData(data);
       setSuccess(successStrings.invalidFormat);
       return;
     }
+    setUserScanned(true);
     const query = new URL(`http://localhost:3000/api/scan`);
     query.searchParams.append('id', data.replaceAll('hack:', ''));
-    fetch(query.toString().replaceAll('http://localhost:3000', ''), {
+    await fetch(query.toString().replaceAll('http://localhost:3000', ''), {
       mode: 'cors',
       headers: { Authorization: user.token },
       method: 'POST',
@@ -81,6 +86,8 @@ export default function QRScanDialog({ scan, onModalClose }: QRScanDialogProps) 
           return setSuccess(successStrings.alreadyClaimed);
         } else if (result.status === 403) {
           return setSuccess(successStrings.notCheckedIn);
+        } else if (result.status === 400) {
+          return setSuccess(successStrings.lateCheckinIneligible);
         } else if (result.status !== 200) {
           return setSuccess(successStrings.unexpectedError);
         }
@@ -99,7 +106,7 @@ export default function QRScanDialog({ scan, onModalClose }: QRScanDialogProps) 
 
   return (
     <Transition appear show={scan !== null} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={onModalClose}>
+      <Dialog as="div" className="relative z-50" onClose={onModalClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -144,12 +151,7 @@ export default function QRScanDialog({ scan, onModalClose }: QRScanDialogProps) 
                     </div>
                   ) : (
                     <div className="p-3">
-                      <QRCodeReaderV2
-                        onScanFail={(err: string | Error) => console.error(err)}
-                        onScanSuccess={async (scanResult: QrScanner.ScanResult) => {
-                          await handleScan(scanResult.data);
-                        }}
-                      />
+                      <QRCodeReader width={200} height={200} callback={handleScan} />
                     </div>
                   )}
                 </div>
@@ -158,7 +160,10 @@ export default function QRScanDialog({ scan, onModalClose }: QRScanDialogProps) 
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                    onClick={() => setScanData(undefined)}
+                    onClick={() => {
+                      setScanData(undefined);
+                      setUserScanned(false);
+                    }}
                   >
                     Next Scan
                   </button>
@@ -167,6 +172,7 @@ export default function QRScanDialog({ scan, onModalClose }: QRScanDialogProps) 
                     className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={() => {
                       setScanData(undefined);
+                      setUserScanned(false);
                       onModalClose();
                     }}
                   >

@@ -1,27 +1,39 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CSSProperties } from 'react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 const HomeAbout = () => {
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
+  useEffect(() => {
+    if (inView && !hasAnimated) {
+      console.log('Animation triggered!');
+      setHasAnimated(true);
+    }
+  }, [inView, hasAnimated]);
+
   const styles: { [key: string]: CSSProperties } = {
     container: {
       position: 'relative',
       width: '100vw',
       height: '120vh',
       overflow: 'hidden',
-      // IMPORTANT: remove big padding that pushes text around
       padding: 0,
       marginTop: '-10vh',
       backgroundColor: 'transparent',
     },
 
-    // THIS is the "inside the billboard" box
     billboardText: {
       position: 'absolute',
       left: '44%',
-      top: '45%', // move overall block up/down
-      transform: 'translate(-50%, -50%)',
-      width: '50%', // constrain to parchment width
-      maxWidth: '550px', // prevents huge width on large screens
+      top: '55%',
+      width: '50%',
+      maxWidth: '550px',
       textAlign: 'center',
       color: '#fff',
       textShadow: '0 6px 18px rgba(0,0,0,0.5)',
@@ -34,7 +46,6 @@ const HomeAbout = () => {
       fontWeight: 250,
       fontSize: 'clamp(28px, 4vw, 68px)',
       margin: 0,
-      // move ONLY the header upward (relative to paragraph)
       transform: 'translateY(-72px)',
     },
 
@@ -44,7 +55,6 @@ const HomeAbout = () => {
       fontSize: 'clamp(8px, 1.2vw, 22px)',
       lineHeight: 1.5,
       marginTop: '12px',
-      // keep text inside billboard area
       maxHeight: '42vh',
       overflow: 'hidden',
     },
@@ -52,8 +62,16 @@ const HomeAbout = () => {
 
   return (
     <section className="section-bg bg-2" style={styles.container}>
-      {/* text overlay INSIDE billboard */}
-      <div style={styles.billboardText}>
+      <motion.div
+        ref={ref}
+        style={styles.billboardText}
+        initial={{ opacity: 0, x: -100 }}
+        animate={{
+          opacity: hasAnimated ? 1 : 0,
+          x: hasAnimated ? 0 : -100,
+        }}
+        transition={{ duration: 1.2, ease: 'easeOut', delay: 0.2 }}
+      >
         <h1 style={styles.header}>About NTHS Hack</h1>
         <p style={styles.description}>
           The Association of Computing Machinery (ACM) at the University of Texas at Dallas will be
@@ -65,7 +83,7 @@ const HomeAbout = () => {
           extraordinary opportunity for you to win prizes, compete, and jumpstart your journey in
           technology!
         </p>
-      </div>
+      </motion.div>
     </section>
   );
 };
