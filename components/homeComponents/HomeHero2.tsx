@@ -32,7 +32,7 @@ export default function HomeHero() {
 
   return (
     <section
-      className="flex flex-col-reverse md:flex-col section-bg bg-sky bg-cover bg-center overflow-hidden relative"
+      className="flex flex-col-reverse md:flex-col section-bg bg-sky bg-cover bg-center relative"
       style={{ minHeight: '220vh' }}
     >
       {/* Parallax Sky Background */}
