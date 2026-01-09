@@ -2,7 +2,7 @@ import { stats } from '../../lib/data';
 
 export default function HomeVideoStats() {
   return (
-    <section className="section-bg bg-3 z-0 relative min-h-[70vh] md:min-h-[80vh] lg:min-h-[720px]">
+    <section className="section-bg bg-3 z-0 relative min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh] lg:min-h-screen">
       {/* Absolutely position the stats inside the relative section */}
       <div className="absolute left-[80px] top-[220px] md:left-[140px] md:top-[260px] lg:left-[580px] lg:top-[350px]">
         <div className="space-y-3 md:space-y-8 text-center">

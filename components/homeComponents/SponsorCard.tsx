@@ -28,10 +28,10 @@ export default function SponsorCard(props: SponsorCardProps) {
         })
         .catch((error) => {
           setLoading(false);
-          console.error('Could not find matching image file');
+          console.error('Could not find matching image file:', props.reference, error);
         });
     }
-  }, []);
+  }, [props.reference]);
 
   if (loading) return <LoadIcon width={100} height={100} />;
 

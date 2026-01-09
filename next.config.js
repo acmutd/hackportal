@@ -20,6 +20,10 @@ const withPWA = require('next-pwa')({
         protocol: 'https',
         hostname: 'firebasestorage.googleapis.com',
       },
+      {
+        protocol: 'https',
+        hostname: '*.firebasestorage.app',
+      },
     ],
   },
 

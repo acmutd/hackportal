@@ -226,20 +226,48 @@ a.link {
 }
 
 .section-bg {
-  background-image: url('/assets/bg.png');
   background-repeat: repeat-x; 
   background-position: center; 
-  background-size: cover; 
-         
+  background-size: cover;
+}
+
+/* Responsive background sizing for different screen sizes */
+@media (max-width: 767px) {
+  .section-bg {
+    background-size: auto 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* iPad/Tablet */
+  .section-bg {
+    background-size: 150% auto;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+  /* Laptop/Desktop (smaller) */
+  .section-bg {
+    background-size: 120% auto;
+  }
+}
+
+@media (min-width: 1367px) {
+  /* Large Desktop */
+  .section-bg {
+    background-size: cover;
+  }
 }
 
 /* Hero background */
+/*
 .bg-sky {
   background-image: url('/assets/sky.png');
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
 }
+*/
 
 @keyframes skyDrift {
   0%, 100% {
@@ -264,7 +292,7 @@ a.link {
   bottom: -170px;
   left: 0;
   width: 110%;
-  height: 120%;
+  height: 110%;
   background-image: url('/assets/sky.png');
   background-repeat: no-repeat;
   background-position: center top;
@@ -274,9 +302,28 @@ a.link {
   will-change: transform;
 }
 
+/* iPad/Tablet portrait: adjust sky positioning */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .parallax-sky {
+    height: 90%;
+    bottom: 0;
+    width: 100%;
+    background-size: cover;
+  }
+}
+
+/* iPad landscape: reduce sky and about section heights */
+@media (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
+  .parallax-sky {
+    height: 100%;
+    bottom: -250px;
+    background-size: 130% auto;
+  }
+}
+
 .parallax-foreground {
   position: absolute;
-  bottom: 600px;
+  bottom: 80vh;
   left: 0;
   width: 100%;
   height: 100%;
@@ -285,6 +332,71 @@ a.link {
   background-position: bottom center;
   background-size: contain;
   z-index: 2;
+  padding-bottom: 5vh;
+}
+
+/* Small mobile */
+@media (max-width: 640px) {
+  .parallax-foreground {
+    bottom: 70vh;
+    background-size: 100% auto;
+  }
+}
+
+/* Tablet portrait */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .parallax-foreground {
+    bottom: 110vh;
+    background-size: contain;
+  }
+}
+
+/* Laptop/Desktop */
+@media (min-width: 1024px) and (max-width: 1599px) {
+  .parallax-foreground {
+    bottom: 110vh;
+    background-size: contain;
+  }
+  .parallax-sky {
+    bottom: 300px;
+  }
+  /* Laptop */
+  .bg-2 {
+    background-size: 110% auto;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1600px) {
+  .parallax-foreground {
+    bottom: 95vh;
+    background-size: contain;
+  }
+}
+
+/* Adjust sky for smaller viewport heights - placed last to override width-based queries */
+@media (max-height: 700px) {
+  .parallax-sky {
+    height: 90% !important;
+    bottom: 40vh !important;
+    background-size: 110% auto !important;
+  }
+}
+
+@media (max-height: 600px) {
+  .parallax-sky {
+    height: 85% !important;
+    bottom: 65vh !important;
+    background-size: 110% auto !important;
+  }
+}
+
+@media (max-height: 500px) {
+  .parallax-sky {
+    height: 80% !important;
+    bottom: 55vh !important;
+    background-size: 110% auto !important;
+  }
 }
 
 /* Secondary background used for next section */
@@ -293,6 +405,39 @@ a.link {
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
+}
+
+/* Responsive sizing for bg-2 */
+@media (max-width: 767px) {
+  .bg-2 {
+    background-size: auto 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* iPad/Tablet */
+  .bg-2 {
+    background-size: 130% auto;
+  }
+}
+
+@media (min-width: 1367px) {
+  /* Large Desktop */
+  .bg-2 {
+    background-size: cover;
+  }
+  .parallax-sky {
+    height: 100%;
+    bottom: 80px;
+  }
+}
+
+/* iPad landscape: reduce zoom on About section */
+@media (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
+  .parallax-sky {
+    height: 100%;
+    bottom: 10vh;
+  }
 }
 
 /* Background for spacer section */
@@ -304,14 +449,67 @@ a.link {
   background-size: cover;
 }
 
+/* Responsive sizing for bg-3 */
+@media (max-width: 767px) {
+  .bg-3 {
+    background-size: auto 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* iPad/Tablet - reduce background size */
+  .bg-3 {
+    background-size: 140% auto;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+  /* Laptop - smaller background */
+  .bg-3 {
+    background-size: 110% auto;
+  }
+}
+
+@media (min-width: 1367px) {
+  /* Large Desktop */
+  .bg-3 {
+    background-size: cover;
+  }
+}
+
 .bg-5 {
   background-color: #2B0800;
   background-image: url('/assets/bg-5.png');
   background-repeat: no-repeat;
+  background-size: contain;
+}
 
-  /* THIS fixes the zoom */
-background-size: contain;
-  
+/* Responsive sizing for bg-5 */
+@media (max-width: 767px) {
+  .bg-5 {
+    background-size: auto 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* iPad/Tablet */
+  .bg-5 {
+    background-size: 120% auto;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+  /* Laptop */
+  .bg-5 {
+    background-size: 110% auto;
+  }
+}
+
+@media (min-width: 1367px) {
+  /* Large Desktop and up */
+  .bg-5 {
+    background-size: cover;
+  }
 }
 
 .bg-6 {
@@ -319,6 +517,34 @@ background-size: contain;
   background-repeat: no-repeat;
   background-position: center -300px;
   background-size: cover;
+}
+
+/* Responsive sizing for bg-6 */
+@media (max-width: 767px) {
+  .bg-6 {
+    background-size: auto 120%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* iPad/Tablet */
+  .bg-6 {
+    background-size: 140% auto;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+  /* Laptop */
+  .bg-6 {
+    background-size: 115% auto;
+  }
+}
+
+@media (min-width: 1367px) {
+  /* Large Desktop and up */
+  .bg-6 {
+    background-size: cover;
+  }
 }
 
 /* Unified gradient background wrapping schedule to sponsors */

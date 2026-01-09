@@ -6,7 +6,7 @@ export default function HomeSponsors(props: { sponsorCard: Sponsor[] }) {
 
   useEffect(() => {
     setSponsor(props.sponsorCard);
-  });
+  }, [props.sponsorCard]);
 
   return (
     sponsor.length != 0 && (
