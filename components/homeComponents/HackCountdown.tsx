@@ -38,7 +38,7 @@ const HackCountdown: React.FC<CountdownProps> = ({ targetDate }) => {
   }, [targetDate]);
 
   return (
-    <div className={`${styles.countdownContainer} bg-5`}>
+    <div className={`${styles.countdownContainer} bg-5`} style={{ paddingBottom: '10vh' }}>
       <h1 className={styles.header}>Countdown</h1>
 
       <div className={styles.timeSection}>

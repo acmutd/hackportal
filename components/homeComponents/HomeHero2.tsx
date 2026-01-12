@@ -50,6 +50,7 @@ export default function HomeHero() {
         style={{
           transform: `translateY(${scrollY * 0.2}px)`,
           transition: 'transform 0.1s ease-out',
+          zIndex: 1,
         }}
       />
 
@@ -67,7 +68,7 @@ export default function HomeHero() {
           {/* Big welcome */}
           <div className="absolute inset-0 z-10 flex items-center mb-24 justify-center pointer-events-none px-4">
             <div
-              className="text-center transform -translate-y-34 md:-translate-y-50"
+              className="text-center transform -translate-y-10 sm:-translate-y-20 md:-translate-y-50"
               style={{
                 animation: 'float 5s ease-in-out infinite',
               }}
@@ -85,21 +86,23 @@ export default function HomeHero() {
 
       {/* About NTHS Hack Section - above foreground */}
       <div
-        className="absolute w-full"
+        className="about-nths absolute w-full"
         style={{
-          top: '105vh',
-          height: '120vh',
+          top: '80vh',
+          height: '100%',
+          width: '100%',
           zIndex: 20,
           pointerEvents: 'none',
+          backgroundColor: 'transparent',
         }}
       >
-        <div className="section-bg bg-2 w-full h-full relative">
+        <div className="w-full h-full relative" style={{ backgroundColor: 'transparent' }}>
           {/* text overlay INSIDE billboard */}
           <div
             style={{
               position: 'absolute',
               left: '44%',
-              top: '45%',
+              top: '58%',
               transform: 'translate(-50%, -50%)',
               width: '50%',
               maxWidth: '550px',
@@ -108,6 +111,7 @@ export default function HomeHero() {
               textShadow: '0 6px 18px rgba(0,0,0,0.5)',
               zIndex: 20,
               pointerEvents: 'none' as const,
+              backgroundColor: 'transparent',
             }}
           >
             <h1

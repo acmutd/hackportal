@@ -138,7 +138,11 @@ export default function HomeSchedule(props: { scheduleCard: ScheduleEvent[]; dat
   const day2Events = getDailyEvents(day2StartDateAndTime, eventEndDateAndTime);
 
   return (
-    <div id="schedule-section" className="schedule-alfa py-16 md:py-24">
+    <div
+      id="schedule-section"
+      className="schedule-alfa py-16 md:py-24"
+      style={{ paddingTop: '100vh' }}
+    >
       <div
         className="text-center p-4 white-text"
         style={{

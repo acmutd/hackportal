@@ -100,10 +100,22 @@
   }
 }
 
-@media (max-height: 1080px) {
+@media (max-height: 1080px) and (min-height: 600px) {
   .countdownContainer {
     transform: scale(calc(100vh / 1080));
     transform-origin: top center;
     width: calc(1920px * (100vh / 1080));
+  }
+}
+
+/* Prevent extreme shrinking on ultra-short viewports */
+@media (min-width: 1024px) and (max-height: 599px) {
+  .countdownContainer {
+    transform: scale(0.55);
+    transform-origin: top center;
+    width: calc(1920px * 0.55);
+    height: calc(1080px * 0.55);
+    max-height: 100vh;
+    overflow: hidden;
   }
 }

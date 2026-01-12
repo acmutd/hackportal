@@ -292,7 +292,7 @@ a.link {
   bottom: -170px;
   left: 0;
   width: 110%;
-  height: 110%;
+  height: 100%;
   background-image: url('/assets/sky.png');
   background-repeat: no-repeat;
   background-position: center top;
@@ -302,63 +302,12 @@ a.link {
   will-change: transform;
 }
 
-/* iPad/Tablet portrait: adjust sky positioning */
-@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
-  .parallax-sky {
-    height: 90%;
-    bottom: 0;
-    width: 100%;
-    background-size: cover;
-  }
-}
-
-/* iPad landscape: reduce sky and about section heights */
-@media (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
-  .parallax-sky {
-    height: 100%;
-    bottom: -250px;
-    background-size: 130% auto;
-  }
-}
-
-.parallax-foreground {
-  position: absolute;
-  bottom: 80vh;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('/assets/foreground.png');
-  background-repeat: no-repeat;
-  background-position: bottom center;
-  background-size: contain;
-  z-index: 2;
-  padding-bottom: 5vh;
-}
-
-/* Small mobile */
-@media (max-width: 640px) {
-  .parallax-foreground {
-    bottom: 70vh;
-    background-size: 100% auto;
-  }
-}
-
-/* Tablet portrait */
-@media (min-width: 641px) and (max-width: 1023px) {
-  .parallax-foreground {
-    bottom: 110vh;
-    background-size: contain;
-  }
-}
 
 /* Laptop/Desktop */
 @media (min-width: 1024px) and (max-width: 1599px) {
-  .parallax-foreground {
-    bottom: 110vh;
-    background-size: contain;
-  }
+  /* Removed foreground - using full-bg.png instead */
   .parallax-sky {
-    bottom: 300px;
+    bottom: 150px;
   }
   /* Laptop */
   .bg-2 {
@@ -366,63 +315,143 @@ a.link {
   }
 }
 
-/* Large Desktop */
-@media (min-width: 1600px) {
-  .parallax-foreground {
-    bottom: 95vh;
-    background-size: contain;
-  }
-}
 
 /* Adjust sky for smaller viewport heights - placed last to override width-based queries */
+@media (max-height: 900px) {
+  .parallax-sky {
+    height: 90% !important;
+    bottom: 100px !important;
+    background-size: 100% auto !important;
+  }
+}
+@media (max-height: 800px) {
+  .parallax-sky {
+    height: 90% !important;
+    bottom: 200px !important;
+    background-size: 160% auto !important;
+  }
+}
 @media (max-height: 700px) {
   .parallax-sky {
     height: 90% !important;
-    bottom: 40vh !important;
-    background-size: 110% auto !important;
+    bottom: 30px !important;
+    background-size: 100% auto !important;
   }
 }
 
 @media (max-height: 600px) {
   .parallax-sky {
     height: 85% !important;
-    bottom: 65vh !important;
-    background-size: 110% auto !important;
+    bottom: 300px !important;
+    background-size: 100% auto !important;
   }
 }
 
 @media (max-height: 500px) {
   .parallax-sky {
     height: 80% !important;
-    bottom: 55vh !important;
-    background-size: 110% auto !important;
+    bottom: 700px !important;
+    background-size: 100% auto !important;
   }
 }
 
-/* Secondary background used for next section */
+/* Adjust for 1080p width screens with reduced heights */
+@media (min-width: 1024px) and (max-width: 1920px) and (max-height: 900px) {
+  .parallax-sky {
+    height: 90% !important;
+    bottom: 400px !important;
+    background-size: 120% auto !important;
+  }
+  .about-nths{
+    top: 84vh !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1920px) and (max-height: 800px) {
+  .parallax-sky {
+    height: 90% !important;
+    bottom: 360px !important;
+    background-size: 120% auto !important;
+  }
+
+  .about-nths{
+    top: 92vh !important;
+  }
+
+}
+
+@media (min-width: 1024px) and (max-width: 1920px) and (max-height: 700px) {
+  .parallax-sky {
+    height: 90% !important;
+    bottom: 250px !important;
+    background-size: 100% auto !important;
+  }
+
+  
+  .about-nths{
+    top: 98vh !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1920px) and (max-height: 600px) {
+  .parallax-sky {
+    height: 85% !important;
+    bottom: 300px !important;
+    background-size: 100% auto !important;
+  }
+  
+  .about-nths{
+    top: 55vh !important;
+  }
+  .about-nths p{
+    font-size: 11px !important;
+    width: 450px !important;
+    padding-left: 60px !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1920px) and (max-height: 500px) {
+  .parallax-sky {
+    height: 80% !important;
+    bottom: 490px !important;
+    background-size: 100% auto !important;
+  }
+
+  
+  .about-nths{
+    top: 120vh !important;
+    height: 100% !important;
+    width: 50px;
+    font-size: 14px !important;
+  }
+}
+
+/* Unified background for About, Stats, and Countdown sections */
+/*
 .bg-2 {
-  background-image: url('/assets/bg-2.png');
+  background-image: url('/assets/full-bg.png');
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
+  background-attachment: scroll;
 }
+*/
 
 /* Responsive sizing for bg-2 */
+/*
 @media (max-width: 767px) {
   .bg-2 {
-    background-size: auto 100%;
+    background-size: cover;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  /* iPad/Tablet */
   .bg-2 {
-    background-size: 130% auto;
+    background-size: cover;
   }
 }
 
 @media (min-width: 1367px) {
-  /* Large Desktop */
   .bg-2 {
     background-size: cover;
   }
@@ -431,60 +460,59 @@ a.link {
     bottom: 80px;
   }
 }
+*/
 
-/* iPad landscape: reduce zoom on About section */
-@media (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
-  .parallax-sky {
-    height: 100%;
-    bottom: 10vh;
-  }
-}
 
-/* Background for spacer section */
+
+/* Unified background - Stats section */
+/*
 .bg-3 {
-  background-color: #3d2e29;
-  background-image: url('/assets/bg-3.png');
+  background-image: url('/assets/full-bg.png');
   background-repeat: no-repeat;
-  background-position: top center;
+  background-position: center center;
   background-size: cover;
+  background-attachment: scroll;
 }
+*/
 
 /* Responsive sizing for bg-3 */
+/*
 @media (max-width: 767px) {
-  .bg-3 {
-    background-size: auto 100%;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  /* iPad/Tablet - reduce background size */
-  .bg-3 {
-    background-size: 140% auto;
-  }
-}
-
-@media (min-width: 1024px) and (max-width: 1366px) {
-  /* Laptop - smaller background */
-  .bg-3 {
-    background-size: 110% auto;
-  }
-}
-
-@media (min-width: 1367px) {
-  /* Large Desktop */
   .bg-3 {
     background-size: cover;
   }
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .bg-3 {
+    background-size: cover;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .bg-3 {
+    background-size: cover;
+  }
+}
+
+@media (min-width: 1367px) {
+  .bg-3 {
+    background-size: cover;
+  }
+}
+*/
+
+/*
 .bg-5 {
   background-color: #2B0800;
   background-image: url('/assets/bg-5.png');
   background-repeat: no-repeat;
   background-size: contain;
 }
+*/
 
 /* Responsive sizing for bg-5 */
+/*
 @media (max-width: 767px) {
   .bg-5 {
     background-size: auto 100%;
@@ -492,34 +520,35 @@ a.link {
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  /* iPad/Tablet */
   .bg-5 {
     background-size: 120% auto;
   }
 }
 
 @media (min-width: 1024px) and (max-width: 1366px) {
-  /* Laptop */
   .bg-5 {
     background-size: 110% auto;
   }
 }
 
 @media (min-width: 1367px) {
-  /* Large Desktop and up */
   .bg-5 {
     background-size: cover;
   }
 }
+*/
 
+/*
 .bg-6 {
   background-image: url('/assets/bg-6.png');
   background-repeat: no-repeat;
   background-position: center -300px;
   background-size: cover;
 }
+*/
 
 /* Responsive sizing for bg-6 */
+/*
 @media (max-width: 767px) {
   .bg-6 {
     background-size: auto 120%;
@@ -527,23 +556,118 @@ a.link {
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  /* iPad/Tablet */
   .bg-6 {
     background-size: 140% auto;
   }
 }
 
 @media (min-width: 1024px) and (max-width: 1366px) {
-  /* Laptop */
   .bg-6 {
     background-size: 115% auto;
   }
 }
 
 @media (min-width: 1367px) {
-  /* Large Desktop and up */
   .bg-6 {
     background-size: cover;
+  }
+}
+*/
+
+/* UNIFIED FULL BACKGROUND - One continuous background for all sections */
+/* Remove individual backgrounds from these sections */
+.bg-2,
+.bg-3,
+.bg-4,
+.bg-5,
+.bg-6 {
+  background-image: none !important;
+  background-color: transparent !important;
+}
+
+/* Create a fixed background layer that spans from About section through Countdown */
+.full-bg-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+.full-bg-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -220vh; /* Extend to cover hero section */
+  left: 0;
+  right: 0;
+  bottom: -100vh;
+  height: auto;
+  min-height: calc(100% + 300vh);
+  background-image: url('/assets/full-bg.png');
+  background-repeat: no-repeat;
+  background-position: center top; /* Start from top to cover hero */
+  background-size: cover;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Mobile phones: adjust full-bg positioning and reduce zoom */
+@media (max-width: 767px) {
+  .full-bg-wrapper::before {
+    top: -180vh;
+    background-size: cover;
+    background-position: center top;
+  }
+}
+
+/* Tablets/iPads: optimize for medium screens */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .full-bg-wrapper::before {
+    top: -180vh;
+    background-size: 100% auto;
+    background-position: center top;
+  }
+}
+
+/* iPad landscape: adjust for landscape orientation */
+@media (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
+  .full-bg-wrapper::before {
+    top: -190vh;
+    background-size: 130% auto;
+    background-position: center top;
+  }
+}
+
+/* Laptops/smaller desktops */
+@media (min-width: 1024px) and (max-width: 1599px) {
+  .full-bg-wrapper::before {
+    top: -220vh;
+    background-size: 120% auto;
+    background-position: center top;
+  }
+}
+
+/* Large desktops */
+@media (min-width: 1600px) {
+  .full-bg-wrapper::before {
+    top: -220vh;
+    background-size: cover;
+    background-position: center top;
+  }
+}
+
+
+
+
+/* Adjust for short viewport heights */
+@media (max-height: 700px) {
+  .full-bg-wrapper::before {
+    top: -210vh !important;
+    background-size: 100% auto !important;
+  }
+}
+
+@media (max-height: 600px) {
+  .full-bg-wrapper::before {
+    top: -210vh !important;
+    background-size: 100% auto !important;
   }
 }
 
@@ -603,8 +727,6 @@ a.link {
 
 .header-sponsors {
   position: absolute;
-
-  /* 👇 MOVE THESE */
   left: 50%;
   transform: translateX(-50%) translateY(-210px); /* Center horizontally and move upwards */
 
@@ -641,21 +763,40 @@ a.link {
   }
 }
 
+/* Keep backgrounds stable on reduced viewport heights without cutting off content */
+@media (min-width: 1024px) and (max-height: 500px) {
+  /* Keep backgrounds from shifting - but allow sections to scroll naturally */
+  .bg-2,
+  .bg-3,
+  .bg-4,
+  .bg-5,
+  .bg-6,
+  .bg-unified-gradient {
+    background-size: cover !important;
+    background-position: center !important;
+  }
+}
+
 /* Large screens - keep contain to avoid zooming */
+/*
 @media (min-width: 1920px) {
   .bg-3 {
     background-size: contain;
     background-position: center center;
   }
-} 
+}
+*/ 
 
-/* Stats background */
+/* Unified background - Countdown section */
+/*
 .bg-4 {
-  background-image: url('/assets/bg-4.png');
+  background-image: url('/assets/full-bg.png');
   background-repeat: no-repeat;
-  background-position: top center;
+  background-position: center center;
   background-size: cover;
-} 
+  background-attachment: scroll;
+}
+*/ 
 
 /* Force Alfa Slab One for all text inside schedule section */
 .schedule-alfa * {
@@ -666,7 +807,7 @@ a.link {
 
 /* Override for white text headings */
 .white-text {
-  color: #fff !important;
+  color: transparent !important;
 }
 
 
@@ -717,3 +858,4 @@ a.link {
 .sponsor-card {
   transition: all 0.3s ease;
 }
+
