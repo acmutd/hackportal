@@ -307,22 +307,12 @@ a.link {
   .parallax-sky {
     bottom: 550px;
   }
-   .stats-container {
-    left: 50px !important;
-    top: 400px !important;
-  }
-  
 }
 /* Laptop/Desktop */
 @media (min-width: 1024px) and (max-width: 1599px) {
   /* Removed foreground - using full-bg.png instead */
   .parallax-sky {
     bottom: 150px;
-  }
-
-   .stats-container {
-    left: 700px !important;
-    top: 100px !important;
   }
 }
 
@@ -336,10 +326,7 @@ a.link {
     background-size: 140% auto !important;
   }
   
-   .stats-container {
-    left: 650px !important;
-    top: -370px !important;
-  }
+  
 }
 @media (max-height: 1000px) {
   .parallax-sky {
@@ -347,11 +334,8 @@ a.link {
     bottom: 500px !important;
     background-size: 120% auto !important;
   }
- 
-   .stats-container {
-    left: 650px !important;
-    top: -100px !important;
-  }
+
+   
 }
 @media (max-height: 900px) {
   .parallax-sky {
@@ -359,11 +343,7 @@ a.link {
     bottom: 300px !important;
     background-size: 110% auto !important;
   }
- 
-  .stats-container {
-    left: 650px !important;
-    top: 50px !important;
-  }
+
 }
 @media (max-height: 800px) {
   .parallax-sky {
@@ -373,10 +353,7 @@ a.link {
   }
 
 
-    .stats-container {
-    left: 650px !important;
-    top: 300px !important;
-  }
+  
 }
 @media (max-height: 700px) {
   .parallax-sky {
@@ -385,10 +362,7 @@ a.link {
     background-size: 100% auto !important;
   }
 
-    .stats-container {
-    left: 650px !important;
-    top: 460px !important;
-  }
+   
 }
 
 @media (max-height: 600px) {
@@ -398,10 +372,7 @@ a.link {
     background-size: 100% auto !important;
   }
 
-    .stats-container {
-    left: 650px !important;
-    top: 770px !important;
-  }
+   
 }
 
 @media (max-height: 500px) {
@@ -411,10 +382,7 @@ a.link {
     background-size: 100% auto !important;
   }
 
-    .stats-container {
-    left: 650px !important;
-    top: 950px !important;
-  }
+    
 }
 
 /* Adjust for 1080p width screens with reduced heights */
@@ -495,26 +463,40 @@ a.link {
 
 /* Mobile phones: adjust full-bg positioning and reduce zoom */
 @media (max-width: 767px) {
+
   .full-bg-wrapper::before {
     top: -180vh;
     background-size: 100% auto;
     background-position: center top;
   }
   .about-section-container {
-    top: 400px !important;
+    top: 450px !important;
     width: 70% !important;
     font-size: 60% !important;
   }
+  .stats-container {
+    top: 1220px !important;
+    left: 370px !important;
+  }
+  
 }
 
 @media (min-width:768px) and (max-width:868px) {
   .about-section-container {
     top: 480px !important;
   }
+  .stats-container {
+    top: 1260px !important;
+    left: 420px !important;
+  }
 }
 @media (min-width:869px) and (max-width:909px) {
   .about-section-container {
     top: 560px !important;
+  }
+  .stats-container {
+    top: 1350px !important;
+    left: 450px !important;
   }
 }
 
@@ -522,21 +504,51 @@ a.link {
   .about-section-container {
     top: 550px !important;
   }
+  .stats-container {
+    top: 1390px !important;
+    left: 460px !important;
+  }
 }
 
 @media (min-width:970px) and (max-width:1070px) {
   .about-section-container {
     top: 580px !important;
   }
+  
 }
-@media (min-width:1071px) and (max-width:1171px) {
+
+@media (min-width:970px) and (max-width:1000px) {
+  .stats-container {
+    top: 1520px !important;
+    left: 530px !important;
+  }
+}
+@media (min-width:1001px) and (max-width:1071px) {
+  .stats-container {
+    top: 1620px !important;
+    left: 530px !important;
+  }
+}
+
+
+@media (min-width:1072px) and (max-width:1171px) {
   .about-section-container {
     top: 630px !important;
   }
+  .stats-container {
+    top: 1730px !important;
+    left: 580px !important;
+  }
 }
-@media (min-width:1172px) and (max-width:1272px) {
+
+
+@media (min-width:1173px) and (max-width:1272px) {
   .about-section-container {
     top: 680px !important;
+  }
+.stats-container {
+    top: 1850px !important;
+    left: 600px !important;
   }
 }
 
@@ -544,10 +556,18 @@ a.link {
   .about-section-container {
     top: 800px !important;
   }
+  .stats-container {
+    top: 2090px !important;
+    left: 700px !important;
+  }
 }
 @media (min-width:1374px) and (max-width:1474px) {
   .about-section-container {
     top: 850px !important;
+  }
+  .stats-container {
+    top: 2200px !important;
+    left: 750px !important;
   }
 }
 @media (min-width:1475px) and (max-width:1574px) {
@@ -589,7 +609,6 @@ a.link {
 /* Laptops/smaller desktops */
 @media (min-width: 1024px) and (max-width: 1599px) {
   .full-bg-wrapper::before {
-    top: -220vh;
     background-size: 100% auto;
     background-position: center top;
   }
@@ -728,24 +747,6 @@ a.link {
   z-index: 4;
 }
 
-/* Spacer sizing: smaller responsive heights to avoid excessive scaling */
-.stats-path {
-  height: 360px; /* phones */
-  position: relative;
-  overflow: hidden;
-}
-
-@media (min-width: 768px) {
-  .stats-path {
-    height: 480px; /* tablets */
-  }
-}
-
-@media (min-width: 1200px) {
-  .stats-path {
-    height: 720px; /* desktop */
-  }
-}
 
 /* Keep backgrounds stable on reduced viewport heights without cutting off content */
 @media (min-width: 1024px) and (max-height: 500px) {
@@ -841,4 +842,11 @@ a.link {
 
 .sponsor-card {
   transition: all 0.3s ease;
+}
+
+
+@media (min-height: 840px) {
+  .stats-container {
+    padding-top: 45px !important;
+  }
 }

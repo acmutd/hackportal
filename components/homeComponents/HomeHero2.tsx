@@ -4,6 +4,7 @@ import BackgroundCircles from '../BackgroundCircles';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import AppHeader2_Wrapper from '../AppHeader2/wrapper';
 import { useRouter } from 'next/router';
+import HomeVideoStats from './HomeVideoStats';
 
 export default function HomeHero() {
   const [scrollY, setScrollY] = useState(0);
@@ -150,6 +151,9 @@ export default function HomeHero() {
           </div>
         </div>
       </div>
+
+      {/* Stats section - same positioning parent as About */}
+      <HomeVideoStats />
     </section>
   );
 }

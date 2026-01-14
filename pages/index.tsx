@@ -59,7 +59,7 @@ export default function Home(props: {
       {/* Unified full-bg wrapper for About through Countdown sections */}
       <div className="full-bg-wrapper">
         {/* <HomeAbout />*/}
-        <HomeVideoStats />
+        {/* <HomeVideoStats /> */}
         <HackCountdown />
       </div>
       {/* Unified gradient background wrapper */}
