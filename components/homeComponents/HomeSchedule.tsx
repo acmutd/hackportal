@@ -8,16 +8,16 @@ export default function HomeSchedule(props: { scheduleCard: ScheduleEvent[]; dat
   const eventColors = {
     All: 'text-white',
     Required: 'bg-[#D97706] text-white',
-    Food: 'text-[#56E100]',
-    Social: 'text-[#FF9A2E]',
+    Food: 'text-[#7FFF00]',
+    Social: 'text-[#FFB84D]',
     Sponsor: 'text-white',
-    Workshop: 'text-[#A64D00]',
+    Workshop: 'text-[#D2691E]',
     'All-Filter': 'bg-[#6b2f00] text-white',
     'Required-Filter': 'bg-[#D97706] text-white',
-    'Food-Filter': 'bg-[#56E100] text-white',
-    'Social-Filter': 'bg-[#FF9A2E] text-white',
+    'Food-Filter': 'bg-[#7FFF00] text-black',
+    'Social-Filter': 'bg-[#FFB84D] text-black',
     'Sponsor-Filter': 'bg-[#6b2f00] text-white',
-    'Workshop-Filter': 'bg-[#A64D00] text-white',
+    'Workshop-Filter': 'bg-[#D2691E] text-white',
   };
 
   /* Dates Values */

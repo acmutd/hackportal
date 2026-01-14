@@ -84,43 +84,47 @@ export default function HomeHero() {
         </div>
       </div>
 
-      {/* About NTHS Hack Section - above foreground */}
+      {/* About NTHS Hack Section - Text pinned to billboard in full-bg.png */}
       <div
-        className="about-nths absolute w-full"
+        className="about-section-container"
         style={{
-          top: '80vh',
-          height: '100%',
-          width: '100%',
+          position: 'absolute',
+          top: 'clamp(600px, 50vw, 900px)',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: 'clamp(500px, 60vw, 750px)',
           zIndex: 20,
-          pointerEvents: 'none',
-          backgroundColor: 'transparent',
         }}
       >
-        <div className="w-full h-full relative" style={{ backgroundColor: 'transparent' }}>
-          {/* text overlay INSIDE billboard */}
+        {/* Container matching billboard aspect ratio in full-bg */}
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            aspectRatio: '2.3 / 1',
+          }}
+        >
+          {/* Text anchored within billboard bounds */}
           <div
             style={{
               position: 'absolute',
-              left: '44%',
-              top: '58%',
+              top: '130%',
+              left: '40%',
               transform: 'translate(-50%, -50%)',
-              width: '50%',
-              maxWidth: '550px',
+              width: '70%',
               textAlign: 'center' as const,
               color: '#fff',
               textShadow: '0 6px 18px rgba(0,0,0,0.5)',
-              zIndex: 20,
-              pointerEvents: 'none' as const,
-              backgroundColor: 'transparent',
             }}
           >
             <h1
               style={{
                 fontFamily: "'Alfa Slab One', cursive",
                 fontWeight: 250,
-                fontSize: 'clamp(28px, 4vw, 68px)',
+                fontSize: 'clamp(24px, 3.5vw, 56px)',
                 margin: 0,
-                transform: 'translateY(-72px)',
+                marginBottom: 'clamp(20px, 5vw, 60px)',
+                transform: 'translateY(-30px)',
               }}
             >
               About NTHS Hack
@@ -129,11 +133,9 @@ export default function HomeHero() {
               style={{
                 fontFamily: "'Alfa Slab One', cursive",
                 fontWeight: 200,
-                fontSize: 'clamp(8px, 1.2vw, 22px)',
+                fontSize: 'clamp(8px, 1vw, 13px)',
                 lineHeight: 1.5,
-                marginTop: '12px',
-                maxHeight: '42vh',
-                overflow: 'hidden',
+                margin: 0,
               }}
             >
               The Association of Computing Machinery (ACM) at the University of Texas at Dallas will

@@ -302,40 +302,92 @@ a.link {
   will-change: transform;
 }
 
-
+@media (min-width: 1600) {
+  /* Removed foreground - using full-bg.png instead */
+  .parallax-sky {
+    bottom: 550px;
+  }
+   .stats-container {
+    left: 50px !important;
+    top: 400px !important;
+  }
+  
+}
 /* Laptop/Desktop */
 @media (min-width: 1024px) and (max-width: 1599px) {
   /* Removed foreground - using full-bg.png instead */
   .parallax-sky {
     bottom: 150px;
   }
-  /* Laptop */
-  .bg-2 {
-    background-size: 110% auto;
+
+   .stats-container {
+    left: 700px !important;
+    top: 100px !important;
   }
 }
 
 
 /* Adjust sky for smaller viewport heights - placed last to override width-based queries */
+
+@media (max-height: 1100px) {
+  .parallax-sky {
+    height: 95% !important;
+    bottom: 550px !important;
+    background-size: 140% auto !important;
+  }
+  
+   .stats-container {
+    left: 650px !important;
+    top: -370px !important;
+  }
+}
+@media (max-height: 1000px) {
+  .parallax-sky {
+    height: 90% !important;
+    bottom: 500px !important;
+    background-size: 120% auto !important;
+  }
+ 
+   .stats-container {
+    left: 650px !important;
+    top: -100px !important;
+  }
+}
 @media (max-height: 900px) {
   .parallax-sky {
     height: 90% !important;
-    bottom: 100px !important;
-    background-size: 100% auto !important;
+    bottom: 300px !important;
+    background-size: 110% auto !important;
+  }
+ 
+  .stats-container {
+    left: 650px !important;
+    top: 50px !important;
   }
 }
 @media (max-height: 800px) {
   .parallax-sky {
     height: 90% !important;
-    bottom: 200px !important;
-    background-size: 160% auto !important;
+    bottom: 300px !important;
+    background-size: 110% auto !important;
+  }
+
+
+    .stats-container {
+    left: 650px !important;
+    top: 300px !important;
   }
 }
 @media (max-height: 700px) {
   .parallax-sky {
     height: 90% !important;
-    bottom: 30px !important;
+    bottom: 300px !important;
     background-size: 100% auto !important;
+  }
+
+    .stats-container {
+    left: 650px !important;
+    top: 460px !important;
   }
 }
 
@@ -345,13 +397,23 @@ a.link {
     bottom: 300px !important;
     background-size: 100% auto !important;
   }
+
+    .stats-container {
+    left: 650px !important;
+    top: 770px !important;
+  }
 }
 
 @media (max-height: 500px) {
   .parallax-sky {
     height: 80% !important;
-    bottom: 700px !important;
+    bottom: 350px !important;
     background-size: 100% auto !important;
+  }
+
+    .stats-container {
+    left: 650px !important;
+    top: 950px !important;
   }
 }
 
@@ -362,9 +424,7 @@ a.link {
     bottom: 400px !important;
     background-size: 120% auto !important;
   }
-  .about-nths{
-    top: 84vh !important;
-  }
+ 
 }
 
 @media (min-width: 1024px) and (max-width: 1920px) and (max-height: 800px) {
@@ -373,11 +433,6 @@ a.link {
     bottom: 360px !important;
     background-size: 120% auto !important;
   }
-
-  .about-nths{
-    top: 92vh !important;
-  }
-
 }
 
 @media (min-width: 1024px) and (max-width: 1920px) and (max-height: 700px) {
@@ -385,11 +440,6 @@ a.link {
     height: 90% !important;
     bottom: 250px !important;
     background-size: 100% auto !important;
-  }
-
-  
-  .about-nths{
-    top: 98vh !important;
   }
 }
 
@@ -399,15 +449,6 @@ a.link {
     bottom: 300px !important;
     background-size: 100% auto !important;
   }
-  
-  .about-nths{
-    top: 55vh !important;
-  }
-  .about-nths p{
-    font-size: 11px !important;
-    width: 450px !important;
-    padding-left: 60px !important;
-  }
 }
 
 @media (min-width: 1024px) and (max-width: 1920px) and (max-height: 500px) {
@@ -416,163 +457,7 @@ a.link {
     bottom: 490px !important;
     background-size: 100% auto !important;
   }
-
-  
-  .about-nths{
-    top: 120vh !important;
-    height: 100% !important;
-    width: 50px;
-    font-size: 14px !important;
-  }
 }
-
-/* Unified background for About, Stats, and Countdown sections */
-/*
-.bg-2 {
-  background-image: url('/assets/full-bg.png');
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: cover;
-  background-attachment: scroll;
-}
-*/
-
-/* Responsive sizing for bg-2 */
-/*
-@media (max-width: 767px) {
-  .bg-2 {
-    background-size: cover;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  .bg-2 {
-    background-size: cover;
-  }
-}
-
-@media (min-width: 1367px) {
-  .bg-2 {
-    background-size: cover;
-  }
-  .parallax-sky {
-    height: 100%;
-    bottom: 80px;
-  }
-}
-*/
-
-
-
-/* Unified background - Stats section */
-/*
-.bg-3 {
-  background-image: url('/assets/full-bg.png');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  background-attachment: scroll;
-}
-*/
-
-/* Responsive sizing for bg-3 */
-/*
-@media (max-width: 767px) {
-  .bg-3 {
-    background-size: cover;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  .bg-3 {
-    background-size: cover;
-  }
-}
-
-@media (min-width: 1024px) and (max-width: 1366px) {
-  .bg-3 {
-    background-size: cover;
-  }
-}
-
-@media (min-width: 1367px) {
-  .bg-3 {
-    background-size: cover;
-  }
-}
-*/
-
-/*
-.bg-5 {
-  background-color: #2B0800;
-  background-image: url('/assets/bg-5.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-*/
-
-/* Responsive sizing for bg-5 */
-/*
-@media (max-width: 767px) {
-  .bg-5 {
-    background-size: auto 100%;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  .bg-5 {
-    background-size: 120% auto;
-  }
-}
-
-@media (min-width: 1024px) and (max-width: 1366px) {
-  .bg-5 {
-    background-size: 110% auto;
-  }
-}
-
-@media (min-width: 1367px) {
-  .bg-5 {
-    background-size: cover;
-  }
-}
-*/
-
-/*
-.bg-6 {
-  background-image: url('/assets/bg-6.png');
-  background-repeat: no-repeat;
-  background-position: center -300px;
-  background-size: cover;
-}
-*/
-
-/* Responsive sizing for bg-6 */
-/*
-@media (max-width: 767px) {
-  .bg-6 {
-    background-size: auto 120%;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  .bg-6 {
-    background-size: 140% auto;
-  }
-}
-
-@media (min-width: 1024px) and (max-width: 1366px) {
-  .bg-6 {
-    background-size: 115% auto;
-  }
-}
-
-@media (min-width: 1367px) {
-  .bg-6 {
-    background-size: cover;
-  }
-}
-*/
 
 /* UNIFIED FULL BACKGROUND - One continuous background for all sections */
 /* Remove individual backgrounds from these sections */
@@ -612,10 +497,75 @@ a.link {
 @media (max-width: 767px) {
   .full-bg-wrapper::before {
     top: -180vh;
-    background-size: cover;
+    background-size: 100% auto;
     background-position: center top;
   }
+  .about-section-container {
+    top: 400px !important;
+    width: 70% !important;
+    font-size: 60% !important;
+  }
 }
+
+@media (min-width:768px) and (max-width:868px) {
+  .about-section-container {
+    top: 480px !important;
+  }
+}
+@media (min-width:869px) and (max-width:909px) {
+  .about-section-container {
+    top: 560px !important;
+  }
+}
+
+@media (min-width:910px) and (max-width:969px) {
+  .about-section-container {
+    top: 550px !important;
+  }
+}
+
+@media (min-width:970px) and (max-width:1070px) {
+  .about-section-container {
+    top: 580px !important;
+  }
+}
+@media (min-width:1071px) and (max-width:1171px) {
+  .about-section-container {
+    top: 630px !important;
+  }
+}
+@media (min-width:1172px) and (max-width:1272px) {
+  .about-section-container {
+    top: 680px !important;
+  }
+}
+
+@media (min-width:1273px) and (max-width:1373px) {
+  .about-section-container {
+    top: 800px !important;
+  }
+}
+@media (min-width:1374px) and (max-width:1474px) {
+  .about-section-container {
+    top: 850px !important;
+  }
+}
+@media (min-width:1475px) and (max-width:1574px) {
+  .about-section-container {
+    top: 920px !important;
+  }
+}
+@media (min-width:1575px) and (max-width:1920px) {
+  .about-section-container {
+    top: 970px !important;
+    width: 60% !important;
+  }
+}
+
+
+
+
+
 
 /* Tablets/iPads: optimize for medium screens */
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -624,13 +574,14 @@ a.link {
     background-size: 100% auto;
     background-position: center top;
   }
+
 }
 
 /* iPad landscape: adjust for landscape orientation */
 @media (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
   .full-bg-wrapper::before {
     top: -190vh;
-    background-size: 130% auto;
+    background-size: 100% auto;
     background-position: center top;
   }
 }
@@ -639,7 +590,7 @@ a.link {
 @media (min-width: 1024px) and (max-width: 1599px) {
   .full-bg-wrapper::before {
     top: -220vh;
-    background-size: 120% auto;
+    background-size: 100% auto;
     background-position: center top;
   }
 }
@@ -654,7 +605,40 @@ a.link {
 }
 
 
+@media (max-height: 1400px) {
+  .full-bg-wrapper::before {
+    top: -210vh !important;
+    background-size: 100% auto !important;
+  }
+}
 
+@media (max-height: 1200px) {
+  .full-bg-wrapper::before {
+    top: -210vh !important;
+    background-size: 100% auto !important;
+  }
+}
+
+@media (max-height: 1000px) {
+  .full-bg-wrapper::before {
+    top: -210vh !important;
+    background-size: 100% auto !important;
+  }
+}
+
+@media (max-height: 900px) {
+  .full-bg-wrapper::before {
+    top: -210vh !important;
+    background-size: 100% auto !important;
+  }
+}
+
+@media (max-height: 800px) {
+  .full-bg-wrapper::before {
+    top: -210vh !important;
+    background-size: 100% auto !important;
+  }
+}
 
 /* Adjust for short viewport heights */
 @media (max-height: 700px) {
@@ -807,7 +791,7 @@ a.link {
 
 /* Override for white text headings */
 .white-text {
-  color: transparent !important;
+  color: white !important;
 }
 
 
@@ -858,4 +842,3 @@ a.link {
 .sponsor-card {
   transition: all 0.3s ease;
 }
-
