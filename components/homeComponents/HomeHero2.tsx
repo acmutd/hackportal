@@ -4,6 +4,7 @@ import BackgroundCircles from '../BackgroundCircles';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import AppHeader2_Wrapper from '../AppHeader2/wrapper';
 import { useRouter } from 'next/router';
+import HomeVideoStats from './HomeVideoStats';
 
 export default function HomeHero() {
   const [scrollY, setScrollY] = useState(0);
@@ -50,6 +51,7 @@ export default function HomeHero() {
         style={{
           transform: `translateY(${scrollY * 0.2}px)`,
           transition: 'transform 0.1s ease-out',
+          zIndex: 1,
         }}
       />
 
@@ -67,7 +69,7 @@ export default function HomeHero() {
           {/* Big welcome */}
           <div className="absolute inset-0 z-10 flex items-center mb-24 justify-center pointer-events-none px-4">
             <div
-              className="text-center transform -translate-y-34 md:-translate-y-50"
+              className="text-center transform -translate-y-10 sm:-translate-y-20 md:-translate-y-50"
               style={{
                 animation: 'float 5s ease-in-out infinite',
               }}
@@ -83,40 +85,47 @@ export default function HomeHero() {
         </div>
       </div>
 
-      {/* About NTHS Hack Section - above foreground */}
+      {/* About NTHS Hack Section - Text pinned to billboard in full-bg.png */}
       <div
-        className="absolute w-full"
+        className="about-section-container"
         style={{
-          top: '105vh',
-          height: '120vh',
+          position: 'absolute',
+          top: 'clamp(600px, 50vw, 900px)',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: 'clamp(500px, 60vw, 750px)',
           zIndex: 20,
-          pointerEvents: 'none',
         }}
       >
-        <div className="section-bg bg-2 w-full h-full relative">
-          {/* text overlay INSIDE billboard */}
+        {/* Container matching billboard aspect ratio in full-bg */}
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            aspectRatio: '2.3 / 1',
+          }}
+        >
+          {/* Text anchored within billboard bounds */}
           <div
             style={{
               position: 'absolute',
-              left: '44%',
-              top: '45%',
+              top: '130%',
+              left: '40%',
               transform: 'translate(-50%, -50%)',
-              width: '50%',
-              maxWidth: '550px',
+              width: '70%',
               textAlign: 'center' as const,
               color: '#fff',
               textShadow: '0 6px 18px rgba(0,0,0,0.5)',
-              zIndex: 20,
-              pointerEvents: 'none' as const,
             }}
           >
             <h1
               style={{
                 fontFamily: "'Alfa Slab One', cursive",
                 fontWeight: 250,
-                fontSize: 'clamp(28px, 4vw, 68px)',
+                fontSize: 'clamp(24px, 3.5vw, 56px)',
                 margin: 0,
-                transform: 'translateY(-72px)',
+                marginBottom: 'clamp(20px, 5vw, 60px)',
+                transform: 'translateY(-30px)',
               }}
             >
               About NTHS Hack
@@ -125,11 +134,9 @@ export default function HomeHero() {
               style={{
                 fontFamily: "'Alfa Slab One', cursive",
                 fontWeight: 200,
-                fontSize: 'clamp(8px, 1.2vw, 22px)',
+                fontSize: 'clamp(8px, 1vw, 13px)',
                 lineHeight: 1.5,
-                marginTop: '12px',
-                maxHeight: '42vh',
-                overflow: 'hidden',
+                margin: 0,
               }}
             >
               The Association of Computing Machinery (ACM) at the University of Texas at Dallas will
@@ -144,6 +151,9 @@ export default function HomeHero() {
           </div>
         </div>
       </div>
+
+      {/* Stats section - same positioning parent as About */}
+      <HomeVideoStats />
     </section>
   );
 }

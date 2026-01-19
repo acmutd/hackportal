@@ -56,9 +56,12 @@ export default function Home(props: {
       </Head>
       {/* <HomeNotif /> */}
       <HomeHero2 />
-      {/* <HomeAbout />*/}
-      <HomeVideoStats />
-      <HackCountdown />
+      {/* Unified full-bg wrapper for About through Countdown sections */}
+      <div className="full-bg-wrapper">
+        {/* <HomeAbout />*/}
+        {/* <HomeVideoStats /> */}
+        <HackCountdown />
+      </div>
       {/* Unified gradient background wrapper */}
       <div className="bg-unified-gradient">
         <HomeSchedule scheduleCard={props.scheduleCard} dateCard={props.dateCard} />
