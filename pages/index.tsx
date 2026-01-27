@@ -58,9 +58,17 @@ export default function Home(props: {
       <HomeHero2 />
       {/* Unified full-bg wrapper for About through Countdown sections */}
       <div className="full-bg-wrapper">
-        {/* <HomeAbout />*/}
-        {/* <HomeVideoStats /> */}
-        <HackCountdown />
+        <section className="billboard-1">
+          <HomeAbout />
+        </section>
+
+        <section className="billboard-2">
+          <HomeVideoStats />
+        </section>
+
+        <section className="billboard-3">
+          <HackCountdown />
+        </section>
       </div>
       {/* Unified gradient background wrapper */}
       <div className="bg-unified-gradient">

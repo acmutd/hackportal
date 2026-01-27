@@ -54,7 +54,7 @@
     "react": "^18.2.0",
     "react-curved-text": "^3.0.1",
     "react-dom": "^18.2.0",
-    "react-intersection-observer": "^10.0.0",
+    "react-intersection-observer": "^10.0.2",
     "react-markdown": "^8.0.3",
     "react-material-ui-carousel": "^3.4.2",
     "react-notion-x": "^6.12.10",

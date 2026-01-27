@@ -12,13 +12,12 @@
   display: block; /* stop flex from fighting your layout */
 }
 
-/* Place COUNTDOWN text exactly where you want */
 .header {
   position: absolute;
 
-  /* 👇 MOVE THESE */
-  top: 450px;   /* bigger = move DOWN */
-  left: 550px;  /* smaller = move LEFT */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   font-family: "Alfa Slab One", cursive;
   font-weight: 400;
@@ -26,32 +25,25 @@
 
   letter-spacing: 2px;
   text-align: center;
-
   color: #ffffff;
   text-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
 
   margin: 0;
-  z-index: 4;
 }
 
-
-/* Place the timer as a block under the scroll */
 .timeSection {
   position: absolute;
 
-  /* tweak these to move timer */
-  left: 410px;
-  top: 640px;
+  top: calc(50% + 150px); /* space below header */
+  left: 50%;
+
+  transform: translateX(-50%) scale(0.38);
+  transform-origin: top center;
 
   display: flex;
   justify-content: center;
   align-items: center;
-
   gap: 40px;
-
-  /* shrink the whole timer */
-  transform: scale(0.38);
-  transform-origin: top left;
 
   z-index: 3;
 }
@@ -100,13 +92,13 @@
   }
 }
 
-@media (max-height: 1080px) and (min-height: 600px) {
+/* @media (max-height: 1080px) and (min-height: 600px) {
   .countdownContainer {
     transform: scale(calc(100vh / 1080));
     transform-origin: top center;
     width: calc(1920px * (100vh / 1080));
   }
-}
+} */
 
 /* Prevent extreme shrinking on ultra-short viewports */
 @media (min-width: 1024px) and (max-height: 599px) {
