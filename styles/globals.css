@@ -438,34 +438,61 @@ a.link {
   background-color: transparent !important;
 }
 
-/* Create a fixed background layer that spans from About section through Countdown */
+
+
 .full-bg-wrapper {
   position: relative;
-  z-index: 2;
+  width: 100%;
+  height: 225vh;
 }
 
 .full-bg-wrapper::before {
   content: '';
   position: absolute;
-  top: -220vh; /* Extend to cover hero section */
-  left: 0;
-  right: 0;
-  bottom: -100vh;
-  height: auto;
-  min-height: calc(100% + 300vh);
+  inset: 0;
   background-image: url('/assets/full-bg.png');
   background-repeat: no-repeat;
-  background-position: center top; /* Start from top to cover hero */
+  background-position: center top;
   background-size: cover;
+  z-index: 1;
+}
+
+
+.billboard-1,
+.billboard-2,
+.billboard-3 {
+  position: absolute;
+  width: 100%;
+  height: 50vh;
   z-index: 2;
-  pointer-events: none;
+  display: flex;
+  padding: 0 1rem;
+}
+
+.billboard-1 {
+  top: -87vh;
+  left: -10vh;
+  justify-content: center;
+}
+
+.billboard-2 {
+  top: 50vh;
+  left: 0;
+  justify-content: flex-end;
+}
+
+.billboard-3 {
+  top: 130vh;
+  left: 0;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Mobile phones: adjust full-bg positioning and reduce zoom */
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
 
   .full-bg-wrapper::before {
-    top: -180vh;
+    top: -90vh;
     background-size: 100% auto;
     background-position: center top;
   }
@@ -481,7 +508,15 @@ a.link {
   
 }
 
-@media (min-width:768px) and (max-width:868px) {
+@media (max-width: 767px) {
+  .countdown-section {
+    transform: scale(0.6);
+    transform-origin: top center;
+  }
+} */
+
+
+/* @media (min-width:768px) and (max-width:868px) {
   .about-section-container {
     top: 480px !important;
   }
@@ -582,10 +617,7 @@ a.link {
   }
 }
 
-
-
-
-
+ */
 
 /* Tablets/iPads: optimize for medium screens */
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -597,14 +629,14 @@ a.link {
 
 }
 
-/* iPad landscape: adjust for landscape orientation */
+/* iPad landscape: adjust for landscape orientation
 @media (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
   .full-bg-wrapper::before {
     top: -190vh;
     background-size: 100% auto;
     background-position: center top;
   }
-}
+} */
 
 /* Laptops/smaller desktops */
 @media (min-width: 1024px) and (max-width: 1599px) {
@@ -626,7 +658,7 @@ a.link {
 
 @media (max-height: 1400px) {
   .full-bg-wrapper::before {
-    top: -210vh !important;
+    top: -120vh !important;
     background-size: 100% auto !important;
   }
 }
@@ -654,7 +686,7 @@ a.link {
 
 @media (max-height: 800px) {
   .full-bg-wrapper::before {
-    top: -210vh !important;
+    top: -200vh !important;
     background-size: 100% auto !important;
   }
 }
@@ -662,7 +694,7 @@ a.link {
 /* Adjust for short viewport heights */
 @media (max-height: 700px) {
   .full-bg-wrapper::before {
-    top: -210vh !important;
+    top: -200vh !important;
     background-size: 100% auto !important;
   }
 }
@@ -848,5 +880,102 @@ a.link {
 @media (min-height: 840px) {
   .stats-container {
     padding-top: 45px !important;
+  }
+}
+
+@media (max-width: 767px) {
+
+  /* 1) Make wrapper expand with content */
+  .full-bg-wrapper {
+    height: auto !important;
+    min-height: 100vh;
+    padding: 0 !important;
+  }
+
+  /* 2) Keep background covering wrapper */
+  .full-bg-wrapper::before {
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    margin-bottom: -70px; /* pull next section UP */
+    background-size: cover !important;
+    background-position: center top !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .billboard-1,
+  .billboard-2,
+  .billboard-3 {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: auto !important;
+
+    margin: 0 auto !important;
+    padding: 2rem 1rem 0 !important;
+
+    z-index: 2;
+  }
+}
+
+@media (max-width: 767px) {
+  .billboard-1 {
+    transform: translateY(24rem) translateX(-2rem) scale(0.8);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 767px) {
+  .billboard-2 {
+    transform: translateY(34rem) translateX(8rem) scale(0.9);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 767px) {
+  .billboard-3 {
+    transform: translateY(29rem) scale(0.6);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 767px) {
+  .parallax-sky {
+    position: absolute;
+    top: 0 !important;
+    bottom: auto !important;
+    height: 100vh !important;
+    width: 100%;
+    background-size: cover !important;
+    background-position: center top !important;
+    transform: none !important;
+    animation: none !important;
+    z-index: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .homeHeroMobileFix {
+    position: relative;
+    min-height: 100vh !important;
+    overflow: hidden;
+  }
+
+  .homeHeroMobileFix h1,
+  .homeHeroMobileFix p {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+@media (max-width: 767px) {
+  .parallax-sky {
+    bottom: -240px !important; /* was ~-170 */
+  }
+
+  .full-bg-wrapper {
+    margin-top: -200px; /* PULL full bg upward */
   }
 }

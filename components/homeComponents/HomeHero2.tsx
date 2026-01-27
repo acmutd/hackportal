@@ -33,8 +33,11 @@ export default function HomeHero() {
 
   return (
     <section
-      className="flex flex-col-reverse md:flex-col section-bg bg-sky bg-cover bg-center relative"
-      style={{ minHeight: '220vh' }}
+      className="flex flex-col-reverse md:flex-col section-bg bg-sky bg-cover bg-center relative homeHeroMobileFix"
+      style={{
+        minHeight: '220vh',
+        height: 'auto',
+      }}
     >
       {/* Parallax Sky Background */}
       <div
@@ -78,82 +81,12 @@ export default function HomeHero() {
                 NTHS Hackathon 2026
               </h1>
               <p className="rye-font text-white text-lg md:text-2xl opacity-95 drop-shadow-lg mt-2">
-                March 5th-6th
+                March 28th
               </p>
             </div>
           </div>
         </div>
       </div>
-
-      {/* About NTHS Hack Section - Text pinned to billboard in full-bg.png */}
-      <div
-        className="about-section-container"
-        style={{
-          position: 'absolute',
-          top: 'clamp(600px, 50vw, 900px)',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: 'clamp(500px, 60vw, 750px)',
-          zIndex: 20,
-        }}
-      >
-        {/* Container matching billboard aspect ratio in full-bg */}
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            aspectRatio: '2.3 / 1',
-          }}
-        >
-          {/* Text anchored within billboard bounds */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '130%',
-              left: '40%',
-              transform: 'translate(-50%, -50%)',
-              width: '70%',
-              textAlign: 'center' as const,
-              color: '#fff',
-              textShadow: '0 6px 18px rgba(0,0,0,0.5)',
-            }}
-          >
-            <h1
-              style={{
-                fontFamily: "'Alfa Slab One', cursive",
-                fontWeight: 250,
-                fontSize: 'clamp(24px, 3.5vw, 56px)',
-                margin: 0,
-                marginBottom: 'clamp(20px, 5vw, 60px)',
-                transform: 'translateY(-30px)',
-              }}
-            >
-              About NTHS Hack
-            </h1>
-            <p
-              style={{
-                fontFamily: "'Alfa Slab One', cursive",
-                fontWeight: 200,
-                fontSize: 'clamp(8px, 1vw, 13px)',
-                lineHeight: 1.5,
-                margin: 0,
-              }}
-            >
-              The Association of Computing Machinery (ACM) at the University of Texas at Dallas will
-              be hosting the third iteration of our hackathon experience! This two day long event
-              will be an intense competition of self expression and creativity through technology,
-              where students will get the chance to showcase their web development skills. High
-              school students across North Texas with varying technical backgrounds will come
-              together, form teams, and build unique solutions from scratch. This beginner-friendly
-              hackathon is an extraordinary opportunity for you to win prizes, compete, and
-              jumpstart your journey in technology!
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Stats section - same positioning parent as About */}
-      <HomeVideoStats />
     </section>
   );
 }

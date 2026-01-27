@@ -24,7 +24,7 @@ export default function HomeSponsors(props: { sponsorCard: Sponsor[] }) {
           <h2 className="text-center text-white">
             please reach out to us at&nbsp;
             <a
-              href="mailto:email@organization.com"
+              href="outreach@acmutd.co"
               rel="noopener noreferrer"
               target="_blank"
               className="underline"
@@ -34,7 +34,7 @@ export default function HomeSponsors(props: { sponsorCard: Sponsor[] }) {
           </h2>
 
           {/* Sponsor Card */}
-          <section className="flex flex-row justify-center items-center p-4 sponsor-grid">
+          <section className="flex flex-row sm: flex-col justify-center items-center p-4 sponsor-grid">
             {sponsor.map(({ link, reference }, idx) => (
               <SponsorCard key={idx} link={link} reference={reference} />
             ))}

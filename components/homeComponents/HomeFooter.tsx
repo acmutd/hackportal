@@ -12,8 +12,8 @@ export default function HomeFooter() {
       className="bg-6 relative"
     >
       <div className="flex">
-        <div className="z-10 grid grid-cols-1 lg:gap-36 lg:grid-cols-3">
-          <div className="lg:text-white pt-14 pl-24">
+        <div className="z-10 grid grid-cols-1 md:grid-cols-3 md:gap-20">
+          <div className="lg:text-black pt-14 pl-24">
             <h1 className="font-bold text-2xl ">ACM UTD</h1>
             <h2 className="font-semibold text-xl mt-4 mb-3">Contact Us</h2>
             <div className="flex gap-4 mb-4">
@@ -41,7 +41,7 @@ export default function HomeFooter() {
               </a>
               {/* Email icon */}
               <a
-                href="mailto:email@acmutd.co"
+                href="mailto:outreach@acmutd.co"
                 target="_blank"
                 rel="noreferrer"
                 className="hover:opacity-80"
@@ -92,9 +92,8 @@ export default function HomeFooter() {
               </p>
             </div>
           </div>
-          <div className="p-10" style={{ maxWidth: '300px', fontFamily: 'inter' }}>
+          {/* <div className="p-10" style={{ maxWidth: '300px', fontFamily: 'inter' }}>
             <h1 className="font-semibold text-xl mb-3">Contact Us</h1>
-            {/* input for email */}
             <input
               style={{ backgroundColor: '#E2E2E2' }}
               className="border-0 rounded"
@@ -103,14 +102,13 @@ export default function HomeFooter() {
               name="email"
               id="contact-us"
             />
-            {/* subscribe button */}
             <button
               className="rounded-lg text-white px-6 py-2 my-4"
               style={{ backgroundColor: '#702D11' }}
             >
               Subscribe
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div
