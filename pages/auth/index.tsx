@@ -140,7 +140,7 @@ export default function AuthPage() {
                     {signInOption ? 'Login' : 'Create an account'}
                   </h1>
                   <div className="text-center text-[#5C2E12]/60 mt-4 mb-12 poppins-semibold">
-                    {signInOption ? ' New to HackUTD?' : 'Already have an account?'}{' '}
+                    {signInOption ? ' New to NTHS Hack 2026?' : 'Already have an account?'}{' '}
                     <span
                       onClick={() =>
                         signInOption ? setSignInOption(false) : setSignInOption(true)

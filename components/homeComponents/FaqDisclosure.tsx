@@ -37,21 +37,18 @@ export default function FaqDisclosure({
         }}
         className="transition duration-500 ease-in-out bg-white rounded-md p-4"
       >
-        <Disclosure.Button
-          className={`p-2 text-complementary font-medium text-left  w-full`}
-          as="div"
-        >
+        <Disclosure.Button className={`p-2 text-#5C2E12 font-medium text-left  w-full`} as="div">
           <button
             className="w-full flex flex-row justify-between items-center"
             onClick={() => {
               toggleDisclosure();
             }}
           >
-            <h1 style={{ fontFamily: 'Fredoka', color: '#170F49' }} className="text-left text-xl">
+            <h1 style={{ fontFamily: 'Fredoka', color: '#5C2E12' }} className="text-left text-xl">
               {question}
             </h1>
             <div
-              style={{ backgroundColor: !isOpen ? '#F7F7FB' : '#4A3AFF' }}
+              style={{ backgroundColor: !isOpen ? '#F7F7FB' : '#5C2E12' }}
               className="p-3 rounded-md transition duration-500 ease-in-out"
             >
               {!isOpen ? (
@@ -74,7 +71,7 @@ export default function FaqDisclosure({
           leaveTo="transform scale-95 opacity-0"
         >
           <Disclosure.Panel
-            style={{ color: '#6F6C90' }}
+            style={{ color: '#000000' }}
             className={`my-2 py-2  p-2 text-left text-sm`}
             static
           >
