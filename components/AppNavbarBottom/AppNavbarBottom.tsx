@@ -5,8 +5,10 @@ import QuestionIcon from '@/public/icons/question.svg';
 import AdminIcon from '@/public/icons/admin.svg';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { useAuthContext } from '@/lib/user/AuthContext';
 
 export default function AppNavbarBottom() {
+  const { isSignedIn } = useAuthContext();
   return (
     <div
       className={clsx(
@@ -15,15 +17,16 @@ export default function AppNavbarBottom() {
         'p-4 rounded-xl',
       )}
     >
-      <FilePlusIcon />
       <Link href="/#schedule-section">
         <CalendarIcon />
       </Link>
-      <TrophyIcon />
+      {/* <TrophyIcon /> */}
       <Link href="#faq-section">
         <QuestionIcon />
       </Link>
-      <AdminIcon />
+      <Link href={isSignedIn ? '/profile' : '/auth'}>
+        <AdminIcon />
+      </Link>
     </div>
   );
 }
