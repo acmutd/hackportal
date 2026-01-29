@@ -6,7 +6,7 @@ export default function HomeVideoStats() {
       className="
         relative
         w-full
-        max-w-[720px]
+        h-full
         z-20
         pointer-events-none
         px-4 sm:px-6 md:px-8
@@ -17,7 +17,7 @@ export default function HomeVideoStats() {
           <div key={stat.data}>
             <p className="stats-title text-[clamp(1.6rem,3vw,2.2rem)] leading-tight">{stat.data}</p>
             {stat.object && (
-              <p className="stats-subtitle text-[#8c3d00] font-semibold text-sm md:text-base mt-1">
+              <p className="stats-subtitle text-[#8c3d00] font-semibold text-[clamp(12px,1.2vw,16px)] mt-1">
                 {stat.object}
               </p>
             )}
