@@ -303,14 +303,12 @@ a.link {
 }
 
 @media (min-width: 1600) {
-  /* Removed foreground - using full-bg.png instead */
   .parallax-sky {
     bottom: 550px;
   }
 }
 /* Laptop/Desktop */
 @media (min-width: 1024px) and (max-width: 1599px) {
-  /* Removed foreground - using full-bg.png instead */
   .parallax-sky {
     bottom: 150px;
   }
@@ -427,285 +425,6 @@ a.link {
   }
 }
 
-/* UNIFIED FULL BACKGROUND - One continuous background for all sections */
-/* Remove individual backgrounds from these sections */
-.bg-2,
-.bg-3,
-.bg-4,
-.bg-5,
-.bg-6 {
-  background-image: none !important;
-  background-color: transparent !important;
-}
-
-
-
-.full-bg-wrapper {
-  position: relative;
-  width: 100%;
-  height: 225vh;
-}
-
-.full-bg-wrapper::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('/assets/full-bg.png');
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: cover;
-  z-index: 1;
-}
-
-
-.billboard-1,
-.billboard-2,
-.billboard-3 {
-  position: absolute;
-  width: 100%;
-  height: 50vh;
-  z-index: 2;
-  display: flex;
-  padding: 0 1rem;
-}
-
-.billboard-1 {
-  top: -87vh;
-  left: -10vh;
-  justify-content: center;
-}
-
-.billboard-2 {
-  top: 50vh;
-  left: 0;
-  justify-content: flex-end;
-}
-
-.billboard-3 {
-  top: 130vh;
-  left: 0;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Mobile phones: adjust full-bg positioning and reduce zoom */
-/* @media (max-width: 767px) {
-
-  .full-bg-wrapper::before {
-    top: -90vh;
-    background-size: 100% auto;
-    background-position: center top;
-  }
-  .about-section-container {
-    top: 450px !important;
-    width: 70% !important;
-    font-size: 60% !important;
-  }
-  .stats-container {
-    top: 1220px !important;
-    left: 370px !important;
-  }
-  
-}
-
-@media (max-width: 767px) {
-  .countdown-section {
-    transform: scale(0.6);
-    transform-origin: top center;
-  }
-} */
-
-
-/* @media (min-width:768px) and (max-width:868px) {
-  .about-section-container {
-    top: 480px !important;
-  }
-  .stats-container {
-    top: 1260px !important;
-    left: 420px !important;
-  }
-}
-@media (min-width:869px) and (max-width:909px) {
-  .about-section-container {
-    top: 560px !important;
-  }
-  .stats-container {
-    top: 1350px !important;
-    left: 450px !important;
-  }
-}
-
-@media (min-width:910px) and (max-width:969px) {
-  .about-section-container {
-    top: 550px !important;
-  }
-  .stats-container {
-    top: 1390px !important;
-    left: 460px !important;
-  }
-}
-
-@media (min-width:970px) and (max-width:1070px) {
-  .about-section-container {
-    top: 580px !important;
-  }
-  
-}
-
-@media (min-width:970px) and (max-width:1000px) {
-  .stats-container {
-    top: 1520px !important;
-    left: 530px !important;
-  }
-}
-@media (min-width:1001px) and (max-width:1071px) {
-  .stats-container {
-    top: 1620px !important;
-    left: 530px !important;
-  }
-}
-
-
-@media (min-width:1072px) and (max-width:1171px) {
-  .about-section-container {
-    top: 630px !important;
-  }
-  .stats-container {
-    top: 1730px !important;
-    left: 580px !important;
-  }
-}
-
-
-@media (min-width:1173px) and (max-width:1272px) {
-  .about-section-container {
-    top: 680px !important;
-  }
-.stats-container {
-    top: 1850px !important;
-    left: 600px !important;
-  }
-}
-
-@media (min-width:1273px) and (max-width:1373px) {
-  .about-section-container {
-    top: 800px !important;
-  }
-  .stats-container {
-    top: 2090px !important;
-    left: 700px !important;
-  }
-}
-@media (min-width:1374px) and (max-width:1474px) {
-  .about-section-container {
-    top: 850px !important;
-  }
-  .stats-container {
-    top: 2200px !important;
-    left: 750px !important;
-  }
-}
-@media (min-width:1475px) and (max-width:1574px) {
-  .about-section-container {
-    top: 920px !important;
-  }
-}
-@media (min-width:1575px) and (max-width:1920px) {
-  .about-section-container {
-    top: 970px !important;
-    width: 60% !important;
-  }
-}
-
- */
-
-/* Tablets/iPads: optimize for medium screens */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .full-bg-wrapper::before {
-    top: -180vh;
-    background-size: 100% auto;
-    background-position: center top;
-  }
-
-}
-
-/* iPad landscape: adjust for landscape orientation
-@media (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
-  .full-bg-wrapper::before {
-    top: -190vh;
-    background-size: 100% auto;
-    background-position: center top;
-  }
-} */
-
-/* Laptops/smaller desktops */
-@media (min-width: 1024px) and (max-width: 1599px) {
-  .full-bg-wrapper::before {
-    background-size: 100% auto;
-    background-position: center top;
-  }
-}
-
-/* Large desktops */
-@media (min-width: 1600px) {
-  .full-bg-wrapper::before {
-    top: -220vh;
-    background-size: cover;
-    background-position: center top;
-  }
-}
-
-
-@media (max-height: 1400px) {
-  .full-bg-wrapper::before {
-    top: -120vh !important;
-    background-size: 100% auto !important;
-  }
-}
-
-@media (max-height: 1200px) {
-  .full-bg-wrapper::before {
-    top: -210vh !important;
-    background-size: 100% auto !important;
-  }
-}
-
-@media (max-height: 1000px) {
-  .full-bg-wrapper::before {
-    top: -210vh !important;
-    background-size: 100% auto !important;
-  }
-}
-
-@media (max-height: 900px) {
-  .full-bg-wrapper::before {
-    top: -210vh !important;
-    background-size: 100% auto !important;
-  }
-}
-
-@media (max-height: 800px) {
-  .full-bg-wrapper::before {
-    top: -200vh !important;
-    background-size: 100% auto !important;
-  }
-}
-
-/* Adjust for short viewport heights */
-@media (max-height: 700px) {
-  .full-bg-wrapper::before {
-    top: -200vh !important;
-    background-size: 100% auto !important;
-  }
-}
-
-@media (max-height: 600px) {
-  .full-bg-wrapper::before {
-    top: -210vh !important;
-    background-size: 100% auto !important;
-  }
-}
-
 /* Unified gradient background wrapping schedule to sponsors */
 .bg-unified-gradient {
   background: linear-gradient(
@@ -804,17 +523,6 @@ a.link {
 }
 */ 
 
-/* Unified background - Countdown section */
-/*
-.bg-4 {
-  background-image: url('/assets/full-bg.png');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  background-attachment: scroll;
-}
-*/ 
-
 /* Force Alfa Slab One for all text inside schedule section */
 .schedule-alfa * {
   font-family: 'Alfa Slab One', cursive !important;
@@ -884,64 +592,6 @@ a.link {
 }
 
 @media (max-width: 767px) {
-
-  /* 1) Make wrapper expand with content */
-  .full-bg-wrapper {
-    height: auto !important;
-    min-height: 100vh;
-    padding: 0 !important;
-  }
-
-  /* 2) Keep background covering wrapper */
-  .full-bg-wrapper::before {
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    margin-bottom: -70px; /* pull next section UP */
-    background-size: cover !important;
-    background-position: center top !important;
-  }
-}
-
-@media (max-width: 767px) {
-  .billboard-1,
-  .billboard-2,
-  .billboard-3 {
-    position: relative !important;
-    top: 0 !important;
-    left: 0 !important;
-    height: auto !important;
-
-    margin: 0 auto !important;
-    padding: 2rem 1rem 0 !important;
-
-    z-index: 2;
-  }
-}
-
-@media (max-width: 767px) {
-  .billboard-1 {
-    transform: translateY(24rem) translateX(-2rem) scale(0.8);
-    transform-origin: top center;
-  }
-}
-
-@media (max-width: 767px) {
-  .billboard-2 {
-    transform: translateY(34rem) translateX(8rem) scale(0.9);
-    transform-origin: top center;
-  }
-}
-
-@media (max-width: 767px) {
-  .billboard-3 {
-    transform: translateY(29rem) scale(0.6);
-    transform-origin: top center;
-  }
-}
-
-@media (max-width: 767px) {
   .parallax-sky {
     position: absolute;
     top: 0 !important;
@@ -967,15 +617,5 @@ a.link {
   .homeHeroMobileFix p {
     position: relative;
     z-index: 2;
-  }
-}
-
-@media (max-width: 767px) {
-  .parallax-sky {
-    bottom: -240px !important; /* was ~-170 */
-  }
-
-  .full-bg-wrapper {
-    margin-top: -200px; /* PULL full bg upward */
   }
 }

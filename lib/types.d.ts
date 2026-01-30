@@ -233,7 +233,7 @@ type Announcement = {
 type ScheduleEvent = {
   title: string;
   speakers?: string[];
-  type?: string;
+  type?: string | string[];
   track: string;
   startDate: Date;
   startTimestamp?: any;

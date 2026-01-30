@@ -4,7 +4,6 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 /* Calendar */
 export default function Calendar() {
-  const [dateCard, setDateCard] = useState([]);
   const [scheduleCard, setScheduleCard] = useState([]);
   const [filter, setFilter] = useState('All');
 
@@ -16,11 +15,6 @@ export default function Calendar() {
           `${window.location.protocol}//${window.location.host}/api/schedule`,
         ).then((res) => res.json());
         setScheduleCard(scheduleData);
-
-        const dateData = await fetch(
-          `${window.location.protocol}//${window.location.host}/api/dates`,
-        ).then((res) => res.json());
-        setDateCard(dateData);
       } catch (error) {
         console.error(error);
       }
@@ -29,7 +23,7 @@ export default function Calendar() {
     fetchData();
   }, []);
 
-  if (dateCard.length === 0 || scheduleCard.length === 0) {
+  if (scheduleCard.length === 0) {
     return <div>Fetching Data</div>;
   }
 
@@ -49,40 +43,6 @@ export default function Calendar() {
     'Workshop-Filter': 'border-[#5200FF] bg-[#5200FF] text-white',
   };
 
-  /* Dates Values */
-  const dateValues = {
-    year: dateCard[0].year,
-    day1: dateCard[0].day1,
-    day1Month: dateCard[0].day1Month,
-    day2: dateCard[0].day2,
-    day2Month: dateCard[0].day2Month,
-    endTime: dateCard[0].endTime,
-    startTime: dateCard[0].startTime,
-  };
-
-  /* Set event dates and times */
-  const day1StartDateAndTime = new Date(
-    dateValues['year'],
-    dateValues['day1Month'],
-    dateValues['day1'],
-    dateValues['startTime'],
-    0,
-  );
-  const day2StartDateAndTime = new Date(
-    dateValues['year'],
-    dateValues['day2Month'],
-    dateValues['day2'],
-    dateValues['startTime'],
-    0,
-  );
-  const eventEndDateAndTime = new Date(
-    dateValues['year'],
-    dateValues['day1Month'],
-    dateValues['day2'] + 1,
-    dateValues['endTime'],
-    0,
-  );
-
   /* Filter Functionality */
 
   const changeFilter = (newFilter: string) => {
@@ -96,13 +56,29 @@ export default function Calendar() {
   /* Event Component */
   const Event = ({ data, index, arrayLength }) => {
     const startDate = new Date(data.startDate);
+    const endDate = new Date(data.endDate);
     const formattedTime = startDate
       .toLocaleString([], { hour: 'numeric', minute: 'numeric' })
       .replace(' ', '')
       .replace('AM', 'am')
       .replace('PM', 'pm');
+    const formattedEndTime = endDate
+      .toLocaleString([], { hour: 'numeric', minute: 'numeric' })
+      .replace(' ', '')
+      .replace('AM', 'am')
+      .replace('PM', 'pm');
+    const eventTypes = Array.isArray(data.type)
+      ? data.type.filter(Boolean)
+      : typeof data.type === 'string' && data.type.includes(',')
+      ? data.type
+          .split(',')
+          .map((value) => value.trim())
+          .filter(Boolean)
+      : data.type
+      ? [data.type]
+      : ['All'];
 
-    const showEvent = filter === 'All' || filter === data.type;
+    const showEvent = filter === 'All' || eventTypes.includes(filter);
     const showFilteredEvents = filter !== 'All';
 
     const isLastEvent = index === arrayLength - 1;
@@ -125,16 +101,23 @@ export default function Calendar() {
                           `}
           >
             <div className="flex justify-between pb-1">
-              <div className="text-md font-bold font-dmSans">{formattedTime}</div>
+              <div className="text-md font-bold font-dmSans">
+                {formattedTime} - {formattedEndTime}
+              </div>
               <div className="text-md font-bold font-dmSans">{data.title}</div>
             </div>
             <div className="flex justify-between">
-              <div
-                className={`bg-white text-xs rounded-xl py-1 px-2 border-2 font-dmSans ${
-                  eventColors[data.type]
-                }`}
-              >
-                {data.type}
+              <div className="flex items-center gap-2 flex-wrap">
+                {eventTypes.map((eventType) => (
+                  <div
+                    key={`${data.title}-${eventType}`}
+                    className={`bg-white text-xs rounded-xl py-1 px-2 border-2 font-dmSans ${
+                      eventColors[eventType] || eventColors.All
+                    }`}
+                  >
+                    {eventType}
+                  </div>
+                ))}
               </div>
               <div className="text-gray-600 flex items-center font-dmSans">
                 <LocationOnIcon style={{ fontSize: 'large', marginRight: '2px' }} />
@@ -147,23 +130,9 @@ export default function Calendar() {
     );
   };
 
-  /* Filter Daily Events */
-  const getDailyEvents = (startTime, endTime) => {
-    return scheduleCard
-      .sort((a, b) => {
-        return +new Date(a.startDate) - +new Date(b.startDate);
-      })
-      .filter((event) => {
-        const eventDate = new Date(event.startDate);
-        return eventDate >= startTime && eventDate <= endTime;
-      })
-      .map((event, index, array) => (
-        <Event data={event} key={event.title + index} index={index} arrayLength={array.length} />
-      ));
-  };
-
-  const day1Events = getDailyEvents(day1StartDateAndTime, day2StartDateAndTime);
-  const day2Events = getDailyEvents(day2StartDateAndTime, eventEndDateAndTime);
+  const sortedEvents = [...scheduleCard].sort((a, b) => {
+    return +new Date(a.startDate) - +new Date(b.startDate);
+  });
 
   return (
     <div className="bg-[#F2F3FF]">
@@ -230,20 +199,17 @@ export default function Calendar() {
       </div>
 
       {/* Calendar */}
-      <div className="md:flex p-1 overflow-y-auto overflow-x-hidden mx-auto lg:w-[80%] w-full h-full">
-        <div className="w-full lg:w-1/2 px-4 md:px-0">
-          <div className="text-3xl font-black py-6 text-[#05149C] font-fredoka">
-            Day 1: Saturday
-          </div>
-          <div className="bg-white mb-8 mx-2 p-2 border-2 rounded-2xl border-[#05149C] border-opacity-20">
-            {day1Events}
-          </div>
-        </div>
-
-        <div className="w-full lg:w-1/2 md:ml-6 px-4 md:px-0">
-          <div className="text-3xl font-black py-6 text-[#05149C] font-fredoka">Day 2: Sunday</div>
-          <div className="bg-white mb-8 mx-2 p-2 border-2 rounded-2xl border-[#05149C] border-opacity-20">
-            {day2Events}
+      <div className="flex justify-center px-4">
+        <div className="w-full max-w-4xl">
+          <div className="bg-white mb-8 p-2 border-2 rounded-2xl border-[#05149C] border-opacity-20 max-w-3xl mx-auto">
+            {sortedEvents.map((event, index, array) => (
+              <Event
+                data={event}
+                key={event.title + index}
+                index={index}
+                arrayLength={array.length}
+              />
+            ))}
           </div>
         </div>
       </div>

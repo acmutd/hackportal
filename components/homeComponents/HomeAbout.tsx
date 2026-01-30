@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { CSSProperties } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
@@ -18,9 +17,8 @@ const HomeAbout = () => {
     <section
       className="
         relative
-        mx-auto
         w-full
-        max-w-[720px]
+        h-full
         z-20
         pointer-events-none
         px-4 sm:px-6 md:px-8
@@ -38,7 +36,7 @@ const HomeAbout = () => {
           About NTHS Hack
         </h1>
 
-        <p className="font-['Alfa_Slab_Onet'] font-weight: normal text-[clamp(12px,1.2vw,22px)] leading-relaxed max-w-full whitespace-normal break-words">
+        <p className="font-['Alfa_Slab_One'] font-normal text-[clamp(12px,1.2vw,16px)] leading-relaxed max-w-full whitespace-normal break-words">
           The Association of Computing Machinery (ACM) at the University of Texas at Dallas will be
           hosting the third iteration of our hackathon experience! This two day long event will be
           an intense competition of self expression and creativity through technology, where
