@@ -407,6 +407,232 @@ export const hackPortalConfig: HackPortalConfig = {
         ],
       },
     ],
+    mediaReleaseQuestions: [
+      {
+        textInputQuestions: [
+          {
+            question: 'Participant Name',
+            id: 'mediaParticipantName',
+            name: 'mediaParticipantName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'School',
+            id: 'mediaParticipantSchool',
+            name: 'mediaParticipantSchool',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+      {
+        checkboxQuestions: [
+          {
+            question:
+              'By checking this box and typing your full name in the signature field, you agree that this will serve as a legally binding electronic signature for all text entered in fields labeled “Signature” within this document.',
+            id: 'mediaConsent',
+            name: 'mediaConsent',
+            required: true,
+            initialValue: [],
+            options: [
+              {
+                title: 'I Agree',
+                value: 'agree',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        textInputQuestions: [
+          {
+            question: 'Parent/Guardian Name',
+            id: 'mediaGuardianName',
+            name: 'mediaGuardianName',
+            required: false,
+            initialValue: '',
+          },
+          {
+            question: 'Signature (Type Full Name)',
+            id: 'mediaSignature',
+            name: 'mediaSignature',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Date (MM/DD/YYYY)',
+            id: 'mediaDate',
+            name: 'mediaDate',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+    ],
+    liabilityWaiverQuestions: [
+      {
+        textInputQuestions: [
+          {
+            question: 'Participant Name',
+            id: 'liabilityWaiverName',
+            name: 'liabilityWaiverName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'School',
+            id: 'liabilityWaiverSchool',
+            name: 'liabilityWaiverSchool',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+      {
+        textInputQuestions: [
+          {
+            question: 'Parent/Guardian Name',
+            id: 'liabilityGuardianName',
+            name: 'liabilityGuardianName',
+            required: false,
+            initialValue: '',
+          },
+          {
+            question: 'Signature (Type Full Name)',
+            id: 'liabilitySignature',
+            name: 'liabilitySignature',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Date (MM/DD/YYYY)',
+            id: 'liabilityDate',
+            name: 'liabilityDate',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+    ],
+    codeOfConductQuestions: [
+      {
+        textInputQuestions: [
+          {
+            question: 'Participant Name',
+            id: 'codeOfConductName',
+            name: 'codeOfConductName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'School',
+            id: 'codeOfConductSchool',
+            name: 'codeOfConductSchool',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Signature (Type Full Name)',
+            id: 'conductSignature',
+            name: 'conductSignature',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Date (MM/DD/YYYY)',
+            id: 'conductDate',
+            name: 'conductDate',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+      {
+        textInputQuestions: [
+          {
+            question: 'Parent/Guardian Name',
+            id: 'codeOfConductGuardianName',
+            name: 'codeOfConductGuardianName',
+            required: false,
+            initialValue: '',
+          },
+          {
+            question: 'Signature (Type Full Name)',
+            id: 'codeOfConductSignature',
+            name: 'codeOfConductSignature',
+            required: false,
+            initialValue: '',
+          },
+          {
+            question: 'Date (MM/DD/YYYY)',
+            id: 'codeOfConductDate',
+            name: 'codeOfConductDate',
+            required: false,
+            initialValue: '',
+          },
+        ],
+      },
+    ],
+    parentalConsentQuestions: [
+      {
+        textInputQuestions: [
+          {
+            question: 'Parent/Guardian Full Name',
+            id: 'parentConsentName',
+            name: 'parentConsentName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Phone Number (XXX-XXX-XXXX)',
+            id: 'parentConsentPhone',
+            name: 'parentConsentPhone',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Alternate Contact Name',
+            id: 'alternateContactName',
+            name: 'alternateContactName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Alternate Contact Phone Number (XXX-XXX-XXXX)',
+            id: 'alternateContactPhone',
+            name: 'alternateContactPhone',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+      {
+        textInputQuestions: [
+          {
+            question: 'Parent/Guardian Name',
+            id: 'parentConsentGuardianName',
+            name: 'parentConsentGuardianName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Signature (Type Full Name)',
+            id: 'parentConsentSignature',
+            name: 'parentConsentSignature',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Date (MM/DD/YYYY)',
+            id: 'parentConsentDate',
+            name: 'parentConsentDate',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+    ],
     //Question Topic
     sponsorInfoQuestions: [
       // {
@@ -538,6 +764,10 @@ export interface HackPortalConfig {
     hackathonExperienceQuestions: QuestionTypes[];
     eventInfoQuestions: QuestionTypes[];
     sponsorInfoQuestions: QuestionTypes[];
+    mediaReleaseQuestions: QuestionTypes[];
+    liabilityWaiverQuestions: QuestionTypes[];
+    codeOfConductQuestions: QuestionTypes[];
+    parentalConsentQuestions: QuestionTypes[];
   };
 }
 
