@@ -116,7 +116,7 @@ export default function HomeSchedule(props: { scheduleCard: ScheduleEvent[] }) {
     <div
       id="schedule-section"
       className="schedule-alfa py-16 md:py-24"
-      style={{ paddingTop: '100vh' }}
+      style={{ paddingTop: '15rem' }}
     >
       <div
         className="text-center p-4 white-text"

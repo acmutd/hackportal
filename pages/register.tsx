@@ -36,6 +36,10 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
       hackathonExperienceQuestions,
       eventInfoQuestions,
       sponsorInfoQuestions,
+      mediaReleaseQuestions,
+      liabilityWaiverQuestions,
+      codeOfConductQuestions,
+      parentalConsentQuestions,
     },
   } = hackPortalConfig;
 
@@ -359,9 +363,138 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                   </div>
                 </section>
               )}
+              {registrationSection === 3 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full mx-auto rounded-2xl py-10 px-8 mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">Media Release</h2>
 
+                  <p className="text-sm text-gray-600 mb-6">
+                    Event Date: March 28, 2026
+                    <br />
+                    Location: The University of Texas at Dallas
+                  </p>
+                  <p className="text-md mb-2">
+                    I, the undersigned, hereby grant NTHS Hackathon and its organizers the right to
+                    take photographs, video recordings, and/or audio recordings of me/my child
+                    during the event. I understand that these media materials may be used in
+                    promotional materials, websites, social media, and other marketing efforts.
+                    <br />I waive any rights to inspect or approve the media in which my/my child’s
+                    likeness appears. I understand that no compensation will be provided for the use
+                    of these materials.
+                  </p>
+                  <p className="text-md mb-2">
+                    Participant Information & Consent (To be signed by parent/guardian if under 18):
+                    I, the parent/guardian of the minor participant named above, authorize the use
+                    of my child’s image and recordings for promotional purposes as outlined in this
+                    release.
+                  </p>
+
+                  {mediaReleaseQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </section>
+              )}
+              {registrationSection === 4 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full mx-auto rounded-2xl py-10 px-8 mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">Liability Waiver & Release</h2>
+
+                  <p className="text-sm text-gray-600 mb-6">
+                    Event Date: March 28, 2026
+                    <br />
+                    Location: The University of Texas at Dallas
+                  </p>
+                  <p className="text-md mb-2">
+                    I, the undersigned, acknowledge that participation in NTHS Hackathon is
+                    voluntary and involves activities that may have inherent risks. I agree to
+                    release, indemnify, and hold harmless NTHS Hackathon organizers, The University
+                    of Texas at Dallas, event sponsors, and affiliated personnel from any claims,
+                    injuries, damages, or liabilities that may arise during my/my child’s
+                    participation in the event.
+                    <br />I understand that organizers will take reasonable safety precautions, but
+                    I assume full responsibility for any personal injury or property damage
+                    resulting from my/my child’s participation.
+                  </p>
+                  <p className="text-md mb-2">
+                    Participant Information & Consent (To be signed by parent/guardian if under 18):
+                    I, the parent/guardian of the minor participant named above, understand and
+                    accept the terms of this waiver and grant permission for my child to
+                    participate.
+                  </p>
+
+                  {liabilityWaiverQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </section>
+              )}
+              {registrationSection === 5 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full mx-auto rounded-2xl py-10 px-8 mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">Code of Conduct</h2>
+
+                  <p className="text-sm text-gray-600 mb-6">
+                    Event Date: March 28, 2026
+                    <br />
+                    Location: The University of Texas at Dallas
+                  </p>
+                  <p className="text-md mb-2">
+                    NTHS Hackathon is committed to fostering a safe, inclusive, and respectful
+                    environment for all participants. By attending, you agree to follow these
+                    guidelines:
+                    <br />
+                    1. Respect – Treat fellow participants, mentors, and organizers with kindness
+                    and professionalism. Harassment, discrimination, or inappropriate behavior will
+                    not be tolerated.
+                    <br />
+                    2. Integrity – No plagiarism, cheating, or sabotage of others’ work.
+                    <br />
+                    3. Safety – Follow all event safety guidelines and UTD’s campus policies.
+                    <br />
+                    4. Teamwork – Collaboration is encouraged, but all submissions must be the
+                    team’s own work.
+                    <br />
+                    5. Consequences – Violations of this Code of Conduct may result in
+                    disqualification, removal from the event, and/or notification of school
+                    officials.
+                    <br />
+                  </p>
+                  <p className="text-md mb-2">
+                    Participant Agreement & Parental Consent (For Participants Under 18): I, the
+                    parent/guardian of the minor participant named above, have reviewed and agree to
+                    this Code of Conduct.
+                  </p>
+
+                  {codeOfConductQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </section>
+              )}
+              {registrationSection === 6 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full mx-auto rounded-2xl py-10 px-8 mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">Parental Consent Form</h2>
+
+                  <p className="text-sm text-gray-600 mb-6">
+                    Event Date: March 28, 2026
+                    <br />
+                    Location: The University of Texas at Dallas
+                  </p>
+                  <p className="text-md mb-2">
+                    I, the parent/guardian of [Participant’s Name], give my permission for my child
+                    to attend and participate in NTHS Hackathon. I understand that this event is
+                    hosted at The University of Texas at Dallas and will include supervised
+                    activities related to coding, design, and technology.
+                    <br />I acknowledge that my child will be responsible for their own
+                    transportation to and from the event (unless otherwise stated) and agree to the
+                    event’s liability waiver and code of conduct policies.
+                  </p>
+                  <p className="text-md mb-2">
+                    Emergency Contact Information & Consent Acknowledgment:
+                  </p>
+
+                  {parentalConsentQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </section>
+              )}
               {/* Event Questions */}
-              {registrationSection == 3 && (
+              {registrationSection == 7 && (
                 <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
                   <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">Event Info</h2>
                   <div className="flex flex-col">
@@ -475,7 +608,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
           )}
 
           <div className="flex justify-center items-center" style={{ gridArea: '1 / 2 / 2 / 3' }}>
-            {Array.from({ length: 4 }).map((_, i) => (
+            {Array.from({ length: 8 }).map((_, i) => (
               <div
                 key={i}
                 style={{ backgroundColor: registrationSection == i ? '#4C4950' : '#9F9EA7' }}
@@ -484,7 +617,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             ))}
           </div>
 
-          {registrationSection < 3 && (
+          {registrationSection < 7 && (
             <div
               className="flex justify-end "
               style={{ gridArea: '1 / 3 / 2 / 4' }}

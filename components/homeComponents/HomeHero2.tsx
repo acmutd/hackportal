@@ -22,12 +22,15 @@ export default function HomeHero2() {
         <div className="space-y-2">
           <h1
             className="font-['Alfa_Slab_One'] text-white text-[clamp(34px,5vw,86px)] leading-tight"
-            style={{ textShadow: '0 6px 18px rgba(0,0,0,0.5)' }}
+            style={{
+              textShadow: '0 6px 18px rgba(0,0,0,0.5)',
+              animation: 'float 8s ease-in-out infinite',
+            }}
           >
             NTHS Hackathon
           </h1>
           <p
-            className="font-['Alfa_Slab_One'] text-white text-[clamp(16px,2vw,30px)]"
+            className="font-['Alfa_Slab_One'] unbold-text text-white text-[clamp(16px,2vw,30px)]"
             style={{ textShadow: '0 4px 12px rgba(0,0,0,0.5)' }}
           >
             2026 &bull; March 28

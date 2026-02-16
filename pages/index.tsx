@@ -58,7 +58,7 @@ export default function Home(props: {
       <SignSection
         src="/assets/sign1.png"
         alt="About NTHS Hack sign"
-        inset={{ top: '10%', right: '8%', bottom: '14%', left: '10%' }}
+        inset={{ top: '10%', right: '20%', bottom: '14%', left: '10%' }}
       >
         <HomeAbout />
       </SignSection>

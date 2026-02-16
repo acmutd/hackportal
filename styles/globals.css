@@ -619,3 +619,32 @@ a.link {
     z-index: 2;
   }
 }
+
+
+@media (max-width: 767px) {
+  .home-about h1 {
+    font-size: clamp(12px, 4vw, 18px);
+  }
+  .home-about p {
+    font-size: clamp(7px, 2.6vw, 8px); 
+    line-height: 1.2; 
+  }
+}
+
+@media (max-width: 767px) {
+  .stats-title {
+    font-size: clamp(10px, 4vw, 16px) !important;
+    -webkit-text-stroke: 0.4px #7a3a00 !important;
+  }
+
+  .home-stats-wrapper {
+    transform: translateY(-21px);
+    font-size: clamp(10px, 5vw, 16px) !important; 
+    -webkit-text-stroke: 0.4px #7a3a00 !important;
+  }
+
+  .home-stats-wrapper .space-y-3 > * + * {
+    margin-top: 4px !important; /* smaller space between stats */
+  }
+
+}
