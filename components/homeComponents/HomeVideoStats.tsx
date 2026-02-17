@@ -10,6 +10,7 @@ export default function HomeVideoStats() {
         z-20
         pointer-events-none
         px-4 sm:px-6 md:px-8
+        home-stats-wrapper
       "
     >
       <div className="space-y-3">
