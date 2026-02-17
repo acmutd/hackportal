@@ -33,9 +33,6 @@ export default function UserAdminView({
   });
 
   const user_info = [
-    ['Major', currentUser.major],
-    ['University', currentUser.university],
-    ['Current Level of Study', currentUser.studyLevel],
     ['Number of Hackathons Attended', currentUser.hackathonExperience],
     ['Software Experience', currentUser.softwareExperience],
     [
