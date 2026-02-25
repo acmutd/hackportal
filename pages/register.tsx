@@ -39,6 +39,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
       mediaReleaseQuestions,
       liabilityWaiverQuestions,
       codeOfConductQuestions,
+      minorsFormQuestions,
       parentalConsentQuestions,
     },
   } = hackPortalConfig;
@@ -244,6 +245,9 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
               errors = setErrors(obj, values, errors);
             }
             for (let obj of sponsorInfoQuestions) {
+              errors = setErrors(obj, values, errors);
+            }
+            for (let obj of minorsFormQuestions) {
               errors = setErrors(obj, values, errors);
             }
 
@@ -468,6 +472,50 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
               )}
               {registrationSection === 6 && (
                 <section className="bg-white lg:w-3/5 md:w-3/4 w-full mx-auto rounded-2xl py-10 px-8 mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">Minor Participant Form</h2>
+
+                  <p className="text-sm text-gray-600 mb-6">
+                    Event Date: March 28, 2026
+                    <br />
+                    Location: The University of Texas at Dallas
+                  </p>
+                  <p className="text-md mb-2">
+                    I, the parent/guardian of [Participant&apos;s Name], give my permission for my
+                    child to attend and participate in NTHS Hackathon. I understand that this event
+                    is hosted at The University of Texas at Dallas and will include supervised
+                    activities related to coding, design, and technology.
+                  </p>
+                  <p className="text-md mb-2">
+                    I acknowledge that the nature of the Activity or Trip may expose Participant to
+                    hazards or risks that may result in Participant&apos;s illness, personal injury,
+                    or death and I understand and appreciate the nature of such hazards and risks.
+                  </p>
+                  <p className="text-md mb-2">
+                    In consideration of Participant being permitted to participate in the Activity
+                    or Trip, I hereby
+                  </p>
+
+                  <div className="mb-6 rounded-lg border border-[#683201]/20 bg-[#F7B86C]/10 p-4">
+                    <p className="text-sm mb-3">
+                      Open the official Minor Participant Form PDF while completing this section.
+                    </p>
+                    <a
+                      href="/assets/minorsForm.pdf"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center rounded-md bg-[#683201] px-4 py-2 text-white hover:brightness-90"
+                    >
+                      Open Minor Participant Form (PDF)
+                    </a>
+                  </div>
+
+                  {minorsFormQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </section>
+              )}
+              {registrationSection === 7 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full mx-auto rounded-2xl py-10 px-8 mb-8">
                   <h2 className="text-2xl font-semibold mb-4">Parental Consent Form</h2>
 
                   <p className="text-sm text-gray-600 mb-6">
@@ -494,7 +542,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                 </section>
               )}
               {/* Event Questions */}
-              {registrationSection == 7 && (
+              {registrationSection == 8 && (
                 <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
                   <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">Event Info</h2>
                   <div className="flex flex-col">
@@ -608,7 +656,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
           )}
 
           <div className="flex justify-center items-center" style={{ gridArea: '1 / 2 / 2 / 3' }}>
-            {Array.from({ length: 8 }).map((_, i) => (
+            {Array.from({ length: 9 }).map((_, i) => (
               <div
                 key={i}
                 style={{ backgroundColor: registrationSection == i ? '#4C4950' : '#9F9EA7' }}
@@ -617,7 +665,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             ))}
           </div>
 
-          {registrationSection < 7 && (
+          {registrationSection < 8 && (
             <div
               className="flex justify-end "
               style={{ gridArea: '1 / 3 / 2 / 4' }}

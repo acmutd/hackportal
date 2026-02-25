@@ -574,6 +574,54 @@ export const hackPortalConfig: HackPortalConfig = {
         ],
       },
     ],
+    minorsFormQuestions: [
+      {
+        textInputQuestions: [
+          {
+            question: 'Participant Name',
+            id: 'minorsParticipantName',
+            name: 'minorsParticipantName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Parent/Guardian Full Name',
+            id: 'minorsGuardianFullName',
+            name: 'minorsGuardianFullName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Address',
+            id: 'minorsGuardianAddress',
+            name: 'minorsGuardianAddress',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Phone Number (XXX-XXX-XXXX)',
+            id: 'minorsGuardianPhone',
+            name: 'minorsGuardianPhone',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Date (MM/DD/YYYY)',
+            id: 'minorsFormDate',
+            name: 'minorsFormDate',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Signature (Type Full Name)',
+            id: 'minorsGuardianSignature',
+            name: 'minorsGuardianSignature',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+    ],
     parentalConsentQuestions: [
       {
         textInputQuestions: [
@@ -767,6 +815,7 @@ export interface HackPortalConfig {
     mediaReleaseQuestions: QuestionTypes[];
     liabilityWaiverQuestions: QuestionTypes[];
     codeOfConductQuestions: QuestionTypes[];
+    minorsFormQuestions: QuestionTypes[];
     parentalConsentQuestions: QuestionTypes[];
   };
 }
@@ -836,6 +885,9 @@ const getInitialValues = () => {
     setInitialValues(obj);
   }
   for (let obj of hackPortalConfig.registrationFields.sponsorInfoQuestions) {
+    setInitialValues(obj);
+  }
+  for (let obj of hackPortalConfig.registrationFields.minorsFormQuestions) {
     setInitialValues(obj);
   }
   return InitialValues;
