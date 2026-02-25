@@ -1,7 +1,8 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import { useAuthContext } from '../../lib/user/AuthContext';
 import { useState } from 'react';
+import { useEffect } from 'react';
 import firebase from 'firebase/compat/app';
 import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -16,7 +17,7 @@ import PasswordInput from '../../components/authComponents/PasswordInput';
  * Route: /auth
  */
 export default function AuthPage() {
-  const { isSignedIn, signInWithGoogle, updateUser } = useAuthContext();
+  const { isSignedIn, hasProfile, signInWithGoogle, updateUser } = useAuthContext();
   const [currentEmail, setCurrentEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -110,16 +111,18 @@ export default function AuthPage() {
     }
   }
 
-  if (isSignedIn) {
-    router.push('/profile');
-  }
+  useEffect(() => {
+    if (isSignedIn) {
+      router.push(hasProfile ? '/profile' : '/register');
+    }
+  }, [isSignedIn, hasProfile, router]);
 
   return (
     <>
-      <section className="bg-secondary min-h-screen">
+      <section className="bg-[#F7B86C]/20 min-h-screen">
         <div className="p-4">
           <Link href="/" passHref legacyBehavior>
-            <div className="cursor-pointer items-center inline-flex text-primaryDark font-medium">
+            <div className="cursor-pointer items-center inline-flex text-[#683201] font-medium">
               <ChevronLeftIcon />
               return to event site
             </div>
@@ -133,16 +136,16 @@ export default function AuthPage() {
             >
               {!passwordResetDialog ? (
                 <>
-                  <h1 className="md:text-3xl text-2xl text-center text-primaryDark mt-4 poppins-bold">
+                  <h1 className="md:text-3xl text-2xl text-center text-[#683201] mt-4 poppins-bold">
                     {signInOption ? 'Login' : 'Create an account'}
                   </h1>
-                  <div className="text-center text-complementary/60 mt-4 mb-12 poppins-semibold">
-                    {signInOption ? ' New to HackUTD?' : 'Already have an account?'}{' '}
+                  <div className="text-center text-[#5C2E12]/60 mt-4 mb-12 poppins-semibold">
+                    {signInOption ? ' New to NTHS Hack 2026?' : 'Already have an account?'}{' '}
                     <span
                       onClick={() =>
                         signInOption ? setSignInOption(false) : setSignInOption(true)
                       }
-                      className="text-primaryDark cursor-pointer underline"
+                      className="text-[#5C2E12] cursor-pointer underline"
                     >
                       {signInOption ? 'Register here!' : 'Sign in'}
                     </span>
@@ -161,17 +164,17 @@ export default function AuthPage() {
                       />
 
                       <div className="inline-flex md:flex justify-between md:flex-row flex-col-reverse poppins-semibold text-sm">
-                        <div className="text-primaryDark">
+                        <div className="text-[#5C2E12]">
                           {/* TODO: should this feature be implemented or does it already exist? */}
                           <input
-                            className="mr-2 r text-primaryDark focus:ring-0 border border-primaryDark text-sm"
+                            className="mr-2 r text-[#5C2E12] focus:ring-0 border border-[#5C2E12] text-sm"
                             type="checkbox"
                             onClick={() => setRememberMe(!rememberMe)}
                           />
-                          Remember be
+                          Remember me
                         </div>
                         <div
-                          className="hover:underline cursor-pointer text-left text-primaryDark"
+                          className="hover:underline cursor-pointer text-left text-[#5C2E12]"
                           onClick={() => {
                             setPasswordResetDialog(true);
                             setErrorMsg('');
@@ -185,7 +188,7 @@ export default function AuthPage() {
                       <div className="flex justify-center mt-6 mb-4">
                         <button
                           type="button"
-                          className="rounded-lg text-base w-full text-white bg-primaryDark hover:brightness-90 px-4 py-2"
+                          className="rounded-lg text-base w-full text-white bg-[#5C2E12] hover:brightness-90 px-4 py-2"
                           onClick={() => {
                             handleSubmit();
                           }}
@@ -209,7 +212,7 @@ export default function AuthPage() {
                       <p>or continue with</p>
                     </div>
                     <button
-                      className="mt-2 px-4 py-2 w-full rounded-lg border border-complementary/20 text-complementary bg-white my-4 text-base font-bold text-center flex items-center justify-center"
+                      className="mt-2 px-4 py-2 w-full rounded-lg border border-[#5C2E12]/20 text-[#5C2E12] bg-white my-4 text-base font-bold text-center flex items-center justify-center"
                       onClick={() => signInWithGoogle()}
                     >
                       <Image src={GoogleIcon} alt="GoogleIcon" width={25} height={25} />
@@ -221,22 +224,22 @@ export default function AuthPage() {
                 <React.Fragment>
                   <div className="text-left">
                     <ArrowBackIcon
-                      className="cursor-pointer text-primaryDark"
+                      className="cursor-pointer text-[#5C2E12]"
                       onClick={() => {
                         setPasswordResetDialog(false);
                         setErrorMsg('');
                       }}
                     />
                   </div>
-                  <h1 className="md:text-3xl text-2xl font-black text-center text-primaryDark mt-4">
+                  <h1 className="md:text-3xl text-2xl font-black text-center text-[#5C2E12] mt-4">
                     Reset Password
                   </h1>
-                  <div className="text-center text-complementary/60 mt-4 mb-12">
+                  <div className="text-center text-[#5C2E12]/60 mt-4 mb-12">
                     Enter your email address and we&apos;ll send you a link to reset your password.
                   </div>
 
                   <input
-                    className="w-full rounded-md border border-complementary/20 p-2 mb-4"
+                    className="w-full rounded-md border border-[#5C2E12]/20 p-2 mb-4 focus:outline-none focus:ring-0 focus:border-[#5C2E12]"
                     value={currentEmail}
                     onChange={(e) => setCurrentEmail(e.target.value)}
                     type="text"
@@ -247,7 +250,7 @@ export default function AuthPage() {
                   <div className="flex justify-center mt-6 mb-4">
                     <button
                       type="button"
-                      className="rounded-full text-base w-full text-white bg-primaryDark hover:brightness-90 px-4 py-2"
+                      className="rounded-full text-base w-full text-white bg-[#5C2E12] hover:brightness-90 px-4 py-2"
                       onClick={() => {
                         sendResetEmail();
                         setErrorMsg('');

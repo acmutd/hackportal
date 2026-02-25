@@ -41,18 +41,22 @@ async function postHackerStatus(req: NextApiRequest, res: NextApiResponse) {
 
   const jobs = [];
   for (const hackerId of hackerIds) {
-    const docRef = db.collection('acceptreject').doc(`${adminId}-${hackerId}`);
-
+    const acceptRejectRef = db.collection('acceptreject').doc(`${adminId}-${hackerId}`);
+    const registrationRef = db.collection('registrations').doc(hackerId);
     jobs.push([
       hackerId,
-      docRef.set(
-        {
-          adminId,
-          hackerId,
-          status,
-        },
-        { merge: true },
-      ),
+      Promise.all([
+        // keep audit trail
+        acceptRejectRef.set({ adminId, hackerId, status }, { merge: true }),
+
+        // update the actual registration doc that Profile reads
+        registrationRef.set(
+          {
+            user: { status }, // updates registrations/{hackerId}.user.status
+          },
+          { merge: true },
+        ),
+      ]),
     ]);
   }
 

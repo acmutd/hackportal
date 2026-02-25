@@ -6,6 +6,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300...700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -16,6 +18,8 @@ body {
   padding: 0;
   margin: 0;
   font-family: sans-serif;
+  overflow-x: hidden;
+
 }
 
 @font-face {
@@ -57,9 +61,19 @@ a.link {
   font-family: 'wavehaus';
 }
 
+/* Alfa Slab One font for navbar */
+.alfa-slab-font {
+  font-family: 'Alfa Slab One', cursive;
+}
+
 /* Fredoka font class for specific elements */
 .fredoka-font {
   font-family: 'Fredoka', sans-serif;
+}
+
+/* Rye font for titles */
+.rye-font {
+  font-family: 'Rye', cursive;
 }
 
 .profile-view {
@@ -196,7 +210,7 @@ a.link {
   display: block;
   font-size: 1rem !important;
   font-weight: 600;
-  color: #7b81ff;
+  color: #8b5a2b;
 }
 
 .swiper-pagination-bullet,
@@ -209,4 +223,428 @@ a.link {
   opacity: 0;
   transition: opacity 0.5s ease-in;
   transition-delay: 3s;
+}
+
+.section-bg {
+  background-repeat: repeat-x; 
+  background-position: center; 
+  background-size: cover;
+}
+
+/* Responsive background sizing for different screen sizes */
+@media (max-width: 767px) {
+  .section-bg {
+    background-size: auto 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* iPad/Tablet */
+  .section-bg {
+    background-size: 150% auto;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+  /* Laptop/Desktop (smaller) */
+  .section-bg {
+    background-size: 120% auto;
+  }
+}
+
+@media (min-width: 1367px) {
+  /* Large Desktop */
+  .section-bg {
+    background-size: cover;
+  }
+}
+
+/* Hero background */
+/*
+.bg-sky {
+  background-image: url('/assets/sky.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+*/
+
+@keyframes skyDrift {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-30px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.parallax-sky {
+  position: absolute;
+  bottom: -170px;
+  left: 0;
+  width: 110%;
+  height: 100%;
+  background-image: url('/assets/sky.png');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100% auto;
+  z-index: 1;
+  animation: skyDrift 25s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+}
+
+@media (min-width: 1600) {
+  .parallax-sky {
+    bottom: 550px;
+  }
+}
+/* Laptop/Desktop */
+@media (min-width: 1024px) and (max-width: 1599px) {
+  .parallax-sky {
+    bottom: 150px;
+  }
+}
+
+
+/* Adjust sky for smaller viewport heights - placed last to override width-based queries */
+
+@media (max-height: 1100px) {
+  .parallax-sky {
+    height: 95% !important;
+    bottom: 550px !important;
+    background-size: 140% auto !important;
+  }
+  
+  
+}
+@media (max-height: 1000px) {
+  .parallax-sky {
+    height: 90% !important;
+    bottom: 500px !important;
+    background-size: 120% auto !important;
+  }
+
+   
+}
+@media (max-height: 900px) {
+  .parallax-sky {
+    height: 90% !important;
+    bottom: 300px !important;
+    background-size: 110% auto !important;
+  }
+
+}
+@media (max-height: 800px) {
+  .parallax-sky {
+    height: 90% !important;
+    bottom: 300px !important;
+    background-size: 110% auto !important;
+  }
+
+
+  
+}
+@media (max-height: 700px) {
+  .parallax-sky {
+    height: 90% !important;
+    bottom: 300px !important;
+    background-size: 100% auto !important;
+  }
+
+   
+}
+
+@media (max-height: 600px) {
+  .parallax-sky {
+    height: 85% !important;
+    bottom: 300px !important;
+    background-size: 100% auto !important;
+  }
+
+   
+}
+
+@media (max-height: 500px) {
+  .parallax-sky {
+    height: 80% !important;
+    bottom: 350px !important;
+    background-size: 100% auto !important;
+  }
+
+    
+}
+
+/* Adjust for 1080p width screens with reduced heights */
+@media (min-width: 1024px) and (max-width: 1920px) and (max-height: 900px) {
+  .parallax-sky {
+    height: 90% !important;
+    bottom: 400px !important;
+    background-size: 120% auto !important;
+  }
+ 
+}
+
+@media (min-width: 1024px) and (max-width: 1920px) and (max-height: 800px) {
+  .parallax-sky {
+    height: 90% !important;
+    bottom: 360px !important;
+    background-size: 120% auto !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1920px) and (max-height: 700px) {
+  .parallax-sky {
+    height: 90% !important;
+    bottom: 250px !important;
+    background-size: 100% auto !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1920px) and (max-height: 600px) {
+  .parallax-sky {
+    height: 85% !important;
+    bottom: 300px !important;
+    background-size: 100% auto !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1920px) and (max-height: 500px) {
+  .parallax-sky {
+    height: 80% !important;
+    bottom: 490px !important;
+    background-size: 100% auto !important;
+  }
+}
+
+/* Unified gradient background wrapping schedule to sponsors */
+.bg-unified-gradient {
+  background: linear-gradient(
+    to bottom,
+    #2B0800 0%,
+    #2B0800 10%,
+    #702D11 30%,
+    #A74A1B 50%,
+    #CA6F30 70%,
+    #FDD7B1 100%
+  );
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.bg-7 {
+  /* Top of continuous diagonal gradient */
+  background-image: linear-gradient(
+    135deg,
+    #2d1508 0%,
+    #5c3a1e 50%,
+    #8c3f1f 100%
+  );
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.bg-8 {
+  /* Middle of continuous diagonal gradient */
+  background-image: linear-gradient(
+    135deg,
+    #8b5a2b 0%,
+    #2d1508 50%,
+    #8c3f1f 100%
+  );
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.bg-9 {
+  /* Bottom of continuous diagonal gradient */
+  background-image: linear-gradient(
+    135deg,
+    #d4a574 0%,
+    #b57d48 50%,
+    #f5e6d3 100%
+  );
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.header-sponsors {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-210px); /* Center horizontally and move upwards */
+
+  font-family: "Alfa Slab One", cursive;
+  font-weight: 400;
+  font-size: clamp(28px, 4vw, 68px);
+
+  letter-spacing: 2px;
+  text-align: center;
+
+  color: #ffffff;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+
+  margin: 0;
+  z-index: 4;
+}
+
+
+/* Keep backgrounds stable on reduced viewport heights without cutting off content */
+@media (min-width: 1024px) and (max-height: 500px) {
+  /* Keep backgrounds from shifting - but allow sections to scroll naturally */
+  .bg-2,
+  .bg-3,
+  .bg-4,
+  .bg-5,
+  .bg-6,
+  .bg-unified-gradient {
+    background-size: cover !important;
+    background-position: center !important;
+  }
+}
+
+/* Large screens - keep contain to avoid zooming */
+/*
+@media (min-width: 1920px) {
+  .bg-3 {
+    background-size: contain;
+    background-position: center center;
+  }
+}
+*/ 
+
+/* Force Alfa Slab One for all text inside schedule section */
+.schedule-alfa * {
+  font-family: 'Alfa Slab One', cursive !important;
+  -webkit-font-smoothing: antialiased;
+  color: #5C2E12 !important; /* default brown text color */
+}
+
+/* Override for white text headings */
+.white-text {
+  color: white !important;
+}
+
+
+/* Stats heading to match the reference image (Alfa Slab One) */
+.stats-title {
+  font-family: 'Alfa Slab One', cursive;
+  color: #FF9A2E; /* bright orange */
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  -webkit-text-stroke: 1.5px #7a3a00; /* thin dark outline */
+  text-shadow: 0 2px 0 #8c3d00, 0 6px 12px rgba(0,0,0,0.35); /* softened drop shadow */
+  position: relative;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
+}
+@media (min-width: 768px) {
+  .stats-title {
+    -webkit-text-stroke: 1px #7a3a00;
+  }
+}
+@media (min-width: 1024px) {
+  .stats-title {
+    -webkit-text-stroke: 1px #7a3a00;
+  }
+}
+/* subtle top bevel highlight to mimic embossed look */
+.stats-title::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 4px 0 rgba(255,255,255,0.06);
+}
+.stats-subtitle {
+  font-family: 'Alfa Slab One', cursive;
+  color: #8c3d00;
+  -webkit-text-stroke: 0.8px #6a2f00;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.28);
+}
+
+/* Sponsor card hover effect - dim others when hovering */
+.sponsor-grid:has(.sponsor-card:hover) .sponsor-card:not(:hover) {
+  opacity: 0.5;
+  filter: brightness(0.7);
+}
+
+.sponsor-card {
+  transition: all 0.3s ease;
+}
+
+
+@media (min-height: 840px) {
+  .stats-container {
+    padding-top: 45px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .parallax-sky {
+    position: absolute;
+    top: 0 !important;
+    bottom: auto !important;
+    height: 100vh !important;
+    width: 100%;
+    background-size: cover !important;
+    background-position: center top !important;
+    transform: none !important;
+    animation: none !important;
+    z-index: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .homeHeroMobileFix {
+    position: relative;
+    min-height: 100vh !important;
+    overflow: hidden;
+  }
+
+  .homeHeroMobileFix h1,
+  .homeHeroMobileFix p {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .home-about h1 {
+    font-size: clamp(12px, 4vw, 18px);
+  }
+  .home-about p {
+    font-size: clamp(7px, 2.6vw, 8px); 
+    line-height: 1.2; 
+  }
+}
+
+@media (max-width: 767px) {
+  .stats-title {
+    font-size: clamp(10px, 4vw, 16px) !important;
+    -webkit-text-stroke: 0.4px #7a3a00 !important;
+  }
+
+  .home-stats-wrapper {
+    transform: translateY(-21px);
+    font-size: clamp(10px, 5vw, 16px) !important; 
+    -webkit-text-stroke: 0.4px #7a3a00 !important;
+  }
+
+  .home-stats-wrapper .space-y-3 > * + * {
+    margin-top: 4px !important; /* smaller space between stats */
+  }
+
 }

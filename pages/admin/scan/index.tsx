@@ -11,6 +11,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { Dialog } from '@headlessui/react';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { TextField } from '@mui/material';
+import AppHeader2_Core_AdminMobile from '@/components/AppHeader2/core-mobile';
 
 const successStrings = {
   claimed: 'Scan claimed...',
@@ -19,6 +20,7 @@ const successStrings = {
   unexpectedError: 'Unexpected error...',
   notCheckedIn: "User hasn't checked in!",
   invalidFormat: 'Invalid hacker tag format...',
+  lateCheckinIneligible: 'User is not eligible for late check-in...',
 };
 
 interface UserProfile extends Omit<Registration, 'user'> {
@@ -90,7 +92,7 @@ export default function Admin() {
     }
     const query = new URL(`http://localhost:3000/api/scan`);
     query.searchParams.append('id', data.replaceAll('hack:', ''));
-    fetch(query.toString().replaceAll('http://localhost:3000', ''), {
+    await fetch(query.toString().replaceAll('http://localhost:3000', ''), {
       mode: 'cors',
       headers: { Authorization: user.token },
       method: 'POST',
@@ -114,6 +116,8 @@ export default function Admin() {
           return setSuccess(successStrings.alreadyClaimed);
         } else if (result.status === 403) {
           return setSuccess(successStrings.notCheckedIn);
+        } else if (result.status === 400) {
+          return setSuccess(successStrings.lateCheckinIneligible);
         } else if (result.status !== 200) {
           return setSuccess(successStrings.unexpectedError);
         }
@@ -271,9 +275,13 @@ export default function Admin() {
   return (
     <div className="relative flex flex-col flex-grow">
       <Head>
-        <title>HackPortal - Admin</title>
+        <title>HackUTD 2024 - Admin</title>
         <meta name="description" content="HackPortal's Admin Page" />
       </Head>
+      <div className="z-10 md:hidden md:mt-10 mt-10">
+        <AppHeader2_Core_AdminMobile />
+      </div>
+
       <section className="p-4">
         <AdminHeader />
       </section>
@@ -589,7 +597,7 @@ export default function Admin() {
                   ) : (
                     <div className="mx-auto flex flex-row gap-x-4">
                       <button
-                        className="font-bold bg-green-200 hover:bg-green-300 border border-green-800 text-green-900 rounded-lg md:p-3 p-1 px-2"
+                        className="font-bold bg-green-200 hover:bg-green-300 border border-green-800 text-green-700 rounded-lg md:p-3 p-1 px-2"
                         onClick={() => {
                           setStartScan(true);
                         }}
@@ -614,7 +622,7 @@ export default function Admin() {
                             Edit
                           </button>
                           <button
-                            className="font-bold text-red-800 bg-red-100 hover:bg-red-200 border border-red-400 rounded-lg md:p-3 p-1 px-2"
+                            className="font-bold text-red-700 bg-red-100 hover:bg-red-200 border border-red-400 rounded-lg md:p-3 p-1 px-2"
                             onClick={() => {
                               if (!user.permissions.includes('super_admin')) {
                                 alert(
@@ -655,7 +663,7 @@ export default function Admin() {
               user.permissions.includes('super_admin') && (
                 <div className="mx-auto my-5">
                   <button
-                    className="py-3 px-4 font-bold rounded-lg hover:bg-secondary bg-primaryDark text-secondary hover:text-primaryDark border-[1px] border-transparent hover:border-primaryDark transition duration-300 ease-in-out"
+                    className="py-3 px-4 font-bold rounded-lg hover:bg-secondary bg-primaryDark text-white hover:text-primaryDark border-[1px] border-transparent hover:border-primaryDark transition duration-300 ease-in-out"
                     onClick={() => {
                       if (!user.permissions.includes('super_admin')) {
                         alert('You do not have the required permission to use this functionality');

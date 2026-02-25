@@ -1,13 +1,10 @@
 export default function HomeChallengesCard(props: { challenge: Challenge; blockType: number }) {
-  const borderConfiguration = ['rounded-tr-[100px]', 'rounded-br-[100px]', 'rounded-tl-[100px]'];
   return (
     <div className="h-full w-full mx-auto">
       <div className="w-4/5 md:w-full mx-auto">
         {/* Block */}
-        <div
-          className={`bg-[#C1C8FF] ${borderConfiguration[props.blockType]} w-5/6 h-[200px] mx-auto`}
-        >
-          &nbsp;
+        <div className="relative w-5/6 h-[200px] mx-auto bg-[#8B5A2B] rounded-lg shadow-lg flex items-center justify-center">
+          <span className="stats-title">COMING SOON</span>
         </div>
         <div className="w-5/6 mx-auto">
           {/* Challenge Name */}
@@ -15,7 +12,7 @@ export default function HomeChallengesCard(props: { challenge: Challenge; blockT
             {props.challenge.title.toUpperCase()}
           </h1>
           {/* Company Name */}
-          <h1 className="font-nunito text-xl text-[#05149C] font-bold my-4">
+          <h1 className="font-nunito text-xl text-[#ffffff] font-bold my-4">
             {props.challenge.organization}
           </h1>
           {/* Description */}

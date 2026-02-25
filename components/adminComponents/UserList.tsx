@@ -74,15 +74,6 @@ export default function UserList({
             {user.status}
           </span>
         </div>
-        <div className="hidden md:block text-base text-complementary w-4/12 h-full py-3 pr-6 whitespace-nowrap overflow-hidden text-ellipsis max-w-[100%]">
-          {user.university}
-        </div>
-        <div className="hidden md:block text-base text-complementary w-2/12 h-full py-3 pr-6 whitespace-nowrap overflow-hidden text-ellipsis max-w-[100%]">
-          {user.major}
-        </div>
-        <div className="hidden md:block text-base text-complementary w-2/12 h-full py-3 pr-6 whitespace-nowrap overflow-hidden text-ellipsis max-w-[100%]">
-          {user.studyLevel}
-        </div>
       </div>,
     );
   });

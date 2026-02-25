@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
 import { RequestHelper } from '../lib/request-helper';
-import HomeNotif from '../components/homeComponents/HomeNotif';
+// import HomeNotif from '../components/homeComponents/HomeNotif';
 import HomeVideoStats from '../components/homeComponents/HomeVideoStats';
 import HomeAbout from '../components/homeComponents/HomeAbout';
 import HackCountdown from '../components/homeComponents/HackCountdown';
@@ -12,6 +12,7 @@ import HomeTeam from '../components/homeComponents/HomeTeam';
 import HomeSponsors from '../components/homeComponents/HomeSponsors';
 import HomeFooter from '../components/homeComponents/HomeFooter';
 import HomeHero2 from '../components/homeComponents/HomeHero2';
+import SignSection from '../components/homeComponents/SignSection';
 import HomeSchedule from '../components/homeComponents/HomeSchedule';
 import HomeFaq from '../components/homeComponents/HomeFaq';
 import HomePrizes from '../components/homeComponents/HomePrizes';
@@ -29,7 +30,6 @@ export default function Home(props: {
   fetchedMembers: TeamMember[];
   sponsorCard: Sponsor[];
   scheduleCard: ScheduleEvent[];
-  dateCard: Dates;
   prizeData: Array<{ rank: number; prizeName: string }>;
 }) {
   const [loading, setLoading] = useState(true);
@@ -49,22 +49,39 @@ export default function Home(props: {
   return (
     <>
       <Head>
-        <title>HackPortal</title> {/* !change */}
+        <title>NTHS26</title> {/* !change */}
         <meta name="description" content="A default HackPortal instance" /> {/* !change */}
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <HomeNotif />
+      {/* <HomeNotif /> */}
       <HomeHero2 />
-      <HomeVideoStats />
-      <HackCountdown />
-      <HomeAbout />
-      <HomeSchedule scheduleCard={props.scheduleCard} dateCard={props.dateCard} />
-      <HomeSpeakers keynoteSpeakers={props.keynoteSpeakers} />
-      <HomeChallenges challenges={props.challenges} />
-      <HomePrizes prizes={props.prizeData} />
-      <HomeTeam members={props.fetchedMembers} />
-      <HomeFaq answeredQuestion={props.answeredQuestion} />
-      <HomeSponsors sponsorCard={props.sponsorCard} />
+      <SignSection
+        src="/assets/sign1.png"
+        alt="About NTHS Hack sign"
+        inset={{ top: '10%', right: '20%', bottom: '14%', left: '10%' }}
+      >
+        <HomeAbout />
+      </SignSection>
+      <SignSection
+        src="/assets/sign2.png"
+        alt="Stats sign"
+        inset={{ top: '40%', right: '10%', bottom: '12%', left: '35%' }}
+      >
+        <HomeVideoStats />
+      </SignSection>
+      <SignSection src="/assets/sign3.png" alt="Countdown sign">
+        <HackCountdown />
+      </SignSection>
+      {/* Unified gradient background wrapper */}
+      <div className="bg-unified-gradient">
+        <HomeSchedule scheduleCard={props.scheduleCard} />
+        {/*<HomeSpeakers keynoteSpeakers={props.keynoteSpeakers} />*/}
+        <HomeChallenges challenges={props.challenges} />
+        {/*<HomePrizes prizes={props.prizeData} />*/}
+        {/*<HomeTeam members={props.fetchedMembers} />*/}
+        <HomeFaq answeredQuestion={props.answeredQuestion} />
+        <HomeSponsors sponsorCard={props.sponsorCard} />
+      </div>
       <HomeFooter />
     </>
   );
@@ -100,10 +117,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/schedule`,
     {},
   );
-  const { data: dateData } = await RequestHelper.get<ScheduleEvent[]>(
-    `${protocol}://${context.req.headers.host}/api/dates`,
-    {},
-  );
   return {
     props: {
       keynoteSpeakers: keynoteData,
@@ -112,7 +125,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       fetchedMembers: memberData,
       sponsorCard: sponsorData,
       scheduleCard: scheduleData,
-      dateCard: dateData,
       prizeData: prizeData,
     },
   };

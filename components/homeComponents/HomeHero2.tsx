@@ -1,49 +1,41 @@
 import Image from 'next/image';
-import MLH_Sticker from '../../public/assets/mlh-sticker.png';
-import BackgroundCircles from '../BackgroundCircles';
-import { useAuthContext } from '../../lib/user/AuthContext';
 import AppHeader2_Wrapper from '../AppHeader2/wrapper';
-import { useRouter } from 'next/router';
 
-export default function HomeHero() {
+export default function HomeHero2() {
   return (
-    <section className="min-h-screen bg-contain bg-white flex flex-col-reverse md:flex-col">
-      {/* App header */}
-      <AppHeader2_Wrapper />
+    <section className="relative w-full min-h-[90vh] md:min-h-screen overflow-hidden">
+      <Image
+        src="/assets/bg-1.png"
+        alt="NTHS Hackathon hero background"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-top"
+      />
+      <div className="absolute inset-0 bg-black/20" />
 
-      <div className="flex h-screen w-full relative">
-        <div className="w-full h-full absolute top-0 left-0 z-0">
-          <BackgroundCircles />
-        </div>
-
-        <div className="relative z-10 shrink-0 w-full flex">
-          {/* MLH sticker */}
-          <div className="absolute top-0 right-4 z-20">
-            <Image
-              src={MLH_Sticker.src}
-              height={MLH_Sticker.height}
-              width={MLH_Sticker.width}
-              alt="MLH sticker"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Big welcome */}
-          <div className="w-full flex flex-col gap-2 justify-center items-center bg-[rgba(255,255,255,0.75)] backdrop-blur-[60px]">
-            <p className="font-nunito text-[#262626] text-xl md:text-3xl">Welcome To</p>
-            <h1 className="font-fredokaOne text-4xl md:text-6xl lg:text-8xl font-bold text-[#05149C]">
-              HACKPORTAL
-            </h1>
-          </div>
-        </div>
+      <div className="relative z-10">
+        <AppHeader2_Wrapper />
       </div>
 
-      {/* Bottom banner */}
-      <div className="font-dmSans w-full flex justify-center bg-[#7B81FF] text-white h-[1.75rem] text-nowrap overflow-hidden">
-        <p className="text-lg">
-          SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE TEXT • SAMPLE
-          TEXT • SAMPLE TEXT • SAMPLE TEXT
-        </p>
+      <div className="absolute inset-0 z-10 flex items-center justify-center px-4 text-center">
+        <div className="space-y-2">
+          <h1
+            className="font-['Alfa_Slab_One'] text-white text-[clamp(34px,5vw,86px)] leading-tight"
+            style={{
+              textShadow: '0 6px 18px rgba(0,0,0,0.5)',
+              animation: 'float 8s ease-in-out infinite',
+            }}
+          >
+            NTHS Hackathon
+          </h1>
+          <p
+            className="font-['Alfa_Slab_One'] unbold-text text-white text-[clamp(16px,2vw,30px)]"
+            style={{ textShadow: '0 4px 12px rgba(0,0,0,0.5)' }}
+          >
+            2026 &bull; March 28
+          </p>
+        </div>
       </div>
     </section>
   );

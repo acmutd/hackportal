@@ -30,9 +30,16 @@ export const hackPortalConfig: HackPortalConfig = {
           },
           {
             //don't remove; for user account info
-            question: 'Email',
+            question: 'School Email',
             id: 'email',
             name: 'preferredEmail',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Phone Number (XXX-XXX-XXXX)',
+            id: 'phone',
+            name: 'phone',
             required: true,
             initialValue: '',
           },
@@ -140,74 +147,100 @@ export const hackPortalConfig: HackPortalConfig = {
         ],
       },
     ],
-    //Question Topic
+    // Question Topic
     schoolQuestions: [
       {
-        datalistQuestions: [
+        textInputQuestions: [
           {
-            //University question
-            question:
-              'This event is for college students worldwide. Which university do you attend?',
-            id: 'university',
-            name: 'university',
+            // High school question
+            question: 'What is your high school?',
+            id: 'school',
+            name: 'school',
             required: true,
-            datalist: 'schools',
-            options: schools.map(({ university }) => ({
-              title: university,
-              value: university,
-            })),
             initialValue: '',
           },
+        ],
+        dropdownQuestions: [
           {
-            //Major question
-            question: 'All majors are welcome at this event. What is your major?',
-            id: 'major',
-            name: 'major',
+            question: 'District',
             required: true,
-            datalist: 'majors',
-            options: majors.map(({ major }) => ({
-              title: major,
-              value: major,
-            })),
+            id: 'district',
+            name: 'district',
             initialValue: '',
+            options: [
+              { value: 'allen', title: 'Allen ISD' },
+              { value: 'coppell', title: 'Coppell ISD' },
+              { value: 'dallas', title: 'Dallas ISD' },
+              { value: 'frisco', title: 'Frisco ISD' },
+              { value: 'garland', title: 'Garland ISD' },
+              { value: 'highland park', title: 'Highland Park ISD' },
+              { value: 'irving', title: 'Irving ISD' },
+              { value: 'lewisville', title: 'Lewisville ISD' },
+              { value: 'lovejoy', title: 'Lovejoy ISD' },
+              { value: 'mckinney', title: 'McKinney ISD' },
+              { value: 'plano', title: 'Plano ISD' },
+              { value: 'richardson', title: 'Richardson ISD' },
+              { value: 'other', title: 'Other' },
+            ],
+          },
+          {
+            // Grade question
+            question: 'Current grade',
+            required: true,
+            id: 'grade',
+            name: 'grade',
+            initialValue: '',
+            options: [
+              { title: '9', value: '9th' },
+              { title: '10', value: '10th' },
+              { title: '11', value: '11th' },
+              { title: '12', value: '12th' },
+            ],
           },
         ],
       },
       {
         dropdownQuestions: [
           {
-            //Grade question
-            question: 'Current level of study',
+            question: 'Do you have a team already?',
             required: true,
-            id: 'studyLevel',
-            name: 'studyLevel',
+            id: 'hasTeam',
+            name: 'hasTeam',
             initialValue: '',
             options: [
-              {
-                title: 'Freshman',
-                value: 'freshman',
-              },
-              {
-                title: 'Sophomore',
-                value: 'sophomore',
-              },
-              {
-                title: 'Junior',
-                value: 'junior',
-              },
-              {
-                title: 'Senior',
-                value: 'senior',
-              },
-              {
-                title: 'Graduate Student',
-                value: 'grad',
-              },
+              { title: 'Yes', value: 'yes' },
+              { title: 'No, not yet', value: 'no_not_yet' },
             ],
           },
         ],
       },
+      {
+        textInputQuestions: [
+          {
+            question: 'If yes, Team Member #1 (First Name, Last Name)',
+            id: 'teamMember1',
+            name: 'teamMember1',
+            required: false,
+            initialValue: '',
+          },
+          {
+            question: 'If yes, Team Member #2 (First Name, Last Name)',
+            id: 'teamMember2',
+            name: 'teamMember2',
+            required: false,
+            initialValue: '',
+          },
+          {
+            question: 'If yes, Team Member #3 (First Name, Last Name)',
+            id: 'teamMember3',
+            name: 'teamMember3',
+            required: false,
+            initialValue: '',
+          },
+        ],
+      },
     ],
+
     //Question Topic
     hackathonExperienceQuestions: [
       {
@@ -253,36 +286,36 @@ export const hackPortalConfig: HackPortalConfig = {
               },
             ],
           },
-          {
-            //Heard from question
-            question: 'Where did you hear about HackPortal?',
-            required: true,
-            id: 'heardFrom',
-            name: 'heardFrom',
-            initialValue: '',
-            options: [
-              {
-                title: 'Instagram',
-                value: 'Instagram',
-              },
-              {
-                title: 'Twitter',
-                value: 'Twitter',
-              },
-              {
-                title: 'Event Site',
-                value: 'Event Site',
-              },
-              {
-                title: 'Friend',
-                value: 'Friend',
-              },
-              {
-                title: 'Other',
-                value: 'Other',
-              },
-            ],
-          },
+          // {
+          //   //Heard from question
+          //   question: 'Where did you hear about HackPortal?',
+          //   required: true,
+          //   id: 'heardFrom',
+          //   name: 'heardFrom',
+          //   initialValue: '',
+          //   options: [
+          //     {
+          //       title: 'Instagram',
+          //       value: 'Instagram',
+          //     },
+          //     {
+          //       title: 'Twitter',
+          //       value: 'Twitter',
+          //     },
+          //     {
+          //       title: 'Event Site',
+          //       value: 'Event Site',
+          //     },
+          //     {
+          //       title: 'Friend',
+          //       value: 'Friend',
+          //     },
+          //     {
+          //       title: 'Other',
+          //       value: 'Other',
+          //     },
+          //   ],
+          // },
         ],
       },
     ],
@@ -337,12 +370,12 @@ export const hackPortalConfig: HackPortalConfig = {
                 value: 'Vegetarian',
               },
               {
-                title: 'Nuts',
-                value: 'Nuts',
+                title: 'Halal',
+                value: 'Halal',
               },
               {
-                title: 'Fish',
-                value: 'Fish',
+                title: 'Nuts',
+                value: 'Nuts',
               },
               {
                 title: 'Wheat',
@@ -374,32 +407,21 @@ export const hackPortalConfig: HackPortalConfig = {
         ],
       },
     ],
-    //Question Topic
-    sponsorInfoQuestions: [
+    mediaReleaseQuestions: [
       {
         textInputQuestions: [
           {
-            //Github question
-            question: 'Github:',
-            id: 'github',
-            name: 'github',
-            required: false,
+            question: 'Participant Name',
+            id: 'mediaParticipantName',
+            name: 'mediaParticipantName',
+            required: true,
             initialValue: '',
           },
           {
-            //LinkedIn question
-            question: 'LinkedIn:',
-            id: 'linkedin',
-            name: 'linkedin',
-            required: false,
-            initialValue: '',
-          },
-          {
-            //Website question
-            question: 'Personal Website:',
-            id: 'website',
-            name: 'website',
-            required: false,
+            question: 'School',
+            id: 'mediaParticipantSchool',
+            name: 'mediaParticipantSchool',
+            required: true,
             initialValue: '',
           },
         ],
@@ -407,37 +429,322 @@ export const hackPortalConfig: HackPortalConfig = {
       {
         checkboxQuestions: [
           {
-            //Companies question
-            question: 'Companies to send my resume to:',
-            required: false,
-            id: 'companies',
-            name: 'companies',
+            question:
+              'By checking this box and typing your full name in the signature field, you agree that this will serve as a legally binding electronic signature for all text entered in fields labeled “Signature” within this document.',
+            id: 'mediaConsent',
+            name: 'mediaConsent',
+            required: true,
             initialValue: [],
             options: [
               {
-                title: 'State Farm',
-                value: 'State Farm',
-              },
-              {
-                title: 'American Airlines',
-                value: 'American Airlines',
-              },
-              {
-                title: 'Capital One',
-                value: 'Capital One',
-              },
-              {
-                title: 'Ebay',
-                value: 'Ebay',
-              },
-              {
-                title: 'Facebook',
-                value: 'Facebook',
+                title: 'I Agree',
+                value: 'agree',
               },
             ],
           },
         ],
       },
+      {
+        textInputQuestions: [
+          {
+            question: 'Parent/Guardian Name',
+            id: 'mediaGuardianName',
+            name: 'mediaGuardianName',
+            required: false,
+            initialValue: '',
+          },
+          {
+            question: 'Signature (Type Full Name)',
+            id: 'mediaSignature',
+            name: 'mediaSignature',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Date (MM/DD/YYYY)',
+            id: 'mediaDate',
+            name: 'mediaDate',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+    ],
+    liabilityWaiverQuestions: [
+      {
+        textInputQuestions: [
+          {
+            question: 'Participant Name',
+            id: 'liabilityWaiverName',
+            name: 'liabilityWaiverName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'School',
+            id: 'liabilityWaiverSchool',
+            name: 'liabilityWaiverSchool',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+      {
+        textInputQuestions: [
+          {
+            question: 'Parent/Guardian Name',
+            id: 'liabilityGuardianName',
+            name: 'liabilityGuardianName',
+            required: false,
+            initialValue: '',
+          },
+          {
+            question: 'Signature (Type Full Name)',
+            id: 'liabilitySignature',
+            name: 'liabilitySignature',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Date (MM/DD/YYYY)',
+            id: 'liabilityDate',
+            name: 'liabilityDate',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+    ],
+    codeOfConductQuestions: [
+      {
+        textInputQuestions: [
+          {
+            question: 'Participant Name',
+            id: 'codeOfConductName',
+            name: 'codeOfConductName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'School',
+            id: 'codeOfConductSchool',
+            name: 'codeOfConductSchool',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Signature (Type Full Name)',
+            id: 'conductSignature',
+            name: 'conductSignature',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Date (MM/DD/YYYY)',
+            id: 'conductDate',
+            name: 'conductDate',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+      {
+        textInputQuestions: [
+          {
+            question: 'Parent/Guardian Name',
+            id: 'codeOfConductGuardianName',
+            name: 'codeOfConductGuardianName',
+            required: false,
+            initialValue: '',
+          },
+          {
+            question: 'Signature (Type Full Name)',
+            id: 'codeOfConductSignature',
+            name: 'codeOfConductSignature',
+            required: false,
+            initialValue: '',
+          },
+          {
+            question: 'Date (MM/DD/YYYY)',
+            id: 'codeOfConductDate',
+            name: 'codeOfConductDate',
+            required: false,
+            initialValue: '',
+          },
+        ],
+      },
+    ],
+    minorsFormQuestions: [
+      {
+        textInputQuestions: [
+          {
+            question: 'Participant Name',
+            id: 'minorsParticipantName',
+            name: 'minorsParticipantName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Parent/Guardian Full Name',
+            id: 'minorsGuardianFullName',
+            name: 'minorsGuardianFullName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Address',
+            id: 'minorsGuardianAddress',
+            name: 'minorsGuardianAddress',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Phone Number (XXX-XXX-XXXX)',
+            id: 'minorsGuardianPhone',
+            name: 'minorsGuardianPhone',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Date (MM/DD/YYYY)',
+            id: 'minorsFormDate',
+            name: 'minorsFormDate',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Signature (Type Full Name)',
+            id: 'minorsGuardianSignature',
+            name: 'minorsGuardianSignature',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+    ],
+    parentalConsentQuestions: [
+      {
+        textInputQuestions: [
+          {
+            question: 'Parent/Guardian Full Name',
+            id: 'parentConsentName',
+            name: 'parentConsentName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Phone Number (XXX-XXX-XXXX)',
+            id: 'parentConsentPhone',
+            name: 'parentConsentPhone',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Alternate Contact Name',
+            id: 'alternateContactName',
+            name: 'alternateContactName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Alternate Contact Phone Number (XXX-XXX-XXXX)',
+            id: 'alternateContactPhone',
+            name: 'alternateContactPhone',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+      {
+        textInputQuestions: [
+          {
+            question: 'Parent/Guardian Name',
+            id: 'parentConsentGuardianName',
+            name: 'parentConsentGuardianName',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Signature (Type Full Name)',
+            id: 'parentConsentSignature',
+            name: 'parentConsentSignature',
+            required: true,
+            initialValue: '',
+          },
+          {
+            question: 'Date (MM/DD/YYYY)',
+            id: 'parentConsentDate',
+            name: 'parentConsentDate',
+            required: true,
+            initialValue: '',
+          },
+        ],
+      },
+    ],
+    //Question Topic
+    sponsorInfoQuestions: [
+      // {
+      //   textInputQuestions: [
+      //     {
+      //       //Github question
+      //       question: 'Github:',
+      //       id: 'github',
+      //       name: 'github',
+      //       required: false,
+      //       initialValue: '',
+      //     },
+      //     {
+      //       //LinkedIn question
+      //       question: 'LinkedIn:',
+      //       id: 'linkedin',
+      //       name: 'linkedin',
+      //       required: false,
+      //       initialValue: '',
+      //     },
+      //     {
+      //       //Website question
+      //       question: 'Personal Website:',
+      //       id: 'website',
+      //       name: 'website',
+      //       required: false,
+      //       initialValue: '',
+      //     },
+      //   ],
+      // },
+      // {
+      //   checkboxQuestions: [
+      //     {
+      //       //Companies question
+      //       question: 'Companies to send my resume to:',
+      //       required: false,
+      //       id: 'companies',
+      //       name: 'companies',
+      //       initialValue: [],
+      //       options: [
+      //         {
+      //           title: 'State Farm',
+      //           value: 'State Farm',
+      //         },
+      //         {
+      //           title: 'American Airlines',
+      //           value: 'American Airlines',
+      //         },
+      //         {
+      //           title: 'Capital One',
+      //           value: 'Capital One',
+      //         },
+      //         {
+      //           title: 'Ebay',
+      //           value: 'Ebay',
+      //         },
+      //         {
+      //           title: 'Facebook',
+      //           value: 'Facebook',
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // },
     ],
   },
 };
@@ -468,8 +775,9 @@ export const fieldNames = {
   race: 'Race',
   size: 'Shirt Size',
   softwareExperience: 'Software Experience',
-  studyLevel: 'Study Level',
-  university: 'University',
+  grade: 'grade',
+  school: 'School',
+  district: 'District',
   gender: 'Gender',
   hackathonExperience: 'Number of Hackathon attended',
   heardFrom: 'Heard of Hackathon from',
@@ -488,8 +796,9 @@ export const singleField = [
   'race',
   'size',
   'softwareExperience',
-  'studyLevel',
-  'university',
+  'grade',
+  'school',
+  'district',
   'gender',
   'hackathonExperience',
   'heardFrom',
@@ -503,6 +812,11 @@ export interface HackPortalConfig {
     hackathonExperienceQuestions: QuestionTypes[];
     eventInfoQuestions: QuestionTypes[];
     sponsorInfoQuestions: QuestionTypes[];
+    mediaReleaseQuestions: QuestionTypes[];
+    liabilityWaiverQuestions: QuestionTypes[];
+    codeOfConductQuestions: QuestionTypes[];
+    minorsFormQuestions: QuestionTypes[];
+    parentalConsentQuestions: QuestionTypes[];
   };
 }
 
@@ -573,6 +887,9 @@ const getInitialValues = () => {
   for (let obj of hackPortalConfig.registrationFields.sponsorInfoQuestions) {
     setInitialValues(obj);
   }
+  for (let obj of hackPortalConfig.registrationFields.minorsFormQuestions) {
+    setInitialValues(obj);
+  }
   return InitialValues;
 };
 const setInitialValues = (obj) => {
@@ -605,7 +922,7 @@ const setInitialValues = (obj) => {
 export const formInitialValues = getInitialValues();
 
 export const config = {
-  targetDate: '2024-11-04T00:00:00Z',
+  targetDate: '2026-03-28T07:15:00',
 };
 
 //extracting statRecords for general stats

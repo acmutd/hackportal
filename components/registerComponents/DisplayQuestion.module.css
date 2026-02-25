@@ -1,4 +1,4 @@
-.textInputQuestionsContainer {
+/* .textInputQuestionsContainer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -36,4 +36,20 @@
 
 .dropdownQuestionsContainer > :nth-child(3) {
   grid-area: 2 / 2 / 3 / 3;
+} */
+
+.textInputQuestionsContainer,
+.dropdownQuestionsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;              /* controls spacing */
+  align-items: start;
+}
+
+/* On small screens, stack */
+@media (max-width: 768px) {
+  .textInputQuestionsContainer,
+  .dropdownQuestionsContainer {
+    grid-template-columns: 1fr;
+  }
 }

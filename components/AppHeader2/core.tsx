@@ -41,17 +41,21 @@ export default function AppHeader2_Core() {
   return (
     <div className="flex justify-center py-2 w-full">
       {/* Real navbar */}
-      <div className="font-dmSans flex items-center gap-4 border-[3px] border-[rgba(30,30,30,0.60)] rounded-xl px-20 lg:px-[8rem] bg-white relative">
-        <Link href="/" className="p-2 text-[#5D5A88] cursor-pointer">
+      <div className="alfa-slab-font flex items-center gap-4 border-[3px] border-[rgba(30,30,30,0.60)] rounded-xl px-20 lg:px-[8rem] bg-white relative">
+        <Link href="/" className="p-2 text-[#683201] cursor-pointer">
           Home
         </Link>
-        <Link href="/#schedule-section" className="p-2 text-[#5D5A88] cursor-pointer">
+        <Link href="/#schedule-section" className="p-2 text-[#683201] cursor-pointer">
           Schedule
         </Link>
-        <Link href="/hackerpacks" className="p-2 text-[#5D5A88] cursor-pointer">
+
+        {/*
+        <Link href="/hackerpacks" className="p-2 text-[#683201] cursor-pointer">
           Resources
         </Link>
-        <Link href="/#faq-section" className="p-2 text-[#5D5A88] cursor-pointer">
+        */}
+
+        <Link href="/#faq-section" className="p-2 text-[#683201] cursor-pointer">
           FAQ
         </Link>
 
@@ -61,13 +65,13 @@ export default function AppHeader2_Core() {
           <Menu as="div" className="w-full">
             <div>
               <Menu.Button className="p-2 cursor-pointer flex items-center gap-x-2">
-                <div className="text-[#5D5A88]">Admin</div>
+                <div className="text-[#683201]">Admin</div>
                 <svg
                   xmlns="http:www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
-                  stroke="#5D5A88"
+                  stroke="#683201"
                   className="size-4"
                 >
                   <path
@@ -134,14 +138,21 @@ export default function AppHeader2_Core() {
         )}
 
         <div className="p-2 text-white cursor-pointer">
-          {!hasProfile && (
-            <Link href="/register">
-              <div className="py-3 px-5 rounded-[30px] bg-[#5D5A88] font-bold">Apply</div>
+          {/* if not signed in send to auth */}
+          {!user && (
+            <Link href="/auth">
+              <div className="py-3 px-5 rounded-[30px] bg-[#683201]">Apply</div>
             </Link>
           )}
-          {hasProfile && (
+          {/* if signed in but no profile go to register */}
+          {user && !hasProfile && (
+            <Link href="/register">
+              <div className="py-3 px-5 rounded-[30px] bg-[#683201]">Apply</div>
+            </Link>
+          )}
+          {user && hasProfile && (
             <Link href="/profile">
-              <div className="py-3 px-5 rounded-[30px] bg-[#5D5A88] font-bold">Profile</div>
+              <div className="py-3 px-5 rounded-[30px] bg-[#683201]">Profile</div>
             </Link>
           )}
         </div>

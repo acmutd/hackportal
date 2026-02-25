@@ -36,20 +36,46 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
       hackathonExperienceQuestions,
       eventInfoQuestions,
       sponsorInfoQuestions,
+      mediaReleaseQuestions,
+      liabilityWaiverQuestions,
+      codeOfConductQuestions,
+      minorsFormQuestions,
+      parentalConsentQuestions,
     },
   } = hackPortalConfig;
 
   const { user, hasProfile, updateProfile } = useAuthContext();
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   // update this to false for testing
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [formValid, setFormValid] = useState(true);
   const [registrationSection, setRegistrationSection] = useState(0);
-  const checkRedirect = async () => {
-    if (!allowedRegistrations) return;
-    if (hasProfile) router.push('/profile');
-    else setLoading(false);
-  };
+
+  useEffect(() => {
+    // wait for auth to resolve
+    if (user === undefined) return;
+
+    // not signed in → must authenticate first
+    if (user === null) {
+      router.replace('/auth');
+      return;
+    }
+
+    // already registered → profile
+    if (hasProfile) {
+      router.replace('/profile');
+      return;
+    }
+
+    // signed in & no profile → allow form
+    setLoading(false);
+  }, [user, hasProfile, router]);
+
+  // const checkRedirect = async () => {
+  //   if (!allowedRegistrations) return;
+  //   if (hasProfile) router.push('/profile');
+  //   else setLoading(false);
+  // };
 
   useEffect(() => {
     //setting user specific initial values
@@ -58,12 +84,12 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
     formInitialValues['firstName'] = user?.firstName?.split(' ')[0] || '';
     formInitialValues['lastName'] = user?.lastName || '';
     formInitialValues['permissions'] = user?.permissions || ['hacker'];
-  }, []);
-
-  // disbale this for testing
-  useEffect(() => {
-    checkRedirect();
   }, [user]);
+
+  // // disbale this for testing
+  // useEffect(() => {
+  //   checkRedirect();
+  // }, [user]);
 
   const handleSubmit = async (registrationData) => {
     let resumeUrl: string = '';
@@ -128,10 +154,10 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
     );
   }
 
-  // disable this for testing
-  if (!user) {
-    router.push('/');
-  }
+  // // disable this for testing
+  // if (!user) {
+  //   router.push('/');
+  // }
 
   if (loading) {
     return <LoadIcon width={200} height={200} />;
@@ -187,15 +213,15 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
   };
 
   return (
-    <div className="flex flex-col flex-grow bg-secondary">
+    <div className="flex flex-col flex-grow bg-[#F7B86C]/20">
       <Head>
         <title>Hacker Registration</title>
-        <meta name="description" content="Register for [HACKATHON NAME]" />
+        <meta name="description" content="Register for NTHS 2026" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section className="pl-4 relative mb-4">
         <Link href="/" passHref>
-          <ChevronLeftIcon className="absolute top-4 z-10" fontSize={'large'} color={'primary'} />
+          <ChevronLeftIcon className="absolute top-4 z-10 text-[#683201]" fontSize={'large'} />
         </Link>
       </section>
 
@@ -221,6 +247,9 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             for (let obj of sponsorInfoQuestions) {
               errors = setErrors(obj, values, errors);
             }
+            for (let obj of minorsFormQuestions) {
+              errors = setErrors(obj, values, errors);
+            }
 
             //additional custom error validation
             if (
@@ -229,6 +258,9 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             ) {
               //regex matches characters before @, characters after @, and 2 or more characters after . (domain)
               errors.preferredEmail = 'Invalid email address';
+            }
+            if (values.phone && !/^\d{3}-\d{3}-\d{4}$/.test(values.phone)) {
+              errors.phone = 'Phone number must be in XXX-XXX-XXXX format';
             }
             if ((values.age && values.age < 1) || values.age > 100) {
               errors.age = 'Not a valid age';
@@ -244,16 +276,16 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
           }}
           onSubmit={async (values, { setSubmitting }) => {
             await new Promise((r) => setTimeout(r, 500));
-            let finalValues: any = values;
+            let finalValues: any = { ...values };
             //add user object
             const userValues: any = {
-              id: values.id,
-              firstName: values.firstName,
-              lastName: values.lastName,
-              preferredEmail: values.preferredEmail,
-              permissions: values.permissions,
+              id: user?.id,
+              firstName: user?.firstName?.split(' ')[0] || values.firstName,
+              lastName: user?.lastName || values.lastName,
+              preferredEmail: user?.preferredEmail || values.preferredEmail,
+              permissions: user?.permissions || values.permissions,
             };
-            finalValues['user'] = userValues;
+            finalValues.user = userValues;
             //delete unnecessary values
             delete finalValues.firstName;
             delete finalValues.lastName;
@@ -261,7 +293,8 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             delete finalValues.preferredEmail;
 
             //submitting
-            handleSubmit(values);
+            console.log('SUBMIT USER ID:', finalValues.user?.id); // debugging
+            await handleSubmit(finalValues);
             setSubmitting(false);
             // alert(JSON.stringify(values, null, 2)); //Displays form results on submit for testing purposes
           }}
@@ -278,7 +311,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
               {registrationSection == 0 && (
                 <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-4 py-6 px-8 mb-8 text-[#4C4950]">
                   <header>
-                    <h1 className="text-primaryDark lg:text-4xl sm:text-3xl text-2xl font-bold text-center lg:mt-0 mt-4 mb-4 poppins-bold">
+                    <h1 className="text-[#683201] lg:text-4xl sm:text-3xl text-2xl font-bold text-center lg:mt-0 mt-4 mb-4 poppins-bold">
                       Hacker Registration
                     </h1>
                     <div style={{ color: '#A6A4A8' }} className="poppins-regular text-center mb-6">
@@ -334,9 +367,177 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                   </div>
                 </section>
               )}
+              {registrationSection === 3 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full mx-auto rounded-2xl py-10 px-8 mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">Media Release</h2>
 
+                  <p className="text-sm text-gray-600 mb-6">
+                    Event Date: March 28, 2026
+                    <br />
+                    Location: The University of Texas at Dallas
+                  </p>
+                  <p className="text-md mb-2">
+                    I, the undersigned, hereby grant NTHS Hackathon and its organizers the right to
+                    take photographs, video recordings, and/or audio recordings of me/my child
+                    during the event. I understand that these media materials may be used in
+                    promotional materials, websites, social media, and other marketing efforts.
+                    <br />I waive any rights to inspect or approve the media in which my/my child’s
+                    likeness appears. I understand that no compensation will be provided for the use
+                    of these materials.
+                  </p>
+                  <p className="text-md mb-2">
+                    Participant Information & Consent (To be signed by parent/guardian if under 18):
+                    I, the parent/guardian of the minor participant named above, authorize the use
+                    of my child’s image and recordings for promotional purposes as outlined in this
+                    release.
+                  </p>
+
+                  {mediaReleaseQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </section>
+              )}
+              {registrationSection === 4 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full mx-auto rounded-2xl py-10 px-8 mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">Liability Waiver & Release</h2>
+
+                  <p className="text-sm text-gray-600 mb-6">
+                    Event Date: March 28, 2026
+                    <br />
+                    Location: The University of Texas at Dallas
+                  </p>
+                  <p className="text-md mb-2">
+                    I, the undersigned, acknowledge that participation in NTHS Hackathon is
+                    voluntary and involves activities that may have inherent risks. I agree to
+                    release, indemnify, and hold harmless NTHS Hackathon organizers, The University
+                    of Texas at Dallas, event sponsors, and affiliated personnel from any claims,
+                    injuries, damages, or liabilities that may arise during my/my child’s
+                    participation in the event.
+                    <br />I understand that organizers will take reasonable safety precautions, but
+                    I assume full responsibility for any personal injury or property damage
+                    resulting from my/my child’s participation.
+                  </p>
+                  <p className="text-md mb-2">
+                    Participant Information & Consent (To be signed by parent/guardian if under 18):
+                    I, the parent/guardian of the minor participant named above, understand and
+                    accept the terms of this waiver and grant permission for my child to
+                    participate.
+                  </p>
+
+                  {liabilityWaiverQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </section>
+              )}
+              {registrationSection === 5 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full mx-auto rounded-2xl py-10 px-8 mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">Code of Conduct</h2>
+
+                  <p className="text-sm text-gray-600 mb-6">
+                    Event Date: March 28, 2026
+                    <br />
+                    Location: The University of Texas at Dallas
+                  </p>
+                  <p className="text-md mb-2">
+                    NTHS Hackathon is committed to fostering a safe, inclusive, and respectful
+                    environment for all participants. By attending, you agree to follow these
+                    guidelines:
+                    <br />
+                    1. Respect – Treat fellow participants, mentors, and organizers with kindness
+                    and professionalism. Harassment, discrimination, or inappropriate behavior will
+                    not be tolerated.
+                    <br />
+                    2. Integrity – No plagiarism, cheating, or sabotage of others’ work.
+                    <br />
+                    3. Safety – Follow all event safety guidelines and UTD’s campus policies.
+                    <br />
+                    4. Teamwork – Collaboration is encouraged, but all submissions must be the
+                    team’s own work.
+                    <br />
+                    5. Consequences – Violations of this Code of Conduct may result in
+                    disqualification, removal from the event, and/or notification of school
+                    officials.
+                    <br />
+                  </p>
+                  <p className="text-md mb-2">
+                    Participant Agreement & Parental Consent (For Participants Under 18): I, the
+                    parent/guardian of the minor participant named above, have reviewed and agree to
+                    this Code of Conduct.
+                  </p>
+
+                  {codeOfConductQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </section>
+              )}
+              {registrationSection === 6 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full mx-auto rounded-2xl py-10 px-8 mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">Minor Participant Form</h2>
+
+                  <p className="text-sm text-gray-600 mb-6">
+                    Event Date: March 28, 2026
+                    <br />
+                    Location: The University of Texas at Dallas
+                  </p>
+                  <p className="text-md mb-2">
+                    I, the parent/guardian of [Participant&apos;s Name], give my permission for my
+                    child to attend and participate in NTHS Hackathon. I understand that this event
+                    is hosted at The University of Texas at Dallas and will include supervised
+                    activities related to coding, design, and technology.
+                  </p>
+                  <p className="text-md mb-2">
+                    I acknowledge that the nature of the Activity or Trip may expose Participant to
+                    hazards or risks that may result in Participant&apos;s illness, personal injury,
+                    or death and I understand and appreciate the nature of such hazards and risks.
+                  </p>
+                  <div className="mb-6 rounded-lg border border-[#683201]/20 bg-[#F7B86C]/10 p-4">
+                    <p className="text-sm mb-3">
+                      Open the official Minor Participant Form PDF while completing this section.
+                    </p>
+                    <a
+                      href="/assets/minorsForm.pdf"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center rounded-md bg-[#683201] px-4 py-2 text-white hover:brightness-90"
+                    >
+                      Open Minor Participant Form (PDF)
+                    </a>
+                  </div>
+
+                  {minorsFormQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </section>
+              )}
+              {registrationSection === 7 && (
+                <section className="bg-white lg:w-3/5 md:w-3/4 w-full mx-auto rounded-2xl py-10 px-8 mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">Parental Consent Form</h2>
+
+                  <p className="text-sm text-gray-600 mb-6">
+                    Event Date: March 28, 2026
+                    <br />
+                    Location: The University of Texas at Dallas
+                  </p>
+                  <p className="text-md mb-2">
+                    I, the parent/guardian of [Participant’s Name], give my permission for my child
+                    to attend and participate in NTHS Hackathon. I understand that this event is
+                    hosted at The University of Texas at Dallas and will include supervised
+                    activities related to coding, design, and technology.
+                    <br />I acknowledge that my child will be responsible for their own
+                    transportation to and from the event (unless otherwise stated) and agree to the
+                    event’s liability waiver and code of conduct policies.
+                  </p>
+                  <p className="text-md mb-2">
+                    Emergency Contact Information & Consent Acknowledgment:
+                  </p>
+
+                  {parentalConsentQuestions.map((obj, idx) => (
+                    <DisplayQuestion key={idx} obj={obj} values={values} onChange={handleChange} />
+                  ))}
+                </section>
+              )}
               {/* Event Questions */}
-              {registrationSection == 3 && (
+              {registrationSection == 8 && (
                 <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950]">
                   <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">Event Info</h2>
                   <div className="flex flex-col">
@@ -364,11 +565,24 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                       );
                     })}
                   </div>
+                  {/* Submit */}
+                  <div className="text-white absolute mt-4">
+                    <button
+                      type="submit"
+                      className="mr-auto cursor-pointer px-4 py-2 rounded-lg bg-[#683201] hover:brightness-90"
+                      onClick={() => setFormValid(!(!isValid || !dirty))}
+                    >
+                      Submit
+                    </button>
+                    {!isValid && !formValid && (
+                      <div className="text-red-600">Error: The form has invalid fields</div>
+                    )}
+                  </div>
                 </section>
               )}
 
               {/* Sponsor Questions */}
-              {registrationSection == 4 && (
+              {false && registrationSection == 4 && (
                 <section className="bg-white lg:w-3/5 md:w-3/4 w-full min-h-[35rem] mx-auto rounded-2xl md:py-10 py-6 px-8 mb-8 text-[#4C4950] relative">
                   <h2 className="sm:text-2xl text-xl font-semibold sm:mb-3 mb-1">Sponsor Info</h2>
                   <div className="flex flex-col">
@@ -398,19 +612,6 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                       Accepted file types: .pdf, .doc, .docx, .png, .jpeg, .txt, .tex, .rtf
                     </p>
                   </div>
-                  {/* Submit */}
-                  <div className="text-white absolute right-4">
-                    <button
-                      type="submit"
-                      className="mr-auto cursor-pointer px-4 py-2 rounded-lg bg-primaryDark hover:brightness-90"
-                      onClick={() => setFormValid(!(!isValid || !dirty))}
-                    >
-                      Submit
-                    </button>
-                    {!isValid && !formValid && (
-                      <div className="text-red-600">Error: The form has invalid fields</div>
-                    )}
-                  </div>
                 </section>
               )}
             </Form>
@@ -426,7 +627,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
           className={`lg:block ${
             registrationSection == 0
               ? 'justify-end'
-              : registrationSection >= 4
+              : registrationSection >= 3
               ? 'justify-start'
               : 'justify-between'
           } lg:pb-4 pb-8 lg:px-4 sm:px-8 px-6 text-primaryDark font-semibold text-primaryDark font-semibold text-md`}
@@ -441,7 +642,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             >
               <div
                 style={{ width: 'fit-content' }}
-                className="cursor-pointer select-none bg-primaryDark text-white rounded-md p-3"
+                className="cursor-pointer select-none bg-[#683201] text-white rounded-md p-3"
               >
                 <ChevronLeftIcon />
                 prev page
@@ -450,7 +651,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
           )}
 
           <div className="flex justify-center items-center" style={{ gridArea: '1 / 2 / 2 / 3' }}>
-            {Array.from({ length: 5 }).map((_, i) => (
+            {Array.from({ length: 9 }).map((_, i) => (
               <div
                 key={i}
                 style={{ backgroundColor: registrationSection == i ? '#4C4950' : '#9F9EA7' }}
@@ -459,7 +660,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
             ))}
           </div>
 
-          {registrationSection < 4 && (
+          {registrationSection < 8 && (
             <div
               className="flex justify-end "
               style={{ gridArea: '1 / 3 / 2 / 4' }}
@@ -467,7 +668,7 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                 setRegistrationSection(registrationSection + 1);
               }}
             >
-              <div className="cursor-pointer select-none bg-primaryDark text-white rounded-md p-3">
+              <div className="cursor-pointer select-none bg-[#683201] text-white rounded-md p-3">
                 next page
                 <ChevronRightIcon />
               </div>

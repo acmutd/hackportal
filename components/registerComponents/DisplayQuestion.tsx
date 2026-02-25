@@ -14,7 +14,13 @@ function DisplayQuestion(props) {
       {/* Display text input questions */}
       <div className={styles.textInputQuestionsContainer}>
         {props.obj.textInputQuestions?.map((inputObj) => (
-          <Question key={inputObj.id} type="text" question={inputObj} />
+          <Question
+            key={inputObj.id}
+            type="text"
+            question={inputObj}
+            value={props.values[inputObj.name]}
+            onChange={props.onChange}
+          />
         ))}
       </div>
       {/* Display number input questions */}
@@ -30,21 +36,45 @@ function DisplayQuestion(props) {
       {/* Display dropdown input questions */}
       <div className={styles.dropdownQuestionsContainer}>
         {props.obj.dropdownQuestions?.map((inputObj) => (
-          <Question key={inputObj.id} type="dropdown" question={inputObj} />
+          <Question
+            key={inputObj.id}
+            type="dropdown"
+            question={inputObj}
+            value={props.values[inputObj.name]}
+            onChange={props.onChange}
+          />
         ))}
       </div>
 
       {/* Display datalist input questions */}
       {props.obj.datalistQuestions?.map((inputObj) => (
-        <Question key={inputObj.id} type="datalist" question={inputObj} />
+        <Question
+          key={inputObj.id}
+          type="datalist"
+          question={inputObj}
+          value={props.values[inputObj.name]}
+          onChange={props.onChange}
+        />
       ))}
       {/* Display checkbox input questions */}
       {props.obj.checkboxQuestions?.map((inputObj) => (
-        <Question key={inputObj.id} type="checkbox" question={inputObj} />
+        <Question
+          key={inputObj.id}
+          type="checkbox"
+          question={inputObj}
+          value={props.values[inputObj.name]}
+          onChange={props.onChange}
+        />
       ))}
       {/* Display text area input questions */}
       {props.obj.textAreaQuestions?.map((inputObj) => (
-        <Question key={inputObj.id} type="textArea" question={inputObj} />
+        <Question
+          key={inputObj.id}
+          type="textArea"
+          question={inputObj}
+          value={props.values[inputObj.name]}
+          onChange={props.onChange}
+        />
       ))}
     </Fragment>
   );

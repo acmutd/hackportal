@@ -88,7 +88,7 @@ export default async function handleScanTypes(
   const { method } = req;
 
   if (method === 'GET') {
-    handleUserInfo(req, res);
+    return await handleUserInfo(req, res);
   } else {
     res.setHeader('Allow', ['GET', 'POST']);
     res.status(405).end(`Method ${method} Not Allowed`);

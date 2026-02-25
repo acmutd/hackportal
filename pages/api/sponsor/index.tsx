@@ -5,7 +5,7 @@ import initializeApi from '../../../lib/admin/init';
 initializeApi();
 const db = firestore();
 
-const SPONSORS = '/sponsors';
+const SPONSORS = 'sponsors';
 
 /**
  *
