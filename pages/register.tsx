@@ -490,11 +490,6 @@ export default function Register({ allowedRegistrations }: RegisterPageProps) {
                     hazards or risks that may result in Participant&apos;s illness, personal injury,
                     or death and I understand and appreciate the nature of such hazards and risks.
                   </p>
-                  <p className="text-md mb-2">
-                    In consideration of Participant being permitted to participate in the Activity
-                    or Trip, I hereby
-                  </p>
-
                   <div className="mb-6 rounded-lg border border-[#683201]/20 bg-[#F7B86C]/10 p-4">
                     <p className="text-sm mb-3">
                       Open the official Minor Participant Form PDF while completing this section.
