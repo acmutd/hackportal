@@ -32,25 +32,61 @@ export default function UserAdminView({
     return false;
   });
 
+  // const user_info = [
+  //   ['Number of Hackathons Attended', currentUser.hackathonExperience],
+  //   ['Software Experience', currentUser.softwareExperience],
+  //   [
+  //     'Resume',
+  //     currentUser.resume === '' ? (
+  //       'No resume found'
+  //     ) : (
+  //       <Link
+  //         passHref
+  //         href={currentUser.resume}
+  //         className="border-2 p-3 hover:bg-gray-200"
+  //         target="_blank"
+  //         rel="noopener noreferrer"
+  //       >
+  //         Click here to download resume
+  //       </Link>
+  //     ),
+  //   ],
+  // ];
   const user_info = [
-    ['Number of Hackathons Attended', currentUser.hackathonExperience],
+    // Academic Info
+    ['High School', currentUser.school],
+    ['District', currentUser.district],
+    ['Grade', currentUser.grade],
+    ['Age', currentUser.age],
+
+    // Contact Info
+    ['Student Phone', currentUser.phone],
+    ['Student Email', currentUser.user.preferredEmail], // or preferredEmail depending on structure
+    // Team Info
+    [['Has Team?', currentUser.hasTeam === 'yes' ? 'Yes' : 'No']],
+    ['Team Member #1', currentUser.teamMember1 || 'N/A'],
+    ['Team Member #2', currentUser.teamMember2 || 'N/A'],
+    ['Team Member #3', currentUser.teamMember3 || 'N/A'],
+
+    // Experience
+    ['Hackathons Attended', currentUser.hackathonExperience],
     ['Software Experience', currentUser.softwareExperience],
-    [
-      'Resume',
-      currentUser.resume === '' ? (
-        'No resume found'
-      ) : (
-        <Link
-          passHref
-          href={currentUser.resume}
-          className="border-2 p-3 hover:bg-gray-200"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Click here to download resume
-        </Link>
-      ),
-    ],
+
+    // Event Info
+    ['Shirt Size', currentUser.size],
+    ['Dietary Restrictions', currentUser.dietary?.join(', ') || 'None'],
+    ['Accommodations', currentUser.accomodations || 'None'],
+
+    // Parent / Emergency Contact
+    ['Parent/Guardian Name', currentUser.parentConsentName],
+    ['Parent Phone', currentUser.parentConsentPhone],
+    ['Alternate Contact Name', currentUser.alternateContactName],
+    ['Alternate Contact Phone', currentUser.alternateContactPhone],
+
+    // Legal Forms
+    ['Media Consent Signed', currentUser.mediaConsent?.length ? 'Yes' : 'No'],
+    ['Liability Waiver Signed', currentUser.liabilitySignature ? 'Yes' : 'No'],
+    ['Code of Conduct Signed', currentUser.conductSignature ? 'Yes' : 'No'],
   ];
 
   // Pagination

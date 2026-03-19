@@ -8,7 +8,9 @@ import Link from 'next/link';
 import { useAuthContext } from '@/lib/user/AuthContext';
 
 export default function AppNavbarBottom() {
-  const { isSignedIn } = useAuthContext();
+  const { user, isSignedIn } = useAuthContext();
+  const isAdmin = user?.permissions.includes('admin') || user?.permissions.includes('super_admin');
+
   return (
     <div
       className={clsx(
@@ -27,6 +29,11 @@ export default function AppNavbarBottom() {
       <Link href={isSignedIn ? '/profile' : '/auth'}>
         <AdminIcon />
       </Link>
+      {isSignedIn && isAdmin && (
+        <Link href="/admin/users">
+          <AdminIcon />
+        </Link>
+      )}
     </div>
   );
 }
