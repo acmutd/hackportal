@@ -41,7 +41,7 @@ const HomeAbout = () => {
 
         <p className="font-['Alfa_One'] font-normal text-[clamp(11px,1vw,15px)] leading-relaxed -mt-4 max-w-full whitespace-normal break-words">
           The Association of Computing Machinery (ACM) at the University of Texas at Dallas will be
-          hosting the third iteration of our hackathon experience! This two day long event will be
+          hosting the third iteration of our hackathon experience! This one day long event will be
           an intense competition of self expression and creativity through technology, where
           students will get the chance to showcase their web development skills. High school
           students across North Texas with varying technical backgrounds will come together, form
