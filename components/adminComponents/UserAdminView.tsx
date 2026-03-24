@@ -59,31 +59,26 @@ export default function UserAdminView({
     ['Grade', currentUser.grade],
     ['Age', currentUser.age],
 
-    // Contact Info
     ['Student Phone', currentUser.phone],
     ['Student Email', currentUser.user.preferredEmail], // or preferredEmail depending on structure
-    // Team Info
+
     [['Has Team?', currentUser.hasTeam === 'yes' ? 'Yes' : 'No']],
     ['Team Member #1', currentUser.teamMember1 || 'N/A'],
     ['Team Member #2', currentUser.teamMember2 || 'N/A'],
     ['Team Member #3', currentUser.teamMember3 || 'N/A'],
 
-    // Experience
     ['Hackathons Attended', currentUser.hackathonExperience],
     ['Software Experience', currentUser.softwareExperience],
 
-    // Event Info
     ['Shirt Size', currentUser.size],
     ['Dietary Restrictions', currentUser.dietary?.join(', ') || 'None'],
     ['Accommodations', currentUser.accomodations || 'None'],
 
-    // Parent / Emergency Contact
     ['Parent/Guardian Name', currentUser.parentConsentName],
     ['Parent Phone', currentUser.parentConsentPhone],
     ['Alternate Contact Name', currentUser.alternateContactName],
     ['Alternate Contact Phone', currentUser.alternateContactPhone],
 
-    // Legal Forms
     ['Media Consent Signed', currentUser.mediaConsent?.length ? 'Yes' : 'No'],
     ['Liability Waiver Signed', currentUser.liabilitySignature ? 'Yes' : 'No'],
     ['Code of Conduct Signed', currentUser.conductSignature ? 'Yes' : 'No'],
