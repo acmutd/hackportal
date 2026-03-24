@@ -53,35 +53,18 @@ export default function UserAdminView({
   //   ],
   // ];
   const user_info = [
-    // Academic Info
     ['High School', currentUser.school],
     ['District', currentUser.district],
     ['Grade', currentUser.grade],
     ['Age', currentUser.age],
 
-    ['Student Phone', currentUser.phone],
-    ['Student Email', currentUser.user.preferredEmail], // or preferredEmail depending on structure
+    ['Student Email', currentUser.user.preferredEmail],
 
-    [['Has Team?', currentUser.hasTeam === 'yes' ? 'Yes' : 'No']],
-    ['Team Member #1', currentUser.teamMember1 || 'N/A'],
-    ['Team Member #2', currentUser.teamMember2 || 'N/A'],
-    ['Team Member #3', currentUser.teamMember3 || 'N/A'],
-
-    ['Hackathons Attended', currentUser.hackathonExperience],
     ['Software Experience', currentUser.softwareExperience],
 
     ['Shirt Size', currentUser.size],
     ['Dietary Restrictions', currentUser.dietary?.join(', ') || 'None'],
     ['Accommodations', currentUser.accomodations || 'None'],
-
-    ['Parent/Guardian Name', currentUser.parentConsentName],
-    ['Parent Phone', currentUser.parentConsentPhone],
-    ['Alternate Contact Name', currentUser.alternateContactName],
-    ['Alternate Contact Phone', currentUser.alternateContactPhone],
-
-    ['Media Consent Signed', currentUser.mediaConsent?.length ? 'Yes' : 'No'],
-    ['Liability Waiver Signed', currentUser.liabilitySignature ? 'Yes' : 'No'],
-    ['Code of Conduct Signed', currentUser.conductSignature ? 'Yes' : 'No'],
   ];
 
   // Pagination
