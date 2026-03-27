@@ -58,10 +58,14 @@ export default function HomeSponsors(props: { sponsorCard: Sponsor[] }) {
               </a>
             </div>
             <div className="flex justify-center sponsor-card transition-all duration-300">
-              <a href="https://www.infosys.com" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.infosys.org/infosys-foundation-usa.html"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <div className="bg-white rounded-xl p-6 w-[280px] h-[160px] flex items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-300 m-4">
                   <img
-                    src="/assets/infosys.png"
+                    src="/assets/infosysFoundation.png"
                     alt="infosys"
                     className="max-h-full max-w-full object-contain"
                   />
