@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AdminHeader from '../../../components/adminComponents/AdminHeader';
 import ScanType from '../../../components/ScanType';
 import QRCodeReader from '../../../components/dashboardComponents/QRCodeReader';
@@ -78,6 +78,7 @@ export default function Admin() {
 
   const [showDeleteScanDialog, setShowDeleteScanDialog] = useState(false);
   const [scannedUserInfo, setScannedUserInfo] = useState(undefined);
+  const scanInProgress = useRef(false);
 
   const handleScanClick = (data, idx) => {
     setCurrentScan(data);
@@ -85,6 +86,9 @@ export default function Admin() {
   };
 
   const handleScan = async (data: string) => {
+    if (scanInProgress.current) return;
+    scanInProgress.current = true;
+
     if (!data.startsWith('hack:')) {
       setScanData(data);
       setSuccess(successStrings.invalidFormat);
@@ -267,7 +271,7 @@ export default function Admin() {
   };
   useEffect(() => {
     fetchScanTypes();
-  });
+  }, [isSignedIn, scansFetched]);
 
   if (!isSignedIn || !isAuthorized(user))
     return <div className="text-2xl font-black text-center">Unauthorized</div>;
@@ -479,6 +483,7 @@ export default function Admin() {
                             className="w-min-5 m-3 rounded-lg text-center text-lg font-black p-3 cursor-pointer hover:bg-green-300 border border-green-800 text-green-900"
                             onClick={() => {
                               setScanData(undefined);
+                              scanInProgress.current = false;
                             }}
                           >
                             Next Scan
@@ -489,6 +494,7 @@ export default function Admin() {
                               setScanData(undefined);
                               setCurrentScan(undefined);
                               setStartScan(false);
+                              scanInProgress.current = false;
                             }}
                           >
                             Done

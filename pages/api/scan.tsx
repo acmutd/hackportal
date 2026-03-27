@@ -20,12 +20,14 @@ const ILLEGAL_SCAN_NAME = 'Illegal Scan';
  * @param scans list of scantypes
  * @return true if user has checked in, false otherwise
  */
-async function userAlreadyCheckedIn(scans: string[]) {
+async function userAlreadyCheckedIn(scans: any[]) {
   if (scans.length === 0) return false;
-  const snapshot = await db.collection(SCANTYPES_COLLECTION).where('name', 'in', scans).get();
+  const scanNames = new Set(scans.map((s) => (typeof s === 'string' ? s : s.name)).filter(Boolean));
+  if (scanNames.size === 0) return false;
+  const snapshot = await db.collection(SCANTYPES_COLLECTION).where('isCheckIn', '==', true).get();
   let ok = false;
   snapshot.forEach((doc) => {
-    if (doc.data().isCheckIn) {
+    if (scanNames.has(doc.data().name)) {
       ok = true;
     }
   });
@@ -66,7 +68,7 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
     headers,
   } = req;
 
-  const bodyData = JSON.parse(body);
+  const bodyData = typeof body === 'string' ? JSON.parse(body) : body;
 
   //
   // Check if request header contains token
@@ -103,7 +105,8 @@ async function handleScan(req: NextApiRequest, res: NextApiResponse) {
       });
     }
 
-    if (scans.includes(bodyData.scan)) return res.status(201).json({ code: 'duplicate' });
+    if (scans.some((s: any) => s.name === bodyData.scan))
+      return res.status(201).json({ code: 'duplicate' });
     scans.push({
       name: bodyData.scan,
       timestamp: new Date().toISOString(),
